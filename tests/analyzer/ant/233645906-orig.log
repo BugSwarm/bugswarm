@@ -1,0 +1,2567 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: i-09f07d8-precise-production-2-worker-org-docker.travisci.net:f7babc46-a3fa-4a48-b355-d07b2cdb2eeb
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: dab7923:travis:java
+startup: 531.275083ms
+travis_fold:end:worker_info[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+Build id: 233645905
+Job id: 233645906
+travis-build version: 97c7efd0c
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 278 not upgraded.
+Need to get 8,856 kB of archives.
+After this operation, 13.3 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.18 [2,948 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.18 [84.5 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.18 [1,178 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.18 [4,646 kB]
+Fetched 8,856 kB in 0s (30.3 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.18) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72018 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.18) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.18) ...
+Setting up libc6-dev (2.15-0ubuntu10.18) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0Ktravis_fold:start:update_libssl1.0.0[0K$ sudo apt-get install libssl1.0.0
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 1%Reading package lists... 10%Reading package lists... 10%Reading package lists... 11%Reading package lists... 11%Reading package lists... 41%Reading package lists... 46%Reading package lists... 46%Reading package lists... 47%Reading package lists... 47%Reading package lists... 58%Reading package lists... 58%Reading package lists... 58%Reading package lists... 58%Reading package lists... 82%Reading package lists... 94%Reading package lists... 94%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 97%Reading package lists... 97%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following extra packages will be installed:
+  libssl-dev
+The following packages will be upgraded:
+  libssl-dev libssl1.0.0
+2 upgraded, 0 newly installed, 0 to remove and 276 not upgraded.
+Need to get 2,634 kB of archives.
+After this operation, 29.7 kB of additional disk space will be used.
+0% [Working]            Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libssl-dev amd64 1.0.1-4ubuntu5.39 [1,580 kB]
+            1% [1 libssl-dev 14.1 kB/1,580 kB 1%]                                     60% [Working]             Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libssl1.0.0 amd64 1.0.1-4ubuntu5.39 [1,054 kB]
+             60% [2 libssl1.0.0 0 B/1,054 kB 0%]                                   100% [Working]              Fetched 2,634 kB in 0s (15.4 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72018 files and directories currently installed.)
+Preparing to replace libssl-dev 1.0.1-4ubuntu5.21 (using .../libssl-dev_1.0.1-4ubuntu5.39_amd64.deb) ...
+Unpacking replacement libssl-dev ...
+Preparing to replace libssl1.0.0 1.0.1-4ubuntu5.21 (using .../libssl1.0.0_1.0.1-4ubuntu5.39_amd64.deb) ...
+Unpacking replacement libssl1.0.0 ...
+Setting up libssl1.0.0 (1.0.1-4ubuntu5.39) ...
+Setting up libssl-dev (1.0.1-4ubuntu5.39) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:update_libssl1.0.0[0K$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+travis_fold:start:git.checkout[0Ktravis_time:start:01211764[0K$ git clone --depth=50 --branch=develop https://github.com/Whiley/WhileyCompiler.git Whiley/WhileyCompiler
+Cloning into 'Whiley/WhileyCompiler'...
+remote: Counting objects: 2210, done.[K
+remote: Compressing objects:   0% (1/1498)   [Kremote: Compressing objects:   1% (15/1498)   [Kremote: Compressing objects:   2% (30/1498)   [Kremote: Compressing objects:   3% (45/1498)   [Kremote: Compressing objects:   4% (60/1498)   [Kremote: Compressing objects:   5% (75/1498)   [Kremote: Compressing objects:   6% (90/1498)   [Kremote: Compressing objects:   7% (105/1498)   [Kremote: Compressing objects:   8% (120/1498)   [Kremote: Compressing objects:   9% (135/1498)   [Kremote: Compressing objects:  10% (150/1498)   [Kremote: Compressing objects:  11% (165/1498)   [Kremote: Compressing objects:  12% (180/1498)   [Kremote: Compressing objects:  13% (195/1498)   [Kremote: Compressing objects:  14% (210/1498)   [Kremote: Compressing objects:  15% (225/1498)   [Kremote: Compressing objects:  16% (240/1498)   [Kremote: Compressing objects:  17% (255/1498)   [Kremote: Compressing objects:  18% (270/1498)   [Kremote: Compressing objects:  19% (285/1498)   [Kremote: Compressing objects:  20% (300/1498)   [Kremote: Compressing objects:  21% (315/1498)   [Kremote: Compressing objects:  22% (330/1498)   [Kremote: Compressing objects:  23% (345/1498)   [Kremote: Compressing objects:  24% (360/1498)   [Kremote: Compressing objects:  25% (375/1498)   [Kremote: Compressing objects:  26% (390/1498)   [Kremote: Compressing objects:  27% (405/1498)   [Kremote: Compressing objects:  28% (420/1498)   [Kremote: Compressing objects:  29% (435/1498)   [Kremote: Compressing objects:  30% (450/1498)   [Kremote: Compressing objects:  31% (465/1498)   [Kremote: Compressing objects:  32% (480/1498)   [Kremote: Compressing objects:  33% (495/1498)   [Kremote: Compressing objects:  34% (510/1498)   [Kremote: Compressing objects:  35% (525/1498)   [Kremote: Compressing objects:  36% (540/1498)   [Kremote: Compressing objects:  37% (555/1498)   [Kremote: Compressing objects:  38% (570/1498)   [Kremote: Compressing objects:  39% (585/1498)   [Kremote: Compressing objects:  40% (600/1498)   [Kremote: Compressing objects:  41% (615/1498)   [Kremote: Compressing objects:  42% (630/1498)   [Kremote: Compressing objects:  43% (645/1498)   [Kremote: Compressing objects:  44% (660/1498)   [Kremote: Compressing objects:  45% (675/1498)   [Kremote: Compressing objects:  46% (690/1498)   [Kremote: Compressing objects:  47% (705/1498)   [Kremote: Compressing objects:  48% (720/1498)   [Kremote: Compressing objects:  49% (735/1498)   [Kremote: Compressing objects:  50% (749/1498)   [Kremote: Compressing objects:  51% (764/1498)   [Kremote: Compressing objects:  52% (779/1498)   [Kremote: Compressing objects:  53% (794/1498)   [Kremote: Compressing objects:  54% (809/1498)   [Kremote: Compressing objects:  55% (824/1498)   [Kremote: Compressing objects:  56% (839/1498)   [Kremote: Compressing objects:  57% (854/1498)   [Kremote: Compressing objects:  58% (869/1498)   [Kremote: Compressing objects:  59% (884/1498)   [Kremote: Compressing objects:  60% (899/1498)   [Kremote: Compressing objects:  61% (914/1498)   [Kremote: Compressing objects:  62% (929/1498)   [Kremote: Compressing objects:  63% (944/1498)   [Kremote: Compressing objects:  64% (959/1498)   [Kremote: Compressing objects:  65% (974/1498)   [Kremote: Compressing objects:  66% (989/1498)   [Kremote: Compressing objects:  67% (1004/1498)   [Kremote: Compressing objects:  68% (1019/1498)   [Kremote: Compressing objects:  69% (1034/1498)   [Kremote: Compressing objects:  70% (1049/1498)   [Kremote: Compressing objects:  71% (1064/1498)   [Kremote: Compressing objects:  72% (1079/1498)   [Kremote: Compressing objects:  73% (1094/1498)   [Kremote: Compressing objects:  74% (1109/1498)   [Kremote: Compressing objects:  75% (1124/1498)   [Kremote: Compressing objects:  76% (1139/1498)   [Kremote: Compressing objects:  77% (1154/1498)   [Kremote: Compressing objects:  78% (1169/1498)   [Kremote: Compressing objects:  79% (1184/1498)   [Kremote: Compressing objects:  80% (1199/1498)   [Kremote: Compressing objects:  81% (1214/1498)   [Kremote: Compressing objects:  82% (1229/1498)   [Kremote: Compressing objects:  83% (1244/1498)   [Kremote: Compressing objects:  84% (1259/1498)   [Kremote: Compressing objects:  85% (1274/1498)   [Kremote: Compressing objects:  86% (1289/1498)   [Kremote: Compressing objects:  87% (1304/1498)   [Kremote: Compressing objects:  88% (1319/1498)   [Kremote: Compressing objects:  89% (1334/1498)   [Kremote: Compressing objects:  90% (1349/1498)   [Kremote: Compressing objects:  91% (1364/1498)   [Kremote: Compressing objects:  92% (1379/1498)   [Kremote: Compressing objects:  93% (1394/1498)   [Kremote: Compressing objects:  94% (1409/1498)   [Kremote: Compressing objects:  95% (1424/1498)   [Kremote: Compressing objects:  96% (1439/1498)   [Kremote: Compressing objects:  97% (1454/1498)   [Kremote: Compressing objects:  98% (1469/1498)   [Kremote: Compressing objects:  99% (1484/1498)   [Kremote: Compressing objects: 100% (1498/1498)   [Kremote: Compressing objects: 100% (1498/1498), done.[K
+Receiving objects:   0% (1/2210)   Receiving objects:   1% (23/2210)   Receiving objects:   2% (45/2210)   Receiving objects:   3% (67/2210)   Receiving objects:   4% (89/2210)   Receiving objects:   5% (111/2210)   Receiving objects:   6% (133/2210)   Receiving objects:   7% (155/2210)   Receiving objects:   8% (177/2210)   Receiving objects:   9% (199/2210)   Receiving objects:  10% (221/2210)   Receiving objects:  11% (244/2210)   Receiving objects:  12% (266/2210)   Receiving objects:  13% (288/2210)   Receiving objects:  14% (310/2210)   Receiving objects:  15% (332/2210)   Receiving objects:  16% (354/2210)   Receiving objects:  17% (376/2210)   Receiving objects:  18% (398/2210)   Receiving objects:  19% (420/2210)   Receiving objects:  20% (442/2210)   Receiving objects:  21% (465/2210)   Receiving objects:  22% (487/2210)   Receiving objects:  23% (509/2210)   Receiving objects:  24% (531/2210)   Receiving objects:  25% (553/2210)   Receiving objects:  26% (575/2210)   Receiving objects:  27% (597/2210)   Receiving objects:  28% (619/2210)   Receiving objects:  29% (641/2210)   Receiving objects:  30% (663/2210)   Receiving objects:  31% (686/2210)   Receiving objects:  32% (708/2210)   Receiving objects:  33% (730/2210)   Receiving objects:  34% (752/2210)   Receiving objects:  35% (774/2210)   Receiving objects:  36% (796/2210)   Receiving objects:  37% (818/2210)   Receiving objects:  38% (840/2210)   Receiving objects:  39% (862/2210)   Receiving objects:  40% (884/2210)   Receiving objects:  41% (907/2210)   Receiving objects:  42% (929/2210)   Receiving objects:  43% (951/2210)   Receiving objects:  44% (973/2210)   Receiving objects:  45% (995/2210)   Receiving objects:  46% (1017/2210)   Receiving objects:  47% (1039/2210)   Receiving objects:  48% (1061/2210)   Receiving objects:  49% (1083/2210)   Receiving objects:  50% (1105/2210)   Receiving objects:  51% (1128/2210)   Receiving objects:  52% (1150/2210)   Receiving objects:  53% (1172/2210)   Receiving objects:  54% (1194/2210)   Receiving objects:  55% (1216/2210)   Receiving objects:  56% (1238/2210)   Receiving objects:  57% (1260/2210)   Receiving objects:  58% (1282/2210)   Receiving objects:  59% (1304/2210)   Receiving objects:  60% (1326/2210)   Receiving objects:  61% (1349/2210)   Receiving objects:  62% (1371/2210)   Receiving objects:  63% (1393/2210)   Receiving objects:  64% (1415/2210)   Receiving objects:  65% (1437/2210)   Receiving objects:  66% (1459/2210)   Receiving objects:  67% (1481/2210)   Receiving objects:  68% (1503/2210)   Receiving objects:  69% (1525/2210)   Receiving objects:  70% (1547/2210)   Receiving objects:  71% (1570/2210)   Receiving objects:  72% (1592/2210)   Receiving objects:  73% (1614/2210)   Receiving objects:  74% (1636/2210)   Receiving objects:  75% (1658/2210)   Receiving objects:  76% (1680/2210)   Receiving objects:  77% (1702/2210)   Receiving objects:  78% (1724/2210)   Receiving objects:  79% (1746/2210)   Receiving objects:  80% (1768/2210)   Receiving objects:  81% (1791/2210)   remote: Total 2210 (delta 591), reused 1814 (delta 539), pack-reused 0[K
+Receiving objects:  82% (1813/2210)   Receiving objects:  83% (1835/2210)   Receiving objects:  84% (1857/2210)   Receiving objects:  85% (1879/2210)   Receiving objects:  86% (1901/2210)   Receiving objects:  87% (1923/2210)   Receiving objects:  88% (1945/2210)   Receiving objects:  89% (1967/2210)   Receiving objects:  90% (1989/2210)   Receiving objects:  91% (2012/2210)   Receiving objects:  92% (2034/2210)   Receiving objects:  93% (2056/2210)   Receiving objects:  94% (2078/2210)   Receiving objects:  95% (2100/2210)   Receiving objects:  96% (2122/2210)   Receiving objects:  97% (2144/2210)   Receiving objects:  98% (2166/2210)   Receiving objects:  99% (2188/2210)   Receiving objects: 100% (2210/2210)   Receiving objects: 100% (2210/2210), 1.77 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/591)   Resolving deltas:   1% (6/591)   Resolving deltas:  13% (82/591)   Resolving deltas:  14% (83/591)   Resolving deltas:  17% (101/591)   Resolving deltas:  18% (107/591)   Resolving deltas:  19% (114/591)   Resolving deltas:  21% (126/591)   Resolving deltas:  22% (133/591)   Resolving deltas:  23% (137/591)   Resolving deltas:  25% (149/591)   Resolving deltas:  26% (156/591)   Resolving deltas:  27% (160/591)   Resolving deltas:  28% (166/591)   Resolving deltas:  29% (176/591)   Resolving deltas:  31% (184/591)   Resolving deltas:  32% (190/591)   Resolving deltas:  33% (196/591)   Resolving deltas:  34% (202/591)   Resolving deltas:  35% (207/591)   Resolving deltas:  36% (213/591)   Resolving deltas:  37% (220/591)   Resolving deltas:  39% (234/591)   Resolving deltas:  40% (237/591)   Resolving deltas:  42% (250/591)   Resolving deltas:  43% (255/591)   Resolving deltas:  48% (284/591)   Resolving deltas:  49% (292/591)   Resolving deltas:  58% (346/591)   Resolving deltas:  60% (357/591)   Resolving deltas:  61% (361/591)   Resolving deltas:  62% (367/591)   Resolving deltas:  63% (373/591)   Resolving deltas:  64% (379/591)   Resolving deltas:  65% (385/591)   Resolving deltas:  66% (391/591)   Resolving deltas:  67% (399/591)   Resolving deltas:  68% (402/591)   Resolving deltas:  69% (408/591)   Resolving deltas:  70% (415/591)   Resolving deltas:  71% (421/591)   Resolving deltas:  72% (426/591)   Resolving deltas:  73% (432/591)   Resolving deltas:  74% (438/591)   Resolving deltas:  75% (444/591)   Resolving deltas:  76% (451/591)   Resolving deltas:  77% (458/591)   Resolving deltas:  78% (461/591)   Resolving deltas:  79% (468/591)   Resolving deltas:  80% (474/591)   Resolving deltas:  81% (479/591)   Resolving deltas:  82% (485/591)   Resolving deltas:  83% (492/591)   Resolving deltas:  84% (497/591)   Resolving deltas:  85% (503/591)   Resolving deltas:  86% (509/591)   Resolving deltas:  87% (517/591)   Resolving deltas:  89% (529/591)   Resolving deltas:  90% (532/591)   Resolving deltas:  91% (542/591)   Resolving deltas:  92% (545/591)   Resolving deltas:  94% (557/591)   Resolving deltas:  95% (563/591)   Resolving deltas:  96% (570/591)   Resolving deltas:  97% (576/591)   Resolving deltas:  98% (581/591)   Resolving deltas:  99% (586/591)   Resolving deltas: 100% (591/591)   Resolving deltas: 100% (591/591), done.
+Checking connectivity... done.
+
+travis_time:end:01211764:start=1495116128465985867,finish=1495116129213471309,duration=747485442[0K$ cd Whiley/WhileyCompiler
+$ git checkout -qf 458c4bf5f047d4107c1b9fd94d0015cef4891a84
+travis_fold:end:git.checkout[0K$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:install[0Ktravis_time:start:3623aa4a[0K$ true
+
+travis_time:end:3623aa4a:start=1495116133888124223,finish=1495116133891858757,duration=3734534[0Ktravis_fold:end:install[0Ktravis_time:start:0840d6e0[0K$ touch running_on_travis
+
+travis_time:end:0840d6e0:start=1495116133896986168,finish=1495116133901718114,duration=4731946[0K
+[32;1mThe command "touch running_on_travis" exited with 0.[0m
+travis_time:start:283932d8[0K$ ant test
+Buildfile: /home/travis/build/Whiley/WhileyCompiler/build.xml
+[artifact:dependencies] Downloading: org/whiley/wycc/0.5.6/wycc-0.5.6.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 5K from central
+[artifact:dependencies] Downloading: org/whiley/wytp/0.5.7/wytp-0.5.7.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 5K from central
+[artifact:dependencies] Downloading: ant/ant/1.7.0/ant-1.7.0.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 0K from central
+[artifact:dependencies] Downloading: org/apache/ant/ant/1.7.0/ant-1.7.0.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 10K from central
+[artifact:dependencies] Downloading: org/apache/ant/ant-parent/1.7.0/ant-parent-1.7.0.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 4K from central
+[artifact:dependencies] Downloading: org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 2K from central
+[artifact:dependencies] [WARNING] While downloading ant:ant:1.7.0
+[artifact:dependencies]   This artifact has been relocated to org.apache.ant:ant:1.7.0.
+[artifact:dependencies] 
+[artifact:dependencies] 
+[artifact:dependencies] Downloading: junit/junit/4.12/junit-4.12.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 23K from central
+[artifact:dependencies] Downloading: org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 1K from central
+[artifact:dependencies] Downloading: org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 2K from central
+[artifact:dependencies] Downloading: org/apache/ant/ant/1.7.0/ant-1.7.0.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Downloading: org/whiley/wycc/0.5.6/wycc-0.5.6.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Downloading: junit/junit/4.12/junit-4.12.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Downloading: org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 44K from central
+[artifact:dependencies] Transferring 1260K from central
+[artifact:dependencies] Transferring 308K from central
+[artifact:dependencies] Transferring 113K from central
+[artifact:dependencies] Downloading: org/whiley/wytp/0.5.7/wytp-0.5.7.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 344K from central
+[artifact:dependencies] Downloading: org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar from repository central at http://repo.maven.apache.org/maven2
+[artifact:dependencies] Transferring 11K from central
+
+setup:
+    [mkdir] Created dir: /home/travis/build/Whiley/WhileyCompiler/target
+    [mkdir] Created dir: /home/travis/build/Whiley/WhileyCompiler/target/classes
+    [mkdir] Created dir: /home/travis/build/Whiley/WhileyCompiler/target/javadoc
+
+compile:
+    [javac] Compiling 63 source files to /home/travis/build/Whiley/WhileyCompiler/target/classes
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyc/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyil/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyautl_old/util/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyil/checks/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyil/lang/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyil/io/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyc/builder/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyc/lang/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyautl_old/lang/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyautl_old/io/package-info.class
+    [javac] Creating empty /home/travis/build/Whiley/WhileyCompiler/target/classes/wyautl_old/package-info.class
+
+compile-tests:
+    [javac] Compiling 7 source files to /home/travis/build/Whiley/WhileyCompiler/target/classes
+
+test:
+    [junit] WARNING: multiple versions of ant detected in path for junit 
+    [junit]          jar:file:/usr/share/ant/lib/ant.jar!/org/apache/tools/ant/Project.class
+    [junit]      and jar:file:/home/travis/.m2/repository/org/apache/ant/ant/1.7.0/ant-1.7.0.jar!/org/apache/tools/ant/Project.class
+    [junit] Running wyc.testing.AllInvalidTest
+    [junit] Testsuite: wyc.testing.AllInvalidTest
+    [junit] Tests run: 287, Failures: 0, Errors: 0, Time elapsed: 16.006 sec
+    [junit] Tests run: 287, Failures: 0, Errors: 0, Time elapsed: 16.006 sec
+    [junit] 
+    [junit] Testcase: invalid[AddressExpression_Invalid_1] took 0.266 sec
+    [junit] Testcase: invalid[AddressExpression_Invalid_2] took 0.024 sec
+    [junit] Testcase: invalid[ArrayAccess_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[ArrayAccess_Invalid_2] took 0.234 sec
+    [junit] Testcase: invalid[ArrayAccess_Invalid_3] took 0.015 sec
+    [junit] Testcase: invalid[ArrayAccess_Invalid_4] took 0.082 sec
+    [junit] Testcase: invalid[ArrayAccess_Invalid_5] took 0.232 sec
+    [junit] Testcase: invalid[ArrayAssign_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[ArrayAssign_Invalid_2] took 0.082 sec
+    [junit] Testcase: invalid[ArrayAssign_Invalid_3] took 0.108 sec
+    [junit] Testcase: invalid[ArrayConversion_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[ArrayEmpty_Invalid_1] took 0.01 sec
+    [junit] Testcase: invalid[ArrayEmpty_Invalid_2] took 0.084 sec
+    [junit] Testcase: invalid[ArrayEquals_Invalid_1] took 0.062 sec
+    [junit] Testcase: invalid[ArrayGenerator_Invalid_1] took 0.073 sec
+    [junit] Testcase: invalid[ArrayGenerator_Invalid_2] took 0.113 sec
+    [junit] Testcase: invalid[ArrayGenerator_Invalid_3] took 0.016 sec
+    [junit] Testcase: invalid[ArrayGenerator_Invalid_4] took 0.004 sec
+    [junit] Testcase: invalid[ArrayLength_Invalid_1] took 0.083 sec
+    [junit] Testcase: invalid[ArrayLength_Invalid_2] took 0.188 sec
+    [junit] Testcase: invalid[ArrayLength_Invalid_3] took 0.089 sec
+    [junit] Testcase: invalid[ArrayUpdate_Invalid_1] took 0.156 sec
+    [junit] Testcase: invalid[Array_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[Array_Invalid_2] took 0.011 sec
+    [junit] Testcase: invalid[Array_Invalid_3] took 0.026 sec
+    [junit] Testcase: invalid[Array_Invalid_4] took 0.005 sec
+    [junit] Testcase: invalid[Array_Invalid_5] took 0.007 sec
+    [junit] Testcase: invalid[Array_Invalid_6] took 0.006 sec
+    [junit] Testcase: invalid[Array_Invalid_7] took 0.007 sec
+    [junit] Testcase: invalid[Assert_Invalid_1] took 0.007 sec
+    [junit] Testcase: invalid[Assert_Invalid_2] took 0.231 sec
+    [junit] Testcase: invalid[Assign_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[Assign_Invalid_2] took 0.012 sec
+    [junit] Testcase: invalid[Assign_Invalid_3] took 0.014 sec
+    [junit] Testcase: invalid[Assign_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[Assign_Invalid_5] took 0.006 sec
+    [junit] Testcase: invalid[Assign_Invalid_6] took 0.007 sec
+    [junit] Testcase: invalid[Assign_Invalid_7] took 0.008 sec
+    [junit] Testcase: invalid[Assign_Invalid_8] took 0.008 sec
+    [junit] Testcase: invalid[Assign_Invalid_9] took 0.01 sec
+    [junit] Testcase: invalid[Byte_Invalid_1] took 0.008 sec
+    [junit] Testcase: invalid[Coercion_Invalid_2] took 0.011 sec
+    [junit] Testcase: invalid[Constant_Invalid_1] took 0.002 sec
+    [junit] Testcase: invalid[Constant_Invalid_2] took 0.057 sec
+    [junit] Testcase: invalid[ConstrainedArray_Invalid_1] took 0.165 sec
+    [junit] Testcase: invalid[ConstrainedArray_Invalid_2] took 0.124 sec
+    [junit] Testcase: invalid[ConstrainedArray_Invalid_3] took 0.146 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_1] took 0.159 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_11] took 0.004 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_12] took 0.145 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_2] took 0.091 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_3] took 0.136 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_4] took 0.124 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_5] took 0.105 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_6] took 0.105 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_7] took 0.122 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_8] took 0.149 sec
+    [junit] Testcase: invalid[ConstrainedInt_Invalid_9] took 0.367 sec
+    [junit] Testcase: invalid[ConstrainedRecord_Invalid_1] took 0.176 sec
+    [junit] Testcase: invalid[Continue_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[Continue_Invalid_2] took 0.005 sec
+    [junit] Testcase: invalid[Contractive_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[Contractive_Invalid_2] took 0.008 sec
+    [junit] Testcase: invalid[DefiniteAssign_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[DefiniteAssign_Invalid_2] took 0.004 sec
+    [junit] Testcase: invalid[DefiniteAssign_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[DefiniteAssign_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[DoWhile_Invalid_1] took 0.215 sec
+    [junit] Testcase: invalid[DoWhile_Invalid_2] took 0.316 sec
+    [junit] Testcase: invalid[DoWhile_Invalid_3] took 0.263 sec
+    [junit] Testcase: invalid[DoWhile_Invalid_4] took 0.155 sec
+    [junit] Testcase: invalid[DoWhile_Invalid_5] took 0.004 sec
+    [junit] Testcase: invalid[EndOfFile_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[Ensures_Invalid_1] took 0.173 sec
+    [junit] Testcase: invalid[Ensures_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[Ensures_Invalid_3] took 0.138 sec
+    [junit] Testcase: invalid[Export_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[Fail_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[Fail_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[Fail_Invalid_3] took 0.001 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_2] took 0.005 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_4] took 0.012 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_5] took 0.007 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_6] took 0.006 sec
+    [junit] Testcase: invalid[FunctionRef_Invalid_7] took 0.007 sec
+    [junit] Testcase: invalid[Function_Invalid_1] took 0.011 sec
+    [junit] Testcase: invalid[Function_Invalid_10] took 0.011 sec
+    [junit] Testcase: invalid[Function_Invalid_11] took 0.008 sec
+    [junit] Testcase: invalid[Function_Invalid_2] took 0 sec
+    [junit] Testcase: invalid[Function_Invalid_3] took 0.009 sec
+    [junit] Testcase: invalid[Function_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[Function_Invalid_9] took 0 sec
+    [junit] Testcase: invalid[If_Invalid_1] took 0.005 sec
+    [junit] Testcase: invalid[If_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[If_Invalid_4] took 0.005 sec
+    [junit] Testcase: invalid[If_Invalid_5] took 0.006 sec
+    [junit] Testcase: invalid[Import_Invalid_1] took 0.011 sec
+    [junit] Testcase: invalid[IntDiv_Invalid_1] took 0.263 sec
+    [junit] Testcase: invalid[Intersection_Invalid_1] took 0.012 sec
+    [junit] Testcase: invalid[Intersection_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[Lambda_Invalid_3] took 0.154 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_2] took 0.003 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_5] took 0.007 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_6] took 0.007 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_7] took 0.005 sec
+    [junit] Testcase: invalid[Lifetime_Invalid_8] took 0.005 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_1] took 0.005 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_4] took 0.008 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_5] took 0.004 sec
+    [junit] Testcase: invalid[Lifetime_Lambda_Invalid_6] took 0.003 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_2] took 0.007 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_5] took 0.006 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_6] took 0.004 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_7] took 0.005 sec
+    [junit] Testcase: invalid[MethodCall_Invalid_8] took 0.003 sec
+    [junit] Testcase: invalid[MethodRef_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[MethodRef_Invalid_2] took 0.005 sec
+    [junit] Testcase: invalid[MethodRef_Invalid_3] took 0.004 sec
+    [junit] Testcase: invalid[MultiAssign_Invalid_1] took 0.008 sec
+    [junit] Testcase: invalid[Native_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[NegationType_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[NegationType_Invalid_2] took 0.004 sec
+    [junit] Testcase: invalid[NegationType_Invalid_3] took 0.004 sec
+    [junit] Testcase: invalid[NegationType_Invalid_4] took 0.063 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_2] took 0 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_5] took 0.005 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_6] took 0.004 sec
+    [junit] Testcase: invalid[OpenRecord_Invalid_7] took 0.003 sec
+    [junit] Testcase: invalid[Parameter_Invalid_1] took 0.002 sec
+    [junit] Testcase: invalid[Parameter_Invalid_2] took 0.003 sec
+    [junit] Testcase: invalid[Parsing_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[Parsing_Invalid_10] took 0.004 sec
+    [junit] Testcase: invalid[Parsing_Invalid_11] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_12] took 0.01 sec
+    [junit] Testcase: invalid[Parsing_Invalid_15] took 0 sec
+    [junit] Testcase: invalid[Parsing_Invalid_16] took 0.003 sec
+    [junit] Testcase: invalid[Parsing_Invalid_2] took 0 sec
+    [junit] Testcase: invalid[Parsing_Invalid_21] took 0.008 sec
+    [junit] Testcase: invalid[Parsing_Invalid_23] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_24] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_25] took 0.008 sec
+    [junit] Testcase: invalid[Parsing_Invalid_26] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_27] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_28] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_29] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_30] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_31] took 0 sec
+    [junit] Testcase: invalid[Parsing_Invalid_4] took 0.005 sec
+    [junit] Testcase: invalid[Parsing_Invalid_5] took 0.006 sec
+    [junit] Testcase: invalid[Parsing_Invalid_6] took 0.006 sec
+    [junit] Testcase: invalid[Parsing_Invalid_8] took 0.005 sec
+    [junit] Testcase: invalid[ProcessAccess_Invalid_1] took 0.007 sec
+    [junit] Testcase: invalid[ProcessAccess_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[ProcessAccess_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[Process_Invalid_1] took 0.007 sec
+    [junit] Testcase: invalid[Property_Invalid_1] took 0.008 sec
+    [junit] Testcase: invalid[Property_Invalid_2] took 0.114 sec
+    [junit] Testcase: invalid[Property_Invalid_3] took 0.192 sec
+    [junit] Testcase: invalid[Property_Invalid_4] took 0.141 sec
+    [junit] Testcase: invalid[Property_Invalid_5] took 0.003 sec
+    [junit] Testcase: invalid[Property_Invalid_6] took 0.003 sec
+    [junit] Testcase: invalid[Property_Invalid_7] took 0.004 sec
+    [junit] Testcase: invalid[Property_Invalid_8] took 0.052 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_1] took 0.108 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_2] took 0.108 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_3] took 0.107 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_4] took 0.224 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_5] took 0.168 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_6] took 0.114 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_7] took 0.14 sec
+    [junit] Testcase: invalid[Quantifiers_Invalid_8] took 0.117 sec
+    [junit] Testcase: invalid[Record_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[Record_Invalid_2] took 0.003 sec
+    [junit] Testcase: invalid[Record_Invalid_3] took 0.003 sec
+    [junit] Testcase: invalid[Record_Invalid_4] took 0.003 sec
+    [junit] Testcase: invalid[Record_Invalid_5] took 0.003 sec
+    [junit] Testcase: invalid[Record_Invalid_6] took 0.003 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_1] took 0.146 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_10] took 0.091 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_11] took 0.003 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_2] took 0 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_3] took 0.027 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_4] took 0 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_5] took 0.012 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_7] took 0.001 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_8] took 0 sec
+    [junit] Testcase: invalid[RecursiveType_Invalid_9] took 0 sec
+    [junit] Testcase: invalid[ReferenceOpenRecord_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[Reference_Subtype_Variant_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[Remainder_Invalid_1] took 0.137 sec
+    [junit] Testcase: invalid[Remainder_Invalid_2] took 0.006 sec
+    [junit] Testcase: invalid[Remainder_Invalid_3] took 0.005 sec
+    [junit] Testcase: invalid[Requires_Invalid_1] took 0.128 sec
+    [junit] Testcase: invalid[Return_Invalid_1] took 0.005 sec
+    [junit] Testcase: invalid[Return_Invalid_10] took 0.004 sec
+    [junit] Testcase: invalid[Return_Invalid_11] took 0.002 sec
+    [junit] Testcase: invalid[Return_Invalid_12] took 0.002 sec
+    [junit] Testcase: invalid[Return_Invalid_2] took 0.003 sec
+    [junit] Testcase: invalid[Return_Invalid_3] took 0.002 sec
+    [junit] Testcase: invalid[Return_Invalid_4] took 0.003 sec
+    [junit] Testcase: invalid[Return_Invalid_5] took 0.002 sec
+    [junit] Testcase: invalid[Return_Invalid_6] took 0.003 sec
+    [junit] Testcase: invalid[Return_Invalid_7] took 0.002 sec
+    [junit] Testcase: invalid[Return_Invalid_8] took 0.003 sec
+    [junit] Testcase: invalid[Return_Invalid_9] took 0.004 sec
+    [junit] Testcase: invalid[Subtype_Invalid_1] took 0.117 sec
+    [junit] Testcase: invalid[Subtype_Invalid_2] took 0.067 sec
+    [junit] Testcase: invalid[Subtype_Invalid_3] took 0.074 sec
+    [junit] Testcase: invalid[Subtype_Invalid_4] took 0.049 sec
+    [junit] Testcase: invalid[Subtype_Invalid_5] took 0.104 sec
+    [junit] Testcase: invalid[Subtype_Invalid_6] took 0.041 sec
+    [junit] Testcase: invalid[Subtype_Invalid_7] took 0.134 sec
+    [junit] Testcase: invalid[Subtype_Invalid_8] took 0.174 sec
+    [junit] Testcase: invalid[Subtype_Invalid_9] took 0.078 sec
+    [junit] Testcase: invalid[Switch_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[Switch_Invalid_2] took 0.003 sec
+    [junit] Testcase: invalid[Switch_Invalid_3] took 0.002 sec
+    [junit] Testcase: invalid[Switch_Invalid_4] took 0.003 sec
+    [junit] Testcase: invalid[Switch_Invalid_5] took 0.002 sec
+    [junit] Testcase: invalid[Switch_Invalid_6] took 0.003 sec
+    [junit] Testcase: invalid[Switch_Invalid_7] took 0.003 sec
+    [junit] Testcase: invalid[TupleAssign_Invalid_1] took 0.085 sec
+    [junit] Testcase: invalid[TupleAssign_Invalid_2] took 0.077 sec
+    [junit] Testcase: invalid[TupleAssign_Invalid_3] took 0.189 sec
+    [junit] Testcase: invalid[TupleDefine_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[TupleDefine_Invalid_2] took 0.101 sec
+    [junit] Testcase: invalid[Tuple_Invalid_3] took 0 sec
+    [junit] Testcase: invalid[Tuple_Invalid_4] took 0 sec
+    [junit] Testcase: invalid[Tuple_Invalid_5] took 0 sec
+    [junit] Testcase: invalid[Tuple_Invalid_6] took 0.005 sec
+    [junit] Testcase: invalid[Tuple_Invalid_7] took 0.005 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_1] took 0 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_10] took 0.003 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_11] took 0.003 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_12] took 0.074 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_13] took 0.009 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_2] took 0.004 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_5] took 0 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_6] took 0.146 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_7] took 0.006 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_8] took 0.005 sec
+    [junit] Testcase: invalid[TypeEquals_Invalid_9] took 0.004 sec
+    [junit] Testcase: invalid[Type_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[UnionType_Invalid_1] took 0.003 sec
+    [junit] Testcase: invalid[UnionType_Invalid_10] took 0.106 sec
+    [junit] Testcase: invalid[UnionType_Invalid_2] took 0.004 sec
+    [junit] Testcase: invalid[UnionType_Invalid_3] took 0.005 sec
+    [junit] Testcase: invalid[UnionType_Invalid_4] took 0.007 sec
+    [junit] Testcase: invalid[UnionType_Invalid_5] took 0.006 sec
+    [junit] Testcase: invalid[UnionType_Invalid_6] took 0.006 sec
+    [junit] Testcase: invalid[UnionType_Invalid_7] took 0.144 sec
+    [junit] Testcase: invalid[UnionType_Invalid_8] took 0.122 sec
+    [junit] Testcase: invalid[UnionType_Invalid_9] took 0.001 sec
+    [junit] Testcase: invalid[VarDecl_Invalid_1] took 0.006 sec
+    [junit] Testcase: invalid[VarDecl_Invalid_2] took 0.067 sec
+    [junit] Testcase: invalid[VarDecl_Invalid_3] took 0.006 sec
+    [junit] Testcase: invalid[VarDecl_Invalid_4] took 0.139 sec
+    [junit] Testcase: invalid[While_Invalid_1] took 0.004 sec
+    [junit] Testcase: invalid[While_Invalid_10] took 0.112 sec
+    [junit] Testcase: invalid[While_Invalid_11] took 0.149 sec
+    [junit] Testcase: invalid[While_Invalid_12] took 0.099 sec
+    [junit] Testcase: invalid[While_Invalid_13] took 0.186 sec
+    [junit] Testcase: invalid[While_Invalid_14] took 0.008 sec
+    [junit] Testcase: invalid[While_Invalid_15] took 0.209 sec
+    [junit] Testcase: invalid[While_Invalid_16] took 0.004 sec
+    [junit] Testcase: invalid[While_Invalid_2] took 0.008 sec
+    [junit] Testcase: invalid[While_Invalid_3] took 0.007 sec
+    [junit] Testcase: invalid[While_Invalid_4] took 0.005 sec
+    [junit] Testcase: invalid[While_Invalid_5] took 0.011 sec
+    [junit] Testcase: invalid[While_Invalid_6] took 0.004 sec
+    [junit] Testcase: invalid[While_Invalid_7] took 0.136 sec
+    [junit] Testcase: invalid[While_Invalid_8] took 0.216 sec
+    [junit] Testcase: invalid[While_Invalid_9] took 0.014 sec
+    [junit] Testcase: invalid[XOR_Invalid_1] took 0.006 sec
+    [junit] Running wyc.testing.AllValidTest
+    [junit] Testsuite: wyc.testing.AllValidTest
+    [junit] Tests run: 540, Failures: 0, Errors: 0, Time elapsed: 78.512 sec
+    [junit] Tests run: 540, Failures: 0, Errors: 0, Time elapsed: 78.512 sec
+    [junit] 
+    [junit] Testcase: valid[Access_Valid_1] took 0.267 sec
+    [junit] Testcase: valid[Access_Valid_2] took 0.098 sec
+    [junit] Testcase: valid[AddressExpression_Valid_1] took 0.051 sec
+    [junit] Testcase: valid[AddressExpression_Valid_2] took 0.149 sec
+    [junit] Testcase: valid[AddressExpression_Valid_3] took 0.1 sec
+    [junit] Testcase: valid[AddressExpression_Valid_4] took 0.186 sec
+    [junit] Testcase: valid[Array_Valid_1] took 0.204 sec
+    [junit] Testcase: valid[Assert_Valid_1] took 0.166 sec
+    [junit] Testcase: valid[Assume_Valid_1] took 0.457 sec
+    [junit] Testcase: valid[Assume_Valid_2] took 0.088 sec
+    [junit] Testcase: valid[BoolAssign_Valid_1] took 0.222 sec
+    [junit] Testcase: valid[BoolAssign_Valid_2] took 0.224 sec
+    [junit] Testcase: valid[BoolAssign_Valid_3] took 0.13 sec
+    [junit] Testcase: valid[BoolAssign_Valid_4] took 0.175 sec
+    [junit] Testcase: valid[BoolAssign_Valid_5] took 0.209 sec
+    [junit] Testcase: valid[BoolAssign_Valid_6] took 0.168 sec
+    [junit] Testcase: valid[BoolFun_Valid_1] took 0.064 sec
+    [junit] Testcase: valid[BoolIfElse_Valid_1] took 0.113 sec
+    [junit] Testcase: valid[BoolIfElse_Valid_2] took 0.193 sec
+    [junit] Testcase: valid[BoolList_Valid_1] took 0.107 sec
+    [junit] Testcase: valid[BoolList_Valid_2] took 0.118 sec
+    [junit] Testcase: valid[BoolList_Valid_3] took 0.178 sec
+    [junit] Testcase: valid[BoolRecord_Valid_1] took 0.117 sec
+    [junit] Testcase: valid[BoolRecord_Valid_2] took 0.138 sec
+    [junit] Testcase: valid[BoolRequires_Valid_1] took 0.172 sec
+    [junit] Testcase: valid[BoolReturn_Valid_1] took 0.06 sec
+    [junit] Testcase: valid[Byte_Valid_1] took 0.179 sec
+    [junit] Testcase: valid[Byte_Valid_2] took 1.588 sec
+    [junit] Testcase: valid[Byte_Valid_3] took 0.687 sec
+    [junit] Testcase: valid[Byte_Valid_4] took 0.837 sec
+    [junit] Testcase: valid[Byte_Valid_5] took 0.284 sec
+    [junit] Testcase: valid[Byte_Valid_6] took 0.283 sec
+    [junit] Testcase: valid[Byte_Valid_7] took 0.103 sec
+    [junit] Testcase: valid[Byte_Valid_8] took 0.161 sec
+    [junit] Testcase: valid[Byte_Valid_9] took 0.177 sec
+    [junit] Testcase: valid[Cast_Valid_5] took 0.148 sec
+    [junit] Testcase: valid[Coercion_Valid_2] took 0.115 sec
+    [junit] Testcase: valid[Coercion_Valid_3] took 0.174 sec
+    [junit] Testcase: valid[Coercion_Valid_7] took 0.132 sec
+    [junit] Testcase: valid[Coercion_Valid_8] took 0.105 sec
+    [junit] Testcase: valid[Coercion_Valid_9] took 0.134 sec
+    [junit] Testcase: valid[Complex_Valid_1] took 0.173 sec
+    [junit] Testcase: valid[Complex_Valid_2] took 0.155 sec
+    [junit] Testcase: valid[Complex_Valid_3] took 0.002 sec
+    [junit] Testcase: valid[Complex_Valid_4] took 0.138 sec
+    [junit] Testcase: valid[Complex_Valid_5] took 0.075 sec
+    [junit] Testcase: valid[Complex_Valid_6] took 0.101 sec
+    [junit] Testcase: valid[Complex_Valid_7] took 0.196 sec
+    [junit] Testcase: valid[Complex_Valid_8] took 0.23 sec
+    [junit] Testcase: valid[Constant_Valid_3] took 0.15 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_1] took 0.075 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_10] took 0.114 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_12] took 0.17 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_13] took 0.048 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_15] took 0.195 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_16] took 0.121 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_17] took 0.167 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_18] took 0.183 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_19] took 0.159 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_2] took 0.156 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_20] took 0.119 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_21] took 0.127 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_22] took 0.108 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_23] took 0.142 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_24] took 0.174 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_3] took 0.051 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_4] took 0.062 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_5] took 0.107 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_6] took 0.08 sec
+    [junit] Testcase: valid[ConstrainedInt_Valid_8] took 0.136 sec
+    [junit] Testcase: valid[ConstrainedIntersection_Valid_1] took 0.267 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_1] took 0.2 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_11] took 0.189 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_12] took 0.122 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_14] took 0.151 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_15] took 0.068 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_16] took 0.14 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_17] took 0.068 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_18] took 0.098 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_19] took 0.069 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_2] took 0.084 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_20] took 0.117 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_21] took 0.074 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_22] took 0.071 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_23] took 0.132 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_25] took 0.088 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_26] took 0.077 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_27] took 0.062 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_28] took 0.176 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_3] took 0.069 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_4] took 0.086 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_5] took 0.105 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_6] took 0.065 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_7] took 0.059 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_8] took 0.05 sec
+    [junit] Testcase: valid[ConstrainedList_Valid_9] took 0.036 sec
+    [junit] Testcase: valid[ConstrainedNegation_Valid_1] took 0.056 sec
+    [junit] Testcase: valid[ConstrainedNegation_Valid_2] took 0.12 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_1] took 0.092 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_10] took 0.068 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_2] took 0.092 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_3] took 0.104 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_4] took 0.093 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_5] took 0.075 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_6] took 0.058 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_8] took 0.106 sec
+    [junit] Testcase: valid[ConstrainedRecord_Valid_9] took 0.066 sec
+    [junit] Testcase: valid[ConstrainedReference_Valid_1] took 0.12 sec
+    [junit] Testcase: valid[ConstrainedUnion_Valid_1] took 0.084 sec
+    [junit] Testcase: valid[Contractive_Valid_1] took 0.052 sec
+    [junit] Testcase: valid[Contractive_Valid_2] took 0.141 sec
+    [junit] Testcase: valid[Contractive_Valid_3] took 0.112 sec
+    [junit] Testcase: valid[Define_Valid_1] took 0.136 sec
+    [junit] Testcase: valid[Define_Valid_2] took 0.159 sec
+    [junit] Testcase: valid[Define_Valid_3] took 0.148 sec
+    [junit] Testcase: valid[Define_Valid_4] took 0.11 sec
+    [junit] Testcase: valid[DoWhile_Valid_1] took 0.075 sec
+    [junit] Testcase: valid[DoWhile_Valid_2] took 0.062 sec
+    [junit] Testcase: valid[DoWhile_Valid_3] took 0.162 sec
+    [junit] Testcase: valid[DoWhile_Valid_4] took 0.001 sec
+    [junit] Testcase: valid[DoWhile_Valid_5] took 0.185 sec
+    [junit] Testcase: valid[DoWhile_Valid_6] took 0.073 sec
+    [junit] Testcase: valid[DoWhile_Valid_7] took 0.079 sec
+    [junit] Testcase: valid[DoWhile_Valid_8] took 0.119 sec
+    [junit] Testcase: valid[EffectiveList_Valid_1] took 0.052 sec
+    [junit] Testcase: valid[Ensures_Valid_1] took 0.19 sec
+    [junit] Testcase: valid[Ensures_Valid_2] took 0.096 sec
+    [junit] Testcase: valid[Ensures_Valid_3] took 0.103 sec
+    [junit] Testcase: valid[Ensures_Valid_4] took 0.172 sec
+    [junit] Testcase: valid[Ensures_Valid_5] took 0.141 sec
+    [junit] Testcase: valid[Ensures_Valid_6] took 0.112 sec
+    [junit] Testcase: valid[Ensures_Valid_7] took 0.112 sec
+    [junit] Testcase: valid[Ensures_Valid_8] took 0.094 sec
+    [junit] Testcase: valid[Fail_Valid_1] took 0.112 sec
+    [junit] Testcase: valid[Fail_Valid_2] took 0.048 sec
+    [junit] Testcase: valid[Fail_Valid_3] took 0.03 sec
+    [junit] Testcase: valid[FunctionRef_Valid_1] took 0.046 sec
+    [junit] Testcase: valid[FunctionRef_Valid_10] took 0.051 sec
+    [junit] Testcase: valid[FunctionRef_Valid_11] took 0.054 sec
+    [junit] Testcase: valid[FunctionRef_Valid_12] took 0.197 sec
+    [junit] Testcase: valid[FunctionRef_Valid_13] took 0.157 sec
+    [junit] Testcase: valid[FunctionRef_Valid_2] took 0.131 sec
+    [junit] Testcase: valid[FunctionRef_Valid_4] took 0.102 sec
+    [junit] Testcase: valid[FunctionRef_Valid_5] took 0.132 sec
+    [junit] Testcase: valid[FunctionRef_Valid_6] took 0.118 sec
+    [junit] Testcase: valid[FunctionRef_Valid_7] took 0.133 sec
+    [junit] Testcase: valid[FunctionRef_Valid_8] took 0.155 sec
+    [junit] Testcase: valid[FunctionRef_Valid_9] took 0.139 sec
+    [junit] Testcase: valid[Function_Valid_1] took 0.158 sec
+    [junit] Testcase: valid[Function_Valid_11] took 0 sec
+    [junit] Testcase: valid[Function_Valid_12] took 0.127 sec
+    [junit] Testcase: valid[Function_Valid_13] took 0.129 sec
+    [junit] Testcase: valid[Function_Valid_14] took 0.152 sec
+    [junit] Testcase: valid[Function_Valid_15] took 0.001 sec
+    [junit] Testcase: valid[Function_Valid_16] took 0.142 sec
+    [junit] Testcase: valid[Function_Valid_17] took 0.092 sec
+    [junit] Testcase: valid[Function_Valid_18] took 0.131 sec
+    [junit] Testcase: valid[Function_Valid_2] took 0.116 sec
+    [junit] Testcase: valid[Function_Valid_20] took 0.139 sec
+    [junit] Testcase: valid[Function_Valid_21] took 0.222 sec
+    [junit] Testcase: valid[Function_Valid_3] took 0.128 sec
+    [junit] Testcase: valid[Function_Valid_4] took 0.088 sec
+    [junit] Testcase: valid[Function_Valid_5] took 0.102 sec
+    [junit] Testcase: valid[Function_Valid_6] took 0.136 sec
+    [junit] Testcase: valid[Function_Valid_7] took 0.106 sec
+    [junit] Testcase: valid[Function_Valid_8] took 0.165 sec
+    [junit] Testcase: valid[Function_Valid_9] took 0.13 sec
+    [junit] Testcase: valid[HexAssign_Valid_1] took 0.143 sec
+    [junit] Testcase: valid[IfElse_Valid_1] took 0.135 sec
+    [junit] Testcase: valid[IfElse_Valid_2] took 0.157 sec
+    [junit] Testcase: valid[IfElse_Valid_3] took 0.184 sec
+    [junit] Testcase: valid[IfElse_Valid_4] took 0.139 sec
+    [junit] Testcase: valid[IfElse_Valid_5] took 0.199 sec
+    [junit] Testcase: valid[Import_Valid_1] took 0.056 sec
+    [junit] Testcase: valid[Import_Valid_2] took 0.173 sec
+    [junit] Testcase: valid[Import_Valid_3] took 0.12 sec
+    [junit] Testcase: valid[Import_Valid_6] took 0.062 sec
+    [junit] Testcase: valid[IntConst_Valid_1] took 0.09 sec
+    [junit] Testcase: valid[IntDefine_Valid_1] took 0.108 sec
+    [junit] Testcase: valid[IntDefine_Valid_2] took 0.091 sec
+    [junit] Testcase: valid[IntDiv_Valid_1] took 0.105 sec
+    [junit] Testcase: valid[IntDiv_Valid_3] took 0.054 sec
+    [junit] Testcase: valid[IntDiv_Valid_4] took 0.188 sec
+    [junit] Testcase: valid[IntDiv_Valid_5] took 0.142 sec
+    [junit] Testcase: valid[IntMul_Valid_1] took 0.133 sec
+    [junit] Testcase: valid[IntMul_Valid_2] took 0.058 sec
+    [junit] Testcase: valid[IntOp_Valid_1] took 0.158 sec
+    [junit] Testcase: valid[Intersection_Valid_1] took 0.044 sec
+    [junit] Testcase: valid[Intersection_Valid_2] took 0.072 sec
+    [junit] Testcase: valid[Lambda_Valid_1] took 0.114 sec
+    [junit] Testcase: valid[Lambda_Valid_10] took 0.139 sec
+    [junit] Testcase: valid[Lambda_Valid_11] took 0.105 sec
+    [junit] Testcase: valid[Lambda_Valid_12] took 0.09 sec
+    [junit] Testcase: valid[Lambda_Valid_2] took 0.085 sec
+    [junit] Testcase: valid[Lambda_Valid_3] took 0.075 sec
+    [junit] Testcase: valid[Lambda_Valid_4] took 0.168 sec
+    [junit] Testcase: valid[Lambda_Valid_5] took 0.079 sec
+    [junit] Testcase: valid[Lambda_Valid_6] took 0.119 sec
+    [junit] Testcase: valid[Lambda_Valid_7] took 0.078 sec
+    [junit] Testcase: valid[Lambda_Valid_8] took 0.195 sec
+    [junit] Testcase: valid[Lambda_Valid_9] took 0.152 sec
+    [junit] Testcase: valid[LengthOf_Valid_1] took 0.095 sec
+    [junit] Testcase: valid[LengthOf_Valid_4] took 0.093 sec
+    [junit] Testcase: valid[LengthOf_Valid_5] took 0.14 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_1] took 0.138 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_2] took 0.23 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_3] took 0.095 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_4] took 0 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_5] took 0.074 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_6] took 0.104 sec
+    [junit] Testcase: valid[Lifetime_Lambda_Valid_7] took 0.083 sec
+    [junit] Testcase: valid[Lifetime_Valid_1] took 0.077 sec
+    [junit] Testcase: valid[Lifetime_Valid_10] took 0.089 sec
+    [junit] Testcase: valid[Lifetime_Valid_2] took 0.099 sec
+    [junit] Testcase: valid[Lifetime_Valid_3] took 0.068 sec
+    [junit] Testcase: valid[Lifetime_Valid_4] took 0.112 sec
+    [junit] Testcase: valid[Lifetime_Valid_5] took 0.176 sec
+    [junit] Testcase: valid[Lifetime_Valid_6] took 0.108 sec
+    [junit] Testcase: valid[Lifetime_Valid_7] took 0.105 sec
+    [junit] Testcase: valid[Lifetime_Valid_8] took 0.097 sec
+    [junit] Testcase: valid[Lifetime_Valid_9] took 0.063 sec
+    [junit] Testcase: valid[ListAccess_Valid_1] took 0.125 sec
+    [junit] Testcase: valid[ListAccess_Valid_3] took 0.081 sec
+    [junit] Testcase: valid[ListAccess_Valid_5] took 0.126 sec
+    [junit] Testcase: valid[ListAccess_Valid_6] took 0.177 sec
+    [junit] Testcase: valid[ListAccess_Valid_8] took 0.106 sec
+    [junit] Testcase: valid[ListAccess_Valid_9] took 0.114 sec
+    [junit] Testcase: valid[ListAssign_Valid_1] took 0.205 sec
+    [junit] Testcase: valid[ListAssign_Valid_11] took 0.067 sec
+    [junit] Testcase: valid[ListAssign_Valid_12] took 0.06 sec
+    [junit] Testcase: valid[ListAssign_Valid_2] took 0.138 sec
+    [junit] Testcase: valid[ListAssign_Valid_3] took 0.082 sec
+    [junit] Testcase: valid[ListAssign_Valid_4] took 0.065 sec
+    [junit] Testcase: valid[ListAssign_Valid_5] took 0.048 sec
+    [junit] Testcase: valid[ListAssign_Valid_6] took 0.086 sec
+    [junit] Testcase: valid[ListAssign_Valid_7] took 0.132 sec
+    [junit] Testcase: valid[ListAssign_Valid_8] took 0.098 sec
+    [junit] Testcase: valid[ListAssign_Valid_9] took 0.19 sec
+    [junit] Testcase: valid[ListEmpty_Valid_1] took 0.182 sec
+    [junit] Testcase: valid[ListGenerator_Valid_1] took 0.132 sec
+    [junit] Testcase: valid[ListGenerator_Valid_10] took 0.123 sec
+    [junit] Testcase: valid[ListGenerator_Valid_11] took 0.039 sec
+    [junit] Testcase: valid[ListGenerator_Valid_12] took 0.066 sec
+    [junit] Testcase: valid[ListGenerator_Valid_2] took 0.105 sec
+    [junit] Testcase: valid[ListGenerator_Valid_3] took 0.127 sec
+    [junit] Testcase: valid[ListGenerator_Valid_5] took 0.065 sec
+    [junit] Testcase: valid[ListGenerator_Valid_6] took 0.054 sec
+    [junit] Testcase: valid[ListGenerator_Valid_7] took 0.08 sec
+    [junit] Testcase: valid[ListGenerator_Valid_8] took 0.097 sec
+    [junit] Testcase: valid[ListGenerator_Valid_9] took 0.075 sec
+    [junit] Testcase: valid[ListLength_Valid_1] took 0.114 sec
+    [junit] Testcase: valid[ListLength_Valid_2] took 0.098 sec
+    [junit] Testcase: valid[ListLength_Valid_3] took 0.089 sec
+    [junit] Testcase: valid[MessageRef_Valid_1] took 0.163 sec
+    [junit] Testcase: valid[MessageRef_Valid_2] took 0.145 sec
+    [junit] Testcase: valid[MessageSend_Valid_1] took 0.114 sec
+    [junit] Testcase: valid[MessageSend_Valid_2] took 0.088 sec
+    [junit] Testcase: valid[MessageSend_Valid_3] took 0.139 sec
+    [junit] Testcase: valid[MessageSend_Valid_4] took 0.173 sec
+    [junit] Testcase: valid[MessageSend_Valid_5] took 0.099 sec
+    [junit] Testcase: valid[MethodCall_Valid_1] took 0.092 sec
+    [junit] Testcase: valid[MethodCall_Valid_2] took 0.113 sec
+    [junit] Testcase: valid[MethodCall_Valid_3] took 0.089 sec
+    [junit] Testcase: valid[MethodCall_Valid_4] took 0.081 sec
+    [junit] Testcase: valid[MethodRef_Valid_1] took 0.054 sec
+    [junit] Testcase: valid[MethodRef_Valid_2] took 0.08 sec
+    [junit] Testcase: valid[Method_Valid_1] took 0.197 sec
+    [junit] Testcase: valid[MultiLineComment_Valid_1] took 0.106 sec
+    [junit] Testcase: valid[MultiLineComment_Valid_2] took 0.164 sec
+    [junit] Testcase: valid[NegationType_Valid_1] took 0.147 sec
+    [junit] Testcase: valid[NegationType_Valid_2] took 0.106 sec
+    [junit] Testcase: valid[NegationType_Valid_3] took 0.141 sec
+    [junit] Testcase: valid[NegationType_Valid_4] took 0.179 sec
+    [junit] Testcase: valid[NegationType_Valid_5] took 0.186 sec
+    [junit] Testcase: valid[OpenRecord_Valid_1] took 0.104 sec
+    [junit] Testcase: valid[OpenRecord_Valid_10] took 0.13 sec
+    [junit] Testcase: valid[OpenRecord_Valid_11] took 0.158 sec
+    [junit] Testcase: valid[OpenRecord_Valid_2] took 0.107 sec
+    [junit] Testcase: valid[OpenRecord_Valid_3] took 0.098 sec
+    [junit] Testcase: valid[OpenRecord_Valid_4] took 0.156 sec
+    [junit] Testcase: valid[OpenRecord_Valid_5] took 0.094 sec
+    [junit] Testcase: valid[OpenRecord_Valid_6] took 0.213 sec
+    [junit] Testcase: valid[OpenRecord_Valid_9] took 0.149 sec
+    [junit] Testcase: valid[ProcessAccess_Valid_1] took 0.1 sec
+    [junit] Testcase: valid[ProcessAccess_Valid_2] took 0.142 sec
+    [junit] Testcase: valid[Process_Valid_1] took 0.091 sec
+    [junit] Testcase: valid[Process_Valid_10] took 0.121 sec
+    [junit] Testcase: valid[Process_Valid_11] took 0.137 sec
+    [junit] Testcase: valid[Process_Valid_12] took 0.131 sec
+    [junit] Testcase: valid[Process_Valid_2] took 0.264 sec
+    [junit] Testcase: valid[Process_Valid_3] took 0.077 sec
+    [junit] Testcase: valid[Process_Valid_4] took 0.069 sec
+    [junit] Testcase: valid[Process_Valid_5] took 0.085 sec
+    [junit] Testcase: valid[Process_Valid_6] took 0.071 sec
+    [junit] Testcase: valid[Process_Valid_7] took 0.071 sec
+    [junit] Testcase: valid[Process_Valid_8] took 0.114 sec
+    [junit] Testcase: valid[Process_Valid_9] took 0.116 sec
+    [junit] Testcase: valid[Property_Valid_1] took 0.071 sec
+    [junit] Testcase: valid[Property_Valid_2] took 0.065 sec
+    [junit] Testcase: valid[Property_Valid_3] took 0.048 sec
+    [junit] Testcase: valid[Property_Valid_4] took 0.064 sec
+    [junit] Testcase: valid[Property_Valid_5] took 0.078 sec
+    [junit] Testcase: valid[Property_Valid_6] took 0.092 sec
+    [junit] Testcase: valid[Property_Valid_7] took 0.245 sec
+    [junit] Testcase: valid[Property_Valid_8] took 0.152 sec
+    [junit] Testcase: valid[Quantifiers_Valid_1] took 0.098 sec
+    [junit] Testcase: valid[RecordAccess_Valid_1] took 0.067 sec
+    [junit] Testcase: valid[RecordAssign_Valid_1] took 0.179 sec
+    [junit] Testcase: valid[RecordAssign_Valid_10] took 0.114 sec
+    [junit] Testcase: valid[RecordAssign_Valid_11] took 0.138 sec
+    [junit] Testcase: valid[RecordAssign_Valid_12] took 0.194 sec
+    [junit] Testcase: valid[RecordAssign_Valid_13] took 0.074 sec
+    [junit] Testcase: valid[RecordAssign_Valid_14] took 0.176 sec
+    [junit] Testcase: valid[RecordAssign_Valid_2] took 0.233 sec
+    [junit] Testcase: valid[RecordAssign_Valid_3] took 0.131 sec
+    [junit] Testcase: valid[RecordAssign_Valid_4] took 0.096 sec
+    [junit] Testcase: valid[RecordAssign_Valid_5] took 0.119 sec
+    [junit] Testcase: valid[RecordAssign_Valid_6] took 0.149 sec
+    [junit] Testcase: valid[RecordAssign_Valid_7] took 0.177 sec
+    [junit] Testcase: valid[RecordAssign_Valid_8] took 0.134 sec
+    [junit] Testcase: valid[RecordAssign_Valid_9] took 0.105 sec
+    [junit] Testcase: valid[RecordCoercion_Valid_1] took 0.211 sec
+    [junit] Testcase: valid[RecordDefine_Valid_1] took 0.136 sec
+    [junit] Testcase: valid[RecordDefine_Valid_2] took 0.128 sec
+    [junit] Testcase: valid[RecordDefine_Valid_3] took 0.26 sec
+    [junit] Testcase: valid[RecordSubtype_Valid_1] took 0.001 sec
+    [junit] Testcase: valid[RecordSubtype_Valid_2] took 0 sec
+    [junit] Testcase: valid[Record_Valid_1] took 0.135 sec
+    [junit] Testcase: valid[Record_Valid_2] took 0.196 sec
+    [junit] Testcase: valid[Record_Valid_3] took 0.087 sec
+    [junit] Testcase: valid[Record_Valid_4] took 0.096 sec
+    [junit] Testcase: valid[RecursiveType_Valid_1] took 0.055 sec
+    [junit] Testcase: valid[RecursiveType_Valid_10] took 0.125 sec
+    [junit] Testcase: valid[RecursiveType_Valid_11] took 0.181 sec
+    [junit] Testcase: valid[RecursiveType_Valid_12] took 0 sec
+    [junit] Testcase: valid[RecursiveType_Valid_13] took 0.097 sec
+    [junit] Testcase: valid[RecursiveType_Valid_14] took 0.102 sec
+    [junit] Testcase: valid[RecursiveType_Valid_15] took 0.131 sec
+    [junit] Testcase: valid[RecursiveType_Valid_16] took 0.083 sec
+    [junit] Testcase: valid[RecursiveType_Valid_17] took 0.101 sec
+    [junit] Testcase: valid[RecursiveType_Valid_18] took 0.153 sec
+    [junit] Testcase: valid[RecursiveType_Valid_19] took 0.139 sec
+    [junit] Testcase: valid[RecursiveType_Valid_2] took 0.112 sec
+    [junit] Testcase: valid[RecursiveType_Valid_20] took 0.225 sec
+    [junit] Testcase: valid[RecursiveType_Valid_21] took 0.163 sec
+    [junit] Testcase: valid[RecursiveType_Valid_22] took 0 sec
+    [junit] Testcase: valid[RecursiveType_Valid_23] took 0.108 sec
+    [junit] Testcase: valid[RecursiveType_Valid_24] took 0.233 sec
+    [junit] Testcase: valid[RecursiveType_Valid_25] took 0.085 sec
+    [junit] Testcase: valid[RecursiveType_Valid_26] took 0.139 sec
+    [junit] Testcase: valid[RecursiveType_Valid_27] took 0.172 sec
+    [junit] Testcase: valid[RecursiveType_Valid_28] took 0.001 sec
+    [junit] Testcase: valid[RecursiveType_Valid_29] took 0.136 sec
+    [junit] Testcase: valid[RecursiveType_Valid_3] took 0 sec
+    [junit] Testcase: valid[RecursiveType_Valid_4] took 0.189 sec
+    [junit] Testcase: valid[RecursiveType_Valid_5] took 0.217 sec
+    [junit] Testcase: valid[RecursiveType_Valid_6] took 0.142 sec
+    [junit] Testcase: valid[RecursiveType_Valid_7] took 0.235 sec
+    [junit] Testcase: valid[RecursiveType_Valid_8] took 0.109 sec
+    [junit] Testcase: valid[RecursiveType_Valid_9] took 0.271 sec
+    [junit] Testcase: valid[ReferenceType_Valid_1] took 0.071 sec
+    [junit] Testcase: valid[Reference_Valid_1] took 0.232 sec
+    [junit] Testcase: valid[Reference_Valid_2] took 0.209 sec
+    [junit] Testcase: valid[Reference_Valid_3] took 0.132 sec
+    [junit] Testcase: valid[Reference_Valid_4] took 0.148 sec
+    [junit] Testcase: valid[Reference_Valid_5] took 0.214 sec
+    [junit] Testcase: valid[Reference_Valid_6] took 0.14 sec
+    [junit] Testcase: valid[Reference_Valid_7] took 0.151 sec
+    [junit] Testcase: valid[Reference_Valid_8] took 0.06 sec
+    [junit] Testcase: valid[Remainder_Valid_1] took 0.138 sec
+    [junit] Testcase: valid[Requires_Valid_1] took 0.059 sec
+    [junit] Testcase: valid[Resolution_Valid_1] took 0.191 sec
+    [junit] Testcase: valid[Return_Valid_1] took 0.136 sec
+    [junit] Testcase: valid[SingleLineComment_Valid_1] took 0.074 sec
+    [junit] Testcase: valid[Skip_Valid_1] took 0.179 sec
+    [junit] Testcase: valid[String_Valid_1] took 0.186 sec
+    [junit] Testcase: valid[String_Valid_2] took 0.159 sec
+    [junit] Testcase: valid[String_Valid_3] took 0.09 sec
+    [junit] Testcase: valid[String_Valid_4] took 0.104 sec
+    [junit] Testcase: valid[String_Valid_5] took 0.249 sec
+    [junit] Testcase: valid[String_Valid_6] took 0.111 sec
+    [junit] Testcase: valid[Subtype_Valid_1] took 0.304 sec
+    [junit] Testcase: valid[Subtype_Valid_10] took 0.132 sec
+    [junit] Testcase: valid[Subtype_Valid_11] took 0.2 sec
+    [junit] Testcase: valid[Subtype_Valid_12] took 0.082 sec
+    [junit] Testcase: valid[Subtype_Valid_13] took 0.221 sec
+    [junit] Testcase: valid[Subtype_Valid_14] took 0.112 sec
+    [junit] Testcase: valid[Subtype_Valid_2] took 0.17 sec
+    [junit] Testcase: valid[Subtype_Valid_3] took 0.098 sec
+    [junit] Testcase: valid[Subtype_Valid_4] took 0.295 sec
+    [junit] Testcase: valid[Subtype_Valid_5] took 0.136 sec
+    [junit] Testcase: valid[Subtype_Valid_6] took 0.262 sec
+    [junit] Testcase: valid[Subtype_Valid_7] took 0.152 sec
+    [junit] Testcase: valid[Subtype_Valid_8] took 0.269 sec
+    [junit] Testcase: valid[Subtype_Valid_9] took 0.245 sec
+    [junit] Testcase: valid[Switch_Valid_1] took 0.233 sec
+    [junit] Testcase: valid[Switch_Valid_10] took 0.145 sec
+    [junit] Testcase: valid[Switch_Valid_11] took 0.171 sec
+    [junit] Testcase: valid[Switch_Valid_12] took 0.204 sec
+    [junit] Testcase: valid[Switch_Valid_13] took 0.059 sec
+    [junit] Testcase: valid[Switch_Valid_2] took 0.19 sec
+    [junit] Testcase: valid[Switch_Valid_3] took 0.199 sec
+    [junit] Testcase: valid[Switch_Valid_4] took 0.151 sec
+    [junit] Testcase: valid[Switch_Valid_5] took 0.086 sec
+    [junit] Testcase: valid[Switch_Valid_6] took 0.094 sec
+    [junit] Testcase: valid[Switch_Valid_7] took 0.149 sec
+    [junit] Testcase: valid[Switch_Valid_8] took 0.15 sec
+    [junit] Testcase: valid[Switch_Valid_9] took 0.197 sec
+    [junit] Testcase: valid[Syntax_Valid_1] took 0.162 sec
+    [junit] Testcase: valid[TypeEquals_Valid_1] took 0.163 sec
+    [junit] Testcase: valid[TypeEquals_Valid_10] took 0.207 sec
+    [junit] Testcase: valid[TypeEquals_Valid_11] took 0.166 sec
+    [junit] Testcase: valid[TypeEquals_Valid_12] took 0.125 sec
+    [junit] Testcase: valid[TypeEquals_Valid_14] took 0.147 sec
+    [junit] Testcase: valid[TypeEquals_Valid_15] took 0.168 sec
+    [junit] Testcase: valid[TypeEquals_Valid_16] took 0.309 sec
+    [junit] Testcase: valid[TypeEquals_Valid_17] took 0.142 sec
+    [junit] Testcase: valid[TypeEquals_Valid_18] took 0.16 sec
+    [junit] Testcase: valid[TypeEquals_Valid_19] took 0.193 sec
+    [junit] Testcase: valid[TypeEquals_Valid_2] took 0.154 sec
+    [junit] Testcase: valid[TypeEquals_Valid_21] took 0.128 sec
+    [junit] Testcase: valid[TypeEquals_Valid_23] took 0 sec
+    [junit] Testcase: valid[TypeEquals_Valid_24] took 0.173 sec
+    [junit] Testcase: valid[TypeEquals_Valid_25] took 0.227 sec
+    [junit] Testcase: valid[TypeEquals_Valid_27] took 0.25 sec
+    [junit] Testcase: valid[TypeEquals_Valid_28] took 0.289 sec
+    [junit] Testcase: valid[TypeEquals_Valid_29] took 0.13 sec
+    [junit] Testcase: valid[TypeEquals_Valid_3] took 0.181 sec
+    [junit] Testcase: valid[TypeEquals_Valid_30] took 0.127 sec
+    [junit] Testcase: valid[TypeEquals_Valid_31] took 0.269 sec
+    [junit] Testcase: valid[TypeEquals_Valid_32] took 0.148 sec
+    [junit] Testcase: valid[TypeEquals_Valid_33] took 0.2 sec
+    [junit] Testcase: valid[TypeEquals_Valid_34] took 0.241 sec
+    [junit] Testcase: valid[TypeEquals_Valid_35] took 0.158 sec
+    [junit] Testcase: valid[TypeEquals_Valid_36] took 0 sec
+    [junit] Testcase: valid[TypeEquals_Valid_37] took 0 sec
+    [junit] Testcase: valid[TypeEquals_Valid_38] took 0 sec
+    [junit] Testcase: valid[TypeEquals_Valid_39] took 0.218 sec
+    [junit] Testcase: valid[TypeEquals_Valid_40] took 0.205 sec
+    [junit] Testcase: valid[TypeEquals_Valid_41] took 0 sec
+    [junit] Testcase: valid[TypeEquals_Valid_42] took 0.153 sec
+    [junit] Testcase: valid[TypeEquals_Valid_43] took 0.153 sec
+    [junit] Testcase: valid[TypeEquals_Valid_44] took 0.097 sec
+    [junit] Testcase: valid[TypeEquals_Valid_45] took 0.106 sec
+    [junit] Testcase: valid[TypeEquals_Valid_46] took 0.127 sec
+    [junit] Testcase: valid[TypeEquals_Valid_47] took 0.126 sec
+    [junit] Testcase: valid[TypeEquals_Valid_48] took 0.066 sec
+    [junit] Testcase: valid[TypeEquals_Valid_49] took 0.187 sec
+    [junit] Testcase: valid[TypeEquals_Valid_5] took 0.133 sec
+    [junit] Testcase: valid[TypeEquals_Valid_50] took 0.198 sec
+    [junit] Testcase: valid[TypeEquals_Valid_51] took 0.192 sec
+    [junit] Testcase: valid[TypeEquals_Valid_52] took 0.179 sec
+    [junit] Testcase: valid[TypeEquals_Valid_53] took 0.132 sec
+    [junit] Testcase: valid[TypeEquals_Valid_54] took 0.133 sec
+    [junit] Testcase: valid[TypeEquals_Valid_55] took 0.081 sec
+    [junit] Testcase: valid[TypeEquals_Valid_56] took 0.147 sec
+    [junit] Testcase: valid[TypeEquals_Valid_57] took 0.302 sec
+    [junit] Testcase: valid[TypeEquals_Valid_6] took 0.137 sec
+    [junit] Testcase: valid[TypeEquals_Valid_7] took 0.399 sec
+    [junit] Testcase: valid[TypeEquals_Valid_9] took 0.245 sec
+    [junit] Testcase: valid[UnionType_Valid_1] took 0.157 sec
+    [junit] Testcase: valid[UnionType_Valid_10] took 0.173 sec
+    [junit] Testcase: valid[UnionType_Valid_11] took 0.11 sec
+    [junit] Testcase: valid[UnionType_Valid_12] took 0.212 sec
+    [junit] Testcase: valid[UnionType_Valid_13] took 0.118 sec
+    [junit] Testcase: valid[UnionType_Valid_14] took 0.11 sec
+    [junit] Testcase: valid[UnionType_Valid_15] took 0.125 sec
+    [junit] Testcase: valid[UnionType_Valid_16] took 0.061 sec
+    [junit] Testcase: valid[UnionType_Valid_17] took 0.215 sec
+    [junit] Testcase: valid[UnionType_Valid_18] took 0.19 sec
+    [junit] Testcase: valid[UnionType_Valid_19] took 0.215 sec
+    [junit] Testcase: valid[UnionType_Valid_2] took 0.143 sec
+    [junit] Testcase: valid[UnionType_Valid_20] took 0.141 sec
+    [junit] Testcase: valid[UnionType_Valid_21] took 0.067 sec
+    [junit] Testcase: valid[UnionType_Valid_22] took 0.071 sec
+    [junit] Testcase: valid[UnionType_Valid_23] took 0.122 sec
+    [junit] Testcase: valid[UnionType_Valid_3] took 0.225 sec
+    [junit] Testcase: valid[UnionType_Valid_4] took 0.137 sec
+    [junit] Testcase: valid[UnionType_Valid_5] took 0.103 sec
+    [junit] Testcase: valid[UnionType_Valid_6] took 0.078 sec
+    [junit] Testcase: valid[UnionType_Valid_7] took 0.265 sec
+    [junit] Testcase: valid[UnionType_Valid_8] took 0.094 sec
+    [junit] Testcase: valid[UnionType_Valid_9] took 0.128 sec
+    [junit] Testcase: valid[Update_Valid_2] took 0.109 sec
+    [junit] Testcase: valid[VarDecl_Valid_1] took 0.073 sec
+    [junit] Testcase: valid[VarDecl_Valid_2] took 0.094 sec
+    [junit] Testcase: valid[VarDecl_Valid_3] took 0.15 sec
+    [junit] Testcase: valid[VarDecl_Valid_4] took 0.172 sec
+    [junit] Testcase: valid[While_Valid_1] took 0.123 sec
+    [junit] Testcase: valid[While_Valid_10] took 0.166 sec
+    [junit] Testcase: valid[While_Valid_11] took 0.134 sec
+    [junit] Testcase: valid[While_Valid_12] took 0.092 sec
+    [junit] Testcase: valid[While_Valid_14] took 0.096 sec
+    [junit] Testcase: valid[While_Valid_15] took 0.13 sec
+    [junit] Testcase: valid[While_Valid_16] took 0.155 sec
+    [junit] Testcase: valid[While_Valid_17] took 0.128 sec
+    [junit] Testcase: valid[While_Valid_18] took 0.087 sec
+    [junit] Testcase: valid[While_Valid_19] took 0.107 sec
+    [junit] Testcase: valid[While_Valid_2] took 0.085 sec
+    [junit] Testcase: valid[While_Valid_20] took 0.154 sec
+    [junit] Testcase: valid[While_Valid_21] took 0.126 sec
+    [junit] Testcase: valid[While_Valid_22] took 0.221 sec
+    [junit] Testcase: valid[While_Valid_23] took 0.088 sec
+    [junit] Testcase: valid[While_Valid_24] took 0.122 sec
+    [junit] Testcase: valid[While_Valid_25] took 0.081 sec
+    [junit] Testcase: valid[While_Valid_26] took 0.137 sec
+    [junit] Testcase: valid[While_Valid_27] took 0.133 sec
+    [junit] Testcase: valid[While_Valid_28] took 0.127 sec
+    [junit] Testcase: valid[While_Valid_29] took 0.163 sec
+    [junit] Testcase: valid[While_Valid_3] took 0.079 sec
+    [junit] Testcase: valid[While_Valid_30] took 0.143 sec
+    [junit] Testcase: valid[While_Valid_31] took 0.097 sec
+    [junit] Testcase: valid[While_Valid_32] took 0.07 sec
+    [junit] Testcase: valid[While_Valid_33] took 0.119 sec
+    [junit] Testcase: valid[While_Valid_34] took 0.166 sec
+    [junit] Testcase: valid[While_Valid_35] took 0.107 sec
+    [junit] Testcase: valid[While_Valid_36] took 0.133 sec
+    [junit] Testcase: valid[While_Valid_37] took 0.084 sec
+    [junit] Testcase: valid[While_Valid_38] took 0.132 sec
+    [junit] Testcase: valid[While_Valid_39] took 0.117 sec
+    [junit] Testcase: valid[While_Valid_40] took 0.111 sec
+    [junit] Testcase: valid[While_Valid_41] took 0.248 sec
+    [junit] Testcase: valid[While_Valid_42] took 0.159 sec
+    [junit] Testcase: valid[While_Valid_43] took 0.13 sec
+    [junit] Testcase: valid[While_Valid_44] took 0.143 sec
+    [junit] Testcase: valid[While_Valid_45] took 0.18 sec
+    [junit] Testcase: valid[While_Valid_46] took 0.164 sec
+    [junit] Testcase: valid[While_Valid_47] took 0.176 sec
+    [junit] Testcase: valid[While_Valid_48] took 0.09 sec
+    [junit] Testcase: valid[While_Valid_49] took 0.102 sec
+    [junit] Testcase: valid[While_Valid_5] took 0.075 sec
+    [junit] Testcase: valid[While_Valid_50] took 0.093 sec
+    [junit] Testcase: valid[While_Valid_51] took 0.122 sec
+    [junit] Testcase: valid[While_Valid_52] took 0.078 sec
+    [junit] Testcase: valid[While_Valid_53] took 0.154 sec
+    [junit] Testcase: valid[While_Valid_54] took 0.093 sec
+    [junit] Testcase: valid[While_Valid_55] took 0.155 sec
+    [junit] Testcase: valid[While_Valid_56] took 0.092 sec
+    [junit] Testcase: valid[While_Valid_7] took 0.125 sec
+    [junit] Testcase: valid[While_Valid_9] took 0.188 sec
+    [junit] Running wyc.testing.AllValidVerificationTest
+    [junit] Testsuite: wyc.testing.AllValidVerificationTest
+    [junit] Tests run: 540, Failures: 0, Errors: 26, Time elapsed: 84.616 sec
+    [junit] Tests run: 540, Failures: 0, Errors: 26, Time elapsed: 84.616 sec
+    [junit] 
+    [junit] Testcase: validVerification[Access_Valid_1] took 0.543 sec
+    [junit] Testcase: validVerification[Access_Valid_2] took 0.551 sec
+    [junit] Testcase: validVerification[AddressExpression_Valid_1] took 0.166 sec
+    [junit] Testcase: validVerification[AddressExpression_Valid_2] took 0.132 sec
+    [junit] Testcase: validVerification[AddressExpression_Valid_3] took 0.19 sec
+    [junit] Testcase: validVerification[AddressExpression_Valid_4] took 0.196 sec
+    [junit] Testcase: validVerification[Array_Valid_1] took 0.221 sec
+    [junit] Testcase: validVerification[Assert_Valid_1] took 0.006 sec
+    [junit] Testcase: validVerification[Assume_Valid_1] took 0.17 sec
+    [junit] Testcase: validVerification[Assume_Valid_2] took 0.181 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_1] took 0.226 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_2] took 0.2 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_3] took 1.81 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_4] took 0.304 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_5] took 0.276 sec
+    [junit] Testcase: validVerification[BoolAssign_Valid_6] took 0.163 sec
+    [junit] Testcase: validVerification[BoolFun_Valid_1] took 0.161 sec
+    [junit] Testcase: validVerification[BoolIfElse_Valid_1] took 0.179 sec
+    [junit] Testcase: validVerification[BoolIfElse_Valid_2] took 0.295 sec
+    [junit] Testcase: validVerification[BoolList_Valid_1] took 0.436 sec
+    [junit] Testcase: validVerification[BoolList_Valid_2] took 0.877 sec
+    [junit] Testcase: validVerification[BoolList_Valid_3] took 0.008 sec
+    [junit] Testcase: validVerification[BoolRecord_Valid_1] took 0.309 sec
+    [junit] Testcase: validVerification[BoolRecord_Valid_2] took 0.187 sec
+    [junit] Testcase: validVerification[BoolRequires_Valid_1] took 0.097 sec
+    [junit] Testcase: validVerification[BoolReturn_Valid_1] took 0.15 sec
+    [junit] Testcase: validVerification[Byte_Valid_1] took 0 sec
+    [junit] Testcase: validVerification[Byte_Valid_2] took 0.024 sec
+    [junit] Testcase: validVerification[Byte_Valid_3] took 0.005 sec
+    [junit] Testcase: validVerification[Byte_Valid_4] took 0.021 sec
+    [junit] Testcase: validVerification[Byte_Valid_5] took 0.728 sec
+    [junit] Testcase: validVerification[Byte_Valid_6] took 0.347 sec
+    [junit] Testcase: validVerification[Byte_Valid_7] took 0.44 sec
+    [junit] Testcase: validVerification[Byte_Valid_8] took 0.379 sec
+    [junit] Testcase: validVerification[Byte_Valid_9] took 0.917 sec
+    [junit] Testcase: validVerification[Cast_Valid_5] took 0 sec
+    [junit] Testcase: validVerification[Coercion_Valid_2] took 0.189 sec
+    [junit] Testcase: validVerification[Coercion_Valid_3] took 0.163 sec
+    [junit] Testcase: validVerification[Coercion_Valid_7] took 0.134 sec
+    [junit] Testcase: validVerification[Coercion_Valid_8] took 0.284 sec
+    [junit] Testcase: validVerification[Coercion_Valid_9] took 0.001 sec
+    [junit] Testcase: validVerification[Complex_Valid_1] took 0.001 sec
+    [junit] Testcase: validVerification[Complex_Valid_2] took 0 sec
+    [junit] Testcase: validVerification[Complex_Valid_3] took 0.013 sec
+    [junit] Testcase: validVerification[Complex_Valid_4] took 0.001 sec
+    [junit] Testcase: validVerification[Complex_Valid_5] took 0.005 sec
+    [junit] Testcase: validVerification[Complex_Valid_6] took 0.4 sec
+    [junit] Testcase: validVerification[Complex_Valid_7] took 0.016 sec
+    [junit] Testcase: validVerification[Complex_Valid_8] took 0.001 sec
+    [junit] Testcase: validVerification[Constant_Valid_3] took 0.183 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_1] took 0.224 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_10] took 0.133 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_12] took 0.17 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_13] took 0.061 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_15] took 0.114 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_16] took 0.104 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_17] took 0.149 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_18] took 0.118 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_19] took 0.178 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_2] took 0.158 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_20] took 0.148 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_21] took 0.192 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_22] took 0.001 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_23] took 0.135 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_24] took 0.308 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_3] took 0.135 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_4] took 0.125 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_5] took 0.115 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_6] took 0.17 sec
+    [junit] Testcase: validVerification[ConstrainedInt_Valid_8] took 0.869 sec
+    [junit] Testcase: validVerification[ConstrainedIntersection_Valid_1] took 0.083 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_1] took 0.128 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_11] took 0.158 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_12] took 0.109 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_14] took 0.001 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_15] took 0.156 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_16] took 0.147 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_17] took 0.209 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_18] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_19] took 0.123 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_2] took 0.321 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_20] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_21] took 1.331 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_22] took 0.001 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_23] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_25] took 0.304 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_26] took 0.122 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_27] took 0.121 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_28] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_3] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_4] took 0.172 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_5] took 0.092 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_6] took 0.001 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_7] took 0.153 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_8] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedList_Valid_9] took 0.177 sec
+    [junit] Testcase: validVerification[ConstrainedNegation_Valid_1] took 0.11 sec
+    [junit] Testcase: validVerification[ConstrainedNegation_Valid_2] took 0.15 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_1] took 0.149 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_10] took 0.086 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_2] took 0.187 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_3] took 0.119 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_4] took 0.091 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_5] took 0.081 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_6] took 0.311 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_8] took 0.358 sec
+    [junit] Testcase: validVerification[ConstrainedRecord_Valid_9] took 0 sec
+    [junit] Testcase: validVerification[ConstrainedReference_Valid_1] took 0.097 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[ConstrainedUnion_Valid_1] took 0.127 sec
+    [junit] Testcase: validVerification[Contractive_Valid_1] took 0.099 sec
+    [junit] Testcase: validVerification[Contractive_Valid_2] took 0.132 sec
+    [junit] Testcase: validVerification[Contractive_Valid_3] took 0.135 sec
+    [junit] Testcase: validVerification[Define_Valid_1] took 0.184 sec
+    [junit] Testcase: validVerification[Define_Valid_2] took 0.067 sec
+    [junit] Testcase: validVerification[Define_Valid_3] took 0.152 sec
+    [junit] Testcase: validVerification[Define_Valid_4] took 0.113 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_1] took 0.148 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_2] took 0.191 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_3] took 0.154 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_4] took 0 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_5] took 0.177 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_6] took 0.58 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_7] took 0.145 sec
+    [junit] Testcase: validVerification[DoWhile_Valid_8] took 0.191 sec
+    [junit] Testcase: validVerification[EffectiveList_Valid_1] took 0.284 sec
+    [junit] Testcase: validVerification[Ensures_Valid_1] took 0.068 sec
+    [junit] Testcase: validVerification[Ensures_Valid_2] took 0.048 sec
+    [junit] Testcase: validVerification[Ensures_Valid_3] took 0 sec
+    [junit] Testcase: validVerification[Ensures_Valid_4] took 0.064 sec
+    [junit] Testcase: validVerification[Ensures_Valid_5] took 0.052 sec
+    [junit] Testcase: validVerification[Ensures_Valid_6] took 0.142 sec
+    [junit] Testcase: validVerification[Ensures_Valid_7] took 0.086 sec
+    [junit] Testcase: validVerification[Ensures_Valid_8] took 0.056 sec
+    [junit] Testcase: validVerification[Fail_Valid_1] took 0.135 sec
+    [junit] Testcase: validVerification[Fail_Valid_2] took 0.06 sec
+    [junit] Testcase: validVerification[Fail_Valid_3] took 0.059 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_1] took 0.106 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_10] took 0.224 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_11] took 0.608 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_12] took 0.09 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_13] took 0.074 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_2] took 0.161 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_4] took 0.06 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_5] took 0.1 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_6] took 0.129 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_7] took 0.062 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[FunctionRef_Valid_8] took 0.115 sec
+    [junit] Testcase: validVerification[FunctionRef_Valid_9] took 0.119 sec
+    [junit] Testcase: validVerification[Function_Valid_1] took 0.128 sec
+    [junit] Testcase: validVerification[Function_Valid_11] took 0.001 sec
+    [junit] Testcase: validVerification[Function_Valid_12] took 0.131 sec
+    [junit] Testcase: validVerification[Function_Valid_13] took 0.112 sec
+    [junit] Testcase: validVerification[Function_Valid_14] took 0.126 sec
+    [junit] Testcase: validVerification[Function_Valid_15] took 0 sec
+    [junit] Testcase: validVerification[Function_Valid_16] took 0.191 sec
+    [junit] Testcase: validVerification[Function_Valid_17] took 0.126 sec
+    [junit] Testcase: validVerification[Function_Valid_18] took 0 sec
+    [junit] Testcase: validVerification[Function_Valid_2] took 0.068 sec
+    [junit] Testcase: validVerification[Function_Valid_20] took 0.104 sec
+    [junit] Testcase: validVerification[Function_Valid_21] took 0.094 sec
+    [junit] Testcase: validVerification[Function_Valid_3] took 0.112 sec
+    [junit] Testcase: validVerification[Function_Valid_4] took 0.195 sec
+    [junit] Testcase: validVerification[Function_Valid_5] took 0.21 sec
+    [junit] Testcase: validVerification[Function_Valid_6] took 0.432 sec
+    [junit] Testcase: validVerification[Function_Valid_7] took 0.442 sec
+    [junit] Testcase: validVerification[Function_Valid_8] took 0.304 sec
+    [junit] Testcase: validVerification[Function_Valid_9] took 0.363 sec
+    [junit] Testcase: validVerification[HexAssign_Valid_1] took 0.205 sec
+    [junit] Testcase: validVerification[IfElse_Valid_1] took 0.175 sec
+    [junit] Testcase: validVerification[IfElse_Valid_2] took 0.138 sec
+    [junit] Testcase: validVerification[IfElse_Valid_3] took 0.113 sec
+    [junit] Testcase: validVerification[IfElse_Valid_4] took 0 sec
+    [junit] Testcase: validVerification[IfElse_Valid_5] took 0.115 sec
+    [junit] Testcase: validVerification[Import_Valid_1] took 0.146 sec
+    [junit] Testcase: validVerification[Import_Valid_2] took 0.1 sec
+    [junit] Testcase: validVerification[Import_Valid_3] took 0.183 sec
+    [junit] Testcase: validVerification[Import_Valid_6] took 0.098 sec
+    [junit] Testcase: validVerification[IntConst_Valid_1] took 0.186 sec
+    [junit] Testcase: validVerification[IntDefine_Valid_1] took 0.165 sec
+    [junit] Testcase: validVerification[IntDefine_Valid_2] took 0.149 sec
+    [junit] Testcase: validVerification[IntDiv_Valid_1] took 0.221 sec
+    [junit] Testcase: validVerification[IntDiv_Valid_3] took 0.008 sec
+    [junit] Testcase: validVerification[IntDiv_Valid_4] took 0.081 sec
+    [junit] Testcase: validVerification[IntDiv_Valid_5] took 0.218 sec
+    [junit] Testcase: validVerification[IntMul_Valid_1] took 0.225 sec
+    [junit] Testcase: validVerification[IntMul_Valid_2] took 0.001 sec
+    [junit] Testcase: validVerification[IntOp_Valid_1] took 0 sec
+    [junit] Testcase: validVerification[Intersection_Valid_1] took 0.104 sec
+    [junit] Testcase: validVerification[Intersection_Valid_2] took 0.079 sec
+    [junit] Testcase: validVerification[Lambda_Valid_1] took 0.133 sec
+    [junit] Testcase: validVerification[Lambda_Valid_10] took 0.121 sec
+    [junit] Testcase: validVerification[Lambda_Valid_11] took 0.08 sec
+    [junit] Testcase: validVerification[Lambda_Valid_12] took 0.144 sec
+    [junit] Testcase: validVerification[Lambda_Valid_2] took 0.15 sec
+    [junit] Testcase: validVerification[Lambda_Valid_3] took 0 sec
+    [junit] Testcase: validVerification[Lambda_Valid_4] took 0 sec
+    [junit] Testcase: validVerification[Lambda_Valid_5] took 0.137 sec
+    [junit] Testcase: validVerification[Lambda_Valid_6] took 0.146 sec
+    [junit] Testcase: validVerification[Lambda_Valid_7] took 0.132 sec
+    [junit] Testcase: validVerification[Lambda_Valid_8] took 0.121 sec
+    [junit] Testcase: validVerification[Lambda_Valid_9] took 0.142 sec
+    [junit] Testcase: validVerification[LengthOf_Valid_1] took 0.124 sec
+    [junit] Testcase: validVerification[LengthOf_Valid_4] took 0.172 sec
+    [junit] Testcase: validVerification[LengthOf_Valid_5] took 0.146 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_1] took 0.095 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_2] took 0.08 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_3] took 0.138 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_4] took 0.001 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_5] took 0.11 sec
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_6] took 0.116 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Lambda_Valid_7] took 0.187 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_1] took 0.154 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_10] took 0.162 sec
+    [junit] Testcase: validVerification[Lifetime_Valid_2] took 0.137 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_3] took 0.127 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_4] took 0.248 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_5] took 0.175 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Lifetime_Valid_6] took 0.643 sec
+    [junit] Testcase: validVerification[Lifetime_Valid_7] took 0.284 sec
+    [junit] Testcase: validVerification[Lifetime_Valid_8] took 0 sec
+    [junit] Testcase: validVerification[Lifetime_Valid_9] took 0.18 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_1] took 0.152 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_3] took 0.242 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_5] took 0.074 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_6] took 0.001 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_8] took 0.309 sec
+    [junit] Testcase: validVerification[ListAccess_Valid_9] took 0.218 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_1] took 0.118 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_11] took 0.126 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_12] took 0.166 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_2] took 0.143 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_3] took 0.16 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_4] took 0.16 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_5] took 0.003 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_6] took 0.273 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_7] took 0.161 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_8] took 0.194 sec
+    [junit] Testcase: validVerification[ListAssign_Valid_9] took 1.039 sec
+    [junit] Testcase: validVerification[ListEmpty_Valid_1] took 0.124 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_1] took 0.084 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_10] took 0.107 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_11] took 0.094 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_12] took 0.166 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_2] took 0.096 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_3] took 0.097 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_5] took 0.084 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_6] took 0.1 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_7] took 0.106 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_8] took 0.115 sec
+    [junit] Testcase: validVerification[ListGenerator_Valid_9] took 0.086 sec
+    [junit] Testcase: validVerification[ListLength_Valid_1] took 0.164 sec
+    [junit] Testcase: validVerification[ListLength_Valid_2] took 0.162 sec
+    [junit] Testcase: validVerification[ListLength_Valid_3] took 0.066 sec
+    [junit] Testcase: validVerification[MessageRef_Valid_1] took 0.124 sec
+    [junit] Testcase: validVerification[MessageRef_Valid_2] took 0.073 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MessageSend_Valid_1] took 0.054 sec
+    [junit] Testcase: validVerification[MessageSend_Valid_2] took 0.154 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MessageSend_Valid_3] took 0.128 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MessageSend_Valid_4] took 0.101 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MessageSend_Valid_5] took 0.116 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MethodCall_Valid_1] took 0.097 sec
+    [junit] Testcase: validVerification[MethodCall_Valid_2] took 0.101 sec
+    [junit] Testcase: validVerification[MethodCall_Valid_3] took 0.099 sec
+    [junit] Testcase: validVerification[MethodCall_Valid_4] took 0.104 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[MethodRef_Valid_1] took 0.137 sec
+    [junit] Testcase: validVerification[MethodRef_Valid_2] took 0.162 sec
+    [junit] Testcase: validVerification[Method_Valid_1] took 0.672 sec
+    [junit] Testcase: validVerification[MultiLineComment_Valid_1] took 0.082 sec
+    [junit] Testcase: validVerification[MultiLineComment_Valid_2] took 0.132 sec
+    [junit] Testcase: validVerification[NegationType_Valid_1] took 0.132 sec
+    [junit] Testcase: validVerification[NegationType_Valid_2] took 0.115 sec
+    [junit] Testcase: validVerification[NegationType_Valid_3] took 0.115 sec
+    [junit] Testcase: validVerification[NegationType_Valid_4] took 0.189 sec
+    [junit] Testcase: validVerification[NegationType_Valid_5] took 0.107 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_1] took 0.12 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_10] took 0.138 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_11] took 0.087 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_2] took 0.131 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_3] took 0.076 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_4] took 0.001 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_5] took 0.317 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_6] took 0.245 sec
+    [junit] Testcase: validVerification[OpenRecord_Valid_9] took 0 sec
+    [junit] Testcase: validVerification[ProcessAccess_Valid_1] took 0.164 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[ProcessAccess_Valid_2] took 0.127 sec
+    [junit] Testcase: validVerification[Process_Valid_1] took 0 sec
+    [junit] Testcase: validVerification[Process_Valid_10] took 0 sec
+    [junit] Testcase: validVerification[Process_Valid_11] took 0.001 sec
+    [junit] Testcase: validVerification[Process_Valid_12] took 0.125 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_2] took 0.13 sec
+    [junit] Testcase: validVerification[Process_Valid_3] took 0.137 sec
+    [junit] Testcase: validVerification[Process_Valid_4] took 0.163 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:286)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_5] took 0.132 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_6] took 0.069 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_7] took 0.197 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_8] took 0.159 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeRecordAccess(WyalFilePrinter.java:509)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:347)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Process_Valid_9] took 0.001 sec
+    [junit] Testcase: validVerification[Property_Valid_1] took 1.156 sec
+    [junit] Testcase: validVerification[Property_Valid_2] took 0.316 sec
+    [junit] Testcase: validVerification[Property_Valid_3] took 0.186 sec
+    [junit] Testcase: validVerification[Property_Valid_4] took 0 sec
+    [junit] Testcase: validVerification[Property_Valid_5] took 0.53 sec
+    [junit] Testcase: validVerification[Property_Valid_6] took 0.315 sec
+    [junit] Testcase: validVerification[Property_Valid_7] took 0.98 sec
+    [junit] Testcase: validVerification[Property_Valid_8] took 0.08 sec
+    [junit] Testcase: validVerification[Quantifiers_Valid_1] took 0.118 sec
+    [junit] Testcase: validVerification[RecordAccess_Valid_1] took 0.143 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[RecordAssign_Valid_1] took 0.091 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_10] took 0.16 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_11] took 0.18 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_12] took 0.113 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_13] took 0.124 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_14] took 0.701 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_2] took 0.139 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_3] took 0.257 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_4] took 0.085 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_5] took 0.146 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_6] took 0.149 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_7] took 0.129 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_8] took 0.197 sec
+    [junit] Testcase: validVerification[RecordAssign_Valid_9] took 0.137 sec
+    [junit] Testcase: validVerification[RecordCoercion_Valid_1] took 0 sec
+    [junit] Testcase: validVerification[RecordDefine_Valid_1] took 0.273 sec
+    [junit] Testcase: validVerification[RecordDefine_Valid_2] took 0.154 sec
+    [junit] Testcase: validVerification[RecordDefine_Valid_3] took 0.132 sec
+    [junit] Testcase: validVerification[RecordSubtype_Valid_1] took 0 sec
+    [junit] Testcase: validVerification[RecordSubtype_Valid_2] took 0 sec
+    [junit] Testcase: validVerification[Record_Valid_1] took 0.205 sec
+    [junit] Testcase: validVerification[Record_Valid_2] took 0.113 sec
+    [junit] Testcase: validVerification[Record_Valid_3] took 0.001 sec
+    [junit] Testcase: validVerification[Record_Valid_4] took 0.098 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_1] took 0.174 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_10] took 0.124 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_11] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_12] took 0.001 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_13] took 0.085 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_14] took 0.269 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_15] took 0.162 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_16] took 0.171 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_17] took 0.141 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_18] took 0.137 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_19] took 0.001 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_2] took 0.001 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_20] took 0.167 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_21] took 0.136 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_22] took 0.001 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_23] took 0.135 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_24] took 0.367 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_25] took 0.134 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_26] took 0.234 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_27] took 0.404 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_28] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_29] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_3] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_4] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_5] took 0.178 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_6] took 0.124 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_7] took 0 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_8] took 0.124 sec
+    [junit] Testcase: validVerification[RecursiveType_Valid_9] took 0.099 sec
+    [junit] Testcase: validVerification[ReferenceType_Valid_1] took 0.147 sec
+    [junit] Testcase: validVerification[Reference_Valid_1] took 0.082 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIsOperator(WyalFilePrinter.java:439)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:326)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:233)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Reference_Valid_2] took 0 sec
+    [junit] Testcase: validVerification[Reference_Valid_3] took 0 sec
+    [junit] Testcase: validVerification[Reference_Valid_4] took 0.126 sec
+    [junit] Testcase: validVerification[Reference_Valid_5] took 0.071 sec
+    [junit] Testcase: validVerification[Reference_Valid_6] took 0 sec
+    [junit] Testcase: validVerification[Reference_Valid_7] took 0.16 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Reference_Valid_8] took 0.134 sec
+    [junit] 	Caused an ERROR
+    [junit] java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] java.lang.RuntimeException: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyc.commands.Compile.compile(Unknown Source)
+    [junit] 	at wyc.commands.Compile.execute(Unknown Source)
+    [junit] 	at wyc.util.TestUtils.compile(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.runTest(Unknown Source)
+    [junit] 	at wyc.testing.AllValidVerificationTest.validVerification(Unknown Source)
+    [junit] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    [junit] 	at java.lang.Thread.run(Thread.java:745)
+    [junit] Caused by: java.lang.RuntimeException: unknown bytecode encountered:EXPR_deref
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:360)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionWithBrackets(WyalFilePrinter.java:291)
+    [junit] 	at wyal.io.WyalFilePrinter.writeInfixOperator(WyalFilePrinter.java:434)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpression(WyalFilePrinter.java:323)
+    [junit] 	at wyal.io.WyalFilePrinter.writeExpressionAsStatement(WyalFilePrinter.java:223)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:217)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:204)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeIfThen(WyalFilePrinter.java:230)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:207)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.writeQuantifier(WyalFilePrinter.java:257)
+    [junit] 	at wyal.io.WyalFilePrinter.writeStatement(WyalFilePrinter.java:214)
+    [junit] 	at wyal.io.WyalFilePrinter.writeBlock(WyalFilePrinter.java:197)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:163)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:113)
+    [junit] 	at wyal.io.WyalFilePrinter.write(WyalFilePrinter.java:68)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:61)
+    [junit] 	at wyal.lang.WyalFile$1.write(WyalFile.java:44)
+    [junit] 	at wyfs.util.AbstractEntry.flush(AbstractEntry.java:77)
+    [junit] 	at wyil.builders.Wyil2WyalBuilder.build(Unknown Source)
+    [junit] 	at wybs.util.StdBuildRule.apply(StdBuildRule.java:107)
+    [junit] 	at wybs.util.StdProject.build(StdProject.java:256)
+    [junit] 
+    [junit] Testcase: validVerification[Remainder_Valid_1] took 1.171 sec
+    [junit] Testcase: validVerification[Requires_Valid_1] took 0.109 sec
+    [junit] Testcase: validVerification[Resolution_Valid_1] took 0.089 sec
+    [junit] Testcase: validVerification[Return_Valid_1] took 0.143 sec
+    [junit] Testcase: validVerification[SingleLineComment_Valid_1] took 0.059 sec
+    [junit] Testcase: validVerification[Skip_Valid_1] took 0.1 sec
+    [junit] Testcase: validVerification[String_Valid_1] took 0.122 sec
+    [junit] Testcase: validVerification[String_Valid_2] took 0.171 sec
+    [junit] Testcase: validVerification[String_Valid_3] took 0.144 sec
+    [junit] Testcase: validVerification[String_Valid_4] took 0.082 sec
+    [junit] Testcase: validVerification[String_Valid_5] took 0.195 sec
+    [junit] Testcase: validVerification[String_Valid_6] took 0.001 sec
+    [junit] Testcase: validVerification[Subtype_Valid_1] took 0.102 sec
+    [junit] Testcase: validVerification[Subtype_Valid_10] took 0.1 sec
+    [junit] Testcase: validVerification[Subtype_Valid_11] took 0.093 sec
+    [junit] Testcase: validVerification[Subtype_Valid_12] took 0.109 sec
+    [junit] Testcase: validVerification[Subtype_Valid_13] took 0.089 sec
+    [junit] Testcase: validVerification[Subtype_Valid_14] took 0.098 sec
+    [junit] Testcase: validVerification[Subtype_Valid_2] took 0.096 sec
+    [junit] Testcase: validVerification[Subtype_Valid_3] took 0.097 sec
+    [junit] Testcase: validVerification[Subtype_Valid_4] took 0.075 sec
+    [junit] Testcase: validVerification[Subtype_Valid_5] took 0 sec
+    [junit] Testcase: validVerification[Subtype_Valid_6] took 0.122 sec
+    [junit] Testcase: validVerification[Subtype_Valid_7] took 0.09 sec
+    [junit] Testcase: validVerification[Subtype_Valid_8] took 0.09 sec
+    [junit] Testcase: validVerification[Subtype_Valid_9] took 0.093 sec
+    [junit] Testcase: validVerification[Switch_Valid_1] took 0.139 sec
+    [junit] Testcase: validVerification[Switch_Valid_10] took 0.073 sec
+    [junit] Testcase: validVerification[Switch_Valid_11] took 0.061 sec
+    [junit] Testcase: validVerification[Switch_Valid_12] took 0.09 sec
+    [junit] Testcase: validVerification[Switch_Valid_13] took 0.114 sec
+    [junit] Testcase: validVerification[Switch_Valid_2] took 0.078 sec
+    [junit] Testcase: validVerification[Switch_Valid_3] took 0.099 sec
+    [junit] Testcase: validVerification[Switch_Valid_4] took 0.083 sec
+    [junit] Testcase: validVerification[Switch_Valid_5] took 0.091 sec
+    [junit] Testcase: validVerification[Switch_Valid_6] took 0.1 sec
+    [junit] Testcase: validVerification[Switch_Valid_7] took 0.146 sec
+    [junit] Testcase: validVerification[Switch_Valid_8] took 0.145 sec
+    [junit] Testcase: validVerification[Switch_Valid_9] took 0.11 sec
+    [junit] Testcase: validVerification[Syntax_Valid_1] took 0.098 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_1] took 0.127 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_10] took 0.154 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_11] took 0.105 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_12] took 0.091 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_14] took 0.125 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_15] took 0.132 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_16] took 0.085 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_17] took 0.178 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_18] took 0.143 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_19] took 0.131 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_2] took 0.122 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_21] took 0.172 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_23] took 0.001 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_24] took 0.112 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_25] took 0.001 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_27] took 0.089 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_28] took 0.144 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_29] took 0.163 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_3] took 0.191 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_30] took 0.001 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_31] took 0.112 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_32] took 0 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_33] took 0.086 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_34] took 0.109 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_35] took 0.113 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_36] took 0 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_37] took 0 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_38] took 0 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_39] took 0.123 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_40] took 0.115 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_41] took 0 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_42] took 0.135 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_43] took 0.098 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_44] took 0.084 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_45] took 0.085 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_46] took 0.056 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_47] took 0.069 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_48] took 0.075 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_49] took 0.055 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_5] took 0.114 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_50] took 0.118 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_51] took 0.112 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_52] took 0.116 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_53] took 0.2 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_54] took 0.001 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_55] took 0.128 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_56] took 0.141 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_57] took 0.097 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_6] took 0.116 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_7] took 0.111 sec
+    [junit] Testcase: validVerification[TypeEquals_Valid_9] took 0.145 sec
+    [junit] Testcase: validVerification[UnionType_Valid_1] took 0.116 sec
+    [junit] Testcase: validVerification[UnionType_Valid_10] took 0.061 sec
+    [junit] Testcase: validVerification[UnionType_Valid_11] took 0.087 sec
+    [junit] Testcase: validVerification[UnionType_Valid_12] took 0.05 sec
+    [junit] Testcase: validVerification[UnionType_Valid_13] took 0.052 sec
+    [junit] Testcase: validVerification[UnionType_Valid_14] took 0.121 sec
+    [junit] Testcase: validVerification[UnionType_Valid_15] took 0.082 sec
+    [junit] Testcase: validVerification[UnionType_Valid_16] took 0.044 sec
+    [junit] Testcase: validVerification[UnionType_Valid_17] took 0.06 sec
+    [junit] Testcase: validVerification[UnionType_Valid_18] took 0.06 sec
+    [junit] Testcase: validVerification[UnionType_Valid_19] took 0.089 sec
+    [junit] Testcase: validVerification[UnionType_Valid_2] took 0.399 sec
+    [junit] Testcase: validVerification[UnionType_Valid_20] took 0.132 sec
+    [junit] Testcase: validVerification[UnionType_Valid_21] took 0.095 sec
+    [junit] Testcase: validVerification[UnionType_Valid_22] took 0.067 sec
+    [junit] Testcase: validVerification[UnionType_Valid_23] took 0.053 sec
+    [junit] Testcase: validVerification[UnionType_Valid_3] took 0.063 sec
+    [junit] Testcase: validVerification[UnionType_Valid_4] took 0.057 sec
+    [junit] Testcase: validVerification[UnionType_Valid_5] took 0.073 sec
+    [junit] Testcase: validVerification[UnionType_Valid_6] took 0.064 sec
+    [junit] Testcase: validVerification[UnionType_Valid_7] took 0.075 sec
+    [junit] Testcase: validVerification[UnionType_Valid_8] took 0.081 sec
+    [junit] Testcase: validVerification[UnionType_Valid_9] took 0.08 sec
+    [junit] Testcase: validVerification[Update_Valid_2] took 0.103 sec
+    [junit] Testcase: validVerification[VarDecl_Valid_1] took 0.055 sec
+    [junit] Testcase: validVerification[VarDecl_Valid_2] took 0.062 sec
+    [junit] Testcase: validVerification[VarDecl_Valid_3] took 0.084 sec
+    [junit] Testcase: validVerification[VarDecl_Valid_4] took 0.084 sec
+    [junit] Testcase: validVerification[While_Valid_1] took 0.093 sec
+    [junit] Testcase: validVerification[While_Valid_10] took 0.09 sec
+    [junit] Testcase: validVerification[While_Valid_11] took 0.585 sec
+    [junit] Testcase: validVerification[While_Valid_12] took 0.25 sec
+    [junit] Testcase: validVerification[While_Valid_14] took 0.06 sec
+    [junit] Testcase: validVerification[While_Valid_15] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_16] took 0.715 sec
+    [junit] Testcase: validVerification[While_Valid_17] took 0.096 sec
+    [junit] Testcase: validVerification[While_Valid_18] took 0.127 sec
+    [junit] Testcase: validVerification[While_Valid_19] took 0.103 sec
+    [junit] Testcase: validVerification[While_Valid_2] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_20] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_21] took 0.381 sec
+    [junit] Testcase: validVerification[While_Valid_22] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_23] took 0.221 sec
+    [junit] Testcase: validVerification[While_Valid_24] took 0.138 sec
+    [junit] Testcase: validVerification[While_Valid_25] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_26] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_27] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_28] took 0.105 sec
+    [junit] Testcase: validVerification[While_Valid_29] took 0.272 sec
+    [junit] Testcase: validVerification[While_Valid_3] took 0.117 sec
+    [junit] Testcase: validVerification[While_Valid_30] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_31] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_32] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_33] took 0.193 sec
+    [junit] Testcase: validVerification[While_Valid_34] took 0.485 sec
+    [junit] Testcase: validVerification[While_Valid_35] took 0.633 sec
+    [junit] Testcase: validVerification[While_Valid_36] took 1.62 sec
+    [junit] Testcase: validVerification[While_Valid_37] took 0.002 sec
+    [junit] Testcase: validVerification[While_Valid_38] took 0.001 sec
+    [junit] Testcase: validVerification[While_Valid_39] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_40] took 0 sec
+    [junit] Testcase: validVerification[While_Valid_41] took 0.241 sec
+    [junit] Testcase: validVerification[While_Valid_42] took 0.635 sec
+    [junit] Testcase: validVerification[While_Valid_43] took 0.261 sec
+    [junit] Testcase: validVerification[While_Valid_44] took 0.263 sec
+    [junit] Testcase: validVerification[While_Valid_45] took 0.338 sec
+    [junit] Testcase: validVerification[While_Valid_46] took 0.212 sec
+    [junit] Testcase: validVerification[While_Valid_47] took 0.116 sec
+    [junit] Testcase: validVerification[While_Valid_48] took 0.077 sec
+    [junit] Testcase: validVerification[While_Valid_49] took 0.14 sec
+    [junit] Testcase: validVerification[While_Valid_5] took 0.608 sec
+    [junit] Testcase: validVerification[While_Valid_50] took 0.197 sec
+    [junit] Testcase: validVerification[While_Valid_51] took 0.153 sec
+    [junit] Testcase: validVerification[While_Valid_52] took 0.159 sec
+    [junit] Testcase: validVerification[While_Valid_53] took 0.296 sec
+    [junit] Testcase: validVerification[While_Valid_54] took 0.306 sec
+    [junit] Testcase: validVerification[While_Valid_55] took 0.503 sec
+    [junit] Testcase: validVerification[While_Valid_56] took 0.287 sec
+    [junit] Testcase: validVerification[While_Valid_7] took 0.16 sec
+    [junit] Testcase: validVerification[While_Valid_9] took 0.153 sec
+
+BUILD FAILED
+/home/travis/build/Whiley/WhileyCompiler/build.xml:55: Test wyc.testing.AllValidVerificationTest failed
+
+Total time: 3 minutes 15 seconds
+
+travis_time:end:283932d8:start=1495116133909925502,finish=1495116330754113232,duration=196844187730[0K
+[31;1mThe command "ant test" exited with 1.[0m
+
+Done. Your build exited with 1.

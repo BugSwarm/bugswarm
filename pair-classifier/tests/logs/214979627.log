@@ -1,0 +1,813 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: i-05b7c07-precise-production-2-worker-org-docker.travisci.net:f0153724-e1b4-44da-9d26-9e2d794ea859
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: b627797:travis:python
+startup: 639.829269ms
+travis_fold:end:worker_info[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+Build id: 214979623
+Job id: 214979627
+travis-build version: d39932a43
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 259 not upgraded.
+Need to get 8,856 kB of archives.
+After this operation, 13.3 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.18 [2,948 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.18 [84.5 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.18 [1,178 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.18 [4,646 kB]
+Fetched 8,856 kB in 0s (32.4 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.18) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72430 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.18) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.18) ...
+Setting up libc6-dev (2.15-0ubuntu10.18) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0K[33;1m3.5 is not installed; attempting download[0m
+[33;1mDownloading archive: https://s3.amazonaws.com/travis-python-archives/binaries/ubuntu/12.04/x86_64/python-3.5.tar.bz2[0m
+$ sudo tar xjf python-3.5.tar.bz2 --directory /
+travis_fold:start:git.checkout[0Ktravis_time:start:0864448b[0K$ git clone --depth=50 --branch=fixing-pages-index https://github.com/getnikola/nikola.git getnikola/nikola
+Cloning into 'getnikola/nikola'...
+remote: Counting objects: 2919, done.[K
+remote: Compressing objects:   0% (1/1564)   [Kremote: Compressing objects:   1% (16/1564)   [Kremote: Compressing objects:   2% (32/1564)   [Kremote: Compressing objects:   3% (47/1564)   [Kremote: Compressing objects:   4% (63/1564)   [Kremote: Compressing objects:   5% (79/1564)   [Kremote: Compressing objects:   6% (94/1564)   [Kremote: Compressing objects:   7% (110/1564)   [Kremote: Compressing objects:   8% (126/1564)   [Kremote: Compressing objects:   9% (141/1564)   [Kremote: Compressing objects:  10% (157/1564)   [Kremote: Compressing objects:  11% (173/1564)   [Kremote: Compressing objects:  12% (188/1564)   [Kremote: Compressing objects:  13% (204/1564)   [Kremote: Compressing objects:  14% (219/1564)   [Kremote: Compressing objects:  15% (235/1564)   [Kremote: Compressing objects:  16% (251/1564)   [Kremote: Compressing objects:  17% (266/1564)   [Kremote: Compressing objects:  18% (282/1564)   [Kremote: Compressing objects:  19% (298/1564)   [Kremote: Compressing objects:  20% (313/1564)   [Kremote: Compressing objects:  21% (329/1564)   [Kremote: Compressing objects:  22% (345/1564)   [Kremote: Compressing objects:  23% (360/1564)   [Kremote: Compressing objects:  24% (376/1564)   [Kremote: Compressing objects:  25% (391/1564)   [Kremote: Compressing objects:  26% (407/1564)   [Kremote: Compressing objects:  27% (423/1564)   [Kremote: Compressing objects:  28% (438/1564)   [Kremote: Compressing objects:  29% (454/1564)   [Kremote: Compressing objects:  30% (470/1564)   [Kremote: Compressing objects:  31% (485/1564)   [Kremote: Compressing objects:  32% (501/1564)   [Kremote: Compressing objects:  33% (517/1564)   [Kremote: Compressing objects:  34% (532/1564)   [Kremote: Compressing objects:  35% (548/1564)   [Kremote: Compressing objects:  36% (564/1564)   [Kremote: Compressing objects:  37% (579/1564)   [Kremote: Compressing objects:  38% (595/1564)   [Kremote: Compressing objects:  39% (610/1564)   [Kremote: Compressing objects:  40% (626/1564)   [Kremote: Compressing objects:  41% (642/1564)   [Kremote: Compressing objects:  42% (657/1564)   [Kremote: Compressing objects:  43% (673/1564)   [Kremote: Compressing objects:  44% (689/1564)   [Kremote: Compressing objects:  45% (704/1564)   [Kremote: Compressing objects:  46% (720/1564)   [Kremote: Compressing objects:  47% (736/1564)   [Kremote: Compressing objects:  48% (751/1564)   [Kremote: Compressing objects:  49% (767/1564)   [Kremote: Compressing objects:  50% (782/1564)   [Kremote: Compressing objects:  51% (798/1564)   [Kremote: Compressing objects:  52% (814/1564)   [Kremote: Compressing objects:  53% (829/1564)   [Kremote: Compressing objects:  54% (845/1564)   [Kremote: Compressing objects:  55% (861/1564)   [Kremote: Compressing objects:  56% (876/1564)   [Kremote: Compressing objects:  57% (892/1564)   [Kremote: Compressing objects:  58% (908/1564)   [Kremote: Compressing objects:  59% (923/1564)   [Kremote: Compressing objects:  60% (939/1564)   [Kremote: Compressing objects:  61% (955/1564)   [Kremote: Compressing objects:  62% (970/1564)   [Kremote: Compressing objects:  63% (986/1564)   [Kremote: Compressing objects:  64% (1001/1564)   [Kremote: Compressing objects:  65% (1017/1564)   [Kremote: Compressing objects:  66% (1033/1564)   [Kremote: Compressing objects:  67% (1048/1564)   [Kremote: Compressing objects:  68% (1064/1564)   [Kremote: Compressing objects:  69% (1080/1564)   [Kremote: Compressing objects:  70% (1095/1564)   [Kremote: Compressing objects:  71% (1111/1564)   [Kremote: Compressing objects:  72% (1127/1564)   [Kremote: Compressing objects:  73% (1142/1564)   [Kremote: Compressing objects:  74% (1158/1564)   [Kremote: Compressing objects:  75% (1173/1564)   [Kremote: Compressing objects:  76% (1189/1564)   [Kremote: Compressing objects:  77% (1205/1564)   [Kremote: Compressing objects:  78% (1220/1564)   [Kremote: Compressing objects:  79% (1236/1564)   [Kremote: Compressing objects:  80% (1252/1564)   [Kremote: Compressing objects:  81% (1267/1564)   [Kremote: Compressing objects:  82% (1283/1564)   [Kremote: Compressing objects:  83% (1299/1564)   [Kremote: Compressing objects:  84% (1314/1564)   [Kremote: Compressing objects:  85% (1330/1564)   [Kremote: Compressing objects:  86% (1346/1564)   [Kremote: Compressing objects:  87% (1361/1564)   [Kremote: Compressing objects:  88% (1377/1564)   [Kremote: Compressing objects:  89% (1392/1564)   [Kremote: Compressing objects:  90% (1408/1564)   [Kremote: Compressing objects:  91% (1424/1564)   [Kremote: Compressing objects:  92% (1439/1564)   [Kremote: Compressing objects:  93% (1455/1564)   [Kremote: Compressing objects:  94% (1471/1564)   [Kremote: Compressing objects:  95% (1486/1564)   [Kremote: Compressing objects:  96% (1502/1564)   [Kremote: Compressing objects:  97% (1518/1564)   [Kremote: Compressing objects:  98% (1533/1564)   [Kremote: Compressing objects:  99% (1549/1564)   [Kremote: Compressing objects: 100% (1564/1564)   [Kremote: Compressing objects: 100% (1564/1564), done.[K
+Receiving objects:   0% (1/2919)   Receiving objects:   1% (30/2919)   Receiving objects:   2% (59/2919)   Receiving objects:   3% (88/2919)   Receiving objects:   4% (117/2919)   Receiving objects:   5% (146/2919)   Receiving objects:   6% (176/2919)   Receiving objects:   7% (205/2919)   Receiving objects:   8% (234/2919)   Receiving objects:   9% (263/2919)   Receiving objects:  10% (292/2919)   Receiving objects:  11% (322/2919)   Receiving objects:  12% (351/2919)   Receiving objects:  13% (380/2919)   Receiving objects:  14% (409/2919)   Receiving objects:  15% (438/2919)   Receiving objects:  16% (468/2919)   Receiving objects:  17% (497/2919)   Receiving objects:  18% (526/2919)   Receiving objects:  19% (555/2919)   Receiving objects:  20% (584/2919)   Receiving objects:  21% (613/2919)   Receiving objects:  22% (643/2919)   Receiving objects:  23% (672/2919)   Receiving objects:  24% (701/2919)   Receiving objects:  25% (730/2919)   Receiving objects:  26% (759/2919)   Receiving objects:  27% (789/2919)   Receiving objects:  28% (818/2919)   Receiving objects:  29% (847/2919)   Receiving objects:  30% (876/2919)   Receiving objects:  31% (905/2919)   Receiving objects:  32% (935/2919)   Receiving objects:  33% (964/2919)   Receiving objects:  34% (993/2919)   Receiving objects:  35% (1022/2919)   Receiving objects:  36% (1051/2919)   Receiving objects:  37% (1081/2919)   Receiving objects:  38% (1110/2919)   Receiving objects:  39% (1139/2919)   Receiving objects:  40% (1168/2919)   Receiving objects:  41% (1197/2919)   Receiving objects:  42% (1226/2919)   Receiving objects:  43% (1256/2919)   Receiving objects:  44% (1285/2919)   Receiving objects:  45% (1314/2919)   Receiving objects:  46% (1343/2919)   Receiving objects:  47% (1372/2919)   Receiving objects:  48% (1402/2919)   Receiving objects:  49% (1431/2919)   Receiving objects:  50% (1460/2919)   Receiving objects:  51% (1489/2919)   Receiving objects:  52% (1518/2919)   Receiving objects:  53% (1548/2919)   Receiving objects:  54% (1577/2919)   Receiving objects:  55% (1606/2919)   Receiving objects:  56% (1635/2919)   Receiving objects:  57% (1664/2919)   Receiving objects:  58% (1694/2919)   Receiving objects:  59% (1723/2919)   Receiving objects:  60% (1752/2919)   Receiving objects:  61% (1781/2919)   Receiving objects:  62% (1810/2919)   Receiving objects:  63% (1839/2919)   Receiving objects:  64% (1869/2919)   Receiving objects:  65% (1898/2919)   Receiving objects:  66% (1927/2919)   Receiving objects:  67% (1956/2919)   Receiving objects:  68% (1985/2919)   Receiving objects:  69% (2015/2919)   Receiving objects:  70% (2044/2919)   Receiving objects:  71% (2073/2919)   Receiving objects:  72% (2102/2919)   Receiving objects:  73% (2131/2919)   Receiving objects:  74% (2161/2919)   Receiving objects:  75% (2190/2919)   Receiving objects:  76% (2219/2919)   Receiving objects:  77% (2248/2919)   Receiving objects:  78% (2277/2919)   Receiving objects:  79% (2307/2919)   Receiving objects:  80% (2336/2919)   Receiving objects:  81% (2365/2919)   Receiving objects:  82% (2394/2919)   Receiving objects:  83% (2423/2919)   Receiving objects:  84% (2452/2919)   Receiving objects:  85% (2482/2919)   Receiving objects:  86% (2511/2919)   Receiving objects:  87% (2540/2919)   Receiving objects:  88% (2569/2919)   Receiving objects:  89% (2598/2919)   Receiving objects:  90% (2628/2919)   Receiving objects:  91% (2657/2919)   Receiving objects:  92% (2686/2919)   Receiving objects:  93% (2715/2919)   Receiving objects:  94% (2744/2919)   Receiving objects:  95% (2774/2919)   Receiving objects:  96% (2803/2919)   Receiving objects:  97% (2832/2919)   Receiving objects:  98% (2861/2919)   remote: Total 2919 (delta 1578), reused 2100 (delta 1294), pack-reused 0[K
+Receiving objects:  99% (2890/2919)   Receiving objects: 100% (2919/2919)   Receiving objects: 100% (2919/2919), 3.07 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/1578)   Resolving deltas:   1% (25/1578)   Resolving deltas:   2% (32/1578)   Resolving deltas:   3% (48/1578)   Resolving deltas:   4% (64/1578)   Resolving deltas:   5% (79/1578)   Resolving deltas:   6% (97/1578)   Resolving deltas:   7% (114/1578)   Resolving deltas:   8% (127/1578)   Resolving deltas:   9% (146/1578)   Resolving deltas:  10% (160/1578)   Resolving deltas:  11% (174/1578)   Resolving deltas:  12% (190/1578)   Resolving deltas:  13% (206/1578)   Resolving deltas:  14% (226/1578)   Resolving deltas:  15% (237/1578)   Resolving deltas:  16% (254/1578)   Resolving deltas:  17% (275/1578)   Resolving deltas:  18% (288/1578)   Resolving deltas:  19% (300/1578)   Resolving deltas:  20% (316/1578)   Resolving deltas:  21% (337/1578)   Resolving deltas:  22% (350/1578)   Resolving deltas:  23% (363/1578)   Resolving deltas:  24% (379/1578)   Resolving deltas:  25% (395/1578)   Resolving deltas:  26% (411/1578)   Resolving deltas:  27% (427/1578)   Resolving deltas:  28% (447/1578)   Resolving deltas:  29% (459/1578)   Resolving deltas:  30% (478/1578)   Resolving deltas:  32% (515/1578)   Resolving deltas:  33% (522/1578)   Resolving deltas:  34% (537/1578)   Resolving deltas:  35% (556/1578)   Resolving deltas:  36% (571/1578)   Resolving deltas:  37% (585/1578)   Resolving deltas:  38% (600/1578)   Resolving deltas:  39% (616/1578)   Resolving deltas:  40% (632/1578)   Resolving deltas:  41% (647/1578)   Resolving deltas:  42% (663/1578)   Resolving deltas:  44% (696/1578)   Resolving deltas:  45% (713/1578)   Resolving deltas:  46% (727/1578)   Resolving deltas:  48% (768/1578)   Resolving deltas:  50% (790/1578)   Resolving deltas:  51% (807/1578)   Resolving deltas:  52% (821/1578)   Resolving deltas:  53% (837/1578)   Resolving deltas:  54% (854/1578)   Resolving deltas:  56% (899/1578)   Resolving deltas:  57% (903/1578)   Resolving deltas:  58% (919/1578)   Resolving deltas:  59% (932/1578)   Resolving deltas:  60% (957/1578)   Resolving deltas:  61% (963/1578)   Resolving deltas:  62% (979/1578)   Resolving deltas:  63% (997/1578)   Resolving deltas:  64% (1014/1578)   Resolving deltas:  65% (1032/1578)   Resolving deltas:  66% (1042/1578)   Resolving deltas:  67% (1060/1578)   Resolving deltas:  68% (1079/1578)   Resolving deltas:  69% (1089/1578)   Resolving deltas:  70% (1108/1578)   Resolving deltas:  71% (1123/1578)   Resolving deltas:  72% (1140/1578)   Resolving deltas:  73% (1154/1578)   Resolving deltas:  75% (1187/1578)   Resolving deltas:  80% (1265/1578)   Resolving deltas:  86% (1362/1578)   Resolving deltas:  87% (1375/1578)   Resolving deltas:  91% (1441/1578)   Resolving deltas:  92% (1456/1578)   Resolving deltas:  93% (1474/1578)   Resolving deltas:  94% (1487/1578)   Resolving deltas:  95% (1504/1578)   Resolving deltas:  99% (1564/1578)   Resolving deltas: 100% (1578/1578)   Resolving deltas: 100% (1578/1578), done.
+Checking connectivity... done.
+
+travis_time:end:0864448b:start=1490452210640424019,finish=1490452211670148218,duration=1029724199[0K$ cd getnikola/nikola
+$ git checkout -qf a8ab66e14e2e37301e451b508fe784327560491b
+travis_fold:end:git.checkout[0Ktravis_fold:start:apt[0K[33;1mInstalling APT Packages (BETA)[0m
+$ export DEBIAN_FRONTEND=noninteractive
+travis_time:start:0532992a[0K$ sudo -E apt-get -yq update &>> ~/apt-get-update.log
+
+travis_time:end:0532992a:start=1490452211775426100,finish=1490452216711385792,duration=4935959692[0Ktravis_time:start:04089772[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install language-pack-en-base language-pack-pl-base
+Reading package lists...
+Building dependency tree...
+Reading state information...
+language-pack-en-base is already the newest version.
+language-pack-en-base set to manually installed.
+Recommended packages:
+  firefox-locale-pl
+The following NEW packages will be installed:
+  language-pack-pl language-pack-pl-base
+0 upgraded, 2 newly installed, 0 to remove and 259 not upgraded.
+Need to get 2,310 kB of archives.
+After this operation, 7,759 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main language-pack-pl-base all 1:12.04+20140106 [2,308 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main language-pack-pl all 1:12.04+20140106 [1,970 B]
+Fetched 2,310 kB in 0s (15.5 MB/s)
+Selecting previously unselected package language-pack-pl-base.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72430 files and directories currently installed.)
+Unpacking language-pack-pl-base (from .../language-pack-pl-base_1%3a12.04+20140106_all.deb) ...
+Selecting previously unselected package language-pack-pl.
+Unpacking language-pack-pl (from .../language-pack-pl_1%3a12.04+20140106_all.deb) ...
+Setting up language-pack-pl (1:12.04+20140106) ...
+Setting up language-pack-pl-base (1:12.04+20140106) ...
+Generating locales...
+  pl_PL.UTF-8... done
+Generation complete.
+
+travis_time:end:04089772:start=1490452216716693252,finish=1490452223927491522,duration=7210798270[0Ktravis_fold:end:apt[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export CODACY_PROJECT_TOKEN=[secure]
+$ export NMODE=nikola
+
+travis_time:start:381d5024[0K$ source ~/virtualenv/python3.5/bin/activate
+
+travis_time:end:381d5024:start=1490452227070421983,finish=1490452227075420418,duration=4998435[0K$ python --version
+Python 3.5.2
+$ pip --version
+pip 9.0.1 from /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (python 3.5)
+travis_fold:start:before_install[0Ktravis_time:start:1754dcca[0K$ pip install --upgrade pip wheel
+Requirement already up-to-date: pip in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
+Requirement already up-to-date: wheel in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
+
+travis_time:end:1754dcca:start=1490452227476884363,finish=1490452228148167445,duration=671283082[0Ktravis_fold:end:before_install[0Ktravis_fold:start:install.1[0Ktravis_time:start:1d2e503c[0K$ if [[ $NMODE == 'nikola' ]]; then scripts/getwheelhouse.sh $(scripts/getpyver.py short); fi
+--2017-03-25 14:30:28--  https://github.com/getnikola/wheelhouse/archive/v3.5.zip
+Resolving github.com (github.com)... 192.30.253.112, 192.30.253.113
+Connecting to github.com (github.com)|192.30.253.112|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/getnikola/wheelhouse/zip/v3.5 [following]
+--2017-03-25 14:30:28--  https://codeload.github.com/getnikola/wheelhouse/zip/v3.5
+Resolving codeload.github.com (codeload.github.com)... 192.30.253.121, 192.30.253.120
+Connecting to codeload.github.com (codeload.github.com)|192.30.253.121|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/zip]
+Saving to: `v3.5.zip'
+
+    [<=>                                    ] 0           --.-K/s                  [ <=>                                   ] 6,292,826   20.3M/s                  [  <=>                                  ] 14,688,256  26.6M/s                  [   <=>                                 ] 25,167,194  29.9M/s                  [    <=>                                ] 26,821,312  31.2M/s   in 0.8s    
+
+2017-03-25 14:30:29 (31.2 MB/s) - `v3.5.zip' saved [26821312]
+
+Archive:  v3.5.zip
+da76fd44948ed7126d8a49aade635fb359e1678a
+   creating: wheelhouse-3.5/
+  inflating: wheelhouse-3.5/Jinja2-2.9.5-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/MarkupSafe-0.23-cp35-cp35m-linux_x86_64.whl  
+  inflating: wheelhouse-3.5/Pillow-4.0.0-cp35-cp35m-manylinux1_x86_64.whl  
+  inflating: wheelhouse-3.5/PyYAML-3.12-cp35-cp35m-linux_x86_64.whl  
+  inflating: wheelhouse-3.5/Pygments-2.2.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/appdirs-1.4.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/bleach-1.5.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/decorator-4.0.11-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/entrypoints-0.2.2-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/html5lib-0.9999999-py3-none-any.whl  
+  inflating: wheelhouse-3.5/ipykernel-4.5.2-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/ipython-5.2.2-py3-none-any.whl  
+  inflating: wheelhouse-3.5/ipython_genutils-0.1.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/jsonschema-2.6.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/jupyter_client-4.4.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/jupyter_core-4.3.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/lxml-3.7.3-cp35-cp35m-manylinux1_x86_64.whl  
+  inflating: wheelhouse-3.5/mistune-0.7.3-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/nbconvert-5.1.1-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/nbformat-4.2.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/notebook-4.4.1-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/olefile-0.44-py3-none-any.whl  
+  inflating: wheelhouse-3.5/packaging-16.8-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/pandocfilters-1.4.1-py3-none-any.whl  
+  inflating: wheelhouse-3.5/pexpect-4.2.1-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/pickleshare-0.7.4-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/prompt_toolkit-1.0.13-py3-none-any.whl  
+  inflating: wheelhouse-3.5/ptyprocess-0.5.1-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/pyparsing-2.1.10-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/pyzmq-16.0.2-cp35-cp35m-manylinux1_x86_64.whl  
+  inflating: wheelhouse-3.5/setuptools-34.2.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/simplegeneric-0.8.1-py3-none-any.whl  
+  inflating: wheelhouse-3.5/six-1.10.0-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/terminado-0.6-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/testpath-0.3-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/tornado-4.4.2-cp35-cp35m-linux_x86_64.whl  
+  inflating: wheelhouse-3.5/traitlets-4.3.1-py2.py3-none-any.whl  
+  inflating: wheelhouse-3.5/wcwidth-0.1.7-py2.py3-none-any.whl  
+Collecting lxml
+Collecting Pillow
+Collecting ipykernel
+Collecting notebook
+Collecting PyYAML
+Collecting olefile (from Pillow)
+Collecting tornado>=4.0 (from ipykernel)
+Collecting jupyter-client (from ipykernel)
+Collecting traitlets>=4.1.0 (from ipykernel)
+Collecting ipython>=4.0.0 (from ipykernel)
+Collecting ipython-genutils (from notebook)
+Collecting nbconvert (from notebook)
+Collecting jupyter-core (from notebook)
+Collecting terminado>=0.3.3; sys_platform != "win32" (from notebook)
+Collecting jinja2 (from notebook)
+Collecting nbformat (from notebook)
+Collecting pyzmq>=13 (from jupyter-client->ipykernel)
+Collecting decorator (from traitlets>=4.1.0->ipykernel)
+Requirement already satisfied: six in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from traitlets>=4.1.0->ipykernel)
+Collecting pygments (from ipython>=4.0.0->ipykernel)
+Requirement already satisfied: setuptools>=18.5 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipython>=4.0.0->ipykernel)
+Collecting simplegeneric>0.8 (from ipython>=4.0.0->ipykernel)
+Collecting pickleshare (from ipython>=4.0.0->ipykernel)
+Collecting pexpect; sys_platform != "win32" (from ipython>=4.0.0->ipykernel)
+Collecting prompt-toolkit<2.0.0,>=1.0.4 (from ipython>=4.0.0->ipykernel)
+Collecting mistune!=0.6 (from nbconvert->notebook)
+Collecting pandocfilters>=1.4.1 (from nbconvert->notebook)
+Collecting testpath (from nbconvert->notebook)
+Collecting bleach (from nbconvert->notebook)
+Collecting entrypoints>=0.2.2 (from nbconvert->notebook)
+Collecting ptyprocess (from terminado>=0.3.3; sys_platform != "win32"->notebook)
+Collecting MarkupSafe>=0.23 (from jinja2->notebook)
+Collecting jsonschema!=2.5.0,>=2.4 (from nbformat->notebook)
+Collecting wcwidth (from prompt-toolkit<2.0.0,>=1.0.4->ipython>=4.0.0->ipykernel)
+Collecting html5lib!=0.9999,!=0.99999,<0.99999999,>=0.999 (from bleach->nbconvert->notebook)
+Installing collected packages: lxml, olefile, Pillow, tornado, pyzmq, decorator, ipython-genutils, traitlets, jupyter-core, jupyter-client, pygments, simplegeneric, pickleshare, ptyprocess, pexpect, wcwidth, prompt-toolkit, ipython, ipykernel, mistune, MarkupSafe, jinja2, pandocfilters, testpath, jsonschema, nbformat, html5lib, bleach, entrypoints, nbconvert, terminado, notebook, PyYAML
+Successfully installed MarkupSafe-0.23 Pillow-4.0.0 PyYAML-3.12 bleach-1.5.0 decorator-4.0.11 entrypoints-0.2.2 html5lib-0.9999999 ipykernel-4.5.2 ipython-5.2.2 ipython-genutils-0.1.0 jinja2-2.9.5 jsonschema-2.6.0 jupyter-client-4.4.0 jupyter-core-4.3.0 lxml-3.7.3 mistune-0.7.3 nbconvert-5.1.1 nbformat-4.2.0 notebook-4.4.1 olefile-0.44 pandocfilters-1.4.1 pexpect-4.2.1 pickleshare-0.7.4 prompt-toolkit-1.0.13 ptyprocess-0.5.1 pygments-2.2.0 pyzmq-16.0.2 simplegeneric-0.8.1 terminado-0.6 testpath-0.3 tornado-4.4.2 traitlets-4.3.1 wcwidth-0.1.7
+
+travis_time:end:1d2e503c:start=1490452228153782654,finish=1490452239564310336,duration=11410527682[0Ktravis_fold:end:install.1[0Ktravis_fold:start:install.2[0Ktravis_time:start:2b60d604[0K$ if [[ $NMODE == 'nikola' ]]; then pip install -r requirements-tests.txt; if [[ "$?" == '1' ]]; then cat /home/travis/.pip/pip.log; false; fi; fi
+Requirement already satisfied: Pygments>=1.6 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements.txt (line 1))
+Requirement already satisfied: Pillow>=2.4.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements.txt (line 2))
+Collecting python-dateutil>=2.4.0 (from -r requirements.txt (line 3))
+  Downloading python_dateutil-2.6.0-py2.py3-none-any.whl (194kB)
+[?25l[K    5% |█▊                              | 10kB 19.6MB/s eta 0:00:01[K    10% |███▍                            | 20kB 7.0MB/s eta 0:00:01[K    15% |█████                           | 30kB 5.4MB/s eta 0:00:01[K    21% |██████▊                         | 40kB 4.6MB/s eta 0:00:01[K    26% |████████▍                       | 51kB 4.4MB/s eta 0:00:01[K    31% |██████████▏                     | 61kB 5.1MB/s eta 0:00:01[K    36% |███████████▉                    | 71kB 5.2MB/s eta 0:00:01[K    42% |█████████████▌                  | 81kB 5.3MB/s eta 0:00:01[K    47% |███████████████▏                | 92kB 5.9MB/s eta 0:00:01[K    52% |████████████████▉               | 102kB 5.9MB/s eta 0:00:01[K    57% |██████████████████▌             | 112kB 5.9MB/s eta 0:00:01[K    63% |████████████████████▎           | 122kB 6.5MB/s eta 0:00:01[K    68% |██████████████████████          | 133kB 7.0MB/s eta 0:00:01[K    73% |███████████████████████▋        | 143kB 8.8MB/s eta 0:00:01[K    79% |█████████████████████████▎      | 153kB 10.2MB/s eta 0:00:01[K    84% |███████████████████████████     | 163kB 9.6MB/s eta 0:00:01[K    89% |████████████████████████████▋   | 174kB 11.1MB/s eta 0:00:01[K    94% |██████████████████████████████▍ | 184kB 12.2MB/s eta 0:00:01[K    100% |████████████████████████████████| 194kB 3.8MB/s 
+[?25hCollecting docutils>=0.12 (from -r requirements.txt (line 4))
+  Downloading docutils-0.13.1-py3-none-any.whl (536kB)
+[?25l[K    1% |▋                               | 10kB 40.1MB/s eta 0:00:01[K    3% |█▏                              | 20kB 29.4MB/s eta 0:00:01[K    5% |█▉                              | 30kB 31.3MB/s eta 0:00:01[K    7% |██▍                             | 40kB 24.5MB/s eta 0:00:01[K    9% |███                             | 51kB 19.2MB/s eta 0:00:01[K    11% |███▋                            | 61kB 20.8MB/s eta 0:00:01[K    13% |████▎                           | 71kB 20.1MB/s eta 0:00:01[K    15% |████▉                           | 81kB 18.1MB/s eta 0:00:01[K    17% |█████▌                          | 92kB 19.1MB/s eta 0:00:01[K    19% |██████                          | 102kB 18.9MB/s eta 0:00:01[K    20% |██████▊                         | 112kB 18.8MB/s eta 0:00:01[K    22% |███████▎                        | 122kB 18.7MB/s eta 0:00:01[K    24% |████████                        | 133kB 17.9MB/s eta 0:00:01[K    26% |████████▌                       | 143kB 19.3MB/s eta 0:00:01[K    28% |█████████▏                      | 153kB 21.4MB/s eta 0:00:01[K    30% |█████████▊                      | 163kB 18.7MB/s eta 0:00:01[K    32% |██████████▍                     | 174kB 19.9MB/s eta 0:00:01[K    34% |███████████                     | 184kB 21.9MB/s eta 0:00:01[K    36% |███████████▋                    | 194kB 21.3MB/s eta 0:00:01[K    38% |████████████▏                   | 204kB 21.8MB/s eta 0:00:01[K    40% |████████████▉                   | 215kB 20.5MB/s eta 0:00:01[K    41% |█████████████▍                  | 225kB 21.1MB/s eta 0:00:01[K    43% |██████████████                  | 235kB 21.4MB/s eta 0:00:01[K    45% |██████████████▋                 | 245kB 20.5MB/s eta 0:00:01[K    47% |███████████████▎                | 256kB 21.3MB/s eta 0:00:01[K    49% |███████████████▉                | 266kB 23.6MB/s eta 0:00:01[K    51% |██████████���█████▌               | 276kB 23.7MB/s eta 0:00:01[K    53% |█████████████████               | 286kB 23.7MB/s eta 0:00:01[K    55% |█████████████████▊              | 296kB 23.6MB/s eta 0:00:01[K    57% |██████████████████▎             | 307kB 24.3MB/s eta 0:00:01[K    59% |███████████████████             | 317kB 24.9MB/s eta 0:00:01[K    61% |███████████████████▌            | 327kB 24.4MB/s eta 0:00:01[K    62% |████████████████████▏           | 337kB 24.7MB/s eta 0:00:01[K    64% |████████████████████▊           | 348kB 25.2MB/s eta 0:00:01[K    66% |█████████████████████▍          | 358kB 24.1MB/s eta 0:00:01[K    68% |██████████████████████          | 368kB 24.3MB/s eta 0:00:01[K    70% |██████████████████████▋         | 378kB 23.6MB/s eta 0:00:01[K    72% |███████████████████████▏        | 389kB 23.8MB/s eta 0:00:01[K    74% |███████████████████████▉        | 399kB 23.6MB/s eta 0:00:01[K    76% |████████████████████████▍       | 409kB 22.9MB/s eta 0:00:01[K    78% |█████████████████████████       | 419kB 23.2MB/s eta 0:00:01[K    80% |█████████████████████████▋      | 430kB 23.0MB/s eta 0:00:01[K    82% |██████████████████████████▎     | 440kB 23.1MB/s eta 0:00:01[K    83% |██████████████████████████▉     | 450kB 23.4MB/s eta 0:00:01[K    85% |███████████████████████████▌    | 460kB 23.9MB/s eta 0:00:01[K    87% |████████████████████████████    | 471kB 25.2MB/s eta 0:00:01[K    89% |████████████████████████████▊   | 481kB 25.4MB/s eta 0:00:01[K    91% |█████████████████████████████▎  | 491kB 25.9MB/s eta 0:00:01[K    93% |██████████████████████████████  | 501kB 27.1MB/s eta 0:00:01[K    95% |██████████████████████████████▌ | 512kB 28.3MB/s eta 0:00:01[K    97% |███████████████████████████████▏| 522kB 29.2MB/s eta 0:00:01[K    99% |███████████████████████████████▊| 532kB 30.2MB/s eta 0:00:01[K    100% |████████████████████████████████| 542kB 2.6MB/s 
+[?25hCollecting mako>=1.0.0 (from -r requirements.txt (line 5))
+  Downloading Mako-1.0.6.tar.gz (575kB)
+[?25l[K    1% |▋                               | 10kB 39.6MB/s eta 0:00:01[K    3% |█▏                              | 20kB 27.2MB/s eta 0:00:01[K    5% |█▊                              | 30kB 29.5MB/s eta 0:00:01[K    7% |██▎                             | 40kB 28.1MB/s eta 0:00:01[K    8% |██▉                             | 51kB 26.6MB/s eta 0:00:01[K    10% |███▍                            | 61kB 26.8MB/s eta 0:00:01[K    12% |████                            | 71kB 26.2MB/s eta 0:00:01[K    14% |████▋                           | 81kB 25.0MB/s eta 0:00:01[K    16% |█████▏                          | 92kB 25.5MB/s eta 0:00:01[K    17% |█████▊                          | 102kB 25.5MB/s eta 0:00:01[K    19% |██████▎                         | 112kB 24.6MB/s eta 0:00:01[K    21% |██████▉                         | 122kB 24.9MB/s eta 0:00:01[K    23% |███████▍                        | 133kB 23.6MB/s eta 0:00:01[K    24% |████████                        | 143kB 23.5MB/s eta 0:00:01[K    26% |████████▌                       | 153kB 23.9MB/s eta 0:00:01[K    28% |█████████▏                      | 163kB 23.0MB/s eta 0:00:01[K    30% |█████████▊                      | 174kB 23.1MB/s eta 0:00:01[K    32% |██████████▎                     | 184kB 23.1MB/s eta 0:00:01[K    33% |██████████▉                     | 194kB 23.1MB/s eta 0:00:01[K    35% |███████████▍                    | 204kB 22.6MB/s eta 0:00:01[K    37% |████████████                    | 215kB 22.1MB/s eta 0:00:01[K    39% |████████████▌                   | 225kB 22.3MB/s eta 0:00:01[K    40% |█████████████                   | 235kB 22.6MB/s eta 0:00:01[K    42% |█████████████▊                  | 245kB 22.3MB/s eta 0:00:01[K    44% |██████████████▎                 | 256kB 22.0MB/s eta 0:00:01[K    46% |██████████████▉                 | 266kB 22.0MB/s eta 0:00:01[K    48% |███████████████▍                | 276kB 22.4MB/s eta 0:00:01[K    49% |████████████████                | 286kB 22.6MB/s eta 0:00:01[K    51% |████████████████▌               | 296kB 22.5MB/s eta 0:00:01[K    53% |█████████████████               | 307kB 23.3MB/s eta 0:00:01[K    55% |█████████████████▋              | 317kB 24.1MB/s eta 0:00:01[K    56% |██████████████████▎             | 327kB 24.2MB/s eta 0:00:01[K    58% |██████████████████▉             | 337kB 25.4MB/s eta 0:00:01[K    60% |███████████████████▍            | 348kB 26.2MB/s eta 0:00:01[K    62% |████████████████████            | 358kB 27.5MB/s eta 0:00:01[K    64% |████████████████████▌           | 368kB 28.9MB/s eta 0:00:01[K    65% |█████████████████████           | 378kB 28.6MB/s eta 0:00:01[K    67% |█████████████████████▋          | 389kB 30.3MB/s eta 0:00:01[K    69% |██████████████████████▏         | 399kB 30.5MB/s eta 0:00:01[K    71% |██████████████████████▉         | 409kB 30.2MB/s eta 0:00:01[K    73% |███████████████████████▍        | 419kB 30.9MB/s eta 0:00:01[K    74% |████████████████████████        | 430kB 30.6MB/s eta 0:00:01[K    76% |████████████████████████▌       | 440kB 30.6MB/s eta 0:00:01[K    78% |█████████████████████████       | 450kB 30.6MB/s eta 0:00:01[K    80% |█████████████████████████▋      | 460kB 29.8MB/s eta 0:00:01[K    81% |██████████████████████████▏     | 471kB 30.5MB/s eta 0:00:01[K    83% |██████████████████████████▉     | 481kB 30.6MB/s eta 0:00:01[K    85% |███████████████████████████▍    | 491kB 29.5MB/s eta 0:00:01[K    87% |████████████████████████████    | 501kB 30.1MB/s eta 0:00:01[K    89% |████████████████████████████▌   | 512kB 30.2MB/s eta 0:00:01[K    90% |█████████████████████████████   | 522kB 30.2MB/s eta 0:00:01[K    92% |█████████████████████████████▋  | 532kB 30.7MB/s eta 0:00:01[K    94% |██████████████████████████████▏ | 542kB 29.5MB/s eta 0:00:01[K    96% |██████████████████████████████▊ | 552kB 30.2MB/s eta 0:00:01[K    97% |███████████████████████████████▍| 563kB 30.3MB/s eta 0:00:01[K    99% |████████████████████████████████| 573kB 30.0MB/s eta 0:00:01[K    100% |████████████████████████████████| 583kB 2.5MB/s 
+[?25hCollecting unidecode>=0.04.16 (from -r requirements.txt (line 6))
+  Downloading Unidecode-0.04.20-py2.py3-none-any.whl (228kB)
+[?25l[K    4% |█▍                              | 10kB 26.0MB/s eta 0:00:01[K    8% |██▉                             | 20kB 20.5MB/s eta 0:00:01[K    13% |████▎                           | 30kB 22.5MB/s eta 0:00:01[K    17% |█████▊                          | 40kB 23.7MB/s eta 0:00:01[K    22% |███████▏                        | 51kB 23.7MB/s eta 0:00:01[K    26% |████████▋                       | 61kB 25.2MB/s eta 0:00:01[K    31% |██████████                      | 71kB 25.5MB/s eta 0:00:01[K    35% |███████████▌                    | 81kB 25.7MB/s eta 0:00:01[K    40% |█████████████                   | 92kB 26.6MB/s eta 0:00:01[K    44% |██████████████▍                 | 102kB 26.9MB/s eta 0:00:01[K    49% |███████████████▉                | 112kB 27.8MB/s eta 0:00:01[K    53% |█████████████████▎              | 122kB 30.0MB/s eta 0:00:01[K    58% |██████████████████▋             | 133kB 30.0MB/s eta 0:00:01[K    62% |████████████████████            | 143kB 30.9MB/s eta 0:00:01[K    67% |█████████████████████▌          | 153kB 31.7MB/s eta 0:00:01[K    71% |███████████████████████         | 163kB 30.9MB/s eta 0:00:01[K    76% |████���███████████████████▍       | 174kB 31.3MB/s eta 0:00:01[K    80% |█████████████████████████▉      | 184kB 31.5MB/s eta 0:00:01[K    85% |███████████████████████████▎    | 194kB 31.4MB/s eta 0:00:01[K    89% |████████████████████████████▊   | 204kB 31.3MB/s eta 0:00:01[K    94% |██████████████████████████████▏ | 215kB 30.4MB/s eta 0:00:01[K    98% |███████████████████████████████▋| 225kB 31.0MB/s eta 0:00:01[K    100% |████████████████████████████████| 235kB 4.2MB/s 
+[?25hRequirement already satisfied: lxml>=3.3.5 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements.txt (line 7))
+Collecting Yapsy>=1.11.223 (from -r requirements.txt (line 8))
+  Downloading Yapsy-1.11.223.tar.gz (80kB)
+[?25l[K    12% |████                            | 10kB 35.1MB/s eta 0:00:01[K    25% |████████▏                       | 20kB 27.5MB/s eta 0:00:01[K    38% |████████████▏                   | 30kB 29.7MB/s eta 0:00:01[K    50% |████████████████▎               | 40kB 29.5MB/s eta 0:00:01[K    63% |████████████████████▎           | 51kB 29.0MB/s eta 0:00:01[K    76% |████████████████████████▍       | 61kB 30.0MB/s eta 0:00:01[K    88% |████████████████████████████▍   | 71kB 29.8MB/s eta 0:00:01[K    100% |████████████████████████████████| 81kB 7.4MB/s 
+[?25hCollecting PyRSS2Gen>=1.1 (from -r requirements.txt (line 9))
+  Downloading PyRSS2Gen-1.1.tar.gz
+Collecting logbook>=0.7.0 (from -r requirements.txt (line 10))
+  Downloading Logbook-1.0.0.tar.gz (178kB)
+[?25l[K    5% |█▉                              | 10kB 20.5MB/s eta 0:00:01[K    11% |███▊                            | 20kB 21.5MB/s eta 0:00:01[K    17% |█████▌                          | 30kB 20.9MB/s eta 0:00:01[K    22% |███████▍                        | 40kB 22.9MB/s eta 0:00:01[K    28% |█████████▏                      | 51kB 24.7MB/s eta 0:00:01[K    34% |███████████                     | 61kB 26.9MB/s eta 0:00:01[K    40% |████████████▉                   | 71kB 27.9MB/s eta 0:00:01[K    45% |██████████████▊                 | 81kB 28.6MB/s eta 0:00:01[K    51% |████████████████▋               | 92kB 30.0MB/s eta 0:00:01[K    57% |██████████████████▍             | 102kB 30.8MB/s eta 0:00:01[K    63% |████████████████████▎           | 112kB 33.9MB/s eta 0:00:01[K    68% |██████████████████████          | 122kB 36.5MB/s eta 0:00:01[K    74% |████████████████████████        | 133kB 40.4MB/s eta 0:00:01[K    80% |█████████████████████████▊      | 143kB 42.7MB/s eta 0:00:01[K    86% |███████████████████████████▋    | 153kB 43.5MB/s eta 0:00:01[K    91% |█████████████████████████████▍  | 163kB 43.1MB/s eta 0:00:01[K    97% |███████████████████████████████▎| 174kB 44.8MB/s eta 0:00:01[K    100% |████████████████████████████████| 184kB 7.4MB/s 
+[?25hCollecting blinker>=1.3 (from -r requirements.txt (line 11))
+  Downloading blinker-1.4.tar.gz (111kB)
+[?25l[K    9% |███                             | 10kB 32.2MB/s eta 0:00:01[K    18% |█████▉                          | 20kB 27.6MB/s eta 0:00:01[K    27% |████████▉                       | 30kB 29.9MB/s eta 0:00:01[K    36% |███████████▊                    | 40kB 29.6MB/s eta 0:00:01[K    45% |██████████████▊                 | 51kB 29.1MB/s eta 0:00:01[K    55% |█████████████████▋              | 61kB 30.2MB/s eta 0:00:01[K    64% |████████████████████▋           | 71kB 30.0MB/s eta 0:00:01[K    73% |███████████████████████▌        | 81kB 29.6MB/s eta 0:00:01[K    82% |██████████████████████████▌     | 92kB 30.3MB/s eta 0:00:01[K    91% |█████████████████████████████▍  | 102kB 30.3MB/s eta 0:00:01[K    100% |████████████████████████████████| 112kB 7.0MB/s 
+[?25hRequirement already satisfied: setuptools>=20.3 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements.txt (line 12))
+Collecting natsort>=3.5.2 (from -r requirements.txt (line 13))
+  Downloading natsort-5.0.2-py2.py3-none-any.whl
+Collecting requests>=2.2.0 (from -r requirements.txt (line 14))
+  Downloading requests-2.13.0-py2.py3-none-any.whl (584kB)
+[?25l[K    1% |▋                               | 10kB 24.6MB/s eta 0:00:01[K    3% |█▏                              | 20kB 23.4MB/s eta 0:00:01[K    5% |█▊                              | 30kB 24.4MB/s eta 0:00:01[K    7% |██▎                             | 40kB 24.7MB/s eta 0:00:01[K    8% |██▉                             | 51kB 22.9MB/s eta 0:00:01[K    10% |███▍                            | 61kB 23.8MB/s eta 0:00:01[K    12% |████                            | 71kB 23.3MB/s eta 0:00:01[K    14% |████▌                           | 81kB 23.0MB/s eta 0:00:01[K    15% |█████                           | 92kB 23.6MB/s eta 0:00:01[K    17% |█████▋                          | 102kB 23.9MB/s eta 0:00:01[K    19% |██████▏                         | 112kB 24.1MB/s eta 0:00:01[K    21% |██████▊                         | 122kB 24.3MB/s eta 0:00:01[K    22% |███████▎                        | 133kB 24.2MB/s eta 0:00:01[K    24% |███████▉                        | 143kB 24.9MB/s eta 0:00:01[K    26% |████████▍                       | 153kB 26.4MB/s eta 0:00:01[K    28% |█████████                       | 163kB 26.2MB/s eta 0:00:01[K    29% |█████████▌                      | 174kB 27.8MB/s eta 0:00:01[K    31% |██████████                      | 184kB 29.0MB/s eta 0:00:01[K    33% |██████████▋                     | 194kB 29.2MB/s eta 0:00:01[K    35% |███████████▏                    | 204kB 29.4MB/s eta 0:00:01[K    36% |███████████▊                    | 215kB 29.6MB/s eta 0:00:01[K    38% |████████████▎                   | 225kB 31.0MB/s eta 0:00:01[K    40% |█████████████                   | 235kB 31.1MB/s eta 0:00:01[K    42% |█████████████▌                  | 245kB 30.4MB/s eta 0:00:01[K    43% |██████████████                  | 256kB 31.0MB/s eta 0:00:01[K    45% |██████████████▋                 | 266kB 31.2MB/s eta 0:00:01[K    47% |███████████████▏                | 276kB 31.1MB/s eta 0:00:01[K    49% |███████████████▊                | 286kB 31.2MB/s eta 0:00:01[K    50% |████████████████▎               | 296kB 30.7MB/s eta 0:00:01[K    52% |████████████████▉               | 307kB 31.5MB/s eta 0:00:01[K    54% |█████████████████▍              | 317kB 31.4MB/s eta 0:00:01[K    56% |██████████████████              | 327kB 30.5MB/s eta 0:00:01[K    57% |██████████████████▌             | 337kB 31.6MB/s eta 0:00:01[K    59% |███████████████████             | 348kB 31.8MB/s eta 0:00:01[K    61% |███████████████████▋            | 358kB 31.9MB/s eta 0:00:01[K    63% |████████████████████▏           | 368kB 32.0MB/s eta 0:00:01[K    64% |████████████████████▊           | 378kB 31.2MB/s eta 0:00:01[K    66% |█████████████████████▎          | 389kB 31.9MB/s eta 0:00:01[K    68% |█████████████████████▉          | 399kB 31.8MB/s eta 0:00:01[K    70% |██████████████████████▍         | 409kB 30.5MB/s eta 0:00:01[K    71% |███████████████████████         | 419kB 31.4MB/s eta 0:00:01[K    73% |███████████████████████▌        | 430kB 31.5MB/s eta 0:00:01[K    75% |████████████████████████        | 440kB 31.2MB/s eta 0:00:01[K    77% |████████████████████████▋       | 450kB 31.1MB/s eta 0:00:01[K    78% |█████████████████████████▎      | 460kB 30.1MB/s eta 0:00:01[K    80% |█████████████████████████▉      | 471kB 30.8MB/s eta 0:00:01[K    82% |██████████████████████████▍     | 481kB 30.8MB/s eta 0:00:01[K    84% |███████████████████████████     | 491kB 30.0MB/s eta 0:00:01[K    85% |███████████████████████████▌    | 501kB 30.7MB/s eta 0:00:01[K    87% |████████████████████████████    | 512kB 31.3MB/s eta 0:00:01[K    89% |████████████████████████████▋   | 522kB 31.3MB/s eta 0:00:01[K    91% |█████████████████████████████▏  | 532kB 31.4MB/s eta 0:00:01[K    92% |█████████████████████████████▊  | 542kB 30.8MB/s eta 0:00:01[K    94% |██████████████████████████████▎ | 552kB 31.6MB/s eta 0:00:01[K    96% |██████████████████████████████▉ | 563kB 31.4MB/s eta 0:00:01[K    98% |███████████████████████████████▍| 573kB 30.7MB/s eta 0:00:01[K    99% |████████████████████████████████| 583kB 31.4MB/s eta 0:00:01[K    100% |████████████████████████████████| 593kB 2.0MB/s 
+[?25hCollecting piexif>=1.0.3 (from -r requirements.txt (line 15))
+  Downloading piexif-1.0.12-py2.py3-none-any.whl
+Collecting Markdown>=2.4.0 (from -r requirements-extras.txt (line 2))
+  Downloading Markdown-2.6.8.tar.gz (307kB)
+[?25l[K    3% |█                               | 10kB 53.6MB/s eta 0:00:01[K    6% |██▏                             | 20kB 40.4MB/s eta 0:00:01[K    9% |███▏                            | 30kB 43.5MB/s eta 0:00:01[K    13% |████▎                           | 40kB 43.4MB/s eta 0:00:01[K    16% |█████▎                          | 51kB 42.7MB/s eta 0:00:01[K    19% |██████▍                         | 61kB 42.2MB/s eta 0:00:01[K    23% |███████▌                        | 71kB 39.8MB/s eta 0:00:01[K    26% |████████▌                       | 81kB 37.7MB/s eta 0:00:01[K    29% |█████████▋                      | 92kB 39.0MB/s eta 0:00:01[K    33% |██████████▋                     | 102kB 38.0MB/s eta 0:00:01[K    36% |███████████▊                    | 112kB 37.4MB/s eta 0:00:01[K    39% |████████████▉                   | 122kB 38.1MB/s eta 0:00:01[K    43% |█████████████▉                  | 133kB 37.6MB/s eta 0:00:01[K    46% |███████████████                 | 143kB 37.9MB/s eta 0:00:01[K    49% |████████████████                | 153kB 38.2MB/s eta 0:00:01[K    53% |█████████████████               | 163kB 38.3MB/s eta 0:00:01[K    56% |██████████████████▏             | 174kB 39.6MB/s eta 0:00:01[K    59% |███████████████████▏            | 184kB 41.6MB/s eta 0:00:01[K    63% |████████████████████▎           | 194kB 41.7MB/s eta 0:00:01[K    66% |█████████████████████▎          | 204kB 43.5MB/s eta 0:00:01[K    69% |██████████████████████▍         | 215kB 43.5MB/s eta 0:00:01[K    73% |███████████████████████▌        | 225kB 45.1MB/s eta 0:00:01[K    76% |████████████████████████▌       | 235kB 45.2MB/s eta 0:00:01[K    79% |█████████████████████████▋      | 245kB 44.8MB/s eta 0:00:01[K    83% |██████████████████████████▋     | 256kB 45.8MB/s eta 0:00:01[K    86% |███████████████████████████▊    | 266kB 46.4MB/s eta 0:00:01[K    89% |████████████████████████████▉   | 276kB 47.8MB/s eta 0:00:01[K    93% |█████████████████████████████▉  | 286kB 48.3MB/s eta 0:00:01[K    96% |███████████████████████████████ | 296kB 47.3MB/s eta 0:00:01[K    99% |████████████████████████████████| 307kB 48.4MB/s eta 0:00:01[K    100% |████████████████████████████████| 317kB 4.8MB/s 
+[?25hRequirement already satisfied: Jinja2>=2.7.2 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements-extras.txt (line 3))
+Collecting husl>=4.0.2 (from -r requirements-extras.txt (line 4))
+  Downloading husl-4.0.3.tar.gz
+Collecting pyphen>=0.9.1 (from -r requirements-extras.txt (line 5))
+  Downloading Pyphen-0.9.4-py2.py3-none-any.whl (1.9MB)
+[?25l[K    0% |▏                               | 10kB 22.5MB/s eta 0:00:01[K    1% |▍                               | 20kB 21.3MB/s eta 0:00:01[K    1% |▌                               | 30kB 21.5MB/s eta 0:00:01[K    2% |▊                               | 40kB 24.3MB/s eta 0:00:01[K    2% |▉                               | 51kB 24.3MB/s eta 0:00:01[K    3% |█                               | 61kB 26.2MB/s eta 0:00:01[K    3% |█▏                              | 71kB 27.1MB/s eta 0:00:01[K    4% |█▍                              | 81kB 27.7MB/s eta 0:00:01[K    4% |█▌                              | 92kB 28.8MB/s eta 0:00:01[K    5% |█▊                              | 102kB 29.6MB/s eta 0:00:01[K    5% |█▉                              | 112kB 32.0MB/s eta 0:00:01[K    6% |██                              | 122kB 34.1MB/s eta 0:00:01[K    6% |██▏                             | 133kB 36.4MB/s eta 0:00:01[K    7% |██▍                             | 143kB 36.4MB/s eta 0:00:01[K    7% |██▌                             | 153kB 39.0MB/s eta 0:00:01[K    8% |██▊                             | 163kB 37.4MB/s eta 0:00:01[K    8% |██▉                             | 174kB 39.0MB/s eta 0:00:01[K    9% |███                             | 184kB 38.7MB/s eta 0:00:01[K    9% |███▏                            | 194kB 39.4MB/s eta 0:00:01[K    10% |███▍                            | 204kB 40.0MB/s eta 0:00:01[K    11% |███▌                            | 215kB 39.2MB/s eta 0:00:01[K    11% |███▊                            | 225kB 41.2MB/s eta 0:00:01[K    12% |███▉                            | 235kB 39.9MB/s eta 0:00:01[K    12% |████                            | 245kB 40.1MB/s eta 0:00:01[K    13% |████▏                           | 256kB 40.8MB/s eta 0:00:01[K    13% |████▍                           | 266kB 41.5MB/s eta 0:00:01[K    14% |████▌                           | 276kB 40.8MB/s eta 0:00:01[K    14% |████▊                           | 286kB 41.9MB/s eta 0:00:01[K    15% |████▉                           | 296kB 41.1MB/s eta 0:00:01[K    15% |█████                           | 307kB 40.7MB/s eta 0:00:01[K    16% |█████▏                          | 317kB 39.7MB/s eta 0:00:01[K    16% |█████▍                          | 327kB 38.0MB/s eta 0:00:01[K    17% |█████▌                          | 337kB 39.9MB/s eta 0:00:01[K    17% |█████▊                          | 348kB 38.6MB/s eta 0:00:01[K    18% |█████▉                          | 358kB 38.7MB/s eta 0:00:01[K    18% |██████                          | 368kB 38.6MB/s eta 0:00:01[K    19% |██████▏                         | 378kB 38.6MB/s eta 0:00:01[K    19% |██████▍                         | 389kB 38.7MB/s eta 0:00:01[K    20% |██████▌                         | 399kB 38.1MB/s eta 0:00:01[K    21% |██████▊                         | 409kB 37.6MB/s eta 0:00:01[K    21% |███████                         | 419kB 39.3MB/s eta 0:00:01[K    22% |███████                         | 430kB 38.9MB/s eta 0:00:01[K    22% |███████▎                        | 440kB 39.5MB/s eta 0:00:01[K    23% |███████▍                        | 450kB 39.6MB/s eta 0:00:01[K    23% |███████▋                        | 460kB 38.1MB/s eta 0:00:01[K    24% |███████▊                        | 471kB 39.0MB/s eta 0:00:01[K    24% |████████                        | 481kB 38.5MB/s eta 0:00:01[K    25% |████████                        | 491kB 37.6MB/s eta 0:00:01[K    25% |████████▎                       | 501kB 37.8MB/s eta 0:00:01[K    26% |████████▍                       | 512kB 38.2MB/s eta 0:00:01[K    26% |████████▋                       | 522kB 38.0MB/s eta 0:00:01[K    27% |████████▊                       | 532kB 38.1MB/s eta 0:00:01[K    27% |█████████                       | 542kB 36.9MB/s eta 0:00:01[K    28% |█████████                       | 552kB 38.1MB/s eta 0:00:01[K    28% |█████████▎                      | 563kB 38.4MB/s eta 0:00:01[K    29% |█████████▍                      | 573kB 36.9MB/s eta 0:00:01[K    29% |█████████▋                      | 583kB 36.7MB/s eta 0:00:01[K    30% |█████████▊                      | 593kB 37.5MB/s eta 0:00:01[K    30% |██████████                      | 604kB 38.4MB/s eta 0:00:01[K    31% |██████████                      | 614kB 38.4MB/s eta 0:00:01[K    32% |██████████▎                     | 624kB 37.4MB/s eta 0:00:01[K    32% |██████████▍                     | 634kB 38.7MB/s eta 0:00:01[K    33% |██████████▋                     | 645kB 37.9MB/s eta 0:00:01[K    33% |██████████▊                     | 655kB 36.3MB/s eta 0:00:01[K    34% |███████████                     | 665kB 37.3MB/s eta 0:00:01[K    34% |███████████                     | 675kB 36.9MB/s eta 0:00:01[K    35% |███████████▎                    | 686kB 38.2MB/s eta 0:00:01[K    35% |███████████▍                    | 696kB 37.7MB/s eta 0:00:01[K    36% |███████████▋                    | 706kB 37.0MB/s eta 0:00:01[K    36% |███████████▊                    | 716kB 37.3MB/s eta 0:00:01[K    37% |████████████                    | 727kB 37.7MB/s eta 0:00:01[K    37% |████████████                    | 737kB 36.8MB/s eta 0:00:01[K    38% |████████████▎                   | 747kB 38.8MB/s eta 0:00:01[K    38% |████████████▍                   | 757kB 39.2MB/s eta 0:00:01[K    39% |████████████▋                   | 768kB 39.3MB/s eta 0:00:01[K    39% |████████████▊                   | 778kB 41.8MB/s eta 0:00:01[K    40% |█████████████                   | 788kB 39.1MB/s eta 0:00:01[K    40% |█████████████                   | 798kB 39.6MB/s eta 0:00:01[K    41% |█████████████▎                  | 808kB 39.2MB/s eta 0:00:01[K    42% |█████████████▌                  | 819kB 37.5MB/s eta 0:00:01[K    42% |█████████████▋                  | 829kB 38.0MB/s eta 0:00:01[K    43% |█████████████▉                  | 839kB 39.0MB/s eta 0:00:01[K    43% |██████████████                  | 849kB 39.0MB/s eta 0:00:01[K    44% |██████████████▏                 | 860kB 39.2MB/s eta 0:00:01[K    44% |██████████████▎                 | 870kB 37.5MB/s eta 0:00:01[K    45% |██████████████▌                 | 880kB 38.0MB/s eta 0:00:01[K    45% |██████████████▋                 | 890kB 39.9MB/s eta 0:00:01[K    46% |██████████████▉                 | 901kB 38.8MB/s eta 0:00:01[K    46% |███████████████                 | 911kB 39.4MB/s eta 0:00:01[K    47% |███████████████▏                | 921kB 41.0MB/s eta 0:00:01[K    47% |███████████████▎                | 931kB 41.0MB/s eta 0:00:01[K    48% |█████████���█████▌                | 942kB 41.0MB/s eta 0:00:01[K    48% |███████████████▋                | 952kB 37.4MB/s eta 0:00:01[K    49% |███████████████▉                | 962kB 39.1MB/s eta 0:00:01[K    49% |████████████████                | 972kB 32.4MB/s eta 0:00:01[K    50% |████████████████▏               | 983kB 31.5MB/s eta 0:00:01[K    50% |████████████████▎               | 993kB 31.9MB/s eta 0:00:01[K    51% |████████████████▌               | 1.0MB 31.8MB/s eta 0:00:01[K    51% |████████████████▋               | 1.0MB 32.3MB/s eta 0:00:01[K    52% |████████████████▉               | 1.0MB 32.0MB/s eta 0:00:01[K    53% |█████████████████               | 1.0MB 31.2MB/s eta 0:00:01[K    53% |█████████████████▏              | 1.0MB 31.5MB/s eta 0:00:01[K    54% |█████████████████▎              | 1.1MB 33.5MB/s eta 0:00:01[K    54% |█████████████████▌              | 1.1MB 31.8MB/s eta 0:00:01[K    55% |█████████████████▋              | 1.1MB 39.0MB/s eta 0:00:01[K    55% |█████████████████▉              | 1.1MB 38.8MB/s eta 0:00:01[K    56% |██████████████████              | 1.1MB 38.5MB/s eta 0:00:01[K    56% |██████████████████▏             | 1.1MB 39.2MB/s eta 0:00:01[K    57% |██████████████████▎             | 1.1MB 38.4MB/s eta 0:00:01[K    57% |██████████████████▌             | 1.1MB 39.1MB/s eta 0:00:01[K    58% |██████████████████▋             | 1.1MB 39.7MB/s eta 0:00:01[K    58% |██████████████████▉             | 1.1MB 37.1MB/s eta 0:00:01[K    59% |███████████████████             | 1.2MB 36.9MB/s eta 0:00:01[K    59% |███████████████████▏            | 1.2MB 38.0MB/s eta 0:00:01[K    60% |███████████████████▎            | 1.2MB 39.1MB/s eta 0:00:01[K    60% |███████████████████▌            | 1.2MB 39.1MB/s eta 0:00:01[K    61% |███████████████████▋            | 1.2MB 37.7MB/s eta 0:00:01[K    61% |███████████████████▉            | 1.2MB 37.9MB/s eta 0:00:01[K    62% |████████████████████            | 1.2MB 37.5MB/s eta 0:00:01[K    63% |████████████████████▏           | 1.2MB 36.6MB/s eta 0:00:01[K    63% |████████████████████▍           | 1.2MB 36.7MB/s eta 0:00:01[K    64% |████████████████████▌           | 1.2MB 38.1MB/s eta 0:00:01[K    64% |████████████████████▊           | 1.3MB 37.5MB/s eta 0:00:01[K    65% |████████████████████▉           | 1.3MB 37.0MB/s eta 0:00:01[K    65% |█████████████████████           | 1.3MB 36.3MB/s eta 0:00:01[K    66% |█████████████████████▏          | 1.3MB 37.6MB/s eta 0:00:01[K    66% |█████████████████████▍          | 1.3MB 37.2MB/s eta 0:00:01[K    67% |█████████████████████▌          | 1.3MB 36.9MB/s eta 0:00:01[K    67% |█████████████████████▊          | 1.3MB 37.5MB/s eta 0:00:01[K    68% |█████████████████████▉          | 1.3MB 38.2MB/s eta 0:00:01[K    68% |██████████████████████          | 1.3MB 38.2MB/s eta 0:00:01[K    69% |██████████████████████▏         | 1.4MB 37.4MB/s eta 0:00:01[K    69% |██████████████████████▍         | 1.4MB 38.0MB/s eta 0:00:01[K    70% |██████████████████████▌         | 1.4MB 39.7MB/s eta 0:00:01[K    70% |██████████████████████▊         | 1.4MB 39.8MB/s eta 0:00:01[K    71% |██████████████████████▉         | 1.4MB 37.3MB/s eta 0:00:01[K    71% |███████████████████████         | 1.4MB 38.7MB/s eta 0:00:01[K    72% |███████████████████████▏        | 1.4MB 39.2MB/s eta 0:00:01[K    73% |███████████████████████▍        | 1.4MB 39.9MB/s eta 0:00:01[K    73% |███████████████████████▌        | 1.4MB 38.3MB/s eta 0:00:01[K    74% |███████████████████████▊        | 1.4MB 37.3MB/s eta 0:00:01[K    74% |███████████████████████▉        | 1.5MB 39.2MB/s eta 0:00:01[K    75% |████████████████████████        | 1.5MB 39.3MB/s eta 0:00:01[K    75% |████████████████████████▏       | 1.5MB 37.0MB/s eta 0:00:01[K    76% |████████████████████████▍       | 1.5MB 36.7MB/s eta 0:00:01[K    76% |████████████████████████▌       | 1.5MB 38.0MB/s eta 0:00:01[K    77% |████████████████████████▊       | 1.5MB 38.8MB/s eta 0:00:01[K    77% |████████████████████████▉       | 1.5MB 38.4MB/s eta 0:00:01[K    78% |█████████████████████████       | 1.5MB 37.7MB/s eta 0:00:01[K    78% |███���█████████████████████▏      | 1.5MB 40.4MB/s eta 0:00:01[K    79% |█████████████████████████▍      | 1.5MB 41.0MB/s eta 0:00:01[K    79% |█████████████████████████▌      | 1.6MB 39.7MB/s eta 0:00:01[K    80% |█████████████████████████▊      | 1.6MB 40.4MB/s eta 0:00:01[K    80% |█████████████████████████▉      | 1.6MB 42.4MB/s eta 0:00:01[K    81% |██████████████████████████      | 1.6MB 43.6MB/s eta 0:00:01[K    81% |██████████████████████████▏     | 1.6MB 44.4MB/s eta 0:00:01[K    82% |██████████████████████████▍     | 1.6MB 43.6MB/s eta 0:00:01[K    82% |██████████████████████████▌     | 1.6MB 45.8MB/s eta 0:00:01[K    83% |██████████████████████████▊     | 1.6MB 46.1MB/s eta 0:00:01[K    84% |███████████████████████████     | 1.6MB 45.0MB/s eta 0:00:01[K    84% |███████████████████████████     | 1.6MB 46.7MB/s eta 0:00:01[K    85% |███████████████████████████▎    | 1.7MB 47.8MB/s eta 0:00:01[K    85% |███████���███████████████████▍    | 1.7MB 48.0MB/s eta 0:00:01[K    86% |███████████████████████████▋    | 1.7MB 48.2MB/s eta 0:00:01[K    86% |███████████████████████████▊    | 1.7MB 46.4MB/s eta 0:00:01[K    87% |████████████████████████████    | 1.7MB 47.2MB/s eta 0:00:01[K    87% |████████████████████████████    | 1.7MB 47.3MB/s eta 0:00:01[K    88% |████████████████████████████▎   | 1.7MB 46.1MB/s eta 0:00:01[K    88% |████████████████████████████▍   | 1.7MB 46.1MB/s eta 0:00:01[K    89% |████████████████████████████▋   | 1.7MB 46.3MB/s eta 0:00:01[K    89% |████████████████████████████▊   | 1.8MB 46.2MB/s eta 0:00:01[K    90% |█████████████████████████████   | 1.8MB 46.2MB/s eta 0:00:01[K    90% |█████████████████████████████   | 1.8MB 45.1MB/s eta 0:00:01[K    91% |█████████████████████████████▎  | 1.8MB 46.0MB/s eta 0:00:01[K    91% |█████████████████████████████▍  | 1.8MB 46.8MB/s eta 0:00:01[K    92% |█████████████████████████████▋  | 1.8MB 45.8MB/s eta 0:00:01[K    92% |█████████████████████████████▊  | 1.8MB 46.8MB/s eta 0:00:01[K    93% |██████████████████████████████  | 1.8MB 47.1MB/s eta 0:00:01[K    94% |██████████████████████████████  | 1.8MB 47.9MB/s eta 0:00:01[K    94% |██████████████████████████████▎ | 1.8MB 48.0MB/s eta 0:00:01[K    95% |██████████████████████████████▍ | 1.9MB 47.0MB/s eta 0:00:01[K    95% |██████████████████████████████▋ | 1.9MB 47.8MB/s eta 0:00:01[K    96% |██████████████████████████████▊ | 1.9MB 47.9MB/s eta 0:00:01[K    96% |███████████████████████████████ | 1.9MB 46.8MB/s eta 0:00:01[K    97% |███████████████████████████████ | 1.9MB 47.7MB/s eta 0:00:01[K    97% |███████████████████████████████▎| 1.9MB 47.8MB/s eta 0:00:01[K    98% |███████████████████████████████▍| 1.9MB 47.7MB/s eta 0:00:01[K    98% |█████���█████████████████████████▋| 1.9MB 46.9MB/s eta 0:00:01[K    99% |███████████████████████████████▊| 1.9MB 45.8MB/s eta 0:00:01[K    99% |████████████████████████████████| 1.9MB 46.8MB/s eta 0:00:01[K    100% |████████████████████████████████| 2.0MB 835kB/s 
+[?25hCollecting micawber>=0.3.0 (from -r requirements-extras.txt (line 6))
+  Downloading micawber-0.3.3.tar.gz
+Collecting pygal>=2.0.0 (from -r requirements-extras.txt (line 7))
+  Downloading pygal-2.3.1-py2.py3-none-any.whl (126kB)
+[?25l[K    8% |██▋                             | 10kB 41.5MB/s eta 0:00:01[K    16% |█████▏                          | 20kB 37.3MB/s eta 0:00:01[K    24% |███████▉                        | 30kB 38.4MB/s eta 0:00:01[K    32% |██████████▍                     | 40kB 35.8MB/s eta 0:00:01[K    40% |█████████████                   | 51kB 34.9MB/s eta 0:00:01[K    48% |███████████████▋                | 61kB 36.3MB/s eta 0:00:01[K    56% |██████████████████▏             | 71kB 33.7MB/s eta 0:00:01[K    64% |████████████████████▊           | 81kB 34.5MB/s eta 0:00:01[K    72% |███████████████████████▍        | 92kB 34.6MB/s eta 0:00:01[K    81% |██████████████████████████      | 102kB 35.3MB/s eta 0:00:01[K    89% |████████████████████████████▌   | 112kB 35.7MB/s eta 0:00:01[K    97% |███████████████████████████████▏| 122kB 36.5MB/s eta 0:00:01[K    100% |████████████████████████████████| 133kB 9.3MB/s 
+[?25hCollecting typogrify>=2.0.4 (from -r requirements-extras.txt (line 8))
+  Downloading typogrify-2.0.7.tar.gz
+Collecting phpserialize>=1.3 (from -r requirements-extras.txt (line 9))
+  Downloading phpserialize-1.3.tar.gz
+Collecting webassets>=0.10.1 (from -r requirements-extras.txt (line 10))
+  Downloading webassets-0.12.1.tar.gz (179kB)
+[?25l[K    5% |█▉                              | 10kB 47.7MB/s eta 0:00:01[K    11% |███▋                            | 20kB 32.2MB/s eta 0:00:01[K    17% |█████▌                          | 30kB 36.6MB/s eta 0:00:01[K    22% |███████▎                        | 40kB 38.0MB/s eta 0:00:01[K    28% |█████████▏                      | 51kB 36.0MB/s eta 0:00:01[K    34% |███████████                     | 61kB 37.9MB/s eta 0:00:01[K    39% |████████████▉                   | 71kB 38.8MB/s eta 0:00:01[K    45% |██████████████▋                 | 81kB 39.0MB/s eta 0:00:01[K    51% |████████████████▍               | 92kB 40.3MB/s eta 0:00:01[K    57% |██████████████████▎             | 102kB 40.7MB/s eta 0:00:01[K    62% |████████████████████            | 112kB 41.2MB/s eta 0:00:01[K    68% |██████████████████████          | 122kB 44.7MB/s eta 0:00:01[K    74% |███████████████████████▊        | 133kB 44.1MB/s eta 0:00:01[K    79% |█████████████████████████▋      | 143kB 45.3MB/s eta 0:00:01[K    85% |███████████████████████████▍    | 153kB 47.7MB/s eta 0:00:01[K    91% |█████████████████████████████▎  | 163kB 46.9MB/s eta 0:00:01[K    97% |███████████████████████████████ | 174kB 47.8MB/s eta 0:00:01[K    100% |████████████████████████████████| 184kB 7.4MB/s 
+[?25hRequirement already satisfied: notebook>=4.0.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements-extras.txt (line 11))
+Requirement already satisfied: ipykernel>=4.0.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements-extras.txt (line 12))
+Collecting ghp-import2>=1.0.0 (from -r requirements-extras.txt (line 13))
+  Downloading ghp_import2-1.0.1-py2.py3-none-any.whl
+Collecting ws4py==0.4.0 (from -r requirements-extras.txt (line 14))
+  Downloading ws4py-0.4.0.tar.gz (40kB)
+[?25l[K    25% |████████                        | 10kB 33.4MB/s eta 0:00:01[K    50% |████████████████                | 20kB 34.5MB/s eta 0:00:01[K    75% |████████████████████████        | 30kB 35.6MB/s eta 0:00:01[K    100% |████████████████████████████████| 40kB 9.8MB/s 
+[?25hCollecting watchdog==0.8.3 (from -r requirements-extras.txt (line 15))
+  Downloading watchdog-0.8.3.tar.gz (83kB)
+[?25l[K    12% |████                            | 10kB 48.0MB/s eta 0:00:01[K    24% |███████▉                        | 20kB 34.9MB/s eta 0:00:01[K    36% |███████████▉                    | 30kB 36.6MB/s eta 0:00:01[K    49% |███████████████▊                | 40kB 37.9MB/s eta 0:00:01[K    61% |███████████████████▊            | 51kB 37.5MB/s eta 0:00:01[K    73% |███████████████████████▋        | 61kB 38.5MB/s eta 0:00:01[K    86% |███████████████████████████▋    | 71kB 38.1MB/s eta 0:00:01[K    98% |███████████████████████████████▌| 81kB 38.9MB/s eta 0:00:01[K    100% |████████████████████████████████| 92kB 11.4MB/s 
+[?25hRequirement already satisfied: mock==2.0.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from -r requirements-tests.txt (line 2))
+Collecting coverage==4.3.4 (from -r requirements-tests.txt (line 3))
+  Downloading coverage-4.3.4-cp35-cp35m-manylinux1_x86_64.whl (191kB)
+[?25l[K    5% |█▊                              | 10kB 40.4MB/s eta 0:00:01[K    10% |███▍                            | 20kB 35.1MB/s eta 0:00:01[K    16% |█████▏                          | 30kB 39.3MB/s eta 0:00:01[K    21% |██████▉                         | 40kB 40.3MB/s eta 0:00:01[K    26% |████████▌                       | 51kB 40.6MB/s eta 0:00:01[K    32% |██████████▎                     | 61kB 39.6MB/s eta 0:00:01[K    37% |████████████                    | 71kB 39.1MB/s eta 0:00:01[K    42% |█████████████▋                  | 81kB 38.8MB/s eta 0:00:01[K    48% |███████████████▍                | 92kB 39.8MB/s eta 0:00:01[K    53% |█████████████████               | 102kB 40.2MB/s eta 0:00:01[K    58% |██████████████████▉             | 112kB 39.5MB/s eta 0:00:01[K    64% |████████████████████▌           | 122kB 40.3MB/s eta 0:00:01[K    69% |██████████████████████▏         | 133kB 39.6MB/s eta 0:00:01[K    74% |████████████████████████        | 143kB 40.2MB/s eta 0:00:01[K    80% |█████████████████████████▋      | 153kB 40.4MB/s eta 0:00:01[K    85% |██████████████████���████████▎    | 163kB 41.3MB/s eta 0:00:01[K    90% |█████████████████████████████   | 174kB 42.7MB/s eta 0:00:01[K    96% |██████████████████████████████▊ | 184kB 43.3MB/s eta 0:00:01[K    100% |████████████████████████████████| 194kB 6.7MB/s 
+[?25hCollecting pytest==3.0.7 (from -r requirements-tests.txt (line 4))
+  Downloading pytest-3.0.7-py2.py3-none-any.whl (172kB)
+[?25l[K    5% |██                              | 10kB 34.3MB/s eta 0:00:01[K    11% |███▉                            | 20kB 31.2MB/s eta 0:00:01[K    17% |█████▊                          | 30kB 34.9MB/s eta 0:00:01[K    23% |███████▋                        | 40kB 35.7MB/s eta 0:00:01[K    29% |█████████▌                      | 51kB 35.9MB/s eta 0:00:01[K    35% |███████████▍                    | 61kB 37.4MB/s eta 0:00:01[K    41% |█████████████▎                  | 71kB 37.1MB/s eta 0:00:01[K    47% |███████████████▏                | 81kB 37.2MB/s eta 0:00:01[K    53% |█████████████████               | 92kB 38.0MB/s eta 0:00:01[K    59% |███████████████████             | 102kB 38.1MB/s eta 0:00:01[K    65% |█████████████████████           | 112kB 39.3MB/s eta 0:00:01[K    71% |██████████████████████▉         | 122kB 40.8MB/s eta 0:00:01[K    77% |████████████████████████▊       | 133kB 40.1MB/s eta 0:00:01[K    83% |██████████████████████████▋     | 143kB 41.1MB/s eta 0:00:01[K    89% |████████████████████████████▌   | 153kB 41.4MB/s eta 0:00:01[K    94% |██████████████████████████████▍ | 163kB 40.3MB/s eta 0:00:01[K    100% |████████████████████████████████| 174kB 7.3MB/s 
+[?25hCollecting pytest-cov==2.4.0 (from -r requirements-tests.txt (line 5))
+  Downloading pytest_cov-2.4.0-py2.py3-none-any.whl
+Collecting freezegun==0.3.8 (from -r requirements-tests.txt (line 6))
+  Downloading freezegun-0.3.8-py2.py3-none-any.whl
+Collecting codacy-coverage==1.3.6 (from -r requirements-tests.txt (line 7))
+  Downloading codacy_coverage-1.3.6-py2.py3-none-any.whl
+Collecting colorama>=0.3.4 (from -r requirements-tests.txt (line 8))
+  Downloading colorama-0.3.7-py2.py3-none-any.whl
+Requirement already satisfied: olefile in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Pillow>=2.4.0->-r requirements.txt (line 2))
+Requirement already satisfied: six>=1.5 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from python-dateutil>=2.4.0->-r requirements.txt (line 3))
+Requirement already satisfied: MarkupSafe>=0.9.2 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from mako>=1.0.0->-r requirements.txt (line 5))
+Collecting smartypants>=1.8.3 (from typogrify>=2.0.4->-r requirements-extras.txt (line 8))
+  Downloading smartypants-2.0.0-py2.py3-none-any.whl
+Requirement already satisfied: traitlets in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: nbconvert in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: tornado>=4 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: jupyter-client in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: nbformat in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: terminado>=0.3.3; sys_platform != "win32" in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: jupyter-core in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: ipython-genutils in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: ipython>=4.0.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Requirement already satisfied: PyYAML>=3.10 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from watchdog==0.8.3->-r requirements-extras.txt (line 15))
+Collecting argh>=0.24.1 (from watchdog==0.8.3->-r requirements-extras.txt (line 15))
+  Downloading argh-0.26.2-py2.py3-none-any.whl
+Collecting pathtools>=0.1.1 (from watchdog==0.8.3->-r requirements-extras.txt (line 15))
+  Downloading pathtools-0.1.2.tar.gz
+Requirement already satisfied: pbr>=0.11 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from mock==2.0.0->-r requirements-tests.txt (line 2))
+Requirement already satisfied: py>=1.4.29 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from pytest==3.0.7->-r requirements-tests.txt (line 4))
+Requirement already satisfied: decorator in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from traitlets->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: testpath in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: pandocfilters>=1.4.1 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: entrypoints>=0.2.2 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: mistune!=0.6 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: bleach in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: pyzmq>=13 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from jupyter-client->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from nbformat->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: ptyprocess in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from terminado>=0.3.3; sys_platform != "win32"->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: prompt-toolkit<2.0.0,>=1.0.4 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipython>=4.0.0->ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Requirement already satisfied: simplegeneric>0.8 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipython>=4.0.0->ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Requirement already satisfied: pickleshare in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipython>=4.0.0->ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Requirement already satisfied: pexpect; sys_platform != "win32" in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from ipython>=4.0.0->ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Requirement already satisfied: html5lib!=0.9999,!=0.99999,<0.99999999,>=0.999 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from bleach->nbconvert->notebook>=4.0.0->-r requirements-extras.txt (line 11))
+Requirement already satisfied: wcwidth in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from prompt-toolkit<2.0.0,>=1.0.4->ipython>=4.0.0->ipykernel>=4.0.0->-r requirements-extras.txt (line 12))
+Building wheels for collected packages: mako, Yapsy, PyRSS2Gen, logbook, blinker, Markdown, husl, micawber, typogrify, phpserialize, webassets, ws4py, watchdog, pathtools
+  Running setup.py bdist_wheel for mako ... [?25l- \ done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/34/be/28/7999aa61d80a775c9e85a5a7d345777f73e87e6e30573e9551
+  Running setup.py bdist_wheel for Yapsy ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/fc/ed/0f/3b393c765fd5989bb6c50a3613a4b96037c12c6a40478de796
+  Running setup.py bdist_wheel for PyRSS2Gen ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/5c/7e/a6/a6d89b47ca2c57fb1a3721e5ca4eb70d7975e3f63a55d82afa
+  Running setup.py bdist_wheel for logbook ... [?25l- \ done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/41/01/49/4bc578654cd8c26d1c1e3bab45b08eef367ce557cc4785beab
+  Running setup.py bdist_wheel for blinker ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/7b/8a/eb/5a4f4444f366c515073db8a129c92d4727ad945e5e64b9e8bd
+  Running setup.py bdist_wheel for Markdown ... [?25l- \ | / - \ done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/85/a7/08/33ee5cd488d0365d8bed79d1d4e5c28dd3fbfc7f6d0ad4bb09
+  Running setup.py bdist_wheel for husl ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/5f/42/f0/f2d33a295b3a691e931262e367a0594c1751edbc211b51745c
+  Running setup.py bdist_wheel for micawber ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/91/a6/13/d424add14ea61e44af56ae55f3a297c2a44ce8f85918c99407
+  Running setup.py bdist_wheel for typogrify ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/db/20/a1/3e15e1a8bf1742b5ea6e5d8268088c239de42f608bcb132cd0
+  Running setup.py bdist_wheel for phpserialize ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/62/b7/c2/561391c65d0e06face12397eab20e3b7c2d977624fa8db94b8
+  Running setup.py bdist_wheel for webassets ... [?25l- \ done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/9d/cb/c2/340b9b695822b6954840bcb6cd147b3a7cfc2bcd922296e63e
+  Running setup.py bdist_wheel for ws4py ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/ae/fc/e6/eacc404234bdc537faee98823c4c7b314dceaa931009723e30
+  Running setup.py bdist_wheel for watchdog ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/3c/9c/be/e82ae5a37c19baf8abe88623d1f47d2d502bed7b54d4f34740
+  Running setup.py bdist_wheel for pathtools ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/60/0d/2a/ffe065d190b580be6af9a862c68ed6a8a89c1778bd5c7ba7b8
+Successfully built mako Yapsy PyRSS2Gen logbook blinker Markdown husl micawber typogrify phpserialize webassets ws4py watchdog pathtools
+Installing collected packages: python-dateutil, docutils, mako, unidecode, Yapsy, PyRSS2Gen, logbook, blinker, natsort, requests, piexif, Markdown, husl, pyphen, micawber, pygal, smartypants, typogrify, phpserialize, webassets, ghp-import2, ws4py, argh, pathtools, watchdog, coverage, pytest, pytest-cov, freezegun, codacy-coverage, colorama
+  Found existing installation: pytest 3.0.5
+    Uninstalling pytest-3.0.5:
+      Successfully uninstalled pytest-3.0.5
+Successfully installed Markdown-2.6.8 PyRSS2Gen-1.1 Yapsy-1.11.223 argh-0.26.2 blinker-1.4 codacy-coverage-1.3.6 colorama-0.3.7 coverage-4.3.4 docutils-0.13.1 freezegun-0.3.8 ghp-import2-1.0.1 husl-4.0.3 logbook-1.0.0 mako-1.0.6 micawber-0.3.3 natsort-5.0.2 pathtools-0.1.2 phpserialize-1.3 piexif-1.0.12 pygal-2.3.1 pyphen-0.9.4 pytest-3.0.7 pytest-cov-2.4.0 python-dateutil-2.6.0 requests-2.13.0 smartypants-2.0.0 typogrify-2.0.7 unidecode-0.4.20 watchdog-0.8.3 webassets-0.12.1 ws4py-0.4.0
+
+travis_time:end:2b60d604:start=1490452239570216657,finish=1490452264505873466,duration=24935656809[0Ktravis_fold:end:install.2[0Ktravis_fold:start:install.3[0Ktravis_time:start:00c06147[0K$ if [[ $NMODE == 'nikola' ]]; then pip install .; fi
+Processing /home/travis/build/getnikola/nikola
+Requirement already satisfied: Pygments>=1.6 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: Pillow>=2.4.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: python-dateutil>=2.4.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: docutils>=0.12 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: mako>=1.0.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: unidecode>=0.04.16 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: lxml>=3.3.5 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: Yapsy>=1.11.223 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: PyRSS2Gen>=1.1 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: logbook>=0.7.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: blinker>=1.3 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: setuptools>=20.3 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: natsort>=3.5.2 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: requests>=2.2.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Requirement already satisfied: piexif>=1.0.3 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Nikola==7.8.3)
+Collecting doit>=0.28.0 (from Nikola==7.8.3)
+  Downloading doit-0.30.3.tar.gz (235kB)
+[?25l[K    4% |█▍                              | 10kB 18.0MB/s eta 0:00:01[K    8% |██▉                             | 20kB 13.1MB/s eta 0:00:01[K    13% |████▏                           | 30kB 6.6MB/s eta 0:00:01[K    17% |█████▋                          | 40kB 5.8MB/s eta 0:00:01[K    21% |███████                         | 51kB 5.6MB/s eta 0:00:01[K    26% |████████▍                       | 61kB 6.6MB/s eta 0:00:01[K    30% |█████████▊                      | 71kB 6.1MB/s eta 0:00:01[K    34% |███████████▏                    | 81kB 6.4MB/s eta 0:00:01[K    39% |████████████▌                   | 92kB 7.1MB/s eta 0:00:01[K    43% |██████████████                  | 102kB 6.6MB/s eta 0:00:01[K    47% |███████████████▎                | 112kB 6.8MB/s eta 0:00:01[K    52% |████████████████▊               | 122kB 7.0MB/s eta 0:00:01[K    56% |██████████████████              | 133kB 7.7MB/s eta 0:00:01[K    60% |███████████████████▌            | 143kB 9.2MB/s eta 0:00:01[K    65% |█████████████████████           | 153kB 10.1MB/s eta 0:00:01[K    69% |██████████████████████▎         | 163kB 9.5MB/s eta 0:00:01[K    74% |███████████████████████▊        | 174kB 12.0MB/s eta 0:00:01[K    78% |█████████████████████████       | 184kB 11.6MB/s eta 0:00:01[K    82% |██████████████████████████▌     | 194kB 11.6MB/s eta 0:00:01[K    87% |███████████████████████████▉    | 204kB 13.7MB/s eta 0:00:01[K    91% |█████████████████████████████▎  | 215kB 12.9MB/s eta 0:00:01[K    95% |██████████████████████████████▋ | 225kB 13.5MB/s eta 0:00:01[K    100% |████████████████████████████████| 235kB 4.8MB/s 
+[?25hRequirement already satisfied: olefile in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from Pillow>=2.4.0->Nikola==7.8.3)
+Requirement already satisfied: six>=1.5 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from python-dateutil>=2.4.0->Nikola==7.8.3)
+Requirement already satisfied: MarkupSafe>=0.9.2 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from mako>=1.0.0->Nikola==7.8.3)
+Collecting cloudpickle (from doit>=0.28.0->Nikola==7.8.3)
+  Downloading cloudpickle-0.2.2-py2.py3-none-any.whl
+Collecting pyinotify (from doit>=0.28.0->Nikola==7.8.3)
+  Downloading pyinotify-0.9.6.tar.gz (60kB)
+[?25l[K    16% |█████▍                          | 10kB 50.1MB/s eta 0:00:01[K    33% |██████████▊                     | 20kB 39.6MB/s eta 0:00:01[K    50% |████████████████▏               | 30kB 42.8MB/s eta 0:00:01[K    67% |█████████████████████▌          | 40kB 28.3MB/s eta 0:00:01[K    83% |██████████████████████████▉     | 51kB 29.9MB/s eta 0:00:01[K    100% |████████████████████████████████| 61kB 9.7MB/s 
+[?25hBuilding wheels for collected packages: doit, pyinotify
+  Running setup.py bdist_wheel for doit ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/6a/2e/2b/6d58e92352111da5fc1f91829553b3a5e84e1668ba31296c90
+  Running setup.py bdist_wheel for pyinotify ... [?25l- done
+[?25h  Stored in directory: /home/travis/.cache/pip/wheels/ca/66/27/bba9699a96562cab73cd97e80ca0fc9c1656b757293f889ad4
+Successfully built doit pyinotify
+Installing collected packages: cloudpickle, pyinotify, doit, Nikola
+  Running setup.py install for Nikola ... [?25l- \ | / - done
+[?25hSuccessfully installed Nikola-7.8.3 cloudpickle-0.2.2 doit-0.30.3 pyinotify-0.9.6
+
+travis_time:end:00c06147:start=1490452264510700140,finish=1490452270156760830,duration=5646060690[0Ktravis_fold:end:install.3[0Ktravis_fold:start:install.4[0Ktravis_time:start:14c0779e[0K$ if [[ $NMODE == 'flake8' ]]; then pip install flake8 pydocstyle; fi
+
+travis_time:end:14c0779e:start=1490452270161939945,finish=1490452270165771866,duration=3831921[0Ktravis_fold:end:install.4[0Ktravis_time:start:37f9231e[0K$ if [[ $NMODE == 'nikola' ]]; then py.test --doctest-modules nikola/; fi
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.5.2, pytest-3.0.7, py-1.4.32, pluggy-0.4.0
+rootdir: /home/travis/build/getnikola/nikola, inifile: setup.cfg
+plugins: cov-2.4.0
+[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 1 items[0m[1mcollecting 2 items[0m[1mcollecting 2 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 8 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 10 items[0m[1mcollecting 10 items[0m[1mcollecting 10 items[0m[1mcollecting 10 items[0m[1mcollected 10 items 
+[0m
+nikola/rc4.py .
+nikola/shortcodes.py .
+nikola/utils.py s.....
+nikola/plugins/compile/markdown/mdx_podcast.py .
+nikola/plugins/task/sitemap/__init__.py .
+
+----------- coverage: platform linux, python 3.5.2-final-0 -----------
+Name                                             Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------------
+nikola/__init__.py                                   7      0   100%
+nikola/__main__.py                                 227    180    21%   60, 70-175, 188-198, 206-236, 244-248, 261-262, 266-285, 297-300, 305-309, 313-366, 371, 381-399
+nikola/filters.py                                  199    138    31%   70-74, 88-92, 99-101, 119-139, 145-160, 166, 172, 178, 184, 190, 196, 202, 208, 214-218, 224-234, 240-249, 255, 261-272, 276-282, 288-300, 308-317, 323-334, 340-350, 356-366, 372-373, 379-381, 386-390
+nikola/image_processing.py                         133    113    15%   61-64, 69-93, 97-147, 151-189, 193-214
+nikola/nikola.py                                  1350   1255     7%   81, 369-380, 392-999, 1003-1137, 1145-1236, 1240-1248, 1253-1258, 1261-1277, 1282-1291, 1297-1311, 1316-1331, 1342-1369, 1386-1434, 1439-1447, 1464-1574, 1592-1605, 1614-1630, 1634-1643, 1647-1650, 1655-1657, 1660-1665, 1671-1749, 1755-1758, 1793-1811, 1820, 1833-1837, 1846-1852, 1861-1867, 1871-1874, 1878-1880, 1885-1893, 1898-1920, 1924-1927, 1931-1934, 1938-1966, 1976-1983, 1987-1990, 1994-2002, 2007-2024, 2033-2042, 2049-2144, 2161-2198, 2202-2239, 2249-2267, 2279-2437, 2466-2609, 2646-2700, 2705-2709, 2718-2735, 2740-2743, 2749-2759, 2767-2773
+nikola/plugin_categories.py                        215     74    66%   61-62, 66-80, 84, 88, 113-114, 118-120, 124-130, 143-156, 177, 245, 270, 274-279, 283-290, 294-297, 304, 325, 329, 337-341, 345-349, 451, 459, 641, 645, 661, 674, 741, 748, 775, 779, 791
+nikola/plugins/__init__.py                           2      0   100%
+nikola/plugins/basic_import.py                     104     68    35%   74-76, 81-96, 100-114, 124, 129-141, 146-155, 164-171, 176-181, 185-194, 199-201, 206
+nikola/plugins/command/__init__.py                   1      0   100%
+nikola/plugins/command/auto/__init__.py            245    182    26%   40, 134-262, 268-284, 290-293, 297-326, 330-335, 339-340, 344-345, 356-358, 362-389, 393-405, 409-420, 428-429, 433, 441-442, 446-447, 457, 461-464, 467-469
+nikola/plugins/command/bootswatch_theme.py          50     36    28%   40-43, 80-116
+nikola/plugins/command/check.py                    268    236    12%   38, 51-67, 72-90, 96-100, 162-179, 187-358, 362-385, 389-411, 415-439
+nikola/plugins/command/console.py                   62     44    29%   79-90, 94-101, 105-122, 126-149
+nikola/plugins/command/deploy.py                    75     55    27%   56-128, 146-164
+nikola/plugins/command/github_deploy.py             76     54    29%   43-44, 49-54, 86-110, 114-125, 129-167
+nikola/plugins/command/import_wordpress.py         719    653     9%   47, 68-92, 230-240, 244-251, 255-328, 332-349, 353-425, 430-438, 443-445, 449-499, 503-511, 516-667, 680-697, 702-705, 709-712, 716-758, 762-789, 795-814, 818-837, 842-855, 859-1058, 1064-1071, 1075-1083, 1087-1088, 1092-1108, 1112-1121, 1127-1133, 1142-1178
+nikola/plugins/command/init.py                     281    209    26%   140, 166-171, 176-206, 213-221, 227-233, 266-267, 272-276, 281-283, 288-289, 294-483, 487-517
+nikola/plugins/command/install_theme.py             26     14    46%   73-91
+nikola/plugins/command/new_page.py                  15      6    60%   107-114
+nikola/plugins/command/new_post.py                 248    221    11%   53-62, 84-114, 220-430, 440-471, 479-543
+nikola/plugins/command/orphans.py                   12      2    83%   49-50
+nikola/plugins/command/plugin.py                   218    188    14%   116-157, 161-166, 170-194, 198-224, 228-325, 329-348, 352-360
+nikola/plugins/command/rst2html/__init__.py         34     21    38%   48-71
+nikola/plugins/command/serve.py                    138    107    22%   38, 113-120, 124-178, 190-194, 216-286
+nikola/plugins/command/status.py                    73     58    21%   91-159, 163-172
+nikola/plugins/command/theme.py                    195    164    16%   138-175, 179-195, 199-237, 241-258, 262-267, 271-276, 280-288, 293-317, 321-353, 357-365
+nikola/plugins/command/version.py                   22      8    64%   61-69
+nikola/plugins/compile/__init__.py                   1      0   100%
+nikola/plugins/compile/html.py                      41     29    29%   46-48, 52-65, 69-84
+nikola/plugins/compile/ipynb.py                    112     82    27%   78-79, 83-89, 93, 97-98, 103-105, 109-121, 129-136, 140-194, 202-221
+nikola/plugins/compile/markdown/__init__.py         71     50    30%   55, 59-61, 74-86, 90-96, 100-114, 118-134
+nikola/plugins/compile/markdown/mdx_gist.py         69     42    39%   111-112, 121, 125-131, 135-141, 145-174, 183-187, 191-199
+nikola/plugins/compile/markdown/mdx_nikola.py       26     10    62%   56-62, 70-71, 75-76, 80-82
+nikola/plugins/compile/markdown/mdx_podcast.py      29      1    97%   81
+nikola/plugins/compile/pandoc.py                    46     32    30%   50-51, 55-71, 75, 79-94
+nikola/plugins/compile/php.py                       39     25    36%   47-52, 56, 60-86, 90
+nikola/plugins/compile/rest/__init__.py            123     85    31%   67-92, 97, 101-119, 123-137, 141-149, 154-177, 185-187, 191-194, 198-201, 207, 248-252, 278-299, 307
+nikola/plugins/compile/rest/chart.py                56     38    32%   53-56, 159-161, 165-197
+nikola/plugins/compile/rest/doc.py                  55     43    22%   43-47, 53-76, 81-95, 100-110, 115-116
+nikola/plugins/compile/rest/gist.py                 40     23    42%   20-22, 45-46, 50-54, 58-77
+nikola/plugins/compile/rest/listing.py             112     73    35%   70-120, 135-146, 171-200, 204, 208
+nikola/plugins/compile/rest/media.py                27     11    59%   49-52, 64-65, 69-73
+nikola/plugins/compile/rest/post_list.py           122    103    16%   54-58, 166-191, 198-319
+nikola/plugins/compile/rest/slides.py               22      9    59%   46-49, 62-75
+nikola/plugins/compile/rest/soundcloud.py           29     11    62%   19-22, 55-67
+nikola/plugins/compile/rest/thumbnail.py            32     16    50%   44-46, 54, 58-61, 70-81
+nikola/plugins/compile/rest/vimeo.py                52     30    42%   47-49, 87-103, 107, 112-126, 130-131
+nikola/plugins/compile/rest/youtube.py              25     10    60%   43-45, 76-87
+nikola/plugins/misc/__init__.py                      1      0   100%
+nikola/plugins/misc/post_encryption.py              28     14    50%   47-51, 55-62, 66-68
+nikola/plugins/misc/scan_posts.py                   47     35    26%   48-108
+nikola/plugins/misc/taxonomies_classifier.py       196    173    12%   49-190, 194-198, 203, 229-256, 261-267, 271-273, 277-295, 299, 303, 306-319, 323-328
+nikola/plugins/shortcode/gist.py                    31     22    29%   18-20, 24-25, 29-33, 37-56
+nikola/plugins/task/__init__.py                      1      0   100%
+nikola/plugins/task/archive.py                     137    102    26%   78-93, 97, 101-102, 106-109, 113-132, 136-143, 147, 151, 155-220, 225-238, 242
+nikola/plugins/task/authors.py                      66     39    41%   76-78, 82-86, 90, 94, 98, 102-106, 110-120, 124-139, 143-154
+nikola/plugins/task/bundles.py                      62     50    19%   49-55, 59-125, 130-145
+nikola/plugins/task/categories.py                   82     46    44%   82-84, 88, 92-93, 97-98, 102-109, 113-115, 119-128, 132, 136, 140, 144-158, 162-188
+nikola/plugins/task/copy_assets.py                  43     34    21%   49-106
+nikola/plugins/task/copy_files.py                   17     10    41%   42-56
+nikola/plugins/task/galleries.py                   257    219    15%   66-107, 112-123, 135-136, 151-152, 165-166, 172-320, 343-346, 351-376, 381-389, 400-424, 428-437, 442-452, 456-490, 512-531, 555-593, 601-652
+nikola/plugins/task/gzip.py                         34     23    32%   45-70, 75-80
+nikola/plugins/task/indexes.py                      46     21    54%   72-79, 83, 87, 91, 95-105, 109-117, 121, 125
+nikola/plugins/task/listings.py                    140    122    13%   51-53, 57-108, 113-253, 273-276, 289-312
+nikola/plugins/task/page_index.py                   48     20    58%   62, 66-71, 75, 79, 83, 87, 91-100, 104-109
+nikola/plugins/task/pages.py                        22     15    32%   41-62
+nikola/plugins/task/posts.py                        50     40    20%   43, 53-119, 123-127
+nikola/plugins/task/py3_switch.py                   32     16    50%   69-76, 86-103
+nikola/plugins/task/redirect.py                     14      6    57%   44-54
+nikola/plugins/task/robots.py                       31     20    35%   48-88
+nikola/plugins/task/scale_images.py                 41     30    27%   43-44, 48-64, 74-75, 79-101
+nikola/plugins/task/sections.py                     70     44    37%   71-74, 78-82, 86, 90-93, 97, 101-104, 108-128, 132-140, 144-150
+nikola/plugins/task/sitemap/__init__.py            155    125    19%   37, 116-304, 316-323
+nikola/plugins/task/sources.py                      23     16    30%   42-66
+nikola/plugins/task/tagcloud.py                     29     20    31%   44-79
+nikola/plugins/task/tags.py                         60     31    48%   78-81, 85, 89, 93, 97-102, 106-113, 117, 123-137, 141-159
+nikola/plugins/task/taxonomies.py                  217    192    12%   51-114, 118-140, 144-146, 151-180, 184-208, 212-227, 231-245, 249-267, 271-274, 278-303, 308-364, 368-403
+nikola/plugins/template/__init__.py                  1      0   100%
+nikola/plugins/template/jinja.py                    80     54    32%   54-55, 59-73, 77-79, 83, 88-89, 93-101, 105, 109-117, 121-123, 127-130, 134-138
+nikola/plugins/template/mako.py                     86     54    37%   60-72, 76-77, 81-93, 97-99, 103, 110-111, 115-122, 126-127, 133-140, 144-148, 153
+nikola/post.py                                     698    612    12%   101-259, 262, 283-289, 294-300, 305-308, 312-319, 324-325, 330-338, 343, 348-356, 361, 366-367, 371, 375, 383-385, 393-400, 404-406, 410-417, 434-439, 466-469, 473-475, 480-490, 493-506, 510-528, 536-540, 544-565, 574-586, 590-594, 598, 602-610, 614, 618-626, 641-717, 722-732, 737-742, 747-764, 769-781, 785-788, 796-809, 813-817, 821-834, 838-843, 847-864, 868-891, 896-906, 914-920, 927-937, 947-959, 964-975, 987-1000, 1005-1029, 1035-1091, 1103-1146, 1152-1180, 1185-1203
+nikola/rc4.py                                       36      1    97%   83
+nikola/shortcodes.py                               190     60    68%   51-65, 76, 98-114, 129-133, 139, 156, 159-160, 165, 188-192, 194, 207-209, 239, 248, 251, 291, 319, 324-325, 329, 331-339
+nikola/state.py                                     41     26    37%   50-52, 56-57, 61-62, 66-68, 72-75, 78-80, 83-92
+nikola/utils.py                                   1064    772    27%   51-52, 113-116, 130, 138, 158, 165-169, 193-218, 227-229, 234-236, 241-254, 262-263, 267-269, 298-301, 305, 316-335, 339-347, 356-359, 363, 367, 375-378, 382-439, 443, 447, 451-454, 458-461, 489-490, 518, 522, 534-541, 549-552, 556-570, 576, 580-583, 600, 604, 614-620, 631, 656-657, 661, 670-700, 718-731, 742-758, 763-766, 791, 793, 809-813, 822-828, 833-841, 855-870, 875-885, 894, 899-903, 913-945, 993-1004, 1047, 1058, 1106-1122, 1125-1131, 1139-1149, 1167-1170, 1174-1175, 1180, 1184-1185, 1194-1201, 1206-1221, 1225-1251, 1261-1264, 1268-1274, 1282-1285, 1289-1292, 1304-1307, 1312-1317, 1322-1332, 1337-1354, 1406, 1419-1434, 1439-1450, 1455-1471, 1478-1479, 1482-1486, 1501-1532, 1535, 1539-1555, 1573-1576, 1584-1587, 1593-1604, 1609-1614, 1619-1642, 1647-1657, 1662, 1667-1671, 1676-1678, 1724-1726, 1730-1735, 1739, 1743, 1747-1750, 1768-1782, 1787-1818, 1823-1850, 1855-1858, 1868-1891, 1896-1907, 1915-1933, 1938-1952, 1968-1986, 1998-2005, 2010-2027, 2034-2043, 2048-2054
+------------------------------------------------------------------------------
+TOTAL                                            10300   7873    24%
+
+
+[32m[1m===================== 9 passed, 1 skipped in 3.91 seconds ======================[0m
+
+travis_time:end:37f9231e:start=1490452270170402075,finish=1490452274693228976,duration=4522826901[0K
+[32;1mThe command "if [[ $NMODE == 'nikola' ]]; then py.test --doctest-modules nikola/; fi" exited with 0.[0m
+travis_time:start:0bae04a4[0K$ if [[ $NMODE == 'nikola' ]]; then py.test tests/; fi
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.5.2, pytest-3.0.7, py-1.4.32, pluggy-0.4.0
+rootdir: /home/travis/build/getnikola/nikola, inifile: setup.cfg
+plugins: cov-2.4.0
+[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 6 items[0m[1mcollecting 8 items[0m[1mcollecting 20 items[0m[1mcollecting 20 items[0m[1mcollecting 20 items[0m[1mcollecting 24 items[0m[1mcollecting 26 items[0m[1mcollecting 26 items[0m[1mcollecting 27 items[0m[1mcollecting 27 items[0m[1mcollecting 30 items[0m[1mcollecting 30 items[0m[1mcollecting 30 items[0m[1mcollecting 31 items[0m[1mcollecting 34 items[0m[1mcollecting 37 items[0m[1mcollecting 39 items[0m[1mcollecting 41 items[0m[1mcollecting 43 items[0m[1mcollecting 45 items[0m[1mcollecting 47 items[0m[1mcollecting 51 items[0m[1mcollecting 56 items[0m[1mcollecting 61 items[0m[1mcollecting 66 items[0m[1mcollecting 71 items[0m[1mcollecting 75 items[0m[1mcollecting 79 items[0m[1mcollecting 83 items[0m[1mcollecting 87 items[0m[1mcollecting 91 items[0m[1mcollecting 96 items[0m[1mcollecting 101 items[0m[1mcollecting 106 items[0m[1mcollecting 106 items[0m[1mcollecting 106 items[0m[1mcollecting 107 items[0m[1mcollecting 117 items[0m[1mcollecting 118 items[0m[1mcollecting 123 items[0m[1mcollecting 125 items[0m[1mcollecting 125 items[0m[1mcollecting 128 items[0m[1mcollecting 128 items[0m[1mcollecting 130 items[0m[1mcollecting 130 items[0m[1mcollecting 130 items[0m[1mcollecting 131 items[0m[1mcollecting 132 items[0m[1mcollecting 133 items[0m[1mcollecting 134 items[0m[1mcollecting 135 items[0m[1mcollecting 136 items[0m[1mcollecting 137 items[0m[1mcollecting 140 items[0m[1mcollecting 140 items[0m[1mcollecting 140 items[0m[1mcollecting 141 items[0m[1mcollecting 141 items[0m[1mcollecting 141 items[0m[1mcollecting 142 items[0m[1mcollecting 142 items[0m[1mcollecting 146 items[0m[1mcollecting 154 items[0m[1mcollecting 158 items[0m[1mcollecting 164 items[0m[1mcollecting 164 items[0m[1mcollecting 167 items[0m[1mcollecting 168 items[0m[1mcollected 168 items 
+[0m
+tests/test_command_import_wordpress.py ....................
+tests/test_command_init.py ......
+tests/test_commands.py .
+tests/test_compile_markdown.py ...
+tests/test_integration.py ........F...................................................................
+tests/test_locale.py ...................
+tests/test_plugin_importing.py ...
+tests/test_rss_feeds.py ..
+tests/test_rst_compiler.py ..........
+tests/test_scheduling.py .
+tests/test_shortcodes.py .....
+tests/test_slugify.py ........
+tests/test_template_shortcodes.py ....
+tests/test_utils.py ..........
+
+----------- coverage: platform linux, python 3.5.2-final-0 -----------
+Name                                             Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------------
+nikola/__init__.py                                   7      0   100%
+nikola/__main__.py                                 227     96    58%   60, 72, 77, 87-92, 97-99, 101-102, 123, 131, 133-141, 144, 149-153, 159-160, 170, 174, 188-198, 244-248, 267, 317-318, 321-332, 335, 337, 344-345, 347-359, 363-365, 371, 381-399
+nikola/filters.py                                  199    123    38%   70-74, 99-101, 119-139, 145-160, 166, 172, 178, 184, 190, 196, 202, 208, 214-218, 224-234, 240-249, 255, 262-263, 276-282, 288-300, 308-317, 323-334, 340-350, 356-366, 372-373, 379-381, 388-389
+nikola/image_processing.py                         133     77    42%   61-64, 69-93, 98-99, 107, 119, 121, 123, 125, 132-141, 144-147, 151-189, 197-198, 205, 209-210
+nikola/nikola.py                                  1350    438    68%   81, 373-377, 633-634, 707-708, 715-716, 720-721, 725, 738-741, 753-756, 761-764, 769-772, 777-780, 786-789, 797-800, 805-808, 813-822, 827-828, 833-841, 844-851, 856-858, 862, 865-870, 873-878, 881, 902-903, 909-912, 916-920, 932-933, 935-936, 940-947, 952-954, 1028, 1040-1045, 1059-1060, 1071-1073, 1082-1083, 1095-1096, 1150-1151, 1242-1246, 1264-1269, 1272-1275, 1289-1291, 1307, 1322-1324, 1351-1359, 1365-1366, 1400, 1406, 1409, 1422, 1430, 1445-1447, 1484, 1494-1503, 1510-1511, 1517, 1536-1538, 1565, 1572, 1628, 1634-1643, 1648-1649, 1661, 1694, 1705, 1715-1721, 1804, 1809-1811, 1820, 1848, 1851, 1861-1867, 1872, 1888, 1891, 1907, 1916, 1924-1927, 1951, 1960-1961, 1963, 1977-1981, 1988, 2084-2090, 2109-2113, 2115-2119, 2143, 2216, 2279-2437, 2486-2493, 2503-2507, 2511, 2514, 2517, 2523, 2533-2536, 2538-2546, 2548-2549, 2552-2553, 2557-2562, 2578-2603, 2607-2609, 2686, 2692-2697, 2730-2731, 2740-2743, 2750, 2756, 2758, 2771-2773
+nikola/plugin_categories.py                        215     15    93%   75, 84, 88, 128-129, 153-155, 245, 297, 304, 451, 459, 741, 748
+nikola/plugins/__init__.py                           2      0   100%
+nikola/plugins/basic_import.py                     104     37    64%   74-76, 93, 103-104, 124, 134-137, 146-155, 164-171, 176-181, 199-201, 206
+nikola/plugins/command/__init__.py                   1      0   100%
+nikola/plugins/command/auto/__init__.py            245    182    26%   40, 134-262, 268-284, 290-293, 297-326, 330-335, 339-340, 344-345, 356-358, 362-389, 393-405, 409-420, 428-429, 433, 441-442, 446-447, 457, 461-464, 467-469
+nikola/plugins/command/bootswatch_theme.py          50     36    28%   40-43, 80-116
+nikola/plugins/command/check.py                    268     92    66%   38, 53, 99, 165-166, 168, 177, 197, 208-209, 222-223, 227-232, 240, 254, 260, 264-266, 273-319, 343, 353-357, 378-379, 382, 405-408, 415-439
+nikola/plugins/command/console.py                   62     44    29%   79-90, 94-101, 105-122, 126-149
+nikola/plugins/command/deploy.py                    75     55    27%   56-128, 146-164
+nikola/plugins/command/github_deploy.py             76     54    29%   43-44, 49-54, 86-110, 114-125, 129-167
+nikola/plugins/command/import_wordpress.py         719    271    62%   47, 68-92, 230-240, 244-251, 262, 296-300, 307-308, 310, 313-314, 317-326, 336-349, 358, 365, 374, 383, 392, 394-395, 399-410, 419-425, 436, 461-462, 480, 495, 503-511, 523, 545, 553-557, 575, 582-584, 611, 627, 656, 682-683, 718-725, 728-738, 742-745, 747, 753-758, 762-789, 795-814, 820, 822-834, 843, 850, 853-855, 860, 877, 880-881, 889-897, 908-911, 914, 929-930, 932-934, 936-938, 949, 956, 972-974, 977-978, 980-981, 989, 996-999, 1001-1009, 1026, 1044-1052, 1056-1058, 1083, 1087-1088, 1128
+nikola/plugins/command/init.py                     281    165    41%   140, 176-206, 228-231, 281-283, 294-483, 496-497, 511
+nikola/plugins/command/install_theme.py             26     14    46%   73-91
+nikola/plugins/command/new_page.py                  15      6    60%   107-114
+nikola/plugins/command/new_post.py                 248    204    18%   53-62, 85, 97-98, 107, 110, 220-430, 440-471, 479-543
+nikola/plugins/command/orphans.py                   12      2    83%   49-50
+nikola/plugins/command/plugin.py                   218    188    14%   116-157, 161-166, 170-194, 198-224, 228-325, 329-348, 352-360
+nikola/plugins/command/rst2html/__init__.py         34     21    38%   48-71
+nikola/plugins/command/serve.py                    138    107    22%   38, 113-120, 124-178, 190-194, 216-286
+nikola/plugins/command/status.py                    73     58    21%   91-159, 163-172
+nikola/plugins/command/theme.py                    195    164    16%   138-175, 179-195, 199-237, 241-258, 262-267, 271-276, 280-288, 293-317, 321-353, 357-365
+nikola/plugins/command/version.py                   22      6    73%   63-69
+nikola/plugins/compile/__init__.py                   1      0   100%
+nikola/plugins/compile/html.py                      41     29    29%   46-48, 52-65, 69-84
+nikola/plugins/compile/ipynb.py                    112     82    27%   78-79, 83-89, 93, 97-98, 103-105, 109-121, 129-136, 140-194, 202-221
+nikola/plugins/compile/markdown/__init__.py         71     20    72%   91, 93, 101, 110-114, 118-134
+nikola/plugins/compile/markdown/mdx_gist.py         69     32    54%   111-112, 125-131, 135-141, 145-174, 187
+nikola/plugins/compile/markdown/mdx_nikola.py       26      0   100%
+nikola/plugins/compile/markdown/mdx_podcast.py      29      8    72%   62-68, 81
+nikola/plugins/compile/pandoc.py                    46     32    30%   50-51, 55-71, 75, 79-94
+nikola/plugins/compile/php.py                       39     25    36%   47-52, 56, 60-86, 90
+nikola/plugins/compile/rest/__init__.py            123     26    79%   90, 97, 110, 119, 123-137, 193, 207, 248-252, 307
+nikola/plugins/compile/rest/chart.py                56      7    88%   166-167, 175, 177, 183-184, 190
+nikola/plugins/compile/rest/doc.py                  55     18    67%   62-63, 67-69, 84-86, 91-95, 100-110
+nikola/plugins/compile/rest/gist.py                 40      8    80%   45-46, 53-54, 59, 66-68
+nikola/plugins/compile/rest/listing.py             112     18    84%   73, 75, 80, 86, 92-93, 96-101, 107, 176-177, 182, 186, 189, 208
+nikola/plugins/compile/rest/media.py                27      7    74%   64-65, 69-73
+nikola/plugins/compile/rest/post_list.py           122     98    20%   166-191, 198-319
+nikola/plugins/compile/rest/slides.py               22      1    95%   63
+nikola/plugins/compile/rest/soundcloud.py           29      1    97%   64
+nikola/plugins/compile/rest/thumbnail.py            32      6    81%   54, 58-61, 73, 78
+nikola/plugins/compile/rest/vimeo.py                52     14    73%   96, 100, 113-126, 131
+nikola/plugins/compile/rest/youtube.py              25      1    96%   84
+nikola/plugins/misc/__init__.py                      1      1     0%   27
+nikola/plugins/misc/post_encryption.py              28      9    68%   47-51, 59-62
+nikola/plugins/misc/scan_posts.py                   47      3    94%   104-106
+nikola/plugins/misc/taxonomies_classifier.py       196     17    91%   69, 169-170, 175-185, 189, 198, 231, 240, 242, 263, 299
+nikola/plugins/shortcode/gist.py                    31     19    39%   24-25, 29-33, 37-56
+nikola/plugins/task/__init__.py                      1      1     0%   27
+nikola/plugins/task/archive.py                     137     40    71%   79, 90, 115, 123-124, 130-132, 161-162, 181, 191-213, 217-218, 226-236
+nikola/plugins/task/authors.py                      66      4    94%   83, 94, 105, 149
+nikola/plugins/task/bundles.py                      62     12    81%   51-54, 83-89, 141-143
+nikola/plugins/task/categories.py                   82      9    89%   103-107, 120-121, 123, 186
+nikola/plugins/task/copy_assets.py                  43      3    93%   76-78
+nikola/plugins/task/copy_files.py                   17      0   100%
+nikola/plugins/task/galleries.py                   257     15    94%   96-98, 118-123, 241, 256, 419, 564, 576, 609, 651
+nikola/plugins/task/gzip.py                         34     21    38%   47-70, 75-80
+nikola/plugins/task/indexes.py                      46      1    98%   91
+nikola/plugins/task/listings.py                    140     28    80%   75-77, 119-127, 132-137, 176, 228, 299-308
+nikola/plugins/task/page_index.py                   48     19    60%   66-71, 75, 79, 83, 87, 91-100, 104-109
+nikola/plugins/task/pages.py                        22      1    95%   53
+nikola/plugins/task/posts.py                        50      9    82%   80, 84-85, 115-118, 125-127
+nikola/plugins/task/py3_switch.py                   32     11    66%   69-76, 89-93
+nikola/plugins/task/redirect.py                     14      0   100%
+nikola/plugins/task/robots.py                       31      5    84%   69-70, 85-88
+nikola/plugins/task/scale_images.py                 41      1    98%   56
+nikola/plugins/task/sections.py                     70     28    60%   79, 90-93, 97, 101-104, 108-128, 138, 144-150
+nikola/plugins/task/sitemap/__init__.py            155     29    81%   37, 100, 106, 146, 156-166, 169, 175, 177, 209, 228-235, 276, 283, 317
+nikola/plugins/task/sources.py                      23      3    87%   55, 57, 63
+nikola/plugins/task/tagcloud.py                     29      1    97%   51
+nikola/plugins/task/tags.py                         60      9    85%   93, 98-99, 107-111, 157
+nikola/plugins/task/taxonomies.py                  217     17    92%   120, 171-172, 224, 231-245, 255, 260, 267, 274, 290, 310, 315
+nikola/plugins/template/__init__.py                  1      1     0%   27
+nikola/plugins/template/jinja.py                    80     35    56%   55, 60, 77-79, 93-101, 109-117, 121-123, 127-130, 134-138
+nikola/plugins/template/mako.py                     86     14    84%   84-88, 97-99, 119-121, 147-148, 153
+nikola/post.py                                     698    198    72%   107, 123, 187, 192, 200-201, 210, 231-233, 237-239, 243-245, 286, 295, 315, 317, 333-337, 351-355, 375, 411, 413, 435, 439, 466-469, 473-475, 481, 489-490, 500, 505, 515, 523, 525, 546, 578, 608, 624, 649, 655, 658-663, 672-673, 679-698, 705-706, 722-732, 737-742, 747-764, 769-781, 800, 806, 813-817, 821-834, 838-843, 848, 853, 857, 859, 863, 873, 878, 887, 889, 906, 918, 928, 933, 955, 968, 972-975, 1039, 1041-1083, 1157, 1164-1166, 1175, 1177, 1188
+nikola/rc4.py                                       36     29    19%   34-43, 48-56, 61-62, 71-84
+nikola/shortcodes.py                               190     15    92%   56-61, 105-106, 156, 194, 209, 319, 335-339
+nikola/state.py                                     41     21    49%   61-62, 66-68, 72-75, 78-80, 83-92
+nikola/utils.py                                   1064    400    62%   51-52, 113-116, 138, 158, 165-169, 193-218, 227-229, 235, 245, 251-254, 300-301, 305, 341-347, 367, 375-378, 397, 403, 412, 420-424, 428-429, 436, 447, 451-454, 458-461, 487-493, 513-514, 518, 522, 557, 563, 570, 600, 604, 620, 631, 656-657, 661, 688-689, 696-697, 723, 728, 754-756, 763-766, 791, 793, 823, 838-839, 855-870, 884-885, 894, 915, 922-923, 928, 942, 1042, 1107, 1126, 1167-1170, 1208-1210, 1216-1220, 1232, 1241-1243, 1250, 1317, 1323, 1326-1327, 1340, 1351, 1354, 1406, 1419-1434, 1439-1450, 1455-1471, 1478-1479, 1482-1486, 1501-1532, 1535, 1539-1555, 1573-1576, 1595, 1597, 1614, 1621-1641, 1647-1657, 1662, 1667-1671, 1743, 1747-1750, 1781, 1832-1847, 1868-1891, 1896-1907, 1915-1933, 1938-1952, 1968-1986, 1998-2005, 2010-2027, 2034-2043, 2053
+------------------------------------------------------------------------------
+TOTAL                                            10300   3917    62%
+
+
+=================================== FAILURES ===================================
+[31m[1m_______________________ FuturePostTest.test_future_post ________________________[0m
+
+self = <tests.test_integration.FuturePostTest testMethod=test_future_post>
+
+[1m    def test_future_post(self):[0m
+[1m        """ Ensure that the future post is not present in the index and sitemap."""[0m
+[1m        index_path = os.path.join(self.target_dir, "output", "index.html")[0m
+[1m        sitemap_path = os.path.join(self.target_dir, "output", "sitemap.xml")[0m
+[1m        foo_path = os.path.join(self.target_dir, "output", "posts", "foo.html")[0m
+[1m        bar_path = os.path.join(self.target_dir, "output", "posts", "bar.html")[0m
+[1m        self.assertTrue(os.path.isfile(index_path))[0m
+[1m        self.assertTrue(os.path.isfile(foo_path))[0m
+[1m        self.assertTrue(os.path.isfile(bar_path))[0m
+[1m        index_data = io.open(index_path, "r", encoding="utf8").read()[0m
+[1m        sitemap_data = io.open(sitemap_path, "r", encoding="utf8").read()[0m
+[1m        self.assertTrue('foo.html' in index_data)[0m
+[1m>       self.assertFalse('bar.html' in index_data)[0m
+[31m[1mE       AssertionError: True is not false[0m
+
+[1m[31mtests/test_integration.py[0m:180: AssertionError
+[31m[1m==================== 1 failed, 167 passed in 108.46 seconds ====================[0m
+
+travis_time:end:0bae04a4:start=1490452274698242303,finish=1490452384668105238,duration=109969862935[0K
+[31;1mThe command "if [[ $NMODE == 'nikola' ]]; then py.test tests/; fi" exited with 1.[0m
+travis_time:start:07e34f70[0K$ if [[ $NMODE == 'nikola' ]]; then nikola; fi
+Nikola is a tool to create static websites and blogs. For full documentation and more information, please visit https://getnikola.com/
+
+
+Available commands:
+  nikola auto                 builds and serves a site; automatically detects site changes, rebuilds, and optionally refreshes a browser
+  nikola bootswatch_theme     given a swatch name from bootswatch.com and a parent theme, creates a custom theme
+  nikola build                run tasks
+  nikola check                check links and files in the generated site
+  nikola clean                clean action / remove targets
+  nikola console              start an interactive Python console with access to your site
+  nikola deploy               deploy the site
+  nikola doit_auto            automatically execute tasks when a dependency changes
+  nikola dumpdb               dump dependency DB
+  nikola forget               clear successful run status from internal DB
+  nikola github_deploy        deploy the site to GitHub Pages
+  nikola help                 show help
+  nikola ignore               ignore task (skip) on subsequent runs
+  nikola import_wordpress     import a WordPress dump
+  nikola info                 show info about a task
+  nikola init                 create a Nikola site in the specified folder
+  nikola install_theme        install theme into current site
+  nikola list                 list tasks from dodo file
+  nikola new_page             create a new page in the site
+  nikola new_post             create a new blog post or site page
+  nikola orphans              list all orphans
+  nikola plugin               manage plugins
+  nikola reset-dep            recompute and save the state of file dependencies without executing actions
+  nikola rst2html             compile reStructuredText to HTML files
+  nikola serve                start the test webserver
+  nikola status               display site status
+  nikola strace               use strace to list file_deps and targets
+  nikola tabcompletion        generate script for tab-completion
+  nikola theme                manage themes
+  nikola version              print the Nikola version number
+
+  nikola help                 show help / reference
+  nikola help <command>       show command usage
+  nikola help <task-name>     show task usage
+[0m
+travis_time:end:07e34f70:start=1490452384673818258,finish=1490452385807996433,duration=1134178175[0K
+[32;1mThe command "if [[ $NMODE == 'nikola' ]]; then nikola; fi" exited with 0.[0m
+travis_time:start:13c82868[0K$ if [[ $NMODE == 'nikola' ]]; then nikola help; fi
+Nikola is a tool to create static websites and blogs. For full documentation and more information, please visit https://getnikola.com/
+
+
+Available commands:
+  nikola auto                 builds and serves a site; automatically detects site changes, rebuilds, and optionally refreshes a browser
+  nikola bootswatch_theme     given a swatch name from bootswatch.com and a parent theme, creates a custom theme
+  nikola build                run tasks
+  nikola check                check links and files in the generated site
+  nikola clean                clean action / remove targets
+  nikola console              start an interactive Python console with access to your site
+  nikola deploy               deploy the site
+  nikola doit_auto            automatically execute tasks when a dependency changes
+  nikola dumpdb               dump dependency DB
+  nikola forget               clear successful run status from internal DB
+  nikola github_deploy        deploy the site to GitHub Pages
+  nikola help                 show help
+  nikola ignore               ignore task (skip) on subsequent runs
+  nikola import_wordpress     import a WordPress dump
+  nikola info                 show info about a task
+  nikola init                 create a Nikola site in the specified folder
+  nikola install_theme        install theme into current site
+  nikola list                 list tasks from dodo file
+  nikola new_page             create a new page in the site
+  nikola new_post             create a new blog post or site page
+  nikola orphans              list all orphans
+  nikola plugin               manage plugins
+  nikola reset-dep            recompute and save the state of file dependencies without executing actions
+  nikola rst2html             compile reStructuredText to HTML files
+  nikola serve                start the test webserver
+  nikola status               display site status
+  nikola strace               use strace to list file_deps and targets
+  nikola tabcompletion        generate script for tab-completion
+  nikola theme                manage themes
+  nikola version              print the Nikola version number
+
+  nikola help                 show help / reference
+  nikola help <command>       show command usage
+  nikola help <task-name>     show task usage
+[0m
+travis_time:end:13c82868:start=1490452385813206535,finish=1490452386884250468,duration=1071043933[0K
+[32;1mThe command "if [[ $NMODE == 'nikola' ]]; then nikola help; fi" exited with 0.[0m
+travis_time:start:0d99a7a5[0K$ if [[ $NMODE == 'nikola' ]]; then scripts/baseline.sh check; fi
+[35m>> Version 3.5 does not support baseline testing.[0m
+
+travis_time:end:0d99a7a5:start=1490452386889155815,finish=1490452386915587912,duration=26432097[0K
+[32;1mThe command "if [[ $NMODE == 'nikola' ]]; then scripts/baseline.sh check; fi" exited with 0.[0m
+travis_time:start:0b0932e0[0K$ if [[ $NMODE == 'nikola' ]]; then scripts/codacy_coverage.sh; fi
+
+travis_time:end:0b0932e0:start=1490452386920373591,finish=1490452386945695524,duration=25321933[0K
+[32;1mThe command "if [[ $NMODE == 'nikola' ]]; then scripts/codacy_coverage.sh; fi" exited with 0.[0m
+travis_time:start:170ee800[0K$ if [[ $NMODE == 'flake8' ]]; then flake8 nikola/; fi
+
+travis_time:end:170ee800:start=1490452386950596957,finish=1490452386954365393,duration=3768436[0K
+[32;1mThe command "if [[ $NMODE == 'flake8' ]]; then flake8 nikola/; fi" exited with 0.[0m
+travis_time:start:085e49b0[0K$ if [[ $NMODE == 'flake8' ]]; then pydocstyle --count --match-dir='(?!^\\.)(?!data).*' nikola/; fi
+
+travis_time:end:085e49b0:start=1490452386960757750,finish=1490452386964615268,duration=3857518[0K
+[32;1mThe command "if [[ $NMODE == 'flake8' ]]; then pydocstyle --count --match-dir='(?!^\.)(?!data).*' nikola/; fi" exited with 0.[0m
+
+Done. Your build exited with 1.

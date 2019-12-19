@@ -1,0 +1,191 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd grpc/grpc-java
+travis_fold:start:git.submodule[0Ktravis_time:start:30278ad4[0K$ git submodule update --init --recursive
+Submodule 'lib/netty' (https://github.com/netty/netty.git) registered for path 'lib/netty'
+Cloning into 'lib/netty'...
+Submodule path 'lib/netty': checked out '44615f6cb2d1ab3e7c2f7bac63ae1a76b290bc34'
+
+travis_time:end:30278ad4:start=1479411089562350848,finish=1479411112661035856,duration=23098685008[0Ktravis_fold:end:git.submodule[0K
+[33;1mSetting environment variables from .travis.yml[0m
+$ export LDFLAGS=-L/tmp/proto3-a2/lib
+$ export CXXFLAGS=-I/tmp/proto3-a2/include
+$ export LD_LIBRARY_PATH=/tmp/proto3-a2/lib
+$ export PATH=/tmp/proto3-a2/bin:$PATH
+
+$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ export TERM=dumb
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:002712ae[0K$ Installing caching utilities
+
+travis_time:end:002712ae:start=1479411114517384184,finish=1479411115774538732,duration=1257154548[0Ktravis_time:start:358a294a[0K
+travis_time:end:358a294a:start=1479411115786911667,finish=1479411115795806449,duration=8894782[0Ktravis_time:start:1be1990c[0K/home/travis/.casher/bin/casher:63:in `block in fetch': undefined method `[]' for nil:NilClass (NoMethodError)
+	from /home/travis/.casher/bin/casher:62:in `each'
+	from /home/travis/.casher/bin/casher:62:in `fetch'
+	from /home/travis/.casher/bin/casher:52:in `block in run'
+	from /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/timeout.rb:69:in `timeout'
+	from /home/travis/.casher/bin/casher:52:in `run'
+	from /home/travis/.casher/bin/casher:234:in `<main>'
+[32;1mattempting to download cache archive[0m
+
+travis_time:end:1be1990c:start=1479411115811341194,finish=1479411120492839104,duration=4681497910[0Ktravis_time:start:0f836550[0K
+travis_time:end:0f836550:start=1479411120501902043,finish=1479411120514181323,duration=12279280[0Ktravis_time:start:01ada7c0[0K[32;1madding /tmp/proto3-a2 to cache[0m
+[32;1madding /home/travis/.m2 to cache[0m
+
+travis_time:end:01ada7c0:start=1479411120523290354,finish=1479411121314841229,duration=791550875[0Ktravis_fold:end:cache.1[0K$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:before_install[0Ktravis_time:start:0b01a438[0K$ buildscripts/make_dependencies.sh
+
+# Make protoc
+# Can't check for presence of directory as cache auto-creates it.
+if [ -f /tmp/proto3-a2/bin/protoc ]; then
+  echo "Not building protobuf. Already built"
+else
+  wget -O - https://github.com/google/protobuf/archive/v3.0.0-alpha-2.tar.gz | tar xz -C /tmp
+  pushd /tmp/protobuf-3.0.0-alpha-2
+  ./autogen.sh
+  # install here so we don't need sudo
+  ./configure --prefix=/tmp/proto3-a2
+  make -j2
+  make install
+  popd
+fi
+--2016-11-17 19:32:01--  https://github.com/google/protobuf/archive/v3.0.0-alpha-2.tar.gz
+Resolving github.com (github.com)... 192.30.253.112, 192.30.253.113
+Connecting to github.com (github.com)|192.30.253.112|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/google/protobuf/tar.gz/v3.0.0-alpha-2 [following]
+--2016-11-17 19:32:03--  https://codeload.github.com/google/protobuf/tar.gz/v3.0.0-alpha-2
+Resolving codeload.github.com (codeload.github.com)... 192.30.253.121, 192.30.253.120
+Connecting to codeload.github.com (codeload.github.com)|192.30.253.121|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1841015 (1.8M) [application/x-gzip]
+Saving to: `STDOUT'
+
+     0K .......... .......... .......... .......... ..........  2%  318K 6s
+    50K .......... .......... .......... .......... ..........  5%  628K 4s
+   100K .......... .......... .......... .......... ..........  8% 29.1M 3s
+   150K .......... .......... .......... .......... .......... 11%  670K 3s
+   200K .......... .......... .......... .......... .......... 13% 7.71M 2s
+   250K .......... .......... .......... .......... .......... 16% 66.0M 2s
+   300K .......... .......... .......... .......... .......... 19% 23.0M 1s
+   350K .......... .......... .......... .......... .......... 22% 9.07M 1s
+   400K .......... .......... .......... .......... .......... 25% 84.7K 3s
+   450K .......... .......... .......... .......... .......... 27% 7.61M 2s
+   500K .......... .......... .......... .......... .......... 30% 9.30M 2s
+   550K .......... .......... .......... .......... .......... 33% 10.0M 2s
+   600K .......... .......... .......... .......... .......... 36% 6.61M 2s
+   650K .......... .......... .......... .......... .......... 38% 6.77M 1s
+   700K .......... .......... .......... .......... .......... 41% 8.11M 1s
+   750K .......... .......... .......... .......... .......... 44% 18.4M 1s
+   800K .......... .......... .......... .......... .......... 47% 12.4M 1s
+   850K .......... .......... .......... .......... .......... 50% 20.2M 1s
+   900K .......... .......... .......... .......... .......... 52% 7.58M 1s
+   950K .......... .......... .......... .......... .......... 55% 15.4M 1s
+  1000K .......... .......... .......... .......... .......... 58%  594K 1s
+  1050K .......... .......... .......... .......... .......... 61% 5.21M 1s
+  1100K .......... .......... .......... .......... .......... 63% 5.84M 1s
+  1150K .......... .......... .......... .......... .......... 66% 6.28M 1s
+  1200K .......... .......... .......... .......... .......... 69% 8.47M 0s
+  1250K .......... .......... .......... .......... .......... 72% 10.3M 0s
+  1300K .......... .......... .......... .......... .......... 75% 12.4M 0s
+  1350K .......... .......... .......... .......... .......... 77% 6.56M 0s
+  1400K .......... .......... .......... .......... .......... 80% 16.5M 0s
+  1450K .......... .......... .......... .......... .......... 83% 25.6M 0s
+  1500K .......... .......... .......... .......... .......... 86% 19.1M 0s
+  1550K .......... .......... .......... .......... .......... 88% 37.1M 0s
+  1600K .......... .......... .......... .......... .......... 91% 16.3M 0s
+  1650K .......... .......... .......... .......... .......... 94% 24.3M 0s
+  1700K .......... .......... .......... .......... .......... 97% 24.3M 0s
+  1750K .......... .......... .......... .......... .......   100% 17.3M=1.1s
+
+2016-11-17 19:32:05 (1.56 MB/s) - written to stdout [1841015/1841015]
+
+/tmp/protobuf-3.0.0-alpha-2 ~/build/grpc/grpc-java
+Google Test not present.  Fetching gtest-1.7.0 from the web...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  1582  100  1582    0     0   5756      0 --:--:-- --:--:-- --:--:-- 14648
+[gtest-1.7.0.zip]
+  End-of-central-directory signature not found.  Either this file is not
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the
+  latter case the central directory and zipfile comment will be found on
+  the last disk(s) of this archive.
+unzip:  cannot find zipfile directory in one of gtest-1.7.0.zip or
+        gtest-1.7.0.zip.zip, and cannot find gtest-1.7.0.zip.ZIP, period.
+
+travis_time:end:0b01a438:start=1479411121673127912,finish=1479411125738470973,duration=4065343061[0K
+[31;1mThe command "buildscripts/make_dependencies.sh" failed and exited with 9 during .[0m
+
+Your build has been stopped.

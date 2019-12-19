@@ -1,0 +1,395 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: i-0aeaeec-precise-production-2-worker-org-docker.travisci.net:fa37d0fa-1b5e-4e7b-863d-3f155a42a1b3
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: 39141bb:travis:python
+startup: 620.12812ms
+travis_fold:end:worker_info[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+Build id: 250808133
+Job id: 250808150
+travis-build version: 6094b6ae8
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+Need to get 8,856 kB of archives.
+After this operation, 13.3 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.18 [2,948 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.18 [84.5 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.18 [1,178 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.18 [4,646 kB]
+Preconfiguring packages ...
+Fetched 8,856 kB in 0s (30.3 MB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.18) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72430 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.18_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.18) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.18) ...
+Setting up libc6-dev (2.15-0ubuntu10.18) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0Ktravis_fold:start:update_libssl1.0.0[0K$ sudo apt-get install libssl1.0.0
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libssl-dev
+The following packages will be upgraded:
+  libssl-dev libssl1.0.0
+2 upgraded, 0 newly installed, 0 to remove and 262 not upgraded.
+Need to get 2,634 kB of archives.
+After this operation, 29.7 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libssl-dev amd64 1.0.1-4ubuntu5.39 [1,580 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libssl1.0.0 amd64 1.0.1-4ubuntu5.39 [1,054 kB]
+Preconfiguring packages ...
+Fetched 2,634 kB in 0s (16.9 MB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72430 files and directories currently installed.)
+Preparing to replace libssl-dev 1.0.1-4ubuntu5.21 (using .../libssl-dev_1.0.1-4ubuntu5.39_amd64.deb) ...
+Unpacking replacement libssl-dev ...
+Preparing to replace libssl1.0.0 1.0.1-4ubuntu5.21 (using .../libssl1.0.0_1.0.1-4ubuntu5.39_amd64.deb) ...
+Unpacking replacement libssl1.0.0 ...
+Setting up libssl1.0.0 (1.0.1-4ubuntu5.39) ...
+Setting up libssl-dev (1.0.1-4ubuntu5.39) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:update_libssl1.0.0[0Ktravis_fold:start:git.checkout[0Ktravis_time:start:06093086[0K$ git clone --depth=50 --branch=master https://github.com/numpy/numpy.git numpy/numpy
+Cloning into 'numpy/numpy'...
+
+travis_time:end:06093086:start=1499357248440154672,finish=1499357252197246982,duration=3757092310[0K$ cd numpy/numpy
+$ git checkout -qf 1b5f61ead26ace5809811920ebaad1aee409c7b5
+travis_fold:end:git.checkout[0Ktravis_fold:start:git.submodule[0Ktravis_time:start:03d7a8fa[0K$ git submodule update --init --recursive
+Submodule 'doc/scipy-sphinx-theme' (https://github.com/scipy/scipy-sphinx-theme.git) registered for path 'doc/scipy-sphinx-theme'
+Submodule 'doc/sphinxext' (https://github.com/numpy/numpydoc.git) registered for path 'doc/sphinxext'
+Cloning into 'doc/scipy-sphinx-theme'...
+Submodule path 'doc/scipy-sphinx-theme': checked out 'c466764e2231ba132c09826b5b138fffa1cfcec3'
+Cloning into 'doc/sphinxext'...
+Submodule path 'doc/sphinxext': checked out 'ef988a4a4658c991f4445f6241ab02d74710c6e3'
+
+travis_time:end:03d7a8fa:start=1499357252340521332,finish=1499357253375889367,duration=1035368035[0Ktravis_fold:end:git.submodule[0Ktravis_fold:start:apt[0K[33;1mInstalling APT Packages (BETA)[0m
+$ export DEBIAN_FRONTEND=noninteractive
+travis_time:start:192297fa[0K$ sudo -E apt-get -yq update &>> ~/apt-get-update.log
+
+travis_time:end:192297fa:start=1499357253385498486,finish=1499357258446635133,duration=5061136647[0Ktravis_time:start:001d9730[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install gfortran libatlas-dev libatlas-base-dev eatmydata
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  gfortran-4.6 libatlas3gf-base libblas-dev
+Suggested packages:
+  gfortran-multilib gfortran-doc gfortran-4.6-multilib gfortran-4.6-doc
+  libgfortran3-dbg libblas-doc liblapack-doc liblapack-dev
+The following NEW packages will be installed:
+  eatmydata gfortran gfortran-4.6 libatlas-base-dev libatlas-dev
+  libatlas3gf-base libblas-dev
+0 upgraded, 7 newly installed, 0 to remove and 262 not upgraded.
+Need to get 19.6 MB of archives.
+After this operation, 68.4 MB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise/universe eatmydata amd64 26-2 [8,034 B]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise/main gfortran-4.6 amd64 4.6.3-1ubuntu5 [5,579 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise/main gfortran amd64 4:4.6.3-1ubuntu5 [1,206 B]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise/universe libatlas3gf-base amd64 3.8.4-3build1 [6,191 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu/ precise/main libblas-dev amd64 1.2.20110419-2ubuntu1 [302 kB]
+Get:6 http://us.archive.ubuntu.com/ubuntu/ precise/universe libatlas-dev all 3.8.4-3build1 [13.6 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu/ precise/universe libatlas-base-dev amd64 3.8.4-3build1 [7,461 kB]
+Fetched 19.6 MB in 0s (42.1 MB/s)
+Selecting previously unselected package eatmydata.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72430 files and directories currently installed.)
+Unpacking eatmydata (from .../eatmydata_26-2_amd64.deb) ...
+Selecting previously unselected package gfortran-4.6.
+Unpacking gfortran-4.6 (from .../gfortran-4.6_4.6.3-1ubuntu5_amd64.deb) ...
+Selecting previously unselected package gfortran.
+Unpacking gfortran (from .../gfortran_4%3a4.6.3-1ubuntu5_amd64.deb) ...
+Selecting previously unselected package libatlas3gf-base.
+Unpacking libatlas3gf-base (from .../libatlas3gf-base_3.8.4-3build1_amd64.deb) ...
+Selecting previously unselected package libblas-dev.
+Unpacking libblas-dev (from .../libblas-dev_1.2.20110419-2ubuntu1_amd64.deb) ...
+Selecting previously unselected package libatlas-dev.
+Unpacking libatlas-dev (from .../libatlas-dev_3.8.4-3build1_all.deb) ...
+Selecting previously unselected package libatlas-base-dev.
+Unpacking libatlas-base-dev (from .../libatlas-base-dev_3.8.4-3build1_amd64.deb) ...
+Processing triggers for man-db ...
+Processing triggers for ccache ...
+Updating symlinks in /usr/lib/ccache ...
+Setting up eatmydata (26-2) ...
+Setting up gfortran-4.6 (4.6.3-1ubuntu5) ...
+Setting up gfortran (4:4.6.3-1ubuntu5) ...
+update-alternatives: using /usr/bin/gfortran to provide /usr/bin/f95 (f95) in auto mode.
+Setting up libatlas3gf-base (3.8.4-3build1) ...
+update-alternatives: using /usr/lib/atlas-base/atlas/libblas.so.3gf to provide /usr/lib/libblas.so.3gf (libblas.so.3gf) in auto mode.
+update-alternatives: using /usr/lib/atlas-base/atlas/liblapack.so.3gf to provide /usr/lib/liblapack.so.3gf (liblapack.so.3gf) in auto mode.
+Setting up libblas-dev (1.2.20110419-2ubuntu1) ...
+update-alternatives: using /usr/lib/libblas/libblas.so to provide /usr/lib/libblas.so (libblas.so) in auto mode.
+Setting up libatlas-dev (3.8.4-3build1) ...
+Setting up libatlas-base-dev (3.8.4-3build1) ...
+update-alternatives: using /usr/lib/atlas-base/atlas/libblas.so to provide /usr/lib/libblas.so (libblas.so) in auto mode.
+update-alternatives: using /usr/lib/atlas-base/atlas/liblapack.so to provide /usr/lib/liblapack.so (liblapack.so) in auto mode.
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+
+travis_time:end:001d9730:start=1499357258452055002,finish=1499357266434489348,duration=7982434346[0Ktravis_fold:end:apt[0K
+[33;1mSetting environment variables from .travis.yml[0m
+$ export WHEELHOUSE_UPLOADER_USERNAME=travis.numpy
+$ export WHEELHOUSE_UPLOADER_SECRET=[secure]
+$ export BLAS=None
+$ export LAPACK=None
+$ export ATLAS=None
+
+travis_time:start:0e59f03b[0K$ source ~/virtualenv/python2.7/bin/activate
+
+travis_time:end:0e59f03b:start=1499357272821397904,finish=1499357272827462487,duration=6064583[0Ktravis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:12aae398[0K$ Installing caching utilities
+
+travis_time:end:12aae398:start=1499357273064627154,finish=1499357273112506029,duration=47878875[0Ktravis_time:start:00838aeb[0K
+travis_time:end:00838aeb:start=1499357273119179245,finish=1499357273123695495,duration=4516250[0Ktravis_time:start:01774a0e[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching master/cache-linux-precise-9f8e611d93738fbea336ffeb851c1d21a5eb0331cd70c85334a78416d53174da--python-2.7.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:01774a0e:start=1499357273128630161,finish=1499357274844168317,duration=1715538156[0Ktravis_time:start:13342788[0K
+travis_time:end:13342788:start=1499357274849527307,finish=1499357274853848655,duration=4321348[0Ktravis_time:start:03a85fbd[0K[32;1madding /home/travis/.cache/pip to cache[0m
+
+travis_time:end:03a85fbd:start=1499357274859555489,finish=1499357276510444151,duration=1650888662[0Ktravis_fold:end:cache.1[0K$ python --version
+Python 2.7.9
+$ pip --version
+pip 6.0.7 from /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (python 2.7)
+travis_fold:start:before_install[0Ktravis_time:start:39f231d1[0K$ ./tools/travis-before-install.sh
+Linux testing-docker-975d815c-1d2e-4ed1-8fc8-0afd438ba223 4.8.12-040812-generic #201612020431 SMP Fri Dec 2 09:33:31 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+             total       used       free     shared    buffers     cached
+Mem:         60380      53432       6947          0         59      11489
+-/+ buffers/cache:      41883      18496
+Swap:            0          0          0
+Filesystem                                                                                          Size  Used Avail Use% Mounted on
+/dev/mapper/docker-202:16-6995973-d7066de9d3c199aec5d20f15d592fe7a1876d49134e4a29ee3775922efd6635e   19G  5.5G   14G  29% /
+tmpfs                                                                                                30G  8.0K   30G   1% /dev
+tmpfs                                                                                                30G     0   30G   0% /sys/fs/cgroup
+/dev/xvdb                                                                                           315G  105M  299G   1% /etc/resolv.conf
+/dev/xvdb                                                                                           315G  105M  299G   1% /etc/hostname
+/dev/xvdb                                                                                           315G  105M  299G   1% /etc/hosts
+shm                                                                                                  64M     0   64M   0% /dev/shm
+udev                                                                                                 30G   12K   30G   1% /dev/null
+udev                                                                                                 30G   12K   30G   1% /dev/random
+udev                                                                                                 30G   12K   30G   1% /dev/full
+udev                                                                                                 30G   12K   30G   1% /dev/tty
+udev                                                                                                 30G   12K   30G   1% /dev/zero
+udev                                                                                                 30G   12K   30G   1% /dev/urandom
+udev                                                                                                 30G   12K   30G   1% /dev/fuse
+udev                                                                                                 30G   12K   30G   1% /proc/kcore
+udev                                                                                                 30G   12K   30G   1% /proc/timer_list
+udev                                                                                                 30G   12K   30G   1% /proc/timer_stats
+udev                                                                                                 30G   12K   30G   1% /proc/sched_debug
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 241390
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 524288
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 524288
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+~/build/numpy/numpy/builds ~/build/numpy/numpy
+Collecting virtualenv==14.0.6
+  Using cached virtualenv-14.0.6-py2.py3-none-any.whl
+Installing collected packages: virtualenv
+
+Successfully installed virtualenv-14.0.6
+Already using interpreter /home/travis/virtualenv/python2.7.9/bin/python
+Using real prefix '/opt/python/2.7.9'
+New python executable in /home/travis/build/numpy/numpy/builds/venv/bin/python
+Installing setuptools, pip, wheel...done.
+Python 2.7.9
+Requirement already up-to-date: pip in ./venv/lib/python2.7/site-packages
+Requirement already up-to-date: setuptools in ./venv/lib/python2.7/site-packages
+Collecting nose
+  Using cached nose-1.3.7-py2-none-any.whl
+Collecting pytz
+  Using cached pytz-2017.2-py2.py3-none-any.whl
+Collecting cython
+  Using cached Cython-0.25.2-cp27-cp27mu-manylinux1_x86_64.whl
+Installing collected packages: nose, pytz, cython
+Successfully installed cython-0.25.2 nose-1.3.7 pytz-2017.2
+~/build/numpy/numpy
+
+travis_time:end:39f231d1:start=1499357277516468323,finish=1499357286357421726,duration=8840953403[0Ktravis_fold:end:before_install[0KCould not locate requirements.txt. Override the install: key in your .travis.yml to install dependencies.
+travis_time:start:01686e5a[0K$ ./tools/travis-test.sh
++export NPY_NUM_BUILD_JOBS=2
++NPY_NUM_BUILD_JOBS=2
++'[' -r /usr/lib/libeatmydata/libeatmydata.so ']'
++export LD_PRELOAD=/usr/lib/libeatmydata/libeatmydata.so
++LD_PRELOAD=/usr/lib/libeatmydata/libeatmydata.so
++source builds/venv/bin/activate
+++deactivate nondestructive
+++unset -f pydoc
+++'[' -z '' ']'
+++'[' -z '' ']'
+++'[' -n /bin/bash ']'
+++hash -r
+++'[' -z '' ']'
+++unset VIRTUAL_ENV
+++'[' '!' nondestructive = nondestructive ']'
+++VIRTUAL_ENV=/home/travis/build/numpy/numpy/builds/venv
+++export VIRTUAL_ENV
+++_OLD_VIRTUAL_PATH=/home/travis/.rvm/gems/ruby-1.9.3-p551/bin:/home/travis/.rvm/gems/ruby-1.9.3-p551@global/bin:/home/travis/.rvm/rubies/ruby-1.9.3-p551/bin:/home/travis/.rvm/bin:/home/travis/virtualenv/python2.7.9/bin:/home/travis/bin:/home/travis/.local/bin:/opt/python/2.7.9/bin:/opt/python/2.6.9/bin:/opt/python/3.4.2/bin:/opt/python/3.3.5/bin:/opt/python/3.2.5/bin:/opt/python/pypy-2.5.0/bin:/opt/python/pypy3-2.4.0/bin:/usr/local/phantomjs/bin:/home/travis/.nvm/v0.10.36/bin:./node_modules/.bin:/usr/local/maven-3.2.5/bin:/usr/local/clang-3.4/bin:/home/travis/.gimme/versions/go1.4.1.linux.amd64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++PATH=/home/travis/build/numpy/numpy/builds/venv/bin:/home/travis/.rvm/gems/ruby-1.9.3-p551/bin:/home/travis/.rvm/gems/ruby-1.9.3-p551@global/bin:/home/travis/.rvm/rubies/ruby-1.9.3-p551/bin:/home/travis/.rvm/bin:/home/travis/virtualenv/python2.7.9/bin:/home/travis/bin:/home/travis/.local/bin:/opt/python/2.7.9/bin:/opt/python/2.6.9/bin:/opt/python/3.4.2/bin:/opt/python/3.3.5/bin:/opt/python/3.2.5/bin:/opt/python/pypy-2.5.0/bin:/opt/python/pypy3-2.4.0/bin:/usr/local/phantomjs/bin:/home/travis/.nvm/v0.10.36/bin:./node_modules/.bin:/usr/local/maven-3.2.5/bin:/usr/local/clang-3.4/bin:/home/travis/.gimme/versions/go1.4.1.linux.amd64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++export PATH
+++'[' -z '' ']'
+++'[' -z true ']'
+++alias pydoc
+++'[' -n /bin/bash ']'
+++hash -r
++PYTHON=python
++PIP=pip
++'[' -n '' ']'
++'[' -n '' ']'
++werrors='-Werror=declaration-after-statement -Werror=vla '
++werrors+='-Werror=nonnull -Werror=pointer-arith'
++export PYTHON
++export PIP
++pip install setuptools
+Requirement already satisfied: setuptools in ./builds/venv/lib/python2.7/site-packages
++'[' -n '' ']'
++'[' -n '' ']'
++'[' -n '' ']'
++setup_base
++'[' -z '' ']'
++'[' -z '' ']'
++pip install .
+Processing /home/travis/build/numpy/numpy
+Installing collected packages: numpy
+  Running setup.py install for numpy: started
+    Running setup.py install for numpy: still running...
+    Running setup.py install for numpy: finished with status 'done'
+Successfully installed numpy-1.14.0.dev0+1b5f61e
++run_test
++'[' -n '' ']'
++mkdir -p empty
++cd empty
+++python -c 'import os; import numpy; print(os.path.dirname(numpy.__file__))'
++INSTALLDIR=/home/travis/build/numpy/numpy/builds/venv/lib/python2.7/site-packages/numpy
++export PYTHONWARNINGS=default
++PYTHONWARNINGS=default
++'[' -n '' ']'
++python ../tools/test-installed-numpy.py
+...............................................................................................................................................................................................................................................................................................................................................................................................................................S.S..SS...SSS.KKK...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................S...........................................................................................................................................................S.............................................................................................................................................................................................S.....................................................................................................................................................................................................................................................................................................................K..................................................................................................................................................................................................................................................................................................................................SSS.....................................................................................................................................................................................................................................................................................K.........................................................................................................................................................................................................................................................................................................................................................K......................K..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................SSSSSSSSS..................................................................................................................................................................K................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 6610 tests in 43.328s
+
+OK (KNOWNFAIL=8, SKIP=22)
+Running unit tests for numpy
+NumPy version 1.14.0.dev0+1b5f61e
+NumPy relaxed strides checking option: True
+NumPy is installed in /home/travis/build/numpy/numpy/builds/venv/lib/python2.7/site-packages/numpy
+Python version 2.7.9 (default, Feb  5 2015, 15:48:42) [GCC 4.6.3]
+nose version 1.3.7
++'[' -n '' ']'
+
+travis_time:end:01686e5a:start=1499357286363509583,finish=1499357449644877928,duration=163281368345[0K
+[32;1mThe command "./tools/travis-test.sh" exited with 0.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:00ebb09c[0K
+travis_time:end:00ebb09c:start=1499357449655484909,finish=1499357449661322948,duration=5838039[0Ktravis_time:start:00575bc4[0K[32;1mchange detected (content changed, file is created, or file is deleted):
+/home/travis/.cache/pip/http/3/a/f/3/a/3af3addf06e983a6c02f46e7bea70c221d3ff95bf1418fa6da354e14
+/home/travis/.cache/pip/http/a/6/9/b/d/a69bdb984343de3b3653d7a852dbd14dd4ccdd03ced4b06d1352ba0b
+/home/travis/.cache/pip/http/c/7/8/b/f/c78bfaa069d1f3e78afd86d99cc903d81ce72721afc254357ad6c831
+/home/travis/.cache/pip/http/d/9/f/5/0/d9f5007c5cc7fe7a953d81df1938d0a96573b4be7f6b4aea55ab2559
+/home/travis/.cache/pip/http/e/4/8/2/b/e482bb47f4716e2d35342a0cb10668bc661a91614e8afefe1cdc50b3
+/home/travis/.cache/pip/http/e/e/3/2/8/ee3289a8797caea4fe12c6b48ca736e92850c8c2e1747e0e4d2bf0f1
+/home/travis/.cache/pip/http/f/5/0/6/9/f506919a8bb750672325e1782eaa71c75e5cd4236546883e66769b54
+/home/travis/.cache/pip/log/debug.log
+
+[0m
+[32;1mchanges detected, packing new archive[0m
+[32;1muploading archive[0m
+
+travis_time:end:00575bc4:start=1499357449667609948,finish=1499357453102216827,duration=3434606879[0Ktravis_fold:end:cache.2[0Ktravis_fold:start:after_success[0Ktravis_time:start:0a02580a[0K$ ./tools/travis-upload-wheel.sh
++export CLOUD_CONTAINER_NAME=travis-dev-wheels
++CLOUD_CONTAINER_NAME=travis-dev-wheels
++[[ '' == 1 ]]
+
+travis_time:end:0a02580a:start=1499357453109659948,finish=1499357453118703175,duration=9043227[0Ktravis_fold:end:after_success[0K
+Done. Your build exited with 0.

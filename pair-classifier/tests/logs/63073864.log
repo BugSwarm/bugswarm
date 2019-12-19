@@ -1,0 +1,928 @@
+Using worker: worker-linux-docker-586e6177.prod.travis-ci.org:travis-linux-6
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:13e36848[0K$ git clone --depth=50 --branch=jortiz16-partition git://github.com/uwescience/myria.git uwescience/myria
+Cloning into 'uwescience/myria'...
+remote: Counting objects: 7017, done.[K
+remote: Compressing objects:   0% (1/1976)   [Kremote: Compressing objects:   1% (20/1976)   [Kremote: Compressing objects:   2% (40/1976)   [Kremote: Compressing objects:   3% (60/1976)   [Kremote: Compressing objects:   4% (80/1976)   [Kremote: Compressing objects:   5% (99/1976)   [Kremote: Compressing objects:   6% (119/1976)   [Kremote: Compressing objects:   7% (139/1976)   [Kremote: Compressing objects:   8% (159/1976)   [Kremote: Compressing objects:   9% (178/1976)   [Kremote: Compressing objects:  10% (198/1976)   [Kremote: Compressing objects:  11% (218/1976)   [Kremote: Compressing objects:  12% (238/1976)   [Kremote: Compressing objects:  13% (257/1976)   [Kremote: Compressing objects:  14% (277/1976)   [Kremote: Compressing objects:  15% (297/1976)   [Kremote: Compressing objects:  16% (317/1976)   [Kremote: Compressing objects:  17% (336/1976)   [Kremote: Compressing objects:  18% (356/1976)   [Kremote: Compressing objects:  19% (376/1976)   [Kremote: Compressing objects:  20% (396/1976)   [Kremote: Compressing objects:  21% (415/1976)   [Kremote: Compressing objects:  22% (435/1976)   [Kremote: Compressing objects:  23% (455/1976)   [Kremote: Compressing objects:  24% (475/1976)   [Kremote: Compressing objects:  25% (494/1976)   [Kremote: Compressing objects:  26% (514/1976)   [Kremote: Compressing objects:  27% (534/1976)   [Kremote: Compressing objects:  28% (554/1976)   [Kremote: Compressing objects:  29% (574/1976)   [Kremote: Compressing objects:  30% (593/1976)   [Kremote: Compressing objects:  31% (613/1976)   [Kremote: Compressing objects:  32% (633/1976)   [Kremote: Compressing objects:  33% (653/1976)   [Kremote: Compressing objects:  34% (672/1976)   [Kremote: Compressing objects:  35% (692/1976)   [Kremote: Compressing objects:  36% (712/1976)   [Kremote: Compressing objects:  37% (732/1976)   [Kremote: Compressing objects:  38% (751/1976)   [Kremote: Compressing objects:  39% (771/1976)   [Kremote: Compressing objects:  40% (791/1976)   [Kremote: Compressing objects:  41% (811/1976)   [Kremote: Compressing objects:  42% (830/1976)   [Kremote: Compressing objects:  43% (850/1976)   [Kremote: Compressing objects:  44% (870/1976)   [Kremote: Compressing objects:  45% (890/1976)   [Kremote: Compressing objects:  46% (909/1976)   [Kremote: Compressing objects:  47% (929/1976)   [Kremote: Compressing objects:  48% (949/1976)   [Kremote: Compressing objects:  49% (969/1976)   [Kremote: Compressing objects:  50% (988/1976)   [Kremote: Compressing objects:  51% (1008/1976)   [Kremote: Compressing objects:  52% (1028/1976)   [Kremote: Compressing objects:  53% (1048/1976)   [Kremote: Compressing objects:  54% (1068/1976)   [Kremote: Compressing objects:  55% (1087/1976)   [Kremote: Compressing objects:  56% (1107/1976)   [Kremote: Compressing objects:  57% (1127/1976)   [Kremote: Compressing objects:  58% (1147/1976)   [Kremote: Compressing objects:  59% (1166/1976)   [Kremote: Compressing objects:  60% (1186/1976)   [Kremote: Compressing objects:  61% (1206/1976)   [Kremote: Compressing objects:  62% (1226/1976)   [Kremote: Compressing objects:  63% (1245/1976)   [Kremote: Compressing objects:  64% (1265/1976)   [Kremote: Compressing objects:  65% (1285/1976)   [Kremote: Compressing objects:  66% (1305/1976)   [Kremote: Compressing objects:  67% (1324/1976)   [Kremote: Compressing objects:  68% (1344/1976)   [Kremote: Compressing objects:  69% (1364/1976)   [Kremote: Compressing objects:  70% (1384/1976)   [Kremote: Compressing objects:  71% (1403/1976)   [Kremote: Compressing objects:  72% (1423/1976)   [Kremote: Compressing objects:  73% (1443/1976)   [Kremote: Compressing objects:  74% (1463/1976)   [Kremote: Compressing objects:  75% (1482/1976)   [Kremote: Compressing objects:  76% (1502/1976)   [Kremote: Compressing objects:  77% (1522/1976)   [Kremote: Compressing objects:  78% (1542/1976)   [Kremote: Compressing objects:  79% (1562/1976)   [Kremote: Compressing objects:  80% (1581/1976)   [Kremote: Compressing objects:  81% (1601/1976)   [Kremote: Compressing objects:  82% (1621/1976)   [Kremote: Compressing objects:  83% (1641/1976)   [Kremote: Compressing objects:  84% (1660/1976)   [Kremote: Compressing objects:  85% (1680/1976)   [Kremote: Compressing objects:  86% (1700/1976)   [Kremote: Compressing objects:  87% (1720/1976)   [Kremote: Compressing objects:  88% (1739/1976)   [Kremote: Compressing objects:  89% (1759/1976)   [Kremote: Compressing objects:  90% (1779/1976)   [Kremote: Compressing objects:  91% (1799/1976)   [Kremote: Compressing objects:  92% (1818/1976)   [Kremote: Compressing objects:  93% (1838/1976)   [Kremote: Compressing objects:  94% (1858/1976)   [Kremote: Compressing objects:  95% (1878/1976)   [Kremote: Compressing objects:  96% (1897/1976)   [Kremote: Compressing objects:  97% (1917/1976)   [Kremote: Compressing objects:  98% (1937/1976)   [Kremote: Compressing objects:  99% (1957/1976)   [Kremote: Compressing objects: 100% (1976/1976)   [Kremote: Compressing objects: 100% (1976/1976), done.[K
+Receiving objects:   0% (1/7017)   Receiving objects:   1% (71/7017)   Receiving objects:   2% (141/7017)   Receiving objects:   3% (211/7017)   Receiving objects:   4% (281/7017)   Receiving objects:   5% (351/7017)   Receiving objects:   6% (422/7017)   Receiving objects:   7% (492/7017)   Receiving objects:   8% (562/7017)   Receiving objects:   9% (632/7017)   Receiving objects:  10% (702/7017)   Receiving objects:  11% (772/7017)   Receiving objects:  12% (843/7017)   Receiving objects:  13% (913/7017)   Receiving objects:  14% (983/7017)   Receiving objects:  15% (1053/7017)   Receiving objects:  16% (1123/7017)   Receiving objects:  17% (1193/7017)   Receiving objects:  18% (1264/7017)   Receiving objects:  19% (1334/7017)   Receiving objects:  20% (1404/7017)   Receiving objects:  21% (1474/7017)   Receiving objects:  22% (1544/7017)   Receiving objects:  23% (1614/7017)   Receiving objects:  24% (1685/7017)   Receiving objects:  25% (1755/7017)   Receiving objects:  26% (1825/7017)   Receiving objects:  27% (1895/7017)   Receiving objects:  28% (1965/7017)   Receiving objects:  29% (2035/7017)   Receiving objects:  30% (2106/7017)   Receiving objects:  31% (2176/7017)   Receiving objects:  32% (2246/7017)   Receiving objects:  33% (2316/7017)   Receiving objects:  34% (2386/7017)   Receiving objects:  35% (2456/7017)   Receiving objects:  36% (2527/7017)   Receiving objects:  37% (2597/7017)   Receiving objects:  38% (2667/7017)   Receiving objects:  39% (2737/7017)   Receiving objects:  40% (2807/7017)   Receiving objects:  41% (2877/7017)   Receiving objects:  42% (2948/7017)   Receiving objects:  43% (3018/7017)   Receiving objects:  44% (3088/7017)   Receiving objects:  45% (3158/7017)   Receiving objects:  46% (3228/7017)   Receiving objects:  47% (3298/7017)   Receiving objects:  48% (3369/7017)   Receiving objects:  49% (3439/7017)   Receiving objects:  50% (3509/7017)   Receiving objects:  51% (3579/7017)   Receiving objects:  52% (3649/7017)   Receiving objects:  53% (3720/7017)   Receiving objects:  54% (3790/7017)   Receiving objects:  55% (3860/7017)   Receiving objects:  56% (3930/7017)   Receiving objects:  57% (4000/7017)   Receiving objects:  58% (4070/7017)   Receiving objects:  59% (4141/7017)   Receiving objects:  60% (4211/7017)   Receiving objects:  61% (4281/7017)   Receiving objects:  62% (4351/7017)   Receiving objects:  63% (4421/7017)   Receiving objects:  64% (4491/7017)   Receiving objects:  65% (4562/7017)   Receiving objects:  66% (4632/7017)   Receiving objects:  67% (4702/7017)   Receiving objects:  68% (4772/7017)   Receiving objects:  69% (4842/7017)   Receiving objects:  70% (4912/7017)   Receiving objects:  71% (4983/7017)   Receiving objects:  72% (5053/7017)   Receiving objects:  73% (5123/7017)   Receiving objects:  74% (5193/7017)   Receiving objects:  75% (5263/7017)   Receiving objects:  76% (5333/7017)   Receiving objects:  77% (5404/7017)   Receiving objects:  78% (5474/7017)   Receiving objects:  79% (5544/7017)   Receiving objects:  80% (5614/7017)   Receiving objects:  81% (5684/7017)   Receiving objects:  82% (5754/7017)   Receiving objects:  83% (5825/7017)   Receiving objects:  84% (5895/7017)   Receiving objects:  85% (5965/7017)   Receiving objects:  86% (6035/7017)   Receiving objects:  87% (6105/7017)   Receiving objects:  88% (6175/7017)   Receiving objects:  89% (6246/7017)   Receiving objects:  90% (6316/7017)   Receiving objects:  91% (6386/7017)   Receiving objects:  92% (6456/7017)   Receiving objects:  93% (6526/7017)   Receiving objects:  94% (6596/7017)   remote: Total 7017 (delta 3381), reused 6112 (delta 2816), pack-reused 0[K
+Receiving objects:  95% (6667/7017)   Receiving objects:  96% (6737/7017)   Receiving objects:  97% (6807/7017)   Receiving objects:  98% (6877/7017)   Receiving objects:  99% (6947/7017)   Receiving objects: 100% (7017/7017)   Receiving objects: 100% (7017/7017), 8.32 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/3381)   Resolving deltas:   1% (34/3381)   Resolving deltas:   2% (70/3381)   Resolving deltas:   4% (138/3381)   Resolving deltas:   5% (174/3381)   Resolving deltas:   6% (206/3381)   Resolving deltas:   7% (238/3381)   Resolving deltas:  20% (705/3381)   Resolving deltas:  21% (737/3381)   Resolving deltas:  22% (745/3381)   Resolving deltas:  23% (778/3381)   Resolving deltas:  24% (827/3381)   Resolving deltas:  25% (848/3381)   Resolving deltas:  37% (1256/3381)   Resolving deltas:  38% (1285/3381)   Resolving deltas:  40% (1382/3381)   Resolving deltas:  41% (1392/3381)   Resolving deltas:  42% (1427/3381)   Resolving deltas:  43% (1477/3381)   Resolving deltas:  44% (1490/3381)   Resolving deltas:  46% (1565/3381)   Resolving deltas:  47% (1593/3381)   Resolving deltas:  48% (1632/3381)   Resolving deltas:  49% (1659/3381)   Resolving deltas:  50% (1691/3381)   Resolving deltas:  51% (1725/3381)   Resolving deltas:  52% (1778/3381)   Resolving deltas:  53% (1809/3381)   Resolving deltas:  54% (1826/3381)   Resolving deltas:  55% (1861/3381)   Resolving deltas:  56% (1896/3381)   Resolving deltas:  59% (2007/3381)   Resolving deltas:  60% (2029/3381)   Resolving deltas:  61% (2064/3381)   Resolving deltas:  62% (2098/3381)   Resolving deltas:  63% (2137/3381)   Resolving deltas:  64% (2173/3381)   Resolving deltas:  65% (2199/3381)   Resolving deltas:  66% (2234/3381)   Resolving deltas:  67% (2268/3381)   Resolving deltas:  71% (2405/3381)   Resolving deltas:  72% (2443/3381)   Resolving deltas:  73% (2494/3381)   Resolving deltas:  74% (2503/3381)   Resolving deltas:  75% (2550/3381)   Resolving deltas:  76% (2576/3381)   Resolving deltas:  77% (2606/3381)   Resolving deltas:  78% (2638/3381)   Resolving deltas:  79% (2671/3381)   Resolving deltas:  80% (2710/3381)   Resolving deltas:  81% (2739/3381)   Resolving deltas:  82% (2774/3381)   Resolving deltas:  83% (2807/3381)   Resolving deltas:  84% (2841/3381)   Resolving deltas:  85% (2874/3381)   Resolving deltas:  86% (2912/3381)   Resolving deltas:  87% (2942/3381)   Resolving deltas:  88% (2989/3381)   Resolving deltas:  89% (3010/3381)   Resolving deltas:  90% (3048/3381)   Resolving deltas:  91% (3081/3381)   Resolving deltas:  92% (3126/3381)   Resolving deltas:  93% (3145/3381)   Resolving deltas:  94% (3185/3381)   Resolving deltas:  95% (3212/3381)   Resolving deltas:  96% (3272/3381)   Resolving deltas:  97% (3281/3381)   Resolving deltas:  98% (3314/3381)   Resolving deltas:  99% (3359/3381)   Resolving deltas: 100% (3381/3381)   Resolving deltas: 100% (3381/3381), done.
+Checking connectivity... done.
+travis_time:end:13e36848:start=1431981256059256789,finish=1431981257003311865,duration=944055076[0K$ cd uwescience/myria
+$ git checkout -qf 609e463c8c62af4dfe1ee698e6fdd0500a091381
+travis_fold:end:git.checkout[0Ktravis_fold:start:postgresql[0K[33;1mStarting PostgreSQL v9.3[0m
+travis_time:start:169e5763[0K$ sudo service postgresql stop
+ * Stopping PostgreSQL 9.1 database server       [80G [74G[ OK ]
+ * Stopping PostgreSQL 9.2 database server       [80G [74G[ OK ]
+ * Stopping PostgreSQL 9.3 database server       [80G [74G[ OK ]
+ * Stopping PostgreSQL 9.4 database server       [80G [74G[ OK ]
+travis_time:end:169e5763:start=1431981257089977989,finish=1431981258367648558,duration=1277670569[0Ktravis_time:start:05dad592[0K$ sudo service postgresql start 9.3
+ * Starting PostgreSQL 9.3 database server       [80G [74G[ OK ]
+travis_time:end:05dad592:start=1431981258371161243,finish=1431981260573376723,duration=2202215480[0Ktravis_fold:end:postgresql[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:129da7ae[0K$ Installing caching utilities
+travis_time:end:129da7ae:start=1431981262615630275,finish=1431981262750015244,duration=134384969[0Ktravis_time:start:188f1744[0Kattempting to download cache archive
+fetching jortiz16-partition/cache--jdk-oraclejdk8.tbz
+fetching master/cache--jdk-oraclejdk8.tbz
+found cache
+travis_time:end:188f1744:start=1431981262754302405,finish=1431981266357760977,duration=3603458572[0Ktravis_time:start:0762ebd2[0Kadding /home/travis/.gradle/caches to cache
+travis_time:end:0762ebd2:start=1431981266361447051,finish=1431981285197977120,duration=18836530069[0Ktravis_fold:end:cache.1[0K$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:before_install.1[0Ktravis_time:start:20920b2c[0K$ sh travis/before_install.sh
+CREATE DATABASE
+# localhost SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.4
+travis_time:end:20920b2c:start=1431981285627715139,finish=1431981285910417541,duration=282702402[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:0a441770[0K$ export TERM=dumb
+travis_time:end:0a441770:start=1431981285914494015,finish=1431981285917575596,duration=3081581[0Ktravis_fold:end:before_install.2[0Ktravis_fold:start:install[0Ktravis_time:start:00e93dce[0K$ ./gradlew assemble
+Downloading https://services.gradle.org/distributions/gradle-2.3-bin.zip
+...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945/gradle-2.3-bin.zip to /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945
+Set executable permissions for: /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945/gradle-2.3/bin/gradle
+:updateCommitInfo
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.7
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/api/encoding/PlanFragmentEncoding.java:39: warning: [varargs] Varargs method could cause heap pollution from non-reifiable varargs parameter operators
+    ret.operators = Arrays.asList(operators);
+                                  ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/CacheController.java:45: warning: [rawtypes] found raw type: Iterator
+  public Iterator it;
+         ^
+  missing type arguments for generic class Iterator<E>
+  where E is a type-variable:
+    E extends Object declared in interface Iterator
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/CacheController.java:83: warning: [rawtypes] found raw type: Entry
+      Map.Entry entry = (Map.Entry) it.next();
+         ^
+  missing type arguments for generic class Entry<K,V>
+  where K,V are type-variables:
+    K extends Object declared in interface Entry
+    V extends Object declared in interface Entry
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/network/Producer.java:202: warning: [rawtypes] found raw type: StreamOutputChannel
+    ioChannels = new StreamOutputChannel[outputIDs.length];
+                     ^
+  missing type arguments for generic class StreamOutputChannel<PAYLOAD>
+  where PAYLOAD is a type-variable:
+    PAYLOAD extends Object declared in class StreamOutputChannel
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/CacheLeaf.java:41: warning: [static] static variable should be qualified by type name, Worker, instead of by an expression
+    getWorker().LOGGER.info("from leaf: " + workerCacheController.cacheIteratorHasNext());
+               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/CacheLeaf.java:16: warning: [serial] serializable class CacheLeaf has no definition of serialVersionUID
+public class CacheLeaf extends LeafOperator {
+       ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/CacheRoot.java:49: warning: [static] static variable should be qualified by type name, Worker, instead of by an expression
+    getWorker().LOGGER.info("At EOS");
+               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/storage/Tuple.java:190: warning: [deprecation] putObject(int,Object) in AppendableTable has been deprecated
+  public void putObject(final int column, final Object value) {
+              ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/storage/Field.java:62: warning: [deprecation] appendObject(Object) in WritableColumn has been deprecated
+  public WritableColumn appendObject(final Object value) throws BufferOverflowException {
+                        ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/SQLiteSetFilter.java:108: warning: [deprecation] getObject(int,int) in TupleBatch has been deprecated
+            v = tb.getObject(0, i);
+                  ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/network/CacheShuffleConsumer.java:15: warning: [serial] serializable class CacheShuffleConsumer has no definition of serialVersionUID
+public class CacheShuffleConsumer extends GenericShuffleConsumer {
+       ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/operator/network/CacheShuffleProducer.java:13: warning: [serial] serializable class CacheShuffleProducer has no definition of serialVersionUID
+public class CacheShuffleProducer extends GenericShuffleProducer {
+       ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:186: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:193: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:217: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:306: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+        try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                                   ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:357: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:407: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:449: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/BagInputBufferAdapter.java:475: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = bufferSizeLock.open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/FlowControlBagInputBuffer.java:216: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = getBufferSizeLock().open()) {
+                               ^
+/home/travis/build/uwescience/myria/src/edu/washington/escience/myria/parallel/ipc/FlowControlBagInputBuffer.java:227: warning: [try] auto-closeable resource l is never referenced in body of corresponding try statement
+    try (ClosableReentrantLock l = getBufferSizeLock().open()) {
+                               ^
+23 warnings
+
+:processResources
+:classes
+:copyToLib
+:jar
+:assemble
+
+BUILD SUCCESSFUL
+
+Total time: 53.356 secs
+travis_time:end:00e93dce:start=1431981285921418583,finish=1431981340793221268,duration=54871802685[0Ktravis_fold:end:install[0Ktravis_time:start:0cc4557f[0K$ ./gradlew check
+:updateCommitInfo
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.7
+1 warning
+
+:processTestResources UP-TO-DATE
+:testClasses
+:compileSystemtestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.7
+1 warning
+
+:processSystemtestResources UP-TO-DATE
+:systemtestClasses
+:compileSpeedtestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.7
+1 warning
+
+:processSpeedtestResources UP-TO-DATE
+:speedtestClasses
+:cleanEclipseClasspath UP-TO-DATE
+:eclipseClasspath
+:test
+Executing test testDelimiter [edu.washington.escience.myria.CSVTupleWriterTest]
+Executing test testConstructionWithNoNames [edu.washington.escience.myria.CSVTupleWriterTest]
+Executing test testBinaryOutput [edu.washington.escience.myria.PostgresBinaryTupleWriterTest]
+Executing test testBadFieldNameHasHyphen [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldIsEmpty [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldNameHasSpace2 [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldNameHasSpace3 [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldNameHasSpace4 [edu.washington.escience.myria.RelationKeyTest]
+Executing test testToString [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldNameHasSpace [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldIsNull [edu.washington.escience.myria.RelationKeyTest]
+Executing test testGoodFieldNames [edu.washington.escience.myria.RelationKeyTest]
+Executing test testBadFieldNameStartNumber [edu.washington.escience.myria.RelationKeyTest]
+Executing test testHashCode [edu.washington.escience.myria.RelationKeyTest]
+Executing test testEquals [edu.washington.escience.myria.RelationKeyTest]
+Executing test testOfFieldsNoNames [edu.washington.escience.myria.SchemaTest]
+Executing test testOfFieldsNoTypes [edu.washington.escience.myria.SchemaTest]
+Executing test testOfFieldsTooManyNames [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameEmpty [edu.washington.escience.myria.SchemaTest]
+Executing test testOfFields [edu.washington.escience.myria.SchemaTest]
+Executing test testColumnPropertyGetters [edu.washington.escience.myria.SchemaTest]
+Executing test testConstructionWithNames [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameHasParentheses [edu.washington.escience.myria.SchemaTest]
+Executing test testOfFieldsBadType [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameHasHyphen [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameWithSpace2 [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameWithSpace3 [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameWithSpace4 [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameHasSymbol [edu.washington.escience.myria.SchemaTest]
+Executing test testConstructionNullNameInNames [edu.washington.escience.myria.SchemaTest]
+Executing test testOfFieldsTooFewNames [edu.washington.escience.myria.SchemaTest]
+Executing test testConstructionNullTypeInTypes [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameStartsNumber [edu.washington.escience.myria.SchemaTest]
+Executing test testBadNameWithSpace [edu.washington.escience.myria.SchemaTest]
+Executing test testConstructionWithNoNames [edu.washington.escience.myria.SchemaTest]
+Executing test fragmentDuplicateProducerTest [edu.washington.escience.myria.api.JsonBadPlanTests]
+Executing test fragmentMissingConsumerTest [edu.washington.escience.myria.api.JsonBadPlanTests]
+Executing test fragmentMissingProducerTest [edu.washington.escience.myria.api.JsonBadPlanTests]
+Executing test fragmentExtraConsumerTest [edu.washington.escience.myria.api.JsonBadPlanTests]
+Executing test testPartitionFunctionWithNullNumPartitions [edu.washington.escience.myria.api.SerializationTests]
+Executing test testPartitionFunction [edu.washington.escience.myria.api.SerializationTests]
+Executing test testProto [edu.washington.escience.myria.column.BooleanColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.BooleanColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.BooleanColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.DateTimeColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.DateTimeColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.DateTimeColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.DoubleColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.DoubleColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.DoubleColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.FloatColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.FloatColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.FloatColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.IntColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.IntColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.IntColumnTest]
+Executing test testIntProtoColumn [edu.washington.escience.myria.column.IntColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.LongColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.LongColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.LongColumnTest]
+Executing test testProto [edu.washington.escience.myria.column.StringColumnTest]
+Executing test testFull [edu.washington.escience.myria.column.StringColumnTest]
+Executing test testOverflow [edu.washington.escience.myria.column.StringColumnTest]
+Executing test testCatalogExtraFieldsList [edu.washington.escience.myria.coordinator.catalog.CatalogTest]
+Executing test testCatalogMaker [edu.washington.escience.myria.coordinator.catalog.CatalogTest]
+Executing test testCatalogCreation [edu.washington.escience.myria.coordinator.catalog.CatalogTest]
+Executing test testCatalogQuerySearch [edu.washington.escience.myria.coordinator.catalog.CatalogTest]
+Executing test testMultiFieldPartitionFunction [edu.washington.escience.myria.hash.MultiFieldHashPartitionFunctionTest]
+Executing test testMultiGroupMaxMultiColumn [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testNumericAggs [edu.washington.escience.myria.operator.AggregateTest]
+
+edu.washington.escience.myria.operator.AggregateTest > testNumericAggs FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.AggregateTest.doAggOpsToCol(AggregateTest.java:138)
+        at edu.washington.escience.myria.operator.AggregateTest.testNumericAggs(AggregateTest.java:205)
+Executing test testNonNumericAggs [edu.washington.escience.myria.operator.AggregateTest]
+
+edu.washington.escience.myria.operator.AggregateTest > testNonNumericAggs FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.AggregateTest.doAggOpsToCol(AggregateTest.java:138)
+        at edu.washington.escience.myria.operator.AggregateTest.testNonNumericAggs(AggregateTest.java:335)
+Executing test testSingleGroupAvg [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testSingleGroupMax [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testSingleGroupMin [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testSingleGroupStd [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testSingleGroupSum [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupCountHashCollision [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupAvg [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupMax [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupMin [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupSum [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupCountMultiColumn [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testLongAggOverflow [edu.washington.escience.myria.operator.AggregateTest]
+
+edu.washington.escience.myria.operator.AggregateTest > testLongAggOverflow FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.ArithmeticException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.AggregateTest.doAggOpsToCol(AggregateTest.java:138)
+            at edu.washington.escience.myria.operator.AggregateTest.testLongAggOverflow(AggregateTest.java:911)
+Executing test testLongAggUnderflow [edu.washington.escience.myria.operator.AggregateTest]
+
+edu.washington.escience.myria.operator.AggregateTest > testLongAggUnderflow FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.ArithmeticException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.AggregateTest.doAggOpsToCol(AggregateTest.java:138)
+            at edu.washington.escience.myria.operator.AggregateTest.testLongAggUnderflow(AggregateTest.java:917)
+Executing test testMultiGroupCountMultiColumnEmpty [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testMultiGroupMaxAndMin [edu.washington.escience.myria.operator.AggregateTest]
+Executing test testNumRowsFromCosmo24Star [edu.washington.escience.myria.operator.BinaryFileScanTest]
+Executing test testSimple [edu.washington.escience.myria.operator.BinaryFileScanTest]
+Executing test testWithAstronomySchema [edu.washington.escience.myria.operator.BinaryFileScanTest]
+Executing test testWithSingletonWrongSide [edu.washington.escience.myria.operator.CrossWithSingletonTest]
+
+edu.washington.escience.myria.operator.CrossWithSingletonTest > testWithSingletonWrongSide FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.verifyMatch(CrossWithSingletonTest.java:45)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.testWithSingletonWrongSide(CrossWithSingletonTest.java:77)
+Executing test testWithTwoSingletons [edu.washington.escience.myria.operator.CrossWithSingletonTest]
+
+edu.washington.escience.myria.operator.CrossWithSingletonTest > testWithTwoSingletons FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.verifyMatch(CrossWithSingletonTest.java:45)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.testWithTwoSingletons(CrossWithSingletonTest.java:88)
+Executing test testWithSingleton [edu.washington.escience.myria.operator.CrossWithSingletonTest]
+
+edu.washington.escience.myria.operator.CrossWithSingletonTest > testWithSingleton FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.CrossWithSingletonTest.verifyMatch(CrossWithSingletonTest.java:45)
+        at edu.washington.escience.myria.operator.CrossWithSingletonTest.testWithSingleton(CrossWithSingletonTest.java:69)
+Executing test testWithEmptyRelation [edu.washington.escience.myria.operator.CrossWithSingletonTest]
+
+edu.washington.escience.myria.operator.CrossWithSingletonTest > testWithEmptyRelation FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.verifyMatch(CrossWithSingletonTest.java:45)
+            at edu.washington.escience.myria.operator.CrossWithSingletonTest.testWithEmptyRelation(CrossWithSingletonTest.java:94)
+Executing test incompatibleSchemas [edu.washington.escience.myria.operator.DifferenceTest]
+Executing test test [edu.washington.escience.myria.operator.DifferenceTest]
+Executing test testDupElim [edu.washington.escience.myria.operator.DupElimTest]
+
+edu.washington.escience.myria.operator.DupElimTest > testDupElim FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.DupElimTest.testDupElim(DupElimTest.java:99)
+Executing test testSimpleCsvSingleQuoted [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testCommaTwoColumnIntDos [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testCommaTwoColumnIntUnix [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testBadTwoColumnInt [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testBadTwoColumnInt2 [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testBadTwoColumnInt3 [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testCommaTwoColumnIntUnixNoTrailingNewline [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testPipeDelimiter [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testBigFile [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testSimpleCsvEscaped [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testRandomCSV [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testSimpleTwoColumnFloat [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testSimpleTwoColumnInt [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testBadCommaTwoColumnInt [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testSimpleCsvEscape [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testSimpleCsvQuoted [edu.washington.escience.myria.operator.FileScanTest]
+Executing test testWithinSumRangePredicateDoubleColumn [edu.washington.escience.myria.operator.FilterTest]
+
+edu.washington.escience.myria.operator.FilterTest > testWithinSumRangePredicateDoubleColumn FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.FilterTest.getRowCount(FilterTest.java:147)
+        at edu.washington.escience.myria.operator.FilterTest.testWithinSumRangePredicateDoubleColumn(FilterTest.java:110)
+Executing test testWithinSumRangePredicateLongColumn [edu.washington.escience.myria.operator.FilterTest]
+
+edu.washington.escience.myria.operator.FilterTest > testWithinSumRangePredicateLongColumn FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.FilterTest.getRowCount(FilterTest.java:147)
+        at edu.washington.escience.myria.operator.FilterTest.testWithinSumRangePredicateLongColumn(FilterTest.java:79)
+Executing test testWithinSumRangePredicateFloatColumn [edu.washington.escience.myria.operator.FilterTest]
+
+edu.washington.escience.myria.operator.FilterTest > testWithinSumRangePredicateFloatColumn FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.FilterTest.getRowCount(FilterTest.java:147)
+        at edu.washington.escience.myria.operator.FilterTest.testWithinSumRangePredicateFloatColumn(FilterTest.java:140)
+Executing test testWithinSumRangePredicateIntColumn [edu.washington.escience.myria.operator.FilterTest]
+
+edu.washington.escience.myria.operator.FilterTest > testWithinSumRangePredicateIntColumn FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.FilterTest.getRowCount(FilterTest.java:147)
+        at edu.washington.escience.myria.operator.FilterTest.testWithinSumRangePredicateIntColumn(FilterTest.java:57)
+Executing test testInMemoryOrderBy2 [edu.washington.escience.myria.operator.InMemoryOrderByTest]
+Executing test testInMemoryOrderBy [edu.washington.escience.myria.operator.InMemoryOrderByTest]
+Executing test testKeepAndSortedOnMinValue [edu.washington.escience.myria.operator.KeepAndSortOnMinTest]
+Executing test testLeapFrogJoinOnMultipleTBInBuffer [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test outputFreeVariable [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+
+edu.washington.escience.myria.operator.LeapFrogJoinTest > outputFreeVariable FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.LeapFrogJoinTest.outputFreeVariable(LeapFrogJoinTest.java:338)
+Executing test strangeTriangle [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test intersect3tables [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test binaryJoinWithMoreColumns [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test strangeRectangle [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+
+edu.washington.escience.myria.operator.LeapFrogJoinTest > strangeRectangle FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.LeapFrogJoinTest.strangeRectangle(LeapFrogJoinTest.java:221)
+Executing test tridentQuery [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test testLeapFrogUsingTwitterTriangularJoin [edu.washington.escience.myria.operator.LeapFrogJoinTest]
+Executing test testSimplePrefix [edu.washington.escience.myria.operator.LimitTest]
+
+edu.washington.escience.myria.operator.LimitTest > testSimplePrefix FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.LimitTest.testSimplePrefix(LimitTest.java:21)
+Executing test testMergeJoin [edu.washington.escience.myria.operator.MergeJoinTest]
+Executing test testMergeJoinOnMultipleKeys [edu.washington.escience.myria.operator.MergeJoinTest]
+Executing test testOrderByAndMergeJoin [edu.washington.escience.myria.operator.MergeJoinTest]
+Executing test testMergeJoinCross [edu.washington.escience.myria.operator.MergeJoinTest]
+Executing test testMergeJoinLarge [edu.washington.escience.myria.operator.MergeJoinTest]
+Executing test testMergeCount [edu.washington.escience.myria.operator.MergeTest]
+Executing test testMergeTuplesSorted [edu.washington.escience.myria.operator.MergeTest]
+Executing test testMergeConstructorWithNull [edu.washington.escience.myria.operator.MergeTest]
+Executing test testSimpleDark [edu.washington.escience.myria.operator.NChiladaFileScanTest]
+
+edu.washington.escience.myria.operator.NChiladaFileScanTest > testSimpleDark FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimple(NChiladaFileScanTest.java:80)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimpleDark(NChiladaFileScanTest.java:64)
+Executing test testSimpleFile [edu.washington.escience.myria.operator.NChiladaFileScanTest]
+
+edu.washington.escience.myria.operator.NChiladaFileScanTest > testSimpleFile FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimpleFile(NChiladaFileScanTest.java:52)
+Executing test testSimpleStar [edu.washington.escience.myria.operator.NChiladaFileScanTest]
+
+edu.washington.escience.myria.operator.NChiladaFileScanTest > testSimpleStar FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimple(NChiladaFileScanTest.java:80)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimpleStar(NChiladaFileScanTest.java:70)
+Executing test testSimpleGas [edu.washington.escience.myria.operator.NChiladaFileScanTest]
+
+edu.washington.escience.myria.operator.NChiladaFileScanTest > testSimpleGas FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimple(NChiladaFileScanTest.java:80)
+        at edu.washington.escience.myria.operator.NChiladaFileScanTest.testSimpleGas(NChiladaFileScanTest.java:58)
+Executing test testMergeJoin [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeCount [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeJoinOnMultipleKeys [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testUnionAllCount [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testInMemoryOrderBy2 [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testOrderByAndMergeJoin [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeJoinCross [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeJoinLarge [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testUnionAllCorrectTuples [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeTuplesSorted [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testInMemoryOrderBy [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testOrderedDupElim [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testKeepAndSortedOnMinValue [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testUnionAllConstructorWithNull [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testMergeConstructorWithNull [edu.washington.escience.myria.operator.OperatorTest]
+Executing test testOrderedDupElim [edu.washington.escience.myria.operator.OrderedDupElimTest]
+Executing test testTupleBatch [edu.washington.escience.myria.operator.RenameTest]
+Executing test testTupleBatchTooFewColumns [edu.washington.escience.myria.operator.RenameTest]
+Executing test testTupleBatchNull [edu.washington.escience.myria.operator.RenameTest]
+Executing test testTupleBatchTooManyColumns [edu.washington.escience.myria.operator.RenameTest]
+Executing test testRightHashJoin [edu.washington.escience.myria.operator.RightHashJoinTest]
+
+edu.washington.escience.myria.operator.RightHashJoinTest > testRightHashJoin FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.RightHashJoinTest.testRightHashJoin(RightHashJoinTest.java:20)
+Executing test testIncompatibleJoinKeys [edu.washington.escience.myria.operator.RightHashJoinTest]
+
+edu.washington.escience.myria.operator.RightHashJoinTest > testIncompatibleJoinKeys FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.RightHashJoinTest.testIncompatibleJoinKeys(RightHashJoinTest.java:39)
+Executing test test [edu.washington.escience.myria.operator.SQLiteInsertTest]
+Executing test test [edu.washington.escience.myria.operator.SeaFlowFileScanTest]
+Executing test test [edu.washington.escience.myria.operator.SingletonRelationTest]
+
+edu.washington.escience.myria.operator.SingletonRelationTest > test FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.SingletonRelationTest.test(SingletonRelationTest.java:16)
+Executing test testGeneratedSplitsSingleColumn [edu.washington.escience.myria.operator.SplitTest]
+
+edu.washington.escience.myria.operator.SplitTest > testGeneratedSplitsSingleColumn FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.SplitTest.testGeneratedSplitsSingleColumn(SplitTest.java:72)
+Executing test testGeneratedSplits [edu.washington.escience.myria.operator.SplitTest]
+
+edu.washington.escience.myria.operator.SplitTest > testGeneratedSplits FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.SplitTest.testGeneratedSplits(SplitTest.java:42)
+Executing test testSplitColumnInvalidType [edu.washington.escience.myria.operator.SplitTest]
+
+edu.washington.escience.myria.operator.SplitTest > testSplitColumnInvalidType FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.SplitTest.testSplitColumnInvalidType(SplitTest.java:133)
+Executing test testInvalidRegex [edu.washington.escience.myria.operator.SplitTest]
+Executing test testAllBatchesReturned [edu.washington.escience.myria.operator.SplitTest]
+
+edu.washington.escience.myria.operator.SplitTest > testAllBatchesReturned FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.SplitTest.testAllBatchesReturned(SplitTest.java:111)
+Executing test testSymmetricHashCountingJoin [edu.washington.escience.myria.operator.SymetricHashCountingJoinTest]
+
+edu.washington.escience.myria.operator.SymetricHashCountingJoinTest > testSymmetricHashCountingJoin FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.SymetricHashCountingJoinTest.testSymmetricHashCountingJoin(SymetricHashCountingJoinTest.java:20)
+Executing test testIncompatibleJoinKeys [edu.washington.escience.myria.operator.SymetricHashCountingJoinTest]
+
+edu.washington.escience.myria.operator.SymetricHashCountingJoinTest > testIncompatibleJoinKeys FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.SymetricHashCountingJoinTest.testIncompatibleJoinKeys(SymetricHashCountingJoinTest.java:42)
+Executing test testSymmetricHashJoin [edu.washington.escience.myria.operator.SymmetricHashJoinTest]
+
+edu.washington.escience.myria.operator.SymmetricHashJoinTest > testSymmetricHashJoin FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.SymmetricHashJoinTest.testSymmetricHashJoin(SymmetricHashJoinTest.java:20)
+Executing test testIncompatibleJoinKeys [edu.washington.escience.myria.operator.SymmetricHashJoinTest]
+
+edu.washington.escience.myria.operator.SymmetricHashJoinTest > testIncompatibleJoinKeys FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalStateException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.SymmetricHashJoinTest.testIncompatibleJoinKeys(SymmetricHashJoinTest.java:39)
+Executing test test [edu.washington.escience.myria.operator.TestCounter]
+Executing test testSimpleBigEndian [edu.washington.escience.myria.operator.TipsyFileScanTest]
+
+edu.washington.escience.myria.operator.TipsyFileScanTest > testSimpleBigEndian FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.testSimpleBigEndian(TipsyFileScanTest.java:59)
+Executing test testSimpleBigEndianDark [edu.washington.escience.myria.operator.TipsyFileScanTest]
+
+edu.washington.escience.myria.operator.TipsyFileScanTest > testSimpleBigEndianDark FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.testSimpleBigEndianDark(TipsyFileScanTest.java:84)
+Executing test testSimpleBigEndianStar [edu.washington.escience.myria.operator.TipsyFileScanTest]
+
+edu.washington.escience.myria.operator.TipsyFileScanTest > testSimpleBigEndianStar FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.testSimpleBigEndianStar(TipsyFileScanTest.java:72)
+Executing test testSimpleBigEndianGas [edu.washington.escience.myria.operator.TipsyFileScanTest]
+
+edu.washington.escience.myria.operator.TipsyFileScanTest > testSimpleBigEndianGas FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.getRowCount(TipsyFileScanTest.java:36)
+        at edu.washington.escience.myria.operator.TipsyFileScanTest.testSimpleBigEndianGas(TipsyFileScanTest.java:96)
+Executing test testUnionAllVaryingSchemas [edu.washington.escience.myria.operator.UnionAllTest]
+Executing test testUnionAllCount [edu.washington.escience.myria.operator.UnionAllTest]
+Executing test testUnionAllCorrectTuples [edu.washington.escience.myria.operator.UnionAllTest]
+Executing test testUnionIncompatibleSchemas [edu.washington.escience.myria.operator.UnionAllTest]
+
+edu.washington.escience.myria.operator.UnionAllTest > testUnionIncompatibleSchemas FAILED
+    java.lang.Exception: Unexpected exception, expected<java.lang.IllegalArgumentException> but was<java.lang.NullPointerException>
+
+        Caused by:
+        java.lang.NullPointerException
+            at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+            at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+            at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+            at edu.washington.escience.myria.operator.UnionAllTest.testUnionIncompatibleSchemas(UnionAllTest.java:147)
+Executing test testUnionAllConstructorWithNull [edu.washington.escience.myria.operator.UnionAllTest]
+Executing test testCount [edu.washington.escience.myria.operator.UserDefinedAggregatorTest]
+
+edu.washington.escience.myria.operator.UserDefinedAggregatorTest > testCount FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.UserDefinedAggregatorTest.testCount(UserDefinedAggregatorTest.java:69)
+Executing test testCountAndConst [edu.washington.escience.myria.operator.UserDefinedAggregatorTest]
+
+edu.washington.escience.myria.operator.UserDefinedAggregatorTest > testCountAndConst FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.UserDefinedAggregatorTest.testCountAndConst(UserDefinedAggregatorTest.java:121)
+Executing test testRowOfMax [edu.washington.escience.myria.operator.UserDefinedAggregatorTest]
+
+edu.washington.escience.myria.operator.UserDefinedAggregatorTest > testRowOfMax FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.UserDefinedAggregatorTest.testRowOfMax(UserDefinedAggregatorTest.java:177)
+Executing test testJsonMapping [edu.washington.escience.myria.operator.apply.ApplySerializationTest]
+Executing test testApply [edu.washington.escience.myria.operator.apply.ApplyTest]
+
+edu.washington.escience.myria.operator.apply.ApplyTest > testApply FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.ApplyTest.testApply(ApplyTest.java:327)
+Executing test conditionalMismatchedTypes [edu.washington.escience.myria.operator.apply.ApplyTest]
+Executing test moduloNeedsIntegers [edu.washington.escience.myria.operator.apply.ApplyTest]
+Executing test testComparisonApply [edu.washington.escience.myria.operator.apply.ApplyTest]
+
+edu.washington.escience.myria.operator.apply.ApplyTest > testComparisonApply FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.ApplyTest.testComparisonApply(ApplyTest.java:494)
+Executing test testStringComparisonApply [edu.washington.escience.myria.operator.apply.ApplyTest]
+
+edu.washington.escience.myria.operator.apply.ApplyTest > testStringComparisonApply FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.ApplyTest.testStringComparisonApply(ApplyTest.java:595)
+Executing test conditionalNeedsBooleancondition [edu.washington.escience.myria.operator.apply.ApplyTest]
+Executing test testFloatToDouble [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testIntToDouble [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastInt [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testFloatToInt [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastLong [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testStringToIntFormatError [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToLongUnderflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testStringToFloatFormatError [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastBoolean [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToIntOverflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testToString [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testFloatToLongUnderflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToLongOverflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testFloatToLongOverflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testStringToNumeric [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testIntToFloat [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test unsupportedCast [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testStringToDoubleFormatError [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastDouble [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testLongToIntOverflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToFloat [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testLongToDouble [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastString [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testLongToInt [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testLongToFloat [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testLongToIntUnderflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToIntUnderflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test supportedNoopCast [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testDoubleToInt [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testSelfCastFloat [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testFloatToIntOverflow [edu.washington.escience.myria.operator.apply.CastTest]
+Executing test testOverflowLongDiff [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowLongProd [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testUnderflowIntSum [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testUnderflowLongSum [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithDoublesOverflow [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testLongString [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testModuloWithFloats [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithDoublesNotOverflow [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithDoublesOverflow2 [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testModuloWithDoubles [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithLongs [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testUnderflowLongDiff [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowIntSum [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowLongSum [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testUnderflowIntDiff [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntString [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowIntProd2 [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testModuloWithLongs [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithDoubles [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithFloats [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowLongProd2 [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testIntDivideWithInts [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowIntDiff [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testOverflowIntProd [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testFloatString [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testDoubleString [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testModuloWithInts [edu.washington.escience.myria.operator.apply.ExpressionTest]
+Executing test testStatefulApplyRange [edu.washington.escience.myria.operator.apply.StatefulApplyTest]
+
+edu.washington.escience.myria.operator.apply.StatefulApplyTest > testStatefulApplyRange FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.StatefulApplyTest.testStatefulApplyRange(StatefulApplyTest.java:55)
+Executing test testCounterOnSingleton [edu.washington.escience.myria.operator.apply.StatefulApplyTest]
+
+edu.washington.escience.myria.operator.apply.StatefulApplyTest > testCounterOnSingleton FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.StatefulApplyTest.testCounterOnSingleton(StatefulApplyTest.java:140)
+Executing test testBug547UpdateNotNeedsCompile [edu.washington.escience.myria.operator.apply.StatefulApplyTest]
+
+edu.washington.escience.myria.operator.apply.StatefulApplyTest > testBug547UpdateNotNeedsCompile FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.StatefulApplyTest.testBug547UpdateNotNeedsCompile(StatefulApplyTest.java:172)
+Executing test testStatefulApplyRunningMean [edu.washington.escience.myria.operator.apply.StatefulApplyTest]
+
+edu.washington.escience.myria.operator.apply.StatefulApplyTest > testStatefulApplyRunningMean FAILED
+    java.lang.NullPointerException
+        at edu.washington.escience.myria.operator.Operator.getFragment(Operator.java:150)
+        at edu.washington.escience.myria.operator.Operator.getLocalSubQuery(Operator.java:134)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:425)
+        at edu.washington.escience.myria.operator.Operator.open(Operator.java:406)
+        at edu.washington.escience.myria.operator.apply.StatefulApplyTest.testStatefulApplyRunningMean(StatefulApplyTest.java:106)
+Executing test testEnsureObjectIsNullType [edu.washington.escience.myria.util.MyriaUtilsTest]
+Executing test testEnsureObjectIsInvalidType [edu.washington.escience.myria.util.MyriaUtilsTest]
+Executing test testEnsureObjectIsValidType [edu.washington.escience.myria.util.MyriaUtilsTest]
+
+259 tests completed, 46 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/travis/build/uwescience/myria/build/reports/test/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 58.477 secs
+travis_time:end:0cc4557f:start=1431981340797091106,finish=1431981399684308554,duration=58887217448[0K
+[31;1mThe command "./gradlew check" exited with 1.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:1107ff4c[0Kchange detected: /home/travis/.gradle/caches/modules-2/modules-2.lock
+changes detected, packing new archive
+uploading archive
+travis_time:end:1107ff4c:start=1431981399688337915,finish=1431981450577938327,duration=50889600412[0Ktravis_fold:end:cache.2[0K
+Done. Your build exited with 1.

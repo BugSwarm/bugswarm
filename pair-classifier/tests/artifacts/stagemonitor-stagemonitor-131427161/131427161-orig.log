@@ -1,0 +1,548 @@
+Using worker: worker-linux-docker-65e8129d.prod.travis-ci.org:travis-linux-11
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-backports_multiverse_source_Sources.gz is not what the server reported 5886 5888
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 36669 36677
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-i386_Packages.gz is not what the server reported 36729 36733
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 237 not upgraded.
+Need to get 8,844 kB of archives.
+After this operation, 9,216 B disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.13 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.13 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.13 [1,179 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.13 [4,637 kB]
+Fetched 8,844 kB in 0s (23.8 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.13) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.13) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.13) ...
+Setting up libc6-dev (2.15-0ubuntu10.13) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0Ktravis_fold:start:git.checkout[0Ktravis_time:start:000cc768[0K$ git clone --depth=50 --branch=master https://github.com/stagemonitor/stagemonitor.git stagemonitor/stagemonitor
+Cloning into 'stagemonitor/stagemonitor'...
+remote: Counting objects: 2180, done.[K
+remote: Compressing objects:   0% (1/1319)   [Kremote: Compressing objects:   1% (14/1319)   [Kremote: Compressing objects:   2% (27/1319)   [Kremote: Compressing objects:   3% (40/1319)   [Kremote: Compressing objects:   4% (53/1319)   [Kremote: Compressing objects:   5% (66/1319)   [Kremote: Compressing objects:   6% (80/1319)   [Kremote: Compressing objects:   7% (93/1319)   [Kremote: Compressing objects:   8% (106/1319)   [Kremote: Compressing objects:   9% (119/1319)   [Kremote: Compressing objects:  10% (132/1319)   [Kremote: Compressing objects:  11% (146/1319)   [Kremote: Compressing objects:  12% (159/1319)   [Kremote: Compressing objects:  13% (172/1319)   [Kremote: Compressing objects:  14% (185/1319)   [Kremote: Compressing objects:  15% (198/1319)   [Kremote: Compressing objects:  16% (212/1319)   [Kremote: Compressing objects:  17% (225/1319)   [Kremote: Compressing objects:  18% (238/1319)   [Kremote: Compressing objects:  19% (251/1319)   [Kremote: Compressing objects:  20% (264/1319)   [Kremote: Compressing objects:  21% (277/1319)   [Kremote: Compressing objects:  22% (291/1319)   [Kremote: Compressing objects:  23% (304/1319)   [Kremote: Compressing objects:  24% (317/1319)   [Kremote: Compressing objects:  25% (330/1319)   [Kremote: Compressing objects:  26% (343/1319)   [Kremote: Compressing objects:  27% (357/1319)   [Kremote: Compressing objects:  28% (370/1319)   [Kremote: Compressing objects:  29% (383/1319)   [Kremote: Compressing objects:  30% (396/1319)   [Kremote: Compressing objects:  31% (409/1319)   [Kremote: Compressing objects:  32% (423/1319)   [Kremote: Compressing objects:  33% (436/1319)   [Kremote: Compressing objects:  34% (449/1319)   [Kremote: Compressing objects:  35% (462/1319)   [Kremote: Compressing objects:  36% (475/1319)   [Kremote: Compressing objects:  37% (489/1319)   [Kremote: Compressing objects:  38% (502/1319)   [Kremote: Compressing objects:  39% (515/1319)   [Kremote: Compressing objects:  40% (528/1319)   [Kremote: Compressing objects:  41% (541/1319)   [Kremote: Compressing objects:  42% (554/1319)   [Kremote: Compressing objects:  43% (568/1319)   [Kremote: Compressing objects:  44% (581/1319)   [Kremote: Compressing objects:  45% (594/1319)   [Kremote: Compressing objects:  46% (607/1319)   [Kremote: Compressing objects:  47% (620/1319)   [Kremote: Compressing objects:  48% (634/1319)   [Kremote: Compressing objects:  49% (647/1319)   [Kremote: Compressing objects:  50% (660/1319)   [Kremote: Compressing objects:  51% (673/1319)   [Kremote: Compressing objects:  52% (686/1319)   [Kremote: Compressing objects:  53% (700/1319)   [Kremote: Compressing objects:  54% (713/1319)   [Kremote: Compressing objects:  55% (726/1319)   [Kremote: Compressing objects:  56% (739/1319)   [Kremote: Compressing objects:  57% (752/1319)   [Kremote: Compressing objects:  58% (766/1319)   [Kremote: Compressing objects:  59% (779/1319)   [Kremote: Compressing objects:  60% (792/1319)   [Kremote: Compressing objects:  61% (805/1319)   [Kremote: Compressing objects:  62% (818/1319)   [Kremote: Compressing objects:  63% (831/1319)   [Kremote: Compressing objects:  64% (845/1319)   [Kremote: Compressing objects:  65% (858/1319)   [Kremote: Compressing objects:  66% (871/1319)   [Kremote: Compressing objects:  67% (884/1319)   [Kremote: Compressing objects:  68% (897/1319)   [Kremote: Compressing objects:  69% (911/1319)   [Kremote: Compressing objects:  70% (924/1319)   [Kremote: Compressing objects:  71% (937/1319)   [Kremote: Compressing objects:  72% (950/1319)   [Kremote: Compressing objects:  73% (963/1319)   [Kremote: Compressing objects:  74% (977/1319)   [Kremote: Compressing objects:  75% (990/1319)   [Kremote: Compressing objects:  76% (1003/1319)   [Kremote: Compressing objects:  77% (1016/1319)   [Kremote: Compressing objects:  78% (1029/1319)   [Kremote: Compressing objects:  79% (1043/1319)   [Kremote: Compressing objects:  80% (1056/1319)   [Kremote: Compressing objects:  81% (1069/1319)   [Kremote: Compressing objects:  82% (1082/1319)   [Kremote: Compressing objects:  83% (1095/1319)   [Kremote: Compressing objects:  84% (1108/1319)   [Kremote: Compressing objects:  85% (1122/1319)   [Kremote: Compressing objects:  86% (1135/1319)   [Kremote: Compressing objects:  87% (1148/1319)   [Kremote: Compressing objects:  88% (1161/1319)   [Kremote: Compressing objects:  89% (1174/1319)   [Kremote: Compressing objects:  90% (1188/1319)   [Kremote: Compressing objects:  91% (1201/1319)   [Kremote: Compressing objects:  92% (1214/1319)   [Kremote: Compressing objects:  93% (1227/1319)   [Kremote: Compressing objects:  94% (1240/1319)   [Kremote: Compressing objects:  95% (1254/1319)   [Kremote: Compressing objects:  96% (1267/1319)   [Kremote: Compressing objects:  97% (1280/1319)   [Kremote: Compressing objects:  98% (1293/1319)   [Kremote: Compressing objects:  99% (1306/1319)   [Kremote: Compressing objects: 100% (1319/1319)   [Kremote: Compressing objects: 100% (1319/1319), done.[K
+Receiving objects:   0% (1/2180)   Receiving objects:   1% (22/2180)   Receiving objects:   2% (44/2180)   Receiving objects:   3% (66/2180)   Receiving objects:   4% (88/2180)   Receiving objects:   5% (109/2180)   Receiving objects:   6% (131/2180)   Receiving objects:   7% (153/2180)   Receiving objects:   8% (175/2180)   Receiving objects:   9% (197/2180)   Receiving objects:  10% (218/2180)   Receiving objects:  11% (240/2180)   Receiving objects:  12% (262/2180)   Receiving objects:  13% (284/2180)   Receiving objects:  14% (306/2180)   Receiving objects:  15% (327/2180)   Receiving objects:  16% (349/2180)   Receiving objects:  17% (371/2180)   Receiving objects:  18% (393/2180)   Receiving objects:  19% (415/2180)   Receiving objects:  20% (436/2180)   Receiving objects:  21% (458/2180)   Receiving objects:  22% (480/2180)   Receiving objects:  23% (502/2180)   Receiving objects:  24% (524/2180)   Receiving objects:  25% (545/2180)   Receiving objects:  26% (567/2180)   Receiving objects:  27% (589/2180)   Receiving objects:  28% (611/2180)   Receiving objects:  29% (633/2180)   Receiving objects:  30% (654/2180)   Receiving objects:  31% (676/2180)   Receiving objects:  32% (698/2180)   Receiving objects:  33% (720/2180)   Receiving objects:  34% (742/2180)   Receiving objects:  35% (763/2180)   Receiving objects:  36% (785/2180)   Receiving objects:  37% (807/2180)   Receiving objects:  38% (829/2180)   Receiving objects:  39% (851/2180)   Receiving objects:  40% (872/2180)   Receiving objects:  41% (894/2180)   Receiving objects:  42% (916/2180)   Receiving objects:  43% (938/2180)   Receiving objects:  44% (960/2180)   Receiving objects:  45% (981/2180)   Receiving objects:  46% (1003/2180)   Receiving objects:  47% (1025/2180)   Receiving objects:  48% (1047/2180)   Receiving objects:  49% (1069/2180)   Receiving objects:  50% (1090/2180)   Receiving objects:  51% (1112/2180)   Receiving objects:  52% (1134/2180)   Receiving objects:  53% (1156/2180)   Receiving objects:  54% (1178/2180)   Receiving objects:  55% (1199/2180)   Receiving objects:  56% (1221/2180)   Receiving objects:  57% (1243/2180)   Receiving objects:  58% (1265/2180)   Receiving objects:  59% (1287/2180)   Receiving objects:  60% (1308/2180)   Receiving objects:  61% (1330/2180)   remote: Total 2180 (delta 605), reused 1703 (delta 406), pack-reused 0[K
+Receiving objects:  62% (1352/2180)   Receiving objects:  63% (1374/2180)   Receiving objects:  64% (1396/2180)   Receiving objects:  65% (1417/2180)   Receiving objects:  66% (1439/2180)   Receiving objects:  67% (1461/2180)   Receiving objects:  68% (1483/2180)   Receiving objects:  69% (1505/2180)   Receiving objects:  70% (1526/2180)   Receiving objects:  71% (1548/2180)   Receiving objects:  72% (1570/2180)   Receiving objects:  73% (1592/2180)   Receiving objects:  74% (1614/2180)   Receiving objects:  75% (1635/2180)   Receiving objects:  76% (1657/2180)   Receiving objects:  77% (1679/2180)   Receiving objects:  78% (1701/2180)   Receiving objects:  79% (1723/2180)   Receiving objects:  80% (1744/2180)   Receiving objects:  81% (1766/2180)   Receiving objects:  82% (1788/2180)   Receiving objects:  83% (1810/2180)   Receiving objects:  84% (1832/2180)   Receiving objects:  85% (1853/2180)   Receiving objects:  86% (1875/2180)   Receiving objects:  87% (1897/2180)   Receiving objects:  88% (1919/2180)   Receiving objects:  89% (1941/2180)   Receiving objects:  90% (1962/2180)   Receiving objects:  91% (1984/2180)   Receiving objects:  92% (2006/2180)   Receiving objects:  93% (2028/2180)   Receiving objects:  94% (2050/2180)   Receiving objects:  95% (2071/2180)   Receiving objects:  96% (2093/2180)   Receiving objects:  97% (2115/2180)   Receiving objects:  98% (2137/2180)   Receiving objects:  99% (2159/2180)   Receiving objects: 100% (2180/2180)   Receiving objects: 100% (2180/2180), 3.53 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/605)   Resolving deltas:   2% (17/605)   Resolving deltas:   3% (19/605)   Resolving deltas:   6% (39/605)   Resolving deltas:   7% (44/605)   Resolving deltas:   8% (51/605)   Resolving deltas:   9% (55/605)   Resolving deltas:  10% (62/605)   Resolving deltas:  11% (68/605)   Resolving deltas:  12% (74/605)   Resolving deltas:  13% (80/605)   Resolving deltas:  18% (111/605)   Resolving deltas:  19% (115/605)   Resolving deltas:  20% (121/605)   Resolving deltas:  21% (130/605)   Resolving deltas:  23% (144/605)   Resolving deltas:  24% (150/605)   Resolving deltas:  25% (154/605)   Resolving deltas:  26% (158/605)   Resolving deltas:  27% (169/605)   Resolving deltas:  28% (171/605)   Resolving deltas:  29% (176/605)   Resolving deltas:  30% (185/605)   Resolving deltas:  31% (191/605)   Resolving deltas:  32% (194/605)   Resolving deltas:  37% (227/605)   Resolving deltas:  39% (240/605)   Resolving deltas:  40% (242/605)   Resolving deltas:  41% (253/605)   Resolving deltas:  42% (255/605)   Resolving deltas:  43% (263/605)   Resolving deltas:  44% (268/605)   Resolving deltas:  46% (282/605)   Resolving deltas:  47% (285/605)   Resolving deltas:  49% (301/605)   Resolving deltas:  50% (303/605)   Resolving deltas:  51% (309/605)   Resolving deltas:  52% (315/605)   Resolving deltas:  53% (326/605)   Resolving deltas:  54% (329/605)   Resolving deltas:  57% (345/605)   Resolving deltas:  58% (353/605)   Resolving deltas:  60% (363/605)   Resolving deltas:  61% (370/605)   Resolving deltas:  62% (376/605)   Resolving deltas:  63% (382/605)   Resolving deltas:  64% (388/605)   Resolving deltas:  68% (417/605)   Resolving deltas:  69% (418/605)   Resolving deltas:  70% (426/605)   Resolving deltas:  71% (430/605)   Resolving deltas:  72% (441/605)   Resolving deltas:  73% (442/605)   Resolving deltas:  74% (450/605)   Resolving deltas:  75% (458/605)   Resolving deltas:  76% (465/605)   Resolving deltas:  77% (468/605)   Resolving deltas:  78% (474/605)   Resolving deltas:  79% (478/605)   Resolving deltas:  80% (485/605)   Resolving deltas:  81% (493/605)   Resolving deltas:  83% (507/605)   Resolving deltas:  85% (515/605)   Resolving deltas:  86% (525/605)   Resolving deltas:  87% (532/605)   Resolving deltas:  88% (535/605)   Resolving deltas:  90% (545/605)   Resolving deltas:  91% (554/605)   Resolving deltas:  92% (560/605)   Resolving deltas:  93% (565/605)   Resolving deltas:  94% (569/605)   Resolving deltas:  95% (575/605)   Resolving deltas:  96% (583/605)   Resolving deltas:  97% (589/605)   Resolving deltas:  98% (597/605)   Resolving deltas:  99% (599/605)   Resolving deltas: 100% (605/605)   Resolving deltas: 100% (605/605), done.
+Checking connectivity... done.
+
+travis_time:end:000cc768:start=1463667075596244732,finish=1463667076444429806,duration=848185074[0K$ cd stagemonitor/stagemonitor
+$ git checkout -qf 40d393a6d7e576f655ea3e96d7f95110a70c30b8
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export GH_TOKEN=[secure]
+$ export COVERITY_SCAN_TOKEN=[secure]
+$ export TERM=dumb
+
+$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ export TERM=dumb
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:2c06f5d0[0K$ Installing caching utilities
+
+travis_time:end:2c06f5d0:start=1463667078396587322,finish=1463667078448101846,duration=51514524[0Ktravis_time:start:1bd119a2[0K
+travis_time:end:1bd119a2:start=1463667078453022580,finish=1463667078456564748,duration=3542168[0Ktravis_time:start:2212a679[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching master/cache-linux-precise-3517298fec68fa461026b229805df3fc0c5454187740fecd9f4d9993c2e9a038--jdk-oraclejdk8.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:2212a679:start=1463667078461056004,finish=1463667082812442048,duration=4351386044[0Ktravis_time:start:16d70728[0K
+travis_time:end:16d70728:start=1463667082816588937,finish=1463667082820071199,duration=3482262[0Ktravis_time:start:00ba98ea[0K[32;1madding /home/travis/.m2 to cache[0m
+[32;1madding /home/travis/.gradle to cache[0m
+
+travis_time:end:00ba98ea:start=1463667082824494687,finish=1463667088115357301,duration=5290862614[0Ktravis_fold:end:cache.1[0K$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:install[0Ktravis_time:start:0dba86c0[0K$ ./gradlew assemble --stacktrace
+Incremental java compilation is an incubating feature.
+Defining custom 'build' task when using the standard Gradle lifecycle plugins has been deprecated and is scheduled to be removed in Gradle 3.0
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar
+:assemble
+:stagemonitor-dispatcher:compileJava
+:stagemonitor-dispatcher:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-dispatcher:processResources UP-TO-DATE
+:stagemonitor-dispatcher:classes
+:stagemonitor-dispatcher:jar
+:stagemonitor-core:compileJava
+:stagemonitor-core:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/CallerUtil.java:7: warning: JavaLangAccess is internal proprietary API and may be removed in a future release
+import sun.misc.JavaLangAccess;
+               ^
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/CallerUtil.java:8: warning: SharedSecrets is internal proprietary API and may be removed in a future release
+import sun.misc.SharedSecrets;
+               ^
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings': class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent$AttachmentProvider.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent$AttachmentProvider.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/dynamic/scaffold/MethodGraph$Compiler.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/dynamic/scaffold/MethodGraph$Compiler.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/implementation/auxiliary/AuxiliaryType.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/implementation/auxiliary/AuxiliaryType.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/ClassFileVersion.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/ClassFileVersion.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/CallerUtil.java:16: warning: SharedSecrets is internal proprietary API and may be removed in a future release
+			javaLangAccessObject = SharedSecrets.getJavaLangAccess();
+			                       ^
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/CallerUtil.java:42: warning: JavaLangAccess is internal proprietary API and may be removed in a future release
+		final JavaLangAccess javaLangAccess = (JavaLangAccess) javaLangAccessObject;
+		      ^
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/CallerUtil.java:42: warning: JavaLangAccess is internal proprietary API and may be removed in a future release
+		final JavaLangAccess javaLangAccess = (JavaLangAccess) javaLangAccessObject;
+		                                       ^
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeDescription$AbstractBase.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeDescription$AbstractBase.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+Note: /home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/Stagemonitor.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+20 warnings
+:stagemonitor-core:processResources
+:stagemonitor-core:classes
+:stagemonitor-core:jar
+:stagemonitor-requestmonitor:compileJava
+:stagemonitor-requestmonitor:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings': class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+3 warnings
+:stagemonitor-requestmonitor:processResources
+:stagemonitor-requestmonitor:classes
+:stagemonitor-requestmonitor:jar
+:stagemonitor-alerting:compileJava
+:stagemonitor-alerting:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-alerting:processResources
+:stagemonitor-alerting:classes
+:stagemonitor-alerting:jar
+:stagemonitor-dispatcher:javadoc
+:stagemonitor-core:javadoc/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings': class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent$AttachmentProvider.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings'
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.3.19/fe195e1c5d9699766ae735527e644c4c7431c444/byte-buddy-agent-1.3.19.jar(net/bytebuddy/agent/ByteBuddyAgent$AttachmentProvider.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/instrument/StagemonitorByteBuddyTransformer.java:163: warning - @return tag cannot be used in method with void return type.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/StagemonitorConfigurationSourceInitializer.java:33: warning - @param argument "configInitializedArguments@throws" is not a parameter name.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/metrics/MetricNameFilter.java:18: warning - @return tag has no arguments.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/metrics/MetricNameFilter.java:27: warning - @return tag has no arguments.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/metrics/MetricNameFilter.java:37: warning - @return tag has no arguments.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/metrics/MonitorGauges.java:24: warning - @{@link is an unknown tag.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/util/MBeanUtils.java:73: warning - @param argument "name" is not a parameter name.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/main/java/org/stagemonitor/core/util/MBeanUtils.java:73: warning - @param argument "query" is not a parameter name.
+
+12 warnings
+:stagemonitor-requestmonitor:javadoc/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'value()' in type 'SuppressFBWarnings': class file for edu.umd.cs.findbugs.annotations.SuppressFBWarnings not found
+/home/travis/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.3.19/182e016c97ccfe5c20f182549c3de2a83eee83ab/byte-buddy-1.3.19.jar(net/bytebuddy/description/type/TypeList.class): warning: Cannot find annotation method 'justification()' in type 'SuppressFBWarnings'
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-requestmonitor/src/main/java/org/stagemonitor/requestmonitor/MonitoredRequest.java:27: warning - Tag @link: reference not found: javax.servlet.http.HttpServletRequest#getParameterMap()
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-requestmonitor/src/main/java/org/stagemonitor/requestmonitor/MonitoredRequest.java:27: warning - Tag @link: reference not found: javax.servlet.http.HttpServletRequest#getParameterMap()
+
+4 warnings
+:stagemonitor-alerting:javadoc/home/travis/build/stagemonitor/stagemonitor/stagemonitor-alerting/src/main/java/org/stagemonitor/alerting/check/Threshold.java:109: warning - @return tag has no arguments.
+
+1 warning
+:stagemonitor-alerting:javadocJar
+:stagemonitor-alerting:sourcesJar
+:stagemonitor-alerting:signArchives SKIPPED
+:stagemonitor-alerting:assemble
+:stagemonitor-ehcache:compileJava
+:stagemonitor-ehcache:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-ehcache:processResources
+:stagemonitor-ehcache:classes
+:stagemonitor-ehcache:jar
+:stagemonitor-jdbc:compileJava
+Download https://repo1.maven.org/maven2/p6spy/p6spy/2.3.0/p6spy-2.3.0.pom
+Download https://repo1.maven.org/maven2/p6spy/p6spy/2.3.0/p6spy-2.3.0.jar
+:stagemonitor-jdbc:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-jdbc:processResources
+:stagemonitor-jdbc:classes
+:stagemonitor-jdbc:jar
+:stagemonitor-jvm:compileJava
+:stagemonitor-jvm:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-jvm:processResources
+:stagemonitor-jvm:classes
+:stagemonitor-jvm:jar
+:stagemonitor-logging:compileJava
+:stagemonitor-logging:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-logging:processResources
+:stagemonitor-logging:classes
+:stagemonitor-logging:jar
+:stagemonitor-web:compileJava
+:stagemonitor-web:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/stagemonitor/stagemonitor/stagemonitor-web/src/main/java/org/stagemonitor/web/monitor/filter/HttpServletResponseBufferWrapper.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+1 warning
+:stagemonitor-web:processResources
+:stagemonitor-web:classes
+:stagemonitor-web:jar
+:stagemonitor-benchmark:compileJava UP-TO-DATE
+:stagemonitor-benchmark:processResources UP-TO-DATE
+:stagemonitor-benchmark:classes UP-TO-DATE
+:stagemonitor-benchmark:jar
+:stagemonitor-benchmark:assemble
+:stagemonitor-core:javadocJar
+:stagemonitor-core:sourcesJar
+:stagemonitor-core:signArchives SKIPPED
+:stagemonitor-core:assemble
+:stagemonitor-dispatcher:javadocJar
+:stagemonitor-dispatcher:sourcesJar
+:stagemonitor-dispatcher:signArchives SKIPPED
+:stagemonitor-dispatcher:assemble
+:stagemonitor-ehcache:javadoc
+:stagemonitor-ehcache:javadocJar
+:stagemonitor-ehcache:sourcesJar
+:stagemonitor-ehcache:signArchives SKIPPED
+:stagemonitor-ehcache:assemble
+:stagemonitor-os:compileJava
+:stagemonitor-os:compileJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:stagemonitor-os:processResources
+:stagemonitor-os:classes
+:stagemonitor-os:jar
+:stagemonitor-grafana-elasticsearch:compileJava UP-TO-DATE
+:stagemonitor-grafana-elasticsearch:processResources UP-TO-DATE
+:stagemonitor-grafana-elasticsearch:classes UP-TO-DATE
+:stagemonitor-grafana-elasticsearch:jar
+:stagemonitor-grafana-elasticsearch:assemble
+:stagemonitor-jdbc:javadoc
+:stagemonitor-jdbc:javadocJar
+:stagemonitor-jdbc:sourcesJar
+:stagemonitor-jdbc:signArchives SKIPPED
+:stagemonitor-jdbc:assemble
+:stagemonitor-jvm:javadoc
+:stagemonitor-jvm:javadocJar
+:stagemonitor-jvm:sourcesJar
+:stagemonitor-jvm:signArchives SKIPPED
+:stagemonitor-jvm:assemble
+:stagemonitor-logging:javadoc
+:stagemonitor-logging:javadocJar
+:stagemonitor-logging:sourcesJar
+:stagemonitor-logging:signArchives SKIPPED
+:stagemonitor-logging:assemble
+:stagemonitor-os:startScripts
+:stagemonitor-os:distTar
+:stagemonitor-os:distZip
+:stagemonitor-os:javadoc/home/travis/build/stagemonitor/stagemonitor/stagemonitor-os/src/main/java/org/stagemonitor/os/metrics/AbstractSigarMetricSet.java:39: warning - Tag @link: reference not found: T
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-os/src/main/java/org/stagemonitor/os/metrics/AbstractSigarMetricSet.java:39: warning - Tag @link: reference not found: T
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-os/src/main/java/org/stagemonitor/os/metrics/AbstractSigarMetricSet.java:39: warning - Tag @link: reference not found: T
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-os/src/main/java/org/stagemonitor/os/SigarNativeBindingLoader.java:80: warning - Tag @see cannot be used in inline documentation.  It can only be used in the following types of documentation: overview, package, class/interface, constructor, field, method.
+/home/travis/build/stagemonitor/stagemonitor/stagemonitor-os/src/main/java/org/stagemonitor/os/metrics/AbstractSigarMetricSet.java:39: warning - Tag @link: reference not found: T
+
+5 warnings
+:stagemonitor-os:javadocJar
+:stagemonitor-os:sourcesJar
+:stagemonitor-os:signArchives SKIPPED
+:stagemonitor-os:assemble
+:stagemonitor-requestmonitor:javadocJar
+:stagemonitor-requestmonitor:sourcesJar
+:stagemonitor-requestmonitor:signArchives SKIPPED
+:stagemonitor-requestmonitor:assemble
+:stagemonitor-web:javadoc/home/travis/build/stagemonitor/stagemonitor/stagemonitor-web/src/main/java/org/stagemonitor/web/monitor/filter/HtmlInjector.java:36: warning - @return tag cannot be used in method with void return type.
+
+1 warning
+:stagemonitor-web:javadocJar
+:stagemonitor-web:sourcesJar
+:stagemonitor-web:signArchives SKIPPED
+:stagemonitor-web:assemble
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 48.661 secs
+
+travis_time:end:0dba86c0:start=1463667089053039819,finish=1463667198116026214,duration=109062986395[0Ktravis_fold:end:install[0Kcoverity_scan:start$ export PROJECT_NAME=stagemonitor/stagemonitor
+coverity_scan:endtravis_time:start:13a8bc6c[0K$ ./gradlew test
+Incremental java compilation is an incubating feature.
+Defining custom 'build' task when using the standard Gradle lifecycle plugins has been deprecated and is scheduled to be removed in Gradle 3.0
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:instrument SKIPPED
+:copyCoberturaDatafile SKIPPED
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:stagemonitor-dispatcher:compileJava UP-TO-DATE
+:stagemonitor-dispatcher:processResources UP-TO-DATE
+:stagemonitor-dispatcher:classes UP-TO-DATE
+:stagemonitor-dispatcher:jar UP-TO-DATE
+:stagemonitor-core:compileJava UP-TO-DATE
+:stagemonitor-core:processResources UP-TO-DATE
+:stagemonitor-core:classes UP-TO-DATE
+:stagemonitor-core:jar UP-TO-DATE
+:stagemonitor-requestmonitor:compileJava UP-TO-DATE
+:stagemonitor-requestmonitor:processResources UP-TO-DATE
+:stagemonitor-requestmonitor:classes UP-TO-DATE
+:stagemonitor-requestmonitor:jar UP-TO-DATE
+:stagemonitor-alerting:compileJava UP-TO-DATE
+:stagemonitor-alerting:processResources UP-TO-DATE
+:stagemonitor-alerting:classes UP-TO-DATE
+:stagemonitor-alerting:instrument SKIPPED
+:stagemonitor-alerting:copyCoberturaDatafile SKIPPED
+:stagemonitor-core:compileTestJava
+:stagemonitor-core:compileTestJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+Note: /home/travis/build/stagemonitor/stagemonitor/stagemonitor-core/src/test/java/org/stagemonitor/core/metrics/metrics2/Metric2RegistryTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:stagemonitor-core:processTestResources
+:stagemonitor-core:testClasses
+:stagemonitor-alerting:compileTestJava
+:stagemonitor-alerting:compileTestJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+:stagemonitor-alerting:processTestResources
+:stagemonitor-alerting:testClasses
+:stagemonitor-alerting:test
+:stagemonitor-core:instrument SKIPPED
+:stagemonitor-core:copyCoberturaDatafile SKIPPED
+:stagemonitor-core:test
+14:14:26.155 [Thread-23] INFO org.stagemonitor.core.CorePlugin - 
+####################################################
+## Aggregated report for this measurement session ##
+####################################################
+
+14:14:26.165 [Thread-23] INFO metrics - Metrics ========================================================================
+
+-- Gauges ----------------------------------------------------------------------
+name   | value
+online | 1.0
+
+
+
+14:14:26.176 [Thread-23] INFO org.stagemonitor.core.CorePlugin - 
+####################################################
+## Aggregated report for this measurement session ##
+####################################################
+
+14:14:26.177 [Thread-23] INFO metrics - Metrics ========================================================================
+
+-- Gauges ----------------------------------------------------------------------
+name   | value
+online | 1.0
+
+
+
+:stagemonitor-dispatcher:instrument SKIPPED
+:stagemonitor-dispatcher:copyCoberturaDatafile SKIPPED
+:stagemonitor-dispatcher:compileTestJava UP-TO-DATE
+:stagemonitor-dispatcher:processTestResources UP-TO-DATE
+:stagemonitor-dispatcher:testClasses UP-TO-DATE
+:stagemonitor-dispatcher:test UP-TO-DATE
+:stagemonitor-ehcache:compileJava UP-TO-DATE
+:stagemonitor-ehcache:processResources UP-TO-DATE
+:stagemonitor-ehcache:classes UP-TO-DATE
+:stagemonitor-ehcache:instrument SKIPPED
+:stagemonitor-ehcache:copyCoberturaDatafile SKIPPED
+:stagemonitor-ehcache:compileTestJava
+:stagemonitor-ehcache:compileTestJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+Note: /home/travis/build/stagemonitor/stagemonitor/stagemonitor-ehcache/src/test/java/org/stagemonitor/ehcache/StagemonitorCacheUsageListenerTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+:stagemonitor-ehcache:processTestResources UP-TO-DATE
+:stagemonitor-ehcache:testClasses
+:stagemonitor-ehcache:test
+:stagemonitor-jdbc:compileJava UP-TO-DATE
+:stagemonitor-jdbc:processResources UP-TO-DATE
+:stagemonitor-jdbc:classes UP-TO-DATE
+:stagemonitor-jdbc:instrument SKIPPED
+:stagemonitor-jdbc:copyCoberturaDatafile SKIPPED
+:stagemonitor-jdbc:compileTestJava
+:stagemonitor-jdbc:compileTestJava - is not incremental (e.g. outputs have changed, no previous execution, etc.).
+:stagemonitor-jdbc:processTestResources
+:stagemonitor-jdbc:testClasses
+:stagemonitor-jdbc:test
+
+org.stagemonitor.jdbc.ConnectionMonitoringTransformerTest > testRecordSqlPreparedStatement FAILED
+    java.lang.AssertionError: [name='response_time_server', tags={request_name=testRecordSqlPreparedStatement, layer=All}, name='external_request_response_time', tags={type=jdbc, signature=All, method=SELECT}, name='external_request_response_time', tags={type=jdbc, signature=ConnectionMonitoringTransformerTest$TestDao#executePreparedStatement, method=SELECT}, name='get_jdbc_connection', tags={url=jdbc:hsqldb:mem:test-SA}, name='response_time_server', tags={request_name=All, layer=All}, name='response_time_server', tags={request_name=All, layer=jdbc}]
+        at org.junit.Assert.fail(Assert.java:88)
+        at org.junit.Assert.assertTrue(Assert.java:41)
+        at org.junit.Assert.assertNotNull(Assert.java:712)
+        at org.stagemonitor.jdbc.ConnectionMonitoringTransformerTest.testRecordSqlPreparedStatement(ConnectionMonitoringTransformerTest.java:111)
+14:14:37.034 [stagemonitor-startup] WARN org.stagemonitor.core.Stagemonitor - Measurement Session is not initialized: [application=null] [instance=null] [host=testing-worker-linux-docker-65e8129d-3364-linux-11]
+14:14:37.038 [stagemonitor-startup] WARN org.stagemonitor.core.Stagemonitor - make sure the properties 'stagemonitor.instanceName' and 'stagemonitor.applicationName' are set and stagemonitor.properties is available in the classpath
+
+org.stagemonitor.jdbc.ConnectionMonitoringTransformerTest > testRecordSqlStatement FAILED
+    java.lang.NullPointerException
+        at org.stagemonitor.jdbc.ConnectionMonitoringTransformerTest.testRecordSqlStatement(ConnectionMonitoringTransformerTest.java:134)
+14:14:37.080 [Thread-10] INFO org.stagemonitor.core.CorePlugin - 
+####################################################
+## Aggregated report for this measurement session ##
+####################################################
+
+14:14:37.089 [Thread-10] INFO metrics - Metrics ========================================================================
+
+-- Gauges ----------------------------------------------------------------------
+name   | value
+online | 1.0
+
+-- Timers ----------------------------------------------------------------------
+name                        | count     | mean      | min       | max       | stddev    | p50       | p75       | p95       | p98       | p99       | p999      | mean_rate | m1_rate   | m5_rate   | m15_rate  | rate_unit     | duration_unit
+reporting_time,reporter=log |         2 |     64.12 |      6.45 |    121.78 |     57.67 |    121.78 |    121.78 |    121.78 |    121.78 |    121.78 |    121.78 |      1.55 |      1.55 |      1.55 |      1.55 | second        | milliseconds
+
+
+
+
+4 tests completed, 2 failed
+:stagemonitor-jdbc:test FAILED
+:stagemonitor-alerting:generateCoberturaReport SKIPPED
+:stagemonitor-alerting:performCoverageCheck SKIPPED
+:stagemonitor-core:generateCoberturaReport SKIPPED
+:stagemonitor-core:performCoverageCheck SKIPPED
+:stagemonitor-dispatcher:generateCoberturaReport SKIPPED
+:stagemonitor-dispatcher:performCoverageCheck SKIPPED
+:stagemonitor-ehcache:generateCoberturaReport SKIPPED
+:stagemonitor-ehcache:performCoverageCheck SKIPPED
+:stagemonitor-jdbc:generateCoberturaReport SKIPPED
+:stagemonitor-jdbc:performCoverageCheck SKIPPED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':stagemonitor-jdbc:test'.
+> There were failing tests. See the report at: file:///home/travis/build/stagemonitor/stagemonitor/stagemonitor-jdbc/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 1 mins 19.013 secs
+
+travis_time:end:13a8bc6c:start=1463667198148177688,finish=1463667277581294830,duration=79433117142[0K
+[31;1mThe command "./gradlew test" exited with 1.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:1e54cc16[0K
+travis_time:end:1e54cc16:start=1463667277587753723,finish=1463667277592858287,duration=5104564[0Ktravis_time:start:01282de8[0K[32;1mchange detected:
+/home/travis/.gradle/caches/2.12/classAnalysis/cache.properties
+/home/travis/.gradle/caches/2.12/classAnalysis/cache.properties.lock
+/home/travis/.gradle/caches/2.12/classAnalysis/classAnalysis.bin
+/home/travis/.gradle/caches/2.12/jarSnapshots/cache.properties
+/home/travis/.gradle/caches/2.12/jarSnapshots/cache.properties.lock
+/home/travis/.gradle/caches/2.12/jarSnapshots/jarSnapshots.bin
+/home/travis/.gradle/caches/2.12/plugin-resolution/cache.properties
+/home/travis/.gradle/caches/2.12/plugin-resolution/cache.properties.lock
+/home/travis/.gradle/caches/2.12/plugin-resolution/plugin-use-metadata.bin
+/home/travis/.gradle/caches/2.12/scripts/build_1rybdyc2g71wzacjwtp10pxk7/cp_proj/cache.properties
+/home/travis/.gradle/caches/2.12/scripts/build_1rybdyc2g71wzacjwtp10pxk7/cp_proj/cache.properties.lock
+/home/travis/.gradle/caches/2.12/scripts/build_1rybdyc2g71wzacjwtp10pxk7/cp_proj/metadata/metadata.bin
+/home/travis/.gradle/caches/2.12/scripts/build_1rybdyc2g71wzacjwtp10pxk7/proj/cache.prope
+[0m
+[32;1m...
+[0m
+[32;1mchanges detected, packing new archive[0m
+.
+.
+.
+.
+[32;1muploading archive[0m
+
+travis_time:end:01282de8:start=1463667277598601685,finish=1463667317121992013,duration=39523390328[0Ktravis_fold:end:cache.2[0K
+Done. Your build exited with 1.

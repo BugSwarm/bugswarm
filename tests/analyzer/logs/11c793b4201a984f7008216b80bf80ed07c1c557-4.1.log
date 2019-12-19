@@ -1,0 +1,1091 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd griffon/griffon
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export GH_TOKEN=[secure]
+$ export TERM=dumb
+
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:before_install.1[0Ktravis_time:start:086620db[0K$ export DISPLAY=:99.0
+
+travis_time:end:086620db:start=1479415777852303759,finish=1479415777925891310,duration=73587551[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:07c534f4[0K$ sh -e /etc/init.d/xvfb start
+Starting virtual X frame buffer: Xvfb.
+
+travis_time:end:07c534f4:start=1479415777943050111,finish=1479415778000410591,duration=57360480[0Ktravis_fold:end:before_install.2[0Ktravis_fold:start:install[0Ktravis_time:start:2b450db4[0K$ ./gradlew assemble
+Downloading http://services.gradle.org/distributions/gradle-1.11-bin.zip
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7/gradle-1.11-bin.zip to /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7
+Set executable permissions for: /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7/gradle-1.11/bin/gradle
+Download http://jcenter.bintray.com/net/sourceforge/cobertura/cobertura/2.0.3/cobertura-2.0.3.pom
+Download http://jcenter.bintray.com/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm/4.1/asm-4.1.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm-parent/4.1/asm-parent-4.1.pom
+Download http://jcenter.bintray.com/org/ow2/ow2/1.3/ow2-1.3.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm-commons/4.1/asm-commons-4.1.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm-util/4.1/asm-util-4.1.pom
+Download http://jcenter.bintray.com/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.pom
+Download http://jcenter.bintray.com/oro/oro/2.0.8/oro-2.0.8.pom
+Download http://jcenter.bintray.com/jaxen/jaxen/1.1-beta-8/jaxen-1.1-beta-8.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant/1.8.3/ant-1.8.3.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-parent/1.8.3/ant-parent-1.8.3.pom
+Download http://jcenter.bintray.com/org/mortbay/jetty/servlet-api-2.5/6.1.14/servlet-api-2.5-6.1.14.pom
+Download http://jcenter.bintray.com/org/mortbay/jetty/project/6.1.14/project-6.1.14.pom
+Download http://jcenter.bintray.com/org/mortbay/jetty/jetty-parent/7/jetty-parent-7.pom
+Download http://jcenter.bintray.com/org/mortbay/jetty/jetty/6.1.14/jetty-6.1.14.pom
+Download http://jcenter.bintray.com/org/mortbay/jetty/jetty-util/6.1.14/jetty-util-6.1.14.pom
+Download http://jcenter.bintray.com/log4j/log4j/1.2.9/log4j-1.2.9.pom
+Download http://jcenter.bintray.com/dom4j/dom4j/1.6.1/dom4j-1.6.1.pom
+Download http://jcenter.bintray.com/jdom/jdom/1.0/jdom-1.0.pom
+Download http://jcenter.bintray.com/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.pom
+Download http://jcenter.bintray.com/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.pom
+Download http://jcenter.bintray.com/xom/xom/1.0b3/xom-1.0b3.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-launcher/1.8.3/ant-launcher-1.8.3.pom
+Download http://jcenter.bintray.com/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.pom
+Download http://jcenter.bintray.com/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.pom
+Download http://jcenter.bintray.com/xalan/xalan/2.6.0/xalan-2.6.0.pom
+Download http://jcenter.bintray.com/org/ccil/cowan/tagsoup/tagsoup/0.9.7/tagsoup-0.9.7.pom
+Download http://jcenter.bintray.com/xml-apis/xml-apis/2.0.2/xml-apis-2.0.2.pom
+POM relocation to an other version number is not fully supported in Gradle : xml-apis#xml-apis;2.0.2 relocated to xml-apis#xml-apis;1.0.b2.
+Please update your dependency to directly use the correct version 'xml-apis#xml-apis;1.0.b2'.
+Resolution will only pick dependencies of the relocated element.  Artifacts and other metadata will be ignored.
+Download http://jcenter.bintray.com/net/sourceforge/cobertura/cobertura/2.0.3/cobertura-2.0.3.jar
+Download http://jcenter.bintray.com/org/ow2/asm/asm/4.1/asm-4.1.jar
+Download http://jcenter.bintray.com/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.jar
+Download http://jcenter.bintray.com/org/ow2/asm/asm-commons/4.1/asm-commons-4.1.jar
+Download http://jcenter.bintray.com/org/ow2/asm/asm-util/4.1/asm-util-4.1.jar
+Download http://jcenter.bintray.com/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.jar
+Download http://jcenter.bintray.com/oro/oro/2.0.8/oro-2.0.8.jar
+Download http://jcenter.bintray.com/jaxen/jaxen/1.1-beta-8/jaxen-1.1-beta-8.jar
+Download http://jcenter.bintray.com/org/apache/ant/ant/1.8.3/ant-1.8.3.jar
+Download http://jcenter.bintray.com/org/mortbay/jetty/servlet-api-2.5/6.1.14/servlet-api-2.5-6.1.14.jar
+Download http://jcenter.bintray.com/org/mortbay/jetty/jetty/6.1.14/jetty-6.1.14.jar
+Download http://jcenter.bintray.com/org/mortbay/jetty/jetty-util/6.1.14/jetty-util-6.1.14.jar
+Download http://jcenter.bintray.com/log4j/log4j/1.2.9/log4j-1.2.9.jar
+Download http://jcenter.bintray.com/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+Download http://jcenter.bintray.com/jdom/jdom/1.0/jdom-1.0.jar
+Download http://jcenter.bintray.com/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar
+Download http://jcenter.bintray.com/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar
+Download http://jcenter.bintray.com/xom/xom/1.0b3/xom-1.0b3.jar
+Download http://jcenter.bintray.com/org/apache/ant/ant-launcher/1.8.3/ant-launcher-1.8.3.jar
+Download http://jcenter.bintray.com/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar
+Download http://jcenter.bintray.com/xalan/xalan/2.6.0/xalan-2.6.0.jar
+Download http://jcenter.bintray.com/org/ccil/cowan/tagsoup/tagsoup/0.9.7/tagsoup-0.9.7.jar
+:buildSrc:clean UP-TO-DATE
+:buildSrc:compileJava UP-TO-DATE
+:buildSrc:compileGroovy
+:buildSrc:processResources UP-TO-DATE
+:buildSrc:classes
+:buildSrc:jar
+:buildSrc:assemble
+:buildSrc:compileTestJava UP-TO-DATE
+:buildSrc:compileTestGroovy UP-TO-DATE
+:buildSrc:processTestResources UP-TO-DATE
+:buildSrc:testClasses UP-TO-DATE
+:buildSrc:test UP-TO-DATE
+:buildSrc:check UP-TO-DATE
+:buildSrc:build
+Download http://jcenter.bintray.com/net/saliman/gradle-cobertura-plugin/2.2.2/gradle-cobertura-plugin-2.2.2.pom
+Download http://jcenter.bintray.com/org/kt3k/gradle/plugin/coveralls-gradle-plugin/0.2.4/coveralls-gradle-plugin-0.2.4.pom
+Download http://jcenter.bintray.com/nl/javadude/gradle/plugins/license-gradle-plugin/0.7.0/license-gradle-plugin-0.7.0.pom
+Download http://jcenter.bintray.com/org/ajoberstar/gradle-git/0.6.3/gradle-git-0.6.3.pom
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy-all/2.0.6/groovy-all-2.0.6.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpmime/4.3/httpmime-4.3.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpcomponents-client/4.3/httpcomponents-client-4.3.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/project/7/project-7.pom
+Download http://jcenter.bintray.com/org/apache/apache/13/apache-13.pom
+Download http://jcenter.bintray.com/org/codehaus/groovy/modules/http-builder/http-builder/0.5.0-RC2/http-builder-0.5.0-RC2.pom
+Download http://jcenter.bintray.com/com/mycila/maven-license-plugin/maven-license-plugin/1.10.b1/maven-license-plugin-1.10.b1.pom
+Download http://jcenter.bintray.com/com/mycila/parent-pom/5/parent-pom-5.pom
+Download http://jcenter.bintray.com/com/google/guava/guava/15.0/guava-15.0.pom
+Download http://jcenter.bintray.com/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.pageant/0.0.6/jsch.agentproxy.pageant-0.0.6.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy/0.0.6/jsch.agentproxy-0.0.6.pom
+Download http://jcenter.bintray.com/org/sonatype/oss/oss-parent/6/oss-parent-6.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.usocket-jna/0.0.6/jsch.agentproxy.usocket-jna-0.0.6.pom
+Download http://jcenter.bintray.com/org/eclipse/jgit/org.eclipse.jgit.ui/2.2.0.201212191850-r/org.eclipse.jgit.ui-2.2.0.201212191850-r.pom
+Download http://jcenter.bintray.com/org/eclipse/jgit/org.eclipse.jgit-parent/2.2.0.201212191850-r/org.eclipse.jgit-parent-2.2.0.201212191850-r.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.sshagent/0.0.6/jsch.agentproxy.sshagent-0.0.6.pom
+Download http://jcenter.bintray.com/org/eclipse/jgit/org.eclipse.jgit/2.2.0.201212191850-r/org.eclipse.jgit-2.2.0.201212191850-r.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.jsch/0.0.6/jsch.agentproxy.jsch-0.0.6.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpclient/4.3/httpclient-4.3.pom
+Download http://jcenter.bintray.com/net/sf/json-lib/json-lib/2.3/json-lib-2.3.pom
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy/1.6.9/groovy-1.6.9.pom
+Download http://jcenter.bintray.com/net/sourceforge/nekohtml/nekohtml/1.9.9/nekohtml-1.9.9.pom
+Download http://jcenter.bintray.com/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.pom
+Download http://jcenter.bintray.com/org/apache/apache/3/apache-3.pom
+Download http://jcenter.bintray.com/com/mycila/xmltool/xmltool/3.3/xmltool-3.3.pom
+Download http://jcenter.bintray.com/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.pom
+Download http://jcenter.bintray.com/org/codehaus/plexus/plexus/2.0.6/plexus-2.0.6.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.core/0.0.6/jsch.agentproxy.core-0.0.6.pom
+Download http://jcenter.bintray.com/net/java/dev/jna/jna/3.4.0/jna-3.4.0.pom
+Download http://jcenter.bintray.com/net/java/dev/jna/platform/3.4.0/platform-3.4.0.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch/0.1.44-1/jsch-0.1.44-1.pom
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/11/commons-parent-11.pom
+Download http://jcenter.bintray.com/org/apache/apache/4/apache-4.pom
+Download http://jcenter.bintray.com/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/9/commons-parent-9.pom
+Download http://jcenter.bintray.com/commons-lang/commons-lang/2.4/commons-lang-2.4.pom
+Download http://jcenter.bintray.com/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/5/commons-parent-5.pom
+Download http://jcenter.bintray.com/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.pom
+Download http://jcenter.bintray.com/antlr/antlr/2.7.7/antlr-2.7.7.pom
+Download http://jcenter.bintray.com/asm/asm/2.2.3/asm-2.2.3.pom
+Download http://jcenter.bintray.com/asm/asm-parent/2.2.3/asm-parent-2.2.3.pom
+Download http://jcenter.bintray.com/junit/junit/3.8.2/junit-3.8.2.pom
+Download http://jcenter.bintray.com/asm/asm-util/2.2.3/asm-util-2.2.3.pom
+Download http://jcenter.bintray.com/asm/asm-analysis/2.2.3/asm-analysis-2.2.3.pom
+Download http://jcenter.bintray.com/asm/asm-tree/2.2.3/asm-tree-2.2.3.pom
+Download http://jcenter.bintray.com/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-parent/1.7.1/ant-parent-1.7.1.pom
+Download http://jcenter.bintray.com/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03.pom
+Download http://jcenter.bintray.com/org/apache/apache/1/apache-1.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpcore/4.3/httpcore-4.3.pom
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpcomponents-core/4.3/httpcomponents-core-4.3.pom
+Download http://jcenter.bintray.com/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/22/commons-parent-22.pom
+Download http://jcenter.bintray.com/org/apache/apache/9/apache-9.pom
+Download http://jcenter.bintray.com/com/jcraft/jsch/0.1.49/jsch-0.1.49.pom
+Download http://jcenter.bintray.com/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/28/commons-parent-28.pom
+Download http://jcenter.bintray.com/net/saliman/gradle-cobertura-plugin/2.2.2/gradle-cobertura-plugin-2.2.2.jar
+Download http://jcenter.bintray.com/org/kt3k/gradle/plugin/coveralls-gradle-plugin/0.2.4/coveralls-gradle-plugin-0.2.4.jar
+Download http://jcenter.bintray.com/nl/javadude/gradle/plugins/license-gradle-plugin/0.7.0/license-gradle-plugin-0.7.0.jar
+Download http://jcenter.bintray.com/org/ajoberstar/gradle-git/0.6.3/gradle-git-0.6.3.jar
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy-all/2.0.6/groovy-all-2.0.6.jar
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpmime/4.3/httpmime-4.3.jar
+Download http://jcenter.bintray.com/org/codehaus/groovy/modules/http-builder/http-builder/0.5.0-RC2/http-builder-0.5.0-RC2.jar
+Download http://jcenter.bintray.com/com/mycila/maven-license-plugin/maven-license-plugin/1.10.b1/maven-license-plugin-1.10.b1.jar
+Download http://jcenter.bintray.com/com/google/guava/guava/15.0/guava-15.0.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.pageant/0.0.6/jsch.agentproxy.pageant-0.0.6.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.usocket-jna/0.0.6/jsch.agentproxy.usocket-jna-0.0.6.jar
+Download http://jcenter.bintray.com/org/eclipse/jgit/org.eclipse.jgit.ui/2.2.0.201212191850-r/org.eclipse.jgit.ui-2.2.0.201212191850-r.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.sshagent/0.0.6/jsch.agentproxy.sshagent-0.0.6.jar
+Download http://jcenter.bintray.com/org/eclipse/jgit/org.eclipse.jgit/2.2.0.201212191850-r/org.eclipse.jgit-2.2.0.201212191850-r.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.jsch/0.0.6/jsch.agentproxy.jsch-0.0.6.jar
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpclient/4.3/httpclient-4.3.jar
+Download http://jcenter.bintray.com/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy/1.6.9/groovy-1.6.9.jar
+Download http://jcenter.bintray.com/net/sourceforge/nekohtml/nekohtml/1.9.9/nekohtml-1.9.9.jar
+Download http://jcenter.bintray.com/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar
+Download http://jcenter.bintray.com/com/mycila/xmltool/xmltool/3.3/xmltool-3.3.jar
+Download http://jcenter.bintray.com/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch.agentproxy.core/0.0.6/jsch.agentproxy.core-0.0.6.jar
+Download http://jcenter.bintray.com/net/java/dev/jna/jna/3.4.0/jna-3.4.0.jar
+Download http://jcenter.bintray.com/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar
+Download http://jcenter.bintray.com/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar
+Download http://jcenter.bintray.com/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+Download http://jcenter.bintray.com/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar
+Download http://jcenter.bintray.com/antlr/antlr/2.7.7/antlr-2.7.7.jar
+Download http://jcenter.bintray.com/asm/asm/2.2.3/asm-2.2.3.jar
+Download http://jcenter.bintray.com/junit/junit/3.8.2/junit-3.8.2.jar
+Download http://jcenter.bintray.com/asm/asm-util/2.2.3/asm-util-2.2.3.jar
+Download http://jcenter.bintray.com/asm/asm-analysis/2.2.3/asm-analysis-2.2.3.jar
+Download http://jcenter.bintray.com/asm/asm-tree/2.2.3/asm-tree-2.2.3.jar
+Download http://jcenter.bintray.com/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1.jar
+Download http://jcenter.bintray.com/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar
+Download http://jcenter.bintray.com/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03.jar
+Download http://jcenter.bintray.com/org/apache/httpcomponents/httpcore/4.3/httpcore-4.3.jar
+Download http://jcenter.bintray.com/commons-codec/commons-codec/1.6/commons-codec-1.6.jar
+Download http://jcenter.bintray.com/com/jcraft/jsch/0.1.49/jsch-0.1.49.jar
+Download http://jcenter.bintray.com/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+Download http://jcenter.bintray.com/org/bitbucket/shemnon/javafxplugin/gradle-javafx-plugin/0.4.0/gradle-javafx-plugin-0.4.0.pom
+Download http://jcenter.bintray.com/org/jclarion/image4j/0.7/image4j-0.7.pom
+Download http://jcenter.bintray.com/org/bitbucket/shemnon/javafxplugin/gradle-javafx-plugin/0.4.0/gradle-javafx-plugin-0.4.0.jar
+Download http://jcenter.bintray.com/org/jclarion/image4j/0.7/image4j-0.7.jar
+:griffon-core is getting tests from [task ':griffon-core:test']
+:griffon-core-compile is getting tests from [task ':griffon-core-compile:test']
+:griffon-core-test is getting tests from [task ':griffon-core-test:test']
+:griffon-swing is getting tests from [task ':griffon-swing:test']
+:griffon-fest-test is getting tests from [task ':griffon-fest-test:test']
+:griffon-groovy is getting tests from [task ':griffon-groovy:test']
+:griffon-groovy-compile is getting tests from [task ':griffon-groovy-compile:test']
+:griffon-guice is getting tests from [task ':griffon-guice:test']
+:griffon-javafx is getting tests from [task ':griffon-javafx:test']
+:griffon-javafx-groovy is getting tests from [task ':griffon-javafx-groovy:test']
+:griffon-lanterna is getting tests from [task ':griffon-lanterna:test']
+:griffon-lanterna-groovy is getting tests from [task ':griffon-lanterna-groovy:test']
+:griffon-lombok-compile is getting tests from [task ':griffon-lombok-compile:test']
+:griffon-pivot is getting tests from [task ':griffon-pivot:test']
+:griffon-pivot-groovy is getting tests from [task ':griffon-pivot-groovy:test']
+:griffon-pivot-test is getting tests from [task ':griffon-pivot-test:test']
+:griffon-preferences-plugin is getting tests from [task ':griffon-preferences-plugin:test']
+:griffon-shiro-plugin is getting tests from [task ':griffon-shiro-plugin:test']
+Download http://dl.bintray.com/pledbrook/plugins/uk/co/cacoethes/lazybones-gradle/1.0.3/lazybones-gradle-1.0.3.pom
+Download http://dl.bintray.com/pledbrook/plugins/uk/co/cacoethes/lazybones-gradle/1.0.3/lazybones-gradle-1.0.3.jar
+:griffon-swing-groovy is getting tests from [task ':griffon-swing-groovy:test']
+:griffon-tasks-plugin is getting tests from [task ':griffon-tasks-plugin:test']
+:griffon-theme-plugin is getting tests from [task ':griffon-theme-plugin:test']
+Download http://jcenter.bintray.com/org/asciidoctor/asciidoctor-gradle-plugin/0.7.0/asciidoctor-gradle-plugin-0.7.0.pom
+Download http://jcenter.bintray.com/org/gradle/api/plugins/gradle-java2html-plugin/0.4/gradle-java2html-plugin-0.4.pom
+Download http://jcenter.bintray.com/org/asciidoctor/asciidoctor-java-integration/0.1.4/asciidoctor-java-integration-0.1.4.pom
+Download http://jcenter.bintray.com/org/jruby/jruby-complete/1.7.4/jruby-complete-1.7.4.pom
+Download http://jcenter.bintray.com/org/jruby/shared/1.7.4/shared-1.7.4.pom
+Download http://jcenter.bintray.com/com/beust/jcommander/1.30/jcommander-1.30.pom
+Download http://jcenter.bintray.com/org/sonatype/oss/oss-parent/3/oss-parent-3.pom
+Download http://jcenter.bintray.com/org/asciidoctor/asciidoctor-gradle-plugin/0.7.0/asciidoctor-gradle-plugin-0.7.0.jar
+Download http://jcenter.bintray.com/org/gradle/api/plugins/gradle-java2html-plugin/0.4/gradle-java2html-plugin-0.4.jar
+Download http://jcenter.bintray.com/org/asciidoctor/asciidoctor-java-integration/0.1.4/asciidoctor-java-integration-0.1.4.jar
+Download http://jcenter.bintray.com/org/jruby/jruby-complete/1.7.4/jruby-complete-1.7.4.jar
+Download http://jcenter.bintray.com/com/beust/jcommander/1.30/jcommander-1.30.jar
+:sample-javafx-groovy is getting tests from [task ':sample-javafx-groovy:test']
+:sample-javafx-java is getting tests from [task ':sample-javafx-java:test']
+:sample-lanterna-groovy is getting tests from [task ':sample-lanterna-groovy:test']
+:sample-lanterna-java is getting tests from [task ':sample-lanterna-java:test']
+:sample-pivot-groovy is getting tests from [task ':sample-pivot-groovy:integrationTest', task ':sample-pivot-groovy:test']
+:sample-pivot-java is getting tests from [task ':sample-pivot-java:integrationTest', task ':sample-pivot-java:test']
+:sample-swing-groovy is getting tests from [task ':sample-swing-groovy:integrationTest', task ':sample-swing-groovy:test']
+:sample-swing-java is getting tests from [task ':sample-swing-java:integrationTest', task ':sample-swing-java:test']
+:assemble UP-TO-DATE
+:griffon-core:compileJava
+Download http://jcenter.bintray.com/javax/inject/javax.inject/1/javax.inject-1.pom
+Download http://jcenter.bintray.com/com/google/code/findbugs/jsr305/2.0.2/jsr305-2.0.2.pom
+Download http://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.pom
+Download http://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.6/slf4j-parent-1.7.6.pom
+Download http://jcenter.bintray.com/javax/inject/javax.inject/1/javax.inject-1.jar
+Download http://jcenter.bintray.com/com/google/code/findbugs/jsr305/2.0.2/jsr305-2.0.2.jar
+Download http://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar
+Download http://jcenter.bintray.com/mrj/MRJToolkitStubs/1.0/MRJToolkitStubs-1.0.pom
+Download http://jcenter.bintray.com/mrj/MRJToolkitStubs/1.0/MRJToolkitStubs-1.0.jar
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:griffon-core:compileGroovy UP-TO-DATE
+:griffon-core:processResources
+:griffon-core:classes
+:griffon-core:jar
+:griffon-core-compile:compileJava
+Download http://jcenter.bintray.com/org/kordamp/jipsy/jipsy/0.4.0/jipsy-0.4.0.pom
+Download http://jcenter.bintray.com/org/kordamp/jipsy/jipsy-parent/0.4.0/jipsy-parent-0.4.0.pom
+Download http://jcenter.bintray.com/org/kordamp/jipsy/jipsy/0.4.0/jipsy-0.4.0.jar
+:griffon-core-compile:compileGroovy UP-TO-DATE
+:griffon-core-compile:processResources
+:griffon-core-compile:classes
+:griffon-core-compile:jar
+:griffon-groovy:compileJava UP-TO-DATE
+:griffon-groovy:compileGroovy
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy-all/2.2.2/groovy-all-2.2.2.pom
+Download http://jcenter.bintray.com/org/codehaus/groovy/groovy-all/2.2.2/groovy-all-2.2.2.jar
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+:griffon-groovy:processResources UP-TO-DATE
+:griffon-groovy:classes
+:griffon-groovy:jar
+:griffon-groovy-compile:compileJava
+Download http://jcenter.bintray.com/org/kordamp/gipsy/gipsy/0.4.0/gipsy-0.4.0.pom
+Download http://jcenter.bintray.com/org/kordamp/gipsy/gipsy/0.4.0/gipsy-0.4.0.jar
+Note: /home/travis/build/griffon/griffon/subprojects/griffon-groovy-compile/src/main/java/org/codehaus/griffon/compile/core/ast/transform/FXObservableASTTransformation.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:griffon-groovy-compile:processResources UP-TO-DATE
+:griffon-groovy-compile:classes
+:griffon-groovy-compile:jar
+:griffon-javafx:compileJava
+:griffon-javafx:compileGroovy UP-TO-DATE
+:griffon-javafx:processResources UP-TO-DATE
+:griffon-javafx:classes
+:griffon-javafx:jar
+:griffon-javafx-groovy:compileJava UP-TO-DATE
+:griffon-javafx-groovy:compileGroovy
+Download http://jcenter.bintray.com/org/codehaus/groovyfx/groovyfx/0.3.1/groovyfx-0.3.1.pom
+Download http://jcenter.bintray.com/asm/asm/3.3.1/asm-3.3.1.pom
+Download http://jcenter.bintray.com/asm/asm-parent/3.3.1/asm-parent-3.3.1.pom
+Download http://jcenter.bintray.com/org/codehaus/groovyfx/groovyfx/0.3.1/groovyfx-0.3.1.jar
+Download http://jcenter.bintray.com/asm/asm/3.3.1/asm-3.3.1.jar
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+:griffon-javafx-groovy:processResources UP-TO-DATE
+:griffon-javafx-groovy:classes
+:griffon-javafx-groovy:jar
+:browser-javafx-groovy:compileJava UP-TO-DATE
+:browser-javafx-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:browser-javafx-groovy:processResources
+:browser-javafx-groovy:cssToBin
+:browser-javafx-groovy:classes
+:browser-javafx-groovy:jar
+:browser-javafx-groovy:jfxJar
+:browser-javafx-groovy:jfxSignJar SKIPPED
+:browser-javafx-groovy:jfxCopyLibs
+Download http://jcenter.bintray.com/org/slf4j/slf4j-simple/1.7.6/slf4j-simple-1.7.6.pom
+Download http://jcenter.bintray.com/log4j/log4j/1.2.17/log4j-1.2.17.pom
+Download http://jcenter.bintray.com/org/slf4j/slf4j-log4j12/1.7.6/slf4j-log4j12-1.7.6.pom
+Download http://jcenter.bintray.com/com/google/inject/guice/3.0/guice-3.0.pom
+Download http://jcenter.bintray.com/com/google/inject/guice-parent/3.0/guice-parent-3.0.pom
+Download http://jcenter.bintray.com/com/google/google/5/google-5.pom
+Download http://jcenter.bintray.com/aopalliance/aopalliance/1.0/aopalliance-1.0.pom
+Download http://jcenter.bintray.com/org/slf4j/slf4j-simple/1.7.6/slf4j-simple-1.7.6.jar
+Download http://jcenter.bintray.com/log4j/log4j/1.2.17/log4j-1.2.17.jar
+Download http://jcenter.bintray.com/org/slf4j/slf4j-log4j12/1.7.6/slf4j-log4j12-1.7.6.jar
+Download http://jcenter.bintray.com/com/google/inject/guice/3.0/guice-3.0.jar
+Download http://jcenter.bintray.com/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+:browser-javafx-groovy:compilePackageJava UP-TO-DATE
+:browser-javafx-groovy:compilePackageGroovy UP-TO-DATE
+:browser-javafx-groovy:processPackageResources UP-TO-DATE
+:browser-javafx-groovy:packageClasses UP-TO-DATE
+:browser-javafx-groovy:jfxDeploy
+:browser-javafx-groovy:assemble
+:griffon-swing:compileJava/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:100: warning: AppContext is internal proprietary API and may be removed in a future release
+        return (RepaintManager) AppContext.getAppContext().get(RepaintManager.class);
+                                ^
+4 warnings
+
+:griffon-swing:compileGroovy UP-TO-DATE
+:griffon-swing:processResources UP-TO-DATE
+:griffon-swing:classes
+:griffon-swing:jar
+:console-swing-groovy:compileJava UP-TO-DATE
+:console-swing-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:console-swing-groovy:processResources
+:console-swing-groovy:classes
+:console-swing-groovy:jar
+:console-swing-groovy:assemble
+:editor-swing-groovy:compileJava UP-TO-DATE
+:editor-swing-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:editor-swing-groovy:processResources
+:editor-swing-groovy:classes
+:editor-swing-groovy:jar
+:editor-swing-groovy:assemble
+:griffon-core:assemble
+:griffon-core-compile:assemble
+:griffon-core-test:compileJava
+Download http://jcenter.bintray.com/junit/junit/4.11/junit-4.11.pom
+Download http://jcenter.bintray.com/com/jayway/awaitility/awaitility/1.4.0/awaitility-1.4.0.pom
+Download http://jcenter.bintray.com/com/jayway/awaitility/awaitility-parent/1.4.0/awaitility-parent-1.4.0.pom
+Download http://jcenter.bintray.com/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
+Download http://jcenter.bintray.com/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
+Download http://jcenter.bintray.com/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.pom
+Download http://jcenter.bintray.com/cglib/cglib-nodep/2.2/cglib-nodep-2.2.pom
+Download http://jcenter.bintray.com/org/objenesis/objenesis/1.2/objenesis-1.2.pom
+Download http://jcenter.bintray.com/org/objenesis/objenesis-parent/1.2/objenesis-parent-1.2.pom
+Download http://jcenter.bintray.com/junit/junit/4.11/junit-4.11.jar
+Download http://jcenter.bintray.com/com/jayway/awaitility/awaitility/1.4.0/awaitility-1.4.0.jar
+Download http://jcenter.bintray.com/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+Download http://jcenter.bintray.com/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+Download http://jcenter.bintray.com/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar
+Download http://jcenter.bintray.com/org/objenesis/objenesis/1.2/objenesis-1.2.jar
+Note: /home/travis/build/griffon/griffon/subprojects/griffon-core-test/src/main/java/griffon/core/test/GriffonUnitRule.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:griffon-core-test:processResources UP-TO-DATE
+:griffon-core-test:classes
+:griffon-core-test:jar
+:griffon-core-test:assemble
+:griffon-fest-test:compileJava
+Download http://jcenter.bintray.com/org/easytesting/fest-swing/1.2.1/fest-swing-1.2.1.pom
+Download http://jcenter.bintray.com/org/easytesting/fest/1.0.1/fest-1.0.1.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-swing-junit/1.2.1/fest-swing-junit-1.2.1.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-swing-junit-4.5/1.2.1/fest-swing-junit-4.5-1.2.1.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-assert/1.2/fest-assert-1.2.pom
+Download http://jcenter.bintray.com/org/easytesting/fest/1.0/fest-1.0.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-reflect/1.2/fest-reflect-1.2.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-util/1.1.3/fest-util-1.1.3.pom
+Download http://jcenter.bintray.com/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.pom
+Download http://jcenter.bintray.com/commons-codec/commons-codec/1.3/commons-codec-1.3.pom
+Download http://jcenter.bintray.com/junit/junit/4.3.1/junit-4.3.1.pom
+Download http://jcenter.bintray.com/org/easytesting/fest-swing/1.2.1/fest-swing-1.2.1.jar
+Download http://jcenter.bintray.com/org/easytesting/fest-swing-junit/1.2.1/fest-swing-junit-1.2.1.jar
+Download http://jcenter.bintray.com/org/easytesting/fest-swing-junit-4.5/1.2.1/fest-swing-junit-4.5-1.2.1.jar
+Download http://jcenter.bintray.com/org/easytesting/fest-assert/1.2/fest-assert-1.2.jar
+Download http://jcenter.bintray.com/org/easytesting/fest-reflect/1.2/fest-reflect-1.2.jar
+Download http://jcenter.bintray.com/org/easytesting/fest-util/1.1.3/fest-util-1.1.3.jar
+Download http://jcenter.bintray.com/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar
+Download http://jcenter.bintray.com/commons-codec/commons-codec/1.3/commons-codec-1.3.jar
+:griffon-fest-test:compileGroovy UP-TO-DATE
+:griffon-fest-test:processResources UP-TO-DATE
+:griffon-fest-test:classes
+:griffon-fest-test:jar
+:griffon-fest-test:assemble
+:griffon-groovy:assemble
+:griffon-groovy-compile:assemble
+:griffon-guice:compileJava
+:griffon-guice:compileGroovy UP-TO-DATE
+:griffon-guice:processResources UP-TO-DATE
+:griffon-guice:classes
+:griffon-guice:jar
+:griffon-guice:assemble
+:griffon-javafx:assemble
+:griffon-javafx-groovy:assemble
+:griffon-lanterna:compileJava
+Download http://jcenter.bintray.com/com/googlecode/lanterna/lanterna/2.1.7/lanterna-2.1.7.pom
+Download http://jcenter.bintray.com/com/googlecode/lanterna/lanterna/2.1.7/lanterna-2.1.7.jar
+:griffon-lanterna:compileGroovy UP-TO-DATE
+:griffon-lanterna:processResources UP-TO-DATE
+:griffon-lanterna:classes
+:griffon-lanterna:jar
+:griffon-lanterna:assemble
+:griffon-lanterna-groovy:compileJava UP-TO-DATE
+:griffon-lanterna-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-lanterna-groovy:processResources UP-TO-DATE
+:griffon-lanterna-groovy:classes
+:griffon-lanterna-groovy:jar
+:griffon-lanterna-groovy:assemble
+:griffon-lombok-compile:compileJava
+Download http://jcenter.bintray.com/org/projectlombok/lombok/0.11.6/lombok-0.11.6.pom
+Download http://jcenter.bintray.com/com/github/peichhorn/lombok-pg/0.11.3/lombok-pg-0.11.3.pom
+Download http://jcenter.bintray.com/org/projectlombok/lombok/0.11.6/lombok-0.11.6.jar
+Download http://jcenter.bintray.com/com/github/peichhorn/lombok-pg/0.11.3/lombok-pg-0.11.3.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/processor-api/0.5/processor-api-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/parent/0.5/parent-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/processor-core/0.5/processor-core-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-factory/0.5/intellij-facade-factory-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-api/0.5/intellij-facade-api-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-9/0.5/intellij-facade-9-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-10/0.5/intellij-facade-10-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-11/0.5/intellij-facade-11-0.5.pom
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/processor-api/0.5/processor-api-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/processor-core/0.5/processor-core-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-factory/0.5/intellij-facade-factory-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-api/0.5/intellij-facade-api-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-9/0.5/intellij-facade-9-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-10/0.5/intellij-facade-10-0.5.jar
+Download http://jcenter.bintray.com/de/plushnikov/lombok-intellij-plugin/intellij-facade-11/0.5/intellij-facade-11-0.5.jar
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:griffon-lombok-compile:compileGroovy UP-TO-DATE
+:griffon-lombok-compile:processResources UP-TO-DATE
+:griffon-lombok-compile:classes
+:griffon-lombok-compile:jar
+:griffon-lombok-compile:assemble
+:griffon-pivot:compileJava
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-core/2.0.3/pivot-core-2.0.3.pom
+Download http://jcenter.bintray.com/org/apache/pivot/pivot/2.0.3/pivot-2.0.3.pom
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-charts/2.0.3/pivot-charts-2.0.3.pom
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-wtk/2.0.3/pivot-wtk-2.0.3.pom
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-wtk-terra/2.0.3/pivot-wtk-terra-2.0.3.pom
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-core/2.0.3/pivot-core-2.0.3.jar
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-charts/2.0.3/pivot-charts-2.0.3.jar
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-wtk/2.0.3/pivot-wtk-2.0.3.jar
+Download http://jcenter.bintray.com/org/apache/pivot/pivot-wtk-terra/2.0.3/pivot-wtk-terra-2.0.3.jar
+:griffon-pivot:compileGroovy UP-TO-DATE
+:griffon-pivot:processResources UP-TO-DATE
+:griffon-pivot:classes
+:griffon-pivot:jar
+:griffon-pivot:assemble
+:griffon-pivot-groovy:compileJava UP-TO-DATE
+:griffon-pivot-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-pivot-groovy:processResources UP-TO-DATE
+:griffon-pivot-groovy:classes
+:griffon-pivot-groovy:jar
+:griffon-pivot-groovy:assemble
+:griffon-pivot-test:compileJavaNote: /home/travis/build/griffon/griffon/subprojects/griffon-pivot-test/src/main/java/griffon/pivot/test/GriffonPivotRule.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:griffon-pivot-test:compileGroovy UP-TO-DATE
+:griffon-pivot-test:processResources UP-TO-DATE
+:griffon-pivot-test:classes
+:griffon-pivot-test:jar
+:griffon-pivot-test:assemble
+:griffon-preferences-plugin:compileJava
+:griffon-preferences-plugin:compileGroovy UP-TO-DATE
+:griffon-preferences-plugin:processResources UP-TO-DATE
+:griffon-preferences-plugin:classes
+:griffon-preferences-plugin:jar
+:griffon-preferences-plugin:assemble
+:griffon-shiro-plugin:compileJava
+Download http://jcenter.bintray.com/org/apache/shiro/shiro-core/1.2.2/shiro-core-1.2.2.pom
+Download http://jcenter.bintray.com/org/apache/shiro/shiro-root/1.2.2/shiro-root-1.2.2.pom
+Download http://jcenter.bintray.com/org/apache/apache/7/apache-7.pom
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.pom
+Download http://jcenter.bintray.com/org/apache/commons/commons-parent/14/commons-parent-14.pom
+Download http://jcenter.bintray.com/org/apache/shiro/shiro-core/1.2.2/shiro-core-1.2.2.jar
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar
+:griffon-shiro-plugin:compileGroovy UP-TO-DATE
+:griffon-shiro-plugin:processResources UP-TO-DATE
+:griffon-shiro-plugin:classes
+:griffon-shiro-plugin:jar
+:griffon-shiro-plugin:assemble
+:griffon-standard-templates:assemble UP-TO-DATE
+:griffon-swing:assemble
+:griffon-swing-groovy:compileJava UP-TO-DATE
+:griffon-swing-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-swing-groovy:processResources UP-TO-DATE
+:griffon-swing-groovy:classes
+:griffon-swing-groovy:jar
+:griffon-swing-groovy:assemble
+:griffon-tasks-plugin:compileJavaNote: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:griffon-tasks-plugin:compileGroovy UP-TO-DATE
+:griffon-tasks-plugin:processResources UP-TO-DATE
+:griffon-tasks-plugin:classes
+:griffon-tasks-plugin:jar
+:griffon-tasks-plugin:assemble
+:griffon-theme-plugin:compileJava
+:griffon-theme-plugin:compileGroovy UP-TO-DATE
+:griffon-theme-plugin:processResources UP-TO-DATE
+:griffon-theme-plugin:classes
+:griffon-theme-plugin:jar
+:griffon-theme-plugin:assemble
+:guide:assemble UP-TO-DATE
+:sample-javafx-groovy:compileJava UP-TO-DATE
+:sample-javafx-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:sample-javafx-groovy:processResources
+:sample-javafx-groovy:cssToBin
+:sample-javafx-groovy:classes
+:sample-javafx-groovy:jar
+:sample-javafx-groovy:jfxJar
+:sample-javafx-groovy:jfxSignJar SKIPPED
+:sample-javafx-groovy:jfxCopyLibs
+:sample-javafx-groovy:compilePackageJava UP-TO-DATE
+:sample-javafx-groovy:compilePackageGroovy UP-TO-DATE
+:sample-javafx-groovy:processPackageResources UP-TO-DATE
+:sample-javafx-groovy:packageClasses UP-TO-DATE
+:sample-javafx-groovy:jfxDeploy
+:sample-javafx-groovy:assemble
+:sample-javafx-java:compileJava
+:sample-javafx-java:processResources
+:sample-javafx-java:cssToBin
+:sample-javafx-java:classes
+:sample-javafx-java:jar
+:sample-javafx-java:jfxJar
+:sample-javafx-java:jfxSignJar SKIPPED
+:sample-javafx-java:jfxCopyLibs
+:sample-javafx-java:compilePackageJava UP-TO-DATE
+:sample-javafx-java:processPackageResources UP-TO-DATE
+:sample-javafx-java:packageClasses UP-TO-DATE
+:sample-javafx-java:jfxDeploy
+:sample-javafx-java:assemble
+:sample-lanterna-groovy:compileJava UP-TO-DATE
+:sample-lanterna-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:sample-lanterna-groovy:processResources
+:sample-lanterna-groovy:classes
+:sample-lanterna-groovy:jar
+:sample-lanterna-groovy:assemble
+:sample-lanterna-java:compileJava
+:sample-lanterna-java:processResources
+:sample-lanterna-java:classes
+:sample-lanterna-java:jar
+:sample-lanterna-java:assemble
+:sample-pivot-groovy:compileJava UP-TO-DATE
+:sample-pivot-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:sample-pivot-groovy:processResources
+:sample-pivot-groovy:classes
+:sample-pivot-groovy:jar
+:sample-pivot-groovy:assemble
+:sample-pivot-java:compileJava
+:sample-pivot-java:processResources
+:sample-pivot-java:classes
+:sample-pivot-java:jar
+:sample-pivot-java:assemble
+:sample-swing-groovy:compileJava UP-TO-DATE
+:sample-swing-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:sample-swing-groovy:processResources
+:sample-swing-groovy:classes
+:sample-swing-groovy:jar
+:sample-swing-groovy:assemble
+:sample-swing-java:compileJava
+:sample-swing-java:processResources
+:sample-swing-java:classes
+:sample-swing-java:jar
+:sample-swing-java:assemble
+
+BUILD SUCCESSFUL
+
+Total time: 4 mins 48.491 secs
+
+travis_time:end:2b450db4:start=1479415778015364329,finish=1479416067021909004,duration=289006544675[0Ktravis_fold:end:install[0Ktravis_time:start:0b0ae429[0K$ ./gradlew check test integrationTest cobertura
+:buildSrc:compileJava UP-TO-DATE
+:buildSrc:compileGroovy UP-TO-DATE
+:buildSrc:processResources UP-TO-DATE
+:buildSrc:classes UP-TO-DATE
+:buildSrc:jar UP-TO-DATE
+:buildSrc:assemble UP-TO-DATE
+:buildSrc:compileTestJava UP-TO-DATE
+:buildSrc:compileTestGroovy UP-TO-DATE
+:buildSrc:processTestResources UP-TO-DATE
+:buildSrc:testClasses UP-TO-DATE
+:buildSrc:test UP-TO-DATE
+:buildSrc:check UP-TO-DATE
+:buildSrc:build UP-TO-DATE
+:griffon-core is getting tests from [task ':griffon-core:test']
+:griffon-core-compile is getting tests from [task ':griffon-core-compile:test']
+:griffon-core-test is getting tests from [task ':griffon-core-test:test']
+:griffon-swing is getting tests from [task ':griffon-swing:test']
+:griffon-fest-test is getting tests from [task ':griffon-fest-test:test']
+:griffon-groovy is getting tests from [task ':griffon-groovy:test']
+:griffon-groovy-compile is getting tests from [task ':griffon-groovy-compile:test']
+:griffon-guice is getting tests from [task ':griffon-guice:test']
+:griffon-javafx is getting tests from [task ':griffon-javafx:test']
+:griffon-javafx-groovy is getting tests from [task ':griffon-javafx-groovy:test']
+:griffon-lanterna is getting tests from [task ':griffon-lanterna:test']
+:griffon-lanterna-groovy is getting tests from [task ':griffon-lanterna-groovy:test']
+:griffon-lombok-compile is getting tests from [task ':griffon-lombok-compile:test']
+:griffon-pivot is getting tests from [task ':griffon-pivot:test']
+:griffon-pivot-groovy is getting tests from [task ':griffon-pivot-groovy:test']
+:griffon-pivot-test is getting tests from [task ':griffon-pivot-test:test']
+:griffon-preferences-plugin is getting tests from [task ':griffon-preferences-plugin:test']
+:griffon-shiro-plugin is getting tests from [task ':griffon-shiro-plugin:test']
+:griffon-swing-groovy is getting tests from [task ':griffon-swing-groovy:test']
+:griffon-tasks-plugin is getting tests from [task ':griffon-tasks-plugin:test']
+:griffon-theme-plugin is getting tests from [task ':griffon-theme-plugin:test']
+:sample-javafx-groovy is getting tests from [task ':sample-javafx-groovy:test']
+:sample-javafx-java is getting tests from [task ':sample-javafx-java:test']
+:sample-lanterna-groovy is getting tests from [task ':sample-lanterna-groovy:test']
+:sample-lanterna-java is getting tests from [task ':sample-lanterna-java:test']
+:sample-pivot-groovy is getting tests from [task ':sample-pivot-groovy:integrationTest', task ':sample-pivot-groovy:test']
+:sample-pivot-java is getting tests from [task ':sample-pivot-java:integrationTest', task ':sample-pivot-java:test']
+:sample-swing-groovy is getting tests from [task ':sample-swing-groovy:integrationTest', task ':sample-swing-groovy:test']
+:sample-swing-java is getting tests from [task ':sample-swing-java:integrationTest', task ':sample-swing-java:test']
+:griffon-core:compileJava UP-TO-DATE
+:griffon-core:compileGroovy UP-TO-DATE
+:griffon-core:processResources UP-TO-DATE
+:griffon-core:classes UP-TO-DATE
+:griffon-core:jar
+:griffon-core-compile:compileJava
+:griffon-core-compile:compileGroovy UP-TO-DATE
+:griffon-core-compile:processResources UP-TO-DATE
+:griffon-core-compile:classes
+:griffon-core-compile:jar
+:griffon-groovy:compileJava UP-TO-DATE
+:griffon-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-groovy:processResources UP-TO-DATE
+:griffon-groovy:classes
+:griffon-groovy:jar
+:griffon-groovy-compile:compileJavaNote: /home/travis/build/griffon/griffon/subprojects/griffon-groovy-compile/src/main/java/org/codehaus/griffon/compile/core/ast/transform/FXObservableASTTransformation.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:griffon-groovy-compile:processResources UP-TO-DATE
+:griffon-groovy-compile:classes
+:griffon-groovy-compile:jar
+:griffon-javafx:compileJava
+:griffon-javafx:compileGroovy UP-TO-DATE
+:griffon-javafx:processResources UP-TO-DATE
+:griffon-javafx:classes
+:griffon-javafx:jar
+:griffon-javafx-groovy:compileJava UP-TO-DATE
+:griffon-javafx-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-javafx-groovy:processResources UP-TO-DATE
+:griffon-javafx-groovy:classes
+:griffon-javafx-groovy:jar
+:browser-javafx-groovy:compileJava UP-TO-DATE
+:browser-javafx-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:browser-javafx-groovy:processResources UP-TO-DATE
+:browser-javafx-groovy:cssToBin UP-TO-DATE
+:browser-javafx-groovy:classes
+:browser-javafx-groovy:checkstyleMain UP-TO-DATE
+:browser-javafx-groovy:compilePackageJava UP-TO-DATE
+:browser-javafx-groovy:compilePackageGroovy UP-TO-DATE
+:browser-javafx-groovy:processPackageResources UP-TO-DATE
+:browser-javafx-groovy:packageClasses UP-TO-DATE
+:browser-javafx-groovy:checkstylePackage UP-TO-DATE
+:browser-javafx-groovy:compileTestJava UP-TO-DATE
+:browser-javafx-groovy:compileTestGroovy UP-TO-DATE
+:browser-javafx-groovy:processTestResources UP-TO-DATE
+:browser-javafx-groovy:testClasses UP-TO-DATE
+:browser-javafx-groovy:checkstyleTest UP-TO-DATE
+:browser-javafx-groovy:codenarcMain
+Download http://jcenter.bintray.com/org/codenarc/CodeNarc/0.18/CodeNarc-0.18.pom
+Download http://jcenter.bintray.com/org/gmetrics/GMetrics/0.5/GMetrics-0.5.pom
+Download http://jcenter.bintray.com/junit/junit/4.8.2/junit-4.8.2.pom
+Download http://jcenter.bintray.com/org/codenarc/CodeNarc/0.18/CodeNarc-0.18.jar
+Download http://jcenter.bintray.com/org/gmetrics/GMetrics/0.5/GMetrics-0.5.jar
+Download http://jcenter.bintray.com/junit/junit/4.8.2/junit-4.8.2.jar
+:browser-javafx-groovy:codenarcPackage UP-TO-DATE
+:browser-javafx-groovy:codenarcTest UP-TO-DATE
+:browser-javafx-groovy:findbugsMain UP-TO-DATE
+:browser-javafx-groovy:jdependMain
+Download http://jcenter.bintray.com/jdepend/jdepend/2.9.1/jdepend-2.9.1.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-jdepend/1.8.2/ant-jdepend-1.8.2.pom
+Download http://jcenter.bintray.com/org/apache/ant/ant-parent/1.8.2/ant-parent-1.8.2.pom
+Download http://jcenter.bintray.com/jdepend/jdepend/2.9.1/jdepend-2.9.1.jar
+Download http://jcenter.bintray.com/org/apache/ant/ant-jdepend/1.8.2/ant-jdepend-1.8.2.jar
+:browser-javafx-groovy:licenseMain
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-32x32.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-256x256.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/back.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/reload.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/forward.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-48x48.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-64x64.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-24x24.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-128x128.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon-icon-16x16.png
+Unknown file extension: samples/browser-javafx-groovy/griffon-app/resources/griffon.png
+:browser-javafx-groovy:licenseMain UP-TO-DATE
+:browser-javafx-groovy:licensePackage UP-TO-DATE
+:browser-javafx-groovy:licenseTest UP-TO-DATE
+:browser-javafx-groovy:license UP-TO-DATE
+:griffon-guice:compileJava
+:griffon-guice:compileGroovy UP-TO-DATE
+:griffon-guice:processResources UP-TO-DATE
+:griffon-guice:classes
+:griffon-guice:jar
+:browser-javafx-groovy:test UP-TO-DATE
+:browser-javafx-groovy:check
+:griffon-swing:compileJava/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:24: warning: AppContext is internal proprietary API and may be removed in a future release
+import sun.awt.AppContext;
+              ^
+/home/travis/build/griffon/griffon/subprojects/griffon-swing/src/main/java/org/codehaus/griffon/runtime/swing/SwingAddon.java:100: warning: AppContext is internal proprietary API and may be removed in a future release
+        return (RepaintManager) AppContext.getAppContext().get(RepaintManager.class);
+                                ^
+4 warnings
+
+:griffon-swing:compileGroovy UP-TO-DATE
+:griffon-swing:processResources UP-TO-DATE
+:griffon-swing:classes
+:griffon-swing:jar
+:console-swing-groovy:compileJava UP-TO-DATE
+:console-swing-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:console-swing-groovy:processResources UP-TO-DATE
+:console-swing-groovy:classes
+:console-swing-groovy:checkstyleMain UP-TO-DATE
+:griffon-core-test:compileJavaNote: /home/travis/build/griffon/griffon/subprojects/griffon-core-test/src/main/java/griffon/core/test/GriffonUnitRule.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:griffon-core-test:processResources UP-TO-DATE
+:griffon-core-test:classes
+:griffon-core-test:jar
+:console-swing-groovy:compileTestJava UP-TO-DATE
+:console-swing-groovy:compileTestGroovy
+Download http://jcenter.bintray.com/com/google/guiceberry/guiceberry/3.3.1/guiceberry-3.3.1.pom
+Download http://jcenter.bintray.com/org/spockframework/spock-core/0.7-groovy-2.0/spock-core-0.7-groovy-2.0.pom
+Download http://jcenter.bintray.com/com/google/guava/guava-testlib/14.0.1/guava-testlib-14.0.1.pom
+Download http://jcenter.bintray.com/com/google/guava/guava-parent/14.0.1/guava-parent-14.0.1.pom
+Download http://jcenter.bintray.com/junit/junit-dep/4.10/junit-dep-4.10.pom
+Download http://jcenter.bintray.com/com/google/guava/guava/14.0.1/guava-14.0.1.pom
+Download http://jcenter.bintray.com/org/truth0/truth/0.10/truth-0.10.pom
+Download http://jcenter.bintray.com/org/truth0/truth-parent/0.10/truth-parent-0.10.pom
+Download http://jcenter.bintray.com/com/google/guiceberry/guiceberry/3.3.1/guiceberry-3.3.1.jar
+Download http://jcenter.bintray.com/org/spockframework/spock-core/0.7-groovy-2.0/spock-core-0.7-groovy-2.0.jar
+Download http://jcenter.bintray.com/com/google/guava/guava-testlib/14.0.1/guava-testlib-14.0.1.jar
+Download http://jcenter.bintray.com/junit/junit-dep/4.10/junit-dep-4.10.jar
+Download http://jcenter.bintray.com/com/google/guava/guava/14.0.1/guava-14.0.1.jar
+Download http://jcenter.bintray.com/org/truth0/truth/0.10/truth-0.10.jar
+:console-swing-groovy:processTestResources UP-TO-DATE
+:console-swing-groovy:testClasses
+:console-swing-groovy:checkstyleTest UP-TO-DATE
+:console-swing-groovy:codenarcMain
+:console-swing-groovy:codenarcTest
+:console-swing-groovy:findbugsMain UP-TO-DATE
+:console-swing-groovy:jdependMain
+:console-swing-groovy:licenseMain
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-32x32.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-24x24.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-128x128.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-64x64.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-16x16.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-48x48.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon.png
+Unknown file extension: samples/console-swing-groovy/griffon-app/resources/griffon-icon-256x256.png
+:console-swing-groovy:licenseMain UP-TO-DATE
+:console-swing-groovy:licenseTest UP-TO-DATE
+:console-swing-groovy:license UP-TO-DATE
+:griffon-swing-groovy:compileJava UP-TO-DATE
+:griffon-swing-groovy:compileGroovywarning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+:griffon-swing-groovy:processResources UP-TO-DATE
+:griffon-swing-groovy:classes
+:griffon-swing-groovy:jar
+:console-swing-groovy:test
+:console-swing-groovy:check
+:editor-swing-groovy:compileJava UP-TO-DATE
+:editor-swing-groovy:compileGroovySLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+:editor-swing-groovy:processResources UP-TO-DATE
+:editor-swing-groovy:classes
+:editor-swing-groovy:checkstyleMain UP-TO-DATE
+:editor-swing-groovy:compileTestJava UP-TO-DATE
+:editor-swing-groovy:compileTestGroovy UP-TO-DATE
+:editor-swing-groovy:processTestResources UP-TO-DATE
+:editor-swing-groovy:testClasses UP-TO-DATE
+:editor-swing-groovy:checkstyleTest UP-TO-DATE
+:editor-swing-groovy:codenarcMain
+:editor-swing-groovy:codenarcTest UP-TO-DATE
+:editor-swing-groovy:findbugsMain UP-TO-DATE
+:editor-swing-groovy:jdependMain
+:editor-swing-groovy:licenseMain
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-32x32.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-24x24.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-128x128.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-64x64.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-16x16.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-48x48.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon.png
+Unknown file extension: samples/editor-swing-groovy/griffon-app/resources/griffon-icon-256x256.png
+:editor-swing-groovy:licenseMain UP-TO-DATE
+:editor-swing-groovy:licenseTest UP-TO-DATE
+:editor-swing-groovy:license UP-TO-DATE
+:editor-swing-groovy:test UP-TO-DATE
+:editor-swing-groovy:check
+:griffon-core:checkstyleMain
+Download http://jcenter.bintray.com/com/puppycrawl/tools/checkstyle/5.6/checkstyle-5.6.pom
+Download http://jcenter.bintray.com/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.pom
+Download http://jcenter.bintray.com/commons-cli/commons-cli/1.2/commons-cli-1.2.pom
+Download http://jcenter.bintray.com/com/google/collections/google-collections/1.0/google-collections-1.0.pom
+Download http://jcenter.bintray.com/com/google/google/1/google-1.pom
+Download http://jcenter.bintray.com/com/puppycrawl/tools/checkstyle/5.6/checkstyle-5.6.jar
+Download http://jcenter.bintray.com/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.jar
+Download http://jcenter.bintray.com/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
+Download http://jcenter.bintray.com/com/google/collections/google-collections/1.0/google-collections-1.0.jar
+:griffon-core:compileTestJavaNote: /home/travis/build/griffon/griffon/subprojects/griffon-core/src/test/java/griffon/util/TypeUtilsTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:griffon-core:compileTestGroovy
+:griffon-core:processTestResources
+:griffon-core:testClasses
+:griffon-core:checkstyleTest
+:griffon-core:codenarcMain UP-TO-DATE
+:griffon-core:codenarcTest
+CodeNarc rule violations were found. See the report at: file:///home/travis/build/griffon/griffon/subprojects/griffon-core/build/reports/codenarc/test.html
+:griffon-core:findbugsMain
+Download http://jcenter.bintray.com/com/google/code/findbugs/findbugs/2.0.2/findbugs-2.0.2.pom
+Download http://jcenter.bintray.com/com/google/code/findbugs/bcel/2.0.2/bcel-2.0.2.pom
+Download http://jcenter.bintray.com/com/google/code/findbugs/jFormatString/2.0.2/jFormatString-2.0.2.pom
+Download http://jcenter.bintray.com/com/google/code/findbugs/annotations/2.0.2/annotations-2.0.2.pom
+Download http://jcenter.bintray.com/jaxen/jaxen/1.1.1/jaxen-1.1.1.pom
+Download http://jcenter.bintray.com/asm/asm/3.3/asm-3.3.pom
+Download http://jcenter.bintray.com/asm/asm-parent/3.3/asm-parent-3.3.pom
+Download http://jcenter.bintray.com/asm/asm-tree/3.3/asm-tree-3.3.pom
+Download http://jcenter.bintray.com/asm/asm-commons/3.3/asm-commons-3.3.pom
+Download http://jcenter.bintray.com/xom/xom/1.0/xom-1.0.pom
+Download http://jcenter.bintray.com/com/google/code/findbugs/findbugs/2.0.2/findbugs-2.0.2.jar
+Download http://jcenter.bintray.com/com/google/code/findbugs/bcel/2.0.2/bcel-2.0.2.jar
+Download http://jcenter.bintray.com/com/google/code/findbugs/jFormatString/2.0.2/jFormatString-2.0.2.jar
+Download http://jcenter.bintray.com/com/google/code/findbugs/annotations/2.0.2/annotations-2.0.2.jar
+Download http://jcenter.bintray.com/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar
+Download http://jcenter.bintray.com/asm/asm/3.3/asm-3.3.jar
+Download http://jcenter.bintray.com/asm/asm-tree/3.3/asm-tree-3.3.jar
+Download http://jcenter.bintray.com/asm/asm-commons/3.3/asm-commons-3.3.jar
+Download http://jcenter.bintray.com/xom/xom/1.0/xom-1.0.jar
+FindBugs rule violations were found. See the report at: file:///home/travis/build/griffon/griffon/subprojects/griffon-core/build/reports/findbugs/main.xml
+:griffon-core:jdependMain
+:griffon-core:licenseMain
+Unknown file extension: subprojects/griffon-core/src/main/resources/META-INF/editors/java.beans.PropertyEditor
+Missing header in: subprojects/griffon-core/src/main/java/griffon/exceptions/MethodInvocationException.java
+Missing header in: subprojects/griffon-core/src/main/java/griffon/util/MethodUtils.java
+:griffon-core:licenseTest
+Missing header in: subprojects/griffon-core/src/test/groovy/griffon/util/GriffonNameUtilsTest.groovy
+:griffon-core:license
+:griffon-core:instrument
+Cobertura 2.0.3 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+:griffon-core:copyCoberturaDatafile
+:griffon-core:test
+Download http://jcenter.bintray.com/org/jacoco/org.jacoco.agent/0.6.2.201302030002/org.jacoco.agent-0.6.2.201302030002.pom
+Download http://jcenter.bintray.com/org/jacoco/org.jacoco.build/0.6.2.201302030002/org.jacoco.build-0.6.2.201302030002.pom
+Download http://jcenter.bintray.com/org/jacoco/org.jacoco.agent/0.6.2.201302030002/org.jacoco.agent-0.6.2.201302030002.jar
+:griffon-core:check
+:griffon-core-compile:checkstyleMain[ant:checkstyle] /home/travis/build/griffon/griffon/subprojects/griffon-core-compile/src/main/java/org/codehaus/griffon/compile/core/processor/artifact/ArtifactProviderProcessor.java:26:8: Unused import - javax.lang.model.type.DeclaredType.
+[ant:checkstyle] /home/travis/build/griffon/griffon/subprojects/griffon-core-compile/src/main/java/org/codehaus/griffon/compile/core/processor/artifact/ArtifactProviderProcessor.java:27:8: Unused import - javax.lang.model.type.TypeMirror.
+[ant:checkstyle] /home/travis/build/griffon/griffon/subprojects/griffon-core-compile/src/main/java/org/codehaus/griffon/compile/core/processor/artifact/ArtifactProviderProcessor.java:33:8: Unused import - java.util.Map.
+ FAILED
+:griffon-core:generateCoberturaReport
+Cobertura 2.0.3 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+Report time: 2426ms
+Cobertura 2.0.3 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+Report time: 2341ms
+:griffon-core:performCoverageCheck SKIPPED
+:buildDashboard
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':griffon-core-compile:checkstyleMain'.
+> Checkstyle rule violations were found. See the report at: file:///home/travis/build/griffon/griffon/subprojects/griffon-core-compile/build/reports/checkstyle/main.xml
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 2 mins 5.871 secs
+
+travis_time:end:0b0ae429:start=1479416067039542384,finish=1479416193588307926,duration=126548765542[0K
+[31;1mThe command "./gradlew check test integrationTest cobertura" exited with 1.[0m
+travis_fold:start:after_failure[0Ktravis_time:start:3742b616[0K$ ./update-gh-pages.sh
+Starting gh-pages update
+
+Copying /home/travis/build/griffon/griffon/subprojects/griffon-core/build/reports
+Copying /home/travis/build/griffon/griffon/subprojects/griffon-core/build/test-results
+Copying /home/travis/build/griffon/griffon/subprojects/griffon-core-compile/build/reports
+Copying /home/travis/build/griffon/griffon/samples/browser-javafx-groovy/build/reports
+Copying /home/travis/build/griffon/griffon/samples/console-swing-groovy/build/reports
+Copying /home/travis/build/griffon/griffon/samples/console-swing-groovy/build/test-results
+Copying /home/travis/build/griffon/griffon/samples/editor-swing-groovy/build/reports
+[gh-pages aab4cce] Travis build  pushed to gh-pages
+ 451 files changed, 31219 insertions(+), 47645 deletions(-)
+ rewrite travis-ci/reports/browser-javafx-groovy/reports/codenarc/main.html (86%)
+ rewrite travis-ci/reports/console-swing-groovy/reports/codenarc/main.html (86%)
+ rewrite travis-ci/reports/console-swing-groovy/reports/codenarc/test.html (86%)
+ rewrite travis-ci/reports/console-swing-groovy/test-results/TEST-console.ConsoleControllerTest.xml (62%)
+ rewrite travis-ci/reports/editor-swing-groovy/reports/codenarc/main.html (86%)
+ rename travis-ci/reports/griffon-core/reports/cobertura/{org.codehaus.griffon.runtime.core.artifact.AbstractGriffonMvcArtifact.html => org.codehaus.griffon.runtime.core.artifact.AbstractGriffonArtifact.html} (56%)
+ rewrite travis-ci/reports/griffon-core/reports/cobertura/org.codehaus.griffon.runtime.core.artifact.AbstractGriffonMvcArtifact.html (72%)
+ rewrite travis-ci/reports/griffon-core/reports/cobertura/org.codehaus.griffon.runtime.core.mvc.AbstractMVCGroup.html (67%)
+ rewrite travis-ci/reports/griffon-core/reports/codenarc/test.html (86%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/griffon.core.editors.PropertyEditorResolverSpec.html (68%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/griffon.util.GriffonClassUtilsSpec.html (72%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/integration.GriffonApplicationSpec.html (94%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.artifact.GriffonArtifactSpec.html (96%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.event.DefaultEventPublisherSpec.html (85%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.event.DefaultEventRouterSpec.html (84%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.i18n.CompositeMessageSourceTests.html (95%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.i18n.DefaultMessageSourceTests.html (90%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.resources.CompositeResourceResolverTests.html (79%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.resources.DefaultResourceInjectorTests.html (82%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/classes/org.codehaus.griffon.runtime.core.resources.DefaultResourceResolverTests.html (86%)
+ rewrite travis-ci/reports/griffon-core/reports/tests/js/report.js (95%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-griffon.core.editors.PropertyEditorResolverSpec.xml (83%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-griffon.util.AnnotationUtilsSpec.xml (70%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-griffon.util.CompositeResourceBuilderSpec.xml (80%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-griffon.util.GriffonClassUtilsSpec.xml (75%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-griffon.util.ServiceLoaderUtilsSpec.xml (64%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-integration.GriffonApplicationSpec.xml (96%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.artifact.GriffonArtifactSpec.xml (97%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.event.DefaultEventPublisherSpec.xml (90%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.event.DefaultEventRouterSpec.xml (90%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.i18n.CompositeMessageSourceTests.xml (98%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.i18n.DefaultMessageSourceTests.xml (94%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.resources.CompositeResourceResolverTests.xml (94%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.resources.DefaultResourceInjectorTests.xml (95%)
+ rewrite travis-ci/reports/griffon-core/test-results/TEST-org.codehaus.griffon.runtime.core.resources.DefaultResourceResolverTests.xml (92%)
+ rewrite travis-ci/reports/griffon-core/test-results/binary/test/output.bin (99%)
+ rewrite travis-ci/reports/griffon-core/test-results/binary/test/output.bin.idx (100%)
+ rewrite travis-ci/reports/griffon-core/test-results/binary/test/results.bin (98%)
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://[secure]@github.com/griffon/griffon.git/'
+Done saving test reports
+
+
+travis_time:end:3742b616:start=1479416193696122603,finish=1479416366497116740,duration=172800994137[0Ktravis_fold:end:after_failure[0K
+Done. Your build exited with 1.

@@ -1,0 +1,933 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd marubinotto/Piggydb
+$ jdk_switcher use openjdk7
+Switching to OpenJDK7 (java-1.7.0-openjdk-amd64), JAVA_HOME will be set to /usr/lib/jvm/java-7-openjdk-amd64
+$ java -Xmx32m -version
+java version "1.7.0_75"
+OpenJDK Runtime Environment (IcedTea 2.5.4) (7u75-2.5.4-1~precise1)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_75
+travis_time:start:051dc60e[0K$ ant test
+Buildfile: /home/travis/build/marubinotto/Piggydb/build.xml
+
+build-classes:
+    [mkdir] Created dir: /home/travis/build/marubinotto/Piggydb/target
+    [mkdir] Created dir: /home/travis/build/marubinotto/Piggydb/target/classes
+    [javac] /home/travis/build/marubinotto/Piggydb/build-common.xml:21: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 240 source files to /home/travis/build/marubinotto/Piggydb/target/classes
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 1 warning
+     [copy] Copying 18 files to /home/travis/build/marubinotto/Piggydb/target/classes
+
+test:
+    [mkdir] Created dir: /home/travis/build/marubinotto/Piggydb/target/test-classes
+    [javac] /home/travis/build/marubinotto/Piggydb/build-common.xml:21: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 171 source files to /home/travis/build/marubinotto/Piggydb/target/test-classes
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
+    [javac] 1 warning
+     [copy] Copying 6 files to /home/travis/build/marubinotto/Piggydb/target/test-classes
+    [mkdir] Created dir: /home/travis/build/marubinotto/Piggydb/target/test-results
+    [junit] Running marubinotto.h2.fulltext.FullTextSearchContextTest
+    [junit] Testsuite: marubinotto.h2.fulltext.FullTextSearchContextTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.958 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.958 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.FullTextSearchTest
+    [junit] Testsuite: marubinotto.h2.fulltext.FullTextSearchTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.639 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.639 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.IndexUpdateTriggerTest
+    [junit] Testsuite: marubinotto.h2.fulltext.IndexUpdateTriggerTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.995 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.995 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.IndexedTableInfoTest
+    [junit] Testsuite: marubinotto.h2.fulltext.IndexedTableInfoTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.523 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.523 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.InternalUtilsTest
+    [junit] Testsuite: marubinotto.h2.fulltext.InternalUtilsTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.584 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.584 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.function.CreateIndexTest
+    [junit] Testsuite: marubinotto.h2.fulltext.function.CreateIndexTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.79 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.79 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.function.InitTest
+    [junit] Testsuite: marubinotto.h2.fulltext.function.InitTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.548 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.548 sec
+    [junit] 
+    [junit] Running marubinotto.h2.fulltext.function.SearchDataTest
+    [junit] Testsuite: marubinotto.h2.fulltext.function.SearchDataTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.04 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.04 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.extension.ExtensionTest
+    [junit] Testsuite: marubinotto.piggydb.extension.ExtensionTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.154 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.154 sec
+    [junit] 
+    [junit] ------------- Standard Error -----------------
+    [junit] 17:24:32:568 [WARN] Extension -  Couldn't get resources
+    [junit] 17:24:32:570 [WARN] Extension -  Couldn't get resources
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.piggydb.impl.FileRepositoryImplTest
+    [junit] Testsuite: marubinotto.piggydb.impl.FileRepositoryImplTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.154 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.154 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.impl.H2WhiteBoxTest
+    [junit] Testsuite: marubinotto.piggydb.impl.H2WhiteBoxTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.712 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.712 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.impl.PigDumpTest
+    [junit] Testsuite: marubinotto.piggydb.impl.PigDumpTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.941 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.941 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.impl.db.DatabaseSchemaTest
+    [junit] Testsuite: marubinotto.piggydb.impl.db.DatabaseSchemaTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.378 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.378 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] global_setting
+    [junit] tag
+    [junit] tagging
+    [junit] fragment
+    [junit] filter
+    [junit] fragment_relation
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.piggydb.impl.db.H2DbUpgradeTest
+    [junit] Testsuite: marubinotto.piggydb.impl.db.H2DbUpgradeTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.673 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.673 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.impl.db.H2JdbcUrlTest
+    [junit] Testsuite: marubinotto.piggydb.impl.db.H2JdbcUrlTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.199 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.199 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] toUrlWithoutEscape: file:/my docs
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.piggydb.model.FragmentRelationTest
+    [junit] Testsuite: marubinotto.piggydb.model.FragmentRelationTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.417 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.417 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.FragmentsOptionsTest
+    [junit] Testsuite: marubinotto.piggydb.model.FragmentsOptionsTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.376 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.376 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.GlobalSettingTest
+    [junit] Testsuite: marubinotto.piggydb.model.GlobalSettingTest
+    [junit] Tests run: 16, Failures: 0, Errors: 0, Time elapsed: 1.925 sec
+    [junit] Tests run: 16, Failures: 0, Errors: 0, Time elapsed: 1.925 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.RelatedTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.RelatedTagsTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.123 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.123 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authentication.AuthenticationTest
+    [junit] Testsuite: marubinotto.piggydb.model.authentication.AuthenticationTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.825 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.825 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authentication.DefaultAuthTest
+    [junit] Testsuite: marubinotto.piggydb.model.authentication.DefaultAuthTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.562 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.562 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authentication.OwnerAuthTest
+    [junit] Testsuite: marubinotto.piggydb.model.authentication.OwnerAuthTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 143.751 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 143.751 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authentication.UserTest
+    [junit] Testsuite: marubinotto.piggydb.model.authentication.UserTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.036 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.036 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.ChangeableOnlyForCreatorTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.ChangeableOnlyForCreatorTest
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 0.197 sec
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 0.197 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.ClassifiableTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.ClassifiableTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.849 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.849 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.CreateFragmentRelationTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.CreateFragmentRelationTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.552 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.552 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.CreateFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.CreateFragmentTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.124 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.124 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.DeleteFragmentRelationTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.DeleteFragmentRelationTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.539 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.539 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.FilterTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.FilterTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.143 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.143 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.FragmentRelationTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.FragmentRelationTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.136 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.136 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.FragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.FragmentTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.176 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.176 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.OwnerPrivilegedTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.OwnerPrivilegedTagsTest
+    [junit] Tests run: 63, Failures: 0, Errors: 0, Time elapsed: 1.268 sec
+    [junit] Tests run: 63, Failures: 0, Errors: 0, Time elapsed: 1.268 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.TagTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.TagTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.16 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.16 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.UpdateChildRelationPrioritiesTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.UpdateChildRelationPrioritiesTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.644 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.644 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.authorization.UserFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.authorization.UserFragmentTest
+    [junit] Tests run: 19, Failures: 0, Errors: 0, Time elapsed: 0.301 sec
+    [junit] Tests run: 19, Failures: 0, Errors: 0, Time elapsed: 0.301 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.classification.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.classification.DefaultTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.123 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.123 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.123 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.classification.MiscTest
+    [junit] Testsuite: marubinotto.piggydb.model.classification.MiscTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.468 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.468 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.classification.OneTagTest
+    [junit] Testsuite: marubinotto.piggydb.model.classification.OneTagTest
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.188 sec
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.188 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.files.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.files.DefaultTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.16 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.16 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.files.MultipleFilesTest
+    [junit] Testsuite: marubinotto.piggydb.model.files.MultipleFilesTest
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.218 sec
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.218 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.files.OneFileTest
+    [junit] Testsuite: marubinotto.piggydb.model.files.OneFileTest
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.199 sec
+    [junit] Tests run: 15, Failures: 0, Errors: 0, Time elapsed: 0.199 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.filters.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.filters.DefaultTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.561 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.561 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.filters.GetNamesTest
+    [junit] Testsuite: marubinotto.piggydb.model.filters.GetNamesTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.685 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.685 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.filters.GetRecentChangesTest
+    [junit] Testsuite: marubinotto.piggydb.model.filters.GetRecentChangesTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.518 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.518 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.filters.OneFilterTest
+    [junit] Testsuite: marubinotto.piggydb.model.filters.OneFilterTest
+    [junit] Tests run: 13, Failures: 0, Errors: 0, Time elapsed: 2.747 sec
+    [junit] Tests run: 13, Failures: 0, Errors: 0, Time elapsed: 2.747 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.DefaultTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.156 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.156 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.FileFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.FileFragmentTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.163 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.163 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.FragmentPasswordTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.FragmentPasswordTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 111.121 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 111.121 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.HeadlineTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.HeadlineTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.201 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.201 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.MakeContentHeadlineTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.MakeContentHeadlineTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.15 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.15 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest$DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest$DefaultTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.125 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.125 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest$GetChildRelationsByAccessLevelTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest$GetChildRelationsByAccessLevelTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.129 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.129 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest$NavigateToChildrenTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest$NavigateToChildrenTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.146 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.146 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest$SortChildRelationsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest$SortChildRelationsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.13 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.13 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest$TwoWayRelationsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest$TwoWayRelationsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.144 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.144 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RelationsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RelationsTest
+    [junit] Tests run: 17, Failures: 0, Errors: 0, Time elapsed: 0.24 sec
+    [junit] Tests run: 17, Failures: 0, Errors: 0, Time elapsed: 0.24 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.RemoveTagsClassifiedAsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.RemoveTagsClassifiedAsTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.137 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.137 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.TagFragmentTest$ConvertTagToTagFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.TagFragmentTest$ConvertTagToTagFragmentTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.507 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.507 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.TagFragmentTest$NewInstanceTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.TagFragmentTest$NewInstanceTest
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 1.94 sec
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 1.94 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.TagFragmentTest$StoredTagFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.TagFragmentTest$StoredTagFragmentTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.531 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.531 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.TagFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.TagFragmentTest
+    [junit] Tests run: 18, Failures: 0, Errors: 0, Time elapsed: 3.312 sec
+    [junit] Tests run: 18, Failures: 0, Errors: 0, Time elapsed: 3.312 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.UpdateTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.UpdateTagsTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 2.685 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 2.685 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.UserCreatesFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.UserCreatesFragmentTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.057 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.057 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragment.UserUpdatesFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragment.UserUpdatesFragmentTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.321 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.321 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.DefaultTest
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.105 sec
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.105 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.ExcludeTrashTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.ExcludeTrashTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.51 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.51 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsAllButTrashTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsAllButTrashTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 1.708 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 1.708 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsByFilterTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsByFilterTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 2.807 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 2.807 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsByIdsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsByIdsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.84 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.84 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsByKeywordsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsByKeywordsTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.193 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.193 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsByTimeTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsByTimeTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.281 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.281 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsByUserTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsByUserTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.983 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.983 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.FragmentsOfUserTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.FragmentsOfUserTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.913 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.913 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.GetDaysOfMonthTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.GetDaysOfMonthTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.879 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 1.879 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.GetFragmentsAtHomeTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.GetFragmentsAtHomeTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.635 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.635 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.GetHomeTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.GetHomeTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.538 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.538 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.GetNamesTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.GetNamesTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.534 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.534 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.OneFileFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.OneFileFragmentTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.799 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.799 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.OneFragmentTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.OneFragmentTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 282.324 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 282.324 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.RefreshClassificationsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.RefreshClassificationsTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.479 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.479 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.RelatedTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.RelatedTagsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.813 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.813 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.SortFragmentsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.SortFragmentsTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.692 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.692 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.fetching.EagerFetchingTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.fetching.EagerFetchingTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.168 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.168 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.fetching.FetchingOfGetTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.fetching.FetchingOfGetTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.944 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.944 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.fetching.TagHasBeenUpdatedTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.fetching.TagHasBeenUpdatedTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.518 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.518 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.fetching.WithTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.fetching.WithTagsTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.333 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.333 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.relation.ChildRelationPriorityTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.relation.ChildRelationPriorityTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.097 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.097 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.relation.ChildrenOrderTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.relation.ChildrenOrderTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.025 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 2.025 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.fragments.relation.OneFragmentRelationTest
+    [junit] Testsuite: marubinotto.piggydb.model.fragments.relation.OneFragmentRelationTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.683 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 2.683 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.predicate.PreformattedTest
+    [junit] Testsuite: marubinotto.piggydb.model.predicate.PreformattedTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.231 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.231 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tag.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.tag.DefaultTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.202 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.202 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tag.HierarchyTest
+    [junit] Testsuite: marubinotto.piggydb.model.tag.HierarchyTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0.214 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0.214 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tag.UserCreatesTagTest
+    [junit] Testsuite: marubinotto.piggydb.model.tag.UserCreatesTagTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.196 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.196 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.DefaultTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.DefaultTest
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.18 sec
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.18 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.FindByKeywordsTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.FindByKeywordsTest
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.172 sec
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 2.172 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.FindByParentTagTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.FindByParentTagTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.747 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.747 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetAllSubordinateTagIdsTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetAllSubordinateTagIdsTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.733 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.733 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetNamesLikeTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetNamesLikeTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.089 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.089 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetNamesTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetNamesTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.813 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.813 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetPopularTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetPopularTagsTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.091 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.091 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetRecentChangesTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetRecentChangesTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.769 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 1.769 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.GetRootTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.GetRootTagsTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.618 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.618 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.MiscTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.MiscTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 1.557 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 1.557 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.OneTagTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.OneTagTest
+    [junit] Tests run: 18, Failures: 0, Errors: 0, Time elapsed: 3.424 sec
+    [junit] Tests run: 18, Failures: 0, Errors: 0, Time elapsed: 3.424 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.OrderByNameTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.OrderByNameTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.09 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.09 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.SelectAllThatHaveChildrenTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.SelectAllThatHaveChildrenTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.601 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 1.601 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.tags.WithTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.tags.WithTagsTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.739 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.739 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.utils.GetCommonParentsTest
+    [junit] Testsuite: marubinotto.piggydb.model.utils.GetCommonParentsTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.204 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.204 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.utils.GetCommonTagsTest
+    [junit] Testsuite: marubinotto.piggydb.model.utils.GetCommonTagsTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.235 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.235 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.model.utils.ToIdMapTest
+    [junit] Testsuite: marubinotto.piggydb.model.utils.ToIdMapTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.22 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.22 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.common.HtmlFragmentsTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.common.HtmlFragmentsTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 1.502 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 1.502 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.common.WebResourcePathsTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.common.WebResourcePathsTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.033 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.033 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.control.CalendarFocusTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.control.CalendarFocusTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.203 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.203 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.control.TagTreeToStringTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.control.TagTreeToStringTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.23 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.23 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.control.form.FragmentFormUtilsTest$SplitTagsStringTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.control.form.FragmentFormUtilsTest$SplitTagsStringTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.058 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.058 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.control.form.FragmentFormUtilsTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.control.form.FragmentFormUtilsTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.052 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.052 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.control.form.PublicFieldFormTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.control.form.PublicFieldFormTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.047 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.047 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.model.FragmentTagsTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.model.FragmentTagsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.212 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.212 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.model.RecentChangesTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.model.RecentChangesTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.026 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.026 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.model.RecentlyViewedTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.model.RecentlyViewedTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.165 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 2.165 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.model.SelectedFragmentsTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.model.SelectedFragmentsTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 1.659 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 1.659 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.partial.AbstractSubmitFragmentFormTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.partial.AbstractSubmitFragmentFormTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.091 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.091 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.page.partial.FragmentsViewTest
+    [junit] Testsuite: marubinotto.piggydb.ui.page.partial.FragmentsViewTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.181 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.181 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.wiki.DefaultWikiParserTest
+    [junit] Testsuite: marubinotto.piggydb.ui.wiki.DefaultWikiParserTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.301 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 2.301 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.wiki.FragmentUrnTest
+    [junit] Testsuite: marubinotto.piggydb.ui.wiki.FragmentUrnTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.598 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 2.598 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.wiki.html.BlockTest
+    [junit] Testsuite: marubinotto.piggydb.ui.wiki.html.BlockTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.89 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.89 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.wiki.html.EmbeddingTest
+    [junit] Testsuite: marubinotto.piggydb.ui.wiki.html.EmbeddingTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.936 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.936 sec
+    [junit] 
+    [junit] Running marubinotto.piggydb.ui.wiki.html.InlineTest
+    [junit] Testsuite: marubinotto.piggydb.ui.wiki.html.InlineTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.005 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 2.005 sec
+    [junit] 
+    [junit] Running marubinotto.util.CollectionUtilsTest
+    [junit] Testsuite: marubinotto.util.CollectionUtilsTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.1 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.1 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] {akane={gender=female}, daisuke={gender=male}}
+    [junit] pickRandomly1: [2, 1, 3]
+    [junit] pickRandomly2: [1, 3, 4, 2, 5]
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.FileSystemUtilsTest
+    [junit] Testsuite: marubinotto.util.FileSystemUtilsTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.204 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.204 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] UserHome(true): /home/travis
+    [junit] UserHome(false): /home/travis
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.PasswordDigestTest
+    [junit] Testsuite: marubinotto.util.PasswordDigestTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 95.275 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 95.275 sec
+    [junit] 
+    [junit] Running marubinotto.util.PileValueTest
+    [junit] Testsuite: marubinotto.util.PileValueTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.029 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.029 sec
+    [junit] 
+    [junit] Running marubinotto.util.RegexUtilsTest
+    [junit] Testsuite: marubinotto.util.RegexUtilsTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.043 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.043 sec
+    [junit] 
+    [junit] Running marubinotto.util.SizeTest
+    [junit] Testsuite: marubinotto.util.SizeTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.03 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.03 sec
+    [junit] 
+    [junit] Running marubinotto.util.ThreadLocalCacheTest
+    [junit] Testsuite: marubinotto.util.ThreadLocalCacheTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.032 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.032 sec
+    [junit] 
+    [junit] Running marubinotto.util.UtilsTest
+    [junit] Testsuite: marubinotto.util.UtilsTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.029 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.029 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] [8, 6, 4, 0, 7, 3, 5, 1, 2, 9]
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.ZipUtilsTest
+    [junit] Testsuite: marubinotto.util.ZipUtilsTest
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.247 sec
+    [junit] Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 0.247 sec
+    [junit] 
+    [junit] Running marubinotto.util.fixture.FileSystemFixtureTest
+    [junit] Testsuite: marubinotto.util.fixture.FileSystemFixtureTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.214 sec
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Time elapsed: 0.214 sec
+    [junit] 
+    [junit] Running marubinotto.util.paging.GetPageTest
+    [junit] Testsuite: marubinotto.util.paging.GetPageTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.048 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.048 sec
+    [junit] 
+    [junit] Running marubinotto.util.paging.PageImplTest
+    [junit] Testsuite: marubinotto.util.paging.PageImplTest
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.056 sec
+    [junit] Tests run: 11, Failures: 0, Errors: 0, Time elapsed: 0.056 sec
+    [junit] 
+    [junit] Running marubinotto.util.paging.SplitToPagesTest
+    [junit] Testsuite: marubinotto.util.paging.SplitToPagesTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.031 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.031 sec
+    [junit] 
+    [junit] Running marubinotto.util.rdb.CreateDataSetTest
+    [junit] Testsuite: marubinotto.util.rdb.CreateDataSetTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.071 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.071 sec
+    [junit] 
+    [junit] Running marubinotto.util.rdb.InMemoryDataSourceTest
+    [junit] Testsuite: marubinotto.util.rdb.InMemoryDataSourceTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 4.949 sec
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 4.949 sec
+    [junit] 
+    [junit] Running marubinotto.util.rdb.MergeDataSetTest
+    [junit] Testsuite: marubinotto.util.rdb.MergeDataSetTest
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.068 sec
+    [junit] Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 0.068 sec
+    [junit] 
+    [junit] Running marubinotto.util.rdb.SpringTransactionTest
+    [junit] Testsuite: marubinotto.util.rdb.SpringTransactionTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.807 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.807 sec
+    [junit] 
+    [junit] Running marubinotto.util.time.DateTimeAsRelativeDescriptionTest
+    [junit] Testsuite: marubinotto.util.time.DateTimeAsRelativeDescriptionTest
+    [junit] Tests run: 21, Failures: 0, Errors: 0, Time elapsed: 0.281 sec
+    [junit] Tests run: 21, Failures: 0, Errors: 0, Time elapsed: 0.281 sec
+    [junit] 
+    [junit] Running marubinotto.util.time.DateTimeTest
+    [junit] Testsuite: marubinotto.util.time.DateTimeTest
+    [junit] Tests run: 14, Failures: 0, Errors: 0, Time elapsed: 0.244 sec
+    [junit] Tests run: 14, Failures: 0, Errors: 0, Time elapsed: 0.244 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] 2016-11-16T17:39:50.293+00:00
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.time.DurationTest
+    [junit] Testsuite: marubinotto.util.time.DurationTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.031 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.031 sec
+    [junit] 
+    [junit] Running marubinotto.util.time.IntervalTest
+    [junit] Testsuite: marubinotto.util.time.IntervalTest
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 0.222 sec
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Time elapsed: 0.222 sec
+    [junit] 
+    [junit] Running marubinotto.util.time.MonthTest
+    [junit] Testsuite: marubinotto.util.time.MonthTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.179 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.179 sec
+    [junit] 
+    [junit] Running marubinotto.util.time.StopWatchTest
+    [junit] Testsuite: marubinotto.util.time.StopWatchTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.184 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.184 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] 1.000
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.time.WeekTest
+    [junit] Testsuite: marubinotto.util.time.WeekTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.162 sec
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.162 sec
+    [junit] 
+    [junit] Running marubinotto.util.web.GenericUserTest
+    [junit] Testsuite: marubinotto.util.web.GenericUserTest
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 0.044 sec
+    [junit] Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 0.044 sec
+    [junit] 
+    [junit] Running marubinotto.util.web.ToQueryStringTest
+    [junit] Testsuite: marubinotto.util.web.ToQueryStringTest
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.192 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.192 sec
+    [junit] 
+    [junit] Running marubinotto.util.web.WebUtilsTest
+    [junit] Testsuite: marubinotto.util.web.WebUtilsTest
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.228 sec
+    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.228 sec
+    [junit] 
+    [junit] Running marubinotto.util.xml.DomUtilsTest
+    [junit] Testsuite: marubinotto.util.xml.DomUtilsTest
+    [junit] Tests run: 25, Failures: 0, Errors: 0, Time elapsed: 0.885 sec
+    [junit] Tests run: 25, Failures: 0, Errors: 0, Time elapsed: 0.885 sec
+    [junit] 
+    [junit] ------------- Standard Error -----------------
+    [junit] [Fatal Error] :1:1: Content is not allowed in prolog.
+    [junit] ------------- ---------------- ---------------
+    [junit] Running marubinotto.util.xml.XmlStringBuilderTest
+    [junit] Testsuite: marubinotto.util.xml.XmlStringBuilderTest
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0.118 sec
+    [junit] Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0.118 sec
+    [junit] 
+    [junit] Running marubinotto.util.xml.XmlTreeImplTest
+    [junit] Testsuite: marubinotto.util.xml.XmlTreeImplTest
+    [junit] Tests run: 26, Failures: 0, Errors: 0, Time elapsed: 0.444 sec
+    [junit] Tests run: 26, Failures: 0, Errors: 0, Time elapsed: 0.444 sec
+    [junit] 
+
+BUILD SUCCESSFUL
+Total time: 15 minutes 55 seconds
+
+travis_time:end:051dc60e:start=1479317044996271611,finish=1479318004381432654,duration=959385161043[0K
+[32;1mThe command "ant test" exited with 0.[0m
+
+Done. Your build exited with 0.

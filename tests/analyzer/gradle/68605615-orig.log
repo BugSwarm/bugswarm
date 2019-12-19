@@ -1,0 +1,573 @@
+Using worker: worker-linux-docker-782b9e91.prod.travis-ci.org:travis-linux-6
+
+travis_fold:start:system_info
+[0K[33;1mBuild system information[0m
+Build language: java
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID: Ubuntu
+Description:    Ubuntu 12.04.5 LTS
+Release:    12.04
+Codename:   precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info
+[0K
+travis_fold:start:git.checkout
+[0Ktravis_time:start:1178f9f4
+[0K$ git clone --depth=50 --branch=master git://github.com/cbeust/testng.git cbeust/testng
+Cloning into 'cbeust/testng'...
+remote: Counting objects: 6997, done.[K
+remote: Compressing objects:   0% (1/4121)   [K
+remote: Compressing objects:   1% (42/4121)   [K
+remote: Compressing objects:   2% (83/4121)   [K
+remote: Compressing objects:   3% (124/4121)   [K
+remote: Compressing objects:   4% (165/4121)   [K
+remote: Compressing objects:   5% (207/4121)   [K
+remote: Compressing objects:   6% (248/4121)   [K
+remote: Compressing objects:   7% (289/4121)   [K
+remote: Compressing objects:   8% (330/4121)   [K
+remote: Compressing objects:   9% (371/4121)   [K
+remote: Compressing objects:  10% (413/4121)   [K
+remote: Compressing objects:  11% (454/4121)   [K
+remote: Compressing objects:  12% (495/4121)   [K
+remote: Compressing objects:  13% (536/4121)   [K
+remote: Compressing objects:  14% (577/4121)   [K
+remote: Compressing objects:  15% (619/4121)   [K
+remote: Compressing objects:  16% (660/4121)   [K
+remote: Compressing objects:  17% (701/4121)   [K
+remote: Compressing objects:  18% (742/4121)   [K
+remote: Compressing objects:  19% (783/4121)   [K
+remote: Compressing objects:  20% (825/4121)   [K
+remote: Compressing objects:  21% (866/4121)   [K
+remote: Compressing objects:  22% (907/4121)   [K
+remote: Compressing objects:  23% (948/4121)   [K
+remote: Compressing objects:  24% (990/4121)   [K
+remote: Compressing objects:  25% (1031/4121)   [K
+remote: Compressing objects:  26% (1072/4121)   [K
+remote: Compressing objects:  27% (1113/4121)   [K
+remote: Compressing objects:  28% (1154/4121)   [K
+remote: Compressing objects:  29% (1196/4121)   [K
+remote: Compressing objects:  30% (1237/4121)   [K
+remote: Compressing objects:  31% (1278/4121)   [K
+remote: Compressing objects:  32% (1319/4121)   [K
+remote: Compressing objects:  33% (1360/4121)   [K
+remote: Compressing objects:  34% (1402/4121)   [K
+remote: Compressing objects:  35% (1443/4121)   [K
+remote: Compressing objects:  36% (1484/4121)   [K
+remote: Compressing objects:  37% (1525/4121)   [K
+remote: Compressing objects:  38% (1566/4121)   [K
+remote: Compressing objects:  39% (1608/4121)   [K
+remote: Compressing objects:  40% (1649/4121)   [K
+remote: Compressing objects:  41% (1690/4121)   [K
+remote: Compressing objects:  42% (1731/4121)   [K
+remote: Compressing objects:  43% (1773/4121)   [K
+remote: Compressing objects:  44% (1814/4121)   [K
+remote: Compressing objects:  45% (1855/4121)   [K
+remote: Compressing objects:  46% (1896/4121)   [K
+remote: Compressing objects:  47% (1937/4121)   [K
+remote: Compressing objects:  48% (1979/4121)   [K
+remote: Compressing objects:  49% (2020/4121)   [K
+remote: Compressing objects:  50% (2061/4121)   [K
+remote: Compressing objects:  51% (2102/4121)   [K
+remote: Compressing objects:  52% (2143/4121)   [K
+remote: Compressing objects:  53% (2185/4121)   [K
+remote: Compressing objects:  54% (2226/4121)   [K
+remote: Compressing objects:  55% (2267/4121)   [K
+remote: Compressing objects:  56% (2308/4121)   [K
+remote: Compressing objects:  57% (2349/4121)   [K
+remote: Compressing objects:  58% (2391/4121)   [K
+remote: Compressing objects:  59% (2432/4121)   [K
+remote: Compressing objects:  60% (2473/4121)   [K
+remote: Compressing objects:  61% (2514/4121)   [K
+remote: Compressing objects:  62% (2556/4121)   [K
+remote: Compressing objects:  63% (2597/4121)   [K
+remote: Compressing objects:  64% (2638/4121)   [K
+remote: Compressing objects:  65% (2679/4121)   [K
+remote: Compressing objects:  66% (2720/4121)   [K
+remote: Compressing objects:  67% (2762/4121)   [K
+remote: Compressing objects:  68% (2803/4121)   [K
+remote: Compressing objects:  69% (2844/4121)   [K
+remote: Compressing objects:  70% (2885/4121)   [K
+remote: Compressing objects:  71% (2926/4121)   [K
+remote: Compressing objects:  72% (2968/4121)   [K
+remote: Compressing objects:  73% (3009/4121)   [K
+remote: Compressing objects:  74% (3050/4121)   [K
+remote: Compressing objects:  75% (3091/4121)   [K
+remote: Compressing objects:  76% (3132/4121)   [K
+remote: Compressing objects:  77% (3174/4121)   [K
+remote: Compressing objects:  78% (3215/4121)   [K
+remote: Compressing objects:  79% (3256/4121)   [K
+remote: Compressing objects:  80% (3297/4121)   [K
+remote: Compressing objects:  81% (3339/4121)   [K
+remote: Compressing objects:  82% (3380/4121)   [K
+remote: Compressing objects:  83% (3421/4121)   [K
+remote: Compressing objects:  84% (3462/4121)   [K
+remote: Compressing objects:  85% (3503/4121)   [K
+remote: Compressing objects:  86% (3545/4121)   [K
+remote: Compressing objects:  87% (3586/4121)   [K
+remote: Compressing objects:  88% (3627/4121)   [K
+remote: Compressing objects:  89% (3668/4121)   [K
+remote: Compressing objects:  90% (3709/4121)   [K
+remote: Compressing objects:  91% (3751/4121)   [K
+remote: Compressing objects:  92% (3792/4121)   [K
+remote: Compressing objects:  93% (3833/4121)   [K
+remote: Compressing objects:  94% (3874/4121)   [K
+remote: Compressing objects:  95% (3915/4121)   [K
+remote: Compressing objects:  96% (3957/4121)   [K
+remote: Compressing objects:  97% (3998/4121)   [K
+remote: Compressing objects:  98% (4039/4121)   [K
+remote: Compressing objects:  99% (4080/4121)   [K
+remote: Compressing objects: 100% (4121/4121)   [K
+remote: Compressing objects: 100% (4121/4121), done.[K
+Receiving objects:   0% (1/6997)   
+Receiving objects:   1% (70/6997)   
+Receiving objects:   2% (140/6997)   
+Receiving objects:   3% (210/6997)   
+Receiving objects:   4% (280/6997)   
+Receiving objects:   5% (350/6997)   
+Receiving objects:   6% (420/6997)   
+Receiving objects:   7% (490/6997)   
+Receiving objects:   8% (560/6997)   
+Receiving objects:   9% (630/6997)   
+Receiving objects:  10% (700/6997)   
+Receiving objects:  11% (770/6997)   
+Receiving objects:  12% (840/6997)   
+Receiving objects:  13% (910/6997)   
+Receiving objects:  14% (980/6997)   
+Receiving objects:  15% (1050/6997)   
+Receiving objects:  16% (1120/6997)   
+Receiving objects:  17% (1190/6997)   
+Receiving objects:  18% (1260/6997)   
+Receiving objects:  19% (1330/6997)   
+Receiving objects:  20% (1400/6997)   
+Receiving objects:  21% (1470/6997)   
+Receiving objects:  22% (1540/6997)   
+Receiving objects:  23% (1610/6997)   
+Receiving objects:  24% (1680/6997)   
+Receiving objects:  25% (1750/6997)   
+Receiving objects:  26% (1820/6997)   
+Receiving objects:  27% (1890/6997)   
+Receiving objects:  28% (1960/6997)   
+Receiving objects:  29% (2030/6997)   
+Receiving objects:  30% (2100/6997)   
+Receiving objects:  31% (2170/6997)   
+Receiving objects:  32% (2240/6997)   
+Receiving objects:  33% (2310/6997)   
+Receiving objects:  34% (2379/6997)   
+Receiving objects:  35% (2449/6997)   
+Receiving objects:  36% (2519/6997)   
+Receiving objects:  37% (2589/6997)   
+Receiving objects:  38% (2659/6997)   
+Receiving objects:  39% (2729/6997)   
+Receiving objects:  40% (2799/6997)   
+Receiving objects:  41% (2869/6997)   
+Receiving objects:  42% (2939/6997)   
+Receiving objects:  43% (3009/6997)   
+Receiving objects:  44% (3079/6997)   
+Receiving objects:  45% (3149/6997)   
+Receiving objects:  46% (3219/6997)   
+Receiving objects:  47% (3289/6997)   
+Receiving objects:  48% (3359/6997)   
+Receiving objects:  49% (3429/6997)   
+Receiving objects:  50% (3499/6997)   
+Receiving objects:  51% (3569/6997)   
+Receiving objects:  52% (3639/6997)   
+Receiving objects:  53% (3709/6997)   
+Receiving objects:  54% (3779/6997)   
+Receiving objects:  55% (3849/6997)   
+Receiving objects:  56% (3919/6997)   
+Receiving objects:  57% (3989/6997)   
+Receiving objects:  58% (4059/6997)   
+Receiving objects:  59% (4129/6997)   
+Receiving objects:  60% (4199/6997)   
+Receiving objects:  61% (4269/6997)   
+Receiving objects:  62% (4339/6997)   
+Receiving objects:  63% (4409/6997)   
+Receiving objects:  64% (4479/6997)   
+Receiving objects:  65% (4549/6997)   
+Receiving objects:  66% (4619/6997)   
+Receiving objects:  67% (4688/6997)   
+Receiving objects:  68% (4758/6997)   
+Receiving objects:  69% (4828/6997)   
+Receiving objects:  70% (4898/6997)   
+Receiving objects:  71% (4968/6997)   
+Receiving objects:  72% (5038/6997)   
+Receiving objects:  73% (5108/6997)   
+Receiving objects:  74% (5178/6997)   
+Receiving objects:  75% (5248/6997)   
+Receiving objects:  76% (5318/6997)   
+Receiving objects:  77% (5388/6997)   
+Receiving objects:  78% (5458/6997)   
+Receiving objects:  79% (5528/6997)   
+Receiving objects:  80% (5598/6997)   
+Receiving objects:  81% (5668/6997)   
+Receiving objects:  82% (5738/6997)   
+Receiving objects:  83% (5808/6997)   
+Receiving objects:  84% (5878/6997)   
+Receiving objects:  85% (5948/6997)   
+Receiving objects:  86% (6018/6997)   
+Receiving objects:  87% (6088/6997)   
+Receiving objects:  88% (6158/6997)   
+Receiving objects:  89% (6228/6997)   
+remote: Total 6997 (delta 3053), reused 5758 (delta 2437), pack-reused 0[K
+Receiving objects:  90% (6298/6997)   
+Receiving objects:  91% (6368/6997)   
+Receiving objects:  92% (6438/6997)   
+Receiving objects:  93% (6508/6997)   
+Receiving objects:  94% (6578/6997)   
+Receiving objects:  95% (6648/6997)   
+Receiving objects:  96% (6718/6997)   
+Receiving objects:  97% (6788/6997)   
+Receiving objects:  98% (6858/6997)   
+Receiving objects:  99% (6928/6997)   
+Receiving objects: 100% (6997/6997)   
+Receiving objects: 100% (6997/6997), 15.08 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/3053)   
+Resolving deltas:  21% (655/3053)   
+Resolving deltas:  23% (709/3053)   
+Resolving deltas:  24% (733/3053)   
+Resolving deltas:  25% (773/3053)   
+Resolving deltas:  26% (815/3053)   
+Resolving deltas:  27% (825/3053)   
+Resolving deltas:  28% (855/3053)   
+Resolving deltas:  30% (941/3053)   
+Resolving deltas:  41% (1264/3053)   
+Resolving deltas:  42% (1284/3053)   
+Resolving deltas:  43% (1315/3053)   
+Resolving deltas:  44% (1349/3053)   
+Resolving deltas:  45% (1383/3053)   
+Resolving deltas:  46% (1406/3053)   
+Resolving deltas:  47% (1436/3053)   
+Resolving deltas:  52% (1593/3053)   
+Resolving deltas:  53% (1626/3053)   
+Resolving deltas:  54% (1652/3053)   
+Resolving deltas:  55% (1683/3053)   
+Resolving deltas:  56% (1722/3053)   
+Resolving deltas:  57% (1741/3053)   
+Resolving deltas:  58% (1772/3053)   
+Resolving deltas:  59% (1808/3053)   
+Resolving deltas:  60% (1840/3053)   
+Resolving deltas:  61% (1864/3053)   
+Resolving deltas:  62% (1895/3053)   
+Resolving deltas:  63% (1925/3053)   
+Resolving deltas:  64% (1956/3053)   
+Resolving deltas:  65% (1988/3053)   
+Resolving deltas:  66% (2040/3053)   
+Resolving deltas:  67% (2056/3053)   
+Resolving deltas:  68% (2077/3053)   
+Resolving deltas:  69% (2107/3053)   
+Resolving deltas:  70% (2145/3053)   
+Resolving deltas:  71% (2170/3053)   
+Resolving deltas:  72% (2204/3053)   
+Resolving deltas:  73% (2229/3053)   
+Resolving deltas:  77% (2351/3053)   
+Resolving deltas:  78% (2384/3053)   
+Resolving deltas:  79% (2412/3053)   
+Resolving deltas:  80% (2447/3053)   
+Resolving deltas:  81% (2475/3053)   
+Resolving deltas:  82% (2504/3053)   
+Resolving deltas:  83% (2534/3053)   
+Resolving deltas:  84% (2565/3053)   
+Resolving deltas:  85% (2596/3053)   
+Resolving deltas:  86% (2626/3053)   
+Resolving deltas:  87% (2657/3053)   
+Resolving deltas:  88% (2689/3053)   
+Resolving deltas:  89% (2718/3053)   
+Resolving deltas:  90% (2775/3053)   
+Resolving deltas:  91% (2779/3053)   
+Resolving deltas:  92% (2827/3053)   
+Resolving deltas:  94% (2891/3053)   
+Resolving deltas:  95% (2901/3053)   
+Resolving deltas:  96% (2931/3053)   
+Resolving deltas:  97% (2967/3053)   
+Resolving deltas:  98% (2994/3053)   
+Resolving deltas:  99% (3024/3053)   
+Resolving deltas: 100% (3053/3053)   
+Resolving deltas: 100% (3053/3053), done.
+Checking connectivity... done.
+travis_time:end:1178f9f4:start=1435594198964474463,finish=1435594199988951697,duration=1024477234
+[0K$ cd cbeust/testng
+$ git checkout -qf 3749eb2262c5c4d12163ad0badf9e1924ff1e715
+travis_fold:end:git.checkout
+[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from repository settings[0m
+$ export SONATYPE_USER=[secure]
+$ export SONATYPE_PASSWORD=[secure]
+
+$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:install
+[0Ktravis_time:start:00e0b5ea
+[0K$ ./gradlew assemble
+Downloading https://services.gradle.org/distributions/gradle-2.3-bin.zip
+...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945/gradle-2.3-bin.zip to /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945
+Set executable permissions for: /home/travis/.gradle/wrapper/dists/gradle-2.3-bin/a48v6zq5mdp1uyn9rwlj56945/gradle-2.3/bin/gradle
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor-gradle/3.0.3/build-info-extractor-gradle-3.0.3.pom
+Download https://jcenter.bintray.com/com/jfrog/bintray/gradle/gradle-bintray-plugin/1.1/gradle-bintray-plugin-1.1.pom
+Download https://jcenter.bintray.com/org/codehaus/groovy/modules/http-builder/http-builder/0.7.2/http-builder-0.7.2.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.2.1/httpclient-4.2.1.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.2.1/httpcomponents-client-4.2.1.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/project/6/project-6.pom
+Download https://repo1.maven.org/maven2/net/sf/json-lib/json-lib/2.3/json-lib-2.3.pom
+Download https://repo1.maven.org/maven2/net/sourceforge/nekohtml/nekohtml/1.9.16/nekohtml-1.9.16.pom
+Download https://repo1.maven.org/maven2/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/3/apache-3.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.2.1/httpcore-4.2.1.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.2.1/httpcomponents-core-4.2.1.pom
+Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/5/commons-parent-5.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/4/apache-4.pom
+Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/22/commons-parent-22.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/9/apache-9.pom
+Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
+Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/9/commons-parent-9.pom
+Download https://repo1.maven.org/maven2/commons-lang/commons-lang/2.4/commons-lang-2.4.pom
+Download https://repo1.maven.org/maven2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.pom
+Download https://repo1.maven.org/maven2/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.pom
+Download https://repo1.maven.org/maven2/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor-gradle/3.1.0/build-info-extractor-gradle-3.1.0.pom
+Download https://repo1.maven.org/maven2/commons-io/commons-io/2.0.1/commons-io-2.0.1.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/15/commons-parent-15.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/7/apache-7.pom
+Download https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor/2.5.0/build-info-extractor-2.5.0.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-client/2.5.0/build-info-client-2.5.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download https://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.pom
+Download https://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream-parent/1.3.1/xstream-parent-1.3.1.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-api/2.5.0/build-info-api-2.5.0.pom
+Download https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.pom
+Download https://repo1.maven.org/maven2/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.pom
+Download https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.pom
+Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.8/commons-codec-1.8.pom
+Download https://repo1.maven.org/maven2/org/apache/commons/commons-parent/28/commons-parent-28.pom
+Download https://repo1.maven.org/maven2/org/apache/apache/13/apache-13.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.2.5/httpcomponents-client-4.2.5.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.pom
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.2.4/httpcomponents-core-4.2.4.pom
+Download https://jcenter.bintray.com/com/jfrog/bintray/gradle/gradle-bintray-plugin/1.1/gradle-bintray-plugin-1.1.jar
+Download https://jcenter.bintray.com/org/codehaus/groovy/modules/http-builder/http-builder/0.7.2/http-builder-0.7.2.jar
+Download https://repo1.maven.org/maven2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar
+Download https://repo1.maven.org/maven2/net/sourceforge/nekohtml/nekohtml/1.9.16/nekohtml-1.9.16.jar
+Download https://repo1.maven.org/maven2/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar
+Download https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+Download https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar
+Download https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar
+Download https://repo1.maven.org/maven2/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+Download https://repo1.maven.org/maven2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar
+Download https://repo1.maven.org/maven2/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.jar
+Download https://repo1.maven.org/maven2/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor-gradle/3.1.0/build-info-extractor-gradle-3.1.0.jar
+Download https://repo1.maven.org/maven2/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar
+Download https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor/2.5.0/build-info-extractor-2.5.0.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-client/2.5.0/build-info-client-2.5.0.jar
+Download https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar
+Download https://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-api/2.5.0/build-info-api-2.5.0.jar
+Download https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.jar
+Download https://repo1.maven.org/maven2/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+Download https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar
+Download https://repo1.maven.org/maven2/commons-codec/commons-codec/1.8/commons-codec-1.8.jar
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar
+Download https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor/2.3.2/build-info-extractor-2.3.2.pom
+Download https://jcenter.bintray.com/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.pom
+Download https://jcenter.bintray.com/com/google/guava/guava/10.0.1/guava-10.0.1.pom
+Download https://jcenter.bintray.com/com/google/guava/guava-parent/10.0.1/guava-parent-10.0.1.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-client/2.3.2/build-info-client-2.3.2.pom
+Download https://jcenter.bintray.com/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-api/2.3.2/build-info-api-2.3.2.pom
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor-gradle/3.0.3/build-info-extractor-gradle-3.0.3.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-extractor/2.3.2/build-info-extractor-2.3.2.jar
+Download https://jcenter.bintray.com/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+Download https://jcenter.bintray.com/com/google/guava/guava/10.0.1/guava-10.0.1.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-client/2.3.2/build-info-client-2.3.2.jar
+Download https://jcenter.bintray.com/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar
+Download https://jcenter.bintray.com/org/jfrog/buildinfo/build-info-api/2.3.2/build-info-api-2.3.2.jar
+Creating Version file: 6.9.5-SNAPSHOT in /home/travis/build/cbeust/testng/src/generated/java/org/testng/internal
+[buildinfo] Not using buildInfo properties file for this build.
+:myDir UP-TO-DATE
+:createVersion
+:compileGeneratedJava
+:processGeneratedResources UP-TO-DATE
+:generatedClasses
+:compileJava
+Download https://repo1.maven.org/maven2/org/apache/ant/ant/1.7.0/ant-1.7.0.pom
+Download https://repo1.maven.org/maven2/org/apache/ant/ant-parent/1.7.0/ant-parent-1.7.0.pom
+Download https://repo1.maven.org/maven2/junit/junit/4.10/junit-4.10.pom
+Download https://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.pom
+Download https://repo1.maven.org/maven2/org/beanshell/beanshell/2.0b4/beanshell-2.0b4.pom
+Download https://repo1.maven.org/maven2/com/google/inject/guice/4.0/guice-4.0.pom
+Download https://repo1.maven.org/maven2/com/google/inject/guice-parent/4.0/guice-parent-4.0.pom
+Download https://repo1.maven.org/maven2/com/google/google/5/google-5.pom
+Download https://repo1.maven.org/maven2/com/beust/jcommander/1.48/jcommander-1.48.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/3/oss-parent-3.pom
+Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.15/snakeyaml-1.15.pom
+Download https://repo1.maven.org/maven2/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-parent/1.1/hamcrest-parent-1.1.pom
+Download https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom
+Download https://repo1.maven.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/16.0.1/guava-parent-16.0.1.pom
+Download https://repo1.maven.org/maven2/org/apache/ant/ant/1.7.0/ant-1.7.0.jar
+Download https://repo1.maven.org/maven2/junit/junit/4.10/junit-4.10.jar
+Download https://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar
+Download https://repo1.maven.org/maven2/com/google/inject/guice/4.0/guice-4.0-no_aop.jar
+Download https://repo1.maven.org/maven2/com/beust/jcommander/1.48/jcommander-1.48.jar
+Download https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar
+Download https://repo1.maven.org/maven2/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar
+Download https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar
+Download https://repo1.maven.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+Download https://repo1.maven.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.jar
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:processResources
+:classes
+:jar
+:javadoc/home/travis/build/cbeust/testng/src/main/java/org/testng/TestNG.java:35: error: cannot find symbol
+import org.testng.internal.Version;
+                          ^
+  symbol:   class Version
+  location: package org.testng.internal
+
+1 warning
+:javadocJar
+:sourcesJar
+:signArchives SKIPPED
+:assemble
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 30.624 secs
+travis_time:end:00e0b5ea:start=1435594202345339138,finish=1435594293373845444,duration=91028506306
+[0Ktravis_fold:end:install
+[0Ktravis_time:start:1f44e89a
+[0K$ ./gradlew clean test
+Creating Version file: 6.9.5-SNAPSHOT in /home/travis/build/cbeust/testng/src/generated/java/org/testng/internal
+[buildinfo] Not using buildInfo properties file for this build.
+:clean
+:myDir UP-TO-DATE
+:createVersion
+:compileGeneratedJava
+:processGeneratedResources UP-TO-DATE
+:generatedClasses
+:compileJavaNote: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+:processResources
+:classes
+:compileTestJava
+Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.0.0/assertj-core-2.0.0.pom
+Download https://repo1.maven.org/maven2/org/assertj/assertj-parent-pom/1.3.5/assertj-parent-pom-1.3.5.pom
+Download https://repo1.maven.org/maven2/com/github/marschall/memoryfilesystem/0.6.4/memoryfilesystem-0.6.4.pom
+Download https://repo1.maven.org/maven2/org/assertj/assertj-core/2.0.0/assertj-core-2.0.0.jar
+Download https://repo1.maven.org/maven2/com/github/marschall/memoryfilesystem/0.6.4/memoryfilesystem-0.6.4.jar
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+:processTestResources
+:testClasses
+:test
+
+TestNG > MethodInterceptor > test.methodinterceptors.multipleinterceptors.MultipleInterceptorsTest.testMultipleInterceptorsWithPreserveOrder FAILED
+    java.lang.IndexOutOfBoundsException at MultipleInterceptorsTest.java:37
+
+1143 tests completed, 1 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/travis/build/cbeust/testng/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 1 mins 18.802 secs
+travis_time:end:1f44e89a:start=1435594293377480228,finish=1435594372581675973,duration=79204195745
+[0K
+[31;1mThe command "./gradlew clean test" exited with 1.[0m
+
+Done. Your build exited with 1.

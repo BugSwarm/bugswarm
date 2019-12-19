@@ -1,0 +1,506 @@
+Using worker: worker-linux-docker-45104dac.prod.travis-ci.org:travis-linux-1
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:1bad016d[0K$ git clone --depth=50 --branch=master https://github.com/web2py/web2py.git web2py/web2py
+Cloning into 'web2py/web2py'...
+remote: Counting objects: 4809, done.[K
+remote: Compressing objects:   0% (1/3041)   [Kremote: Compressing objects:   1% (31/3041)   [Kremote: Compressing objects:   2% (61/3041)   [Kremote: Compressing objects:   3% (92/3041)   [Kremote: Compressing objects:   4% (122/3041)   [Kremote: Compressing objects:   5% (153/3041)   [Kremote: Compressing objects:   6% (183/3041)   [Kremote: Compressing objects:   7% (213/3041)   [Kremote: Compressing objects:   8% (244/3041)   [Kremote: Compressing objects:   9% (274/3041)   [Kremote: Compressing objects:  10% (305/3041)   [Kremote: Compressing objects:  11% (335/3041)   [Kremote: Compressing objects:  12% (365/3041)   [Kremote: Compressing objects:  13% (396/3041)   [Kremote: Compressing objects:  14% (426/3041)   [Kremote: Compressing objects:  15% (457/3041)   [Kremote: Compressing objects:  16% (487/3041)   [Kremote: Compressing objects:  17% (517/3041)   [Kremote: Compressing objects:  18% (548/3041)   [Kremote: Compressing objects:  19% (578/3041)   [Kremote: Compressing objects:  20% (609/3041)   [Kremote: Compressing objects:  21% (639/3041)   [Kremote: Compressing objects:  22% (670/3041)   [Kremote: Compressing objects:  23% (700/3041)   [Kremote: Compressing objects:  24% (730/3041)   [Kremote: Compressing objects:  25% (761/3041)   [Kremote: Compressing objects:  26% (791/3041)   [Kremote: Compressing objects:  27% (822/3041)   [Kremote: Compressing objects:  28% (852/3041)   [Kremote: Compressing objects:  29% (882/3041)   [Kremote: Compressing objects:  30% (913/3041)   [Kremote: Compressing objects:  31% (943/3041)   [Kremote: Compressing objects:  32% (974/3041)   [Kremote: Compressing objects:  33% (1004/3041)   [Kremote: Compressing objects:  34% (1034/3041)   [Kremote: Compressing objects:  35% (1065/3041)   [Kremote: Compressing objects:  36% (1095/3041)   [Kremote: Compressing objects:  37% (1126/3041)   [Kremote: Compressing objects:  38% (1156/3041)   [Kremote: Compressing objects:  39% (1186/3041)   [Kremote: Compressing objects:  40% (1217/3041)   [Kremote: Compressing objects:  41% (1247/3041)   [Kremote: Compressing objects:  42% (1278/3041)   [Kremote: Compressing objects:  43% (1308/3041)   [Kremote: Compressing objects:  44% (1339/3041)   [Kremote: Compressing objects:  45% (1369/3041)   [Kremote: Compressing objects:  46% (1399/3041)   [Kremote: Compressing objects:  47% (1430/3041)   [Kremote: Compressing objects:  48% (1460/3041)   [Kremote: Compressing objects:  49% (1491/3041)   [Kremote: Compressing objects:  50% (1521/3041)   [Kremote: Compressing objects:  51% (1551/3041)   [Kremote: Compressing objects:  52% (1582/3041)   [Kremote: Compressing objects:  53% (1612/3041)   [Kremote: Compressing objects:  54% (1643/3041)   [Kremote: Compressing objects:  55% (1673/3041)   [Kremote: Compressing objects:  56% (1703/3041)   [Kremote: Compressing objects:  57% (1734/3041)   [Kremote: Compressing objects:  58% (1764/3041)   [Kremote: Compressing objects:  59% (1795/3041)   [Kremote: Compressing objects:  60% (1825/3041)   [Kremote: Compressing objects:  61% (1856/3041)   [Kremote: Compressing objects:  62% (1886/3041)   [Kremote: Compressing objects:  63% (1916/3041)   [Kremote: Compressing objects:  64% (1947/3041)   [Kremote: Compressing objects:  65% (1977/3041)   [Kremote: Compressing objects:  66% (2008/3041)   [Kremote: Compressing objects:  67% (2038/3041)   [Kremote: Compressing objects:  68% (2068/3041)   [Kremote: Compressing objects:  69% (2099/3041)   [Kremote: Compressing objects:  70% (2129/3041)   [Kremote: Compressing objects:  71% (2160/3041)   [Kremote: Compressing objects:  72% (2190/3041)   [Kremote: Compressing objects:  73% (2220/3041)   [Kremote: Compressing objects:  74% (2251/3041)   [Kremote: Compressing objects:  75% (2281/3041)   [Kremote: Compressing objects:  76% (2312/3041)   [Kremote: Compressing objects:  77% (2342/3041)   [Kremote: Compressing objects:  78% (2372/3041)   [Kremote: Compressing objects:  79% (2403/3041)   [Kremote: Compressing objects:  80% (2433/3041)   [Kremote: Compressing objects:  81% (2464/3041)   [Kremote: Compressing objects:  82% (2494/3041)   [Kremote: Compressing objects:  83% (2525/3041)   [Kremote: Compressing objects:  84% (2555/3041)   [Kremote: Compressing objects:  85% (2585/3041)   [Kremote: Compressing objects:  86% (2616/3041)   [Kremote: Compressing objects:  87% (2646/3041)   [Kremote: Compressing objects:  88% (2677/3041)   [Kremote: Compressing objects:  89% (2707/3041)   [Kremote: Compressing objects:  90% (2737/3041)   [Kremote: Compressing objects:  91% (2768/3041)   [Kremote: Compressing objects:  92% (2798/3041)   [Kremote: Compressing objects:  93% (2829/3041)   [Kremote: Compressing objects:  94% (2859/3041)   [Kremote: Compressing objects:  95% (2889/3041)   [Kremote: Compressing objects:  96% (2920/3041)   [Kremote: Compressing objects:  97% (2950/3041)   [Kremote: Compressing objects:  98% (2981/3041)   [Kremote: Compressing objects:  99% (3011/3041)   [Kremote: Compressing objects: 100% (3041/3041)   [Kremote: Compressing objects: 100% (3041/3041), done.[K
+Receiving objects:   0% (1/4809)   Receiving objects:   1% (49/4809)   Receiving objects:   2% (97/4809)   Receiving objects:   3% (145/4809)   Receiving objects:   4% (193/4809)   Receiving objects:   5% (241/4809)   Receiving objects:   6% (289/4809)   Receiving objects:   7% (337/4809)   Receiving objects:   8% (385/4809)   Receiving objects:   9% (433/4809)   Receiving objects:  10% (481/4809)   Receiving objects:  11% (529/4809)   Receiving objects:  12% (578/4809)   Receiving objects:  13% (626/4809)   Receiving objects:  14% (674/4809)   Receiving objects:  15% (722/4809)   Receiving objects:  16% (770/4809)   Receiving objects:  17% (818/4809)   Receiving objects:  18% (866/4809)   Receiving objects:  19% (914/4809)   Receiving objects:  20% (962/4809)   Receiving objects:  21% (1010/4809)   Receiving objects:  22% (1058/4809)   Receiving objects:  23% (1107/4809)   Receiving objects:  24% (1155/4809)   Receiving objects:  25% (1203/4809)   Receiving objects:  26% (1251/4809)   Receiving objects:  27% (1299/4809)   Receiving objects:  28% (1347/4809)   Receiving objects:  29% (1395/4809)   Receiving objects:  30% (1443/4809)   Receiving objects:  31% (1491/4809)   Receiving objects:  32% (1539/4809)   Receiving objects:  33% (1587/4809)   Receiving objects:  34% (1636/4809)   Receiving objects:  35% (1684/4809)   Receiving objects:  36% (1732/4809)   Receiving objects:  37% (1780/4809)   Receiving objects:  38% (1828/4809)   Receiving objects:  39% (1876/4809)   Receiving objects:  40% (1924/4809)   Receiving objects:  41% (1972/4809)   Receiving objects:  42% (2020/4809)   Receiving objects:  43% (2068/4809)   Receiving objects:  44% (2116/4809)   Receiving objects:  45% (2165/4809)   Receiving objects:  46% (2213/4809)   Receiving objects:  47% (2261/4809)   Receiving objects:  48% (2309/4809)   Receiving objects:  49% (2357/4809)   Receiving objects:  50% (2405/4809)   Receiving objects:  51% (2453/4809)   Receiving objects:  52% (2501/4809)   Receiving objects:  53% (2549/4809)   Receiving objects:  54% (2597/4809)   Receiving objects:  55% (2645/4809)   Receiving objects:  56% (2694/4809)   Receiving objects:  57% (2742/4809)   Receiving objects:  58% (2790/4809)   Receiving objects:  59% (2838/4809)   Receiving objects:  60% (2886/4809)   Receiving objects:  61% (2934/4809)   Receiving objects:  62% (2982/4809)   Receiving objects:  63% (3030/4809)   Receiving objects:  64% (3078/4809)   Receiving objects:  65% (3126/4809)   Receiving objects:  66% (3174/4809)   Receiving objects:  67% (3223/4809)   Receiving objects:  68% (3271/4809)   Receiving objects:  69% (3319/4809)   Receiving objects:  70% (3367/4809)   Receiving objects:  71% (3415/4809)   Receiving objects:  72% (3463/4809)   Receiving objects:  73% (3511/4809)   Receiving objects:  74% (3559/4809)   Receiving objects:  75% (3607/4809)   Receiving objects:  76% (3655/4809)   Receiving objects:  77% (3703/4809)   Receiving objects:  78% (3752/4809)   Receiving objects:  79% (3800/4809)   Receiving objects:  80% (3848/4809)   Receiving objects:  81% (3896/4809)   Receiving objects:  82% (3944/4809)   Receiving objects:  83% (3992/4809)   Receiving objects:  84% (4040/4809)   Receiving objects:  85% (4088/4809)   Receiving objects:  86% (4136/4809)   Receiving objects:  87% (4184/4809)   Receiving objects:  88% (4232/4809)   Receiving objects:  89% (4281/4809)   Receiving objects:  90% (4329/4809)   Receiving objects:  91% (4377/4809)   Receiving objects:  92% (4425/4809)   Receiving objects:  93% (4473/4809)   Receiving objects:  94% (4521/4809)   Receiving objects:  95% (4569/4809)   Receiving objects:  96% (4617/4809)   Receiving objects:  97% (4665/4809)   Receiving objects:  98% (4713/4809)   remote: Total 4809 (delta 2673), reused 3371 (delta 1671), pack-reused 0[K
+Receiving objects:  99% (4761/4809)   Receiving objects: 100% (4809/4809)   Receiving objects: 100% (4809/4809), 8.58 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/2673)   Resolving deltas:   1% (31/2673)   Resolving deltas:   2% (80/2673)   Resolving deltas:   3% (105/2673)   Resolving deltas:   4% (107/2673)   Resolving deltas:   6% (164/2673)   Resolving deltas:   9% (253/2673)   Resolving deltas:  11% (307/2673)   Resolving deltas:  12% (325/2673)   Resolving deltas:  13% (352/2673)   Resolving deltas:  14% (379/2673)   Resolving deltas:  15% (410/2673)   Resolving deltas:  16% (436/2673)   Resolving deltas:  17% (464/2673)   Resolving deltas:  18% (482/2673)   Resolving deltas:  19% (510/2673)   Resolving deltas:  20% (537/2673)   Resolving deltas:  21% (566/2673)   Resolving deltas:  22% (590/2673)   Resolving deltas:  24% (660/2673)   Resolving deltas:  27% (733/2673)   Resolving deltas:  30% (802/2673)   Resolving deltas:  31% (833/2673)   Resolving deltas:  32% (862/2673)   Resolving deltas:  38% (1022/2673)   Resolving deltas:  40% (1072/2673)   Resolving deltas:  41% (1116/2673)   Resolving deltas:  43% (1154/2673)   Resolving deltas:  45% (1204/2673)   Resolving deltas:  48% (1300/2673)   Resolving deltas:  49% (1313/2673)   Resolving deltas:  50% (1339/2673)   Resolving deltas:  51% (1366/2673)   Resolving deltas:  52% (1405/2673)   Resolving deltas:  53% (1419/2673)   Resolving deltas:  54% (1446/2673)   Resolving deltas:  55% (1481/2673)   Resolving deltas:  56% (1513/2673)   Resolving deltas:  57% (1525/2673)   Resolving deltas:  58% (1555/2673)   Resolving deltas:  59% (1579/2673)   Resolving deltas:  60% (1604/2673)   Resolving deltas:  61% (1632/2673)   Resolving deltas:  62% (1659/2673)   Resolving deltas:  63% (1685/2673)   Resolving deltas:  64% (1711/2673)   Resolving deltas:  65% (1739/2673)   Resolving deltas:  66% (1765/2673)   Resolving deltas:  67% (1791/2673)   Resolving deltas:  68% (1818/2673)   Resolving deltas:  69% (1847/2673)   Resolving deltas:  70% (1872/2673)   Resolving deltas:  71% (1899/2673)   Resolving deltas:  72% (1925/2673)   Resolving deltas:  73% (1965/2673)   Resolving deltas:  74% (1980/2673)   Resolving deltas:  75% (2005/2673)   Resolving deltas:  76% (2032/2673)   Resolving deltas:  77% (2061/2673)   Resolving deltas:  78% (2085/2673)   Resolving deltas:  79% (2112/2673)   Resolving deltas:  80% (2147/2673)   Resolving deltas:  81% (2168/2673)   Resolving deltas:  82% (2194/2673)   Resolving deltas:  83% (2220/2673)   Resolving deltas:  84% (2249/2673)   Resolving deltas:  85% (2274/2673)   Resolving deltas:  86% (2301/2673)   Resolving deltas:  88% (2368/2673)   Resolving deltas:  90% (2412/2673)   Resolving deltas:  91% (2436/2673)   Resolving deltas:  92% (2464/2673)   Resolving deltas:  93% (2487/2673)   Resolving deltas:  94% (2513/2673)   Resolving deltas:  95% (2540/2673)   Resolving deltas:  96% (2567/2673)   Resolving deltas:  97% (2593/2673)   Resolving deltas:  98% (2620/2673)   Resolving deltas:  99% (2652/2673)   Resolving deltas: 100% (2673/2673)   Resolving deltas: 100% (2673/2673), done.
+Checking connectivity... done.
+travis_time:end:1bad016d:start=1444241572830967996,finish=1444241576417860225,duration=3586892229[0K$ cd web2py/web2py
+$ git checkout -qf 874398c38cc1f58b4941f98f282e57689dfb9199
+travis_fold:end:git.checkout[0Ktravis_fold:start:git.submodule[0Ktravis_time:start:0c38d014[0K$ git submodule init
+Submodule 'gluon/packages/dal' (https://github.com/web2py/pydal.git) registered for path 'gluon/packages/dal'
+travis_time:end:0c38d014:start=1444241576529417089,finish=1444241576561353436,duration=31936347[0Ktravis_time:start:0577f608[0K$ git submodule update
+Cloning into 'gluon/packages/dal'...
+remote: Counting objects: 31147, done.[K
+Receiving objects:   0% (1/31147)   Receiving objects:   1% (312/31147)   Receiving objects:   2% (623/31147)   Receiving objects:   3% (935/31147)   Receiving objects:   4% (1246/31147)   Receiving objects:   5% (1558/31147)   Receiving objects:   6% (1869/31147)   Receiving objects:   7% (2181/31147)   Receiving objects:   8% (2492/31147)   Receiving objects:   9% (2804/31147)   Receiving objects:  10% (3115/31147)   Receiving objects:  11% (3427/31147)   Receiving objects:  12% (3738/31147)   Receiving objects:  13% (4050/31147)   Receiving objects:  14% (4361/31147)   Receiving objects:  15% (4673/31147)   Receiving objects:  16% (4984/31147)   Receiving objects:  17% (5295/31147)   Receiving objects:  18% (5607/31147)   Receiving objects:  19% (5918/31147)   Receiving objects:  20% (6230/31147)   Receiving objects:  21% (6541/31147)   Receiving objects:  22% (6853/31147)   Receiving objects:  23% (7164/31147)   Receiving objects:  24% (7476/31147)   Receiving objects:  25% (7787/31147)   Receiving objects:  26% (8099/31147)   Receiving objects:  27% (8410/31147)   Receiving objects:  28% (8722/31147)   Receiving objects:  29% (9033/31147)   Receiving objects:  30% (9345/31147)   Receiving objects:  31% (9656/31147)   Receiving objects:  32% (9968/31147)   Receiving objects:  33% (10279/31147)   Receiving objects:  34% (10590/31147)   Receiving objects:  35% (10902/31147)   Receiving objects:  36% (11213/31147)   Receiving objects:  37% (11525/31147)   Receiving objects:  38% (11836/31147)   Receiving objects:  39% (12148/31147)   Receiving objects:  40% (12459/31147)   Receiving objects:  41% (12771/31147)   Receiving objects:  42% (13082/31147)   Receiving objects:  43% (13394/31147)   Receiving objects:  44% (13705/31147)   Receiving objects:  45% (14017/31147)   Receiving objects:  46% (14328/31147)   Receiving objects:  47% (14640/31147)   Receiving objects:  48% (14951/31147)   Receiving objects:  49% (15263/31147)   Receiving objects:  50% (15574/31147)   Receiving objects:  51% (15885/31147)   Receiving objects:  52% (16197/31147)   Receiving objects:  53% (16508/31147)   Receiving objects:  54% (16820/31147)   Receiving objects:  55% (17131/31147)   Receiving objects:  56% (17443/31147)   Receiving objects:  57% (17754/31147)   Receiving objects:  58% (18066/31147)   Receiving objects:  59% (18377/31147)   Receiving objects:  60% (18689/31147)   Receiving objects:  61% (19000/31147)   Receiving objects:  62% (19312/31147)   Receiving objects:  63% (19623/31147)   Receiving objects:  64% (19935/31147)   Receiving objects:  65% (20246/31147)   Receiving objects:  66% (20558/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  67% (20869/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  68% (21180/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  69% (21492/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  70% (21803/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  71% (22115/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  72% (22426/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  73% (22738/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  74% (23049/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  75% (23361/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  76% (23672/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  77% (23984/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  78% (24295/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  79% (24607/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  80% (24918/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  81% (25230/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  82% (25541/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  83% (25853/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  84% (26164/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  85% (26475/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  86% (26787/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  87% (27098/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  88% (27410/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  89% (27721/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  90% (28033/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  91% (28344/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  92% (28656/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  93% (28967/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  94% (29279/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  95% (29590/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  96% (29902/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  97% (30213/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  98% (30525/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects:  99% (30836/31147), 15.70 MiB | 31.33 MiB/s   remote: Total 31147 (delta 0), reused 0 (delta 0), pack-reused 31147[K
+Receiving objects: 100% (31147/31147), 15.70 MiB | 31.33 MiB/s   Receiving objects: 100% (31147/31147), 30.64 MiB | 31.33 MiB/s, done.
+Resolving deltas:   0% (0/18868)   Resolving deltas:   1% (195/18868)   Resolving deltas:   2% (381/18868)   Resolving deltas:   3% (639/18868)   Resolving deltas:   4% (797/18868)   Resolving deltas:   5% (1041/18868)   Resolving deltas:   6% (1136/18868)   Resolving deltas:   7% (1331/18868)   Resolving deltas:   8% (1511/18868)   Resolving deltas:   9% (1707/18868)   Resolving deltas:  10% (1891/18868)   Resolving deltas:  11% (2088/18868)   Resolving deltas:  12% (2265/18868)   Resolving deltas:  13% (2454/18868)   Resolving deltas:  14% (2642/18868)   Resolving deltas:  15% (2841/18868)   Resolving deltas:  16% (3028/18868)   Resolving deltas:  17% (3212/18868)   Resolving deltas:  18% (3406/18868)   Resolving deltas:  19% (3591/18868)   Resolving deltas:  20% (3873/18868)   Resolving deltas:  21% (4080/18868)   Resolving deltas:  22% (4157/18868)   Resolving deltas:  23% (4351/18868)   Resolving deltas:  24% (4530/18868)   Resolving deltas:  25% (4719/18868)   Resolving deltas:  26% (4909/18868)   Resolving deltas:  27% (5103/18868)   Resolving deltas:  28% (5285/18868)   Resolving deltas:  29% (5485/18868)   Resolving deltas:  30% (5663/18868)   Resolving deltas:  31% (5857/18868)   Resolving deltas:  32% (6040/18868)   Resolving deltas:  34% (6481/18868)   Resolving deltas:  35% (6646/18868)   Resolving deltas:  36% (6796/18868)   Resolving deltas:  37% (6986/18868)   Resolving deltas:  38% (7176/18868)   Resolving deltas:  40% (7555/18868)   Resolving deltas:  41% (7846/18868)   Resolving deltas:  42% (7937/18868)   Resolving deltas:  43% (8143/18868)   Resolving deltas:  44% (8302/18868)   Resolving deltas:  45% (8664/18868)   Resolving deltas:  46% (8686/18868)   Resolving deltas:  48% (9107/18868)   Resolving deltas:  49% (9252/18868)   Resolving deltas:  50% (9562/18868)   Resolving deltas:  51% (9671/18868)   Resolving deltas:  52% (9814/18868)   Resolving deltas:  54% (10205/18868)   Resolving deltas:  57% (10942/18868)   Resolving deltas:  58% (10949/18868)   Resolving deltas:  59% (11175/18868)   Resolving deltas:  60% (11370/18868)   Resolving deltas:  62% (11703/18868)   Resolving deltas:  64% (12143/18868)   Resolving deltas:  65% (12278/18868)   Resolving deltas:  66% (12463/18868)   Resolving deltas:  67% (12642/18868)   Resolving deltas:  68% (12874/18868)   Resolving deltas:  69% (13021/18868)   Resolving deltas:  70% (13216/18868)   Resolving deltas:  75% (14235/18868)   Resolving deltas:  78% (14745/18868)   Resolving deltas:  79% (15012/18868)   Resolving deltas:  80% (15102/18868)   Resolving deltas:  81% (15299/18868)   Resolving deltas:  82% (15488/18868)   Resolving deltas:  83% (15841/18868)   Resolving deltas:  84% (15860/18868)   Resolving deltas:  85% (16039/18868)   Resolving deltas:  87% (16575/18868)   Resolving deltas:  88% (16617/18868)   Resolving deltas:  89% (16804/18868)   Resolving deltas:  91% (17259/18868)   Resolving deltas:  92% (17359/18868)   Resolving deltas:  94% (17774/18868)   Resolving deltas:  96% (18118/18868)   Resolving deltas:  97% (18354/18868)   Resolving deltas:  99% (18692/18868)   Resolving deltas: 100% (18868/18868)   Resolving deltas: 100% (18868/18868), done.
+Checking connectivity... done.
+Submodule path 'gluon/packages/dal': checked out '600c8dc0acc7552a9a7570aeae70b2eed8321f52'
+travis_time:end:0577f608:start=1444241576564987387,finish=1444241579347459653,duration=2782472266[0Ktravis_fold:end:git.submodule[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:0d36f570[0K$ Installing caching utilities
+travis_time:end:0d36f570:start=1444241582097191635,finish=1444241582186774054,duration=89582419[0Ktravis_time:start:014afab9[0Kattempting to download cache archive
+fetching master/cache--python-2.7.tgz
+found cache
+travis_time:end:014afab9:start=1444241582191692091,finish=1444241582770376687,duration=578684596[0Ktravis_time:start:0cbbce48[0Kadding /home/travis/.pip-cache to cache
+travis_time:end:0cbbce48:start=1444241582774338538,finish=1444241584076293900,duration=1301955362[0Ktravis_fold:end:cache.1[0Ktravis_time:start:221611be[0K$ source ~/virtualenv/python2.7/bin/activate
+travis_time:end:221611be:start=1444241584080332295,finish=1444241584084290455,duration=3958160[0K$ python --version
+Python 2.7.9
+$ pip --version
+pip 6.0.7 from /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (python 2.7)
+travis_fold:start:install[0Ktravis_time:start:1d14f031[0K$ pip install -e .
+[33mYou are using pip version 6.0.7, however version 7.1.2 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.[0m
+Obtaining file:///home/travis/build/web2py/web2py
+    /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/setuptools/dist.py:292: UserWarning: The version specified ('2.12.3-stable+timestamp.2015.08.18.19.14.07') is an invalid version, this may not work as expected with newer versions of setuptools, pip, and PyPI. Please see PEP 440 for more details.
+      "details." % self.metadata.version
+Installing collected packages: web2py
+  Running setup.py develop for web2py
+    /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/setuptools/dist.py:292: UserWarning: The version specified ('2.12.3-stable+timestamp.2015.08.18.19.14.07') is an invalid version, this may not work as expected with newer versions of setuptools, pip, and PyPI. Please see PEP 440 for more details.
+      "details." % self.metadata.version
+    /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/pkg_resources/__init__.py:2510: PEP440Warning: 'web2py (2.12.3-stable-timestamp.2015.08.18.19.14.07)' is being parsed as a legacy, non PEP 440, version. You may find odd behavior and sort order. In particular it will be sorted as less than 0.0. It is recommend to migrate to PEP 440 compatible versions.
+      PEP440Warning,
+    Creating /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/web2py.egg-link (link to .)
+    Adding web2py 2.12.3-stable-timestamp.2015.08.18.19.14.07 to easy-install.pth file
+    Installed /home/travis/build/web2py/web2py
+Successfully installed web2py
+travis_time:end:1d14f031:start=1444241584474788744,finish=1444241585764348259,duration=1289559515[0Ktravis_fold:end:install[0Ktravis_fold:start:before_script.1[0Ktravis_time:start:159d89d5[0K$ if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install --download-cache $HOME/.pip-cache unittest2; fi
+travis_time:end:159d89d5:start=1444241585769081616,finish=1444241585772908903,duration=3827287[0Ktravis_fold:end:before_script.1[0Ktravis_fold:start:before_script.2[0Ktravis_time:start:10a3a100[0K$ if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install --download-cache $HOME/.pip-cache coverage; fi;
+[33mYou are using pip version 6.0.7, however version 7.1.2 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.[0m
+[33mDEPRECATION: --download-cache has been deprecated and will be removed in the future. Pip now automatically uses and configures its cache.[0m
+Collecting coverage
+  Downloading coverage-4.0.tar.gz (166kB)
+[?25l[K    2% |                                | 4.1kB 37.9MB/s eta 0:00:01[K    4% |#                               | 8.2kB 30.0MB/s eta 0:00:01[K    7% |##                              | 12kB 30.6MB/s eta 0:00:01[K    9% |###                             | 16kB 28.9MB/s eta 0:00:01[K    12% |###                             | 20kB 29.9MB/s eta 0:00:01[K    14% |####                            | 24kB 31.0MB/s eta 0:00:01[K    17% |#####                           | 28kB 31.5MB/s eta 0:00:01[K    19% |######                          | 32kB 30.7MB/s eta 0:00:01[K    22% |#######                         | 36kB 31.1MB/s eta 0:00:01[K    24% |#######                         | 40kB 31.7MB/s eta 0:00:01[K    27% |########                        | 45kB 31.3MB/s eta 0:00:01[K    29% |#########                       | 49kB 23.4MB/s eta 0:00:01[K    32% |##########                      | 53kB 23.5MB/s eta 0:00:01[K    34% |###########                     | 57kB 24.3MB/s eta 0:00:01[K    36% |###########                     | 61kB 24.4MB/s eta 0:00:01[K    39% |############                    | 65kB 23.2MB/s eta 0:00:01[K    41% |#############                   | 69kB 23.0MB/s eta 0:00:01[K    44% |##############                  | 73kB 23.7MB/s eta 0:00:01[K    46% |##############                  | 77kB 23.7MB/s eta 0:00:01[K    49% |###############                 | 81kB 21.7MB/s eta 0:00:01[K    51% |################                | 86kB 21.8MB/s eta 0:00:01[K    54% |#################               | 90kB 29.7MB/s eta 0:00:01[K    56% |##################              | 94kB 29.9MB/s eta 0:00:01[K    59% |##################              | 98kB 22.2MB/s eta 0:00:01[K    61% |###################             | 102kB 22.1MB/s eta 0:00:01[K    64% |####################            | 106kB 22.5MB/s eta 0:00:01[K    66% |#####################           | 110kB 22.6MB/s eta 0:00:01[K    68% |######################          | 114kB 22.0MB/s eta 0:00:01[K    71% |######################          | 118kB 22.0MB/s eta 0:00:01[K    73% |#######################         | 122kB 24.0MB/s eta 0:00:01[K    76% |########################        | 126kB 24.1MB/s eta 0:00:01[K    78% |#########################       | 131kB 22.8MB/s eta 0:00:01[K    81% |#########################       | 135kB 22.7MB/s eta 0:00:01[K    83% |##########################      | 139kB 30.8MB/s eta 0:00:01[K    86% |###########################     | 143kB 30.9MB/s eta 0:00:01[K    88% |############################    | 147kB 30.1MB/s eta 0:00:01[K    91% |#############################   | 151kB 30.0MB/s eta 0:00:01[K    93% |#############################   | 155kB 31.2MB/s eta 0:00:01[K    96% |##############################  | 159kB 31.2MB/s eta 0:00:01[K    98% |############################### | 163kB 30.6MB/s eta 0:00:01[K    100% |################################| 167kB 2.9MB/s 
+[?25hInstalling collected packages: coverage
+  Running setup.py install for coverage
+    building 'coverage.tracer' extension
+    gcc -pthread -fno-strict-aliasing -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/opt/python/2.7.9/include/python2.7 -c coverage/ctracer/datastack.c -o build/temp.linux-x86_64-2.7/coverage/ctracer/datastack.o
+    gcc -pthread -fno-strict-aliasing -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/opt/python/2.7.9/include/python2.7 -c coverage/ctracer/filedisp.c -o build/temp.linux-x86_64-2.7/coverage/ctracer/filedisp.o
+    gcc -pthread -fno-strict-aliasing -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/opt/python/2.7.9/include/python2.7 -c coverage/ctracer/module.c -o build/temp.linux-x86_64-2.7/coverage/ctracer/module.o
+    gcc -pthread -fno-strict-aliasing -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/opt/python/2.7.9/include/python2.7 -c coverage/ctracer/tracer.c -o build/temp.linux-x86_64-2.7/coverage/ctracer/tracer.o
+    gcc -pthread -shared -L/opt/python/2.7.9/lib -Wl,-rpath=/opt/python/2.7.9/lib build/temp.linux-x86_64-2.7/coverage/ctracer/datastack.o build/temp.linux-x86_64-2.7/coverage/ctracer/filedisp.o build/temp.linux-x86_64-2.7/coverage/ctracer/module.o build/temp.linux-x86_64-2.7/coverage/ctracer/tracer.o -L/opt/python/2.7.9/lib -lpython2.7 -o build/lib.linux-x86_64-2.7/coverage/tracer.so
+    Installing coverage2 script to /home/travis/virtualenv/python2.7.9/bin
+    Installing coverage-2.7 script to /home/travis/virtualenv/python2.7.9/bin
+    Installing coverage script to /home/travis/virtualenv/python2.7.9/bin
+Successfully installed coverage-4.0
+travis_time:end:10a3a100:start=1444241585777911735,finish=1444241588895004578,duration=3117092843[0Ktravis_fold:end:before_script.2[0Ktravis_fold:start:before_script.3[0Ktravis_time:start:1a870a58[0K$ if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install --download-cache $HOME/.pip-cache codecov; fi
+[33mYou are using pip version 6.0.7, however version 7.1.2 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.[0m
+[33mDEPRECATION: --download-cache has been deprecated and will be removed in the future. Pip now automatically uses and configures its cache.[0m
+Collecting codecov
+  Downloading codecov-1.5.1.tar.gz
+Collecting requests>=2.0.0 (from codecov)
+  Downloading requests-2.8.0-py2.py3-none-any.whl (476kB)
+[?25l[K    0% |                                | 4.1kB 38.7MB/s eta 0:00:01[K    1% |                                | 8.2kB 30.1MB/s eta 0:00:01[K    2% |                                | 12kB 30.8MB/s eta 0:00:01[K    3% |#                               | 16kB 27.1MB/s eta 0:00:01[K    4% |#                               | 20kB 28.0MB/s eta 0:00:01[K    5% |#                               | 24kB 28.6MB/s eta 0:00:01[K    6% |#                               | 28kB 29.2MB/s eta 0:00:01[K    6% |##                              | 32kB 17.6MB/s eta 0:00:01[K    7% |##                              | 36kB 18.5MB/s eta 0:00:01[K    8% |##                              | 40kB 19.5MB/s eta 0:00:01[K    9% |###                             | 45kB 19.2MB/s eta 0:00:01[K    10% |###                             | 49kB 18.8MB/s eta 0:00:01[K    11% |###                             | 53kB 18.7MB/s eta 0:00:01[K    12% |###                             | 57kB 19.6MB/s eta 0:00:01[K    12% |####                            | 61kB 19.7MB/s eta 0:00:01[K    13% |####                            | 65kB 18.5MB/s eta 0:00:01[K    14% |####                            | 69kB 18.4MB/s eta 0:00:01[K    15% |####                            | 73kB 28.3MB/s eta 0:00:01[K    16% |#####                           | 77kB 28.6MB/s eta 0:00:01[K    17% |#####                           | 81kB 24.4MB/s eta 0:00:01[K    18% |#####                           | 86kB 24.7MB/s eta 0:00:01[K    18% |######                          | 90kB 26.4MB/s eta 0:00:01[K    19% |######                          | 94kB 26.6MB/s eta 0:00:01[K    20% |######                          | 98kB 23.4MB/s eta 0:00:01[K    21% |######                          | 102kB 23.4MB/s eta 0:00:01[K    22% |#######                         | 106kB 25.5MB/s eta 0:00:01[K    23% |#######                         | 110kB 25.7MB/s eta 0:00:01[K    24% |#######                         | 114kB 24.7MB/s eta 0:00:01[K    24% |#######                         | 118kB 24.6MB/s eta 0:00:01[K    25% |########                        | 122kB 28.8MB/s eta 0:00:01[K    26% |########                        | 126kB 28.9MB/s eta 0:00:01[K    27% |########                        | 131kB 27.6MB/s eta 0:00:01[K    28% |#########                       | 135kB 27.6MB/s eta 0:00:01[K    29% |#########                       | 139kB 32.1MB/s eta 0:00:01[K    30% |#########                       | 143kB 32.1MB/s eta 0:00:01[K    30% |#########                       | 147kB 16.7MB/s eta 0:00:01[K    31% |##########                      | 151kB 16.6MB/s eta 0:00:01[K    32% |##########                      | 155kB 17.1MB/s eta 0:00:01[K    33% |##########                      | 159kB 17.1MB/s eta 0:00:01[K    34% |###########                     | 163kB 16.4MB/s eta 0:00:01[K    35% |###########                     | 167kB 16.4MB/s eta 0:00:01[K    36% |###########                     | 172kB 16.8MB/s eta 0:00:01[K    36% |###########                     | 176kB 16.8MB/s eta 0:00:01[K    37% |############                    | 180kB 16.5MB/s eta 0:00:01[K    38% |############                    | 184kB 16.5MB/s eta 0:00:01[K    39% |############                    | 188kB 31.7MB/s eta 0:00:01[K    40% |############                    | 192kB 32.0MB/s eta 0:00:01[K    41% |#############                   | 196kB 25.9MB/s eta 0:00:01[K    42% |#############                   | 200kB 25.9MB/s eta 0:00:01[K    42% |#############                   | 204kB 27.5MB/s eta 0:00:01[K    43% |##############                  | 208kB 27.7MB/s eta 0:00:01[K    44% |##############                  | 212kB 26.8MB/s eta 0:00:01[K    45% |##############                  | 217kB 26.8MB/s eta 0:00:01[K    46% |##############                  | 221kB 27.8MB/s eta 0:00:01[K    47% |###############                 | 225kB 27.9MB/s eta 0:00:01[K    48% |###############                 | 229kB 21.7MB/s eta 0:00:01[K    48% |###############                 | 233kB 21.5MB/s eta 0:00:01[K    49% |###############                 | 237kB 25.6MB/s eta 0:00:01[K    50% |################                | 241kB 25.7MB/s eta 0:00:01[K    51% |################                | 245kB 22.6MB/s eta 0:00:01[K    52% |################                | 249kB 22.5MB/s eta 0:00:01[K    53% |#################               | 253kB 23.1MB/s eta 0:00:01[K    54% |#################               | 258kB 23.2MB/s eta 0:00:01[K    55% |#################               | 262kB 22.6MB/s eta 0:00:01[K    55% |#################               | 266kB 22.5MB/s eta 0:00:01[K    56% |##################              | 270kB 29.3MB/s eta 0:00:01[K    57% |##################              | 274kB 29.5MB/s eta 0:00:01[K    58% |##################              | 278kB 28.5MB/s eta 0:00:01[K    59% |##################              | 282kB 28.4MB/s eta 0:00:01[K    60% |###################             | 286kB 33.6MB/s eta 0:00:01[K    61% |###################             | 290kB 33.7MB/s eta 0:00:01[K    61% |###################             | 294kB 31.9MB/s eta 0:00:01[K    62% |####################            | 299kB 31.9MB/s eta 0:00:01[K    63% |####################            | 303kB 33.0MB/s eta 0:00:01[K    64% |####################            | 307kB 33.1MB/s eta 0:00:01[K    65% |####################            | 311kB 24.0MB/s eta 0:00:01[K    66% |#####################           | 315kB 23.9MB/s eta 0:00:01[K    67% |#####################           | 319kB 24.6MB/s eta 0:00:01[K    67% |#####################           | 323kB 24.6MB/s eta 0:00:01[K    68% |######################          | 327kB 23.7MB/s eta 0:00:01[K    69% |######################          | 331kB 23.6MB/s eta 0:00:01[K    70% |######################          | 335kB 24.3MB/s eta 0:00:01[K    71% |######################          | 339kB 24.3MB/s eta 0:00:01[K    72% |#######################         | 344kB 21.4MB/s eta 0:00:01[K    73% |#######################         | 348kB 21.3MB/s eta 0:00:01[K    73% |#######################         | 352kB 28.2MB/s eta 0:00:01[K    74% |#######################         | 356kB 28.3MB/s eta 0:00:01[K    75% |########################        | 360kB 27.1MB/s eta 0:00:01[K    76% |########################        | 364kB 27.0MB/s eta 0:00:01[K    77% |########################        | 368kB 28.2MB/s eta 0:00:01[K    78% |#########################       | 372kB 28.3MB/s eta 0:00:01[K    79% |#########################       | 376kB 16.7MB/s eta 0:00:01[K    79% |#########################       | 380kB 16.6MB/s eta 0:00:01[K    80% |#########################       | 385kB 18.3MB/s eta 0:00:01[K    81% |##########################      | 389kB 18.2MB/s eta 0:00:01[K    82% |##########################      | 393kB 17.7MB/s eta 0:00:01[K    83% |##########################      | 397kB 17.6MB/s eta 0:00:01[K    84% |##########################      | 401kB 18.2MB/s eta 0:00:01[K    85% |###########################     | 405kB 18.2MB/s eta 0:00:01[K    85% |###########################     | 409kB 17.7MB/s eta 0:00:01[K    86% |###########################     | 413kB 17.6MB/s eta 0:00:01[K    87% |############################    | 417kB 31.7MB/s eta 0:00:01[K    88% |############################    | 421kB 31.9MB/s eta 0:00:01[K    89% |############################    | 425kB 30.0MB/s eta 0:00:01[K    90% |############################    | 430kB 30.3MB/s eta 0:00:01[K    91% |#############################   | 434kB 31.9MB/s eta 0:00:01[K    91% |#############################   | 438kB 32.0MB/s eta 0:00:01[K    92% |#############################   | 442kB 30.3MB/s eta 0:00:01[K    93% |#############################   | 446kB 30.1MB/s eta 0:00:01[K    94% |##############################  | 450kB 31.7MB/s eta 0:00:01[K    95% |##############################  | 454kB 31.8MB/s eta 0:00:01[K    96% |##############################  | 458kB 29.3MB/s eta 0:00:01[K    97% |############################### | 462kB 29.2MB/s eta 0:00:01[K    97% |############################### | 466kB 30.9MB/s eta 0:00:01[K    98% |############################### | 471kB 31.1MB/s eta 0:00:01[K    99% |############################### | 475kB 30.6MB/s eta 0:00:01[K    100% |################################| 479kB 1.1MB/s 
+[?25hRequirement already satisfied (use --upgrade to upgrade): coverage in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from codecov)
+Installing collected packages: requests, codecov
+
+  Running setup.py install for codecov
+    Installing codecov script to /home/travis/virtualenv/python2.7.9/bin
+Successfully installed codecov-1.5.1 requests-2.8.0
+travis_time:end:1a870a58:start=1444241588899093652,finish=1444241589926669391,duration=1027575739[0Ktravis_fold:end:before_script.3[0Ktravis_time:start:0747b218[0K$ export COVERAGE_PROCESS_START=gluon/tests/coverage.ini; ./web2py.py --run_system_tests --with_coverage
+Python 2.7
+testA (gluon.tests.test_html.TestBareHelpers) ... ok
+testB (gluon.tests.test_html.TestBareHelpers) ... ok
+testBODY (gluon.tests.test_html.TestBareHelpers) ... ok
+testBR (gluon.tests.test_html.TestBareHelpers) ... ok
+testCENTER (gluon.tests.test_html.TestBareHelpers) ... ok
+testDIV (gluon.tests.test_html.TestBareHelpers) ... ok
+testEM (gluon.tests.test_html.TestBareHelpers) ... ok
+testEMBED (gluon.tests.test_html.TestBareHelpers) ... ok
+testFIELDSET (gluon.tests.test_html.TestBareHelpers) ... ok
+testFORM (gluon.tests.test_html.TestBareHelpers) ... ok
+testH1 (gluon.tests.test_html.TestBareHelpers) ... ok
+testH2 (gluon.tests.test_html.TestBareHelpers) ... ok
+testH3 (gluon.tests.test_html.TestBareHelpers) ... ok
+testH4 (gluon.tests.test_html.TestBareHelpers) ... ok
+testH5 (gluon.tests.test_html.TestBareHelpers) ... ok
+testH6 (gluon.tests.test_html.TestBareHelpers) ... ok
+testHEAD (gluon.tests.test_html.TestBareHelpers) ... ok
+testHR (gluon.tests.test_html.TestBareHelpers) ... ok
+testHTML (gluon.tests.test_html.TestBareHelpers) ... ok
+testIFRAME (gluon.tests.test_html.TestBareHelpers) ... ok
+testIMG (gluon.tests.test_html.TestBareHelpers) ... ok
+testINPUT (gluon.tests.test_html.TestBareHelpers) ... ok
+testLABEL (gluon.tests.test_html.TestBareHelpers) ... ok
+testLI (gluon.tests.test_html.TestBareHelpers) ... ok
+testLINK (gluon.tests.test_html.TestBareHelpers) ... ok
+testMETA (gluon.tests.test_html.TestBareHelpers) ... ok
+testOBJECT (gluon.tests.test_html.TestBareHelpers) ... ok
+testOL (gluon.tests.test_html.TestBareHelpers) ... ok
+testOPTION (gluon.tests.test_html.TestBareHelpers) ... ok
+testP (gluon.tests.test_html.TestBareHelpers) ... ok
+testPRE (gluon.tests.test_html.TestBareHelpers) ... ok
+testSCRIPT (gluon.tests.test_html.TestBareHelpers) ... ok
+testSELECT (gluon.tests.test_html.TestBareHelpers) ... ok
+testSPAN (gluon.tests.test_html.TestBareHelpers) ... ok
+testSTYLE (gluon.tests.test_html.TestBareHelpers) ... ok
+testStaticURL (gluon.tests.test_html.TestBareHelpers) ... ok
+testTABLE (gluon.tests.test_html.TestBareHelpers) ... ok
+testTAG (gluon.tests.test_html.TestBareHelpers) ... ok
+testTBODY (gluon.tests.test_html.TestBareHelpers) ... ok
+testTD (gluon.tests.test_html.TestBareHelpers) ... ok
+testTEXTAREA (gluon.tests.test_html.TestBareHelpers) ... ok
+testTFOOT (gluon.tests.test_html.TestBareHelpers) ... ok
+testTH (gluon.tests.test_html.TestBareHelpers) ... ok
+testTHEAD (gluon.tests.test_html.TestBareHelpers) ... ok
+testTITLE (gluon.tests.test_html.TestBareHelpers) ... ok
+testTR (gluon.tests.test_html.TestBareHelpers) ... ok
+testTT (gluon.tests.test_html.TestBareHelpers) ... ok
+testUL (gluon.tests.test_html.TestBareHelpers) ... ok
+testURL (gluon.tests.test_html.TestBareHelpers) ... ok
+testXML (gluon.tests.test_html.TestBareHelpers) ... ok
+testverifyURL (gluon.tests.test_html.TestBareHelpers) ... ok
+testCacheInRam (gluon.tests.test_cache.TestCache) ... ok
+testCacheOnDisk (gluon.tests.test_cache.TestCache) ... ok
+testCacheWithPrefix (gluon.tests.test_cache.TestCache) ... ok
+testDALcache (gluon.tests.test_cache.TestCache) ... ok
+testRegex (gluon.tests.test_cache.TestCache) ... ok
+testTypeRecognition (gluon.tests.test_contenttype.TestContentType) ... ok
+test_appconfig (gluon.tests.test_contribs.TestContribs) ... ok
+test_fpdf (gluon.tests.test_contribs.TestContribs)
+Basic PDF test and sanity checks ... ok
+testRun (gluon.tests.test_dal.TestDALSubclass) ... ok
+testSerialization (gluon.tests.test_dal.TestDALSubclass) ... ok
+testAdata (gluon.tests.test_html.TestData) ... ok
+testParseVersion (gluon.tests.test_fileutils.TestFileUtils) ... ok
+test_status_message (gluon.tests.test_http.TestHTTP)
+Tests http status code message ... ok
+testInvalidUrls (gluon.tests.test_is_url.TestIsGenericUrl) ... ok
+testPrepending (gluon.tests.test_is_url.TestIsGenericUrl) ... ok
+testValidUrls (gluon.tests.test_is_url.TestIsGenericUrl) ... ok
+testInvalidUrls (gluon.tests.test_is_url.TestIsHttpUrl) ... ok
+testPrepending (gluon.tests.test_is_url.TestIsHttpUrl) ... ok
+testValidUrls (gluon.tests.test_is_url.TestIsHttpUrl) ... ok
+testExceptionalUse (gluon.tests.test_is_url.TestIsUrl) ... ok
+testModeGeneric (gluon.tests.test_is_url.TestIsUrl) ... ok
+testModeHttp (gluon.tests.test_is_url.TestIsUrl) ... ok
+test_reads_and_writes (gluon.tests.test_languages.TestLanguagesParallel) ... ok
+test_reads_and_writes_no_mp (gluon.tests.test_languages.TestLanguagesParallel) ... skipped 'multiprocessing tests available'
+test_listcall (gluon.tests.test_storage.TestList) ... ok
+test_listgetitem (gluon.tests.test_storage.TestList)
+Mantains list behaviour. ... ok
+test_compile (gluon.tests.test_utils.TestPack) ... ok
+test_request_collide (gluon.tests.test_router.TestRouter) ... ok
+test_request_uri (gluon.tests.test_router.TestRouter) ... ok
+test_router_absolute (gluon.tests.test_router.TestRouter) ... ok
+test_router_app (gluon.tests.test_router.TestRouter)
+Tests the doctest router app resolution ... ok
+test_router_args (gluon.tests.test_router.TestRouter) ... ok
+test_router_defapp (gluon.tests.test_router.TestRouter)
+Test the default-application function ... ok
+test_router_domains (gluon.tests.test_router.TestRouter) ... ok
+test_router_domains_ed (gluon.tests.test_router.TestRouter) ... ok
+test_router_domains_fs (gluon.tests.test_router.TestRouter) ... ok
+test_router_error (gluon.tests.test_router.TestRouter) ... ok
+test_router_functions (gluon.tests.test_router.TestRouter) ... ok
+test_router_functions2 (gluon.tests.test_router.TestRouter) ... ok
+test_router_get_effective (gluon.tests.test_router.TestRouter) ... ok
+test_router_hyphen (gluon.tests.test_router.TestRouter) ... ok
+test_router_lang (gluon.tests.test_router.TestRouter) ... ok
+test_router_nodef (gluon.tests.test_router.TestRouter)
+Test no-default functions ... ok
+test_router_null (gluon.tests.test_router.TestRouter)
+Tests the null router ... ok
+test_router_out (gluon.tests.test_router.TestRouter) ... ok
+test_router_prefix (gluon.tests.test_router.TestRouter) ... ok
+test_router_raise (gluon.tests.test_router.TestRouter) ... ok
+test_router_specific (gluon.tests.test_router.TestRouter) ... ok
+test_router_static_path (gluon.tests.test_router.TestRouter) ... ok
+test_router_syntax (gluon.tests.test_router.TestRouter)
+Test router syntax error ... ok
+test_routes_anchor (gluon.tests.test_router.TestRouter) ... ok
+test_request_uri (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_absolute (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_anchor (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_args (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_defapp (gluon.tests.test_routes.TestRoutes)
+Test the default-application function ... ok
+test_routes_error (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_null (gluon.tests.test_routes.TestRoutes)
+Tests a null routes table ... ok
+test_routes_query (gluon.tests.test_routes.TestRoutes)
+Test query appending ... ok
+test_routes_raise (gluon.tests.test_routes.TestRoutes) ... ok
+test_routes_specific (gluon.tests.test_routes.TestRoutes) ... ok
+testJSON (gluon.tests.test_serializers.TestSerializers) ... ok
+test_IS_URL (gluon.tests.test_is_url.TestSimple) ... ok
+test_attribute (gluon.tests.test_storage.TestStorage)
+Tests Storage attribute handling ... ok
+test_getfirst (gluon.tests.test_storage.TestStorage) ... ok
+test_getlast (gluon.tests.test_storage.TestStorage) ... ok
+test_getlist (gluon.tests.test_storage.TestStorage) ... ok
+test_item (gluon.tests.test_storage.TestStorage)
+Tests Storage item handling ... ok
+test_pickling (gluon.tests.test_storage.TestStorage)
+Test storage pickling ... ok
+test_store_none (gluon.tests.test_storage.TestStorage)
+Test Storage store-None handling ... ok
+test_attribute (gluon.tests.test_storage.TestStorageList) ... ok
+test_plain (gluon.tests.test_languages.TestTranslations) ... ok
+testInvalidUrls (gluon.tests.test_is_url.TestUnicode) ... ok
+testUnicodeToAsciiUrl (gluon.tests.test_is_url.TestUnicode) ... ok
+testValidUrls (gluon.tests.test_is_url.TestUnicode) ... ok
+test_compare (gluon.tests.test_utils.TestUtils)
+Tests the compare funciton ... ok
+test_md5_hash (gluon.tests.test_utils.TestUtils)
+Tests the md5_hash function ... ok
+test_simple_hash (gluon.tests.test_utils.TestUtils)
+Tests the simple_hash function ... ok
+test_ANY_OF (gluon.tests.test_validators.TestValidators) ... ok
+test_CLEANUP (gluon.tests.test_validators.TestValidators) ... ok
+test_CRYPT (gluon.tests.test_validators.TestValidators) ... ERROR
+test_IS_ALPHANUMERIC (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_DATE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_DATETIME (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_DATETIME_IN_RANGE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_DATE_IN_RANGE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_DECIMAL_IN_RANGE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_EMAIL (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_EMPTY_OR (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_EQUAL_TO (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_EXPR (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_FLOAT_IN_RANGE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_INT_IN_RANGE (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_IN_SET (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_IPADDRESS (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_IPV4 (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_IPV6 (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_JSON (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_LENGTH (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_LIST_OF (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_LIST_OF_EMAILS (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_LOWER (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_MATCH (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_NOT_EMPTY (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_SLUG (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_STRONG (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_TIME (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_UPLOAD_FILENAME (gluon.tests.test_validators.TestValidators) ... ok
+test_IS_UPPER (gluon.tests.test_validators.TestValidators) ... ok
+testEqualWrite (gluon.tests.test_template.TestVirtualFields)
+test generation of response.write from = ... ok
+testRun (gluon.tests.test_template.TestVirtualFields) ... ok
+Sleeping before web2py starts...
+web2py Web Framework
+Created by Massimo Di Pierro, Copyright 2007-2015
+Version 2.12.3-stable+timestamp.2015.08.18.19.14.07
+Database drivers available: sqlite3, imaplib, pyodbc, pymysql, pg8000
+
+please visit:
+	http://127.0.0.1:8000/
+use "kill -SIGTERM 2404" to shutdown the web2py server
+
+
+Traceback (most recent call last):
+  File "/home/travis/build/web2py/web2py/web2py.py", line 33, in <module>
+    gluon.widget.start(cron=True)
+  File "/home/travis/build/web2py/web2py/gluon/widget.py", line 1307, in start
+    interfaces=options.interfaces)
+  File "/home/travis/build/web2py/web2py/gluon/main.py", line 739, in __init__
+    save_password(password, port)
+  File "/home/travis/build/web2py/web2py/gluon/main.py", line 593, in save_password
+    cpassword = CRYPT()(password)[0]
+  File "/home/travis/build/web2py/web2py/gluon/validators.py", line 2850, in __call__
+    v = v and str(v)[:self.max_length]
+UnboundLocalError: local variable 'v' referenced before assignment
+1 ...
+2 ...
+3 ...
+4 ...
+5 ...
+6 ...
+7 ...
+8 ...
+9 ...
+10 ...
+
+testRegisterAndLogin (gluon.tests.test_web.TestWeb) ... ERROR
+testSoap (gluon.tests.test_web.TestWeb) ... ERROR
+testStaticCache (gluon.tests.test_web.TestWeb) ... ERROR
+Killing webserver
+testRun (gluon.tests.test_tools.testAuth) ... ok
+test_cookies (gluon.tests.test_globals.testResponse) ... ok
+test_cookies_httponly (gluon.tests.test_globals.testResponse) ... ok
+test_cookies_secure (gluon.tests.test_globals.testResponse) ... ok
+test_include_files (gluon.tests.test_globals.testResponse) ... ok
+BEAUTIFY (html)
+Doctest: html.BEAUTIFY ... ok
+DIV (html)
+Doctest: html.DIV ... ok
+append (html.DIV)
+Doctest: html.DIV.append ... ok
+elements (html.DIV)
+Doctest: html.DIV.elements ... ok
+flatten (html.DIV)
+Doctest: html.DIV.flatten ... ok
+insert (html.DIV)
+Doctest: html.DIV.insert ... ok
+FORM (html)
+Doctest: html.FORM ... ok
+INPUT (html)
+Doctest: html.INPUT ... ok
+SELECT (html)
+Doctest: html.SELECT ... ok
+URL (html)
+Doctest: html.URL ... ok
+XML (html)
+Doctest: html.XML ... ok
+__TAG__ (html)
+Doctest: html.__TAG__ ... ok
+test (html)
+Doctest: html.test ... ok
+verifyURL (html)
+Doctest: html.verifyURL ... ok
+web2pyHTMLParser (html)
+Doctest: html.web2pyHTMLParser ... ok
+__repr__ (utf8.Utf8)
+Doctest: utf8.Utf8.__repr__ ... ok
+render (contrib.markmin.markmin2html)
+Doctest: contrib.markmin.markmin2html.render ... ok
+
+======================================================================
+ERROR: test_CRYPT (gluon.tests.test_validators.TestValidators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "gluon/tests/test_validators.py", line 47, in test_CRYPT
+    rtn = str(CRYPT(digest_alg='md5',salt=True)('test')[0])
+  File "gluon/validators.py", line 2850, in __call__
+    v = v and str(v)[:self.max_length]
+UnboundLocalError: local variable 'v' referenced before assignment
+
+======================================================================
+ERROR: testRegisterAndLogin (gluon.tests.test_web.TestWeb)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "gluon/tests/test_web.py", line 87, in testRegisterAndLogin
+    client.get('index')
+  File "/home/travis/build/web2py/web2py/gluon/contrib/webclient.py", line 53, in get
+    headers=headers, method='GET')
+  File "/home/travis/build/web2py/web2py/gluon/contrib/webclient.py", line 127, in post
+    self.response = opener.open(self.url, data)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 431, in open
+    response = self._open(req, data)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 449, in _open
+    '_open', req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 409, in _call_chain
+    result = func(*args)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1227, in http_open
+    return self.do_open(httplib.HTTPConnection, req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1197, in do_open
+    raise URLError(err)
+URLError: <urlopen error [Errno 111] Connection refused>
+
+======================================================================
+ERROR: testSoap (gluon.tests.test_web.TestWeb)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "gluon/tests/test_web.py", line 134, in testSoap
+    client = SoapClient(wsdl=url)
+  File "gluon/contrib/pysimplesoap/client.py", line 159, in __init__
+    self.services = wsdl and self.wsdl_parse(wsdl, cache=cache)
+  File "gluon/contrib/pysimplesoap/client.py", line 502, in wsdl_parse
+    xml = fetch(url, self.http, cache, force_download, self.wsdl_basedir)
+  File "gluon/contrib/pysimplesoap/helpers.py", line 75, in fetch
+    response, xml = http.request(url, 'GET', None, {})
+  File "gluon/contrib/pysimplesoap/transport.py", line 135, in request
+    f = self.request_opener(req, timeout=self._timeout)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 154, in urlopen
+    return opener.open(url, data, timeout)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 431, in open
+    response = self._open(req, data)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 449, in _open
+    '_open', req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 409, in _call_chain
+    result = func(*args)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1227, in http_open
+    return self.do_open(httplib.HTTPConnection, req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1197, in do_open
+    raise URLError(err)
+URLError: <urlopen error [Errno 111] Connection refused>
+
+======================================================================
+ERROR: testStaticCache (gluon.tests.test_web.TestWeb)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "gluon/tests/test_web.py", line 121, in testStaticCache
+    s.get('static/js/web2py.js')
+  File "/home/travis/build/web2py/web2py/gluon/contrib/webclient.py", line 53, in get
+    headers=headers, method='GET')
+  File "/home/travis/build/web2py/web2py/gluon/contrib/webclient.py", line 127, in post
+    self.response = opener.open(self.url, data)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 431, in open
+    response = self._open(req, data)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 449, in _open
+    '_open', req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 409, in _call_chain
+    result = func(*args)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1227, in http_open
+    return self.do_open(httplib.HTTPConnection, req)
+  File "/opt/python/2.7.9/lib/python2.7/urllib2.py", line 1197, in do_open
+    raise URLError(err)
+URLError: <urlopen error [Errno 111] Connection refused>
+
+----------------------------------------------------------------------
+Ran 187 tests in 20.546s
+
+FAILED (errors=4, skipped=1)
+travis_time:end:0747b218:start=1444241589930940726,finish=1444241612038768160,duration=22107827434[0K
+[31;1mThe command "export COVERAGE_PROCESS_START=gluon/tests/coverage.ini; ./web2py.py --run_system_tests --with_coverage" exited with 1.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:20c87610[0Kchanges detected, packing new archive
+uploading archive
+travis_time:end:20c87610:start=1444241612044250010,finish=1444241613590707916,duration=1546457906[0Ktravis_fold:end:cache.2[0K
+Done. Your build exited with 1.

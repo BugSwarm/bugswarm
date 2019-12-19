@@ -1,0 +1,1038 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd Netflix/denominator
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export bintrayUser=[secure]
+$ export bintrayKey=[secure]
+
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:install[0Ktravis_time:start:0e4731e5[0K$ ./installViaTravis.sh
+Assemble Branch with Snapshot => Branch []
+Downloading https://services.gradle.org/distributions/gradle-2.2.1-bin.zip
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/travis/.gradle/wrapper/dists/gradle-2.2.1-bin/88n1whbyjvxg3s40jzz5ur27/gradle-2.2.1-bin.zip to /home/travis/.gradle/wrapper/dists/gradle-2.2.1-bin/88n1whbyjvxg3s40jzz5ur27
+Set executable permissions for: /home/travis/.gradle/wrapper/dists/gradle-2.2.1-bin/88n1whbyjvxg3s40jzz5ur27/gradle-2.2.1/bin/gradle
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-netflixoss-project-plugin/2.2.9/gradle-netflixoss-project-plugin-2.2.9.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-contacts-plugin/2.2.0/gradle-contacts-plugin-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-dependency-lock-plugin/2.2.2/gradle-dependency-lock-plugin-2.2.2.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-info-plugin/2.2.0/gradle-info-plugin-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-bintray-plugin/2.2.0/nebula-bintray-plugin-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-core/2.2.0/nebula-core-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-project-plugin/2.2.0/nebula-project-plugin-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-publishing-plugin/2.2.1/nebula-publishing-plugin-2.2.1.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-release-plugin/2.2.5/nebula-release-plugin-2.2.5.pom
+Download https://plugins.gradle.org/m2/nl/javadude/gradle/plugins/license-gradle-plugin/0.11.0/license-gradle-plugin-0.11.0.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-scm-plugin/2.2.0/gradle-scm-plugin-2.2.0.pom
+Download https://plugins.gradle.org/m2/com/perforce/p4java-jfrog/2011.1.297684/p4java-jfrog-2011.1.297684.pom
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit/3.2.0.201312181205-r/org.eclipse.jgit-3.2.0.201312181205-r.pom
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit-parent/3.2.0.201312181205-r/org.eclipse.jgit-parent-3.2.0.201312181205-r.pom
+Download https://plugins.gradle.org/m2/org/tmatesoft/svnkit/svnkit/1.8.5/svnkit-1.8.5.pom
+Download https://plugins.gradle.org/m2/com/jfrog/bintray/gradle/gradle-bintray-plugin/1.0/gradle-bintray-plugin-1.0.pom
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-extractor-gradle/3.0.1/build-info-extractor-gradle-3.0.1.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-lang3/3.2.1/commons-lang3-3.2.1.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/32/commons-parent-32.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/13/apache-13.pom
+Download https://plugins.gradle.org/m2/org/ajoberstar/gradle-git/0.12.0/gradle-git-0.12.0.pom
+Download https://plugins.gradle.org/m2/com/mycila/maven-license-plugin/maven-license-plugin/1.10.b1/maven-license-plugin-1.10.b1.pom
+Download https://plugins.gradle.org/m2/com/mycila/parent-pom/5/parent-pom-5.pom
+Download https://plugins.gradle.org/m2/com/google/guava/guava/17.0/guava-17.0.pom
+Download https://plugins.gradle.org/m2/com/google/guava/guava-parent/17.0/guava-parent-17.0.pom
+Download https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jzlib/1.0.7/jzlib-1.0.7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch/0.1.46/jsch-0.1.46.pom
+Download https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/6/oss-parent-6.pom
+Download https://plugins.gradle.org/m2/com/googlecode/javaewah/JavaEWAH/0.5.6/JavaEWAH-0.5.6.pom
+Download https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.svnkit-trilead-ssh2/0.0.7/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy/0.0.7/jsch.agentproxy-0.0.7.pom
+Download https://plugins.gradle.org/m2/net/java/dev/jna/jna/3.5.2/jna-3.5.2.pom
+Download https://plugins.gradle.org/m2/org/tmatesoft/sqljet/sqljet/1.1.10/sqljet-1.1.10.pom
+Download https://plugins.gradle.org/m2/net/java/dev/jna/platform/3.5.2/platform-3.5.2.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.connector-factory/0.0.7/jsch.agentproxy.connector-factory-0.0.7.pom
+Download https://plugins.gradle.org/m2/de/regnis/q/sequence/sequence-library/1.0.2/sequence-library-1.0.2.pom
+Download https://plugins.gradle.org/m2/com/trilead/trilead-ssh2/1.0.0-build217/trilead-ssh2-1.0.0-build217.pom
+Download https://plugins.gradle.org/m2/org/codehaus/groovy/modules/http-builder/http-builder/0.7.2/http-builder-0.7.2.pom
+Download https://plugins.gradle.org/m2/commons-io/commons-io/2.0.1/commons-io-2.0.1.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/15/commons-parent-15.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/7/apache-7.pom
+Download https://plugins.gradle.org/m2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.pom
+Download https://plugins.gradle.org/m2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/5/commons-parent-5.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/4/apache-4.pom
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-extractor/2.3.0/build-info-extractor-2.3.0.pom
+Download https://plugins.gradle.org/m2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.pom
+Download https://plugins.gradle.org/m2/commons-lang/commons-lang/2.4/commons-lang-2.4.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/9/commons-parent-9.pom
+Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/0.4.0/grgit-0.4.0.pom
+Download https://plugins.gradle.org/m2/com/github/zafarkhaja/java-semver/0.8.0/java-semver-0.8.0.pom
+Download https://plugins.gradle.org/m2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-plugin-api/3.0.1/maven-plugin-api-3.0.1.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven/3.0.1/maven-3.0.1.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-parent/15/maven-parent-15.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/6/apache-6.pom
+Download https://plugins.gradle.org/m2/com/mycila/xmltool/xmltool/3.3/xmltool-3.3.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-project/3.0-alpha-2/maven-project-3.0-alpha-2.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven/3.0-alpha-2/maven-3.0-alpha-2.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-parent/10/maven-parent-10.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus/2.0.6/plexus-2.0.6.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.core/0.0.7/jsch.agentproxy.core-0.0.7.pom
+Download https://plugins.gradle.org/m2/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.pom
+Download https://plugins.gradle.org/m2/org/antlr/antlr-master/3.4/antlr-master-3.4.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.7/jsch.agentproxy.usocket-jna-0.0.7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.7/jsch.agentproxy.usocket-nc-0.0.7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.sshagent/0.0.7/jsch.agentproxy.sshagent-0.0.7.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.pageant/0.0.7/jsch.agentproxy.pageant-0.0.7.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpclient/4.2.1/httpclient-4.2.1.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcomponents-client/4.2.1/httpcomponents-client-4.2.1.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/project/6/project-6.pom
+Download https://plugins.gradle.org/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3.pom
+Download https://plugins.gradle.org/m2/net/sourceforge/nekohtml/nekohtml/1.9.16/nekohtml-1.9.16.pom
+Download https://plugins.gradle.org/m2/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/3/apache-3.pom
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-client/2.3.0/build-info-client-2.3.0.pom
+Download https://plugins.gradle.org/m2/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.pom
+Download https://plugins.gradle.org/m2/com/thoughtworks/xstream/xstream-parent/1.3.1/xstream-parent-1.3.1.pom
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit.ui/3.3.2.201404171909-r/org.eclipse.jgit.ui-3.3.2.201404171909-r.pom
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit-parent/3.3.2.201404171909-r/org.eclipse.jgit-parent-3.3.2.201404171909-r.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.jsch/0.0.7/jsch.agentproxy.jsch-0.0.7.pom
+Download https://plugins.gradle.org/m2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.pom
+Download https://plugins.gradle.org/m2/org/slf4j/slf4j-parent/1.7.7/slf4j-parent-1.7.7.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-model/3.0.1/maven-model-3.0.1.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-artifact/3.0.1/maven-artifact-3.0.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-inject-plexus/1.4.3.1/sisu-inject-plexus-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/inject/guice-plexus/1.4.3.1/guice-plexus-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/inject/guice-bean/1.4.3.1/guice-bean-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-inject/1.4.3.1/sisu-inject-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-parent/1.4.3.1/sisu-parent-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/forge/forge-parent/6/forge-parent-6.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-interpolation/1.1/plexus-interpolation-1.1.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-compat/3.0-alpha-2/maven-compat-3.0-alpha-2.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-container-default/1.0-beta-3.0.5/plexus-container-default-1.0-beta-3.0.5.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-containers/1.0-beta-3.0.5/plexus-containers-1.0-beta-3.0.5.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus/2.0.2/plexus-2.0.2.pom
+Download https://plugins.gradle.org/m2/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6.pom
+Download https://plugins.gradle.org/m2/org/sonatype/spice/model-builder/1.3/model-builder-1.3.pom
+Download https://plugins.gradle.org/m2/org/sonatype/spice/spice-parent/10/spice-parent-10.pom
+Download https://plugins.gradle.org/m2/org/sonatype/forge/forge-parent/3/forge-parent-3.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-project-builder/3.0-alpha-2/maven-project-builder-3.0-alpha-2.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcore/4.2.1/httpcore-4.2.1.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcomponents-core/4.2.1/httpcomponents-core-4.2.1.pom
+Download https://plugins.gradle.org/m2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/22/commons-parent-22.pom
+Download https://plugins.gradle.org/m2/org/apache/apache/9/apache-9.pom
+Download https://plugins.gradle.org/m2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/11/commons-parent-11.pom
+Download https://plugins.gradle.org/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.pom
+Download https://plugins.gradle.org/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.pom
+Download https://plugins.gradle.org/m2/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.pom
+Download https://plugins.gradle.org/m2/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.pom
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-api/2.3.0/build-info-api-2.3.0.pom
+Download https://plugins.gradle.org/m2/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-containers/1.5.5/plexus-containers-1.5.5.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus/2.0.7/plexus-2.0.7.pom
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-inject-bean/1.4.3.1/sisu-inject-bean-1.4.3.1.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-4/wagon-provider-api-1.0-beta-4.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/wagon/wagon/1.0-beta-4/wagon-1.0-beta-4.pom
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-parent/8/maven-parent-8.pom
+Download https://plugins.gradle.org/m2/org/apache/xbean/xbean-reflect/3.4/xbean-reflect-3.4.pom
+Download https://plugins.gradle.org/m2/org/apache/xbean/xbean/3.4/xbean-3.4.pom
+Download https://plugins.gradle.org/m2/com/google/code/google-collections/google-collect/snapshot-20080530/google-collect-snapshot-20080530.pom
+Download https://plugins.gradle.org/m2/stax/stax-api/1.0.1/stax-api-1.0.1.pom
+Download https://plugins.gradle.org/m2/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-guice/2.9.1/sisu-guice-2.9.1.pom
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/inject/guice-parent/2.9.1/guice-parent-2.9.1.pom
+Download https://plugins.gradle.org/m2/log4j/log4j/1.2.12/log4j-1.2.12.pom
+Download https://plugins.gradle.org/m2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit/3.3.2.201404171909-r/org.eclipse.jgit-3.3.2.201404171909-r.pom
+Download https://plugins.gradle.org/m2/commons-codec/commons-codec/1.8/commons-codec-1.8.pom
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-parent/28/commons-parent-28.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcomponents-client/4.2.5/httpcomponents-client-4.2.5.pom
+Download https://plugins.gradle.org/m2/com/jcraft/jsch/0.1.50/jsch-0.1.50.pom
+Download https://plugins.gradle.org/m2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.pom
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcomponents-core/4.2.4/httpcomponents-core-4.2.4.pom
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-netflixoss-project-plugin/2.2.9/gradle-netflixoss-project-plugin-2.2.9.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-contacts-plugin/2.2.0/gradle-contacts-plugin-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-dependency-lock-plugin/2.2.2/gradle-dependency-lock-plugin-2.2.2.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-info-plugin/2.2.0/gradle-info-plugin-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-bintray-plugin/2.2.0/nebula-bintray-plugin-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-core/2.2.0/nebula-core-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-project-plugin/2.2.0/nebula-project-plugin-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-publishing-plugin/2.2.1/nebula-publishing-plugin-2.2.1.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/nebula-release-plugin/2.2.5/nebula-release-plugin-2.2.5.jar
+Download https://plugins.gradle.org/m2/nl/javadude/gradle/plugins/license-gradle-plugin/0.11.0/license-gradle-plugin-0.11.0.jar
+Download https://plugins.gradle.org/m2/com/netflix/nebula/gradle-scm-plugin/2.2.0/gradle-scm-plugin-2.2.0.jar
+Download https://plugins.gradle.org/m2/com/perforce/p4java-jfrog/2011.1.297684/p4java-jfrog-2011.1.297684.jar
+Download https://plugins.gradle.org/m2/org/tmatesoft/svnkit/svnkit/1.8.5/svnkit-1.8.5.jar
+Download https://plugins.gradle.org/m2/com/jfrog/bintray/gradle/gradle-bintray-plugin/1.0/gradle-bintray-plugin-1.0.jar
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-extractor-gradle/3.0.1/build-info-extractor-gradle-3.0.1.jar
+Download https://plugins.gradle.org/m2/org/apache/commons/commons-lang3/3.2.1/commons-lang3-3.2.1.jar
+Download https://plugins.gradle.org/m2/org/ajoberstar/gradle-git/0.12.0/gradle-git-0.12.0.jar
+Download https://plugins.gradle.org/m2/com/mycila/maven-license-plugin/maven-license-plugin/1.10.b1/maven-license-plugin-1.10.b1.jar
+Download https://plugins.gradle.org/m2/com/google/guava/guava/17.0/guava-17.0.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jzlib/1.0.7/jzlib-1.0.7.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.svnkit-trilead-ssh2/0.0.7/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar
+Download https://plugins.gradle.org/m2/net/java/dev/jna/jna/3.5.2/jna-3.5.2.jar
+Download https://plugins.gradle.org/m2/org/tmatesoft/sqljet/sqljet/1.1.10/sqljet-1.1.10.jar
+Download https://plugins.gradle.org/m2/net/java/dev/jna/platform/3.5.2/platform-3.5.2.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.connector-factory/0.0.7/jsch.agentproxy.connector-factory-0.0.7.jar
+Download https://plugins.gradle.org/m2/de/regnis/q/sequence/sequence-library/1.0.2/sequence-library-1.0.2.jar
+Download https://plugins.gradle.org/m2/com/trilead/trilead-ssh2/1.0.0-build217/trilead-ssh2-1.0.0-build217.jar
+Download https://plugins.gradle.org/m2/org/codehaus/groovy/modules/http-builder/http-builder/0.7.2/http-builder-0.7.2.jar
+Download https://plugins.gradle.org/m2/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar
+Download https://plugins.gradle.org/m2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar
+Download https://plugins.gradle.org/m2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-extractor/2.3.0/build-info-extractor-2.3.0.jar
+Download https://plugins.gradle.org/m2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+Download https://plugins.gradle.org/m2/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+Download https://plugins.gradle.org/m2/org/ajoberstar/grgit/0.4.0/grgit-0.4.0.jar
+Download https://plugins.gradle.org/m2/com/github/zafarkhaja/java-semver/0.8.0/java-semver-0.8.0.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-plugin-api/3.0.1/maven-plugin-api-3.0.1.jar
+Download https://plugins.gradle.org/m2/com/mycila/xmltool/xmltool/3.3/xmltool-3.3.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-project/3.0-alpha-2/maven-project-3.0-alpha-2.jar
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.core/0.0.7/jsch.agentproxy.core-0.0.7.jar
+Download https://plugins.gradle.org/m2/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.usocket-jna/0.0.7/jsch.agentproxy.usocket-jna-0.0.7.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.usocket-nc/0.0.7/jsch.agentproxy.usocket-nc-0.0.7.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.sshagent/0.0.7/jsch.agentproxy.sshagent-0.0.7.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.pageant/0.0.7/jsch.agentproxy.pageant-0.0.7.jar
+Download https://plugins.gradle.org/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar
+Download https://plugins.gradle.org/m2/net/sourceforge/nekohtml/nekohtml/1.9.16/nekohtml-1.9.16.jar
+Download https://plugins.gradle.org/m2/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-client/2.3.0/build-info-client-2.3.0.jar
+Download https://plugins.gradle.org/m2/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit.ui/3.3.2.201404171909-r/org.eclipse.jgit.ui-3.3.2.201404171909-r.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch.agentproxy.jsch/0.0.7/jsch.agentproxy.jsch-0.0.7.jar
+Download https://plugins.gradle.org/m2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-model/3.0.1/maven-model-3.0.1.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-artifact/3.0.1/maven-artifact-3.0.1.jar
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-inject-plexus/1.4.3.1/sisu-inject-plexus-1.4.3.1.jar
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-interpolation/1.1/plexus-interpolation-1.1.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-compat/3.0-alpha-2/maven-compat-3.0-alpha-2.jar
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-container-default/1.0-beta-3.0.5/plexus-container-default-1.0-beta-3.0.5.jar
+Download https://plugins.gradle.org/m2/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6.jar
+Download https://plugins.gradle.org/m2/org/sonatype/spice/model-builder/1.3/model-builder-1.3.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/maven-project-builder/3.0-alpha-2/maven-project-builder-3.0-alpha-2.jar
+Download https://plugins.gradle.org/m2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar
+Download https://plugins.gradle.org/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar
+Download https://plugins.gradle.org/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar
+Download https://plugins.gradle.org/m2/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.jar
+Download https://plugins.gradle.org/m2/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.jar
+Download https://plugins.gradle.org/m2/org/jfrog/buildinfo/build-info-api/2.3.0/build-info-api-2.3.0.jar
+Download https://plugins.gradle.org/m2/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar
+Download https://plugins.gradle.org/m2/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-inject-bean/1.4.3.1/sisu-inject-bean-1.4.3.1.jar
+Download https://plugins.gradle.org/m2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-4/wagon-provider-api-1.0-beta-4.jar
+Download https://plugins.gradle.org/m2/org/apache/xbean/xbean-reflect/3.4/xbean-reflect-3.4.jar
+Download https://plugins.gradle.org/m2/com/google/code/google-collections/google-collect/snapshot-20080530/google-collect-snapshot-20080530.jar
+Download https://plugins.gradle.org/m2/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+Download https://plugins.gradle.org/m2/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar
+Download https://plugins.gradle.org/m2/org/sonatype/sisu/sisu-guice/2.9.1/sisu-guice-2.9.1-noaop.jar
+Download https://plugins.gradle.org/m2/log4j/log4j/1.2.12/log4j-1.2.12.jar
+Download https://plugins.gradle.org/m2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
+Download https://plugins.gradle.org/m2/org/eclipse/jgit/org.eclipse.jgit/3.3.2.201404171909-r/org.eclipse.jgit-3.3.2.201404171909-r.jar
+Download https://plugins.gradle.org/m2/commons-codec/commons-codec/1.8/commons-codec-1.8.jar
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar
+Download https://plugins.gradle.org/m2/com/jcraft/jsch/0.1.50/jsch-0.1.50.jar
+Download https://plugins.gradle.org/m2/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.jar
+Download https://plugins.gradle.org/m2/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.jar
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Publication mavenNebula not found in project :.
+[buildinfo] Properties file path was not found! (Relevant only for builds running on a CI Server)
+Publication named 'mavenNebula' does not exist for project ':' in task ':artifactoryPublish'.
+None of the specified publications matched for project ':' - nothing to publish.
+:assemble UP-TO-DATE
+:denominator-model:compileJava
+Download https://jcenter.bintray.com/com/squareup/dagger/dagger/1.2.2/dagger-1.2.2.pom
+Download https://jcenter.bintray.com/com/squareup/dagger/dagger-parent/1.2.2/dagger-parent-1.2.2.pom
+Download https://jcenter.bintray.com/javax/inject/javax.inject/1/javax.inject-1.pom
+Download https://jcenter.bintray.com/com/squareup/dagger/dagger/1.2.2/dagger-1.2.2.jar
+Download https://jcenter.bintray.com/javax/inject/javax.inject/1/javax.inject-1.jar
+Download https://jcenter.bintray.com/com/squareup/dagger/dagger-compiler/1.2.2/dagger-compiler-1.2.2.pom
+Download https://jcenter.bintray.com/com/squareup/javawriter/2.5.0/javawriter-2.5.0.pom
+Download https://jcenter.bintray.com/com/google/guava/guava/15.0/guava-15.0.pom
+Download https://jcenter.bintray.com/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom
+Download https://jcenter.bintray.com/com/squareup/dagger/dagger-compiler/1.2.2/dagger-compiler-1.2.2.jar
+Download https://jcenter.bintray.com/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar
+Download https://jcenter.bintray.com/com/google/guava/guava/15.0/guava-15.0.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:denominator-model:processResources UP-TO-DATE
+:denominator-model:classes
+:denominator-model:writeManifestProperties
+:denominator-model:jar
+:denominator-core:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+
+:denominator-core:processResources
+:denominator-core:classes
+:denominator-core:writeManifestProperties
+:denominator-core:jar
+:denominator-clouddns:compileJava
+Download https://jcenter.bintray.com/com/netflix/feign/feign-core/8.1.0/feign-core-8.1.0.pom
+Download https://jcenter.bintray.com/com/netflix/feign/feign-gson/8.1.0/feign-gson-8.1.0.pom
+Download https://jcenter.bintray.com/com/google/code/gson/gson/2.2.4/gson-2.2.4.pom
+Download https://jcenter.bintray.com/com/netflix/feign/feign-core/8.1.0/feign-core-8.1.0.jar
+Download https://jcenter.bintray.com/com/netflix/feign/feign-gson/8.1.0/feign-gson-8.1.0.jar
+Download https://jcenter.bintray.com/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/clouddns/src/main/java/denominator/clouddns/CloudDNSProvider.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+:denominator-clouddns:processResources
+:denominator-clouddns:classes
+:denominator-clouddns:writeManifestProperties
+:denominator-clouddns:jar
+:denominator-designate:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/designate/src/main/java/denominator/designate/DesignateProvider.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-designate:processResources
+:denominator-designate:classes
+:denominator-designate:writeManifestProperties
+:denominator-designate:jar
+:denominator-dynect:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+
+:denominator-dynect:processResources
+:denominator-dynect:classes
+:denominator-dynect:writeManifestProperties
+:denominator-dynect:jar
+:denominator-route53:compileJava
+Download https://jcenter.bintray.com/com/netflix/feign/feign-sax/8.1.0/feign-sax-8.1.0.pom
+Download https://jcenter.bintray.com/com/netflix/feign/feign-sax/8.1.0/feign-sax-8.1.0.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/route53/src/main/java/denominator/route53/EncodeChanges.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+:denominator-route53:processResources
+:denominator-route53:classes
+:denominator-route53:writeManifestProperties
+:denominator-route53:jar
+:denominator-ultradns:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/ultradns/src/main/java/denominator/ultradns/UltraDNSFormEncoder.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-ultradns:processResources
+:denominator-ultradns:classes
+:denominator-ultradns:writeManifestProperties
+:denominator-ultradns:jar
+:denominator-cli:compileJava
+Download https://jcenter.bintray.com/io/airlift/airline/0.7/airline-0.7.pom
+Download https://jcenter.bintray.com/io/airlift/airbase/28/airbase-28.pom
+Download https://jcenter.bintray.com/org/yaml/snakeyaml/1.15/snakeyaml-1.15.pom
+Download https://jcenter.bintray.com/com/google/code/findbugs/annotations/2.0.3/annotations-2.0.3.pom
+Download https://jcenter.bintray.com/com/google/guava/guava/18.0/guava-18.0.pom
+Download https://jcenter.bintray.com/com/google/guava/guava-parent/18.0/guava-parent-18.0.pom
+Download https://jcenter.bintray.com/io/airlift/airline/0.7/airline-0.7.jar
+Download https://jcenter.bintray.com/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar
+Download https://jcenter.bintray.com/com/google/code/findbugs/annotations/2.0.3/annotations-2.0.3.jar
+Download https://jcenter.bintray.com/com/google/guava/guava/18.0/guava-18.0.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+:denominator-cli:processResources UP-TO-DATE
+:denominator-cli:classes
+:denominator-cli:writeManifestProperties
+:denominator-cli:fatJar
+:denominator-cli:jar
+:denominator-model:javadoc
+:denominator-core:javadoc/home/travis/build/Netflix/denominator/core/src/main/java/denominator/Provider.java:70: warning - Tag @see: reference not found: denominator.model.profile
+/home/travis/build/Netflix/denominator/core/src/main/java/denominator/Provider.java:70: warning - Tag @see: reference not found: denominator.model.profile
+/home/travis/build/Netflix/denominator/core/src/main/java/denominator/Provider.java:70: warning - Tag @see: reference not found: denominator.model.profile
+
+3 warnings
+:denominator-clouddns:javadoc
+:denominator-designate:javadoc
+:denominator-dynect:javadoc
+:denominator-route53:javadoc
+:denominator-ultradns:javadoc
+:denominator-cli:javadoc
+:denominator-cli:javadocJar
+:denominator-cli:sourceJar
+:denominator-cli:assemble
+:denominator-clouddns:javadocJar
+:denominator-clouddns:sourceJar
+:denominator-clouddns:assemble
+:denominator-core:javadocJar
+:denominator-core:sourceJar
+:denominator-core:assemble
+:denominator-designate:javadocJar
+:denominator-designate:sourceJar
+:denominator-designate:assemble
+:denominator-dynect:javadocJar
+:denominator-dynect:sourceJar
+:denominator-dynect:assemble
+:denominator-model:javadocJar
+:denominator-model:sourceJar
+:denominator-model:assemble
+:denominator-route53:javadocJar
+:denominator-route53:sourceJar
+:denominator-route53:assemble
+:denominator-ultradns:javadocJar
+:denominator-ultradns:sourceJar
+:denominator-ultradns:assemble
+
+BUILD SUCCESSFUL
+
+Total time: 2 mins 23.76 secs
+
+travis_time:end:0e4731e5:start=1479513106354889310,finish=1479513250538652649,duration=144183763339[0Ktravis_fold:end:install[0Ktravis_time:start:24c30b22[0K$ ./buildViaTravis.sh
+Build Branch with Snapshot => Branch []
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Inferred version: 4.5.0-SNAPSHOT
+Publication mavenNebula not found in project :.
+[buildinfo] Properties file path was not found! (Relevant only for builds running on a CI Server)
+Publication named 'mavenNebula' does not exist for project ':' in task ':artifactoryPublish'.
+None of the specified publications matched for project ':' - nothing to publish.
+:assemble UP-TO-DATE
+:license UP-TO-DATE
+:check UP-TO-DATE
+:denominator-model:compileJava UP-TO-DATE
+:denominator-model:processResources UP-TO-DATE
+:denominator-model:classes UP-TO-DATE
+:denominator-model:writeManifestProperties UP-TO-DATE
+:denominator-model:jar UP-TO-DATE
+:denominator-core:compileJava UP-TO-DATE
+:denominator-core:processResources UP-TO-DATE
+:denominator-core:classes UP-TO-DATE
+:denominator-core:writeManifestProperties UP-TO-DATE
+:denominator-core:jar UP-TO-DATE
+:denominator-clouddns:compileJava UP-TO-DATE
+:denominator-clouddns:processResources UP-TO-DATE
+:denominator-clouddns:classes UP-TO-DATE
+:denominator-clouddns:writeManifestProperties UP-TO-DATE
+:denominator-clouddns:jar UP-TO-DATE
+:denominator-designate:compileJava UP-TO-DATE
+:denominator-designate:processResources UP-TO-DATE
+:denominator-designate:classes UP-TO-DATE
+:denominator-designate:writeManifestProperties UP-TO-DATE
+:denominator-designate:jar UP-TO-DATE
+:denominator-dynect:compileJava UP-TO-DATE
+:denominator-dynect:processResources UP-TO-DATE
+:denominator-dynect:classes UP-TO-DATE
+:denominator-dynect:writeManifestProperties UP-TO-DATE
+:denominator-dynect:jar UP-TO-DATE
+:denominator-route53:compileJava UP-TO-DATE
+:denominator-route53:processResources UP-TO-DATE
+:denominator-route53:classes UP-TO-DATE
+:denominator-route53:writeManifestProperties UP-TO-DATE
+:denominator-route53:jar UP-TO-DATE
+:denominator-ultradns:compileJava UP-TO-DATE
+:denominator-ultradns:processResources UP-TO-DATE
+:denominator-ultradns:classes UP-TO-DATE
+:denominator-ultradns:writeManifestProperties UP-TO-DATE
+:denominator-ultradns:jar UP-TO-DATE
+:denominator-cli:compileJava UP-TO-DATE
+:denominator-cli:processResources UP-TO-DATE
+:denominator-cli:classes UP-TO-DATE
+:denominator-cli:writeManifestProperties UP-TO-DATE
+:denominator-cli:fatJar UP-TO-DATE
+:denominator-cli:jar UP-TO-DATE
+:denominator-model:javadoc UP-TO-DATE
+:denominator-core:javadoc UP-TO-DATE
+:denominator-clouddns:javadoc UP-TO-DATE
+:denominator-designate:javadoc UP-TO-DATE
+:denominator-dynect:javadoc UP-TO-DATE
+:denominator-route53:javadoc UP-TO-DATE
+:denominator-ultradns:javadoc UP-TO-DATE
+:denominator-cli:javadoc UP-TO-DATE
+:denominator-cli:javadocJar UP-TO-DATE
+:denominator-cli:sourceJar UP-TO-DATE
+:denominator-cli:assemble UP-TO-DATE
+:denominator-clouddns:javadocJar UP-TO-DATE
+:denominator-clouddns:sourceJar UP-TO-DATE
+:denominator-clouddns:assemble UP-TO-DATE
+:denominator-core:javadocJar UP-TO-DATE
+:denominator-core:sourceJar UP-TO-DATE
+:denominator-core:assemble UP-TO-DATE
+:denominator-designate:javadocJar UP-TO-DATE
+:denominator-designate:sourceJar UP-TO-DATE
+:denominator-designate:assemble UP-TO-DATE
+:denominator-dynect:javadocJar UP-TO-DATE
+:denominator-dynect:sourceJar UP-TO-DATE
+:denominator-dynect:assemble UP-TO-DATE
+:denominator-model:javadocJar UP-TO-DATE
+:denominator-model:sourceJar UP-TO-DATE
+:denominator-model:assemble UP-TO-DATE
+:denominator-route53:javadocJar UP-TO-DATE
+:denominator-route53:sourceJar UP-TO-DATE
+:denominator-route53:assemble UP-TO-DATE
+:denominator-ultradns:javadocJar UP-TO-DATE
+:denominator-ultradns:sourceJar UP-TO-DATE
+:denominator-ultradns:assemble UP-TO-DATE
+:collectNetflixOSS
+:build
+:denominator-cli:writeLicenseHeader
+:denominator-cli:licenseMain
+Missing header in: cli/src/main/java/denominator/cli/GeoResourceRecordSetCommands.java
+Missing header in: cli/src/main/java/denominator/cli/ResourceRecordSetCommands.java
+Missing header in: cli/src/main/java/denominator/cli/Denominator.java
+:denominator-cli:licenseTest
+Unknown file extension: cli/src/test/resources/test-config.yml
+Missing header in: cli/src/test/java/denominator/cli/DataFromInstanceMetadataHookTest.java
+Missing header in: cli/src/test/java/denominator/cli/DenominatorTest.java
+:denominator-cli:license
+:denominator-model:compileTestJava
+Download https://jcenter.bintray.com/junit/junit/4.12/junit-4.12.pom
+Download https://jcenter.bintray.com/org/assertj/assertj-core/1.7.1/assertj-core-1.7.1.pom
+Download https://jcenter.bintray.com/org/assertj/assertj-parent-pom/1.2.6/assertj-parent-pom-1.2.6.pom
+Download https://jcenter.bintray.com/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
+Download https://jcenter.bintray.com/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
+Download https://jcenter.bintray.com/junit/junit/4.12/junit-4.12.jar
+Download https://jcenter.bintray.com/org/assertj/assertj-core/1.7.1/assertj-core-1.7.1.jar
+Download https://jcenter.bintray.com/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/model/src/test/java/denominator/common/UtilTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+:denominator-model:processTestResources UP-TO-DATE
+:denominator-model:testClasses
+:denominator-core:compileTestJava
+Download https://jcenter.bintray.com/com/squareup/okhttp/mockwebserver/2.2.0/mockwebserver-2.2.0.pom
+Download https://jcenter.bintray.com/com/squareup/okhttp/parent/2.2.0/parent-2.2.0.pom
+Download https://jcenter.bintray.com/com/squareup/okhttp/okhttp/2.2.0/okhttp-2.2.0.pom
+Download https://jcenter.bintray.com/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.pom
+Download https://jcenter.bintray.com/com/squareup/okio/okio/1.2.0/okio-1.2.0.pom
+Download https://jcenter.bintray.com/com/squareup/okio/okio-parent/1.2.0/okio-parent-1.2.0.pom
+Download https://jcenter.bintray.com/com/squareup/okhttp/mockwebserver/2.2.0/mockwebserver-2.2.0.jar
+Download https://jcenter.bintray.com/com/squareup/okhttp/okhttp/2.2.0/okhttp-2.2.0.jar
+Download https://jcenter.bintray.com/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.jar
+Download https://jcenter.bintray.com/com/squareup/okio/okio/1.2.0/okio-1.2.0.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+:denominator-core:processTestResources UP-TO-DATE
+:denominator-core:testClasses
+:denominator-cli:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/cli/src/test/java/denominator/cli/DenominatorTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-cli:processTestResources
+:denominator-cli:testClasses
+:denominator-cli:test
+:denominator-cli:check
+:denominator-cli:build
+:denominator-clouddns:writeLicenseHeader
+:denominator-clouddns:licenseMain
+Unknown file extension: clouddns/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: clouddns/src/main/java/denominator/clouddns/CloudDNSTarget.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/CloudDNSProvider.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/CloudDNSResourceRecordSetApi.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/RackspaceApis.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/CloudDNSZoneApi.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/GroupByRecordNameAndTypeIterator.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/KeystoneAccessAdapter.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/LimitsReadable.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/CloudDNSFunctions.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/RackspaceAdapters.java
+Missing header in: clouddns/src/main/java/denominator/clouddns/InvalidatableAuthProvider.java
+:denominator-clouddns:licenseTest
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSCheckConnectionLiveTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSTestGraph.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSReadOnlyLiveTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSProviderDynamicUpdateMockTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/MockCloudDNSServer.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSWriteCommandsLiveTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/RackspaceApisTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSConnection.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/KeystoneAccessAdapterTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSFunctionsTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/LimitsReadableMockTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSZoneApiMockTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSResourceRecordSetApiMockTest.java
+Missing header in: clouddns/src/test/java/denominator/clouddns/CloudDNSProviderTest.java
+:denominator-clouddns:license
+:denominator-clouddns:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /home/travis/build/Netflix/denominator/clouddns/src/test/java/denominator/clouddns/CloudDNSResourceRecordSetApiMockTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-clouddns:processTestResources UP-TO-DATE
+:denominator-clouddns:testClasses
+:denominator-clouddns:test
+:denominator-clouddns:check
+:denominator-clouddns:build
+:denominator-core:writeLicenseHeader
+:denominator-core:licenseMain
+Unknown file extension: core/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: core/src/main/java/denominator/AllProfileResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/ReadOnlyResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/CheckConnection.java
+Missing header in: core/src/main/java/denominator/Provider.java
+Missing header in: core/src/main/java/denominator/BasicProvider.java
+Missing header in: core/src/main/java/denominator/DNSApiManager.java
+Missing header in: core/src/main/java/denominator/Providers.java
+Missing header in: core/src/main/java/denominator/Denominator.java
+Missing header in: core/src/main/java/denominator/ZoneApi.java
+Missing header in: core/src/main/java/denominator/CredentialsConfiguration.java
+Missing header in: core/src/main/java/denominator/DNSApi.java
+Missing header in: core/src/main/java/denominator/Credentials.java
+Missing header in: core/src/main/java/denominator/QualifiedResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/profile/WeightedResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/profile/GeoResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/hook/InstanceMetadataHook.java
+Missing header in: core/src/main/java/denominator/mock/MockWeightedResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/mock/MockZoneApi.java
+Missing header in: core/src/main/java/denominator/mock/MockResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/mock/MockProvider.java
+Missing header in: core/src/main/java/denominator/config/WeightedUnsupported.java
+Missing header in: core/src/main/java/denominator/config/OnlyBasicResourceRecordSets.java
+Missing header in: core/src/main/java/denominator/mock/MockGeoResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/config/GeoUnsupported.java
+Missing header in: core/src/main/java/denominator/config/NothingToClose.java
+Missing header in: core/src/main/java/denominator/config/package-info.java
+Missing header in: core/src/main/java/denominator/config/ConcatBasicAndQualifiedResourceRecordSets.java
+Missing header in: core/src/main/java/denominator/mock/MockAllProfileResourceRecordSetApi.java
+Missing header in: core/src/main/java/denominator/ResourceRecordSetApi.java
+:denominator-core:licenseTest
+Missing header in: core/src/test/java/denominator/DenominatorTest.java
+Missing header in: core/src/test/java/denominator/MockProviderTest.java
+Missing header in: core/src/test/java/denominator/WriteCommandsLiveTest.java
+Missing header in: core/src/test/java/denominator/CredentialsConfigurationTest.java
+Missing header in: core/src/test/java/denominator/ProvidersTest.java
+Missing header in: core/src/test/java/denominator/ProviderTest.java
+Missing header in: core/src/test/java/denominator/CheckConnectionLiveTest.java
+Missing header in: core/src/test/java/denominator/CredentialsTest.java
+Missing header in: core/src/test/java/denominator/DynamicCredentialsProviderExampleTest.java
+Missing header in: core/src/test/java/denominator/DNSApiManagerFactory.java
+Missing header in: core/src/test/java/denominator/RoundRobinWriteCommandsLiveTest.java
+Missing header in: core/src/test/java/denominator/profile/GeoWriteCommandsLiveTest.java
+Missing header in: core/src/test/java/denominator/profile/Regions.java
+Missing header in: core/src/test/java/denominator/Live.java
+Missing header in: core/src/test/java/denominator/TestGraph.java
+Missing header in: core/src/test/java/denominator/ReadOnlyLiveTest.java
+Missing header in: core/src/test/java/denominator/profile/GeoReadOnlyLiveTest.java
+Missing header in: core/src/test/java/denominator/hook/InstanceMetadataHookTest.java
+Missing header in: core/src/test/java/denominator/profile/WeightedReadOnlyLiveTest.java
+Missing header in: core/src/test/java/denominator/profile/WeightedWriteCommandsLiveTest.java
+Missing header in: core/src/test/java/denominator/assertj/RecordedRequestAssert.java
+:denominator-core:license
+:denominator-core:test
+:denominator-core:check
+:denominator-core:build
+:denominator-designate:writeLicenseHeader
+:denominator-designate:licenseMain
+Unknown file extension: designate/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: designate/src/main/java/denominator/designate/KeystoneV2AccessAdapter.java
+Missing header in: designate/src/main/java/denominator/designate/Designate.java
+Missing header in: designate/src/main/java/denominator/designate/LimitsReadable.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateTarget.java
+Missing header in: designate/src/main/java/denominator/designate/InvalidatableAuthProvider.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateResourceRecordSetApi.java
+Missing header in: designate/src/main/java/denominator/designate/KeystoneV2.java
+Missing header in: designate/src/main/java/denominator/designate/GroupByRecordNameAndTypeIterator.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateZoneApi.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateFunctions.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateAdapters.java
+Missing header in: designate/src/main/java/denominator/designate/DesignateProvider.java
+:denominator-designate:licenseTest
+Missing header in: designate/src/test/java/denominator/designate/DesignateRoundRobinWriteCommandsLiveTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateWriteCommandsLiveTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateFunctionsTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateCheckConnectionLiveTest.java
+Missing header in: designate/src/test/java/denominator/designate/MockDesignateServer.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateReadOnlyLiveTest.java
+Missing header in: designate/src/test/java/denominator/designate/LimitsReadableMockTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateProviderDynamicUpdateMockTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateTestGraph.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateProviderTest.java
+Missing header in: designate/src/test/java/denominator/designate/KeystoneV2AccessAdapterTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateZoneApiMockTest.java
+Missing header in: designate/src/test/java/denominator/designate/DesignateResourceRecordSetApiMockTest.java
+:denominator-designate:license
+:denominator-designate:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/designate/src/test/java/denominator/designate/DesignateResourceRecordSetApiMockTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-designate:processTestResources UP-TO-DATE
+:denominator-designate:testClasses
+:denominator-designate:test
+:denominator-designate:check
+:denominator-designate:build
+:denominator-dynect:writeLicenseHeader
+:denominator-dynect:licenseMain
+Unknown file extension: dynect/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTTarget.java
+Missing header in: dynect/src/main/java/denominator/dynect/InvalidatableTokenProvider.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTGeoResourceRecordSetApi.java
+Missing header in: dynect/src/main/java/denominator/dynect/SessionTarget.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTException.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTProvider.java
+Missing header in: dynect/src/main/java/denominator/dynect/ToRecord.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTZoneApi.java
+Missing header in: dynect/src/main/java/denominator/dynect/CountryToRegions.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECT.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTResourceRecordSetApi.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTAdapters.java
+Missing header in: dynect/src/main/java/denominator/dynect/ResourceRecordSetsAdapter.java
+Missing header in: dynect/src/main/java/denominator/dynect/DynECTErrorDecoder.java
+:denominator-dynect:licenseTest
+Missing header in: dynect/src/test/resources/recordsByName.json
+Missing header in: dynect/src/test/resources/geoservice.json
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTTestGraph.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTWriteCommandsLiveTest.java
+Missing header in: dynect/src/test/resources/records.json
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTProviderDynamicUpdateMockTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/MockDynECTServer.java
+Missing header in: dynect/src/test/java/denominator/dynect/InvalidatableTokenProviderMockTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTFunctionsTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTGeoResourceRecordSetApiMockTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTProviderTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTResourceRecordSetApiMockTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTRoundRobinWriteCommandsLiveTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTZoneApiMockTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTGeoReadOnlyLiveTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTCheckConnectionLiveTest.java
+Missing header in: dynect/src/test/java/denominator/dynect/DynECTReadOnlyLiveTest.java
+:denominator-dynect:license
+:denominator-dynect:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
+
+:denominator-dynect:processTestResources
+:denominator-dynect:testClasses
+:denominator-dynect:test
+:denominator-dynect:check
+:denominator-dynect:build
+:denominator-model:writeLicenseHeader
+:denominator-model:licenseMain
+Missing header in: model/src/main/java/denominator/ResourceTypeToValue.java
+Missing header in: model/src/main/java/denominator/common/Preconditions.java
+Missing header in: model/src/main/java/denominator/common/Util.java
+Missing header in: model/src/main/java/denominator/common/Filter.java
+Missing header in: model/src/main/java/denominator/common/PeekingIterator.java
+Missing header in: model/src/main/java/denominator/model/AbstractRecordSetBuilder.java
+Missing header in: model/src/main/java/denominator/model/NumbersAreUnsignedIntsLinkedHashMap.java
+Missing header in: model/src/main/java/denominator/model/ResourceRecordSets.java
+Missing header in: model/src/main/java/denominator/model/rdata/NSData.java
+Missing header in: model/src/main/java/denominator/model/ResourceRecordSet.java
+Missing header in: model/src/main/java/denominator/model/rdata/TXTData.java
+Missing header in: model/src/main/java/denominator/model/rdata/CERTData.java
+Missing header in: model/src/main/java/denominator/model/rdata/CNAMEData.java
+Missing header in: model/src/main/java/denominator/model/rdata/SOAData.java
+Missing header in: model/src/main/java/denominator/model/rdata/AData.java
+Missing header in: model/src/main/java/denominator/model/rdata/SSHFPData.java
+Missing header in: model/src/main/java/denominator/model/rdata/package-info.java
+Missing header in: model/src/main/java/denominator/model/rdata/SPFData.java
+Missing header in: model/src/main/java/denominator/model/rdata/NAPTRData.java
+Missing header in: model/src/main/java/denominator/model/rdata/PTRData.java
+Missing header in: model/src/main/java/denominator/model/rdata/MXData.java
+Missing header in: model/src/main/java/denominator/model/rdata/AAAAData.java
+Missing header in: model/src/main/java/denominator/model/rdata/SRVData.java
+Missing header in: model/src/main/java/denominator/model/profile/Weighted.java
+Missing header in: model/src/main/java/denominator/model/profile/Geo.java
+Missing header in: model/src/main/java/denominator/model/profile/Geos.java
+Missing header in: model/src/main/java/denominator/model/Zone.java
+Missing header in: model/src/main/java/denominator/model/StringRecordBuilder.java
+:denominator-model:licenseTest
+Missing header in: model/src/test/java/denominator/ResourceTypeToValueTest.java
+Missing header in: model/src/test/java/denominator/common/UtilTest.java
+Missing header in: model/src/test/java/denominator/common/PeekingIteratorTest.java
+Missing header in: model/src/test/java/denominator/common/PreconditionsTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/SPFDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/NSDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/AAAADataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/SSHFPDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/ADataTest.java
+Missing header in: model/src/test/java/denominator/model/ZoneTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/TXTDataTest.java
+Missing header in: model/src/test/java/denominator/model/ResourceRecordSetTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/CERTDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/NAPTRDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/CNAMEDataTest.java
+Missing header in: model/src/test/java/denominator/model/rdata/SRVDataTest.java
+Missing header in: model/src/test/java/denominator/model/ResourceRecordSetsTest.java
+Missing header in: model/src/test/java/denominator/assertj/ZoneAssert.java
+Missing header in: model/src/test/java/denominator/model/rdata/MXDataTest.java
+Missing header in: model/src/test/java/denominator/assertj/ResourceRecordSetAssert.java
+Missing header in: model/src/test/java/denominator/model/profile/WeightedTest.java
+Missing header in: model/src/test/java/denominator/model/profile/GeoTest.java
+Missing header in: model/src/test/java/denominator/assertj/ModelAssertions.java
+Missing header in: model/src/test/java/denominator/model/profile/GeosTest.java
+:denominator-model:license
+:denominator-model:test
+:denominator-model:check
+:denominator-model:build
+:denominator-route53:writeLicenseHeader
+:denominator-route53:licenseMain
+Unknown file extension: route53/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: route53/src/main/java/denominator/route53/Route53AllProfileResourceRecordSetApi.java
+Missing header in: route53/src/main/java/denominator/route53/InstanceProfileCredentialsProvider.java
+Missing header in: route53/src/main/java/denominator/route53/InvalidatableAuthenticationHeadersProvider.java
+Missing header in: route53/src/main/java/denominator/route53/Route53ResourceRecordSetApi.java
+Missing header in: route53/src/main/java/denominator/route53/EncodeChanges.java
+Missing header in: route53/src/main/java/denominator/route53/Route53Target.java
+Missing header in: route53/src/main/java/denominator/route53/Route53Provider.java
+Missing header in: route53/src/main/java/denominator/route53/ListHostedZonesResponseHandler.java
+Missing header in: route53/src/main/java/denominator/route53/Route53Exception.java
+Missing header in: route53/src/main/java/denominator/route53/HostedZonesReadable.java
+Missing header in: route53/src/main/java/denominator/route53/Route53WeightedResourceRecordSetApi.java
+Missing header in: route53/src/main/java/denominator/route53/Route53.java
+Missing header in: route53/src/main/java/denominator/route53/Route53ErrorDecoder.java
+Missing header in: route53/src/main/java/denominator/route53/AliasTarget.java
+Missing header in: route53/src/main/java/denominator/route53/ResourceRecordSetHandler.java
+Missing header in: route53/src/main/java/denominator/route53/Route53ZoneApi.java
+Missing header in: route53/src/main/java/denominator/route53/InvalidChangeBatchException.java
+Missing header in: route53/src/main/java/denominator/route53/ListResourceRecordSetsResponseHandler.java
+:denominator-route53:licenseTest
+Missing header in: route53/src/test/java/denominator/route53/Route53RoundRobinWriteCommandsLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ResourceRecordSetApiMockTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53Test.java
+Missing header in: route53/src/test/java/denominator/route53/Route53WriteCommandsLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/MockRoute53Server.java
+Missing header in: route53/src/test/java/denominator/route53/HostedZonesReadableMockTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ProviderDynamicUpdateMockTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53DecoderTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ZoneApiMockTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ErrorDecoderTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53CheckConnectionLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53TestGraph.java
+Missing header in: route53/src/test/java/denominator/route53/Route53WeightedReadOnlyLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ReadOnlyLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/InstanceProfileCredentialsProviderTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53WeightedWriteCommandsLiveTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53ProviderTest.java
+Missing header in: route53/src/test/java/denominator/route53/EncodeChangesTest.java
+Missing header in: route53/src/test/java/denominator/route53/Route53WeightedResourceRecordSetApiMockTest.java
+:denominator-route53:license
+:denominator-route53:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-route53:processTestResources UP-TO-DATE
+:denominator-route53:testClasses
+:denominator-route53:test
+:denominator-route53:check
+:denominator-route53:build
+:denominator-ultradns:writeLicenseHeader
+:denominator-ultradns:licenseMain
+Unknown file extension: ultradns/src/main/resources/META-INF/services/denominator.Provider
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSTarget.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSGeoResourceRecordSetApi.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSRoundRobinPoolApi.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/GroupByRecordNameAndTypeIterator.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSException.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSGeoSupport.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSFormEncoder.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNS.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSFilters.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSResourceRecordSetApi.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/NetworkStatusReadable.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSZoneApi.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSErrorDecoder.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/InvalidatableAccountIdSupplier.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/GroupGeoRecordByNameTypeIterator.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSContentHandlers.java
+Missing header in: ultradns/src/main/java/denominator/ultradns/UltraDNSProvider.java
+:denominator-ultradns:licenseTest
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSZoneApiMockTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSConnection.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSErrorDecoderTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSProviderTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/MockUltraDNSServer.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSTestGraph.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSGeoWriteCommandsLiveTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSReadOnlyLiveTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSPredicatesTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSRoundRobinWriteCommandsLiveTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSGeoResourceRecordSetApiMockTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSResourceRecordSetApiMockTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/NetworkStatusReadableMockTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSCheckConnectionLiveTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSProviderDynamicUpdateMockTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSWriteCommandsLiveTest.java
+Missing header in: ultradns/src/test/java/denominator/ultradns/UltraDNSGeoReadOnlyLiveTest.java
+:denominator-ultradns:license
+:denominator-ultradns:compileTestJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/Netflix/denominator/ultradns/src/test/java/denominator/ultradns/UltraDNSGeoResourceRecordSetApiMockTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:denominator-ultradns:processTestResources UP-TO-DATE
+:denominator-ultradns:testClasses
+:denominator-ultradns:test
+:denominator-ultradns:check
+:denominator-ultradns:build
+:releaseCheck
+:snapshot
+:prepare UP-TO-DATE
+:verifySnapshotStatus UP-TO-DATE
+:denominator-cli:generatePomFileForMavenNebulaPublication
+:denominator-cli:verifySnapshotStatus UP-TO-DATE
+:denominator-cli:artifactoryPublish
+:denominator-clouddns:generatePomFileForMavenNebulaPublication
+:denominator-clouddns:verifySnapshotStatus UP-TO-DATE
+:denominator-clouddns:artifactoryPublish
+:denominator-core:generatePomFileForMavenNebulaPublication
+:denominator-core:verifySnapshotStatus UP-TO-DATE
+:denominator-core:artifactoryPublish
+:denominator-designate:generatePomFileForMavenNebulaPublication
+:denominator-designate:verifySnapshotStatus UP-TO-DATE
+:denominator-designate:artifactoryPublish
+:denominator-dynect:generatePomFileForMavenNebulaPublication
+:denominator-dynect:verifySnapshotStatus UP-TO-DATE
+:denominator-dynect:artifactoryPublish
+:denominator-model:generatePomFileForMavenNebulaPublication
+:denominator-model:verifySnapshotStatus UP-TO-DATE
+:denominator-model:artifactoryPublish
+:denominator-route53:generatePomFileForMavenNebulaPublication
+:denominator-route53:verifySnapshotStatus UP-TO-DATE
+:denominator-route53:artifactoryPublish
+:denominator-ultradns:generatePomFileForMavenNebulaPublication
+:denominator-ultradns:verifySnapshotStatus UP-TO-DATE
+:denominator-ultradns:artifactoryPublish
+:artifactoryPublish
+Deploying artifact: https://oss.jfrog.org/oss-snapshot-local/com/netflix/denominator/denominator-cli/4.5.0-SNAPSHOT/denominator-cli-4.5.0-SNAPSHOT.jar
+:artifactoryPublish FAILED
+:verifyReleaseStatus UP-TO-DATE
+:denominator-cli:publishMavenNebulaPublicationToMavenLocal
+:denominator-cli:verifyReleaseStatus UP-TO-DATE
+:denominator-cli:bintrayUpload SKIPPED
+:denominator-clouddns:publishMavenNebulaPublicationToMavenLocal
+:denominator-clouddns:verifyReleaseStatus UP-TO-DATE
+:denominator-clouddns:bintrayUpload SKIPPED
+:denominator-core:publishMavenNebulaPublicationToMavenLocal
+:denominator-core:verifyReleaseStatus UP-TO-DATE
+:denominator-core:bintrayUpload SKIPPED
+:denominator-designate:publishMavenNebulaPublicationToMavenLocal
+:denominator-designate:verifyReleaseStatus UP-TO-DATE
+:denominator-designate:bintrayUpload SKIPPED
+:denominator-dynect:publishMavenNebulaPublicationToMavenLocal
+:denominator-dynect:verifyReleaseStatus UP-TO-DATE
+:denominator-dynect:bintrayUpload SKIPPED
+:denominator-model:publishMavenNebulaPublicationToMavenLocal
+:denominator-model:verifyReleaseStatus UP-TO-DATE
+:denominator-model:bintrayUpload SKIPPED
+:denominator-route53:publishMavenNebulaPublicationToMavenLocal
+:denominator-route53:verifyReleaseStatus UP-TO-DATE
+:denominator-route53:bintrayUpload SKIPPED
+:denominator-ultradns:publishMavenNebulaPublicationToMavenLocal
+:denominator-ultradns:verifyReleaseStatus UP-TO-DATE
+:denominator-ultradns:bintrayUpload SKIPPED
+:bintrayUpload SKIPPED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':artifactoryPublish'.
+> java.io.IOException: Failed to deploy file: HTTP response code: 401. HTTP response message: Unauthorized
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 48.91 secs
+
+travis_time:end:24c30b22:start=1479513250551016170,finish=1479513299884803020,duration=49333786850[0K
+[31;1mThe command "./buildViaTravis.sh" exited with 1.[0m
+
+Done. Your build exited with 1.

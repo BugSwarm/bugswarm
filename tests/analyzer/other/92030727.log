@@ -1,0 +1,936 @@
+Using worker: worker-linux-docker-2a21a1d3.prod.travis-ci.org:travis-linux-5
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:25e50805[0K$ git clone --depth=50 --branch=issue-188-search https://github.com/hbz/nwbib.git hbz/nwbib
+Cloning into 'hbz/nwbib'...
+remote: Counting objects: 683, done.[K
+remote: Compressing objects:   0% (1/341)   [Kremote: Compressing objects:   1% (4/341)   [Kremote: Compressing objects:   2% (7/341)   [Kremote: Compressing objects:   3% (11/341)   [Kremote: Compressing objects:   4% (14/341)   [Kremote: Compressing objects:   5% (18/341)   [Kremote: Compressing objects:   6% (21/341)   [Kremote: Compressing objects:   7% (24/341)   [Kremote: Compressing objects:   8% (28/341)   [Kremote: Compressing objects:   9% (31/341)   [Kremote: Compressing objects:  10% (35/341)   [Kremote: Compressing objects:  11% (38/341)   [Kremote: Compressing objects:  12% (41/341)   [Kremote: Compressing objects:  13% (45/341)   [Kremote: Compressing objects:  14% (48/341)   [Kremote: Compressing objects:  15% (52/341)   [Kremote: Compressing objects:  16% (55/341)   [Kremote: Compressing objects:  17% (58/341)   [Kremote: Compressing objects:  18% (62/341)   [Kremote: Compressing objects:  19% (65/341)   [Kremote: Compressing objects:  20% (69/341)   [Kremote: Compressing objects:  21% (72/341)   [Kremote: Compressing objects:  22% (76/341)   [Kremote: Compressing objects:  23% (79/341)   [Kremote: Compressing objects:  24% (82/341)   [Kremote: Compressing objects:  25% (86/341)   [Kremote: Compressing objects:  26% (89/341)   [Kremote: Compressing objects:  27% (93/341)   [Kremote: Compressing objects:  28% (96/341)   [Kremote: Compressing objects:  29% (99/341)   [Kremote: Compressing objects:  30% (103/341)   [Kremote: Compressing objects:  31% (106/341)   [Kremote: Compressing objects:  32% (110/341)   [Kremote: Compressing objects:  33% (113/341)   [Kremote: Compressing objects:  34% (116/341)   [Kremote: Compressing objects:  35% (120/341)   [Kremote: Compressing objects:  36% (123/341)   [Kremote: Compressing objects:  37% (127/341)   [Kremote: Compressing objects:  38% (130/341)   [Kremote: Compressing objects:  39% (133/341)   [Kremote: Compressing objects:  40% (137/341)   [Kremote: Compressing objects:  41% (140/341)   [Kremote: Compressing objects:  42% (144/341)   [Kremote: Compressing objects:  43% (147/341)   [Kremote: Compressing objects:  44% (151/341)   [Kremote: Compressing objects:  45% (154/341)   [Kremote: Compressing objects:  46% (157/341)   [Kremote: Compressing objects:  47% (161/341)   [Kremote: Compressing objects:  48% (164/341)   [Kremote: Compressing objects:  49% (168/341)   [Kremote: Compressing objects:  50% (171/341)   [Kremote: Compressing objects:  51% (174/341)   [Kremote: Compressing objects:  52% (178/341)   [Kremote: Compressing objects:  53% (181/341)   [Kremote: Compressing objects:  54% (185/341)   [Kremote: Compressing objects:  55% (188/341)   [Kremote: Compressing objects:  56% (191/341)   [Kremote: Compressing objects:  57% (195/341)   [Kremote: Compressing objects:  58% (198/341)   [Kremote: Compressing objects:  59% (202/341)   [Kremote: Compressing objects:  60% (205/341)   [Kremote: Compressing objects:  61% (209/341)   [Kremote: Compressing objects:  62% (212/341)   [Kremote: Compressing objects:  63% (215/341)   [Kremote: Compressing objects:  64% (219/341)   [Kremote: Compressing objects:  65% (222/341)   [Kremote: Compressing objects:  66% (226/341)   [Kremote: Compressing objects:  67% (229/341)   [Kremote: Compressing objects:  68% (232/341)   [Kremote: Compressing objects:  69% (236/341)   [Kremote: Compressing objects:  70% (239/341)   [Kremote: Compressing objects:  71% (243/341)   [Kremote: Compressing objects:  72% (246/341)   [Kremote: Compressing objects:  73% (249/341)   [Kremote: Compressing objects:  74% (253/341)   [Kremote: Compressing objects:  75% (256/341)   [Kremote: Compressing objects:  76% (260/341)   [Kremote: Compressing objects:  77% (263/341)   [Kremote: Compressing objects:  78% (266/341)   [Kremote: Compressing objects:  79% (270/341)   [Kremote: Compressing objects:  80% (273/341)   [Kremote: Compressing objects:  81% (277/341)   [Kremote: Compressing objects:  82% (280/341)   [Kremote: Compressing objects:  83% (284/341)   [Kremote: Compressing objects:  84% (287/341)   [Kremote: Compressing objects:  85% (290/341)   [Kremote: Compressing objects:  86% (294/341)   [Kremote: Compressing objects:  87% (297/341)   [Kremote: Compressing objects:  88% (301/341)   [Kremote: Compressing objects:  89% (304/341)   [Kremote: Compressing objects:  90% (307/341)   [Kremote: Compressing objects:  91% (311/341)   [Kremote: Compressing objects:  92% (314/341)   [Kremote: Compressing objects:  93% (318/341)   [Kremote: Compressing objects:  94% (321/341)   [Kremote: Compressing objects:  95% (324/341)   [Kremote: Compressing objects:  96% (328/341)   [Kremote: Compressing objects:  97% (331/341)   [Kremote: Compressing objects:  98% (335/341)   [Kremote: Compressing objects:  99% (338/341)   [Kremote: Compressing objects: 100% (341/341)   [Kremote: Compressing objects: 100% (341/341), done.[K
+Receiving objects:   0% (1/683)   Receiving objects:   1% (7/683)   Receiving objects:   2% (14/683)   Receiving objects:   3% (21/683)   Receiving objects:   4% (28/683)   Receiving objects:   5% (35/683)   Receiving objects:   6% (41/683)   Receiving objects:   7% (48/683)   Receiving objects:   8% (55/683)   Receiving objects:   9% (62/683)   Receiving objects:  10% (69/683)   Receiving objects:  11% (76/683)   Receiving objects:  12% (82/683)   Receiving objects:  13% (89/683)   Receiving objects:  14% (96/683)   Receiving objects:  15% (103/683)   Receiving objects:  16% (110/683)   Receiving objects:  17% (117/683)   Receiving objects:  18% (123/683)   Receiving objects:  19% (130/683)   Receiving objects:  20% (137/683)   Receiving objects:  21% (144/683)   Receiving objects:  22% (151/683)   Receiving objects:  23% (158/683)   Receiving objects:  24% (164/683)   Receiving objects:  25% (171/683)   Receiving objects:  26% (178/683)   Receiving objects:  27% (185/683)   Receiving objects:  28% (192/683)   Receiving objects:  29% (199/683)   Receiving objects:  30% (205/683)   Receiving objects:  31% (212/683)   Receiving objects:  32% (219/683)   Receiving objects:  33% (226/683)   Receiving objects:  34% (233/683)   Receiving objects:  35% (240/683)   Receiving objects:  36% (246/683)   Receiving objects:  37% (253/683)   Receiving objects:  38% (260/683)   Receiving objects:  39% (267/683)   Receiving objects:  40% (274/683)   Receiving objects:  41% (281/683)   Receiving objects:  42% (287/683)   Receiving objects:  43% (294/683)   Receiving objects:  44% (301/683)   Receiving objects:  45% (308/683)   Receiving objects:  46% (315/683)   Receiving objects:  47% (322/683)   Receiving objects:  48% (328/683)   Receiving objects:  49% (335/683)   Receiving objects:  50% (342/683)   Receiving objects:  51% (349/683)   Receiving objects:  52% (356/683)   Receiving objects:  53% (362/683)   Receiving objects:  54% (369/683)   Receiving objects:  55% (376/683)   Receiving objects:  56% (383/683)   Receiving objects:  57% (390/683)   Receiving objects:  58% (397/683)   Receiving objects:  59% (403/683)   Receiving objects:  60% (410/683)   Receiving objects:  61% (417/683)   Receiving objects:  62% (424/683)   Receiving objects:  63% (431/683)   Receiving objects:  64% (438/683)   Receiving objects:  65% (444/683)   Receiving objects:  66% (451/683)   Receiving objects:  67% (458/683)   Receiving objects:  68% (465/683)   Receiving objects:  69% (472/683)   Receiving objects:  70% (479/683)   Receiving objects:  71% (485/683)   Receiving objects:  72% (492/683)   Receiving objects:  73% (499/683)   Receiving objects:  74% (506/683)   Receiving objects:  75% (513/683)   Receiving objects:  76% (520/683)   Receiving objects:  77% (526/683)   Receiving objects:  78% (533/683)   Receiving objects:  79% (540/683)   Receiving objects:  80% (547/683)   Receiving objects:  81% (554/683)   Receiving objects:  82% (561/683)   Receiving objects:  83% (567/683)   remote: Total 683 (delta 368), reused 597 (delta 324), pack-reused 0[K
+Receiving objects:  84% (574/683)   Receiving objects:  85% (581/683)   Receiving objects:  86% (588/683)   Receiving objects:  87% (595/683)   Receiving objects:  88% (602/683)   Receiving objects:  89% (608/683)   Receiving objects:  90% (615/683)   Receiving objects:  91% (622/683)   Receiving objects:  92% (629/683)   Receiving objects:  93% (636/683)   Receiving objects:  94% (643/683)   Receiving objects:  95% (649/683)   Receiving objects:  96% (656/683)   Receiving objects:  97% (663/683)   Receiving objects:  98% (670/683)   Receiving objects:  99% (677/683)   Receiving objects: 100% (683/683)   Receiving objects: 100% (683/683), 798.96 KiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/368)   Resolving deltas:  22% (84/368)   Resolving deltas:  26% (97/368)   Resolving deltas:  27% (101/368)   Resolving deltas:  45% (169/368)   Resolving deltas:  46% (170/368)   Resolving deltas:  48% (180/368)   Resolving deltas:  49% (181/368)   Resolving deltas:  54% (202/368)   Resolving deltas:  55% (203/368)   Resolving deltas:  68% (251/368)   Resolving deltas:  72% (267/368)   Resolving deltas:  73% (269/368)   Resolving deltas:  77% (285/368)   Resolving deltas:  78% (290/368)   Resolving deltas:  79% (291/368)   Resolving deltas:  81% (301/368)   Resolving deltas:  82% (304/368)   Resolving deltas:  83% (308/368)   Resolving deltas:  85% (314/368)   Resolving deltas:  86% (320/368)   Resolving deltas:  91% (336/368)   Resolving deltas:  94% (349/368)   Resolving deltas:  95% (351/368)   Resolving deltas:  98% (363/368)   Resolving deltas:  99% (365/368)   Resolving deltas: 100% (368/368)   Resolving deltas: 100% (368/368), done.
+Checking connectivity... done.
+travis_time:end:25e50805:start=1447936376256887433,finish=1447936376871384258,duration=614496825[0K$ cd hbz/nwbib
+$ git checkout -qf 9614e8692bad32eccbdc910080139b1cc41eb6a5
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export ACTIVATOR_VERSION=1.3.5
+
+$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:before_script.1[0Ktravis_time:start:131ca4d8[0K$ wget http://downloads.typesafe.com/typesafe-activator/${ACTIVATOR_VERSION}/typesafe-activator-${ACTIVATOR_VERSION}-minimal.zip
+--2015-11-19 12:32:59--  http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
+Resolving downloads.typesafe.com (downloads.typesafe.com)... 54.192.194.169, 54.192.194.170, 54.192.195.178, ...
+Connecting to downloads.typesafe.com (downloads.typesafe.com)|54.192.194.169|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1059067 (1.0M) [application/zip]
+Saving to: `typesafe-activator-1.3.5-minimal.zip'
+
+ 0% [                                       ] 0           --.-K/s              100%[======================================>] 1,059,067   --.-K/s   in 0.02s   
+
+2015-11-19 12:32:59 (47.1 MB/s) - `typesafe-activator-1.3.5-minimal.zip' saved [1059067/1059067]
+
+travis_time:end:131ca4d8:start=1447936379295383237,finish=1447936379356487910,duration=61104673[0Ktravis_fold:end:before_script.1[0Ktravis_fold:start:before_script.2[0Ktravis_time:start:0533d65f[0K$ unzip typesafe-activator-${ACTIVATOR_VERSION}-minimal.zip
+Archive:  typesafe-activator-1.3.5-minimal.zip
+   creating: activator-1.3.5-minimal/
+  inflating: activator-1.3.5-minimal/activator  
+  inflating: activator-1.3.5-minimal/activator-launch-1.3.5.jar  
+  inflating: activator-1.3.5-minimal/activator.bat  
+travis_time:end:0533d65f:start=1447936379360667168,finish=1447936379380902730,duration=20235562[0Ktravis_fold:end:before_script.2[0Ktravis_time:start:05cd60aa[0K$ ./activator-${ACTIVATOR_VERSION}-minimal/activator "test-only tests.ApplicationTest"
+Getting com.typesafe.activator activator-launcher 1.3.5 ...
+downloading https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.activator/activator-launcher/1.3.5/jars/activator-launcher.jar ...
+	[SUCCESSFUL ] com.typesafe.activator#activator-launcher;1.3.5!activator-launcher.jar (556ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.6/scala-library-2.11.6.jar ...
+	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.6!scala-library.jar (1564ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.activator/activator-props/1.3.5/jars/activator-props.jar ...
+	[SUCCESSFUL ] com.typesafe.activator#activator-props;1.3.5!activator-props.jar (400ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.activator/activator-ui-common/1.3.5/jars/activator-ui-common.jar ...
+	[SUCCESSFUL ] com.typesafe.activator#activator-ui-common;1.3.5!activator-ui-common.jar (438ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/launcher-interface/0.13.8/jars/launcher-interface.jar ...
+	[SUCCESSFUL ] org.scala-sbt#launcher-interface;0.13.8!launcher-interface.jar (362ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/completion_2.11/0.13.8/jars/completion_2.11.jar ...
+	[SUCCESSFUL ] org.scala-sbt#completion_2.11;0.13.8!completion_2.11.jar (653ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.activator/activator-templates-cache/1.0-a0afb008ea619bf9d87dc010156cddffa8a6f880/jars/activator-templates-cache.jar ...
+	[SUCCESSFUL ] com.typesafe.activator#activator-templates-cache;1.0-a0afb008ea619bf9d87dc010156cddffa8a6f880!activator-templates-cache.jar (601ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.activator/activator-common/1.0-a0afb008ea619bf9d87dc010156cddffa8a6f880/jars/activator-common.jar ...
+	[SUCCESSFUL ] com.typesafe.activator#activator-common;1.0-a0afb008ea619bf9d87dc010156cddffa8a6f880!activator-common.jar (549ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.1/scala-xml_2.11-1.0.1.jar ...
+	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.11;1.0.1!scala-xml_2.11.jar(bundle) (194ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.1/scala-parser-combinators_2.11-1.0.1.jar ...
+	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1!scala-parser-combinators_2.11.jar(bundle) (133ms)
+downloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-core/4.3.0/lucene-core-4.3.0.jar ...
+	[SUCCESSFUL ] org.apache.lucene#lucene-core;4.3.0!lucene-core.jar (634ms)
+downloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-common/4.3.0/lucene-analyzers-common-4.3.0.jar ...
+	[SUCCESSFUL ] org.apache.lucene#lucene-analyzers-common;4.3.0!lucene-analyzers-common.jar (446ms)
+downloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-queryparser/4.3.0/lucene-queryparser-4.3.0.jar ...
+	[SUCCESSFUL ] org.apache.lucene#lucene-queryparser;4.3.0!lucene-queryparser.jar (118ms)
+downloading https://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.11/2.3.9/akka-actor_2.11-2.3.9.jar ...
+	[SUCCESSFUL ] com.typesafe.akka#akka-actor_2.11;2.3.9!akka-actor_2.11.jar (729ms)
+downloading https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.3.29/aws-java-sdk-1.3.29.jar ...
+	[SUCCESSFUL ] com.amazonaws#aws-java-sdk;1.3.29!aws-java-sdk.jar (2861ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar ...
+	[SUCCESSFUL ] org.apache.commons#commons-compress;1.4.1!commons-compress.jar (110ms)
+downloading https://repo1.maven.org/maven2/org/tukaani/xz/1.0/xz-1.0.jar ...
+	[SUCCESSFUL ] org.tukaani#xz;1.0!xz.jar (48ms)
+downloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-queries/4.3.0/lucene-queries-4.3.0.jar ...
+	[SUCCESSFUL ] org.apache.lucene#lucene-queries;4.3.0!lucene-queries.jar (93ms)
+downloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-sandbox/4.3.0/lucene-sandbox-4.3.0.jar ...
+	[SUCCESSFUL ] org.apache.lucene#lucene-sandbox;4.3.0!lucene-sandbox.jar (34ms)
+downloading https://repo1.maven.org/maven2/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar ...
+	[SUCCESSFUL ] jakarta-regexp#jakarta-regexp;1.4!jakarta-regexp.jar (22ms)
+downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar ...
+	[SUCCESSFUL ] com.typesafe#config;1.2.1!config.jar(bundle) (100ms)
+downloading https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar ...
+	[SUCCESSFUL ] commons-logging#commons-logging;1.1.1!commons-logging.jar (34ms)
+downloading https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.1/httpclient-4.1.jar ...
+	[SUCCESSFUL ] org.apache.httpcomponents#httpclient;4.1!httpclient.jar (151ms)
+downloading https://repo1.maven.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar ...
+	[SUCCESSFUL ] commons-codec#commons-codec;1.3!commons-codec.jar (29ms)
+downloading https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.8.9/jackson-core-asl-1.8.9.jar ...
+	[SUCCESSFUL ] org.codehaus.jackson#jackson-core-asl;1.8.9!jackson-core-asl.jar (178ms)
+downloading https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.8.9/jackson-mapper-asl-1.8.9.jar ...
+	[SUCCESSFUL ] org.codehaus.jackson#jackson-mapper-asl;1.8.9!jackson-mapper-asl.jar (280ms)
+downloading https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar ...
+	[SUCCESSFUL ] org.apache.httpcomponents#httpcore;4.1!httpcore.jar (91ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/collections_2.11/0.13.8/jars/collections_2.11.jar ...
+	[SUCCESSFUL ] org.scala-sbt#collections_2.11;0.13.8!collections_2.11.jar (698ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/control_2.11/0.13.8/jars/control_2.11.jar ...
+	[SUCCESSFUL ] org.scala-sbt#control_2.11;0.13.8!control_2.11.jar (476ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/io_2.11/0.13.8/jars/io_2.11.jar ...
+	[SUCCESSFUL ] org.scala-sbt#io_2.11;0.13.8!io_2.11.jar (524ms)
+:: retrieving :: org.scala-sbt#boot-app
+	confs: [default]
+	30 artifacts copied, 0 already retrieved (20002kB/41ms)
+Getting Scala 2.11.6 (for activator-launcher)...
+downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.6/scala-compiler-2.11.6.jar ...
+	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.11.6!scala-compiler.jar (4728ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.6/scala-reflect-2.11.6.jar ...
+	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.11.6!scala-reflect.jar (1457ms)
+downloading https://repo1.maven.org/maven2/jline/jline/2.12.1/jline-2.12.1.jar ...
+	[SUCCESSFUL ] jline#jline;2.12.1!jline.jar (69ms)
+:: retrieving :: org.scala-sbt#boot-scala
+	confs: [default]
+	6 artifacts copied, 0 already retrieved (24930kB/47ms)
+Getting org.scala-sbt sbt 0.13.8 ...
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt/0.13.8/jars/sbt.jar ...
+	[SUCCESSFUL ] org.scala-sbt#sbt;0.13.8!sbt.jar (390ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/main/0.13.8/jars/main.jar ...
+	[SUCCESSFUL ] org.scala-sbt#main;0.13.8!main.jar (1127ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-interface/0.13.8/jars/compiler-interface-src.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-interface;0.13.8!compiler-interface-src.jar (379ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-interface/0.13.8/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-interface;0.13.8!compiler-interface-bin.jar (501ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_8_2/0.13.8/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_8_2;0.13.8!compiler-interface-bin.jar (509ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_9_2/0.13.8/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_9_2;0.13.8!compiler-interface-bin.jar (522ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_9_3/0.13.8/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_9_3;0.13.8!compiler-interface-bin.jar (513ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/actions/0.13.8/jars/actions.jar ...
+	[SUCCESSFUL ] org.scala-sbt#actions;0.13.8!actions.jar (626ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/main-settings/0.13.8/jars/main-settings.jar ...
+	[SUCCESSFUL ] org.scala-sbt#main-settings;0.13.8!main-settings.jar (657ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/interface/0.13.8/jars/interface.jar ...
+	[SUCCESSFUL ] org.scala-sbt#interface;0.13.8!interface.jar (431ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/io/0.13.8/jars/io.jar ...
+	[SUCCESSFUL ] org.scala-sbt#io;0.13.8!io.jar (511ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/ivy/0.13.8/jars/ivy.jar ...
+	[SUCCESSFUL ] org.scala-sbt#ivy;0.13.8!ivy.jar (1061ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/logging/0.13.8/jars/logging.jar ...
+	[SUCCESSFUL ] org.scala-sbt#logging;0.13.8!logging.jar (551ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/logic/0.13.8/jars/logic.jar ...
+	[SUCCESSFUL ] org.scala-sbt#logic;0.13.8!logic.jar (469ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/process/0.13.8/jars/process.jar ...
+	[SUCCESSFUL ] org.scala-sbt#process;0.13.8!process.jar (465ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/run/0.13.8/jars/run.jar ...
+	[SUCCESSFUL ] org.scala-sbt#run;0.13.8!run.jar (393ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/command/0.13.8/jars/command.jar ...
+	[SUCCESSFUL ] org.scala-sbt#command;0.13.8!command.jar (536ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/classpath/0.13.8/jars/classpath.jar ...
+	[SUCCESSFUL ] org.scala-sbt#classpath;0.13.8!classpath.jar (469ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/completion/0.13.8/jars/completion.jar ...
+	[SUCCESSFUL ] org.scala-sbt#completion;0.13.8!completion.jar (590ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/api/0.13.8/jars/api.jar ...
+	[SUCCESSFUL ] org.scala-sbt#api;0.13.8!api.jar (552ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-integration/0.13.8/jars/compiler-integration.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-integration;0.13.8!compiler-integration.jar (564ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-ivy-integration/0.13.8/jars/compiler-ivy-integration.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-ivy-integration;0.13.8!compiler-ivy-integration.jar (336ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/relation/0.13.8/jars/relation.jar ...
+	[SUCCESSFUL ] org.scala-sbt#relation;0.13.8!relation.jar (382ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/task-system/0.13.8/jars/task-system.jar ...
+	[SUCCESSFUL ] org.scala-sbt#task-system;0.13.8!task-system.jar (496ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/tasks/0.13.8/jars/tasks.jar ...
+	[SUCCESSFUL ] org.scala-sbt#tasks;0.13.8!tasks.jar (479ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/tracking/0.13.8/jars/tracking.jar ...
+	[SUCCESSFUL ] org.scala-sbt#tracking;0.13.8!tracking.jar (553ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/testing/0.13.8/jars/testing.jar ...
+	[SUCCESSFUL ] org.scala-sbt#testing;0.13.8!testing.jar (532ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/control/0.13.8/jars/control.jar ...
+	[SUCCESSFUL ] org.scala-sbt#control;0.13.8!control.jar (446ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/collections/0.13.8/jars/collections.jar ...
+	[SUCCESSFUL ] org.scala-sbt#collections;0.13.8!collections.jar (587ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/incremental-compiler/0.13.8/jars/incremental-compiler.jar ...
+	[SUCCESSFUL ] org.scala-sbt#incremental-compiler;0.13.8!incremental-compiler.jar (642ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compile/0.13.8/jars/compile.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compile;0.13.8!compile.jar (505ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/persist/0.13.8/jars/persist.jar ...
+	[SUCCESSFUL ] org.scala-sbt#persist;0.13.8!persist.jar (523ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/classfile/0.13.8/jars/classfile.jar ...
+	[SUCCESSFUL ] org.scala-sbt#classfile;0.13.8!classfile.jar (469ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/cross/0.13.8/jars/cross.jar ...
+	[SUCCESSFUL ] org.scala-sbt#cross;0.13.8!cross.jar (565ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/serialization_2.10/0.1.1/jars/serialization_2.10.jar ...
+	[SUCCESSFUL ] org.scala-sbt#serialization_2.10;0.1.1!serialization_2.10.jar (555ms)
+downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-pickling_2.10/0.10.0/scala-pickling_2.10-0.10.0.jar ...
+	[SUCCESSFUL ] org.scala-lang.modules#scala-pickling_2.10;0.10.0!scala-pickling_2.10.jar (474ms)
+downloading https://repo1.maven.org/maven2/org/scalamacros/quasiquotes_2.10/2.0.1/quasiquotes_2.10-2.0.1.jar ...
+	[SUCCESSFUL ] org.scalamacros#quasiquotes_2.10;2.0.1!quasiquotes_2.10.jar (363ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/cache/0.13.8/jars/cache.jar ...
+	[SUCCESSFUL ] org.scala-sbt#cache;0.13.8!cache.jar (503ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/test-agent/0.13.8/jars/test-agent.jar ...
+	[SUCCESSFUL ] org.scala-sbt#test-agent;0.13.8!test-agent.jar (355ms)
+downloading https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/apply-macro/0.13.8/jars/apply-macro.jar ...
+	[SUCCESSFUL ] org.scala-sbt#apply-macro;0.13.8!apply-macro.jar (382ms)
+:: retrieving :: org.scala-sbt#boot-app
+	confs: [default]
+	52 artifacts copied, 0 already retrieved (17674kB/71ms)
+[0m[[0minfo[0m] [0mLoading project definition from /home/travis/build/hbz/nwbib/project[0m
+[0m[[0minfo[0m] [0mSet current project to nwbib (in build file:/home/travis/build/hbz/nwbib/)[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/travis/build/hbz/nwbib/}root...[0m
+[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-lang3;3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#build-link;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-exceptions;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.javassist#javassist;3.18.2-GA ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-iteratees_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-iteratees_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-stm#scala-stm_2.11;0.7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-stm#scala-stm_2.11;0.7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe#config;1.2.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-datacommons_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-datacommons_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving joda-time#joda-time;2.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving joda-time#joda-time;2.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;1.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;1.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;11 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving io.netty#netty;3.9.9.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving io.netty#netty;3.9.9.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;9 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;9 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.netty#netty-http-pipelining;1.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.netty#netty-http-pipelining;1.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-api;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-api;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jul-to-slf4j;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jul-to-slf4j;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jcl-over-slf4j;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jcl-over-slf4j;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.7.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-core;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-core;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-parent;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-parent;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-classic;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-classic;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-parent;1.1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.3.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.3.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.3.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.3.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.9 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving xerces#xercesImpl;2.11.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving xml-apis#xml-apis;1.4.01 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving javax.transaction#jta;1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving javax.transaction#jta;1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving junit#junit;4.11 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving junit#junit;4.11 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-core;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-core;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-parent;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-parent;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-core_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-core_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-matcher_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-matcher_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-common_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-common_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-core_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-core_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-concurrent_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-concurrent_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-effect_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-effect_2.11;7.0.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-junit_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-junit_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-mock_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-mock_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.mockito#mockito-core;1.9.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.mockito#mockito-core;1.9.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.objenesis#objenesis;1.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.objenesis#objenesis;1.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-matcher-extra_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-matcher-extra_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-analysis_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2-analysis_2.11;2.3.12 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#classycle;1.4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.specs2#classycle;1.4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.novocode#junit-interface;0.11-RC1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.novocode#junit-interface;0.11-RC1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#test-interface;1.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;16.0.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;2.0.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;2.0.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-festassert;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-festassert;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-parent;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-parent;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-core;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-core;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-parent;0.9.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-java;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-java;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-android-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-android-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving cglib#cglib-nodep;2.1_3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving cglib#cglib-nodep;2.1_3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.json#json;20080701 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.json#json;20080701 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-api;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-api;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;15.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;15.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;15.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;15.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpclient;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpclient;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-client;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-client;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#project;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcore;4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcore;4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-core;4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-core;4.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#project;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-logging#commons-logging;1.1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-exec;1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-exec;1.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;17 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;17 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache#apache;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna;3.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna;3.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#platform;3.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#platform;3.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-chrome-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-chrome-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-htmlunit-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-htmlunit-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit;2.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit;2.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving xalan#xalan;2.7.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving xalan#serializer;2.7.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-collections#commons-collections;3.2.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpmime;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpmime;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-client;4.3.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit-core-js;2.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit-core-js;2.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.nekohtml#nekohtml;1.9.19 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.nekohtml#nekohtml;1.9.19 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.cssparser#cssparser;0.9.11 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.cssparser#cssparser;0.9.11 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.w3c.css#sac;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;24 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-websocket;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-websocket;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-project;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-project;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-parent;20 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-util;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-util;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-project;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-io;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-io;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-project;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-http;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-http;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-project;8.1.12.v20130726 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-firefox-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-firefox-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-ie-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-ie-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-iphone-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-iphone-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-safari-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-safari-driver;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.webbitserver#webbit;0.4.14 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.webbitserver#webbit;0.4.14 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-support;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-support;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-parent;2.39.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest-assert;1.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest-assert;1.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest;1.0.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest;1.0.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest-util;1.1.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest-util;1.1.6 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.easytesting#fest;1.0.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-java_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-java_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.yaml#snakeyaml;1.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.yaml#snakeyaml;1.13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hibernate#hibernate-validator;5.0.3.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hibernate#hibernate-validator;5.0.3.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hibernate#hibernate-validator-parent;5.0.3.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.hibernate#hibernate-validator-parent;5.0.3.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.arquillian#arquillian-bom;1.0.2.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.arquillian#arquillian-bom;1.0.2.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap#shrinkwrap-bom;1.0.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap#shrinkwrap-bom;1.0.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap.resolver#shrinkwrap-resolver-bom;1.0.0-beta-7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap.resolver#shrinkwrap-resolver-bom;1.0.0-beta-7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap.descriptors#shrinkwrap-descriptors-bom;2.0.0-alpha-3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.shrinkwrap.descriptors#shrinkwrap-descriptors-bom;2.0.0-alpha-3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving javax.validation#validation-api;1.1.0.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving javax.validation#validation-api;1.1.0.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.logging#jboss-logging;3.1.1.GA ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.logging#jboss-logging;3.1.1.GA ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss#jboss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss#jboss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#classmate;1.0.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#classmate;1.0.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.logging#jboss-logging;3.2.0.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss.logging#jboss-logging;3.2.0.Final ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss#jboss-parent;15 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.jboss#jboss-parent;15 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-context;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-context;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-core;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-core;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-beans;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.springframework#spring-beans;4.0.3.RELEASE ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.javassist#javassist;3.19.0-GA ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.javassist#javassist;3.19.0-GA ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.reflections#reflections;0.9.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.reflections#reflections;0.9.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.reflections#reflections-parent;0.9.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.reflections#reflections-parent;0.9.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving dom4j#dom4j;1.6.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving dom4j#dom4j;1.6.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.tomcat#tomcat-servlet-api;8.0.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.tomcat#tomcat-servlet-api;8.0.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-cache_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-cache_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sf.ehcache#ehcache-core;2.6.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sf.ehcache#ehcache-core;2.6.8 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sf.ehcache#ehcache-parent;2.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving net.sf.ehcache#ehcache-parent;2.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-java-ws_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-java-ws_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.ning#async-http-client;1.8.15 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.ning#async-http-client;1.8.15 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;9 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#signpost-core;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#signpost-core;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#oauth-signpost;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#oauth-signpost;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#signpost-commonshttp4;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#signpost-commonshttp4;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving oauth.signpost#oauth-signpost;1.2.1.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.elasticsearch#elasticsearch;1.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.elasticsearch#elasticsearch;1.3.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-core;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-core;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-solr-grandparent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-solr-grandparent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache#apache;13 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-analyzers-common;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-analyzers-common;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-codecs;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-codecs;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-queries;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-queries;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-memory;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-memory;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-highlighter;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-highlighter;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-queryparser;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-queryparser;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-sandbox;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-sandbox;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-suggest;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-suggest;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-misc;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-misc;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-join;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-join;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-grouping;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-grouping;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-spatial;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-spatial;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.apache.lucene#lucene-parent;4.9.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.spatial4j#spatial4j;0.4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.spatial4j#spatial4j;0.4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.antlr#antlr-runtime;3.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.antlr#antlr-runtime;3.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.antlr#antlr-master;3.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.antlr#antlr-master;3.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2#ow2;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2#ow2;1.3 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-commons;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-commons;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-docs_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-docs_2.11;2.3.10 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-doc_2.11;1.1.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-doc_2.11;1.1.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.pegdown#pegdown;1.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.pegdown#pegdown;1.4.0 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-java;1.1.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-java;1.1.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-core;1.1.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-core;1.1.5 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-tree;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-tree;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-analysis;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-analysis;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-util;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-util;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-parent;4.1 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.4 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2 ...[0m
+[A[2K[0m[[0minfo[0m] [0mResolving jline#jline;2.12 ...[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.2/scala-library-2.11.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.2!scala-library.jar (1820ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/twirl-api_2.11/1.0.2/twirl-api_2.11-1.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#twirl-api_2.11;1.0.2!twirl-api_2.11.jar (91ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play_2.11/2.3.10/play_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play_2.11;2.3.10!play_2.11.jar (1135ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-test_2.11/2.3.10/play-test_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-test_2.11;2.3.10!play-test_2.11.jar (105ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-java_2.11/2.3.10/play-java_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-java_2.11;2.3.10!play-java_2.11.jar (113ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-cache_2.11/2.3.10/play-cache_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-cache_2.11;2.3.10!play-cache_2.11.jar (80ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-java-ws_2.11/2.3.10/play-java-ws_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-java-ws_2.11;2.3.10!play-java-ws_2.11.jar (80ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/elasticsearch/elasticsearch/1.3.2/elasticsearch-1.3.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.elasticsearch#elasticsearch;1.3.2!elasticsearch.jar (3807ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/elasticsearch/elasticsearch/1.3.2/elasticsearch-1.3.2-sources.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.elasticsearch#elasticsearch;1.3.2!elasticsearch.jar(src) (1588ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.mockito#mockito-core;1.9.5!mockito-core.jar (468ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.1/scala-library-2.11.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-library;2.11.1!scala-library.jar (1583ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.commons#commons-lang3;3.1!commons-lang3.jar (160ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-iteratees_2.11/2.3.10/play-iteratees_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-iteratees_2.11;2.3.10!play-iteratees_2.11.jar (261ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-json_2.11/2.3.10/play-json_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-json_2.11;2.3.10!play-json_2.11.jar (231ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/io/netty/netty/3.9.9.Final/netty-3.9.9.Final.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] io.netty#netty;3.9.9.Final!netty.jar(bundle) (441ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo.typesafe.com/typesafe/releases/com/typesafe/netty/netty-http-pipelining/1.1.2/netty-http-pipelining-1.1.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.netty#netty-http-pipelining;1.1.2!netty-http-pipelining.jar (404ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.slf4j#slf4j-api;1.7.6!slf4j-api.jar (72ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.7.6/jul-to-slf4j-1.7.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.slf4j#jul-to-slf4j;1.7.6!jul-to-slf4j.jar (67ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.6/jcl-over-slf4j-1.7.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.slf4j#jcl-over-slf4j;1.7.6!jcl-over-slf4j.jar (75ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.1/logback-core-1.1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] ch.qos.logback#logback-core;1.1.1!logback-core.jar (182ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.1/logback-classic-1.1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] ch.qos.logback#logback-classic;1.1.1!logback-classic.jar (139ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.11/2.3.4/akka-actor_2.11-2.3.4.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-actor_2.11;2.3.4!akka-actor_2.11.jar (772ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.11/2.3.4/akka-slf4j_2.11-2.3.4.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-slf4j_2.11;2.3.4!akka-slf4j_2.11.jar (69ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-stm/scala-stm_2.11/0.7/scala-stm_2.11-0.7.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-stm#scala-stm_2.11;0.7!scala-stm_2.11.jar (237ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/joda-time/joda-time/2.3/joda-time-2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] joda-time#joda-time;2.3!joda-time.jar (226ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/joda/joda-convert/1.6/joda-convert-1.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.joda#joda-convert;1.6!joda-convert.jar (100ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.3.2/jackson-core-2.3.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-core;2.3.2!jackson-core.jar(bundle) (118ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.3.2/jackson-annotations-2.3.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-annotations;2.3.2!jackson-annotations.jar(bundle) (74ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.3.2/jackson-databind-2.3.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-databind;2.3.2!jackson-databind.jar(bundle) (313ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] javax.transaction#jta;1.1!jta.jar (67ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.1/scala-reflect-2.11.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.11.1!scala-reflect.jar (1262ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-functional_2.11/2.3.10/play-functional_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-functional_2.11;2.3.10!play-functional_2.11.jar (165ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-datacommons_2.11/2.3.10/play-datacommons_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-datacommons_2.11;2.3.10!play-datacommons_2.11.jar (61ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] junit#junit;4.11!junit.jar (128ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-core_2.11/2.3.12/specs2-core_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-core_2.11;2.3.12!specs2-core_2.11.jar (652ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-junit_2.11/2.3.12/specs2-junit_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-junit_2.11;2.3.12!specs2-junit_2.11.jar (118ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-mock_2.11/2.3.12/specs2-mock_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-mock_2.11;2.3.12!specs2-mock_2.11.jar (125ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-matcher-extra_2.11/2.3.12/specs2-matcher-extra_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-matcher-extra_2.11;2.3.12!specs2-matcher-extra_2.11.jar (207ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/novocode/junit-interface/0.11-RC1/junit-interface-0.11-RC1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.novocode#junit-interface;0.11-RC1!junit-interface.jar (69ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/2.0.3/jsr305-2.0.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.code.findbugs#jsr305;2.0.3!jsr305.jar (69ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/fluentlenium/fluentlenium-festassert/0.9.2/fluentlenium-festassert-0.9.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fluentlenium#fluentlenium-festassert;0.9.2!fluentlenium-festassert.jar (65ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.hamcrest#hamcrest-core;1.3!hamcrest-core.jar (73ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-matcher_2.11/2.3.12/specs2-matcher_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-matcher_2.11;2.3.12!specs2-matcher_2.11.jar (740ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-common_2.11/2.3.12/specs2-common_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-common_2.11;2.3.12!specs2-common_2.11.jar (493ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.11/7.0.6/scalaz-core_2.11-7.0.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-core_2.11;7.0.6!scalaz-core_2.11.jar(bundle) (2873ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.11/7.0.6/scalaz-concurrent_2.11-7.0.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-concurrent_2.11;7.0.6!scalaz-concurrent_2.11.jar(bundle) (166ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.11/7.0.6/scalaz-effect_2.11-7.0.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-effect_2.11;7.0.6!scalaz-effect_2.11.jar(bundle) (209ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/objenesis/objenesis/1.0/objenesis-1.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.objenesis#objenesis;1.0!objenesis.jar (72ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/specs2-analysis_2.11/2.3.12/specs2-analysis_2.11-2.3.12.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2-analysis_2.11;2.3.12!specs2-analysis_2.11.jar (91ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.0/scala-compiler-2.11.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.11.0!scala-compiler.jar (4117ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/specs2/classycle/1.4.3/classycle-1.4.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#classycle;1.4.3!classycle.jar (104ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/fluentlenium/fluentlenium-core/0.9.2/fluentlenium-core-0.9.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fluentlenium#fluentlenium-core;0.9.2!fluentlenium-core.jar (105ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/easytesting/fest-assert/1.4/fest-assert-1.4.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.easytesting#fest-assert;1.4!fest-assert.jar (87ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-java/2.39.0/selenium-java-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-java;2.39.0!selenium-java.jar (197ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-android-driver/2.39.0/selenium-android-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-android-driver;2.39.0!selenium-android-driver.jar (149ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/2.39.0/selenium-chrome-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-chrome-driver;2.39.0!selenium-chrome-driver.jar (66ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-htmlunit-driver/2.39.0/selenium-htmlunit-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-htmlunit-driver;2.39.0!selenium-htmlunit-driver.jar (80ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/2.39.0/selenium-firefox-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-firefox-driver;2.39.0!selenium-firefox-driver.jar (795ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/2.39.0/selenium-ie-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-ie-driver;2.39.0!selenium-ie-driver.jar (67ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-iphone-driver/2.39.0/selenium-iphone-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-iphone-driver;2.39.0!selenium-iphone-driver.jar (68ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/2.39.0/selenium-safari-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-safari-driver;2.39.0!selenium-safari-driver.jar (142ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-support/2.39.0/selenium-support-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-support;2.39.0!selenium-support.jar (121ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/webbitserver/webbit/0.4.14/webbit-0.4.14.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.webbitserver#webbit;0.4.14!webbit.jar (123ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/2.39.0/selenium-remote-driver-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-remote-driver;2.39.0!selenium-remote-driver.jar (150ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] cglib#cglib-nodep;2.1_3!cglib-nodep.jar (166ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/json/json/20080701/json-20080701.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.json#json;20080701!json.jar (72ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-api/2.39.0/selenium-api-2.39.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.seleniumhq.selenium#selenium-api;2.39.0!selenium-api.jar (112ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.1/httpclient-4.3.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.httpcomponents#httpclient;4.3.1!httpclient.jar (259ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;15.0!guava.jar(bundle) (699ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/commons/commons-exec/1.1/commons-exec-1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.commons#commons-exec;1.1!commons-exec.jar (79ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/java/dev/jna/jna/3.4.0/jna-3.4.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.java.dev.jna#jna;3.4.0!jna.jar (352ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.java.dev.jna#platform;3.4.0!platform.jar (329ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3/httpcore-4.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.httpcomponents#httpcore;4.3!httpcore.jar (152ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/sourceforge/htmlunit/htmlunit/2.13/htmlunit-2.13.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.sourceforge.htmlunit#htmlunit;2.13!htmlunit.jar (476ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/httpcomponents/httpmime/4.3.1/httpmime-4.3.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.httpcomponents#httpmime;4.3.1!httpmime.jar (72ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/sourceforge/htmlunit/htmlunit-core-js/2.13/htmlunit-core-js-2.13.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.sourceforge.htmlunit#htmlunit-core-js;2.13!htmlunit-core-js.jar (429ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/sourceforge/nekohtml/nekohtml/1.9.19/nekohtml-1.9.19.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.sourceforge.nekohtml#nekohtml;1.9.19!nekohtml.jar (102ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/sourceforge/cssparser/cssparser/0.9.11/cssparser-0.9.11.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.sourceforge.cssparser#cssparser;0.9.11!cssparser.jar (172ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/commons-io/commons-io/2.2/commons-io-2.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] commons-io#commons-io;2.2!commons-io.jar (114ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-websocket/8.1.12.v20130726/jetty-websocket-8.1.12.v20130726.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.eclipse.jetty#jetty-websocket;8.1.12.v20130726!jetty-websocket.jar (100ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-util/8.1.12.v20130726/jetty-util-8.1.12.v20130726.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.eclipse.jetty#jetty-util;8.1.12.v20130726!jetty-util.jar (148ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-io/8.1.12.v20130726/jetty-io-8.1.12.v20130726.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.eclipse.jetty#jetty-io;8.1.12.v20130726!jetty-io.jar (95ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-http/8.1.12.v20130726/jetty-http-8.1.12.v20130726.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.eclipse.jetty#jetty-http;8.1.12.v20130726!jetty-http.jar (96ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/easytesting/fest-util/1.1.6/fest-util-1.1.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.easytesting#fest-util;1.1.6!fest-util.jar (72ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.13/snakeyaml-1.13.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.yaml#snakeyaml;1.13!snakeyaml.jar(bundle) (145ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/hibernate/hibernate-validator/5.0.3.Final/hibernate-validator-5.0.3.Final.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.hibernate#hibernate-validator;5.0.3.Final!hibernate-validator.jar (246ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/jboss/logging/jboss-logging/3.2.0.Final/jboss-logging-3.2.0.Final.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.jboss.logging#jboss-logging;3.2.0.Final!jboss-logging.jar (83ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.springframework#spring-context;4.0.3.RELEASE!spring-context.jar (344ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/springframework/spring-core/4.0.3.RELEASE/spring-core-4.0.3.RELEASE.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.springframework#spring-core;4.0.3.RELEASE!spring-core.jar (374ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/springframework/spring-beans/4.0.3.RELEASE/spring-beans-4.0.3.RELEASE.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.springframework#spring-beans;4.0.3.RELEASE!spring-beans.jar (305ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.javassist#javassist;3.19.0-GA!javassist.jar(bundle) (357ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/reflections/reflections/0.9.8/reflections-0.9.8.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.reflections#reflections;0.9.8!reflections.jar (99ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/tomcat/tomcat-servlet-api/8.0.5/tomcat-servlet-api-8.0.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.tomcat#tomcat-servlet-api;8.0.5!tomcat-servlet-api.jar (146ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] javax.validation#validation-api;1.1.0.Final!validation-api.jar (86ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml#classmate;1.0.0!classmate.jar(bundle) (83ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] dom4j#dom4j;1.6.1!dom4j.jar (164ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/net/sf/ehcache/ehcache-core/2.6.8/ehcache-core-2.6.8.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] net.sf.ehcache#ehcache-core;2.6.8!ehcache-core.jar (451ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-ws_2.11/2.3.10/play-ws_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-ws_2.11;2.3.10!play-ws_2.11.jar (232ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/ning/async-http-client/1.8.15/async-http-client-1.8.15.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.ning#async-http-client;1.8.15!async-http-client.jar (214ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/oauth/signpost/signpost-core/1.2.1.2/signpost-core-1.2.1.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] oauth.signpost#signpost-core;1.2.1.2!signpost-core.jar (74ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/oauth/signpost/signpost-commonshttp4/1.2.1.2/signpost-commonshttp4-1.2.1.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] oauth.signpost#signpost-commonshttp4;1.2.1.2!signpost-commonshttp4.jar (63ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-core/4.9.0/lucene-core-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-core;4.9.0!lucene-core.jar (818ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-analyzers-common/4.9.0/lucene-analyzers-common-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-analyzers-common;4.9.0!lucene-analyzers-common.jar (647ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-codecs/4.9.0/lucene-codecs-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-codecs;4.9.0!lucene-codecs.jar (194ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-queries/4.9.0/lucene-queries-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-queries;4.9.0!lucene-queries.jar (126ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-memory/4.9.0/lucene-memory-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-memory;4.9.0!lucene-memory.jar (76ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-highlighter/4.9.0/lucene-highlighter-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-highlighter;4.9.0!lucene-highlighter.jar (117ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-queryparser/4.9.0/lucene-queryparser-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-queryparser;4.9.0!lucene-queryparser.jar (188ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-sandbox/4.9.0/lucene-sandbox-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-sandbox;4.9.0!lucene-sandbox.jar (116ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-suggest/4.9.0/lucene-suggest-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-suggest;4.9.0!lucene-suggest.jar (122ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-misc/4.9.0/lucene-misc-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-misc;4.9.0!lucene-misc.jar (103ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-join/4.9.0/lucene-join-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-join;4.9.0!lucene-join.jar (104ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-grouping/4.9.0/lucene-grouping-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-grouping;4.9.0!lucene-grouping.jar (159ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/apache/lucene/lucene-spatial/4.9.0/lucene-spatial-4.9.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.lucene#lucene-spatial;4.9.0!lucene-spatial.jar (112ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5/antlr-runtime-3.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.antlr#antlr-runtime;3.5!antlr-runtime.jar (112ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/ow2/asm/asm/4.1/asm-4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.ow2.asm#asm;4.1!asm.jar (85ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/ow2/asm/asm-commons/4.1/asm-commons-4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.ow2.asm#asm-commons;4.1!asm-commons.jar (82ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/spatial4j/spatial4j/0.4.1/spatial4j-0.4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.spatial4j#spatial4j;0.4.1!spatial4j.jar(bundle) (119ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/play/play-docs_2.11/2.3.10/play-docs_2.11-2.3.10.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-docs_2.11;2.3.10!play-docs_2.11.jar (2232ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo.typesafe.com/typesafe/releases/com/typesafe/play/play-doc_2.11/1.1.0/play-doc_2.11-1.1.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.play#play-doc_2.11;1.1.0!play-doc_2.11.jar (541ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/pegdown/pegdown/1.4.0/pegdown-1.4.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.pegdown#pegdown;1.4.0!pegdown.jar (85ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/parboiled/parboiled-java/1.1.5/parboiled-java-1.1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.parboiled#parboiled-java;1.1.5!parboiled-java.jar(bundle) (88ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/parboiled/parboiled-core/1.1.5/parboiled-core-1.1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.parboiled#parboiled-core;1.1.5!parboiled-core.jar(bundle) (117ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.ow2.asm#asm-tree;4.1!asm-tree.jar (75ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.ow2.asm#asm-analysis;4.1!asm-analysis.jar (70ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/ow2/asm/asm-util/4.1/asm-util-4.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.ow2.asm#asm-util;4.1!asm-util.jar (77ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.2/scala-compiler-2.11.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.11.2!scala-compiler.jar (3913ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.2/scala-reflect-2.11.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.11.2!scala-reflect.jar (1260ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.2/scala-xml_2.11-1.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.11;1.0.2!scala-xml_2.11.jar(bundle) (245ms)[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.2!scala-parser-combinators_2.11.jar(bundle) (175ms)[0m
+[0m[[0minfo[0m] [0mDone updating.[0m
+[0m[[0minfo[0m] [0mCompiling 27 Scala sources and 7 Java sources to /home/travis/build/hbz/nwbib/target/scala-2.11/classes...[0m
+[0m[[0minfo[0m] [0m'compiler-interface' not yet compiled for Scala 2.11.2. Compiling...[0m
+[0m[[0minfo[0m] [0m  Compilation completed in 32.524 s[0m
+[0m[[31merror[0m] [0m/home/travis/build/hbz/nwbib/app/views/index.scala.html:38: illegal start of simple expression[0m
+[0m[[31merror[0m] [0m      "@type": "WebSite",[0m
+[0m[[31merror[0m] [0m        ^[0m
+[0m[[31merror[0m] [0m/home/travis/build/hbz/nwbib/app/views/index.scala.html:47: ')' expected but '}' found.[0m
+[0m[[31merror[0m] [0m}[0m
+[0m[[31merror[0m] [0m ^[0m
+[0m[[31merror[0m] [0mtwo errors found[0m
+[0m[[31merror[0m] [0m(compile:[31mcompileIncremental[0m) Compilation failed[0m
+[0m[[31merror[0m] [0mTotal time: 115 s, completed Nov 19, 2015 12:39:04 PM[0m
+travis_time:end:05cd60aa:start=1447936379384892035,finish=1447936744864980689,duration=365480088654[0K
+[31;1mThe command "./activator-${ACTIVATOR_VERSION}-minimal/activator "test-only tests.ApplicationTest"" exited with 1.[0m
+
+Done. Your build exited with 1.

@@ -1,0 +1,466 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: scala
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+[33;1mUpdating sbt[0m
+$ cd levkhomich/akka-tracing
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ export JVM_OPTS=@/etc/sbt/jvmopts
+$ export SBT_OPTS=@/etc/sbt/sbtopts
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+Using Scala 2.10.3-RC3
+travis_time:start:02475ddc[0K$ sbt coveralls
+Detected sbt version 0.13.1
+Downloading sbt launcher for 0.13.1:
+  From  http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.1/sbt-launch.jar
+    To  /home/travis/.sbt/launchers/0.13.1/sbt-launch.jar
+Using jvm options defined in file /etc/sbt/jvmopts
+# Executing command line:
+/usr/lib/jvm/java-7-oracle/bin/java
+-Xms2048M
+-Xmx2048M
+-Xss6M
+-XX:MaxPermSize=512M
+-jar
+/home/travis/.sbt/launchers/0.13.1/sbt-launch.jar
+"set javaHome in ThisBuild := Some(file("/usr/lib/jvm/java-7-oracle"))"
+coveralls
+
+Getting org.scala-sbt sbt 0.13.1 ...
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt/0.13.1/jars/sbt.jar ...
+	[SUCCESSFUL ] org.scala-sbt#sbt;0.13.1!sbt.jar (1374ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/main/0.13.1/jars/main.jar ...
+	[SUCCESSFUL ] org.scala-sbt#main;0.13.1!main.jar (1883ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-interface/0.13.1/jars/compiler-interface-src.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-interface;0.13.1!compiler-interface-src.jar (1392ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-interface/0.13.1/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-interface;0.13.1!compiler-interface-bin.jar (1709ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_8_2/0.13.1/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_8_2;0.13.1!compiler-interface-bin.jar (1707ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_9_2/0.13.1/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_9_2;0.13.1!compiler-interface-bin.jar (1687ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/precompiled-2_9_3/0.13.1/jars/compiler-interface-bin.jar ...
+	[SUCCESSFUL ] org.scala-sbt#precompiled-2_9_3;0.13.1!compiler-interface-bin.jar (1746ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/actions/0.13.1/jars/actions.jar ...
+	[SUCCESSFUL ] org.scala-sbt#actions;0.13.1!actions.jar (1516ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/main-settings/0.13.1/jars/main-settings.jar ...
+	[SUCCESSFUL ] org.scala-sbt#main-settings;0.13.1!main-settings.jar (1423ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/interface/0.13.1/jars/interface.jar ...
+	[SUCCESSFUL ] org.scala-sbt#interface;0.13.1!interface.jar (1483ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/io/0.13.1/jars/io.jar ...
+	[SUCCESSFUL ] org.scala-sbt#io;0.13.1!io.jar (1416ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/ivy/0.13.1/jars/ivy.jar ...
+	[SUCCESSFUL ] org.scala-sbt#ivy;0.13.1!ivy.jar (1486ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/launcher-interface/0.13.1/jars/launcher-interface.jar ...
+	[SUCCESSFUL ] org.scala-sbt#launcher-interface;0.13.1!launcher-interface.jar (1764ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/logging/0.13.1/jars/logging.jar ...
+	[SUCCESSFUL ] org.scala-sbt#logging;0.13.1!logging.jar (1669ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/process/0.13.1/jars/process.jar ...
+	[SUCCESSFUL ] org.scala-sbt#process;0.13.1!process.jar (1851ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/run/0.13.1/jars/run.jar ...
+	[SUCCESSFUL ] org.scala-sbt#run;0.13.1!run.jar (1595ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/command/0.13.1/jars/command.jar ...
+	[SUCCESSFUL ] org.scala-sbt#command;0.13.1!command.jar (1661ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/classpath/0.13.1/jars/classpath.jar ...
+	[SUCCESSFUL ] org.scala-sbt#classpath;0.13.1!classpath.jar (1478ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/completion/0.13.1/jars/completion.jar ...
+	[SUCCESSFUL ] org.scala-sbt#completion;0.13.1!completion.jar (1424ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/api/0.13.1/jars/api.jar ...
+	[SUCCESSFUL ] org.scala-sbt#api;0.13.1!api.jar (1363ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-integration/0.13.1/jars/compiler-integration.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-integration;0.13.1!compiler-integration.jar (1454ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compiler-ivy-integration/0.13.1/jars/compiler-ivy-integration.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compiler-ivy-integration;0.13.1!compiler-ivy-integration.jar (1489ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/relation/0.13.1/jars/relation.jar ...
+	[SUCCESSFUL ] org.scala-sbt#relation;0.13.1!relation.jar (1422ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/task-system/0.13.1/jars/task-system.jar ...
+	[SUCCESSFUL ] org.scala-sbt#task-system;0.13.1!task-system.jar (1625ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/tasks/0.13.1/jars/tasks.jar ...
+	[SUCCESSFUL ] org.scala-sbt#tasks;0.13.1!tasks.jar (1589ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/tracking/0.13.1/jars/tracking.jar ...
+	[SUCCESSFUL ] org.scala-sbt#tracking;0.13.1!tracking.jar (1398ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/testing/0.13.1/jars/testing.jar ...
+	[SUCCESSFUL ] org.scala-sbt#testing;0.13.1!testing.jar (1647ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/control/0.13.1/jars/control.jar ...
+	[SUCCESSFUL ] org.scala-sbt#control;0.13.1!control.jar (1603ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/collections/0.13.1/jars/collections.jar ...
+	[SUCCESSFUL ] org.scala-sbt#collections;0.13.1!collections.jar (2295ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/incremental-compiler/0.13.1/jars/incremental-compiler.jar ...
+	[SUCCESSFUL ] org.scala-sbt#incremental-compiler;0.13.1!incremental-compiler.jar (1537ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/compile/0.13.1/jars/compile.jar ...
+	[SUCCESSFUL ] org.scala-sbt#compile;0.13.1!compile.jar (1907ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/persist/0.13.1/jars/persist.jar ...
+	[SUCCESSFUL ] org.scala-sbt#persist;0.13.1!persist.jar (1799ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/classfile/0.13.1/jars/classfile.jar ...
+	[SUCCESSFUL ] org.scala-sbt#classfile;0.13.1!classfile.jar (1556ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/cross/0.13.1/jars/cross.jar ...
+	[SUCCESSFUL ] org.scala-sbt#cross;0.13.1!cross.jar (1355ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/cache/0.13.1/jars/cache.jar ...
+	[SUCCESSFUL ] org.scala-sbt#cache;0.13.1!cache.jar (1601ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/test-agent/0.13.1/jars/test-agent.jar ...
+	[SUCCESSFUL ] org.scala-sbt#test-agent;0.13.1!test-agent.jar (1418ms)
+downloading http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/apply-macro/0.13.1/jars/apply-macro.jar ...
+	[SUCCESSFUL ] org.scala-sbt#apply-macro;0.13.1!apply-macro.jar (1520ms)
+:: retrieving :: org.scala-sbt#boot-app
+	confs: [default]
+	43 artifacts copied, 0 already retrieved (12646kB/101ms)
+[0m[[0minfo[0m] [0mLoading project definition from /home/travis/build/levkhomich/akka-tracing/project[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/travis/build/levkhomich/akka-tracing/project/}akka-tracing-build...[0m
+[0m[[0minfo[0m] [0mResolving com.sksamuel.scoverage#sbt-scoverage;0.95.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.sksamuel.scoverage#scalac-scoverage-plugin_2.10;0.95.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.4 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;25 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache#apache;9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.sksamuel.scoverage#sbt-coveralls;0.0.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;10 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.module#jackson-module-scala_2.10;2.2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;10 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.fasterxml#oss-parent;11 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.thoughtworks.paranamer#paranamer;2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.thoughtworks.paranamer#paranamer-parent;2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.codehaus#codehaus-parent;1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;2.0.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;13.0.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;13.0.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scalaj#scalaj-http_2.10;0.3.6 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.mockito#mockito-core;1.9.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-core;1.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-parent;1.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.objenesis#objenesis;1.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#sbt;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#main;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#actions;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#classpath;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#launcher-interface;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#interface;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#io;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#control;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#completion;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#collections;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving jline#jline;2.11 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#api;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#compiler-integration;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#incremental-compiler;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#logging;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#process;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#relation;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#compile;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#persist;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-tools.sbinary#sbinary_2.10;0.4.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#classfile;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#compiler-ivy-integration;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#ivy;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#cross;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.ivy#ivy;2.3.0-rc1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.jcraft#jsch;0.1.46 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#run;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#task-system;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#tasks;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#tracking;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#cache;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#testing;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#test-agent;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#test-interface;1.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#main-settings;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#apply-macro;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#command;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#compiler-interface;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#precompiled-2_8_2;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#precompiled-2_9_2;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#precompiled-2_9_3;0.13.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#jline;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.jansi#jansi;1.4 ...[0m
+[0m[[0minfo[0m] [0mdownloading http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.sksamuel.scoverage/sbt-scoverage/scala_2.10/sbt_0.13/0.95.1/jars/sbt-scoverage.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.sksamuel.scoverage#sbt-scoverage;0.95.1!sbt-scoverage.jar (1600ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.sksamuel.scoverage/sbt-coveralls/scala_2.10/sbt_0.13/0.0.5/jars/sbt-coveralls.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.sksamuel.scoverage#sbt-coveralls;0.0.5!sbt-coveralls.jar (1649ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/sksamuel/scoverage/scalac-scoverage-plugin_2.10/0.95.0/scalac-scoverage-plugin_2.10-0.95.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.sksamuel.scoverage#scalac-scoverage-plugin_2.10;0.95.0!scalac-scoverage-plugin_2.10.jar (247ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] commons-io#commons-io;2.4!commons-io.jar (135ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.2.3/jackson-core-2.2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-core;2.2.3!jackson-core.jar (128ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.10/2.2.3/jackson-module-scala_2.10-2.2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.module#jackson-module-scala_2.10;2.2.3!jackson-module-scala_2.10.jar(bundle) (160ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/scalaj/scalaj-http_2.10/0.3.6/scalaj-http_2.10-0.3.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaj#scalaj-http_2.10;0.3.6!scalaj-http_2.10.jar (110ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.mockito#mockito-core;1.9.5!mockito-core.jar (273ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-annotations;2.2.3!jackson-annotations.jar (102ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.2.3/jackson-databind-2.2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.fasterxml.jackson.core#jackson-databind;2.2.3!jackson-databind.jar (180ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer;2.3!paranamer.jar (108ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.code.findbugs#jsr305;2.0.1!jsr305.jar (102ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/google/guava/guava/13.0.1/guava-13.0.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;13.0.1!guava.jar (250ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.hamcrest#hamcrest-core;1.1!hamcrest-core.jar (105ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/objenesis/objenesis/1.0/objenesis-1.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.objenesis#objenesis;1.0!objenesis.jar (108ms)[0m
+[0m[[0minfo[0m] [0mDone updating.[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /home/travis/build/levkhomich/akka-tracing/project/target/scala-2.10/sbt-0.13/classes...[0m
+[0m[[0minfo[0m] [0mSet current project to akka-tracing (in build file:/home/travis/build/levkhomich/akka-tracing/)[0m
+[0m[[0minfo[0m] [0mDefining {.}/*:javaHome[0m
+[0m[[0minfo[0m] [0mThe new value will be used by akka-tracing-core/*:compilers, akka-tracing-core/*:console::compilers and 21 others.[0m
+[0m[[0minfo[0m] [0m	Run `last` for details.[0m
+[0m[[0minfo[0m] [0mReapplying settings...[0m
+[0m[[0minfo[0m] [0mSet current project to akka-tracing (in build file:/home/travis/build/levkhomich/akka-tracing/)[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/travis/build/levkhomich/akka-tracing/}akka-tracing-core...[0m
+[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.thrift#libthrift;0.9.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-api;1.5.8 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.5.8 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-lang3;3.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;22 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache#apache;9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpclient;4.2.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-client;4.2.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#project;6 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcore;4.2.4 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcomponents-core;4.2.4 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#project;6 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving commons-logging#commons-logging;1.1.1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache#apache;4 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.6 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-parent;22 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-log4j12;1.5.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-parent;1.5.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving log4j#log4j;1.2.14 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe#config;1.2.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-cluster_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-remote_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving io.netty#netty;3.8.0.Final ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.protobuf#protobuf-java;2.5.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google#google;1 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.uncommons.maths#uncommons-maths;1.2.2a ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-contrib_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-persistence-experimental_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.iq80.leveldb#leveldb;0.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.iq80.leveldb#leveldb-project;0.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.iq80.leveldb#leveldb-api;0.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.iq80.leveldb#leveldb-project;0.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;12.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;12.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;1.3.9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-all;1.7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource#fusesource-pom;1.9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni;1.7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.7 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.hawtjni#hawtjni-runtime;1.8 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.hawtjni#hawtjni-project;1.8 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource#fusesource-pom;1.9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-osx;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource#fusesource-pom;1.9 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-linux32;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-linux64;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-win32;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-win64;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.leveldbjni#leveldbjni-project;1.5 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.specs2#specs2_2.10;2.2.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-core_2.10;7.0.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-concurrent_2.10;7.0.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scalaz#scalaz-effect_2.10;7.0.2 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-testkit_2.10;2.3.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#jline;2.10.3 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving org.fusesource.jansi#jansi;1.4 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving com.sksamuel.scoverage#scalac-scoverage-plugin_2.10;0.95.0 ...[0m
+M[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.4 ...[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/apache/thrift/libthrift/0.9.1/libthrift-0.9.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.thrift#libthrift;0.9.1!libthrift.jar (438ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.5.2/slf4j-log4j12-1.5.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.slf4j#slf4j-log4j12;1.5.2!slf4j-log4j12.jar (137ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.3.0/akka-actor_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-actor_2.10;2.3.0!akka-actor_2.10.jar (3466ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-cluster_2.10/2.3.0/akka-cluster_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-cluster_2.10;2.3.0!akka-cluster_2.10.jar (243ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-contrib_2.10/2.3.0/akka-contrib_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-contrib_2.10;2.3.0!akka-contrib_2.10.jar (175ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.slf4j#slf4j-api;1.5.8!slf4j-api.jar (104ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.commons#commons-lang3;3.1!commons-lang3.jar (129ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.httpcomponents#httpclient;4.2.5!httpclient.jar (136ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.apache.httpcomponents#httpcore;4.2.4!httpcore.jar (118ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] commons-logging#commons-logging;1.1.1!commons-logging.jar (103ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] commons-codec#commons-codec;1.6!commons-codec.jar (116ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/log4j/log4j/1.2.14/log4j-1.2.14.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] log4j#log4j;1.2.14!log4j.jar (129ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/config/1.2.0/config-1.2.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe#config;1.2.0!config.jar(bundle) (116ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-remote_2.10/2.3.0/akka-remote_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-remote_2.10;2.3.0!akka-remote_2.10.jar (203ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/io/netty/netty/3.8.0.Final/netty-3.8.0.Final.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] io.netty#netty;3.8.0.Final!netty.jar(bundle) (184ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/2.5.0/protobuf-java-2.5.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.protobuf#protobuf-java;2.5.0!protobuf-java.jar(bundle) (134ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/uncommons/maths/uncommons-maths/1.2.2a/uncommons-maths-1.2.2a.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.uncommons.maths#uncommons-maths;1.2.2a!uncommons-maths.jar (103ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-persistence-experimental_2.10/2.3.0/akka-persistence-experimental_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-persistence-experimental_2.10;2.3.0!akka-persistence-experimental_2.10.jar (141ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/iq80/leveldb/leveldb/0.5/leveldb-0.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.iq80.leveldb#leveldb;0.5!leveldb.jar (111ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-all/1.7/leveldbjni-all-1.7.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-all;1.7!leveldbjni-all.jar(bundle) (157ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/iq80/leveldb/leveldb-api/0.5/leveldb-api-0.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.iq80.leveldb#leveldb-api;0.5!leveldb-api.jar (99ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/google/guava/guava/12.0/guava-12.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;12.0!guava.jar (195ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.code.findbugs#jsr305;1.3.9!jsr305.jar (101ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni/1.7/leveldbjni-1.7.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni;1.7!leveldbjni.jar (102ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-osx/1.5/leveldbjni-osx-1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-osx;1.5!leveldbjni-osx.jar (107ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-linux32/1.5/leveldbjni-linux32-1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-linux32;1.5!leveldbjni-linux32.jar (109ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-linux64/1.5/leveldbjni-linux64-1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-linux64;1.5!leveldbjni-linux64.jar (110ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-win32/1.5/leveldbjni-win32-1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-win32;1.5!leveldbjni-win32.jar (104ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/leveldbjni/leveldbjni-win64/1.5/leveldbjni-win64-1.5.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.leveldbjni#leveldbjni-win64;1.5!leveldbjni-win64.jar (106ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/fusesource/hawtjni/hawtjni-runtime/1.8/hawtjni-runtime-1.8.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.fusesource.hawtjni#hawtjni-runtime;1.8!hawtjni-runtime.jar (101ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/specs2/specs2_2.10/2.2.3/specs2_2.10-2.2.3.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.specs2#specs2_2.10;2.2.3!specs2_2.10.jar (413ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.3.0/akka-testkit_2.10-2.3.0.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe.akka#akka-testkit_2.10;2.3.0!akka-testkit_2.10.jar (108ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.0.2/scalaz-core_2.10-7.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-core_2.10;7.0.2!scalaz-core_2.10.jar(bundle) (360ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.10/7.0.2/scalaz-concurrent_2.10-7.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-concurrent_2.10;7.0.2!scalaz-concurrent_2.10.jar(bundle) (108ms)[0m
+[0m[[0minfo[0m] [0mdownloading http://repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.10/7.0.2/scalaz-effect_2.10-7.0.2.jar ...[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] org.scalaz#scalaz-effect_2.10;7.0.2!scalaz-effect_2.10.jar(bundle) (112ms)[0m
+[0m[[0minfo[0m] [0mDone updating.[0m
+[0m[[0minfo[0m] [0mCompiling 5 Scala sources and 9 Java sources to /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage-classes...[0m
+[0m[[0minfo[0m] [0mCompiling 5 Scala sources and 9 Java sources to /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/classes...[0m
+[scoverage]: Begin profiling phase
+[scoverage]: Profiling completed: 198 statements profiled
+[scoverage]: Written profile-file to /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage.coverage
+[scoverage]: Will write measurement data to /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage.measurement
+[0m[[33mwarn[0m] [0mNote: Some input files use unchecked or unsafe operations.[0m
+[0m[[33mwarn[0m] [0mNote: Recompile with -Xlint:unchecked for details.[0m
+[0m[[33mwarn[0m] [0mNote: Some input files use unchecked or unsafe operations.[0m
+[0m[[33mwarn[0m] [0mNote: Recompile with -Xlint:unchecked for details.[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage-test-classes...[0m
+[0m[[0minfo[0m] [0mTracingSpecification[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[37mTracingExtension should[0m[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[32m+[0m sample traces[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[32m+[0m corretly shutdown[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0m[37m[0m[0m
+[0m[[0minfo[0m] [0m[37m[0mTotal for specification TracingSpecification[0m
+[0m[[0minfo[0m] [0m[34mFinished in 4 seconds, 362 ms[0m[0m
+[0m[[0minfo[0m] [0m[34m[0m[34m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0mReading scoverage profile file: /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage.coverage[0m
+[0m[[0minfo[0m] [0mReading scoverage measurement file: /home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage.measurement[0m
+[0m[[0minfo[0m] [0mGenerating Cobertura XML report...[0m
+[0m[[0minfo[0m] [0mGenerating Scoverage XML report...[0m
+[0m[[0minfo[0m] [0mGenerating Scoverage HTML report...[0m
+sourceDirectory:/home/travis/build/levkhomich/akka-tracing/core/src/main/scala
+outputDir:/home/travis/build/levkhomich/akka-tracing/core/target/scala-2.10/scoverage-report
+[0m[[0minfo[0m] [0mScoverage reports completed[0m
+[0m[[0minfo[0m] [0mPassed: Total 2, Failed 0, Errors 0, Passed 2[0m
+[0m[[32msuccess[0m] [0mTotal time: 44 s, completed Nov 16, 2016 5:41:24 AM[0m
+[0m[[31merror[0m] [0mUploading to coveralls.io failed: Couldn't find a repository matching this job.[0m
+[0m[[32msuccess[0m] [0mTotal time: 46 s, completed Nov 16, 2016 5:41:26 AM[0m
+
+travis_time:end:02475ddc:start=1479274663858009264,finish=1479274886454580903,duration=222596571639[0K
+[32;1mThe command "sbt coveralls" exited with 0.[0m
+
+Done. Your build exited with 0.

@@ -1,0 +1,216 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd MrTJP/ProjectRed
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:before_script[0Ktravis_time:start:1572fed0[0K$ sudo apt-get install astyle expect
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  tcl8.5
+Suggested packages:
+  tclreadline
+The following NEW packages will be installed:
+  astyle expect tcl8.5
+0 upgraded, 3 newly installed, 0 to remove and 9 not upgraded.
+Need to get 1,423 kB of archives.
+After this operation, 4,697 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise/universe astyle amd64 2.01-1 [162 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise/main tcl8.5 amd64 8.5.11-1ubuntu1 [1,098 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise/main expect amd64 5.45-2 [163 kB]
+Fetched 1,423 kB in 0s (1,451 kB/s)
+Selecting previously unselected package astyle.
+(Reading database ... 72019 files and directories currently installed.)
+Unpacking astyle (from .../astyle_2.01-1_amd64.deb) ...
+Selecting previously unselected package tcl8.5.
+Unpacking tcl8.5 (from .../tcl8.5_8.5.11-1ubuntu1_amd64.deb) ...
+Selecting previously unselected package expect.
+Unpacking expect (from .../expect_5.45-2_amd64.deb) ...
+Processing triggers for man-db ...
+Setting up astyle (2.01-1) ...
+Setting up tcl8.5 (8.5.11-1ubuntu1) ...
+update-alternatives: using /usr/bin/tclsh8.5 to provide /usr/bin/tclsh (tclsh) in auto mode.
+Setting up expect (5.45-2) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+
+travis_time:end:1572fed0:start=1479511651096637102,finish=1479511665216213132,duration=14119576030[0Ktravis_fold:end:before_script[0Ktravis_time:start:00dc4640[0K$ ant test
+Buildfile: /home/travis/build/MrTJP/ProjectRed/build.xml
+    [mkdir] Created dir: /home/travis/build/MrTJP/build
+    [mkdir] Created dir: /home/travis/build/MrTJP/download
+    [mkdir] Created dir: /home/travis/build/MrTJP/dist/1.6.4/4.3.0-0
+
+test:
+
+download-forge:
+      [get] Getting: http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.6.4-9.11.1.965/forge-1.6.4-9.11.1.965-src.zip
+      [get] To: /home/travis/build/MrTJP/download/forge-1.6.4-9.11.1.965-src.zip
+
+install-forge:
+     [echo] Deleting old Forge
+     [echo] Installing Forge with args ' --no-assets'.
+    [unzip] Expanding: /home/travis/build/MrTJP/download/forge-1.6.4-9.11.1.965-src.zip into /home/travis/build/MrTJP/build
+     [exec] patching file commands.py
+     [exec] ================ Forge ModLoader Setup Start ===================
+     [exec] Checking MCP zip (may take time to download)
+     [exec] Downloaded mcp8.11.zip
+     [exec] Extracting MCP to '/home/travis/build/MrTJP/build/forge/mcp'
+     [exec] Setting up MCP
+     [exec] Patching commands.py
+     [exec]     Commands patch applied successfully
+     [exec] Copying FML conf
+     [exec] Creating Repackaged data
+     [exec]     Creating re-packaged srg
+     [exec]     Creating re-packaged exc
+     [exec]     Creating re-packaged MCP patches
+     [exec] Fixing MCP Workspace
+     [exec] Downloading 42 libraries
+     [exec]     launchwrapper-1.8.jar Done
+     [exec]     asm-debug-all-4.1.jar Done
+     [exec]     asm-debug-all-4.1-sources.jar Done
+     [exec]     scala-library-2.10.2.jar Done
+     [exec]     scala-library-2.10.2-sources.jar Done
+     [exec]     scala-compiler-2.10.2.jar Done
+     [exec]     scala-compiler-2.10.2-sources.jar Done
+     [exec]     jopt-simple-4.5.jar Done
+     [exec]     jopt-simple-4.5-sources.jar Done
+     [exec]     lzma-0.0.1.jar Done
+     [exec]     codecjorbis-20101023.jar Done
+     [exec]     codecwav-20101023.jar Done
+     [exec]     libraryjavasound-20101123.jar Done
+     [exec]     librarylwjglopenal-20100824.jar Done
+     [exec]     soundsystem-20120107.jar Done
+     [exec]     lwjgl-2.9.0.jar Done
+     [exec]     lwjgl-2.9.0-sources.jar Done
+     [exec]     lwjgl_util-2.9.0.jar Done
+     [exec]     lwjgl_util-2.9.0-sources.jar Done
+     [exec]     argo-2.25_fixed.jar Done
+     [exec]     argo-2.25.jar Done
+     [exec]     argo-2.25-sources.jar Done
+     [exec]     bcprov-jdk15on-1.47.jar Done
+     [exec]     bcprov-jdk15on-1.47-sources.jar Done
+     [exec]     guava-14.0.jar Done
+     [exec]     guava-14.0-sources.jar Done
+     [exec]     commons-lang3-3.1.jar Done
+     [exec]     commons-lang3-3.1-sources.jar Done
+     [exec]     commons-io-2.4.jar Done
+     [exec]     commons-io-2.4-sources.jar Done
+     [exec]     jinput-2.0.5.jar Done
+     [exec]     jinput-2.0.5-sources.jar Done
+     [exec]     jutils-1.0.0.jar Done
+     [exec]     jutils-1.0.0-sources.jar Done
+     [exec]     gson-2.2.2.jar Done
+     [exec]     gson-2.2.2-sources.jar Done
+     [exec]     lwjgl-platform-2.9.0-natives-windows.jar Done
+     [exec]         Extracting OpenAL32.dll
+     [exec]         Extracting OpenAL64.dll
+     [exec]         Extracting lwjgl.dll
+     [exec]         Extracting lwjgl64.dll
+     [exec]     lwjgl-platform-2.9.0-natives-osx.jar Done
+     [exec]         Extracting liblwjgl.jnilib
+     [exec]         Extracting openal.dylib
+     [exec]     lwjgl-platform-2.9.0-natives-linux.jar Done
+     [exec]         Extracting liblwjgl.so
+     [exec]         Extracting liblwjgl64.so
+     [exec]         Extracting libopenal.so
+     [exec]         Extracting libopenal64.so
+     [exec]     jinput-platform-2.0.5-natives-windows.jar Done
+     [exec]         Extracting jinput-dx8.dll
+     [exec]         Extracting jinput-dx8_64.dll
+     [exec]         Extracting jinput-raw.dll
+     [exec]         Extracting jinput-raw_64.dll
+     [exec]         Extracting jinput-wintab.dll
+     [exec]     jinput-platform-2.0.5-natives-osx.jar Done
+     [exec]         Extracting libjinput-osx.jnilib
+     [exec]     jinput-platform-2.0.5-natives-linux.jar Done
+     [exec]         Extracting libjinput-linux.so
+     [exec]         Extracting libjinput-linux64.so
+     [exec] Backing up client
+     [exec] Downloaded 1.6.4.jar
+     [exec] Backing up server
+     [exec] Download of minecraft_server.1.6.4.jar failed hash check, deleting abcf286a14f7aee82e8bf89270433509 ba3145656b1480122bd8759cecd7b7a1
+     [exec] Something failed verifying minecraft files, see log for details.
+     [exec] Decompile Exception: 1 
+
+BUILD FAILED
+/home/travis/build/MrTJP/ProjectRed/build.xml:584: The following error occurred while executing this line:
+/home/travis/build/MrTJP/ProjectRed/build.xml:187: exec returned: 1
+
+Total time: 1 minute 2 seconds
+
+travis_time:end:00dc4640:start=1479511665229308892,finish=1479511728561756194,duration=63332447302[0K
+[31;1mThe command "ant test" exited with 1.[0m
+
+Done. Your build exited with 1.

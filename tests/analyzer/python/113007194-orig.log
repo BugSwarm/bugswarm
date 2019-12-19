@@ -1,0 +1,340 @@
+Using worker: worker-linux-docker-231831da.prod.travis-ci.org:travis-linux-4
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-backports_multiverse_source_Sources.gz is not what the server reported 5886 5888
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 36669 36677
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-i386_Packages.gz is not what the server reported 36729 36733
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 213 not upgraded.
+Need to get 8,844 kB of archives.
+After this operation, 9,216 B disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.13 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.13 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.13 [1,179 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.13 [4,637 kB]
+Fetched 8,844 kB in 0s (22.7 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.13) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.13_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.13) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.13) ...
+Setting up libc6-dev (2.15-0ubuntu10.13) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0Ktravis_fold:start:git.checkout[0Ktravis_time:start:049455cc[0K$ git clone --depth=50 --branch=master https://github.com/wbond/package_control_channel.git wbond/package_control_channel
+Cloning into 'wbond/package_control_channel'...
+remote: Counting objects: 15476, done.[K
+remote: Compressing objects:   0% (1/6950)   [Kremote: Compressing objects:   1% (70/6950)   [Kremote: Compressing objects:   2% (139/6950)   [Kremote: Compressing objects:   3% (209/6950)   [Kremote: Compressing objects:   4% (278/6950)   [Kremote: Compressing objects:   5% (348/6950)   [Kremote: Compressing objects:   6% (417/6950)   [Kremote: Compressing objects:   7% (487/6950)   [Kremote: Compressing objects:   8% (556/6950)   [Kremote: Compressing objects:   9% (626/6950)   [Kremote: Compressing objects:  10% (695/6950)   [Kremote: Compressing objects:  11% (765/6950)   [Kremote: Compressing objects:  12% (834/6950)   [Kremote: Compressing objects:  13% (904/6950)   [Kremote: Compressing objects:  14% (973/6950)   [Kremote: Compressing objects:  15% (1043/6950)   [Kremote: Compressing objects:  16% (1112/6950)   [Kremote: Compressing objects:  17% (1182/6950)   [Kremote: Compressing objects:  18% (1251/6950)   [Kremote: Compressing objects:  19% (1321/6950)   [Kremote: Compressing objects:  20% (1390/6950)   [Kremote: Compressing objects:  21% (1460/6950)   [Kremote: Compressing objects:  22% (1529/6950)   [Kremote: Compressing objects:  23% (1599/6950)   [Kremote: Compressing objects:  24% (1668/6950)   [Kremote: Compressing objects:  25% (1738/6950)   [Kremote: Compressing objects:  26% (1807/6950)   [Kremote: Compressing objects:  27% (1877/6950)   [Kremote: Compressing objects:  28% (1946/6950)   [Kremote: Compressing objects:  29% (2016/6950)   [Kremote: Compressing objects:  30% (2085/6950)   [Kremote: Compressing objects:  31% (2155/6950)   [Kremote: Compressing objects:  32% (2224/6950)   [Kremote: Compressing objects:  33% (2294/6950)   [Kremote: Compressing objects:  34% (2363/6950)   [Kremote: Compressing objects:  35% (2433/6950)   [Kremote: Compressing objects:  36% (2502/6950)   [Kremote: Compressing objects:  37% (2572/6950)   [Kremote: Compressing objects:  38% (2641/6950)   [Kremote: Compressing objects:  39% (2711/6950)   [Kremote: Compressing objects:  40% (2780/6950)   [Kremote: Compressing objects:  41% (2850/6950)   [Kremote: Compressing objects:  42% (2919/6950)   [Kremote: Compressing objects:  43% (2989/6950)   [Kremote: Compressing objects:  44% (3058/6950)   [Kremote: Compressing objects:  45% (3128/6950)   [Kremote: Compressing objects:  46% (3197/6950)   [Kremote: Compressing objects:  47% (3267/6950)   [Kremote: Compressing objects:  48% (3336/6950)   [Kremote: Compressing objects:  49% (3406/6950)   [Kremote: Compressing objects:  50% (3475/6950)   [Kremote: Compressing objects:  51% (3545/6950)   [Kremote: Compressing objects:  52% (3614/6950)   [Kremote: Compressing objects:  53% (3684/6950)   [Kremote: Compressing objects:  54% (3753/6950)   [Kremote: Compressing objects:  55% (3823/6950)   [Kremote: Compressing objects:  56% (3892/6950)   [Kremote: Compressing objects:  57% (3962/6950)   [Kremote: Compressing objects:  58% (4031/6950)   [Kremote: Compressing objects:  59% (4101/6950)   [Kremote: Compressing objects:  60% (4170/6950)   [Kremote: Compressing objects:  61% (4240/6950)   [Kremote: Compressing objects:  62% (4309/6950)   [Kremote: Compressing objects:  63% (4379/6950)   [Kremote: Compressing objects:  64% (4448/6950)   [Kremote: Compressing objects:  65% (4518/6950)   [Kremote: Compressing objects:  66% (4587/6950)   [Kremote: Compressing objects:  67% (4657/6950)   [Kremote: Compressing objects:  68% (4726/6950)   [Kremote: Compressing objects:  69% (4796/6950)   [Kremote: Compressing objects:  70% (4865/6950)   [Kremote: Compressing objects:  71% (4935/6950)   [Kremote: Compressing objects:  72% (5004/6950)   [Kremote: Compressing objects:  73% (5074/6950)   [Kremote: Compressing objects:  74% (5143/6950)   [Kremote: Compressing objects:  75% (5213/6950)   [Kremote: Compressing objects:  76% (5282/6950)   [Kremote: Compressing objects:  77% (5352/6950)   [Kremote: Compressing objects:  78% (5421/6950)   [Kremote: Compressing objects:  79% (5491/6950)   [Kremote: Compressing objects:  80% (5560/6950)   [Kremote: Compressing objects:  81% (5630/6950)   [Kremote: Compressing objects:  82% (5699/6950)   [Kremote: Compressing objects:  83% (5769/6950)   [Kremote: Compressing objects:  84% (5838/6950)   [Kremote: Compressing objects:  85% (5908/6950)   [Kremote: Compressing objects:  86% (5977/6950)   [Kremote: Compressing objects:  87% (6047/6950)   [Kremote: Compressing objects:  88% (6116/6950)   [Kremote: Compressing objects:  89% (6186/6950)   [Kremote: Compressing objects:  90% (6255/6950)   [Kremote: Compressing objects:  91% (6325/6950)   [Kremote: Compressing objects:  92% (6394/6950)   [Kremote: Compressing objects:  93% (6464/6950)   [Kremote: Compressing objects:  94% (6533/6950)   [Kremote: Compressing objects:  95% (6603/6950)   [Kremote: Compressing objects:  96% (6672/6950)   [Kremote: Compressing objects:  97% (6742/6950)   [Kremote: Compressing objects:  98% (6811/6950)   [Kremote: Compressing objects:  99% (6881/6950)   [Kremote: Compressing objects: 100% (6950/6950)   [Kremote: Compressing objects: 100% (6950/6950), done.[K
+Receiving objects:   0% (1/15476)   Receiving objects:   1% (155/15476)   Receiving objects:   2% (310/15476)   Receiving objects:   3% (465/15476)   Receiving objects:   4% (620/15476)   Receiving objects:   5% (774/15476)   Receiving objects:   6% (929/15476)   Receiving objects:   7% (1084/15476)   Receiving objects:   8% (1239/15476)   Receiving objects:   9% (1393/15476)   Receiving objects:  10% (1548/15476)   Receiving objects:  11% (1703/15476)   Receiving objects:  12% (1858/15476)   Receiving objects:  13% (2012/15476)   Receiving objects:  14% (2167/15476)   Receiving objects:  15% (2322/15476)   Receiving objects:  16% (2477/15476)   Receiving objects:  17% (2631/15476)   Receiving objects:  18% (2786/15476)   Receiving objects:  19% (2941/15476)   Receiving objects:  20% (3096/15476)   Receiving objects:  21% (3250/15476)   Receiving objects:  22% (3405/15476)   Receiving objects:  23% (3560/15476)   Receiving objects:  24% (3715/15476)   Receiving objects:  25% (3869/15476)   Receiving objects:  26% (4024/15476)   Receiving objects:  27% (4179/15476)   Receiving objects:  28% (4334/15476)   Receiving objects:  29% (4489/15476)   Receiving objects:  30% (4643/15476)   Receiving objects:  31% (4798/15476)   Receiving objects:  32% (4953/15476)   Receiving objects:  33% (5108/15476)   Receiving objects:  34% (5262/15476)   Receiving objects:  35% (5417/15476)   Receiving objects:  36% (5572/15476)   Receiving objects:  37% (5727/15476)   Receiving objects:  38% (5881/15476)   Receiving objects:  39% (6036/15476)   Receiving objects:  40% (6191/15476)   Receiving objects:  41% (6346/15476)   Receiving objects:  42% (6500/15476)   Receiving objects:  43% (6655/15476)   Receiving objects:  44% (6810/15476)   Receiving objects:  45% (6965/15476)   Receiving objects:  46% (7119/15476)   Receiving objects:  47% (7274/15476)   Receiving objects:  48% (7429/15476)   Receiving objects:  49% (7584/15476)   Receiving objects:  50% (7738/15476)   Receiving objects:  51% (7893/15476)   Receiving objects:  52% (8048/15476)   Receiving objects:  53% (8203/15476)   Receiving objects:  54% (8358/15476)   Receiving objects:  55% (8512/15476)   Receiving objects:  56% (8667/15476)   Receiving objects:  57% (8822/15476)   Receiving objects:  58% (8977/15476)   Receiving objects:  59% (9131/15476)   Receiving objects:  60% (9286/15476)   Receiving objects:  61% (9441/15476)   Receiving objects:  62% (9596/15476)   Receiving objects:  63% (9750/15476)   Receiving objects:  64% (9905/15476)   Receiving objects:  65% (10060/15476)   Receiving objects:  66% (10215/15476)   Receiving objects:  67% (10369/15476)   Receiving objects:  68% (10524/15476)   Receiving objects:  69% (10679/15476)   Receiving objects:  70% (10834/15476)   Receiving objects:  71% (10988/15476)   Receiving objects:  72% (11143/15476)   Receiving objects:  73% (11298/15476)   Receiving objects:  74% (11453/15476)   Receiving objects:  75% (11607/15476)   Receiving objects:  76% (11762/15476)   Receiving objects:  77% (11917/15476)   Receiving objects:  78% (12072/15476)   Receiving objects:  79% (12227/15476)   Receiving objects:  80% (12381/15476)   Receiving objects:  81% (12536/15476)   Receiving objects:  82% (12691/15476)   Receiving objects:  83% (12846/15476)   Receiving objects:  84% (13000/15476)   Receiving objects:  85% (13155/15476)   Receiving objects:  86% (13310/15476)   Receiving objects:  87% (13465/15476)   Receiving objects:  88% (13619/15476)   Receiving objects:  89% (13774/15476)   Receiving objects:  90% (13929/15476)   Receiving objects:  91% (14084/15476)   Receiving objects:  92% (14238/15476)   Receiving objects:  93% (14393/15476)   Receiving objects:  94% (14548/15476)   Receiving objects:  95% (14703/15476)   Receiving objects:  96% (14857/15476)   Receiving objects:  97% (15012/15476)   Receiving objects:  98% (15167/15476)   remote: Total 15476 (delta 10689), reused 13285 (delta 8519), pack-reused 0[K
+Receiving objects:  99% (15322/15476)   Receiving objects: 100% (15476/15476)   Receiving objects: 100% (15476/15476), 3.01 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/10689)   Resolving deltas:   1% (162/10689)   Resolving deltas:  13% (1444/10689)   Resolving deltas:  14% (1574/10689)   Resolving deltas:  20% (2234/10689)   Resolving deltas:  21% (2286/10689)   Resolving deltas:  22% (2385/10689)   Resolving deltas:  24% (2603/10689)   Resolving deltas:  25% (2679/10689)   Resolving deltas:  29% (3154/10689)   Resolving deltas:  31% (3347/10689)   Resolving deltas:  34% (3670/10689)   Resolving deltas:  35% (3743/10689)   Resolving deltas:  36% (3854/10689)   Resolving deltas:  37% (4002/10689)   Resolving deltas:  39% (4212/10689)   Resolving deltas:  40% (4363/10689)   Resolving deltas:  42% (4495/10689)   Resolving deltas:  45% (4897/10689)   Resolving deltas:  46% (4920/10689)   Resolving deltas:  47% (5128/10689)   Resolving deltas:  48% (5199/10689)   Resolving deltas:  49% (5245/10689)   Resolving deltas:  50% (5345/10689)   Resolving deltas:  59% (6365/10689)   Resolving deltas:  60% (6421/10689)   Resolving deltas:  61% (6569/10689)   Resolving deltas:  64% (6852/10689)   Resolving deltas:  65% (6977/10689)   Resolving deltas:  66% (7083/10689)   Resolving deltas:  67% (7189/10689)   Resolving deltas:  69% (7384/10689)   Resolving deltas:  70% (7499/10689)   Resolving deltas:  71% (7682/10689)   Resolving deltas:  72% (7720/10689)   Resolving deltas:  73% (7809/10689)   Resolving deltas:  74% (7936/10689)   Resolving deltas:  75% (8024/10689)   Resolving deltas:  76% (8137/10689)   Resolving deltas:  77% (8238/10689)   Resolving deltas:  78% (8339/10689)   Resolving deltas:  79% (8469/10689)   Resolving deltas:  80% (8576/10689)   Resolving deltas:  81% (8665/10689)   Resolving deltas:  82% (8777/10689)   Resolving deltas:  83% (8918/10689)   Resolving deltas:  84% (9000/10689)   Resolving deltas:  85% (9107/10689)   Resolving deltas:  86% (9206/10689)   Resolving deltas:  87% (9303/10689)   Resolving deltas:  88% (9411/10689)   Resolving deltas:  89% (9517/10689)   Resolving deltas:  90% (9720/10689)   Resolving deltas:  91% (9727/10689)   Resolving deltas:  92% (9878/10689)   Resolving deltas:  93% (9951/10689)   Resolving deltas:  94% (10058/10689)   Resolving deltas:  95% (10159/10689)   Resolving deltas:  96% (10268/10689)   Resolving deltas:  97% (10370/10689)   Resolving deltas:  98% (10512/10689)   Resolving deltas:  99% (10587/10689)   Resolving deltas: 100% (10689/10689)   Resolving deltas: 100% (10689/10689), done.
+Checking connectivity... done.
+
+travis_time:end:049455cc:start=1456878930214833083,finish=1456878932007577773,duration=1792744690[0K$ cd wbond/package_control_channel
+$ git checkout -qf d117feeb171e745dd9f4decc92c2b64f106986e7
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+travis_time:start:19ab1952[0K$ source ~/virtualenv/python3.3/bin/activate
+
+travis_time:end:19ab1952:start=1456878935481098921,finish=1456878935485806698,duration=4707777[0K$ python --version
+Python 3.3.5
+$ pip --version
+pip 6.0.7 from /home/travis/virtualenv/python3.3.5/lib/python3.3/site-packages (python 3.3)
+Could not locate requirements.txt. Override the install: key in your .travis.yml to install dependencies.
+travis_time:start:00225a4b[0K$ python -m unittest
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................F.............
+======================================================================
+FAIL: test_repository_package_names('./repository/m.json', ...) (tests.test.DefaultRepositoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/build/wbond/package_control_channel/tests/test.py", line 100, in wrapper
+    return method(self, *params)
+  File "/home/travis/build/wbond/package_control_channel/tests/test.py", line 271, in _test_repository_package_names
+    "Packages must be sorted alphabetically (by name)")
+AssertionError: Lists differ: ['M3U Syntax', 'M68k Assembly'... != ['M3U Syntax', 'M68k Assembly'...
+
+First differing element 167:
+Multi Select Alphabetizer
+Multi line paste
+
+  ['M3U Syntax',
+   'M68k Assembly',
+   'MacDown App Menu',
+   'Macroptimize',
+   'Madebyphunky Color Scheme',
+   'Magento - TemplateCopy',
+   'MagentoSnippets',
+   'MagerunCommander',
+   'MagiclessQuotes',
+   'MagicPython',
+   'Magma',
+   'MagmaSnippets',
+   'Make File Executable',
+   'MakeExecutable',
+   'Makefile Plus',
+   'makensis',
+   'Mako',
+   'Man Page Support',
+   'Mandarin Peacock Color Scheme',
+   'ManiaScript',
+   'MantisBT',
+   'Map Snippets',
+   'Maperitive',
+   'MarieAssembly',
+   'Markboard',
+   'Markdown Extended',
+   'Markdown HTML Preview',
+   'Markdown Preview',
+   'Markdown Slideshow',
+   'Markdown to Clipboard',
+   'Markdown Todo',
+   'MarkdownBuild',
+   'MarkdownCodeBlockWrapper',
+   'MarkdownEditing',
+   'MarkdownHighlighting',
+   'MarkdownLight',
+   'MarkdownTOC',
+   'Marked App Menu',
+   'Marking Changed Rows',
+   'MarkLogic',
+   'Markmon real-time markdown preview',
+   'Marko',
+   'MarkPress',
+   'Marksy Convert',
+   'Markup Jira Confluence',
+   'Mask',
+   'MasmAssembly',
+   'Mason',
+   'Material Color Scheme',
+   'Material Nil',
+   'Material Theme',
+   'Material Theme - Appbar',
+   'Material Theme - White Panels',
+   'Materialize',
+   'Materialize-White-Panels',
+   'Materialized CSS Snippets',
+   'Matlab Completions',
+   'MatlabFilenameAutoComplete',
+   'Matrixify',
+   'MatrixList Snippets',
+   'Maude Syntax Highlighting',
+   'Maven',
+   'MavensMate',
+   'MaxPane',
+   'MayaSublime',
+   'Maybs Quit',
+   'Maze Syntax',
+   'MB Warband API',
+   'MCA Language',
+   'MDL Language',
+   'MDN Search',
+   'MDN Search Doc',
+   'MediaPlayer',
+   'Mediawiker',
+   'Melbourne Ipsum',
+   'MelonJS Completions',
+   'memTask',
+   'Mercurial',
+   'mercurial-for-sublime',
+   'Merge Variables',
+   'Merlin',
+   'Messages',
+   'MessagesPylint',
+   'MessagesSublemake',
+   'Meta Substitution',
+   'MetaQuotes (MQL4) Compiler',
+   'MetaQuotes (MQL4) Language Package',
+   'Meteor Autocomplete (TernJS)',
+   'Meteor Snippets',
+   'Method',
+   'MFScript',
+   'Micro16 Syntax',
+   'MikrotikScript',
+   'Milotic',
+   'Mina',
+   'Minecraft Command Format',
+   'Minifier',
+   'Minify',
+   'Minify JS To Clipboard',
+   'Minify on Save',
+   'MinimalFortran',
+   'MiniPy',
+   'Miniscript',
+   'MiniZinc Language',
+   'MinkExtension default feature step completions',
+   'MIPS Syntax',
+   'Mirodark Color Scheme',
+   'Missing Palette Commands',
+   'Mistral',
+   'MIT_Alloy',
+   'Mithrilizer',
+   'Miva Template Language (MVT)',
+   'MivaScript',
+   'MJML-syntax',
+   'Moai Debugger',
+   'MobileCaddy',
+   'MobileLogReader',
+   'Mocha Chai CoffeeScript',
+   'Mocha Coffee Snippets',
+   'Mocha Runner',
+   'Mocha Snippets',
+   'Modelica',
+   'Modelines',
+   'ModernPerl',
+   'Modific',
+   'ModJS - JavaScript Workflow Tooling',
+   'ModoPluginBuilder',
+   'Modula-2 Language Syntax',
+   'MODX Placeholder Snippets',
+   'MODx Revolution Snippets',
+   'Mojolicious',
+   'Monarch',
+   'MongoDB - PHP Completions',
+   'MongoExec',
+   'Mongomapper Snippets',
+   'Mongoose CoffeeScript',
+   'Monochrome Color Schemes',
+   'Monocyanide Colorscheme',
+   'Monokai - Spacegray',
+   'Monokai Blueberry Color Scheme',
+   'Monokai Extended',
+   'Monokai Gray',
+   'Monokai JSON+',
+   'Monokai Neue',
+   'MonoRun',
+   'Moo',
+   'Moodle Completions',
+   'MoonScript',
+   'Moonscripty',
+   'More Layouts',
+   'More Python Completions',
+   'Morse',
+   'Morse Code for Foundation',
+   'Moscow ML',
+   'Mote',
+   'Mou Markdown App (OSX)',
+   'MouseEventListener',
+   'Move By Paragraph',
+   'Move By Symbols',
+   'Move Tabs',
+   'MoveTab',
+   'Mplus',
+   'Mreq Color Scheme',
+   'MrIgor',
+   'MSBuild selector',
+   'Mscgen',
+   'MTML Completions',
++  'Multi line paste',
+   'Multi Select Alphabetizer',
+-  'Multi line paste',
+   'MultiEditUtils',
+   'MultiFill',
+   'MultiLang Color Scheme',
+   'MultipleSelectionScroller',
+   'MultiTaskBuild',
+   'Mussum Ipsum',
+   'Mustang Color Scheme',
+   'muukii',
+   'MvtAssign It',
+   'MXUnit',
+   'My Snippets',
+   'Mybb Template Editor',
+   'myPDDL',
+   'Myrkur Color Scheme',
+   'MySQL Snippets',
+   'MySublimeQL'] : Packages must be sorted alphabetically (by name)
+
+----------------------------------------------------------------------
+Ran 6508 tests in 0.747s
+
+FAILED (failures=1)
+
+travis_time:end:00225a4b:start=1456878935957671020,finish=1456878937170904968,duration=1213233948[0K
+[31;1mThe command "python -m unittest" exited with 1.[0m
+
+Done. Your build exited with 1.

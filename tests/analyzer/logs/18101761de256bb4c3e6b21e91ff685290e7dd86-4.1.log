@@ -1,0 +1,205 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd puniverse/capsule
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export GH_OAUTH_TOKEN=[secure]
+
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:install[0Ktravis_time:start:30195670[0K$ gradle -q assemble
+sonatype username or password not set
+/home/travis/.gradle/caches/modules-2/files-2.1/org.eclipse.aether/aether-connector-basic/1.0.0.v20140518/fd563f66fc1b6b908934639f87b4e0a0f43809c3/aether-connector-basic-1.0.0.v20140518.jar(org/eclipse/aether/connector/basic/BasicRepositoryConnectorFactory.class): warning: Cannot find annotation method 'value()' in type 'Named': class file for javax.inject.Named not found
+/home/travis/.gradle/caches/modules-2/files-2.1/org.eclipse.aether/aether-transport-http/1.0.0.v20140518/a5a17a9d97a3694182b0b3539d047014c8e01ad6/aether-transport-http-1.0.0.v20140518.jar(org/eclipse/aether/transport/http/HttpTransporterFactory.class): warning: Cannot find annotation method 'value()' in type 'Named'
+Note: /home/travis/build/puniverse/capsule/src/main/java/Capsule.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 warnings
+/home/travis/.gradle/caches/modules-2/files-2.1/org.eclipse.aether/aether-connector-basic/1.0.0.v20140518/fd563f66fc1b6b908934639f87b4e0a0f43809c3/aether-connector-basic-1.0.0.v20140518.jar(org/eclipse/aether/connector/basic/BasicRepositoryConnectorFactory.class): warning: Cannot find annotation method 'value()' in type 'Named': class file for javax.inject.Named not found
+/home/travis/.gradle/caches/modules-2/files-2.1/org.eclipse.aether/aether-transport-http/1.0.0.v20140518/a5a17a9d97a3694182b0b3539d047014c8e01ad6/aether-transport-http-1.0.0.v20140518.jar(org/eclipse/aether/transport/http/HttpTransporterFactory.class): warning: Cannot find annotation method 'value()' in type 'Named'
+/home/travis/build/puniverse/capsule/src/main/java/capsule/Jar.java:330: warning - Tag @link: reference not found: Pack200.Packer Pack200 packer
+/home/travis/build/puniverse/capsule/src/main/java/capsule/Jar.java:330: warning - Tag @link: reference not found: Pack200.Packer Pack200 packer
+/home/travis/build/puniverse/capsule/src/main/java/capsule/Jar.java:330: warning - Tag @link: reference not found: Pack200.Packer Pack200 packer
+5 warnings
+
+travis_time:end:30195670:start=1479238744227298632,finish=1479238777047815111,duration=32820516479[0Ktravis_fold:end:install[0Ktravis_time:start:027adee0[0K$ set -o pipefail; gradle -i check | sed 's/\e\[?.*?[\@-~]//g'
+Note: /home/travis/build/puniverse/capsule/src/test/java/CapsuleTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /home/travis/build/puniverse/capsule/src/test/java/CapsuleTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Starting Build
+Settings evaluated using settings file '/home/travis/build/puniverse/capsule/settings.gradle'.
+Projects loaded. Root project using build file '/home/travis/build/puniverse/capsule/build.gradle'.
+Included projects: [root project 'capsule']
+Evaluating root project 'capsule' using build file '/home/travis/build/puniverse/capsule/build.gradle'.
+sonatype username or password not set
+All projects evaluated.
+Selected primary task 'check' from project :
+Tasks to be executed: [task ':compileJava', task ':processResources', task ':classes', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':check']
+:compileJava (Thread[main,5,main]) started.
+:compileJava
+Skipping task ':compileJava' as it is up-to-date (took 0.594 secs).
+:compileJava UP-TO-DATE
+:compileJava (Thread[main,5,main]) completed. Took 0.69 secs.
+:processResources (Thread[main,5,main]) started.
+:processResources
+Skipping task ':processResources' as it has no source files.
+:processResources UP-TO-DATE
+:processResources (Thread[main,5,main]) completed. Took 0.001 secs.
+:classes (Thread[main,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes UP-TO-DATE
+:classes (Thread[main,5,main]) completed. Took 0.001 secs.
+:compileTestJava (Thread[main,5,main]) started.
+:compileTestJava
+Download https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.pom
+Download https://repo1.maven.org/maven2/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.pom
+Download https://repo1.maven.org/maven2/com/google/jimfs/jimfs/1.0-rc2/jimfs-1.0-rc2.pom
+Download https://repo1.maven.org/maven2/com/google/jimfs/jimfs-parent/1.0-rc2/jimfs-parent-1.0-rc2.pom
+Download https://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.pom
+Download https://repo1.maven.org/maven2/com/google/guava/guava-parent/16.0.1/guava-parent-16.0.1.pom
+Download https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.jar
+Download https://repo1.maven.org/maven2/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar
+Download https://repo1.maven.org/maven2/com/google/jimfs/jimfs/1.0-rc2/jimfs-1.0-rc2.jar
+Download https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+Download https://repo1.maven.org/maven2/com/google/guava/guava/16.0.1/guava-16.0.1.jar
+Executing task ':compileTestJava' (up-to-date check took 8.447 secs) due to:
+  No history is available.
+All input files are considered out-of-date for incremental task ':compileTestJava'.
+Compiling with JDK Java compiler API.
+:compileTestJava (Thread[main,5,main]) completed. Took 9.631 secs.
+:processTestResources (Thread[main,5,main]) started.
+:processTestResources
+Skipping task ':processTestResources' as it has no source files.
+:processTestResources UP-TO-DATE
+:processTestResources (Thread[main,5,main]) completed. Took 0.001 secs.
+:testClasses (Thread[main,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses (Thread[main,5,main]) completed. Took 0.0 secs.
+:test (Thread[main,5,main]) started.
+:test
+Download https://repo1.maven.org/maven2/org/eclipse/aether/aether-impl/1.0.0.v20140518/aether-impl-1.0.0.v20140518.pom
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-nop/1.7.7/slf4j-nop-1.7.7.pom
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-parent/1.7.7/slf4j-parent-1.7.7.pom
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.pom
+Download https://repo1.maven.org/maven2/org/eclipse/aether/aether-impl/1.0.0.v20140518/aether-impl-1.0.0.v20140518.jar
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-nop/1.7.7/slf4j-nop-1.7.7.jar
+Download https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar
+Executing task ':test' (up-to-date check took 0.91 secs) due to:
+  No history is available.
+[ant:null] Building jar: /home/travis/.gradle/caches/2.2.1/workerMain/gradle-worker.jar
+Starting process 'Gradle Test Executor 1'. Working directory: /home/travis/build/puniverse/capsule Command: /usr/lib/jvm/java-7-oracle/bin/java -Djava.security.manager=jarjar.org.gradle.process.internal.child.BootstrapSecurityManager -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant -ea -cp /home/travis/.gradle/caches/2.2.1/workerMain/gradle-worker.jar jarjar.org.gradle.process.internal.launcher.GradleWorkerMain 'Gradle Test Executor 1'
+Successfully started process 'Gradle Test Executor 1'
+Gradle Test Executor 1 started executing tests.
+
+capsule.JarTest > testUpdateJar STANDARD_OUT
+    foo.txt
+    dir/bar.txt
+    dir/baz.txt
+
+
+capsule.JarTest > testUpdateJar2 STANDARD_OUT
+    foo.txt
+    dir/bar.txt
+    dir/baz.txt
+
+
+capsule.JarTest > testCreateJar STANDARD_OUT
+    foo.txt
+    dir/bar.txt
+
+Gradle Test Executor 1 finished executing tests.
+Finished generating test XML results (0.003 secs) into: /home/travis/build/puniverse/capsule/build/test-results
+Generating HTML test report...
+Finished generating test html results (0.152 secs) into: /home/travis/build/puniverse/capsule/build/reports/tests
+:test (Thread[main,5,main]) completed. Took 2.798 secs.
+:check (Thread[main,5,main]) started.
+:check
+Skipping task ':check' as it has no actions.
+:check (Thread[main,5,main]) completed. Took 0.001 secs.
+
+BUILD SUCCESSFUL
+
+Total time: 19.894 secs
+Stopped 0 compiler daemon(s).
+
+travis_time:end:027adee0:start=1479238777053908399,finish=1479238797346235314,duration=20292326915[0K
+[32;1mThe command "set -o pipefail; gradle -i check | sed 's/\[?.*?[\@-~]//g'" exited with 0.[0m
+
+Done. Your build exited with 0.

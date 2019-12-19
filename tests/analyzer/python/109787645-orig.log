@@ -1,0 +1,1335 @@
+Using worker: worker-linux-docker-6ba2b4ee.prod.travis-ci.org:travis-linux-2
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:034b22f8[0K$ git clone --depth=50 --branch=v3/knrafto/mysql https://github.com/Cal-CS-61A-Staff/ok.git Cal-CS-61A-Staff/ok
+Cloning into 'Cal-CS-61A-Staff/ok'...
+remote: Counting objects: 2393, done.[K
+remote: Compressing objects:   0% (1/1373)   [Kremote: Compressing objects:   1% (14/1373)   [Kremote: Compressing objects:   2% (28/1373)   [Kremote: Compressing objects:   3% (42/1373)   [Kremote: Compressing objects:   4% (55/1373)   [Kremote: Compressing objects:   5% (69/1373)   [Kremote: Compressing objects:   6% (83/1373)   [Kremote: Compressing objects:   7% (97/1373)   [Kremote: Compressing objects:   8% (110/1373)   [Kremote: Compressing objects:   9% (124/1373)   [Kremote: Compressing objects:  10% (138/1373)   [Kremote: Compressing objects:  11% (152/1373)   [Kremote: Compressing objects:  12% (165/1373)   [Kremote: Compressing objects:  13% (179/1373)   [Kremote: Compressing objects:  14% (193/1373)   [Kremote: Compressing objects:  15% (206/1373)   [Kremote: Compressing objects:  16% (220/1373)   [Kremote: Compressing objects:  17% (234/1373)   [Kremote: Compressing objects:  18% (248/1373)   [Kremote: Compressing objects:  19% (261/1373)   [Kremote: Compressing objects:  20% (275/1373)   [Kremote: Compressing objects:  21% (289/1373)   [Kremote: Compressing objects:  22% (303/1373)   [Kremote: Compressing objects:  23% (316/1373)   [Kremote: Compressing objects:  24% (330/1373)   [Kremote: Compressing objects:  25% (344/1373)   [Kremote: Compressing objects:  26% (357/1373)   [Kremote: Compressing objects:  27% (371/1373)   [Kremote: Compressing objects:  28% (385/1373)   [Kremote: Compressing objects:  29% (399/1373)   [Kremote: Compressing objects:  30% (412/1373)   [Kremote: Compressing objects:  31% (426/1373)   [Kremote: Compressing objects:  32% (440/1373)   [Kremote: Compressing objects:  33% (454/1373)   [Kremote: Compressing objects:  34% (467/1373)   [Kremote: Compressing objects:  35% (481/1373)   [Kremote: Compressing objects:  36% (495/1373)   [Kremote: Compressing objects:  37% (509/1373)   [Kremote: Compressing objects:  38% (522/1373)   [Kremote: Compressing objects:  39% (536/1373)   [Kremote: Compressing objects:  40% (550/1373)   [Kremote: Compressing objects:  41% (563/1373)   [Kremote: Compressing objects:  42% (577/1373)   [Kremote: Compressing objects:  43% (591/1373)   [Kremote: Compressing objects:  44% (605/1373)   [Kremote: Compressing objects:  45% (618/1373)   [Kremote: Compressing objects:  46% (632/1373)   [Kremote: Compressing objects:  47% (646/1373)   [Kremote: Compressing objects:  48% (660/1373)   [Kremote: Compressing objects:  49% (673/1373)   [Kremote: Compressing objects:  50% (687/1373)   [Kremote: Compressing objects:  51% (701/1373)   [Kremote: Compressing objects:  52% (714/1373)   [Kremote: Compressing objects:  53% (728/1373)   [Kremote: Compressing objects:  54% (742/1373)   [Kremote: Compressing objects:  55% (756/1373)   [Kremote: Compressing objects:  56% (769/1373)   [Kremote: Compressing objects:  57% (783/1373)   [Kremote: Compressing objects:  58% (797/1373)   [Kremote: Compressing objects:  59% (811/1373)   [Kremote: Compressing objects:  60% (824/1373)   [Kremote: Compressing objects:  61% (838/1373)   [Kremote: Compressing objects:  62% (852/1373)   [Kremote: Compressing objects:  63% (865/1373)   [Kremote: Compressing objects:  64% (879/1373)   [Kremote: Compressing objects:  65% (893/1373)   [Kremote: Compressing objects:  66% (907/1373)   [Kremote: Compressing objects:  67% (920/1373)   [Kremote: Compressing objects:  68% (934/1373)   [Kremote: Compressing objects:  69% (948/1373)   [Kremote: Compressing objects:  70% (962/1373)   [Kremote: Compressing objects:  71% (975/1373)   [Kremote: Compressing objects:  72% (989/1373)   [Kremote: Compressing objects:  73% (1003/1373)   [Kremote: Compressing objects:  74% (1017/1373)   [Kremote: Compressing objects:  75% (1030/1373)   [Kremote: Compressing objects:  76% (1044/1373)   [Kremote: Compressing objects:  77% (1058/1373)   [Kremote: Compressing objects:  78% (1071/1373)   [Kremote: Compressing objects:  79% (1085/1373)   [Kremote: Compressing objects:  80% (1099/1373)   [Kremote: Compressing objects:  81% (1113/1373)   [Kremote: Compressing objects:  82% (1126/1373)   [Kremote: Compressing objects:  83% (1140/1373)   [Kremote: Compressing objects:  84% (1154/1373)   [Kremote: Compressing objects:  85% (1168/1373)   [Kremote: Compressing objects:  86% (1181/1373)   [Kremote: Compressing objects:  87% (1195/1373)   [Kremote: Compressing objects:  88% (1209/1373)   [Kremote: Compressing objects:  89% (1222/1373)   [Kremote: Compressing objects:  90% (1236/1373)   [Kremote: Compressing objects:  91% (1250/1373)   [Kremote: Compressing objects:  92% (1264/1373)   [Kremote: Compressing objects:  93% (1277/1373)   [Kremote: Compressing objects:  94% (1291/1373)   [Kremote: Compressing objects:  95% (1305/1373)   [Kremote: Compressing objects:  96% (1319/1373)   [Kremote: Compressing objects:  97% (1332/1373)   [Kremote: Compressing objects:  98% (1346/1373)   [Kremote: Compressing objects:  99% (1360/1373)   [Kremote: Compressing objects: 100% (1373/1373)   [Kremote: Compressing objects: 100% (1373/1373), done.[K
+Receiving objects:   0% (1/2393)   Receiving objects:   1% (24/2393)   Receiving objects:   2% (48/2393)   Receiving objects:   3% (72/2393)   Receiving objects:   4% (96/2393)   Receiving objects:   5% (120/2393)   Receiving objects:   6% (144/2393)   Receiving objects:   7% (168/2393)   Receiving objects:   8% (192/2393)   Receiving objects:   9% (216/2393)   Receiving objects:  10% (240/2393)   Receiving objects:  11% (264/2393)   Receiving objects:  12% (288/2393)   Receiving objects:  13% (312/2393)   Receiving objects:  14% (336/2393)   Receiving objects:  15% (359/2393)   Receiving objects:  16% (383/2393)   Receiving objects:  17% (407/2393)   Receiving objects:  18% (431/2393)   Receiving objects:  19% (455/2393)   Receiving objects:  20% (479/2393)   Receiving objects:  21% (503/2393)   Receiving objects:  22% (527/2393)   Receiving objects:  23% (551/2393)   Receiving objects:  24% (575/2393)   Receiving objects:  25% (599/2393)   Receiving objects:  26% (623/2393)   Receiving objects:  27% (647/2393)   Receiving objects:  28% (671/2393)   Receiving objects:  29% (694/2393)   Receiving objects:  30% (718/2393)   Receiving objects:  31% (742/2393)   Receiving objects:  32% (766/2393)   Receiving objects:  33% (790/2393)   Receiving objects:  34% (814/2393)   Receiving objects:  35% (838/2393)   Receiving objects:  36% (862/2393)   Receiving objects:  37% (886/2393)   Receiving objects:  38% (910/2393)   Receiving objects:  39% (934/2393)   Receiving objects:  40% (958/2393)   Receiving objects:  41% (982/2393)   Receiving objects:  42% (1006/2393)   Receiving objects:  43% (1029/2393)   Receiving objects:  44% (1053/2393)   Receiving objects:  45% (1077/2393)   Receiving objects:  46% (1101/2393)   Receiving objects:  47% (1125/2393)   Receiving objects:  48% (1149/2393)   Receiving objects:  49% (1173/2393)   Receiving objects:  50% (1197/2393)   Receiving objects:  51% (1221/2393)   Receiving objects:  52% (1245/2393)   Receiving objects:  53% (1269/2393)   Receiving objects:  54% (1293/2393)   Receiving objects:  55% (1317/2393)   Receiving objects:  56% (1341/2393)   Receiving objects:  57% (1365/2393)   Receiving objects:  58% (1388/2393)   Receiving objects:  59% (1412/2393)   Receiving objects:  60% (1436/2393)   Receiving objects:  61% (1460/2393)   Receiving objects:  62% (1484/2393)   Receiving objects:  63% (1508/2393)   Receiving objects:  64% (1532/2393)   Receiving objects:  65% (1556/2393)   Receiving objects:  66% (1580/2393)   Receiving objects:  67% (1604/2393)   Receiving objects:  68% (1628/2393)   Receiving objects:  69% (1652/2393)   Receiving objects:  70% (1676/2393)   remote: Total 2393 (delta 1118), reused 2216 (delta 986), pack-reused 0[K
+Receiving objects:  71% (1700/2393)   Receiving objects:  72% (1723/2393)   Receiving objects:  73% (1747/2393)   Receiving objects:  74% (1771/2393)   Receiving objects:  75% (1795/2393)   Receiving objects:  76% (1819/2393)   Receiving objects:  77% (1843/2393)   Receiving objects:  78% (1867/2393)   Receiving objects:  79% (1891/2393)   Receiving objects:  80% (1915/2393)   Receiving objects:  81% (1939/2393)   Receiving objects:  82% (1963/2393)   Receiving objects:  83% (1987/2393)   Receiving objects:  84% (2011/2393)   Receiving objects:  85% (2035/2393)   Receiving objects:  86% (2058/2393)   Receiving objects:  87% (2082/2393)   Receiving objects:  88% (2106/2393)   Receiving objects:  89% (2130/2393)   Receiving objects:  90% (2154/2393)   Receiving objects:  91% (2178/2393)   Receiving objects:  92% (2202/2393)   Receiving objects:  93% (2226/2393)   Receiving objects:  94% (2250/2393)   Receiving objects:  95% (2274/2393)   Receiving objects:  96% (2298/2393)   Receiving objects:  97% (2322/2393)   Receiving objects:  98% (2346/2393)   Receiving objects:  99% (2370/2393)   Receiving objects: 100% (2393/2393)   Receiving objects: 100% (2393/2393), 6.75 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/1118)   Resolving deltas:  13% (150/1118)   Resolving deltas:  14% (159/1118)   Resolving deltas:  15% (174/1118)   Resolving deltas:  21% (236/1118)   Resolving deltas:  22% (252/1118)   Resolving deltas:  23% (258/1118)   Resolving deltas:  24% (273/1118)   Resolving deltas:  25% (285/1118)   Resolving deltas:  28% (315/1118)   Resolving deltas:  29% (331/1118)   Resolving deltas:  30% (338/1118)   Resolving deltas:  31% (347/1118)   Resolving deltas:  32% (364/1118)   Resolving deltas:  33% (371/1118)   Resolving deltas:  35% (393/1118)   Resolving deltas:  36% (410/1118)   Resolving deltas:  37% (416/1118)   Resolving deltas:  38% (428/1118)   Resolving deltas:  39% (441/1118)   Resolving deltas:  40% (449/1118)   Resolving deltas:  41% (462/1118)   Resolving deltas:  42% (470/1118)   Resolving deltas:  43% (481/1118)   Resolving deltas:  44% (493/1118)   Resolving deltas:  46% (520/1118)   Resolving deltas:  47% (526/1118)   Resolving deltas:  48% (537/1118)   Resolving deltas:  49% (557/1118)   Resolving deltas:  50% (562/1118)   Resolving deltas:  51% (573/1118)   Resolving deltas:  52% (592/1118)   Resolving deltas:  53% (593/1118)   Resolving deltas:  54% (604/1118)   Resolving deltas:  56% (637/1118)   Resolving deltas:  57% (639/1118)   Resolving deltas:  62% (697/1118)   Resolving deltas:  63% (710/1118)   Resolving deltas:  64% (718/1118)   Resolving deltas:  65% (730/1118)   Resolving deltas:  66% (738/1118)   Resolving deltas:  68% (770/1118)   Resolving deltas:  69% (776/1118)   Resolving deltas:  70% (788/1118)   Resolving deltas:  72% (807/1118)   Resolving deltas:  73% (824/1118)   Resolving deltas:  74% (828/1118)   Resolving deltas:  75% (839/1118)   Resolving deltas:  77% (862/1118)   Resolving deltas:  78% (878/1118)   Resolving deltas:  79% (887/1118)   Resolving deltas:  80% (897/1118)   Resolving deltas:  81% (910/1118)   Resolving deltas:  82% (920/1118)   Resolving deltas:  84% (949/1118)   Resolving deltas:  85% (954/1118)   Resolving deltas:  88% (985/1118)   Resolving deltas:  89% (1006/1118)   Resolving deltas:  91% (1021/1118)   Resolving deltas:  92% (1032/1118)   Resolving deltas:  94% (1051/1118)   Resolving deltas:  96% (1083/1118)   Resolving deltas:  97% (1090/1118)   Resolving deltas:  98% (1096/1118)   Resolving deltas:  99% (1110/1118)   Resolving deltas: 100% (1118/1118)   Resolving deltas: 100% (1118/1118), done.
+Checking connectivity... done.
+
+travis_time:end:034b22f8:start=1455687685547267851,finish=1455687686766882751,duration=1219614900[0K$ cd Cal-CS-61A-Staff/ok
+$ git checkout -qf f1245c49e356580f81a89fb1681ec2995275562f
+travis_fold:end:git.checkout[0Ktravis_fold:start:services[0Ktravis_time:start:06c1651e[0K$ sudo service redis-server start
+redis-server start/running, process 1768
+
+travis_time:end:06c1651e:start=1455687686894757980,finish=1455687686919651209,duration=24893229[0Ktravis_fold:end:services[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export SERVER_ENV=sqlite
+
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:0ba9eeec[0K$ Installing caching utilities
+
+travis_time:end:0ba9eeec:start=1455687694779768831,finish=1455687694854204849,duration=74436018[0Ktravis_time:start:0e166598[0K
+travis_time:end:0e166598:start=1455687694858672189,finish=1455687694861720269,duration=3048080[0Ktravis_time:start:13fa5560[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching v3knraftomysql/cache--python-3.4.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:13fa5560:start=1455687694865535081,finish=1455687695673491771,duration=807956690[0Ktravis_time:start:06e7c3d2[0K
+travis_time:end:06e7c3d2:start=1455687695677233054,finish=1455687695680504107,duration=3271053[0Ktravis_time:start:038a0af3[0K[32;1madding /home/travis/.cache/pip to cache[0m
+[32;1madding /home/travis/build/Cal-CS-61A-Staff/ok/lib/python3.5/site-packages to cache[0m
+
+travis_time:end:038a0af3:start=1455687695684280568,finish=1455687697301335306,duration=1617054738[0Ktravis_fold:end:cache.1[0Ktravis_time:start:1eecb490[0K$ source ~/virtualenv/python3.4/bin/activate
+
+travis_time:end:1eecb490:start=1455687697305276214,finish=1455687697372617435,duration=67341221[0K$ python --version
+Python 3.4.2
+$ pip --version
+pip 6.0.7 from /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (python 3.4)
+travis_fold:start:install.1[0Ktravis_time:start:2d292982[0K$ pip install pip --upgrade
+Collecting pip from https://pypi.python.org/packages/py2.py3/p/pip/pip-8.0.2-py2.py3-none-any.whl#md5=2056f553d5b593d3a970296f229c1b79
+  Using cached pip-8.0.2-py2.py3-none-any.whl
+Installing collected packages: pip
+  Found existing installation: pip 6.0.7
+    Uninstalling pip-6.0.7:
+      Successfully uninstalled pip-6.0.7
+
+Successfully installed pip-8.0.2
+
+travis_time:end:2d292982:start=1455687697896282434,finish=1455687699694233193,duration=1797950759[0Ktravis_fold:end:install.1[0Ktravis_fold:start:install.2[0Ktravis_time:start:07ad36e2[0K$ pip install -r requirements.txt
+Collecting Flask==0.10.1 (from -r requirements.txt (line 1))
+Collecting pymysql (from -r requirements.txt (line 4))
+  Using cached PyMySQL-0.7.1-py2.py3-none-any.whl
+Collecting redis==2.10.5 (from -r requirements.txt (line 7))
+  Using cached redis-2.10.5-py2.py3-none-any.whl
+Collecting rq==0.5.6 (from -r requirements.txt (line 10))
+  Using cached rq-0.5.6-py2.py3-none-any.whl
+Collecting rq-dashboard==0.3.5 (from -r requirements.txt (line 11))
+  Using cached rq_dashboard-0.3.5-py2.py3-none-any.whl
+Collecting WTForms<3.0,>=2.0 (from -r requirements.txt (line 14))
+Collecting Flask-Assets==0.11 (from -r requirements.txt (line 17))
+Collecting Flask-Cache==0.13.1 (from -r requirements.txt (line 18))
+Collecting Flask-DebugToolbar==0.10.0 (from -r requirements.txt (line 19))
+Collecting Flask-Login==0.3.2 (from -r requirements.txt (line 20))
+Collecting Flask-SQLAlchemy==2.1 (from -r requirements.txt (line 21))
+Collecting Flask-Script==2.0.5 (from -r requirements.txt (line 22))
+Collecting Flask-WTF==0.12 (from -r requirements.txt (line 23))
+Collecting Flask-Migrate==1.7.0 (from -r requirements.txt (line 24))
+Collecting Flask-OAuthlib==0.9.2 (from -r requirements.txt (line 25))
+Collecting Flask-RESTful==0.3.5 (from -r requirements.txt (line 26))
+  Using cached Flask_RESTful-0.3.5-py2.py3-none-any.whl
+Collecting Flask-Testing==0.4.2 (from -r requirements.txt (line 27))
+Collecting Flask-RQ==0.2 (from -r requirements.txt (line 28))
+Collecting pytz (from -r requirements.txt (line 31))
+  Using cached pytz-2015.7-py2.py3-none-any.whl
+Collecting sendgrid==1.5.20 (from -r requirements.txt (line 34))
+Collecting premailer==2.9.7 (from -r requirements.txt (line 35))
+  Using cached premailer-2.9.7-py2.py3-none-any.whl
+Collecting itsdangerous==0.24 (from -r requirements.txt (line 38))
+Collecting cssmin==0.2.0 (from -r requirements.txt (line 39))
+Collecting jsmin==2.2.0 (from -r requirements.txt (line 40))
+Collecting hashids==1.1.0 (from -r requirements.txt (line 41))
+Collecting pygments==2.1 (from -r requirements.txt (line 42))
+  Using cached Pygments-2.1-py3-none-any.whl
+Collecting humanize==0.5.1 (from -r requirements.txt (line 43))
+Collecting pytest==2.8.5 (from -r requirements.txt (line 46))
+  Using cached pytest-2.8.5-py2.py3-none-any.whl
+Collecting pytest-cov==2.2.0 (from -r requirements.txt (line 47))
+  Using cached pytest_cov-2.2.0-py2.py3-none-any.whl
+Collecting mccabe==0.3.1 (from -r requirements.txt (line 48))
+  Using cached mccabe-0.3.1-py2.py3-none-any.whl
+Collecting flake8==2.5.1 (from -r requirements.txt (line 49))
+  Using cached flake8-2.5.1-py2.py3-none-any.whl
+Collecting pylint==1.5.2 (from -r requirements.txt (line 50))
+  Using cached pylint-1.5.2-py2.py3-none-any.whl
+Collecting Jinja2>=2.4 (from Flask==0.10.1->-r requirements.txt (line 1))
+  Using cached Jinja2-2.8-py2.py3-none-any.whl
+Collecting Werkzeug>=0.7 (from Flask==0.10.1->-r requirements.txt (line 1))
+  Using cached Werkzeug-0.11.4-py2.py3-none-any.whl
+Collecting click>=3.0 (from rq==0.5.6->-r requirements.txt (line 10))
+  Using cached click-6.2-py2.py3-none-any.whl
+Collecting arrow (from rq-dashboard==0.3.5->-r requirements.txt (line 11))
+Collecting webassets>=0.11 (from Flask-Assets==0.11->-r requirements.txt (line 17))
+Collecting Blinker (from Flask-DebugToolbar==0.10.0->-r requirements.txt (line 19))
+Collecting SQLAlchemy>=0.7 (from Flask-SQLAlchemy==2.1->-r requirements.txt (line 21))
+Collecting alembic>=0.6 (from Flask-Migrate==1.7.0->-r requirements.txt (line 24))
+Collecting oauthlib>=0.6.2 (from Flask-OAuthlib==0.9.2->-r requirements.txt (line 25))
+Collecting requests-oauthlib>=0.5.0 (from Flask-OAuthlib==0.9.2->-r requirements.txt (line 25))
+  Using cached requests_oauthlib-0.6.0-py2.py3-none-any.whl
+Collecting six>=1.3.0 (from Flask-RESTful==0.3.5->-r requirements.txt (line 26))
+  Using cached six-1.10.0-py2.py3-none-any.whl
+Collecting aniso8601>=0.82 (from Flask-RESTful==0.3.5->-r requirements.txt (line 26))
+Collecting smtpapi==0.2.0 (from sendgrid==1.5.20->-r requirements.txt (line 34))
+Collecting cssutils (from premailer==2.9.7->-r requirements.txt (line 35))
+Collecting cssselect (from premailer==2.9.7->-r requirements.txt (line 35))
+Collecting lxml (from premailer==2.9.7->-r requirements.txt (line 35))
+Collecting py>=1.4.29 (from pytest==2.8.5->-r requirements.txt (line 46))
+  Using cached py-1.4.31-py2.py3-none-any.whl
+Collecting coverage>=3.7.1 (from pytest-cov==2.2.0->-r requirements.txt (line 47))
+Collecting pep8!=1.6.0,!=1.6.1,!=1.6.2,>=1.5.7 (from flake8==2.5.1->-r requirements.txt (line 49))
+  Using cached pep8-1.7.0-py2.py3-none-any.whl
+Collecting pyflakes<1.1,>=0.8.1 (from flake8==2.5.1->-r requirements.txt (line 49))
+  Using cached pyflakes-1.0.0-py2.py3-none-any.whl
+Collecting astroid>=1.4.1 (from pylint==1.5.2->-r requirements.txt (line 50))
+  Using cached astroid-1.4.4-py2.py3-none-any.whl
+Collecting colorama (from pylint==1.5.2->-r requirements.txt (line 50))
+  Using cached colorama-0.3.6-py2.py3-none-any.whl
+Collecting MarkupSafe (from Jinja2>=2.4->Flask==0.10.1->-r requirements.txt (line 1))
+Collecting python-dateutil (from arrow->rq-dashboard==0.3.5->-r requirements.txt (line 11))
+  Using cached python_dateutil-2.4.2-py2.py3-none-any.whl
+Collecting Mako (from alembic>=0.6->Flask-Migrate==1.7.0->-r requirements.txt (line 24))
+Collecting python-editor>=0.3 (from alembic>=0.6->Flask-Migrate==1.7.0->-r requirements.txt (line 24))
+Collecting requests>=2.0.0 (from requests-oauthlib>=0.5.0->Flask-OAuthlib==0.9.2->-r requirements.txt (line 25))
+  Using cached requests-2.9.1-py2.py3-none-any.whl
+Collecting lazy-object-proxy (from astroid>=1.4.1->pylint==1.5.2->-r requirements.txt (line 50))
+Collecting wrapt (from astroid>=1.4.1->pylint==1.5.2->-r requirements.txt (line 50))
+Installing collected packages: MarkupSafe, Jinja2, itsdangerous, Werkzeug, Flask, pymysql, redis, click, rq, six, python-dateutil, arrow, rq-dashboard, WTForms, webassets, Flask-Assets, Flask-Cache, Blinker, Flask-DebugToolbar, Flask-Login, SQLAlchemy, Flask-SQLAlchemy, Flask-Script, Flask-WTF, Mako, python-editor, alembic, Flask-Migrate, oauthlib, requests, requests-oauthlib, Flask-OAuthlib, pytz, aniso8601, Flask-RESTful, Flask-Testing, Flask-RQ, smtpapi, sendgrid, cssutils, cssselect, lxml, premailer, cssmin, jsmin, hashids, pygments, humanize, py, pytest, coverage, pytest-cov, mccabe, pep8, pyflakes, flake8, lazy-object-proxy, wrapt, astroid, colorama, pylint
+  Found existing installation: py 1.4.26
+    Uninstalling py-1.4.26:
+      Successfully uninstalled py-1.4.26
+  Found existing installation: pytest 2.6.4
+    Uninstalling pytest-2.6.4:
+      Successfully uninstalled pytest-2.6.4
+Successfully installed Blinker-1.4 Flask-0.10.1 Flask-Assets-0.11 Flask-Cache-0.13.1 Flask-DebugToolbar-0.10.0 Flask-Login-0.3.2 Flask-Migrate-1.7.0 Flask-OAuthlib-0.9.2 Flask-RESTful-0.3.5 Flask-RQ-0.2 Flask-SQLAlchemy-2.1 Flask-Script-2.0.5 Flask-Testing-0.4.2 Flask-WTF-0.12 Jinja2-2.8 Mako-1.0.3 MarkupSafe-0.23 SQLAlchemy-1.0.12 WTForms-2.1 Werkzeug-0.11.4 alembic-0.8.4 aniso8601-1.1.0 arrow-0.7.0 astroid-1.4.4 click-6.2 colorama-0.3.6 coverage-4.0.3 cssmin-0.2.0 cssselect-0.9.1 cssutils-1.0.1 flake8-2.5.1 hashids-1.1.0 humanize-0.5.1 itsdangerous-0.24 jsmin-2.2.0 lazy-object-proxy-1.2.1 lxml-3.5.0 mccabe-0.3.1 oauthlib-1.0.3 pep8-1.7.0 premailer-2.9.7 py-1.4.31 pyflakes-1.0.0 pygments-2.1 pylint-1.5.2 pymysql-0.7.1 pytest-2.8.5 pytest-cov-2.2.0 python-dateutil-2.4.2 python-editor-0.5 pytz-2015.7 redis-2.10.5 requests-2.9.1 requests-oauthlib-0.6.0 rq-0.5.6 rq-dashboard-0.3.5 sendgrid-1.5.20 six-1.10.0 smtpapi-0.2.0 webassets-0.11.1 wrapt-1.10.6
+
+travis_time:end:07ad36e2:start=1455687699699240487,finish=1455687710311144145,duration=10611903658[0Ktravis_fold:end:install.2[0Ktravis_fold:start:install.3[0Ktravis_time:start:1de2b068[0K$ pip install python-coveralls
+Collecting python-coveralls
+  Using cached python_coveralls-2.6.0-py2.py3-none-any.whl
+Requirement already satisfied (use --upgrade to upgrade): coverage==4.0.3 in /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (from python-coveralls)
+Collecting sh (from python-coveralls)
+Requirement already satisfied (use --upgrade to upgrade): six in /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (from python-coveralls)
+Collecting PyYAML (from python-coveralls)
+Requirement already satisfied (use --upgrade to upgrade): requests in /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (from python-coveralls)
+Installing collected packages: sh, PyYAML, python-coveralls
+Successfully installed PyYAML-3.11 python-coveralls-2.6.0 sh-1.11
+
+travis_time:end:1de2b068:start=1455687710316364290,finish=1455687713271850721,duration=2955486431[0Ktravis_fold:end:install.3[0Ktravis_time:start:0c0a0ef8[0K$ make test
+py.test --cov-report term-missing --cov=server tests/
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.4.2, pytest-2.8.5, py-1.4.31, pluggy-0.3.1
+rootdir: /home/travis/build/Cal-CS-61A-Staff/ok, inifile: 
+plugins: cov-2.2.0
+[1mcollecting 0 items[0m[1mcollecting 0 items[0m[1mcollecting 5 items[0m[1mcollecting 5 items[0m[1mcollecting 5 items[0m[1mcollecting 9 items[0m[1mcollecting 9 items[0m[1mcollecting 11 items[0m[1mcollecting 11 items[0m[1mcollecting 11 items[0m[1mcollecting 11 items[0m[1mcollecting 27 items[0m[1mcollecting 27 items[0m[1mcollecting 27 items[0m[1mcollecting 29 items[0m[1mcollecting 29 items[0m[1mcollecting 29 items[0m[1mcollecting 30 items[0m[1mcollecting 30 items[0m[1mcollecting 30 items[0m[1mcollecting 39 items[0m[1mcollecting 39 items[0m[1mcollecting 39 items[0m[1mcollecting 40 items[0m[1mcollecting 40 items[0m[1mcollecting 40 items[0m[1mcollecting 41 items[0m[1mcollecting 41 items[0m[1mcollected 41 items 
+[0m
+tests/test_api.py FFFFF
+tests/test_auth.py FFFF
+tests/test_config.py ..
+tests/test_group.py FFFFFFFFFFFFFFFF
+tests/test_highlight.py FF
+tests/test_main.py F
+tests/test_submission.py FFFFFFFFF
+tests/test_user.py F
+tests/test_utils.py F
+
+=================================== FAILURES ===================================
+[31m[1m______________________________ TestAuth.test_api _______________________________[0m
+
+self = <tests.test_api.TestAuth testMethod=test_api>
+result = <TestCaseFunction 'test_api'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_api.TestAuth testMethod=test_api>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_____________________________ TestAuth.test_backup _____________________________[0m
+
+self = <tests.test_api.TestAuth testMethod=test_backup>
+result = <TestCaseFunction 'test_backup'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_api.TestAuth testMethod=test_backup>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m________________________ TestAuth.test_non_existant_api ________________________[0m
+
+self = <tests.test_api.TestAuth testMethod=test_non_existant_api>
+result = <TestCaseFunction 'test_non_existant_api'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_api.TestAuth testMethod=test_non_existant_api>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_____________________________ TestAuth.test_submit _____________________________[0m
+
+self = <tests.test_api.TestAuth testMethod=test_submit>
+result = <TestCaseFunction 'test_submit'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_api.TestAuth testMethod=test_submit>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m__________________________ TestAuth.test_version_api ___________________________[0m
+
+self = <tests.test_api.TestAuth testMethod=test_version_api>
+result = <TestCaseFunction 'test_version_api'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_api.TestAuth testMethod=test_version_api>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_____________________________ TestAuth.test_login ______________________________[0m
+
+self = <tests.test_auth.TestAuth testMethod=test_login>
+result = <TestCaseFunction 'test_login'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_auth.TestAuth testMethod=test_login>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m___________________________ TestAuth.test_restricted ___________________________[0m
+
+self = <tests.test_auth.TestAuth testMethod=test_restricted>
+result = <TestCaseFunction 'test_restricted'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_auth.TestAuth testMethod=test_restricted>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_________________________ TestAuth.test_testing_login __________________________[0m
+
+self = <tests.test_auth.TestAuth testMethod=test_testing_login>
+result = <TestCaseFunction 'test_testing_login'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_auth.TestAuth testMethod=test_testing_login>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_______________________ TestAuth.test_testing_login_fail _______________________[0m
+
+self = <tests.test_auth.TestAuth testMethod=test_testing_login_fail>
+result = <TestCaseFunction 'test_testing_login_fail'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_auth.TestAuth testMethod=test_testing_login_fail>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestGroup.test_accept _____________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_accept>
+result = <TestCaseFunction 'test_accept'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_accept>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestGroup.test_accept_not_pending _______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_accept_not_pending>
+result = <TestCaseFunction 'test_accept_not_pending'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_accept_not_pending>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestGroup.test_decline ____________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_decline>
+result = <TestCaseFunction 'test_decline'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_decline>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestGroup.test_decline_degenerate _______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_decline_degenerate>
+result = <TestCaseFunction 'test_decline_degenerate'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_decline_degenerate>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestGroup.test_decline_not_pending ______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_decline_not_pending>
+result = <TestCaseFunction 'test_decline_not_pending'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_decline_not_pending>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestGroup.test_invite _____________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_invite>
+result = <TestCaseFunction 'test_invite'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_invite>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m__________________________ TestGroup.test_invite_full __________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_invite_full>
+result = <TestCaseFunction 'test_invite_full'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_invite_full>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m________________________ TestGroup.test_invite_in_group ________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_invite_in_group>
+result = <TestCaseFunction 'test_invite_in_group'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_invite_in_group>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_______________________ TestGroup.test_invite_individual _______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_invite_individual>
+result = <TestCaseFunction 'test_invite_individual'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_invite_individual>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestGroup.test_invite_not_enrolled ______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_invite_not_enrolled>
+result = <TestCaseFunction 'test_invite_not_enrolled'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_invite_not_enrolled>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestGroup.test_locked _____________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_locked>
+result = <TestCaseFunction 'test_locked'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_locked>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________________ TestGroup.test_log ______________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_log>
+result = <TestCaseFunction 'test_log'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_log>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestGroup.test_remove _____________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_remove>
+result = <TestCaseFunction 'test_remove'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_remove>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_______________________ TestGroup.test_remove_degenerate _______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_remove_degenerate>
+result = <TestCaseFunction 'test_remove_degenerate'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_remove_degenerate>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestGroup.test_remove_not_in_group ______________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_remove_not_in_group>
+result = <TestCaseFunction 'test_remove_not_in_group'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_remove_not_in_group>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m__________________________ TestGroup.test_remove_self __________________________[0m
+
+self = <tests.test_group.TestGroup testMethod=test_remove_self>
+result = <TestCaseFunction 'test_remove_self'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_group.TestGroup testMethod=test_remove_self>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestHighlight.test_highlight_diff _______________________[0m
+
+self = <tests.test_highlight.TestHighlight testMethod=test_highlight_diff>
+result = <TestCaseFunction 'test_highlight_diff'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_highlight.TestHighlight testMethod=test_highlight_diff>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestHighlight.test_highlight_file _______________________[0m
+
+self = <tests.test_highlight.TestHighlight testMethod=test_highlight_file>
+result = <TestCaseFunction 'test_highlight_file'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_highlight.TestHighlight testMethod=test_highlight_file>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________________ TestMain.test_home ______________________________[0m
+
+self = <tests.test_main.TestMain testMethod=test_home>
+result = <TestCaseFunction 'test_home'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_main.TestMain testMethod=test_home>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m______________________ TestSubmission.test_accept_unflag _______________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_accept_unflag>
+result = <TestCaseFunction 'test_accept_unflag'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_accept_unflag>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_____________________ TestSubmission.test_active_user_ids ______________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_active_user_ids>
+result = <TestCaseFunction 'test_active_user_ids'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_active_user_ids>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m__________________________ TestSubmission.test_files ___________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_files>
+result = <TestCaseFunction 'test_files'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_files>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m___________________________ TestSubmission.test_flag ___________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_flag>
+result = <TestCaseFunction 'test_flag'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_flag>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_________________________ TestSubmission.test_no_flags _________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_no_flags>
+result = <TestCaseFunction 'test_no_flags'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_no_flags>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_________________________ TestSubmission.test_sabotage _________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_sabotage>
+result = <TestCaseFunction 'test_sabotage'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_sabotage>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m________________________ TestSubmission.test_two_flags _________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_two_flags>
+result = <TestCaseFunction 'test_two_flags'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_two_flags>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m__________________________ TestSubmission.test_unflag __________________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_unflag>
+result = <TestCaseFunction 'test_unflag'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_unflag>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________ TestSubmission.test_unflag_not_flagged ____________________[0m
+
+self = <tests.test_submission.TestSubmission testMethod=test_unflag_not_flagged>
+result = <TestCaseFunction 'test_unflag_not_flagged'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_submission.TestSubmission testMethod=test_unflag_not_flagged>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m_____________________________ TestUser.test_lookup _____________________________[0m
+
+self = <tests.test_user.TestUser testMethod=test_lookup>
+result = <TestCaseFunction 'test_lookup'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_user.TestUser testMethod=test_lookup>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+[31m[1m____________________________ TestUtils.test_hashids ____________________________[0m
+
+self = <tests.test_utils.TestUtils testMethod=test_hashids>
+result = <TestCaseFunction 'test_hashids'>
+
+[1m    def __call__(self, result=None):[0m
+[1m        """[0m
+[1m            Does the required setup, doing it here[0m
+[1m            means you don't have to call super.setUp[0m
+[1m            in subclasses.[0m
+[1m            """[0m
+[1m        try:[0m
+[1m>           self._pre_setup()[0m
+
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../virtualenv/python3.4.2/lib/python3.4/site-packages/flask_testing/utils.py:97: in _pre_setup
+[1m    self.app = self.create_app()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_utils.TestUtils testMethod=test_hashids>
+
+[1m    def create_app(self):[0m
+[1m>       env = os.environ.get('SERVER_ENV', 'test')[0m
+[31m[1mE       NameError: name 'os' is not defined[0m
+
+tests/__init__.py:9: NameError
+---------------- coverage: platform linux, python 3.4.2-final-0 ----------------
+Name                            Stmts   Miss Branch BrPart  Cover   Missing
+---------------------------------------------------------------------------
+server/assets.py                   10      0      0      0   100%   
+server/constants.py                13      0      0      0   100%   
+server/controllers/admin.py       105     75     37      0    21%   17, 31-41, 48-56, 62-65, 71, 80-86, 94-107, 115-127, 134-159, 170-178
+server/controllers/api.py         159     77     34      0    42%   57-63, 76-85, 92-100, 104-127, 131-133, 137-140, 151, 154-156, 164, 183-189, 206, 255-260, 301-307, 311-314, 332-337, 341-343, 356-360
+server/controllers/auth.py         86     53     16      0    32%   61, 65-70, 77-82, 88, 92-95, 99-100, 103-105, 112, 120, 127, 133-148, 154-165, 172-174, 178-181, 185-187
+server/controllers/main.py          7      7      0      0     0%   1-9
+server/controllers/student.py     146    116     43      0    16%   19-21, 27-31, 37-41, 45-58, 63-77, 83-105, 110-120, 126-132, 139-152, 157-170, 176-192, 197-219
+server/converters.py               32      7      2      0    79%   13, 16, 20-23, 26
+server/exceptions.py               12     12      0      0     0%   1-22
+server/extensions.py                6      0      0      0   100%   
+server/forms.py                    78     43     22      0    37%   18-21, 26, 31-37, 59-70, 87-113
+server/highlight.py                44     36     22      0    12%   10, 16, 26-68
+server/models.py                  330    160     74      0    42%   36-42, 51, 55, 59, 66, 70, 78, 82, 92, 106, 109-112, 115, 120, 138, 141, 173, 178, 186-198, 204, 214, 222, 233-241, 246-253, 258-263, 284-286, 289, 294-303, 308-328, 334-343, 377-387, 391-400, 404, 452, 455, 464, 470, 474-479, 485-497, 506-511, 516-527, 532-535, 538-553, 556-564, 574-575, 591-600
+server/settings/dev.py              9      0      0      0   100%   
+server/settings/sqlite.py           5      5      0      0     0%   1-6
+server/settings/test.py             8      0      0      0   100%   
+server/utils.py                    45     27      6      0    35%   21, 24-27, 31, 34-36, 40-41, 44-50, 58-75
+---------------------------------------------------------------------------
+TOTAL                            1095    618    256      0    36%   
+[31m[1m===================== 39 failed, 2 passed in 3.74 seconds ======================[0m
+make: *** [test] Error 1
+
+travis_time:end:0c0a0ef8:start=1455687713277950785,finish=1455687717611337343,duration=4333386558[0K
+[31;1mThe command "make test" exited with 2.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:0864f900[0K
+travis_time:end:0864f900:start=1455687717615952666,finish=1455687717619623155,duration=3670489[0Ktravis_time:start:2bb2cc60[0K[32;1mchange detected:
+/home/travis/.cache/pip/log/debug.log
+
+[0m
+[32;1mchanges detected, packing new archive[0m
+[32;1muploading archive[0m
+
+travis_time:end:2bb2cc60:start=1455687717623990385,finish=1455687721558821985,duration=3934831600[0Ktravis_fold:end:cache.2[0K
+Done. Your build exited with 1.

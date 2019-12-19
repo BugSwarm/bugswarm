@@ -1,0 +1,970 @@
+travis_fold:start:worker_info
+[0K[33;1mWorker information[0m
+hostname: i-0184930-precise-production-2-worker-org-docker.travisci.net:0cbf1bf1-d2a6-4394-b5da-a6ee7e57a4a5
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: e433109:travis:python
+startup: 893.920331ms
+travis_fold:end:worker_info
+[0Ktravis_fold:start:system_info
+[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+Build id: 212215611
+Job id: 212215615
+travis-build version: 6b480e5a1
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID: Ubuntu
+Description:    Ubuntu 12.04.5 LTS
+Release:    12.04
+Codename:   precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info
+[0K
+travis_fold:start:fix.CVE-2015-7547
+[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 259 not upgraded.
+Need to get 8,840 kB of archives.
+After this operation, 14.3 kB disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.15 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.15 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.15 [1,177 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.15 [4,636 kB]
+Fetched 8,840 kB in 0s (33.4 MB/s)
+Preconfiguring packages ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.15) ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72430 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.15) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.15) ...
+Setting up libc6-dev (2.15-0ubuntu10.15) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547
+[0K[33;1m3.5 is not installed; attempting download[0m
+[33;1mDownloading archive: https://s3.amazonaws.com/travis-python-archives/binaries/ubuntu/12.04/x86_64/python-3.5.tar.bz2[0m
+$ sudo tar xjf python-3.5.tar.bz2 --directory /
+travis_fold:start:git.checkout
+[0Ktravis_time:start:25f4b2a2
+[0K$ git clone --depth=50 --branch=develop https://github.com/glennmatthews/cot.git glennmatthews/cot
+Cloning into 'glennmatthews/cot'...
+remote: Counting objects: 4773, done.[K
+remote: Compressing objects:   0% (1/1409)   [K
+remote: Compressing objects:   1% (15/1409)   [K
+remote: Compressing objects:   2% (29/1409)   [K
+remote: Compressing objects:   3% (43/1409)   [K
+remote: Compressing objects:   4% (57/1409)   [K
+remote: Compressing objects:   5% (71/1409)   [K
+remote: Compressing objects:   6% (85/1409)   [K
+remote: Compressing objects:   7% (99/1409)   [K
+remote: Compressing objects:   8% (113/1409)   [K
+remote: Compressing objects:   9% (127/1409)   [K
+remote: Compressing objects:  10% (141/1409)   [K
+remote: Compressing objects:  11% (155/1409)   [K
+remote: Compressing objects:  12% (170/1409)   [K
+remote: Compressing objects:  13% (184/1409)   [K
+remote: Compressing objects:  14% (198/1409)   [K
+remote: Compressing objects:  15% (212/1409)   [K
+remote: Compressing objects:  16% (226/1409)   [K
+remote: Compressing objects:  17% (240/1409)   [K
+remote: Compressing objects:  18% (254/1409)   [K
+remote: Compressing objects:  19% (268/1409)   [K
+remote: Compressing objects:  20% (282/1409)   [K
+remote: Compressing objects:  21% (296/1409)   [K
+remote: Compressing objects:  22% (310/1409)   [K
+remote: Compressing objects:  23% (325/1409)   [K
+remote: Compressing objects:  24% (339/1409)   [K
+remote: Compressing objects:  25% (353/1409)   [K
+remote: Compressing objects:  26% (367/1409)   [K
+remote: Compressing objects:  27% (381/1409)   [K
+remote: Compressing objects:  28% (395/1409)   [K
+remote: Compressing objects:  29% (409/1409)   [K
+remote: Compressing objects:  30% (423/1409)   [K
+remote: Compressing objects:  31% (437/1409)   [K
+remote: Compressing objects:  32% (451/1409)   [K
+remote: Compressing objects:  33% (465/1409)   [K
+remote: Compressing objects:  34% (480/1409)   [K
+remote: Compressing objects:  35% (494/1409)   [K
+remote: Compressing objects:  36% (508/1409)   [K
+remote: Compressing objects:  37% (522/1409)   [K
+remote: Compressing objects:  38% (536/1409)   [K
+remote: Compressing objects:  39% (550/1409)   [K
+remote: Compressing objects:  40% (564/1409)   [K
+remote: Compressing objects:  41% (578/1409)   [K
+remote: Compressing objects:  42% (592/1409)   [K
+remote: Compressing objects:  43% (606/1409)   [K
+remote: Compressing objects:  44% (620/1409)   [K
+remote: Compressing objects:  45% (635/1409)   [K
+remote: Compressing objects:  46% (649/1409)   [K
+remote: Compressing objects:  47% (663/1409)   [K
+remote: Compressing objects:  48% (677/1409)   [K
+remote: Compressing objects:  49% (691/1409)   [K
+remote: Compressing objects:  50% (705/1409)   [K
+remote: Compressing objects:  51% (719/1409)   [K
+remote: Compressing objects:  52% (733/1409)   [K
+remote: Compressing objects:  53% (747/1409)   [K
+remote: Compressing objects:  54% (761/1409)   [K
+remote: Compressing objects:  55% (775/1409)   [K
+remote: Compressing objects:  56% (790/1409)   [K
+remote: Compressing objects:  57% (804/1409)   [K
+remote: Compressing objects:  58% (818/1409)   [K
+remote: Compressing objects:  59% (832/1409)   [K
+remote: Compressing objects:  60% (846/1409)   [K
+remote: Compressing objects:  61% (860/1409)   [K
+remote: Compressing objects:  62% (874/1409)   [K
+remote: Compressing objects:  63% (888/1409)   [K
+remote: Compressing objects:  64% (902/1409)   [K
+remote: Compressing objects:  65% (916/1409)   [K
+remote: Compressing objects:  66% (930/1409)   [K
+remote: Compressing objects:  67% (945/1409)   [K
+remote: Compressing objects:  68% (959/1409)   [K
+remote: Compressing objects:  69% (973/1409)   [K
+remote: Compressing objects:  70% (987/1409)   [K
+remote: Compressing objects:  71% (1001/1409)   [K
+remote: Compressing objects:  72% (1015/1409)   [K
+remote: Compressing objects:  73% (1029/1409)   [K
+remote: Compressing objects:  74% (1043/1409)   [K
+remote: Compressing objects:  75% (1057/1409)   [K
+remote: Compressing objects:  76% (1071/1409)   [K
+remote: Compressing objects:  77% (1085/1409)   [K
+remote: Compressing objects:  78% (1100/1409)   [K
+remote: Compressing objects:  79% (1114/1409)   [K
+remote: Compressing objects:  80% (1128/1409)   [K
+remote: Compressing objects:  81% (1142/1409)   [K
+remote: Compressing objects:  82% (1156/1409)   [K
+remote: Compressing objects:  83% (1170/1409)   [K
+remote: Compressing objects:  84% (1184/1409)   [K
+remote: Compressing objects:  85% (1198/1409)   [K
+remote: Compressing objects:  86% (1212/1409)   [K
+remote: Compressing objects:  87% (1226/1409)   [K
+remote: Compressing objects:  88% (1240/1409)   [K
+remote: Compressing objects:  89% (1255/1409)   [K
+remote: Compressing objects:  90% (1269/1409)   [K
+remote: Compressing objects:  91% (1283/1409)   [K
+remote: Compressing objects:  92% (1297/1409)   [K
+remote: Compressing objects:  93% (1311/1409)   [K
+remote: Compressing objects:  94% (1325/1409)   [K
+remote: Compressing objects:  95% (1339/1409)   [K
+remote: Compressing objects:  96% (1353/1409)   [K
+remote: Compressing objects:  97% (1367/1409)   [K
+remote: Compressing objects:  98% (1381/1409)   [K
+remote: Compressing objects:  99% (1395/1409)   [K
+remote: Compressing objects: 100% (1409/1409)   [K
+remote: Compressing objects: 100% (1409/1409), done.[K
+Receiving objects:   0% (1/4773)   
+Receiving objects:   1% (48/4773)   
+Receiving objects:   2% (96/4773)   
+Receiving objects:   3% (144/4773)   
+Receiving objects:   4% (191/4773)   
+Receiving objects:   5% (239/4773)   
+Receiving objects:   6% (287/4773)   
+Receiving objects:   7% (335/4773)   
+Receiving objects:   8% (382/4773)   
+Receiving objects:   9% (430/4773)   
+Receiving objects:  10% (478/4773)   
+Receiving objects:  11% (526/4773)   
+Receiving objects:  12% (573/4773)   
+Receiving objects:  13% (621/4773)   
+Receiving objects:  14% (669/4773)   
+Receiving objects:  15% (716/4773)   
+Receiving objects:  16% (764/4773)   
+Receiving objects:  17% (812/4773)   
+Receiving objects:  18% (860/4773)   
+Receiving objects:  19% (907/4773)   
+Receiving objects:  20% (955/4773)   
+Receiving objects:  21% (1003/4773)   
+Receiving objects:  22% (1051/4773)   
+Receiving objects:  23% (1098/4773)   
+Receiving objects:  24% (1146/4773)   
+Receiving objects:  25% (1194/4773)   
+Receiving objects:  26% (1241/4773)   
+Receiving objects:  27% (1289/4773)   
+Receiving objects:  28% (1337/4773)   
+Receiving objects:  29% (1385/4773)   
+Receiving objects:  30% (1432/4773)   
+Receiving objects:  31% (1480/4773)   
+Receiving objects:  32% (1528/4773)   
+Receiving objects:  33% (1576/4773)   
+Receiving objects:  34% (1623/4773)   
+Receiving objects:  35% (1671/4773)   
+Receiving objects:  36% (1719/4773)   
+Receiving objects:  37% (1767/4773)   
+Receiving objects:  38% (1814/4773)   
+Receiving objects:  39% (1862/4773)   
+Receiving objects:  40% (1910/4773)   
+Receiving objects:  41% (1957/4773)   
+Receiving objects:  42% (2005/4773)   
+Receiving objects:  43% (2053/4773)   
+Receiving objects:  44% (2101/4773)   
+Receiving objects:  45% (2148/4773)   
+Receiving objects:  46% (2196/4773)   
+Receiving objects:  47% (2244/4773)   
+Receiving objects:  48% (2292/4773)   
+Receiving objects:  49% (2339/4773)   
+Receiving objects:  50% (2387/4773)   
+Receiving objects:  51% (2435/4773)   
+Receiving objects:  52% (2482/4773)   
+Receiving objects:  53% (2530/4773)   
+Receiving objects:  54% (2578/4773)   
+Receiving objects:  55% (2626/4773)   
+Receiving objects:  56% (2673/4773)   
+Receiving objects:  57% (2721/4773)   
+Receiving objects:  58% (2769/4773)   
+Receiving objects:  59% (2817/4773)   
+Receiving objects:  60% (2864/4773)   
+Receiving objects:  61% (2912/4773)   
+Receiving objects:  62% (2960/4773)   
+Receiving objects:  63% (3007/4773)   
+Receiving objects:  64% (3055/4773)   
+Receiving objects:  65% (3103/4773)   
+Receiving objects:  66% (3151/4773)   
+Receiving objects:  67% (3198/4773)   
+Receiving objects:  68% (3246/4773)   
+Receiving objects:  69% (3294/4773)   
+Receiving objects:  70% (3342/4773)   
+Receiving objects:  71% (3389/4773)   
+Receiving objects:  72% (3437/4773)   
+Receiving objects:  73% (3485/4773)   
+Receiving objects:  74% (3533/4773)   
+Receiving objects:  75% (3580/4773)   
+Receiving objects:  76% (3628/4773)   
+Receiving objects:  77% (3676/4773)   
+Receiving objects:  78% (3723/4773)   
+Receiving objects:  79% (3771/4773)   
+Receiving objects:  80% (3819/4773)   
+Receiving objects:  81% (3867/4773)   
+Receiving objects:  82% (3914/4773)   
+Receiving objects:  83% (3962/4773)   
+Receiving objects:  84% (4010/4773)   
+Receiving objects:  85% (4058/4773)   
+Receiving objects:  86% (4105/4773)   
+Receiving objects:  87% (4153/4773)   
+Receiving objects:  88% (4201/4773)   
+Receiving objects:  89% (4248/4773)   
+Receiving objects:  90% (4296/4773)   
+Receiving objects:  91% (4344/4773)   
+Receiving objects:  92% (4392/4773)   
+Receiving objects:  93% (4439/4773)   
+Receiving objects:  94% (4487/4773)   
+Receiving objects:  95% (4535/4773)   
+Receiving objects:  96% (4583/4773)   
+Receiving objects:  97% (4630/4773)   
+Receiving objects:  98% (4678/4773)   
+Receiving objects:  99% (4726/4773)   
+remote: Total 4773 (delta 3766), reused 4333 (delta 3353), pack-reused 0[K
+Receiving objects: 100% (4773/4773)   
+Receiving objects: 100% (4773/4773), 1.57 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/3766)   
+Resolving deltas:   1% (38/3766)   
+Resolving deltas:   2% (92/3766)   
+Resolving deltas:   3% (142/3766)   
+Resolving deltas:   4% (152/3766)   
+Resolving deltas:   5% (189/3766)   
+Resolving deltas:   6% (232/3766)   
+Resolving deltas:   7% (268/3766)   
+Resolving deltas:   8% (305/3766)   
+Resolving deltas:   9% (363/3766)   
+Resolving deltas:  10% (378/3766)   
+Resolving deltas:  11% (415/3766)   
+Resolving deltas:  12% (461/3766)   
+Resolving deltas:  13% (491/3766)   
+Resolving deltas:  14% (528/3766)   
+Resolving deltas:  15% (589/3766)   
+Resolving deltas:  16% (623/3766)   
+Resolving deltas:  17% (647/3766)   
+Resolving deltas:  20% (764/3766)   
+Resolving deltas:  21% (809/3766)   
+Resolving deltas:  23% (879/3766)   
+Resolving deltas:  26% (1006/3766)   
+Resolving deltas:  27% (1020/3766)   
+Resolving deltas:  28% (1080/3766)   
+Resolving deltas:  29% (1107/3766)   
+Resolving deltas:  31% (1169/3766)   
+Resolving deltas:  32% (1212/3766)   
+Resolving deltas:  33% (1269/3766)   
+Resolving deltas:  35% (1336/3766)   
+Resolving deltas:  36% (1356/3766)   
+Resolving deltas:  37% (1411/3766)   
+Resolving deltas:  38% (1450/3766)   
+Resolving deltas:  39% (1471/3766)   
+Resolving deltas:  41% (1549/3766)   
+Resolving deltas:  42% (1584/3766)   
+Resolving deltas:  43% (1645/3766)   
+Resolving deltas:  44% (1693/3766)   
+Resolving deltas:  46% (1770/3766)   
+Resolving deltas:  47% (1785/3766)   
+Resolving deltas:  48% (1830/3766)   
+Resolving deltas:  49% (1849/3766)   
+Resolving deltas:  50% (1889/3766)   
+Resolving deltas:  52% (1966/3766)   
+Resolving deltas:  53% (1997/3766)   
+Resolving deltas:  54% (2046/3766)   
+Resolving deltas:  55% (2084/3766)   
+Resolving deltas:  56% (2127/3766)   
+Resolving deltas:  57% (2175/3766)   
+Resolving deltas:  58% (2186/3766)   
+Resolving deltas:  60% (2277/3766)   
+Resolving deltas:  61% (2310/3766)   
+Resolving deltas:  62% (2339/3766)   
+Resolving deltas:  63% (2375/3766)   
+Resolving deltas:  64% (2416/3766)   
+Resolving deltas:  65% (2472/3766)   
+Resolving deltas:  66% (2486/3766)   
+Resolving deltas:  67% (2525/3766)   
+Resolving deltas:  68% (2562/3766)   
+Resolving deltas:  69% (2604/3766)   
+Resolving deltas:  70% (2646/3766)   
+Resolving deltas:  71% (2678/3766)   
+Resolving deltas:  72% (2736/3766)   
+Resolving deltas:  73% (2777/3766)   
+Resolving deltas:  74% (2791/3766)   
+Resolving deltas:  75% (2829/3766)   
+Resolving deltas:  77% (2918/3766)   
+Resolving deltas:  78% (2939/3766)   
+Resolving deltas:  79% (2980/3766)   
+Resolving deltas:  80% (3039/3766)   
+Resolving deltas:  82% (3107/3766)   
+Resolving deltas:  83% (3146/3766)   
+Resolving deltas:  84% (3170/3766)   
+Resolving deltas:  85% (3202/3766)   
+Resolving deltas:  86% (3247/3766)   
+Resolving deltas:  87% (3277/3766)   
+Resolving deltas:  88% (3350/3766)   
+Resolving deltas:  89% (3375/3766)   
+Resolving deltas:  90% (3409/3766)   
+Resolving deltas:  91% (3456/3766)   
+Resolving deltas:  92% (3496/3766)   
+Resolving deltas:  93% (3515/3766)   
+Resolving deltas:  94% (3549/3766)   
+Resolving deltas:  95% (3589/3766)   
+Resolving deltas:  96% (3621/3766)   
+Resolving deltas:  97% (3667/3766)   
+Resolving deltas:  98% (3694/3766)   
+Resolving deltas: 100% (3766/3766)   
+Resolving deltas: 100% (3766/3766), done.
+Checking connectivity... done.
+
+travis_time:end:25f4b2a2:start=1489773395553345674,finish=1489773396472498614,duration=919152940
+[0K$ cd glennmatthews/cot
+$ git checkout -qf 153a0cc41745a8732367a38b275db2795d03e7a3
+travis_fold:end:git.checkout
+[0Ktravis_fold:start:apt
+[0K[33;1mInstalling APT Packages (BETA)[0m
+$ export DEBIAN_FRONTEND=noninteractive
+travis_time:start:23f76f08
+[0K$ sudo -E apt-get -yq update &>> ~/apt-get-update.log
+
+travis_time:end:23f76f08:start=1489773396501723393,finish=1489773401368278448,duration=4866555055
+[0Ktravis_time:start:17f6e3d2
+[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install make gcc qemu-utils xorriso zlib1g-dev
+Reading package lists...
+Building dependency tree...
+Reading state information...
+gcc is already the newest version.
+gcc set to manually installed.
+zlib1g-dev is already the newest version.
+zlib1g-dev set to manually installed.
+make is already the newest version.
+make set to manually installed.
+The following extra packages will be installed:
+  libaio1 libburn4 libisoburn1 libisofs6 libjte1 librados2 librbd1
+Suggested packages:
+  jigit cdck
+The following NEW packages will be installed:
+  libaio1 libburn4 libisoburn1 libisofs6 libjte1 librados2 librbd1 qemu-utils
+  xorriso
+0 upgraded, 9 newly installed, 0 to remove and 259 not upgraded.
+Need to get 1,939 kB of archives.
+After this operation, 4,723 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise/main libaio1 amd64 0.3.109-2ubuntu1 [6,396 B]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise/main libburn4 amd64 1.1.8-1 [129 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise/main libjte1 amd64 1.19-1 [28.0 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise/main libisofs6 amd64 1.1.6-1ubuntu1 [148 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu/ precise/main libisoburn1 amd64 1.1.8-1 [337 kB]
+Get:6 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main librados2 amd64 0.41-1ubuntu2.1 [784 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main librbd1 amd64 0.41-1ubuntu2.1 [49.8 kB]
+Get:8 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main qemu-utils amd64 1.0+noroms-0ubuntu14.31 [357 kB]
+Get:9 http://us.archive.ubuntu.com/ubuntu/ precise/main xorriso amd64 1.1.8-1 [100 kB]
+Fetched 1,939 kB in 0s (11.8 MB/s)
+Selecting previously unselected package libaio1.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72430 files and directories currently installed.)
+Unpacking libaio1 (from .../libaio1_0.3.109-2ubuntu1_amd64.deb) ...
+Selecting previously unselected package libburn4.
+Unpacking libburn4 (from .../libburn4_1.1.8-1_amd64.deb) ...
+Selecting previously unselected package libjte1.
+Unpacking libjte1 (from .../libjte1_1.19-1_amd64.deb) ...
+Selecting previously unselected package libisofs6.
+Unpacking libisofs6 (from .../libisofs6_1.1.6-1ubuntu1_amd64.deb) ...
+Selecting previously unselected package libisoburn1.
+Unpacking libisoburn1 (from .../libisoburn1_1.1.8-1_amd64.deb) ...
+Selecting previously unselected package librados2.
+Unpacking librados2 (from .../librados2_0.41-1ubuntu2.1_amd64.deb) ...
+Selecting previously unselected package librbd1.
+Unpacking librbd1 (from .../librbd1_0.41-1ubuntu2.1_amd64.deb) ...
+Selecting previously unselected package qemu-utils.
+Unpacking qemu-utils (from .../qemu-utils_1.0+noroms-0ubuntu14.31_amd64.deb) ...
+Selecting previously unselected package xorriso.
+Unpacking xorriso (from .../xorriso_1.1.8-1_amd64.deb) ...
+Processing triggers for man-db ...
+Setting up libaio1 (0.3.109-2ubuntu1) ...
+Setting up libburn4 (1.1.8-1) ...
+Setting up libjte1 (1.19-1) ...
+Setting up libisofs6 (1.1.6-1ubuntu1) ...
+Setting up libisoburn1 (1.1.8-1) ...
+Setting up librados2 (0.41-1ubuntu2.1) ...
+Setting up librbd1 (0.41-1ubuntu2.1) ...
+Setting up qemu-utils (1.0+noroms-0ubuntu14.31) ...
+Setting up xorriso (1.1.8-1) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+
+travis_time:end:17f6e3d2:start=1489773401373325032,finish=1489773408328553366,duration=6955228334
+[0Ktravis_fold:end:apt
+[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+travis_time:start:1300a9f4
+[0K$ source ~/virtualenv/python3.5/bin/activate
+
+travis_time:end:1300a9f4:start=1489773411457241770,finish=1489773411461869359,duration=4627589
+[0Ktravis_fold:start:cache.1
+[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:0ed55e00
+[0K$ Installing caching utilities
+
+travis_time:end:0ed55e00:start=1489773411679920874,finish=1489773411711436024,duration=31515150
+[0Ktravis_time:start:003709f8
+[0K
+travis_time:end:003709f8:start=1489773411718268885,finish=1489773411722416546,duration=4147661
+[0Ktravis_time:start:06491130
+[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching develop/cache-linux-precise-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855--python-3.5.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:06491130:start=1489773411727160212,finish=1489773413764868154,duration=2037707942
+[0Ktravis_time:start:0df0a00f
+[0K
+travis_time:end:0df0a00f:start=1489773413769860450,finish=1489773413773969703,duration=4109253
+[0Ktravis_time:start:03209127
+[0K[32;1madding /home/travis/.cache/pip to cache[0m
+
+travis_time:end:03209127:start=1489773413778746983,finish=1489773415462075656,duration=1683328673
+[0Ktravis_fold:end:cache.1
+[0K$ python --version
+Python 3.5.2
+$ pip --version
+pip 9.0.1 from /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (python 3.5)
+travis_fold:start:install.1
+[0Ktravis_time:start:158a24b2
+[0K$ pip install --upgrade pip setuptools
+Requirement already up-to-date: pip in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
+Collecting setuptools
+  Using cached setuptools-34.3.2-py2.py3-none-any.whl
+Collecting appdirs>=1.4.0 (from setuptools)
+  Using cached appdirs-1.4.3-py2.py3-none-any.whl
+Collecting packaging>=16.8 (from setuptools)
+  Using cached packaging-16.8-py2.py3-none-any.whl
+Requirement already up-to-date: six>=1.6.0 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from setuptools)
+Collecting pyparsing (from packaging>=16.8->setuptools)
+  Using cached pyparsing-2.2.0-py2.py3-none-any.whl
+Installing collected packages: appdirs, pyparsing, packaging, setuptools
+  Found existing installation: setuptools 33.1.1
+    Uninstalling setuptools-33.1.1:
+      Successfully uninstalled setuptools-33.1.1
+Successfully installed appdirs-1.4.3 packaging-16.8 pyparsing-2.2.0 setuptools-34.3.2
+
+travis_time:end:158a24b2:start=1489773415870481529,finish=1489773417961736306,duration=2091254777
+[0Ktravis_fold:end:install.1
+[0Ktravis_fold:start:install.2
+[0Ktravis_time:start:1790488d
+[0K$ pip install tox-travis
+Collecting tox-travis
+  Using cached tox_travis-0.8-py2.py3-none-any.whl
+Collecting tox>=2.0 (from tox-travis)
+  Using cached tox-2.6.0-py2.py3-none-any.whl
+Collecting pluggy<1.0,>=0.3.0 (from tox>=2.0->tox-travis)
+  Using cached pluggy-0.4.0-py2.py3-none-any.whl
+Requirement already satisfied: py>=1.4.17 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from tox>=2.0->tox-travis)
+Collecting virtualenv>=1.11.2; python_version != "3.2" (from tox>=2.0->tox-travis)
+  Using cached virtualenv-15.1.0-py2.py3-none-any.whl
+Installing collected packages: pluggy, virtualenv, tox, tox-travis
+Successfully installed pluggy-0.4.0 tox-2.6.0 tox-travis-0.8 virtualenv-15.1.0
+
+travis_time:end:1790488d:start=1489773417969057459,finish=1489773419180527152,duration=1211469693
+[0Ktravis_fold:end:install.2
+[0Ktravis_fold:start:install.3
+[0Ktravis_time:start:12503f35
+[0K$ pip install codecov
+Collecting codecov
+  Using cached codecov-2.0.5-py2.py3-none-any.whl
+Collecting coverage (from codecov)
+  Using cached coverage-4.3.4-cp35-cp35m-manylinux1_x86_64.whl
+Collecting requests>=2.0.0 (from codecov)
+  Using cached requests-2.13.0-py2.py3-none-any.whl
+Collecting argparse (from codecov)
+  Using cached argparse-1.4.0-py2.py3-none-any.whl
+Installing collected packages: coverage, requests, argparse, codecov
+Successfully installed argparse-1.4.0 codecov-2.0.5 coverage-4.3.4 requests-2.13.0
+
+travis_time:end:12503f35:start=1489773419186284070,finish=1489773421116959166,duration=1930675096
+[0Ktravis_fold:end:install.3
+[0Ktravis_fold:start:before_script.1
+[0Ktravis_time:start:25477bd8
+[0K$ export PATH=$PATH:$PWD/bin
+
+travis_time:end:25477bd8:start=1489773421122910942,finish=1489773421127410407,duration=4499465
+[0Ktravis_fold:end:before_script.1
+[0Ktravis_fold:start:before_script.2
+[0Ktravis_time:start:00db9dc5
+[0K$ export PREFIX=$PWD
+
+travis_time:end:00db9dc5:start=1489773421132939179,finish=1489773421137436880,duration=4497701
+[0Ktravis_fold:end:before_script.2
+[0Ktravis_time:start:134ddc86
+[0K$ tox
+The [tox:travis] section is deprecated in favor of the "python" key of the [travis] section.
+[1mGLOB sdist-make: /home/travis/build/glennmatthews/cot/setup.py[0m
+[1msetup create: /home/travis/build/glennmatthews/cot/.tox/setup[0m
+[1msetup installdeps: -rrequirements.txt, coverage==4.1, mock, sphinx>=1.3, sphinx_rtd_theme, unittest2[0m
+[1msetup inst: /home/travis/build/glennmatthews/cot/.tox/dist/cot-2.0.1+1.g153a0cc.zip[0m
+[1msetup installed: alabaster==0.7.10,appdirs==1.4.3,Babel==2.3.4,backports.shutil-get-terminal-size==1.0.0,colorlog==2.10.0,cot==2.0.1+1.g153a0cc,coverage==4.1,docutils==0.13.1,imagesize==0.7.1,Jinja2==2.9.5,linecache2==1.0.0,MarkupSafe==1.0,mock==2.0.0,packaging==16.8,pbr==2.0.0,Pygments==2.2.0,pyparsing==2.2.0,pytz==2016.10,pyvmomi==6.5,requests==2.13.0,six==1.10.0,snowballstemmer==1.2.1,Sphinx==1.5.3,sphinx-rtd-theme==0.2.4,traceback2==1.4.0,unittest2==1.1.0,verboselogs==1.6[0m
+[1msetup runtests: PYTHONHASHSEED='2251546537'[0m
+[1msetup runtests: commands[0] | /home/travis/build/glennmatthews/cot/.tox/setup/bin/python setup.py build_sphinx[0m
+running build_sphinx
+Running Sphinx v1.5.3
+loading pickled environment... done
+building [mo]: targets for 0 po files that are out of date
+building [man]: all manpages
+updating environment: 0 added, 12 changed, 0 removed
+reading sources... [  8%] usage_add_disk
+reading sources... [ 16%] usage_add_file
+reading sources... [ 25%] usage_deploy
+reading sources... [ 33%] usage_deploy_esxi
+reading sources... [ 41%] usage_edit_hardware
+reading sources... [ 50%] usage_edit_product
+reading sources... [ 58%] usage_edit_properties
+reading sources... [ 66%] usage_general
+reading sources... [ 75%] usage_info
+reading sources... [ 83%] usage_inject_config
+reading sources... [ 91%] usage_install_helpers
+reading sources... [100%] usage_remove_file
+
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+writing... cot.1 { } cot-add-disk.1 { } cot-add-file.1 { } cot-deploy.1 { } cot-deploy-esxi.1 { } cot-edit-hardware.1 { } cot-edit-product.1 { } cot-edit-properties.1 { } cot-install-helpers.1 { } cot-info.1 { } cot-inject-config.1 { } cot-remove-file.1 { } 
+build succeeded.
+[1msetup runtests: commands[1] | /home/travis/build/glennmatthews/cot/.tox/setup/bin/python bin/cot --force install-helpers --ignore-errors[0m
+[33mNOTICE  :[0m Installing 'fatdisk'...
+[33mNOTICE  :[0m Calling './RUNME'...
+fatdisk: [0;36mWARN: Is makedepend installed? If not:[0;37;00m
+fatdisk: [0;36mWARN:   For ubuntu do: sudo apt-get install xutils-dev[0;37;00m
+fatdisk: [0;36mWARN:   For MAC    do: sudo port install makedepend[0;37;00m
+fatdisk: [0;36mWARN:   For MingW  do: not supported AFAIK[0;37;00m
+fatdisk: [0;32mCleaning[0;37;00m
+  rm -rf .o
+  mkdir -p .o
+  rm -rf fatdisk.x86_64 stdout.txt stderr.txt
+fatdisk: [0;32mCompiling[0;37;00m
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/backtrace.o backtrace.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/fat.o fat.c
+fat.c:30:23: warning: unused variable 'FAT_FILE_VFAT_CHAR' [-Wunused-const-variable,24]
+ static const uint32_t FAT_FILE_VFAT_CHAR            = 0x01;
+                       ^
+fat.c:35:23: warning: unused variable 'FAT_ATTR_IS_READ_ONLY' [-Wunused-const-variable,24]
+ static const uint32_t FAT_ATTR_IS_READ_ONLY         = 0x01;
+                       ^
+fat.c:36:23: warning: unused variable 'FAT_ATTR_IS_HIDDEN' [-Wunused-const-variable,24]
+ static const uint32_t FAT_ATTR_IS_HIDDEN            = 0x02;
+                       ^
+fat.c:37:23: warning: unused variable 'FAT_ATTR_IS_SYSTEM' [-Wunused-const-variable,24]
+ static const uint32_t FAT_ATTR_IS_SYSTEM            = 0x04;
+                       ^
+fat.c:38:23: warning: unused variable 'FAT_ATTR_IS_LABEL' [-Wunused-const-variable,24]
+ static const uint32_t FAT_ATTR_IS_LABEL             = 0x08;
+                       ^
+5 warnings generated.
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/command.o command.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/file.o file.c
+file.c:413:29:{413:29-413:60}: warning: the value of the size argument in 'strncat' is too large, might lead to a buffer overflow [-Wstrncat-size,2]
+                             sizeof(regexp) - strlen(regexp));
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file.c:413:29: note: change the argument to be the free space in the destination buffer minus the terminating null byte [2]
+                             sizeof(regexp) - strlen(regexp));
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                             sizeof(regexp) - strlen(regexp) - 1
+fix-it:"file.c":{413:29-413:60}:"sizeof(regexp) - strlen(regexp) - 1"
+file.c:419:25:{419:25-419:56}: warning: the value of the size argument in 'strncat' is too large, might lead to a buffer overflow [-Wstrncat-size,2]
+                         sizeof(regexp) - strlen(regexp));
+                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file.c:419:25: note: change the argument to be the free space in the destination buffer minus the terminating null byte [2]
+                         sizeof(regexp) - strlen(regexp));
+                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         sizeof(regexp) - strlen(regexp) - 1
+fix-it:"file.c":{419:25-419:56}:"sizeof(regexp) - strlen(regexp) - 1"
+file.c:424:25:{424:25-424:56}: warning: the value of the size argument in 'strncat' is too large, might lead to a buffer overflow [-Wstrncat-size,2]
+                         sizeof(regexp) - strlen(regexp));
+                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+file.c:424:25: note: change the argument to be the free space in the destination buffer minus the terminating null byte [2]
+                         sizeof(regexp) - strlen(regexp));
+                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         sizeof(regexp) - strlen(regexp) - 1
+fix-it:"file.c":{424:25-424:56}:"sizeof(regexp) - strlen(regexp) - 1"
+3 warnings generated.
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/dir.o dir.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/disk.o disk.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/log.o log.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/main.o main.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/string.o string.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/util.o util.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/tree.o tree.c
+clang -g -O2 -DVERSION="1.0.0-beta" -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/ptrcheck.o ptrcheck.c
+clang  .o/backtrace.o .o/fat.o .o/command.o .o/file.o .o/dir.o .o/disk.o .o/log.o .o/main.o .o/string.o .o/util.o .o/tree.o .o/ptrcheck.o    -o fatdisk.x86_64
+ln -sf fatdisk.x86_64 fatdisk
+
+fatdisk: [0;32mRun fatdisk -h for more info. Or run ./TESTME[0;37;00m
+[33mNOTICE  :[0m ...done
+[33mNOTICE  :[0m Successfully installed 'fatdisk'
+[33mNOTICE  :[0m Installing 'vmdktool'...
+[33mNOTICE  :[0m vmdktool requires 'zlib'... installing 'zlib'
+[33mNOTICE  :[0m Calling 'make CFLAGS="-D_GNU_SOURCE -g -O -pipe"'...
+cc "-D_GNU_SOURCE -g -O -pipe"   -c -o vmdktool.o vmdktool.c
+cc "-D_GNU_SOURCE -g -O -pipe"   -c -o expand_number.o expand_number.c
+cc "-D_GNU_SOURCE -g -O -pipe" -o vmdktool vmdktool.o expand_number.o -lz
+groff -Tascii -mtty-char -man -t vmdktool.8 | gzip -9c >vmdktool.8.gz
+[33mNOTICE  :[0m ...done
+[33mNOTICE  :[0m Calling 'make install PREFIX=/home/travis/build/glennmatthews/cot'...
+install -s vmdktool /home/travis/build/glennmatthews/cot/bin/
+install vmdktool.8 /home/travis/build/glennmatthews/cot/man/man8/
+[33mNOTICE  :[0m ...done
+[33mNOTICE  :[0m Successfully installed 'vmdktool'
+[33mNOTICE  :[0m Installing 'genisoimage'...
+[33mNOTICE  :[0m Calling 'apt-get -q update'...
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
+E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
+[33mNOTICE  :[0m Calling 'sudo apt-get -q update'...
+sudo: must be setuid root
+Results:
+-------------
+COT manpages: successfully installed to /home/travis/build/glennmatthews/cot/man
+fatdisk:      successfully installed to
+              /home/travis/build/glennmatthews/cot/bin/fatdisk, version 1.0
+genisoimage:  INSTALLATION FAILED: [Errno 1] Helper program 'sudo' exited with
+              error 1
+mkisofs:      INSTALLATION FAILED: Unsure how to install mkisofs.
+ovftool:      INSTALLATION FAILED: No support for automated installation of
+              ovftool, as VMware requires a site login to download it. See
+              https://www.vmware.com/support/developer/ovf/
+qemu-img:     version 1.0, present at /usr/bin/qemu-img
+vmdktool:     successfully installed to
+              /home/travis/build/glennmatthews/cot/bin/vmdktool, version 1.4
+xorriso:      version 1.1.8, present at /usr/bin/xorriso
+
+[1msetup runtests: commands[2] | coverage erase[0m
+[1mpy35 create: /home/travis/build/glennmatthews/cot/.tox/py35[0m
+[1mpy35 installdeps: -rrequirements.txt, coverage==4.1, mock, sphinx>=1.3, sphinx_rtd_theme, unittest2[0m
+[1mpy35 inst: /home/travis/build/glennmatthews/cot/.tox/dist/cot-2.0.1+1.g153a0cc.zip[0m
+[1mpy35 installed: alabaster==0.7.10,appdirs==1.4.3,Babel==2.3.4,backports.shutil-get-terminal-size==1.0.0,colorlog==2.10.0,cot==2.0.1+1.g153a0cc,coverage==4.1,docutils==0.13.1,imagesize==0.7.1,Jinja2==2.9.5,linecache2==1.0.0,MarkupSafe==1.0,mock==2.0.0,packaging==16.8,pbr==2.0.0,Pygments==2.2.0,pyparsing==2.2.0,pytz==2016.10,pyvmomi==6.5,requests==2.13.0,six==1.10.0,snowballstemmer==1.2.1,Sphinx==1.5.3,sphinx-rtd-theme==0.2.4,traceback2==1.4.0,unittest2==1.1.0,verboselogs==1.6[0m
+[1mpy35 runtests: PYTHONHASHSEED='2251546537'[0m
+[1mpy35 runtests: commands[0] | coverage run --append setup.py test --quiet[0m
+running test
+running egg_info
+writing cot.egg-info/PKG-INFO
+writing dependency_links to cot.egg-info/dependency_links.txt
+writing requirements to cot.egg-info/requires.txt
+writing top-level names to cot.egg-info/top_level.txt
+writing entry points to cot.egg-info/entry_points.txt
+reading manifest file 'cot.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'cot.egg-info/SOURCES.txt'
+running build_ext
+...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 591 tests in 30.436s
+
+OK
+[1mpylint create: /home/travis/build/glennmatthews/cot/.tox/pylint[0m
+[1mpylint installdeps: -rrequirements.txt, coverage==4.1, mock, sphinx>=1.3, sphinx_rtd_theme, unittest2, pylint==1.6.4[0m
+[1mpylint inst: /home/travis/build/glennmatthews/cot/.tox/dist/cot-2.0.1+1.g153a0cc.zip[0m
+[1mpylint installed: alabaster==0.7.10,appdirs==1.4.3,astroid==1.4.9,Babel==2.3.4,backports.shutil-get-terminal-size==1.0.0,colorlog==2.10.0,cot==2.0.1+1.g153a0cc,coverage==4.1,docutils==0.13.1,imagesize==0.7.1,isort==4.2.5,Jinja2==2.9.5,lazy-object-proxy==1.2.2,linecache2==1.0.0,MarkupSafe==1.0,mccabe==0.6.1,mock==2.0.0,packaging==16.8,pbr==2.0.0,Pygments==2.2.0,pylint==1.6.4,pyparsing==2.2.0,pytz==2016.10,pyvmomi==6.5,requests==2.13.0,six==1.10.0,snowballstemmer==1.2.1,Sphinx==1.5.3,sphinx-rtd-theme==0.2.4,traceback2==1.4.0,unittest2==1.1.0,verboselogs==1.6,wrapt==1.10.10[0m
+[1mpylint runtests: PYTHONHASHSEED='2251546537'[0m
+[1mpylint runtests: commands[0] | pylint COT[0m
+[1mstats create: /home/travis/build/glennmatthews/cot/.tox/stats[0m
+[1mstats installdeps: -rrequirements.txt, coverage==4.1, mock, sphinx>=1.3, sphinx_rtd_theme, unittest2[0m
+[1mstats inst: /home/travis/build/glennmatthews/cot/.tox/dist/cot-2.0.1+1.g153a0cc.zip[0m
+[1mstats installed: alabaster==0.7.10,appdirs==1.4.3,Babel==2.3.4,backports.shutil-get-terminal-size==1.0.0,colorlog==2.10.0,cot==2.0.1+1.g153a0cc,coverage==4.1,docutils==0.13.1,imagesize==0.7.1,Jinja2==2.9.5,linecache2==1.0.0,MarkupSafe==1.0,mock==2.0.0,packaging==16.8,pbr==2.0.0,Pygments==2.2.0,pyparsing==2.2.0,pytz==2016.10,pyvmomi==6.5,requests==2.13.0,six==1.10.0,snowballstemmer==1.2.1,Sphinx==1.5.3,sphinx-rtd-theme==0.2.4,traceback2==1.4.0,unittest2==1.1.0,verboselogs==1.6[0m
+[1mstats runtests: PYTHONHASHSEED='2251546537'[0m
+[1mstats runtests: commands[0] | coverage combine[0m
+[1mstats runtests: commands[1] | coverage report -i[0m
+Name                                    Stmts   Miss Branch BrPart  Cover
+-------------------------------------------------------------------------
+COT/__init__.py                             9      0      0      0   100%
+COT/commands/__init__.py                   14      0      0      0   100%
+COT/commands/add_disk.py                  166      1     64      2    99%
+COT/commands/add_file.py                   46      0     12      0   100%
+COT/commands/command.py                   125      0     60      1    99%
+COT/commands/deploy.py                    151      4     62      5    95%
+COT/commands/deploy_esxi.py               197      0     68      1    99%
+COT/commands/edit_hardware.py             326      4    147      4    98%
+COT/commands/edit_product.py               60      0     18      0   100%
+COT/commands/edit_properties.py           121      0     42      1    99%
+COT/commands/help.py                       27      0      4      0   100%
+COT/commands/info.py                       50      0     12      0   100%
+COT/commands/inject_config.py             110      1     44      1    99%
+COT/commands/install_helpers.py           124      6     42      4    94%
+COT/commands/remove_file.py                49      0     12      0   100%
+COT/data_validation.py                    118      0     44      0   100%
+COT/disks/__init__.py                       7      0      0      0   100%
+COT/disks/disk.py                         102      5     46      6    91%
+COT/disks/iso.py                           62      0     28      2    98%
+COT/disks/qcow2.py                         21      0      6      1    96%
+COT/disks/raw.py                           63      3     26      3    93%
+COT/disks/vmdk.py                          46      1     16      2    95%
+COT/file_reference.py                      93      4     22      2    95%
+COT/helpers/__init__.py                    23      0      6      0   100%
+COT/helpers/apt_get.py                     16      0      4      0   100%
+COT/helpers/brew.py                        12      0      2      0   100%
+COT/helpers/fatdisk.py                     34      0      4      0   100%
+COT/helpers/gcc.py                          6      0      0      0   100%
+COT/helpers/helper.py                     239      9     84      1    97%
+COT/helpers/isoinfo.py                     11      0      2      0   100%
+COT/helpers/make.py                         6      0      0      0   100%
+COT/helpers/mkisofs.py                     14      0      0      0   100%
+COT/helpers/ovftool.py                      9      0      0      0   100%
+COT/helpers/port.py                        13      0      2      0   100%
+COT/helpers/qemu_img.py                    11      0      2      0   100%
+COT/helpers/vmdktool.py                    41      1      8      1    96%
+COT/helpers/yum.py                          9      0      0      0   100%
+COT/platforms/__init__.py                  11      0      0      0   100%
+COT/platforms/cisco_csr1000v.py            25      0      6      0   100%
+COT/platforms/cisco_iosv.py                21      0      2      0   100%
+COT/platforms/cisco_iosxrv.py              38      0      6      0   100%
+COT/platforms/cisco_iosxrv_9000.py         21      0      6      0   100%
+COT/platforms/cisco_nexus_9000v.py         17      0      2      0   100%
+COT/platforms/cisco_nxosv.py               17      0      2      0   100%
+COT/platforms/platform.py                  61      0     16      1    99%
+COT/ui/__init__.py                          4      0      0      0   100%
+COT/ui/cli.py                             252     17     99      8    92%
+COT/ui/ui.py                               57      1     20      1    97%
+COT/utilities.py                           50      1     20      1    97%
+COT/vm_description/__init__.py              6      0      0      0   100%
+COT/vm_description/ovf/__init__.py          3      0      0      0   100%
+COT/vm_description/ovf/hardware.py        220      4    122      4    98%
+COT/vm_description/ovf/item.py            342     17    206     16    94%
+COT/vm_description/ovf/name_helper.py      86      1     30      1    98%
+COT/vm_description/ovf/ovf.py            1173     13    545     33    97%
+COT/vm_description/ovf/utilities.py        28      0     12      0   100%
+COT/vm_description/vm_description.py      199      2     12      2    98%
+COT/xml_file.py                           119      0     62      0   100%
+-------------------------------------------------------------------------
+TOTAL                                    5281     95   2057    104    97%
+[1mstats runtests: commands[2] | coverage html -i[0m
+___________________________________ summary ____________________________________
+[32m  setup: commands succeeded[0m
+[32m  py35: commands succeeded[0m
+[32m  pylint: commands succeeded[0m
+[32m  stats: commands succeeded[0m
+[32m  congratulations :)[0m
+
+travis_time:end:134ddc86:start=1489773421143117628,finish=1489773727941104645,duration=306797987017
+[0K
+[32;1mThe command "tox" exited with 0.[0m
+travis_fold:start:cache.2
+[0Kstore build cache
+travis_time:start:04cc741a
+[0K
+travis_time:end:04cc741a:start=1489773727947391549,finish=1489773727952383577,duration=4992028
+[0Ktravis_time:start:1f33f0ad
+[0K[32;1mchange detected (content changed, file is created, or file is deleted):
+/home/travis/.cache/pip/http/0/5/0/7/c/0507cb774412d6a8d1f4cfbe8013ac7ec74b928f79a177964572a0b0
+/home/travis/.cache/pip/http/0/d/e/2/d/0de2def333d81c5bf5211ffa60584b36f6d465a6a3eff4c58e8a1bd5
+/home/travis/.cache/pip/http/1/3/b/b/e/13bbe3235c2b43d1debb8e312939afb0d36cdab76dfee360c822af58
+/home/travis/.cache/pip/http/1/6/c/0/a/16c0a548c0c7afeaacb56da8e61131e0c5170decf39c9f6df1f3cd07
+/home/travis/.cache/pip/http/2/c/c/5/5/2cc55bd4c8418c9c6011e2d22086db543f55f717d531c163b8c44ee7
+/home/travis/.cache/pip/http/2/e/9/5/e/2e95e9ef94edd867730bd44c17f5ddb06dfea2c1cb4f5433bbf23cc8
+/home/travis/.cache/pip/http/2/f/6/0/e/2f60ee2e6b2f8d9d74debb0760385405e98f6d110bddba8ef79ec89c
+/home/travis/.cache/pip/http/3/a/f/3/a/3af3addf06e983a6c02f46e7bea70c221d3ff95bf1418fa6da354e14
+/home/travis/.cache/pip/http/3/c/3/7/a/3c37a5dd5044936b084b1d3a8df72098556842635bb91eba2b554622
+/home/travis/.cache/pip/http/4/0/6/e/9/406e9b27a390d51d6f5ba6446b20eddf170d46e00b171bdfa0fbde6b
+/home/travis/.cache/pip/http/4/3/5/8/9/43
+[0m
+[32;1m...
+[0m
+[32;1mchanges detected, packing new archive[0m
+[32;1muploading archive[0m
+
+travis_time:end:1f33f0ad:start=1489773727962417183,finish=1489773735859012413,duration=7896595230
+[0Ktravis_fold:end:cache.2
+[0Ktravis_fold:start:after_success
+[0Ktravis_time:start:20932d1c
+[0K$ if [ -z "$TRAVIS_TAG" ]; then codecov; else echo "Tag build ($TRAVIS_TAG). Not uploading coverage."; fi
+
+      _____          _
+     / ____|        | |
+    | |     ___   __| | ___  ___ _____   __
+    | |    / _ \ / _  |/ _ \/ __/ _ \ \ / /
+    | |___| (_) | (_| |  __/ (_| (_) \ V /
+     \_____\___/ \____|\___|\___\___/ \_/
+                                    v2.0.5
+
+[90m==>[0m Detecting CI provider
+    Travis Detected
+[90m==>[0m Preparing upload
+[90m==>[0m Processing gcov (disable by -X gcov)
+    Executing gcov (find /home/travis/build/glennmatthews/cot -type f -name '*.gcno'  -exec gcov -pb  {} +)
+[90m==>[0m Collecting reports
+    Generating coverage xml reports for Python
+    [32m+[0m /home/travis/build/glennmatthews/cot/coverage.xml bytes=250504
+[90m==>[0m Appending environment variables
+    [32m+[0m TRAVIS_OS_NAME
+    [32m+[0m TRAVIS_PYTHON_NAME
+[90m==>[0m Uploading
+    .url https://codecov.io
+    .query pr=false&yaml=codecov.yml&service=travis&job=212215615&commit=153a0cc41745a8732367a38b275db2795d03e7a3&build=725.4&slug=glennmatthews%2Fcot&branch=develop&package=py2.0.5
+    Pinging Codecov...
+    Uploading to S3...
+[92m    https://codecov.io/github/glennmatthews/cot/commit/153a0cc41745a8732367a38b275db2795d03e7a3[0m
+
+travis_time:end:20932d1c:start=1489773735864733572,finish=1489773740438810171,duration=4574076599
+[0Ktravis_fold:end:after_success
+[0K
+Done. Your build exited with 0.
