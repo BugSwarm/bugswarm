@@ -29,8 +29,8 @@ class ReproducePairRunner(ParallelArtifactRunner):
 
         cmd = 'bash run_reproduce_pair.sh -r {} -f {} -p {} -t 2 --reproducer-runs 5 && ' \
               'rm -rf {} {} 2> /dev/null'.format(repo_slug, failed_job_id, passed_job_id,
-                                                 './intermediates/workspace/' + failed_job_id,
-                                                 './intermediates/workspace/' + passed_job_id)
+                                                 'reproducer/intermediates/workspace/' + failed_job_id,
+                                                 'reproducer/intermediates/workspace/' + passed_job_id)
         _, stdout, stderr, ok = _run_command(cmd)
         task_name = repo_slug.replace('/', '-')
         with open('reproducer/output/result_json/' + task_name + '_' + failed_job_id + '.out', 'w+') as f:
