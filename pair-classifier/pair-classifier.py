@@ -153,7 +153,8 @@ class PairClassifier(object):
                 num_tests_failed = -1
 
                 try:
-                    result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id))
+                    result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id),
+                                                         failed_job_id)
                 except BaseException:
                     log.error('Error analyzing log for {}'.format(failed_job_id))
                     continue

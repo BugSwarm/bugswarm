@@ -64,6 +64,15 @@ def _validate_input(argv):
         if opt == '--print':
             print_result = True
 
+    if all(x is None for x in [build_system, trigger_sha, repo]):
+        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
+        print_usage()
+        sys.exit(2)
+    elif build_system is None and (trigger_sha is None or repo is None):
+        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
+        print_usage()
+        sys.exit(2)
+
     if reproduced and orig:
         if job_id and '.log' in reproduced and '.log' in orig:
             mode = 0
