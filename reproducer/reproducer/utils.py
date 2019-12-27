@@ -388,12 +388,11 @@ class Utils(object):
         return True
 
     def check_docker_disk_space_available(self, docker_storage_path):
-        print('Checking docker usage')
         total_b, used_b, free_b = shutil.disk_usage(docker_storage_path)
         available = free_b / total_b
-        if available < 0.2:
+        if available < 0.3:
             percent = str(round(available * 100, 2))
-            log.warning('Inadequate disk space available for storing Docker images: {}%.'.format(percent))
+            log.warning('Inadequate disk space available for storing Docker Images: {}%.'.format(percent))
             return False
         return True
 
