@@ -387,6 +387,16 @@ class Utils(object):
             return False
         return True
 
+    def check_docker_disk_space_available(self, docker_storage_path):
+        print('Checking docker usage')
+        total_b, used_b, free_b = shutil.disk_usage(docker_storage_path)
+        available = free_b / total_b
+        if available < 0.2:
+            percent = str(round(available * 100, 2))
+            log.warning('Inadequate disk space available for storing Docker images: {}%.'.format(percent))
+            return False
+        return True
+
     def remove_project_repos_dir(self):
         log.info('Removing project_repos directory.')
         command = 'rm -rf {} 2> /dev/null'.format(self.config.stored_repos_dir)
@@ -402,11 +412,13 @@ class Utils(object):
         command = 'rm -rf {} 2> /dev/null'.format(self.config.workspace_dir)
         ShellWrapper.run_commands(command, shell=True)
 
-    def clean_disk_usage(self, job_dispatcher, docker):
-        docker.remove_all_images()
+    def clean_disk_usage(self, job_dispatcher):
         self.remove_project_repos_dir()
         job_dispatcher.workspace_locks = job_dispatcher.manager.dict()
         job_dispatcher.cloned_repos = job_dispatcher.manager.dict()
+
+    def clean_docker_disk_usage(self, docker):
+        docker.remove_all_images()
 
     @staticmethod
     def deep_copy(tags):

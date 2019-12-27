@@ -129,6 +129,13 @@ class DockerWrapper(object):
         filters = {'dangling': True}
         self.client.images.prune(filters)
 
+    def setup_docker_storage_path(self):
+        docker_dict = self.client.info()
+        docker_root_dir = docker_dict['DockerRootDir']
+        storage_driver = docker_dict['Driver']
+        path = os.path.join(docker_root_dir, storage_driver)
+        return path
+
     @staticmethod
     def remove_image_in_shell(full_image_name):
         log.info('Removing a Docker image.')

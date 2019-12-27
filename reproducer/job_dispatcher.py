@@ -44,6 +44,7 @@ class JobDispatcher(object):
         self.job_time_acc = 0
         self.start_time = time.time()
         self.docker = DockerWrapper(self.utils)
+        self.docker_storage_path = self.docker.setup_docker_storage_path()
         self.terminate = Value('i', 0)
         self.manager = Manager()
         self.lock = Lock()
@@ -67,12 +68,17 @@ class JobDispatcher(object):
             while self.job_center.get_num_remaining_items(self.package_mode):
                 log.info('Ready to initialize threads.')
                 if not self.utils.check_disk_space_available():
-                    self.utils.clean_disk_usage(self, self.docker)
+                    self.utils.clean_disk_usage(self)
                     if not self.utils.check_disk_space_available():
                         msg = 'Still inadequate disk space after removing temporary Reproducer files. Exiting.'
                         log.error(msg)
                         raise OSError(msg)
-
+                if not self.utils.check_docker_disk_space_available(self.docker_storage_path):
+                    self.utils.clean_docker_disk_usage(self.docker)
+                    if not self.utils.check_docker_disk_space_available():
+                        msg = 'Still inadequate disk space after removing inactive Docker Images. Exiting.'
+                        log.error(msg)
+                        raise OSError(msg)
                 self._init_threads()
         except KeyboardInterrupt:
             log.info('Caught KeyboardInterrupt. Cleaning up before terminating.')
