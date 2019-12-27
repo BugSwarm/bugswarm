@@ -136,7 +136,7 @@ class DockerWrapper(object):
             storage_driver = docker_dict['Driver']
             path = os.path.join(docker_root_dir, storage_driver)
             return path
-        except docker.error.APIError:
+        except docker.errors.APIError:
             log.error('Encountered a Docker API error while gathering the Docker environment info.')
             raise
 
