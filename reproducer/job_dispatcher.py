@@ -75,7 +75,7 @@ class JobDispatcher(object):
                         raise OSError(msg)
                 if not self.utils.check_docker_disk_space_available(self.docker_storage_path):
                     self.utils.clean_docker_disk_usage(self.docker)
-                    if not self.utils.check_docker_disk_space_available():
+                    if not self.utils.check_docker_disk_space_available(self.docker_storage_path):
                         msg = 'Still inadequate disk space after removing inactive Docker Images. Exiting.'
                         log.error(msg)
                         raise OSError(msg)
