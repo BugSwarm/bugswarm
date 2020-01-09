@@ -15,7 +15,7 @@ from bugswarm.common import github_wrapper
 from bugswarm.common import credentials
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
-from .pair_classifier.classify_bugs import classify_build, classify_code, classify_test, process_error, process_logs
+from pair_classifier.classify_bugs import classify_build, classify_code, classify_test, process_error, process_logs
 from bugswarm.analyzer.analyzer import Analyzer
 
 
