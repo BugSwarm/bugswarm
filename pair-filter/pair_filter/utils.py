@@ -104,6 +104,7 @@ def log_filter_count(filtered_count: int, reason: str):
 
 
 def _registry_tags_list(repo_name):
+    list_of_tags = []
     _, basic_auth, _, _ = _basic_auth()
     if not basic_auth:
         return ''
@@ -120,11 +121,12 @@ def _registry_tags_list(repo_name):
               '-H "Accept: application/json" "https://index.docker.io/v2/{}/tags/list" | json .tags | json -a' \
         .format(token, rel_repository)
     _, stdout, stderr, ok = _run_command(command)
+    list_of_tags = stdout.split('\n')
     if not ok:
         print('Error...', stdout, stderr)
         return ''
 
-    return stdout
+    return list_of_tags
 
 
 def _basic_auth():

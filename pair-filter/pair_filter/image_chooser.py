@@ -136,6 +136,7 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
         if not match_obj_tag:
             return None
 
+        match_list = []
         instance_tag = match_obj_tag.group(1)
         instance_tag = instance_tag.split('-')
         repo_name = 'travisci/' + '-'.join(instance_tag[1:3])
@@ -144,10 +145,13 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
         images = self.dockerhub_images.get(repo_name, '')
         if not images:
             return None
-        match = re.findall(pattern, images)
-        if len(match) == 0:
+        for image in images:
+            match = re.search(pattern, image)
+            if match is not None:
+                match_list.append(match)
+        if len(match_list) == 0:
             return None
         else:
             # images are in chronological order, the last one would be latest
             # travisci/ci-garnet:packer-epoch-commitSHA
-            return '{}:{}'.format(repo_name, match[-1])
+            return '{}:{}'.format(repo_name, match_list[-1].string)
