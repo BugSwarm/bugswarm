@@ -14,9 +14,11 @@ jobs:
       with:
         python-version: 3.6
     - name: Add Credentials
+      env:
+        gh_token: ${{ secrets.GH_TOKEN }}
       run: |
-        sed -i "s/''/'#'/g" bugswarm/common/credentials.py
-        sed -i "s/'#',/'${{ secrets.GH_TOKEN }}'/g" bugswarm/common/credentials.py
+        sed -i "s~''~'#'~g" bugswarm/common/credentials.py
+        sed -i "s~'#',~'${gh_token}',~g" bugswarm/common/credentials.py
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
