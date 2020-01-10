@@ -1,3 +1,5 @@
+import unittest
+
 from os import listdir
 from os.path import isfile
 from os.path import join
@@ -6,14 +8,16 @@ from bugswarm.analyzer.dispatcher import Dispatcher
 from bugswarm.common.travis_wrapper import TravisWrapper
 
 
-class Test(object):
+class Test(unittest.TestCase):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(Test, self).__init__(*args, **kwargs)
         self.dispatcher = Dispatcher()
         self.travis_wrapper = TravisWrapper()
 
     def get_trigger_sha_and_repo(self, job_id):
-        info = self.travis_wrapper.get_job_info(job_id)
+        with self.travis_wrapper as tw:
+            info = tw.get_job_info(job_id)
         trigger_sha = info["commit"]
         url = info["compare_url"]
         url = url.split("/")
@@ -28,7 +32,6 @@ class Test(object):
         for i_curr in range(len(l)):
             if l[i_curr] == "," and in_quote == 0:
                 w = l[i_start:i_curr]
-                # print "word=", w
                 arr.append(w)
                 i_start = i_curr + 1
             elif l[i_curr] == "\"":
@@ -38,7 +41,6 @@ class Test(object):
                     in_quote = 1
             elif i_curr == len(l) - 1:
                 w = l[i_start:i_curr]
-                # print "word=", w
                 arr.append(w)
         return arr
 
@@ -1469,5 +1471,4 @@ class Test(object):
 
 
 if __name__ == '__main__':
-    import nose
-    nose.main()
+    unittest.main()
