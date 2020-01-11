@@ -17,7 +17,10 @@ jobs:
       env:
         gh_token: ${{ secrets.GH_TOKEN }}
       run: |
+        cat bugswarm/common/credentials.py
+        echo ${gh_token}
         sed -i "s~''~'#'~g" bugswarm/common/credentials.py
+        cat bugswarm/common/credentials.py
         sed -i "s~'#',~'${gh_token}',~g" bugswarm/common/credentials.py
         cat bugswarm/common/credentials.py
     - name: Install dependencies
