@@ -134,6 +134,19 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
         # Does not match 'travis-ci-garnet-trusty-1503972833'
         match_obj_tag = re.search(r'(travis-ci(-[a-z]+)+-[0-9]+-[0-9a-z]+)', instance)
         if not match_obj_tag:
+            # return None
+            found_match_obj_tag = re.search(r'(travisci/ci-([a-z]+):([a-z]+)-[0-9a-z]+)', instance)
+            if not found_match_obj_tag:
+                return None
+            instance_tag = found_match_obj_tag.group(1)
+            instance_tag = instance_tag.split(':')
+            repo_name = instance_tag[0]
+            images = self.dockerhub_images.get(repo_name, '')
+            if not images:
+                return None
+            for image in images:
+                if instance_tag[1] == image:
+                    return '{}:{}'.format(repo_name, instance_tag[1])
             return None
 
         match_list = []
@@ -155,3 +168,4 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
             # images are in chronological order, the last one would be latest
             # travisci/ci-garnet:packer-epoch-commitSHA
             return '{}:{}'.format(repo_name, match_list[-1].string)
+
