@@ -134,7 +134,7 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
         # Does not match 'travis-ci-garnet-trusty-1503972833'
         match_obj_tag = re.search(r'(travis-ci(-[a-z]+)+-[0-9]+-[0-9a-z]+)', instance)
         if not match_obj_tag:
-            # return None
+            # Matches 'travisci/ci-garnet:packer-1503972846'
             found_match_obj_tag = re.search(r'(travisci/ci-([a-z]+):([a-z]+)-[0-9a-z]+)', instance)
             if not found_match_obj_tag:
                 return None
