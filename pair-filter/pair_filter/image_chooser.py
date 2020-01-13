@@ -155,4 +155,3 @@ class ExactImageChooserByCommitSHA(BaseImageChooser):
             # images are in chronological order, the last one would be latest
             # travisci/ci-garnet:packer-epoch-commitSHA
             return '{}:{}'.format(repo_name, match_list[-1].string)
-

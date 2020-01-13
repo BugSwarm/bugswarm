@@ -1,5 +1,4 @@
 import unittest
-import json
 import sys
 
 from bugswarm.common.json import read_json
