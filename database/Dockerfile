@@ -2,6 +2,7 @@ FROM ubuntu:16.04
 RUN \
 	apt-get update && \
   	apt-get install \
+  		apt-utils \
     	apt-transport-https \
 	    ca-certificates \
 	    curl \
@@ -23,7 +24,7 @@ RUN \
   		mongodb-org=4.0.5 mongodb-org-server=4.0.5 mongodb-org-shell=4.0.5 mongodb-org-mongos=4.0.5 mongodb-org-tools=4.0.5 -y
 
 RUN \
-	add-apt-repository ppa:jonathonf/python-3.6 && \
+	add-apt-repository ppa:deadsnakes/ppa && \
 	apt-get update && \
 	apt-get install \
 		build-essential python3.6 python3.6-dev python3-pip python3.6-venv -y
