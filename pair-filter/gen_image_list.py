@@ -14,7 +14,7 @@ def generate_image_file():
     for repo_name in DOCKERHUB_REPO_NAME:
         image_list[repo_name] = utils._registry_tags_list(repo_name)
     with open(DOCKERHUB_IMAGES_JSON, 'w+') as file:
-        json.dump(image_list, file)
+        json.dump(image_list, file, indent=2)
 
 
 def main():

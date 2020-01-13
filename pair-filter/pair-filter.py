@@ -176,7 +176,7 @@ def main(argv=None):
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('PairFilter'))
     if not path.exists(DOCKERHUB_IMAGES_JSON):
-        log.info('File dockerhub_image.json not found. Please run gen-image-list.py')
+        log.info('File dockerhub_image.json not found. Please run gen_image_list.py')
 
     repo, dir_of_jsons = _validate_input(argv)
     PairFilter.run(repo, dir_of_jsons)
