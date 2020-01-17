@@ -1,4 +1,7 @@
 from typing import Dict
+from bugswarm.common import log
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
+from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 
 class MinedProjectBuilder(object):
@@ -35,3 +38,29 @@ class MinedProjectBuilder(object):
                 'mined_pr_job_pairs': self.mined_pr_job_pairs,
             },
         }
+
+    @staticmethod
+    def query_current_metrics(repo):
+        log.info('Attempting to query metrics from database for {}'.format(repo))
+        bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
+        results = bugswarmapi.find_mined_project(repo)
+        if results.status_code != 200:
+            log.info('Repository: {} has yet to be mined. Continuing.'.format(repo))
+            return {
+                'repo': '',
+                'latest_mined_version': '',
+                'progression_metrics': {
+                    'builds': 0,
+                    'jobs': 0,
+                    'failed_builds': 0,
+                    'failed_jobs': 0,
+                    'failed_pr_builds': 0,
+                    'failed_pr_jobs': 0,
+                    'mined_build_pairs': 0,
+                    'mined_job_pairs': 0,
+                    'mined_pr_build_pairs': 0,
+                    'mined_pr_job_pairs': 0,
+                },
+            }
+        return results.json()
+

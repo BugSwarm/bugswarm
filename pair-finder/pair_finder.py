@@ -127,6 +127,7 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
         'keep_clone': keep_clone,
         'task_name': task_name,
         'mined_project_builder': MinedProjectBuilder(),
+        'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo)
     }
     steps = [
         Preflight(),
@@ -145,6 +146,12 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
     pipeline = Pipeline(steps)
 
     result, out_context = pipeline.run(None, in_context)
+    if not result:
+        # A filter in the pipeline encountered a fatal error and made the pipeline exit early.
+        # Skip writing the output file.
+        if os.path.exists(output_file_path):
+            os.remove(output_file_path)
+        return
 
     builder = out_context['mined_project_builder']
     builder.repo = repo
@@ -153,18 +160,16 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
      mined_job_pairs,
      mined_pr_build_pairs,
      mined_pr_job_pairs) = Utils.count_mined_pairs_in_branches(result)
-    builder.mined_job_pairs = mined_job_pairs
-    builder.mined_pr_job_pairs = mined_pr_job_pairs
-    builder.mined_build_pairs = mined_build_pairs
-    builder.mined_pr_build_pairs = mined_pr_build_pairs
+    builder.mined_job_pairs = mined_job_pairs + \
+        in_context['original_mined_project_metrics']['progression_metrics']['mined_job_pairs']
+    builder.mined_pr_job_pairs = mined_pr_job_pairs + \
+        in_context['original_mined_project_metrics']['progression_metrics']['mined_pr_job_pairs']
+    builder.mined_build_pairs = mined_build_pairs + \
+        in_context['original_mined_project_metrics']['progression_metrics']['mined_build_pairs']
+    builder.mined_pr_build_pairs = mined_pr_build_pairs + \
+        in_context['original_mined_project_metrics']['progression_metrics']['mined_pr_build_pairs']
     mined_project = builder.build()
     OutputManager.output_to_database(mined_project)
-
-    if not result:
-        # A filter in the pipeline encountered a fatal error and made the pipeline exit early.
-        # Skip writing the output file.
-        return
-
     OutputManager.output(repo, output_path=output_file_path, branches=result)
 
     elapsed = time.time() - start_time

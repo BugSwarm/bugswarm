@@ -13,6 +13,8 @@ from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from bugswarm.common.travis_wrapper import TravisWrapper
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
+from bugswarm.common.rest_api.database_api import DatabaseAPI
 from requests.exceptions import RequestException
 
 from .step import Step
@@ -72,6 +74,11 @@ class GetJobsFromTravisAPI(Step):
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
         for build in build_list:
+            try:
+                if build['finished_at'] < context['original_mined_project_metrics']['_updated']:
+                    continue
+            except KeyError:
+                pass
             for job in build['build_info']['matrix']:
                 j = {
                     'job_id': job['id'],
@@ -102,7 +109,8 @@ class GetJobsFromTravisAPI(Step):
         failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(build_list)
         failed_jobs, failed_pr_jobs = GetJobsFromTravisAPI._count_failed_jobs(build_list)
         context['mined_project_builder'].builds = len(build_list)
-        context['mined_project_builder'].jobs = len(jobs)
+        context['mined_project_builder'].jobs = len(jobs) + \
+            context['original_mined_project_metrics']['progression_metrics']['jobs']
         context['mined_project_builder'].failed_builds = failed_builds
         context['mined_project_builder'].failed_jobs = failed_jobs
         context['mined_project_builder'].failed_pr_builds = failed_pr_builds
