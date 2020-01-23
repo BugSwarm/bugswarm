@@ -68,7 +68,6 @@ class PairFilter(object):
         file_name = utils.canonical_repo(repo)
         file_path = os.path.join(os.path.dirname(os.path.realpath('.')),
                                  'pair-finder/output/original_metrics/{}.json'.format(file_name))
-        print(file_path)
         original_d = read_json(file_path)
 
         def _key(filter_name: str, pr: bool):
