@@ -103,6 +103,10 @@ def log_filter_count(filtered_count: int, reason: str):
     log.info('Filtered {:>4} {}.'.format(filtered_count, reason))
 
 
+def canonical_repo(repo: str) -> str:
+    return repo.replace('/', '-')
+
+
 def _registry_tags_list(repo_name):
     list_of_tags = []
     _, basic_auth, _, _ = _basic_auth()

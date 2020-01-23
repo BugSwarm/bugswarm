@@ -7,6 +7,7 @@ from os import path
 from typing import List
 
 from bugswarm.common import log
+from bugswarm.common.json import read_json
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common.utils import get_current_component_version_message
 from bugswarm.common import filter_reasons as reasons
@@ -64,6 +65,11 @@ class PairFilter(object):
     @staticmethod
     def _update_mined_project(repo: str, buildpairs: List):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
+        file_name = utils.canonical_repo(repo)
+        file_path = os.path.join(os.path.dirname(os.path.realpath('.')),
+                                 'pair-finder/output/original_metrics/{}.json'.format(file_name))
+        print(file_path)
+        original_d = read_json(file_path)
 
         def _key(filter_name: str, pr: bool):
             return 'filtered{}_{}'.format('_pr' if pr else '', filter_name)
@@ -110,6 +116,10 @@ class PairFilter(object):
                 elif reason == reasons.INACCESSIBLE_IMAGE:
                     d[_key('inaccessible_image', is_pr)] += 1
         for metric_name, metric_value in d.items():
+            try:
+                metric_value = metric_value + original_d['progression_metrics'][metric_name]
+            except KeyError:
+                pass
             if not bugswarmapi.set_mined_project_progression_metric(repo, metric_name, metric_value):
                 log.error('Encountered an error while setting a progression metric. Exiting.')
                 sys.exit(1)

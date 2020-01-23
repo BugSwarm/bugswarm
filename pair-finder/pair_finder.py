@@ -10,6 +10,7 @@ from concurrent.futures import as_completed
 from concurrent.futures import ThreadPoolExecutor
 
 from bugswarm.common import log
+from bugswarm.common.json import write_json
 from bugswarm.common.utils import get_current_component_version_message
 
 from pair_finder.model.mined_project_builder import MinedProjectBuilder
@@ -171,6 +172,8 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
     mined_project = builder.build()
     OutputManager.output_to_database(mined_project)
     OutputManager.output(repo, output_path=output_file_path, branches=result)
+    metrics_output_file_path = Utils.output_metrics_path_from_repo(repo, task_name)
+    write_json(metrics_output_file_path, in_context['original_mined_project_metrics'])
 
     elapsed = time.time() - start_time
     log.info('Processed {} in {} seconds. Done!'.format(repo, elapsed))
