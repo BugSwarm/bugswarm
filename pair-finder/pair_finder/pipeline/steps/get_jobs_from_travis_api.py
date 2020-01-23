@@ -8,14 +8,12 @@ import time
 from typing import Any
 from typing import Optional
 from typing import Tuple
+from requests.exceptions import RequestException
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from bugswarm.common.travis_wrapper import TravisWrapper
-from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
-from bugswarm.common.rest_api.database_api import DatabaseAPI
-from requests.exceptions import RequestException
 
 from .step import Step
 from .step import StepException
