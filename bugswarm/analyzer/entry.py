@@ -17,7 +17,6 @@ def main(argv=None):
     log.info(get_current_component_version_message('Analyzer'))
 
     mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo = _validate_input(argv)
-
     analyzer = Analyzer()
     if mode == 0:
         analyzer.compare_single_log(reproduced, orig, job_id, build_system, trigger_sha, repo, print_result)
@@ -39,6 +38,7 @@ def _validate_input(argv):
     build_system = None
     trigger_sha = None
     repo = None
+    java = None
 
     try:
         optlist, args = getopt.getopt(argv[1:], shortopts, longopts)
@@ -63,15 +63,18 @@ def _validate_input(argv):
             repo = arg
         if opt == '--print':
             print_result = True
+        if opt == '--java':
+            java = True
 
-    if all(x is None for x in [build_system, trigger_sha, repo]):
-        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
-        print_usage()
-        sys.exit(2)
-    elif build_system is None and (trigger_sha is None or repo is None):
-        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
-        print_usage()
-        sys.exit(2)
+    if java:
+        if all(x is None for x in [build_system, trigger_sha, repo]):
+            log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
+            print_usage()
+            sys.exit(2)
+        elif build_system is None and (trigger_sha is None or repo is None):
+            log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
+            print_usage()
+            sys.exit(2)
 
     if reproduced and orig:
         if job_id and '.log' in reproduced and '.log' in orig:
@@ -90,11 +93,11 @@ def print_usage():
     log.info('-----------------------------------------------------------------------')
     log.info('To analyze compare reproduced log with original Travis log:')
     log.info('    Python')
-    log.info('      Example: python3 entry.py -r 45123523.log -o 45123523-orig.log -j 45123523')
+    log.info('      Example: python3 entry.py -l 45123523.log -o 45123523-orig.log -j 45123523')
     log.info('    Java')
-    log.info('      Example: python3 entry.py -r 308408479.log -o 308408479-orig.log -j 308408479 -b maven')
-    log.info('      Example: python3 entry.py -r 308408479.log -o 308408479-orig.log -j 308408479 -t 67bc28d1a4fe777b50'
-             '35f331da02ba2db2c682a6 --repo=Adobe-Consulting-Services/acs-aem-commons')
+    log.info('      Example: python3 entry.py -l 308408479.log -o 308408479-orig.log -j 308408479 -b maven --java')
+    log.info('      Example: python3 entry.py -l 308408479.log -o 308408479-orig.log -j 308408479 -t 67bc28d1a4fe777b50'
+             '35f331da02ba2db2c682a6 --repo=Adobe-Consulting-Services/acs-aem-commons --java')
     log.info('To analyze a log:')
     log.info('    Python')
     log.info('      Example: python3 entry.py -l 23434234.log -j 23434234')
@@ -109,6 +112,7 @@ def print_usage():
     log.info('{:<30}{:<30}'.format('-b, --build_system', 'build system of the project'))
     log.info('{:<30}{:<30}'.format('-t, --trigger_sha', 'trigger sha for log'))
     log.info('{:<30}{:<30}'.format('--repo', 'repository of the project'))
+    log.info('{:<30}{:<30}'.format('--java', 'analyzing a java project'))
 
 
 if __name__ == '__main__':
