@@ -9,6 +9,7 @@ from typing import Any
 from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
+import dateutil.parser as dp
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -72,8 +73,14 @@ class GetJobsFromTravisAPI(Step):
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
         for build in build_list:
+
             try:
-                if build['finished_at'] < context['original_mined_project_metrics']['_updated']:
+                # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
+                # while context['..']['_updated'] returns an ISODate object formatted as: Tue, 28 Apr 2015 00:00:00 GMT.
+                # We must reformat the time ISO time representation to be formatted similarly so we can compare.
+                t = dp.parse(build['finished_at'])
+                build_formatted_date = t.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                if build_formatted_date < context['original_mined_project_metrics']['_updated']:
                     continue
             except KeyError:
                 pass
@@ -106,13 +113,18 @@ class GetJobsFromTravisAPI(Step):
         # Do not raise a StepException before the context is populated.
         failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(build_list)
         failed_jobs, failed_pr_jobs = GetJobsFromTravisAPI._count_failed_jobs(build_list)
-        context['mined_project_builder'].builds = len(build_list)
+        context['mined_project_builder'].builds = len(build_list) + \
+            context['original_mined_project_metrics']['progression_metrics']['builds']
         context['mined_project_builder'].jobs = len(jobs) + \
             context['original_mined_project_metrics']['progression_metrics']['jobs']
-        context['mined_project_builder'].failed_builds = failed_builds
-        context['mined_project_builder'].failed_jobs = failed_jobs
-        context['mined_project_builder'].failed_pr_builds = failed_pr_builds
-        context['mined_project_builder'].failed_pr_jobs = failed_pr_jobs
+        context['mined_project_builder'].failed_builds = failed_builds + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_builds']
+        context['mined_project_builder'].failed_jobs = failed_jobs + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_jobs']
+        context['mined_project_builder'].failed_pr_builds = failed_pr_builds + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_pr_builds']
+        context['mined_project_builder'].failed_pr_jobs = failed_pr_jobs + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_pr_jobs']
 
         if not jobs:
             msg = 'Did not get any jobs for {}.'.format(repo)
