@@ -9,7 +9,7 @@ from typing import Any
 from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
-import dateutil.parser as dp
+import dateutil.parser
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -78,8 +78,8 @@ class GetJobsFromTravisAPI(Step):
                 # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
                 # while context['..']['_updated'] returns an ISODate object formatted as: Tue, 28 Apr 2015 00:00:00 GMT.
                 # We must reformat the time ISO time representation to be formatted similarly so we can compare.
-                t = dp.parse(build['finished_at'])
-                build_formatted_date = t.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                parsed_time = dateutil.parser.parse(build['finished_at'])
+                build_formatted_date = parsed_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
                 if build_formatted_date < context['original_mined_project_metrics']['_updated']:
                     continue
             except KeyError:
