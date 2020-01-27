@@ -7,16 +7,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}"/common.sh
 
 # Increase REPRODUCER_RUNS to be more confident about pair stability at the cost of throughput.
-REPRODUCER_RUNS=5
+REPRODUCER_RUNS=1
 # Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager, and
 # MetadataPackager.
 STAGE='Reproduce Pair'
 
-USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>]'
+USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>] [-k | --keep-output]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p: --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs: -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:k --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,keep-output,reproducer-runs: -n 'run-reproduce-pair' -- "$@")
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
@@ -24,6 +24,7 @@ while true; do
       -r | --repo                ) repo="$2";                shift; shift ;;
       -t | --threads             ) threads="$2";             shift; shift ;;
       -f | --failed-job-id       ) failed_job_id="$2";       shift; shift ;;
+      -k | --keep-output         ) keep_output=true;         shift; shift ;;
       -p | --passed-job-id       ) passed_job_id="$2";       shift; shift ;;
            --reproducer-runs     ) REPRODUCER_RUNS="$2";     shift; shift ;;
       -- ) shift; break ;;
@@ -104,7 +105,11 @@ print_step "${STAGE}" ${total_steps} 'MetadataPackager'
 python3 packager.py -i output/result_json/${task_name}_${failed_job_id}.json
 exit_if_failed 'MetadataPackager encountered an error.'
 
-# clean up output task
-rm -rf output/tasks/${task_name}_${failed_job_id}*
+# clean up output task if no -k flag
+if [[ ! "${keep_output}" ]]; then
+  for i in $(seq ${REPRODUCER_RUNS}); do
+    find output/tasks/${task_name}_${failed_job_id}_run${i} -type f -not -name '*.log' -not -name '*.out' -delete 2>/dev/null
+  done
+fi
 
 print_stage_done "${STAGE}"
