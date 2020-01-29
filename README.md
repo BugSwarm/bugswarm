@@ -2,7 +2,7 @@
 BugSwarm is a framework that enables the creation of scalable, diverse, real-world, continuously
 growing set of reproducible build failures and fixes from open-source projects.
 
-The framework consist of two major components: [Miner](#Mining) and [Reproducer](#Reproducing).
+The framework consist of two major components: [Miner](#miner) and [Reproducer](#reproducer).
 
 ![bugswarm-image-overview](https://user-images.githubusercontent.com/24599782/70661354-e9787580-1c18-11ea-855e-53e26426c261.png)
 *Datasets play an important role in the advancement of software tools and facilitate their evaluation. BugSwarm is an infrastructure to automatically create a large dataset of real-world reproducible failures and fixes*
