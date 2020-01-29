@@ -43,7 +43,7 @@ class MinedProjectBuilder(object):
         }
 
     @staticmethod
-    def query_current_metrics(repo):
+    def query_current_metrics(repo: str) -> dict:
         log.info('Attempting to query metrics from database for {}'.format(repo))
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
         results = bugswarmapi.find_mined_project(repo)
