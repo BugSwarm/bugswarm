@@ -1,6 +1,3 @@
-import json
-import isodate
-
 from typing import Dict
 from datetime import datetime
 from bugswarm.common import log
