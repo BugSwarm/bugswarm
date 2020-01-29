@@ -1,4 +1,8 @@
+import json
+import isodate
+
 from typing import Dict
+from datetime import datetime
 from bugswarm.common import log
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.rest_api.database_api import DatabaseAPI
@@ -20,11 +24,13 @@ class MinedProjectBuilder(object):
         self.mined_job_pairs = None
         self.mined_pr_build_pairs = None
         self.mined_pr_job_pairs = None
+        self.last_date_mined = self.set_current_date()
 
     def build(self) -> Dict:
         return {
             'repo': self.repo,
             'latest_mined_version': self.latest_mined_version,
+            'last_date_mined': self.last_date_mined,
             'progression_metrics': {
                 'builds': self.builds,
                 'jobs': self.jobs,
@@ -49,6 +55,7 @@ class MinedProjectBuilder(object):
             return {
                 'repo': '',
                 'latest_mined_version': '',
+                'last_date_mined': 'Mon, 01 Jan 1970 00:00:00 GMT',
                 'progression_metrics': {
                     'builds': 0,
                     'jobs': 0,
@@ -63,3 +70,8 @@ class MinedProjectBuilder(object):
                 },
             }
         return results.json()
+
+    def set_current_date(self):
+        today = datetime.today()
+        formatted_date = today.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        return formatted_date

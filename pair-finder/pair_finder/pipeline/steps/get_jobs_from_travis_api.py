@@ -10,6 +10,7 @@ from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
 import dateutil.parser
+from datetime import datetime
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -73,14 +74,17 @@ class GetJobsFromTravisAPI(Step):
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
         for build in build_list:
-
             try:
                 # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
-                # while context['..']['_updated'] returns an ISODate object formatted as: Tue, 28 Apr 2015 00:00:00 GMT.
-                # We must reformat the time ISO time representation to be formatted similarly so we can compare.
+                # while context['last_date_mined'] returns a String object formatted as: 'Tue, 28 Apr 2015 00:00:00 GMT'
+                # We must reformat the time ISO time representation to be formatted similarly as a String. Both strings
+                # are then converted to a datetime object for comparison.
                 parsed_time = dateutil.parser.parse(build['finished_at'])
                 build_formatted_date = parsed_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
-                if build_formatted_date < context['original_mined_project_metrics']['_updated']:
+                build_date = datetime.strptime(build_formatted_date, '%a, %d %b %Y %H:%M:%S GMT')
+                last_mined_date = datetime.strptime(context['original_mined_project_metrics']['last_date_mined'],
+                                                    '%a, %d %b %Y %H:%M:%S GMT')
+                if build_date < last_mined_date:
                     continue
             except KeyError:
                 pass
