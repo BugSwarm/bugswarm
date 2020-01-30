@@ -1,5 +1,5 @@
 from typing import Dict
-from datetime import datetime
+
 from bugswarm.common import log
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.rest_api.database_api import DatabaseAPI
