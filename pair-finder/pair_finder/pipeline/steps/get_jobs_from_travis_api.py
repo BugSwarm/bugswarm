@@ -73,6 +73,7 @@ class GetJobsFromTravisAPI(Step):
         #   LEFT JOIN commits c on b.commit = c.sha
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
+        latest_build_date_time = datetime(1970, 1, 1)
         for build in build_list:
             try:
                 # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
@@ -84,7 +85,11 @@ class GetJobsFromTravisAPI(Step):
                 build_date = datetime.strptime(build_formatted_date, '%a, %d %b %Y %H:%M:%S GMT')
                 last_mined_date = datetime.strptime(context['original_mined_project_metrics']['last_date_mined'],
                                                     '%a, %d %b %Y %H:%M:%S GMT')
-                if build_date < last_mined_date:
+                if latest_build_date_time < build_date:
+                    latest_build_date_time = build_date
+                    context['mined_project_builder'].last_date_mined = \
+                        latest_build_date_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                if build_date <= last_mined_date:
                     continue
             except KeyError:
                 pass

@@ -21,7 +21,7 @@ class MinedProjectBuilder(object):
         self.mined_job_pairs = None
         self.mined_pr_build_pairs = None
         self.mined_pr_job_pairs = None
-        self.last_date_mined = self.set_current_date()
+        self.last_date_mined = None
 
     def build(self) -> Dict:
         return {
@@ -67,8 +67,3 @@ class MinedProjectBuilder(object):
                 },
             }
         return results.json()
-
-    def set_current_date(self):
-        today = datetime.today()
-        formatted_date = today.strftime('%a, %d %b %Y %H:%M:%S GMT')
-        return formatted_date
