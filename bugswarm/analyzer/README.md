@@ -34,7 +34,6 @@ Add the `--print` option to print the attributes extracted from the log.
 $ python3 entry.py -r <path_to_single_reproduced_log> \
                    -o <path_to_orig_log> -j <job_id> \
                    (-t <trigger_sha> --repo <repo_slug> |  -b <build_system>)
-                   (-t <trigger_sha> --repo <repo_slug> |  -b <build_system>)
 ```
 > Log filenames should be the job ID of the Travis job.
 

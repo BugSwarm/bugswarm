@@ -264,7 +264,6 @@ class Dispatcher(object):
             primary_language, lines, folds, job_id, build_system, trigger_sha, repo, force)
         if analyzer:
             analyzer.analyze()
-            print('whoo')
             return analyzer.output()
         else:
             non_analyzed = {

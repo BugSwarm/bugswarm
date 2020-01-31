@@ -89,9 +89,9 @@ def print_usage():
     log.info('    Python')
     log.info('      Example: python3 entry.py -l 23434234.log -j 23434234')
     log.info('    Java')
-    log.info('      Example: python3 entry.py -l 308408479.log -j 308408479 -b maven --java')
+    log.info('      Example: python3 entry.py -l 308408479.log -j 308408479 -b maven')
     log.info('      Example: python3 entry.py -l 308408479.log -j 308408479 -t 67bc28d1a4fe777b5035f331da02ba2db2c682a6'
-             ' --repo=Adobe-Consulting-Services/acs-aem-commons --java')
+             ' --repo=Adobe-Consulting-Services/acs-aem-commons')
     log.info('{:<30}{:<30}'.format('-r, --reproduced_log', 'path of log, path should end with .log'))
     log.info('{:<30}{:<30}'.format('-o, --orig_log', 'path of log, path should end with .log'))
     log.info('{:<30}{:<30}'.format('-l, --log', 'path of log, path should end with .log'))
