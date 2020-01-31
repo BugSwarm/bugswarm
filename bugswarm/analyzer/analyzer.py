@@ -10,7 +10,6 @@ class Analyzer(object):
     def __init__(self):
         self.dispatcher = Dispatcher()
         self.comparer = ResultComparer()
-        print('test')
 
     def analyze_single_log(self, log_path, job_id, build_system=None, trigger_sha=None, repo=None, print_result=False):
         result = self.dispatcher.analyze(log_path, job_id, build_system, trigger_sha, repo)
