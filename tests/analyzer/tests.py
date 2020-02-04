@@ -152,7 +152,7 @@ class Test(unittest.TestCase):
         #                 count += 1
         #                 yield self.check_match, result, self.travis_result
         #
-        #     assert count == 1628
+        #     self.assertEqual(count, 1628)
 
     # detect_logs_with_build_language_not_in_java
     def test_analyze_primary_language_1(self):
@@ -199,55 +199,54 @@ class Test(unittest.TestCase):
 
     @staticmethod
     def compare_status(result, should_be):
-        assert result["tr_log_status"] == should_be
+        self.assertEqual(result["tr_log_status"], should_be)
 
     @staticmethod
     def compare_analyzer(result, should_be):
-
-        assert result["tr_log_analyzer"] == should_be
+        self.assertEqual(result["tr_log_analyzer"], should_be)
 
     @staticmethod
     def compare_build_system(result, should_be):
-        assert result['tr_build_system'] == should_be
+        self.assertEqual(result['tr_build_system'], should_be)
 
     @staticmethod
     def compare_frameworks(result, should_be):
-        assert result["tr_log_frameworks"] == should_be
+        self.assertEqual(result["tr_log_frameworks"], should_be)
 
     @staticmethod
     def compare_bool_t_ran(result, should_be):
-        assert result["tr_log_bool_tests_ran"] == should_be
+        self.assertEqual(result["tr_log_bool_tests_ran"], should_be)
 
     @staticmethod
     def compare_bool_t_failed(result, should_be):
-        assert result["tr_log_bool_tests_failed"] == should_be
+        self.assertEqual(result["tr_log_bool_tests_failed"], should_be)
 
     @staticmethod
     def compare_num_t_ok(result, should_be):
-        assert result["tr_log_num_tests_ok"] == should_be
+        self.assertEqual(result["tr_log_num_tests_ok"], should_be)
 
     @staticmethod
     def compare_num_t_failed(result, should_be):
-        assert result["tr_log_num_tests_failed"] == should_be
+        self.assertEqual(result["tr_log_num_tests_failed"], should_be)
 
     @staticmethod
     def compare_num_t_run(result, should_be):
-        assert result["tr_log_num_tests_run"] == should_be
+        self.assertEqual(result["tr_log_num_tests_run"], should_be)
 
     @staticmethod
     def compare_num_t_skipped(result, should_be):
-        assert result["tr_log_num_tests_skipped"] == should_be
+        self.assertEqual(result["tr_log_num_tests_skipped"], should_be)
 
     @staticmethod
     def compare_t_failed(result, should_be):
-        assert result["tr_log_tests_failed"] == should_be
+        self.assertEqual(result["tr_log_tests_failed"], should_be)
 
     @staticmethod
     def compare_tr_t_failed(result, should_be):
-        assert result['tr_log_tests_failed'] == should_be
+        self.assertEqual(result['tr_log_tests_failed'], should_be)
 
     def compare_t_duration(self, result, should_be):
-        assert self.assert_equal_tolerance(result["tr_log_testduration"], should_be)
+        self.assertTrue(self.assert_equal_tolerance(result["tr_log_testduration"], should_be))
 
     @staticmethod
     def assert_equal_tolerance(p1, p2):
@@ -257,18 +256,18 @@ class Test(unittest.TestCase):
 
     @staticmethod
     def compare_buildduration(self, result, should_be):
-        assert self.assert_equal_tolerance(result["tr_log_buildduration"] == should_be)
+        self.assertTrue(self.assert_equal_tolerance(result["tr_log_buildduration"], should_be))
 
     @staticmethod
     def check_build_language(build_log_lang, lang):
-        assert build_log_lang == lang
+        self.assertEqual(build_log_lang, lang)
 
     @staticmethod
     def check_build_language_not_java(lang):
-        assert lang != "java"
+        self.assertNotEqual(lang, "java")
 
     def check_match(self, my_result, travis_result):
-        assert self.compare_with_tt(my_result, travis_result)
+        self.assertTrue(self.compare_with_tt(my_result, travis_result))
 
     def test_detect_analyzer_maven(self):
         logs_folder = "maven/"
@@ -286,7 +285,7 @@ class Test(unittest.TestCase):
         file_path = "logs/" + log
         ts, r = self.get_trigger_sha_and_repo(job_id)
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=ts, repo=r)
-        assert "redis.clients.jedis.tests.commands.ObjectCommandsTest" in result["tr_log_tests_failed"]
+        self.assertIn("redis.clients.jedis.tests.commands.ObjectCommandsTest", result["tr_log_tests_failed"])
 
     def test_detect_failed_function_name_2(self):
         log = "a25097b2092937b7a66212eaa2ca1b48d7d2f813-90.3.log"
@@ -294,7 +293,7 @@ class Test(unittest.TestCase):
         file_path = "logs/" + log
         ts, r = self.get_trigger_sha_and_repo(job_id)
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=ts, repo=r)
-        assert "com.github.searls.jasmine.runner.SpecRunnerExecutorTest" in result["tr_log_tests_failed"]
+        self.assertIn("com.github.searls.jasmine.runner.SpecRunnerExecutorTest", result["tr_log_tests_failed"])
 
     def test_maven_1(self):
         log = "e5586dff6dbd4e418585fba6920be9cada824b36-204.1.log"
