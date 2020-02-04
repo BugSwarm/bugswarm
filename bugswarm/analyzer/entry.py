@@ -80,10 +80,10 @@ def print_usage():
     log.info('-----------------------------------------------------------------------')
     log.info('To analyze compare reproduced log with original Travis log:')
     log.info('    Python')
-    log.info('      Example: python3 entry.py -l 45123523.log -o 45123523-orig.log -j 45123523')
+    log.info('      Example: python3 entry.py -r 45123523.log -o 45123523-orig.log -j 45123523')
     log.info('    Java')
-    log.info('      Example: python3 entry.py -l 308408479.log -o 308408479-orig.log -j 308408479 -b maven')
-    log.info('      Example: python3 entry.py -l 308408479.log -o 308408479-orig.log -j 308408479 -t 67bc28d1a4fe777b50'
+    log.info('      Example: python3 entry.py -r 308408479.log -o 308408479-orig.log -j 308408479 -b maven')
+    log.info('      Example: python3 entry.py -r 308408479.log -o 308408479-orig.log -j 308408479 -t 67bc28d1a4fe777b50'
              '35f331da02ba2db2c682a6 --repo=Adobe-Consulting-Services/acs-aem-commons')
     log.info('To analyze a log:')
     log.info('    Python')
