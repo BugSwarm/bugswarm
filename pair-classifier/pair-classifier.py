@@ -154,7 +154,7 @@ class PairClassifier(object):
 
                 try:
                     result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id),
-                                                         failed_job_id)
+                                                         failed_job_id, trigger_sha=failed_sha, repo=repo)
                 except BaseException:
                     log.error('Error analyzing log for {}'.format(failed_job_id))
                     continue

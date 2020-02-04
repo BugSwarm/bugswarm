@@ -152,6 +152,13 @@ class Dispatcher(object):
             log.debug('Using other Analyzer')
             return JavaOtherAnalyzer(primary_language, folds, job_id, 'NA')
 
+    def _validate_input(self, build_system, trigger_sha, repo):
+        if all(x is None for x in [build_system, trigger_sha, repo]):
+            return False
+        elif build_system is None and (trigger_sha is None or repo is None):
+            return False
+        return True
+
     def _get_specific_language_analyzer(self, primary_language, lines, folds, job_id, build_system, trigger_sha, repo,
                                         force):
         # Update this function to extend to other languages.
@@ -164,6 +171,9 @@ class Dispatcher(object):
             # return RubyLogFileAnalyzer(log, folds)
             return None
         elif lang in use_java:
+            if not self._validate_input(build_system, trigger_sha, repo):
+                log.error('Need build system or trigger sha and repo to analyze java log')
+                return None
             return self._get_java_analyzer(primary_language, lines, folds, job_id, build_system, trigger_sha, repo)
         elif lang == 'python':
             return PythonLogFileAnalyzer(primary_language, folds, job_id)

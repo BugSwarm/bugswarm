@@ -17,7 +17,6 @@ def main(argv=None):
     log.info(get_current_component_version_message('Analyzer'))
 
     mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo = _validate_input(argv)
-
     analyzer = Analyzer()
     if mode == 0:
         analyzer.compare_single_log(reproduced, orig, job_id, build_system, trigger_sha, repo, print_result)
@@ -63,15 +62,6 @@ def _validate_input(argv):
             repo = arg
         if opt == '--print':
             print_result = True
-
-    if all(x is None for x in [build_system, trigger_sha, repo]):
-        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
-        print_usage()
-        sys.exit(2)
-    elif build_system is None and (trigger_sha is None or repo is None):
-        log.error('Need build system or trigger sha and repo to analyze java log. Exiting.')
-        print_usage()
-        sys.exit(2)
 
     if reproduced and orig:
         if job_id and '.log' in reproduced and '.log' in orig:
