@@ -359,8 +359,8 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(maven5, 2)
         self.compare_bool_t_ran(maven5, True)
         self.compare_bool_t_failed(maven5, True)
-        self.compare_tr_t_failed(maven5, 'addList(com.tagtraum.perf.[secure].view.model.TestRecentGC' \
-                                         'ResourcesModel)#addString(com.tagtraum.perf.[secure].view.model' \
+        self.compare_tr_t_failed(maven5, 'addList(com.tagtraum.perf.[secure].view.model.TestRecentGC'
+                                         'ResourcesModel)#addString(com.tagtraum.perf.[secure].view.model'
                                          '.TestRecentGCResourcesModel)')
 
     def test_maven_6(self):
@@ -377,7 +377,7 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(maven6, 0)
         self.compare_bool_t_ran(maven6, True)
         self.compare_bool_t_failed(maven6, True)
-        self.compare_tr_t_failed(maven6, 'testAcceptFileWithMaxSize(org.apache.struts2.interceptor' \
+        self.compare_tr_t_failed(maven6, 'testAcceptFileWithMaxSize(org.apache.struts2.interceptor'
                                          '.FileUploadInterceptorTest)')
 
     def test_maven_7(self):
@@ -394,12 +394,12 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(maven7, 0)
         self.compare_bool_t_ran(maven7, True)
         self.compare_bool_t_failed(maven7, True)
-        self.compare_tr_t_failed(maven7, 'testInvalidContentTypeMultipartRequest(org.apache.struts2.' \
-                                         'interceptor.FileUploadInterceptorTest)#testSuccessUploadOfA' \
-                                         'TextFileMultipartRequest(org.apache.struts2.interceptor.' \
-                                         'FileUploadInterceptorTest)#testNoContentMultipartRequest(org.apache.' \
-                                         'struts2.interceptor.FileUploadInterceptorTest)#testMultipart' \
-                                         'RequestLocalizedError(org.apache.struts2.interceptor.FileUpload' \
+        self.compare_tr_t_failed(maven7, 'testInvalidContentTypeMultipartRequest(org.apache.struts2.'
+                                         'interceptor.FileUploadInterceptorTest)#testSuccessUploadOfA'
+                                         'TextFileMultipartRequest(org.apache.struts2.interceptor.'
+                                         'FileUploadInterceptorTest)#testNoContentMultipartRequest(org.apache.'
+                                         'struts2.interceptor.FileUploadInterceptorTest)#testMultipart'
+                                         'RequestLocalizedError(org.apache.struts2.interceptor.FileUpload'
                                          'InterceptorTest)')
 
     def test_status_terminated(self):
@@ -509,11 +509,11 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python5, True)
         self.compare_bool_t_failed(python5, True)
         self.compare_t_duration(python5, 0.259)
-        self.compare_tr_t_failed(python5, 'test_modified_url_encoding (verktyg.testsuite.test_requests.' \
-                                          'RequestsTestCase)#test_shallow_mode (verktyg.testsuite.test' \
-                                          '_requests.RequestsTestCase)#test_storage_classes (verktyg.' \
-                                          'testsuite.test_requests.RequestsTestCase)#test_base_request' \
-                                          ' (verktyg.testsuite.test_requests.RequestsTestCase)#test_form' \
+        self.compare_tr_t_failed(python5, 'test_modified_url_encoding (verktyg.testsuite.test_requests.'
+                                          'RequestsTestCase)#test_shallow_mode (verktyg.testsuite.test'
+                                          '_requests.RequestsTestCase)#test_storage_classes (verktyg.'
+                                          'testsuite.test_requests.RequestsTestCase)#test_base_request'
+                                          ' (verktyg.testsuite.test_requests.RequestsTestCase)#test_form'
                                           '_data_ordering (verktyg.testsuite.test_requests.RequestsTestCase)')
         self.compare_frameworks(python5, 'unittest')
 
@@ -548,7 +548,7 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python7, True)
         self.compare_bool_t_failed(python7, True)
         self.compare_t_duration(python7, 30.006)
-        self.compare_tr_t_failed(python7, 'test_download_and_expand_tgz (COT.helpers.tests.test' \
+        self.compare_tr_t_failed(python7, 'test_download_and_expand_tgz (COT.helpers.tests.test'
                                           '_helper.HelperGenericTest)')
         self.compare_frameworks(python7, 'unittest')
 
@@ -583,7 +583,7 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python9, True)
         self.compare_bool_t_failed(python9, True)
         self.compare_t_duration(python9, 0.28)
-        self.compare_tr_t_failed(python9, 'tests.unit.test_readkey::ReadKeyTest::test_page_down' \
+        self.compare_tr_t_failed(python9, 'tests.unit.test_readkey::ReadKeyTest::test_page_down'
                                           '#tests.unit.test_readkey::ReadKeyTest::test_page_up')
         self.compare_frameworks(python9, 'pytest')
 
@@ -601,17 +601,17 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python10, True)
         self.compare_bool_t_failed(python10, True)
         self.compare_t_duration(python10, 70.302)
-        self.compare_tr_t_failed(python10, 'test_list (vistrails.core.scripting.export.TestExport)' \
-                                           '#test_loop_append_mixed (vistrails.core.scripting.export.' \
-                                           'TestExport)#test_loop_cartesian (vistrails.core.scripting.' \
-                                           'export.TestExport)#test_loop_cartesian_reversed (vistrails.' \
-                                           'core.scripting.export.TestExport)#test_loop_combined' \
-                                           ' (vistrails.core.scripting.export.TestExport)#test' \
-                                           '_loop_pairwise (vistrails.core.scripting.export.TestExport)' \
-                                           '#test_loop_wrap (vistrails.core.scripting.export.TestExport)' \
-                                           '#test_sources (vistrails.core.scripting.export.TestExport)' \
-                                           '#testIncorrectURL (vistrails.packages.URL.init.TestDownload' \
-                                           'File)#testIncorrectURL_2 (vistrails.packages.URL.init.Test' \
+        self.compare_tr_t_failed(python10, 'test_list (vistrails.core.scripting.export.TestExport)'
+                                           '#test_loop_append_mixed (vistrails.core.scripting.export.'
+                                           'TestExport)#test_loop_cartesian (vistrails.core.scripting.'
+                                           'export.TestExport)#test_loop_cartesian_reversed (vistrails.'
+                                           'core.scripting.export.TestExport)#test_loop_combined'
+                                           ' (vistrails.core.scripting.export.TestExport)#test'
+                                           '_loop_pairwise (vistrails.core.scripting.export.TestExport)'
+                                           '#test_loop_wrap (vistrails.core.scripting.export.TestExport)'
+                                           '#test_sources (vistrails.core.scripting.export.TestExport)'
+                                           '#testIncorrectURL (vistrails.packages.URL.init.TestDownload'
+                                           'File)#testIncorrectURL_2 (vistrails.packages.URL.init.Test'
                                            'DownloadFile)')
         self.compare_frameworks(python10, 'unittest')
 
@@ -629,10 +629,10 @@ class Test(unittest.TestCase):
         self.compare_bool_t_failed(python11, True)
         self.compare_t_duration(python11, 821.23)
         self.compare_frameworks(python11, 'pytest')
-        self.compare_tr_t_failed(python11, 'sklearn.ensemble.tests.test_bagging::test_parallel_classification' \
-                                           '#sklearn.ensemble.tests.test_bagging::test_parallel_regression' \
-                                           '#sklearn.ensemble.tests.test_bagging::test_base_estimator' \
-                                           '#sklearn.ensemble.tests.test_iforest::test_iforest_parallel' \
+        self.compare_tr_t_failed(python11, 'sklearn.ensemble.tests.test_bagging::test_parallel_classification'
+                                           '#sklearn.ensemble.tests.test_bagging::test_parallel_regression'
+                                           '#sklearn.ensemble.tests.test_bagging::test_base_estimator'
+                                           '#sklearn.ensemble.tests.test_iforest::test_iforest_parallel'
                                            '_regression#sklearn.tests.test_common::test_parallel_fit')
 
     def test_python_12(self):
@@ -650,36 +650,36 @@ class Test(unittest.TestCase):
         self.compare_bool_t_failed(python12, True)
         self.compare_t_duration(python12, 3.74)
         self.compare_frameworks(python12, 'pytest')
-        self.compare_tr_t_failed(python12, 'tests.test_api::TestAuth::test_api#tests.test_api::TestAuth::' \
-                                           'test_backup#tests.test_api::TestAuth::test_non_existant_api' \
-                                           '#tests.test_api::TestAuth::test_submit#tests.test_api::' \
-                                           'TestAuth::test_version_api#tests.test_auth::TestAuth::test' \
-                                           '_login#tests.test_auth::TestAuth::test_restricted#tests.test' \
-                                           '_auth::TestAuth::test_testing_login#tests.test_auth::TestAuth::' \
-                                           'test_testing_login_fail#tests.test_group::TestGroup::test_accept' \
-                                           '#tests.test_group::TestGroup::test_accept_not_pending#tests.' \
-                                           'test_group::TestGroup::test_decline#tests.test_group::TestGroup' \
-                                           '::test_decline_degenerate#tests.test_group::TestGroup::test' \
-                                           '_decline_not_pending#tests.test_group::TestGroup::test_invite' \
-                                           '#tests.test_group::TestGroup::test_invite_full#tests.test_group' \
-                                           '::TestGroup::test_invite_in_group#tests.test_group::TestGroup' \
-                                           '::test_invite_individual#tests.test_group::TestGroup::test_invite' \
-                                           '_not_enrolled#tests.test_group::TestGroup::test_locked#tests.' \
-                                           'test_group::TestGroup::test_log#tests.test_group::TestGroup::' \
-                                           'test_remove#tests.test_group::TestGroup::test_remove_degenerate' \
-                                           '#tests.test_group::TestGroup::test_remove_not_in_group#tests.' \
-                                           'test_group::TestGroup::test_remove_self#tests.test_highlight::' \
-                                           'TestHighlight::test_highlight_diff#tests.test_highlight::' \
-                                           'TestHighlight::test_highlight_file#tests.test_main::TestMain::' \
-                                           'test_home#tests.test_submission::TestSubmission::test_accept' \
-                                           '_unflag#tests.test_submission::TestSubmission::test_active_user' \
-                                           '_ids#tests.test_submission::TestSubmission::test_files#tests.' \
-                                           'test_submission::TestSubmission::test_flag#tests.test' \
-                                           '_submission::TestSubmission::test_no_flags#tests.test_submission' \
-                                           '::TestSubmission::test_sabotage#tests.test_submission::' \
-                                           'TestSubmission::test_two_flags#tests.test_submission::' \
-                                           'TestSubmission::test_unflag#tests.test_submission::' \
-                                           'TestSubmission::test_unflag_not_flagged#tests.test_user' \
+        self.compare_tr_t_failed(python12, 'tests.test_api::TestAuth::test_api#tests.test_api::TestAuth::'
+                                           'test_backup#tests.test_api::TestAuth::test_non_existant_api'
+                                           '#tests.test_api::TestAuth::test_submit#tests.test_api::'
+                                           'TestAuth::test_version_api#tests.test_auth::TestAuth::test'
+                                           '_login#tests.test_auth::TestAuth::test_restricted#tests.test'
+                                           '_auth::TestAuth::test_testing_login#tests.test_auth::TestAuth::'
+                                           'test_testing_login_fail#tests.test_group::TestGroup::test_accept'
+                                           '#tests.test_group::TestGroup::test_accept_not_pending#tests.'
+                                           'test_group::TestGroup::test_decline#tests.test_group::TestGroup'
+                                           '::test_decline_degenerate#tests.test_group::TestGroup::test'
+                                           '_decline_not_pending#tests.test_group::TestGroup::test_invite'
+                                           '#tests.test_group::TestGroup::test_invite_full#tests.test_group'
+                                           '::TestGroup::test_invite_in_group#tests.test_group::TestGroup'
+                                           '::test_invite_individual#tests.test_group::TestGroup::test_invite'
+                                           '_not_enrolled#tests.test_group::TestGroup::test_locked#tests.'
+                                           'test_group::TestGroup::test_log#tests.test_group::TestGroup::'
+                                           'test_remove#tests.test_group::TestGroup::test_remove_degenerate'
+                                           '#tests.test_group::TestGroup::test_remove_not_in_group#tests.'
+                                           'test_group::TestGroup::test_remove_self#tests.test_highlight::'
+                                           'TestHighlight::test_highlight_diff#tests.test_highlight::'
+                                           'TestHighlight::test_highlight_file#tests.test_main::TestMain::'
+                                           'test_home#tests.test_submission::TestSubmission::test_accept'
+                                           '_unflag#tests.test_submission::TestSubmission::test_active_user'
+                                           '_ids#tests.test_submission::TestSubmission::test_files#tests.'
+                                           'test_submission::TestSubmission::test_flag#tests.test'
+                                           '_submission::TestSubmission::test_no_flags#tests.test_submission'
+                                           '::TestSubmission::test_sabotage#tests.test_submission::'
+                                           'TestSubmission::test_two_flags#tests.test_submission::'
+                                           'TestSubmission::test_unflag#tests.test_submission::'
+                                           'TestSubmission::test_unflag_not_flagged#tests.test_user'
                                            '::TestUser::test_lookup#tests.test_utils::TestUtils::test_hashids')
 
     def test_python_13(self):
@@ -696,23 +696,23 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python13, True)
         self.compare_bool_t_failed(python13, True)
         self.compare_frameworks(python13, 'pytest')
-        self.compare_tr_t_failed(python13, 'tests.h.oauth.jwt_grant_token_test::TestJWTGrantToken::test' \
-                                           '_issuer_raises_for_missing_iss_claim#tests.h.oauth.jwt_grant' \
-                                           '_token_test::TestVerifiedJWTGrantToken::test_init_raises_for' \
-                                           '_missing_claims[aud-audience]#tests.h.oauth.jwt_grant_token' \
-                                           '_test::TestVerifiedJWTGrantToken::test_init_raises_for_missing' \
-                                           '_claims[exp-expiry]#tests.h.oauth.jwt_grant_token_test::' \
-                                           'TestVerifiedJWTGrantToken::test_init_raises_for_missing' \
-                                           '_claims[nbf-start time]#tests.h.oauth.jwt_grant_token_test' \
-                                           '::TestVerifiedJWTGrantToken::test_init_raises_for_invalid' \
-                                           '_aud#tests.h.oauth.jwt_grant_token_test::' \
-                                           'TestVerifiedJWTGrantToken::test_init_raises_for_invalid' \
-                                           '_timestamp_types[exp-expiry]#tests.h.oauth.jwt_grant' \
-                                           '_token_test::TestVerifiedJWTGrantToken::test_init_raises' \
-                                           '_for_invalid_timestamp_types[nbf-start time]#tests.h.oauth.jwt' \
-                                           '_grant_token_test::TestVerifiedJWTGrantToken::test_subject' \
-                                           '_raises_for_missing_sub_claim#tests.h.oauth.jwt_grant_token' \
-                                           '_test::TestVerifiedJWTGrantToken::test_subject_raises_for_empty' \
+        self.compare_tr_t_failed(python13, 'tests.h.oauth.jwt_grant_token_test::TestJWTGrantToken::test'
+                                           '_issuer_raises_for_missing_iss_claim#tests.h.oauth.jwt_grant'
+                                           '_token_test::TestVerifiedJWTGrantToken::test_init_raises_for'
+                                           '_missing_claims[aud-audience]#tests.h.oauth.jwt_grant_token'
+                                           '_test::TestVerifiedJWTGrantToken::test_init_raises_for_missing'
+                                           '_claims[exp-expiry]#tests.h.oauth.jwt_grant_token_test::'
+                                           'TestVerifiedJWTGrantToken::test_init_raises_for_missing'
+                                           '_claims[nbf-start time]#tests.h.oauth.jwt_grant_token_test'
+                                           '::TestVerifiedJWTGrantToken::test_init_raises_for_invalid'
+                                           '_aud#tests.h.oauth.jwt_grant_token_test::'
+                                           'TestVerifiedJWTGrantToken::test_init_raises_for_invalid'
+                                           '_timestamp_types[exp-expiry]#tests.h.oauth.jwt_grant'
+                                           '_token_test::TestVerifiedJWTGrantToken::test_init_raises'
+                                           '_for_invalid_timestamp_types[nbf-start time]#tests.h.oauth.jwt'
+                                           '_grant_token_test::TestVerifiedJWTGrantToken::test_subject'
+                                           '_raises_for_missing_sub_claim#tests.h.oauth.jwt_grant_token'
+                                           '_test::TestVerifiedJWTGrantToken::test_subject_raises_for_empty'
                                            '_sub_claim')
 
     def test_python_14(self):
@@ -729,14 +729,14 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python14, True)
         self.compare_bool_t_failed(python14, True)
         self.compare_frameworks(python14, 'pytest')
-        self.compare_tr_t_failed(python14, 'tests.test_client::SSHClientTest::test_4_auto_add_policy' \
-                                           '#tests.test_client::SSHClientTest::test_6_cleanup#tests.test' \
-                                           '_client::SSHClientTest::test_client_can_be_used_as_context' \
-                                           '_manager#tests.test_client::SSHClientTest::test_host_key' \
-                                           '_negotiation_1#tests.test_client::SSHClientTest::test_host' \
-                                           '_key_negotiation_2#tests.test_client::SSHClientTest::test' \
-                                           '_host_key_negotiation_3#tests.test_client::SSHClientTest::' \
-                                           'test_host_key_negotiation_4#tests.test_client::SSHClientTest' \
+        self.compare_tr_t_failed(python14, 'tests.test_client::SSHClientTest::test_4_auto_add_policy'
+                                           '#tests.test_client::SSHClientTest::test_6_cleanup#tests.test'
+                                           '_client::SSHClientTest::test_client_can_be_used_as_context'
+                                           '_manager#tests.test_client::SSHClientTest::test_host_key'
+                                           '_negotiation_1#tests.test_client::SSHClientTest::test_host'
+                                           '_key_negotiation_2#tests.test_client::SSHClientTest::test'
+                                           '_host_key_negotiation_3#tests.test_client::SSHClientTest::'
+                                           'test_host_key_negotiation_4#tests.test_client::SSHClientTest'
                                            '::test_update_environment')
 
     def test_python_15(self):
@@ -782,7 +782,7 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python17, True)
         self.compare_bool_t_failed(python17, True)
         self.compare_frameworks(python17, 'unittest')
-        self.compare_tr_t_failed(python17, "test_repository_package_names('./repository/m.json', ...)" \
+        self.compare_tr_t_failed(python17, "test_repository_package_names('./repository/m.json', ...)"
                                            " (tests.test.DefaultRepositoryTests)")
 
     def test_python_18(self):
@@ -798,7 +798,7 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(python18, True)
         self.compare_bool_t_failed(python18, True)
         self.compare_frameworks(python18, 'unittest')
-        self.compare_tr_t_failed(python18, "sklearn.tests.test_common.test_all_estimators" \
+        self.compare_tr_t_failed(python18, "sklearn.tests.test_common.test_all_estimators"
                                            "('GMM', <class 'sklearn.mixture.gmm.GMM'>)")
 
     def test_python_19(self):
@@ -860,7 +860,7 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(gradle1, 0)
         self.compare_bool_t_ran(gradle1, True)
         self.compare_bool_t_failed(gradle1, True)
-        self.compare_tr_t_failed(gradle1, 'test.methodinterceptors.multipleinterceptors.' \
+        self.compare_tr_t_failed(gradle1, 'test.methodinterceptors.multipleinterceptors.'
                                           'MultipleInterceptorsTest.testMultipleInterceptorsWithPreserveOrder')
 
     def test_gradle_2(self):
@@ -892,7 +892,7 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(gradle3, 4)
         self.compare_bool_t_ran(gradle3, True)
         self.compare_bool_t_failed(gradle3, True)
-        self.compare_tr_t_failed(gradle3, 'org.stagemonitor.requestmonitor.ejb.' \
+        self.compare_tr_t_failed(gradle3, 'org.stagemonitor.requestmonitor.ejb.'
                                           'RemoteEjbMonitorInstrumenterTest.testMonitorRemoteCalls')
 
     def test_gradle_4(self):
@@ -909,22 +909,22 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(gradle4, 0)
         self.compare_bool_t_ran(gradle4, True)
         self.compare_bool_t_failed(gradle4, True)
-        self.compare_tr_t_failed(gradle4, 'org.stagemonitor.alerting.alerter.ElasticsearchAlerterTest' \
-                                          '.testAlert#org.stagemonitor.alerting.alerter.HttpAlerterTest' \
-                                          '.testAlert#org.stagemonitor.alerting.incident.' \
-                                          'IncidentRepositoryTest.testSaveAndGet[0: class org.stagemonitor' \
-                                          '.alerting.incident.ElasticsearchIncidentRepository]#org.' \
-                                          'stagemonitor.alerting.incident.IncidentRepositoryTest.' \
-                                          'testWrongVersion[0: class org.stagemonitor.alerting.' \
-                                          'incident.ElasticsearchIncidentRepository]#org.stagemonitor.' \
-                                          'alerting.incident.IncidentRepositoryTest.' \
-                                          'testDeleteWrongVersion[0: class org.stagemonitor.' \
-                                          'alerting.incident.ElasticsearchIncidentRepository]' \
-                                          '#org.stagemonitor.alerting.incident.IncidentRepositoryTest' \
-                                          '.testAlreadyCreated[0: class org.stagemonitor.alerting.' \
-                                          'incident.ElasticsearchIncidentRepository]#org.stagemonitor' \
-                                          '.alerting.incident.IncidentRepositoryTest.testDelete[0: ' \
-                                          'class org.stagemonitor.alerting.incident.' \
+        self.compare_tr_t_failed(gradle4, 'org.stagemonitor.alerting.alerter.ElasticsearchAlerterTest'
+                                          '.testAlert#org.stagemonitor.alerting.alerter.HttpAlerterTest'
+                                          '.testAlert#org.stagemonitor.alerting.incident.'
+                                          'IncidentRepositoryTest.testSaveAndGet[0: class org.stagemonitor'
+                                          '.alerting.incident.ElasticsearchIncidentRepository]#org.'
+                                          'stagemonitor.alerting.incident.IncidentRepositoryTest.'
+                                          'testWrongVersion[0: class org.stagemonitor.alerting.'
+                                          'incident.ElasticsearchIncidentRepository]#org.stagemonitor.'
+                                          'alerting.incident.IncidentRepositoryTest.'
+                                          'testDeleteWrongVersion[0: class org.stagemonitor.'
+                                          'alerting.incident.ElasticsearchIncidentRepository]'
+                                          '#org.stagemonitor.alerting.incident.IncidentRepositoryTest'
+                                          '.testAlreadyCreated[0: class org.stagemonitor.alerting.'
+                                          'incident.ElasticsearchIncidentRepository]#org.stagemonitor'
+                                          '.alerting.incident.IncidentRepositoryTest.testDelete[0: '
+                                          'class org.stagemonitor.alerting.incident.'
                                           'ElasticsearchIncidentRepository]')
 
     def test_gradle_5(self):
@@ -941,7 +941,7 @@ class Test(unittest.TestCase):
         self.compare_num_t_skipped(gradle5, 1)
         self.compare_bool_t_ran(gradle5, True)
         self.compare_bool_t_failed(gradle5, True)
-        self.compare_tr_t_failed(gradle5, 'CapsuleTest.testWrapperCapsuleNoMain#CapsuleTest.' \
+        self.compare_tr_t_failed(gradle5, 'CapsuleTest.testWrapperCapsuleNoMain#CapsuleTest.'
                                           'testWrapperCapsule#CapsuleTest.testWrapperCapsuleNonCapsuleApp')
 
     def test_gradle_6(self):
@@ -975,37 +975,37 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(gradle7, True)
         self.compare_bool_t_failed(gradle7, True)
         self.compare_frameworks(gradle7, 'JUnit')
-        self.compare_tr_t_failed(gradle7, 'test.groupinvocation.GroupSuiteTest.Regression2#test.' \
-                                          'groupinvocation.GroupSuiteTest.Regression2#test.groupinvocation' \
-                                          '.GroupSuiteTest.Regression2#test.groupinvocation.GroupSuiteTest' \
-                                          '.Regression2#test.groupinvocation.GroupSuiteTest.Regression2' \
-                                          '#test.groupinvocation.GroupSuiteTest.Regression2#test.' \
-                                          'groupinvocation.GroupSuiteTest.Regression2#test.' \
-                                          'annotationtransformer.AnnotationTransformerTest.' \
-                                          'Regression2#test.annotationtransformer.AnnotationTransformer' \
-                                          'Test.Regression2#test.preserveorder.PreserveOrderTest.' \
-                                          'Regression2#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.CommandLineTest.Method' \
-                                          ' selectors#test.methodselectors.MethodSelectorInSuiteTest.' \
-                                          'Method selectors#test.methodselectors.MethodSelector' \
-                                          'InSuiteTest.Method selectors#test.methodselectors.' \
-                                          'MethodSelectorInSuiteTest.Method selectors#test.JUnitTest1' \
-                                          '.JUnit#test.JUnitTest1.JUnit#test.JUnitTest1.JUnit#test.' \
-                                          'JUnitTest1.JUnit#test.JUnitTest1.JUnit#test.JUnitTest1.' \
-                                          'JUnit#test.JUnitTest1.JUnit#test.CommandLineTest.JUnit' \
-                                          '#test.CommandLineTest.JUnit#test.JUnit4Test.JUnit#test.' \
-                                          'JUnit4Test.JUnit#test.JUnit4Test.JUnit#test.JUnit4Test.' \
-                                          'JUnit#test.JUnit4Test.JUnit#test.retryAnalyzer.' \
-                                          'RetryAnalyzerTest.RetryAnalyzer#test.methodinterceptors.' \
-                                          'multipleinterceptors.MultipleInterceptorsTest.' \
-                                          'MethodInterceptor#test.testng173.TestNG173Test.Bug173' \
-                                          '#test.testng173.TestNG173Test.Bug173#test.mixed.MixedTest.' \
+        self.compare_tr_t_failed(gradle7, 'test.groupinvocation.GroupSuiteTest.Regression2#test.'
+                                          'groupinvocation.GroupSuiteTest.Regression2#test.groupinvocation'
+                                          '.GroupSuiteTest.Regression2#test.groupinvocation.GroupSuiteTest'
+                                          '.Regression2#test.groupinvocation.GroupSuiteTest.Regression2'
+                                          '#test.groupinvocation.GroupSuiteTest.Regression2#test.'
+                                          'groupinvocation.GroupSuiteTest.Regression2#test.'
+                                          'annotationtransformer.AnnotationTransformerTest.'
+                                          'Regression2#test.annotationtransformer.AnnotationTransformer'
+                                          'Test.Regression2#test.preserveorder.PreserveOrderTest.'
+                                          'Regression2#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.CommandLineTest.Method'
+                                          ' selectors#test.methodselectors.MethodSelectorInSuiteTest.'
+                                          'Method selectors#test.methodselectors.MethodSelector'
+                                          'InSuiteTest.Method selectors#test.methodselectors.'
+                                          'MethodSelectorInSuiteTest.Method selectors#test.JUnitTest1'
+                                          '.JUnit#test.JUnitTest1.JUnit#test.JUnitTest1.JUnit#test.'
+                                          'JUnitTest1.JUnit#test.JUnitTest1.JUnit#test.JUnitTest1.'
+                                          'JUnit#test.JUnitTest1.JUnit#test.CommandLineTest.JUnit'
+                                          '#test.CommandLineTest.JUnit#test.JUnit4Test.JUnit#test.'
+                                          'JUnit4Test.JUnit#test.JUnit4Test.JUnit#test.JUnit4Test.'
+                                          'JUnit#test.JUnit4Test.JUnit#test.retryAnalyzer.'
+                                          'RetryAnalyzerTest.RetryAnalyzer#test.methodinterceptors.'
+                                          'multipleinterceptors.MultipleInterceptorsTest.'
+                                          'MethodInterceptor#test.testng173.TestNG173Test.Bug173'
+                                          '#test.testng173.TestNG173Test.Bug173#test.mixed.MixedTest.'
                                           'Mixed#test.mixed.MixedTest.Mixed#test.mixed.MixedTest.Mixed')
 
     def test_gradle_8(self):
@@ -1023,12 +1023,12 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(gradle8, True)
         self.compare_bool_t_failed(gradle8, True)
         self.compare_frameworks(gradle8, 'JUnit')
-        self.compare_tr_t_failed(gradle8, 'co.paralleluniverse.fibers.FiberTest.testSerializationWith' \
-                                          'ThreadLocals[0]#co.paralleluniverse.fibers.FiberTest.test' \
-                                          'Serialization1[0]#co.paralleluniverse.fibers.FiberTest.' \
-                                          'testSerialization2[0]#co.paralleluniverse.fibers.FiberTest.' \
-                                          'testSerializationWithThreadLocals[1]#co.paralleluniverse.' \
-                                          'fibers.FiberTest.testSerialization1[1]#co.paralleluniverse.' \
+        self.compare_tr_t_failed(gradle8, 'co.paralleluniverse.fibers.FiberTest.testSerializationWith'
+                                          'ThreadLocals[0]#co.paralleluniverse.fibers.FiberTest.test'
+                                          'Serialization1[0]#co.paralleluniverse.fibers.FiberTest.'
+                                          'testSerialization2[0]#co.paralleluniverse.fibers.FiberTest.'
+                                          'testSerializationWithThreadLocals[1]#co.paralleluniverse.'
+                                          'fibers.FiberTest.testSerialization1[1]#co.paralleluniverse.'
                                           'fibers.FiberTest.testSerialization2[1]')
 
     def test_gradle_9(self):
@@ -1046,7 +1046,7 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(gradle9, True)
         self.compare_bool_t_failed(gradle9, True)
         self.compare_frameworks(gradle9, 'JUnit')
-        self.compare_tr_t_failed(gradle9, 'test.thread.parallelization.ParallelByMethodsTestCase6Scenario1.' \
+        self.compare_tr_t_failed(gradle9, 'test.thread.parallelization.ParallelByMethodsTestCase6Scenario1.'
                                           'verifyThatTestMethodsRunInParallelThreads')
 
     def test_gradle_10(self):
@@ -1064,131 +1064,131 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(gradle10, True)
         self.compare_bool_t_failed(gradle10, True)
         self.compare_frameworks(gradle10, 'JUnit')
-        self.compare_tr_t_failed(gradle10, 'com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a' \
-                                           '_scenario_with_a_failing_test_case_for_demonstration_purposes[1:' \
-                                           ' false]#com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.' \
-                                           'shouldFailWithUnexpectedRuntimeException#com.tngtech.jgiven.' \
-                                           'examples.coffeemachine.ServeCoffeeTest.a_failing_scenario' \
-                                           '_for_demonstration_purposes#com.tngtech.jgiven.examples.' \
-                                           'nested.NestedStepsTest.a_scenario_with_a_failing_nested' \
-                                           '_step_on_purpose#com.tngtech.jgiven.examples.parameters' \
-                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[5:' \
-                                           ' some grouping value 0, value 5]#com.tngtech.jgiven.examples' \
-                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many' \
-                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgiven' \
-                                           '.examples.parameters.ParametrizedScenariosTest.a_scenario' \
-                                           '_with_many_cases[25: some grouping value 2, value 5]#com.' \
-                                           'tngtech.jgiven.examples.parameters.ParametrizedScenariosTest' \
-                                           '.a_scenario_with_many_cases[35: some grouping value 3, value' \
-                                           ' 5]#com.tngtech.jgiven.examples.parameters.Parametrized' \
-                                           'ScenariosTest.a_scenario_with_many_cases[45: some grouping' \
-                                           ' value 4, value 5]#com.tngtech.jgiven.examples.parameters' \
-                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[55' \
-                                           ': some grouping value 5, value 5]#com.tngtech.jgiven.' \
-                                           'examples.parameters.ParametrizedScenariosTest.a_scenario' \
-                                           '_with_many_cases[65: some grouping value 6, value 5]#com' \
-                                           '.tngtech.jgiven.examples.parameters.ParametrizedScenarios' \
-                                           'Test.a_scenario_with_many_cases[75: some grouping value ' \
-                                           '7, value 5]#com.tngtech.jgiven.examples.parameters.Param' \
-                                           'etrizedScenariosTest.a_scenario_with_many_cases[85: some' \
-                                           ' grouping value 8, value 5]#com.tngtech.jgiven.examples.pa' \
-                                           'rameters.ParametrizedScenariosTest.a_scenario_with_many_ca' \
-                                           'ses[95: some grouping value 9, value 5]#com.tngtech.jgive' \
-                                           'n.integration.spring.test.XmlConfiguredSpringScenarioTest' \
-                                           'Test.spring_can_inject_beans_into_stages#com.tngtech.jgiv' \
-                                           'en.examples.coffeemachine.ServeCoffeeTest.a_scenario_with' \
-                                           '_a_failing_test_case_for_demonstration_purposes[1: false]' \
-                                           '#com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest' \
-                                           '.shouldFailWithUnexpectedRuntimeException#com.tngtech.jgi' \
-                                           'ven.examples.coffeemachine.ServeCoffeeTest.a_failing_scen' \
-                                           'ario_for_demonstration_purposes#com.tngtech.jgiven.exampl' \
-                                           'es.nested.NestedStepsTest.a_scenario_with_a_failing_nest' \
-                                           'ed_step_on_purpose#com.tngtech.jgiven.examples.parameters' \
-                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[5: s' \
-                                           'ome grouping value 0, value 5]#com.tngtech.jgiven.examples' \
-                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many' \
-                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgi' \
-                                           'ven.examples.parameters.ParametrizedScenariosTest.a_scenar' \
-                                           'io_with_many_cases[25: some grouping value 2, value 5]#com' \
-                                           '.tngtech.jgiven.examples.parameters.ParametrizedScenariosT' \
-                                           'est.a_scenario_with_many_cases[35: some grouping value 3, ' \
-                                           'value 5]#com.tngtech.jgiven.examples.parameters.Parametriz' \
-                                           'edScenariosTest.a_scenario_with_many_cases[45: some groupi' \
-                                           'ng value 4, value 5]#com.tngtech.jgiven.examples.parameter' \
-                                           's.ParametrizedScenariosTest.a_scenario_with_many_cases[55: ' \
-                                           'some grouping value 5, value 5]#com.tngtech.jgiven.example' \
-                                           's.parameters.ParametrizedScenariosTest.a_scenario_with_man' \
-                                           'y_cases[65: some grouping value 6, value 5]#com.tngtech.jg' \
-                                           'iven.examples.parameters.ParametrizedScenariosTest.a_scena' \
-                                           'rio_with_many_cases[75: some grouping value 7, value 5]#co' \
-                                           'm.tngtech.jgiven.examples.parameters.ParametrizedScenariosT' \
-                                           'est.a_scenario_with_many_cases[85: some grouping value 8, v' \
-                                           'alue 5]#com.tngtech.jgiven.examples.parameters.Parametrize' \
-                                           'dScenariosTest.a_scenario_with_many_cases[95: some groupin' \
-                                           'g value 9, value 5]#com.tngtech.jgiven.integration.spring.' \
-                                           'test.XmlConfiguredSpringScenarioTestTest.spring_can_inject' \
-                                           '_beans_into_stages#com.tngtech.jgiven.examples.coffeemachi' \
-                                           'ne.ServeCoffeeTest.a_scenario_with_a_failing_test_case_for' \
-                                           '_demonstration_purposes[1: false]#com.tngtech.jgiven.examp' \
-                                           'les.coffeemachine.ServeCoffeeTest.shouldFailWithUnexpected' \
-                                           'RuntimeException#com.tngtech.jgiven.examples.coffeemachine' \
-                                           '.ServeCoffeeTest.a_failing_scenario_for_demonstration_purp' \
-                                           'oses#com.tngtech.jgiven.examples.nested.NestedStepsTest.a_' \
-                                           'scenario_with_a_failing_nested_step_on_purpose#com.tngtech' \
-                                           '.jgiven.examples.parameters.ParametrizedScenariosTest.a_sc' \
-                                           'enario_with_many_cases[5: some grouping value 0, value 5]#' \
-                                           'com.tngtech.jgiven.examples.parameters.ParametrizedScenari' \
-                                           'osTest.a_scenario_with_many_cases[15: some grouping value ' \
-                                           '1, value 5]#com.tngtech.jgiven.examples.parameters.Paramet' \
-                                           'rizedScenariosTest.a_scenario_with_many_cases[25: some gro' \
-                                           'uping value 2, value 5]#com.tngtech.jgiven.examples.parame' \
-                                           'ters.ParametrizedScenariosTest.a_scenario_with_many_cases[' \
-                                           '35: some grouping value 3, value 5]#com.tngtech.jgiven.exa' \
-                                           'mples.parameters.ParametrizedScenariosTest.a_scenario_with' \
-                                           '_many_cases[45: some grouping value 4, value 5]#com.tngtech' \
-                                           '.jgiven.examples.parameters.ParametrizedScenariosTest.a_sc' \
-                                           'enario_with_many_cases[55: some grouping value 5, value 5]' \
-                                           '#com.tngtech.jgiven.examples.parameters.ParametrizedScena' \
-                                           'riosTest.a_scenario_with_many_cases[65: some grouping val' \
-                                           'ue 6, value 5]#com.tngtech.jgiven.examples.parameters.Par' \
-                                           'ametrizedScenariosTest.a_scenario_with_many_cases[75: som' \
-                                           'e grouping value 7, value 5]#com.tngtech.jgiven.examples.' \
-                                           'parameters.ParametrizedScenariosTest.a_scenario_with_many' \
-                                           '_cases[85: some grouping value 8, value 5]#com.tngtech.jg' \
-                                           'iven.examples.parameters.ParametrizedScenariosTest.a_scen' \
-                                           'ario_with_many_cases[95: some grouping value 9, value 5]#c' \
-                                           'om.tngtech.jgiven.integration.spring.test.XmlConfiguredSpr' \
-                                           'ingScenarioTestTest.spring_can_inject_beans_into_stages#co' \
-                                           'm.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a_' \
-                                           'scenario_with_a_failing_test_case_for_demonstration_purpos' \
-                                           'es[1: false]#com.tngtech.jgiven.examples.coffeemachine.Ser' \
-                                           'veCoffeeTest.shouldFailWithUnexpectedRuntimeException#com.' \
-                                           'tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a_fa' \
-                                           'iling_scenario_for_demonstration_purposes#com.tngtech.jgive' \
-                                           'n.examples.nested.NestedStepsTest.a_scenario_with_a_failing' \
-                                           '_nested_step_on_purpose#com.tngtech.jgiven.examples.paramet' \
-                                           'ers.ParametrizedScenariosTest.a_scenario_with_many_cases[5:' \
-                                           ' some grouping value 0, value 5]#com.tngtech.jgiven.example' \
-                                           's.parameters.ParametrizedScenariosTest.a_scenario_with_many' \
-                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgiv' \
-                                           'en.examples.parameters.ParametrizedScenariosTest.a_scenario' \
-                                           '_with_many_cases[25: some grouping value 2, value 5]#com.tn' \
-                                           'gtech.jgiven.examples.parameters.ParametrizedScenariosTest.a' \
-                                           '_scenario_with_many_cases[35: some grouping value 3, value 5' \
-                                           ']#com.tngtech.jgiven.examples.parameters.ParametrizedScenari' \
-                                           'osTest.a_scenario_with_many_cases[45: some grouping value 4, ' \
-                                           'value 5]#com.tngtech.jgiven.examples.parameters.Parametrized' \
-                                           'ScenariosTest.a_scenario_with_many_cases[55: some grouping v' \
-                                           'alue 5, value 5]#com.tngtech.jgiven.examples.parameters.Para' \
-                                           'metrizedScenariosTest.a_scenario_with_many_cases[65: some gr' \
-                                           'ouping value 6, value 5]#com.tngtech.jgiven.examples.paramet' \
-                                           'ers.ParametrizedScenariosTest.a_scenario_with_many_cases[75:' \
-                                           ' some grouping value 7, value 5]#com.tngtech.jgiven.examples' \
-                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many_c' \
-                                           'ases[85: some grouping value 8, value 5]#com.tngtech.jgiven.' \
-                                           'examples.parameters.ParametrizedScenariosTest.a_scenario_wit' \
-                                           'h_many_cases[95: some grouping value 9, value 5]#com.tngtech' \
-                                           '.jgiven.integration.spring.test.XmlConfiguredSpringScenarioT' \
+        self.compare_tr_t_failed(gradle10, 'com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a'
+                                           '_scenario_with_a_failing_test_case_for_demonstration_purposes[1:'
+                                           ' false]#com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.'
+                                           'shouldFailWithUnexpectedRuntimeException#com.tngtech.jgiven.'
+                                           'examples.coffeemachine.ServeCoffeeTest.a_failing_scenario'
+                                           '_for_demonstration_purposes#com.tngtech.jgiven.examples.'
+                                           'nested.NestedStepsTest.a_scenario_with_a_failing_nested'
+                                           '_step_on_purpose#com.tngtech.jgiven.examples.parameters'
+                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[5:'
+                                           ' some grouping value 0, value 5]#com.tngtech.jgiven.examples'
+                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many'
+                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgiven'
+                                           '.examples.parameters.ParametrizedScenariosTest.a_scenario'
+                                           '_with_many_cases[25: some grouping value 2, value 5]#com.'
+                                           'tngtech.jgiven.examples.parameters.ParametrizedScenariosTest'
+                                           '.a_scenario_with_many_cases[35: some grouping value 3, value'
+                                           ' 5]#com.tngtech.jgiven.examples.parameters.Parametrized'
+                                           'ScenariosTest.a_scenario_with_many_cases[45: some grouping'
+                                           ' value 4, value 5]#com.tngtech.jgiven.examples.parameters'
+                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[55'
+                                           ': some grouping value 5, value 5]#com.tngtech.jgiven.'
+                                           'examples.parameters.ParametrizedScenariosTest.a_scenario'
+                                           '_with_many_cases[65: some grouping value 6, value 5]#com'
+                                           '.tngtech.jgiven.examples.parameters.ParametrizedScenarios'
+                                           'Test.a_scenario_with_many_cases[75: some grouping value '
+                                           '7, value 5]#com.tngtech.jgiven.examples.parameters.Param'
+                                           'etrizedScenariosTest.a_scenario_with_many_cases[85: some'
+                                           ' grouping value 8, value 5]#com.tngtech.jgiven.examples.pa'
+                                           'rameters.ParametrizedScenariosTest.a_scenario_with_many_ca'
+                                           'ses[95: some grouping value 9, value 5]#com.tngtech.jgive'
+                                           'n.integration.spring.test.XmlConfiguredSpringScenarioTest'
+                                           'Test.spring_can_inject_beans_into_stages#com.tngtech.jgiv'
+                                           'en.examples.coffeemachine.ServeCoffeeTest.a_scenario_with'
+                                           '_a_failing_test_case_for_demonstration_purposes[1: false]'
+                                           '#com.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest'
+                                           '.shouldFailWithUnexpectedRuntimeException#com.tngtech.jgi'
+                                           'ven.examples.coffeemachine.ServeCoffeeTest.a_failing_scen'
+                                           'ario_for_demonstration_purposes#com.tngtech.jgiven.exampl'
+                                           'es.nested.NestedStepsTest.a_scenario_with_a_failing_nest'
+                                           'ed_step_on_purpose#com.tngtech.jgiven.examples.parameters'
+                                           '.ParametrizedScenariosTest.a_scenario_with_many_cases[5: s'
+                                           'ome grouping value 0, value 5]#com.tngtech.jgiven.examples'
+                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many'
+                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgi'
+                                           'ven.examples.parameters.ParametrizedScenariosTest.a_scenar'
+                                           'io_with_many_cases[25: some grouping value 2, value 5]#com'
+                                           '.tngtech.jgiven.examples.parameters.ParametrizedScenariosT'
+                                           'est.a_scenario_with_many_cases[35: some grouping value 3, '
+                                           'value 5]#com.tngtech.jgiven.examples.parameters.Parametriz'
+                                           'edScenariosTest.a_scenario_with_many_cases[45: some groupi'
+                                           'ng value 4, value 5]#com.tngtech.jgiven.examples.parameter'
+                                           's.ParametrizedScenariosTest.a_scenario_with_many_cases[55: '
+                                           'some grouping value 5, value 5]#com.tngtech.jgiven.example'
+                                           's.parameters.ParametrizedScenariosTest.a_scenario_with_man'
+                                           'y_cases[65: some grouping value 6, value 5]#com.tngtech.jg'
+                                           'iven.examples.parameters.ParametrizedScenariosTest.a_scena'
+                                           'rio_with_many_cases[75: some grouping value 7, value 5]#co'
+                                           'm.tngtech.jgiven.examples.parameters.ParametrizedScenariosT'
+                                           'est.a_scenario_with_many_cases[85: some grouping value 8, v'
+                                           'alue 5]#com.tngtech.jgiven.examples.parameters.Parametrize'
+                                           'dScenariosTest.a_scenario_with_many_cases[95: some groupin'
+                                           'g value 9, value 5]#com.tngtech.jgiven.integration.spring.'
+                                           'test.XmlConfiguredSpringScenarioTestTest.spring_can_inject'
+                                           '_beans_into_stages#com.tngtech.jgiven.examples.coffeemachi'
+                                           'ne.ServeCoffeeTest.a_scenario_with_a_failing_test_case_for'
+                                           '_demonstration_purposes[1: false]#com.tngtech.jgiven.examp'
+                                           'les.coffeemachine.ServeCoffeeTest.shouldFailWithUnexpected'
+                                           'RuntimeException#com.tngtech.jgiven.examples.coffeemachine'
+                                           '.ServeCoffeeTest.a_failing_scenario_for_demonstration_purp'
+                                           'oses#com.tngtech.jgiven.examples.nested.NestedStepsTest.a_'
+                                           'scenario_with_a_failing_nested_step_on_purpose#com.tngtech'
+                                           '.jgiven.examples.parameters.ParametrizedScenariosTest.a_sc'
+                                           'enario_with_many_cases[5: some grouping value 0, value 5]#'
+                                           'com.tngtech.jgiven.examples.parameters.ParametrizedScenari'
+                                           'osTest.a_scenario_with_many_cases[15: some grouping value '
+                                           '1, value 5]#com.tngtech.jgiven.examples.parameters.Paramet'
+                                           'rizedScenariosTest.a_scenario_with_many_cases[25: some gro'
+                                           'uping value 2, value 5]#com.tngtech.jgiven.examples.parame'
+                                           'ters.ParametrizedScenariosTest.a_scenario_with_many_cases['
+                                           '35: some grouping value 3, value 5]#com.tngtech.jgiven.exa'
+                                           'mples.parameters.ParametrizedScenariosTest.a_scenario_with'
+                                           '_many_cases[45: some grouping value 4, value 5]#com.tngtech'
+                                           '.jgiven.examples.parameters.ParametrizedScenariosTest.a_sc'
+                                           'enario_with_many_cases[55: some grouping value 5, value 5]'
+                                           '#com.tngtech.jgiven.examples.parameters.ParametrizedScena'
+                                           'riosTest.a_scenario_with_many_cases[65: some grouping val'
+                                           'ue 6, value 5]#com.tngtech.jgiven.examples.parameters.Par'
+                                           'ametrizedScenariosTest.a_scenario_with_many_cases[75: som'
+                                           'e grouping value 7, value 5]#com.tngtech.jgiven.examples.'
+                                           'parameters.ParametrizedScenariosTest.a_scenario_with_many'
+                                           '_cases[85: some grouping value 8, value 5]#com.tngtech.jg'
+                                           'iven.examples.parameters.ParametrizedScenariosTest.a_scen'
+                                           'ario_with_many_cases[95: some grouping value 9, value 5]#c'
+                                           'om.tngtech.jgiven.integration.spring.test.XmlConfiguredSpr'
+                                           'ingScenarioTestTest.spring_can_inject_beans_into_stages#co'
+                                           'm.tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a_'
+                                           'scenario_with_a_failing_test_case_for_demonstration_purpos'
+                                           'es[1: false]#com.tngtech.jgiven.examples.coffeemachine.Ser'
+                                           'veCoffeeTest.shouldFailWithUnexpectedRuntimeException#com.'
+                                           'tngtech.jgiven.examples.coffeemachine.ServeCoffeeTest.a_fa'
+                                           'iling_scenario_for_demonstration_purposes#com.tngtech.jgive'
+                                           'n.examples.nested.NestedStepsTest.a_scenario_with_a_failing'
+                                           '_nested_step_on_purpose#com.tngtech.jgiven.examples.paramet'
+                                           'ers.ParametrizedScenariosTest.a_scenario_with_many_cases[5:'
+                                           ' some grouping value 0, value 5]#com.tngtech.jgiven.example'
+                                           's.parameters.ParametrizedScenariosTest.a_scenario_with_many'
+                                           '_cases[15: some grouping value 1, value 5]#com.tngtech.jgiv'
+                                           'en.examples.parameters.ParametrizedScenariosTest.a_scenario'
+                                           '_with_many_cases[25: some grouping value 2, value 5]#com.tn'
+                                           'gtech.jgiven.examples.parameters.ParametrizedScenariosTest.a'
+                                           '_scenario_with_many_cases[35: some grouping value 3, value 5'
+                                           ']#com.tngtech.jgiven.examples.parameters.ParametrizedScenari'
+                                           'osTest.a_scenario_with_many_cases[45: some grouping value 4, '
+                                           'value 5]#com.tngtech.jgiven.examples.parameters.Parametrized'
+                                           'ScenariosTest.a_scenario_with_many_cases[55: some grouping v'
+                                           'alue 5, value 5]#com.tngtech.jgiven.examples.parameters.Para'
+                                           'metrizedScenariosTest.a_scenario_with_many_cases[65: some gr'
+                                           'ouping value 6, value 5]#com.tngtech.jgiven.examples.paramet'
+                                           'ers.ParametrizedScenariosTest.a_scenario_with_many_cases[75:'
+                                           ' some grouping value 7, value 5]#com.tngtech.jgiven.examples'
+                                           '.parameters.ParametrizedScenariosTest.a_scenario_with_many_c'
+                                           'ases[85: some grouping value 8, value 5]#com.tngtech.jgiven.'
+                                           'examples.parameters.ParametrizedScenariosTest.a_scenario_wit'
+                                           'h_many_cases[95: some grouping value 9, value 5]#com.tngtech'
+                                           '.jgiven.integration.spring.test.XmlConfiguredSpringScenarioT'
                                            'estTest.spring_can_inject_beans_into_stages')
 
     def test_ant_0(self):
@@ -1223,35 +1223,35 @@ class Test(unittest.TestCase):
         self.compare_bool_t_ran(ant1, True)
         self.compare_bool_t_failed(ant1, True)
         self.compare_frameworks(ant1, 'JUnit')
-        self.compare_tr_t_failed(ant1, 'wyc.testing.AllValidVerificationTest.validVerification[Constrain' \
-                                       'edReference_Valid_1]#wyc.testing.AllValidVerificationTest.validV' \
-                                       'erification[FunctionRef_Valid_7]#wyc.testing.AllValidVerificatio' \
-                                       'nTest.validVerification[Lifetime_Lambda_Valid_6]#wyc.testing.AllV' \
-                                       'alidVerificationTest.validVerification[Lifetime_Lambda_Valid_7]#w' \
-                                       'yc.testing.AllValidVerificationTest.validVerification[Lifetime_Va' \
-                                       'lid_1]#wyc.testing.AllValidVerificationTest.validVerification[Lif' \
-                                       'etime_Valid_2]#wyc.testing.AllValidVerificationTest.validVerifica' \
-                                       'tion[Lifetime_Valid_3]#wyc.testing.AllValidVerificationTest.valid' \
-                                       'Verification[Lifetime_Valid_4]#wyc.testing.AllValidVerificationTe' \
-                                       'st.validVerification[Lifetime_Valid_5]#wyc.testing.AllValidVerifi' \
-                                       'cationTest.validVerification[MessageRef_Valid_2]#wyc.testing.AllV' \
-                                       'alidVerificationTest.validVerification[MessageSend_Valid_2]#wyc.' \
-                                       'testing.AllValidVerificationTest.validVerification[MessageSend_V' \
-                                       'alid_3]#wyc.testing.AllValidVerificationTest.validVerification[Me' \
-                                       'ssageSend_Valid_4]#wyc.testing.AllValidVerificationTest.validVeri' \
-                                       'fication[MessageSend_Valid_5]#wyc.testing.AllValidVerificationTes' \
-                                       't.validVerification[MethodCall_Valid_4]#wyc.testing.AllValidVerif' \
-                                       'icationTest.validVerification[ProcessAccess_Valid_1]#wyc.testing.' \
-                                       'AllValidVerificationTest.validVerification[Process_Valid_12]#wyc.' \
-                                       'testing.AllValidVerificationTest.validVerification[Process_Valid_4' \
-                                       ']#wyc.testing.AllValidVerificationTest.validVerification[Process_V' \
-                                       'alid_5]#wyc.testing.AllValidVerificationTest.validVerification[Pro' \
-                                       'cess_Valid_6]#wyc.testing.AllValidVerificationTest.validVerificat' \
-                                       'ion[Process_Valid_7]#wyc.testing.AllValidVerificationTest.validVer' \
-                                       'ification[Process_Valid_8]#wyc.testing.AllValidVerificationTest.va' \
-                                       'lidVerification[RecordAccess_Valid_1]#wyc.testing.AllValidVerifica' \
-                                       'tionTest.validVerification[Reference_Valid_1]#wyc.testing.AllValid' \
-                                       'VerificationTest.validVerification[Reference_Valid_7]#wyc.testing.' \
+        self.compare_tr_t_failed(ant1, 'wyc.testing.AllValidVerificationTest.validVerification[Constrain'
+                                       'edReference_Valid_1]#wyc.testing.AllValidVerificationTest.validV'
+                                       'erification[FunctionRef_Valid_7]#wyc.testing.AllValidVerificatio'
+                                       'nTest.validVerification[Lifetime_Lambda_Valid_6]#wyc.testing.AllV'
+                                       'alidVerificationTest.validVerification[Lifetime_Lambda_Valid_7]#w'
+                                       'yc.testing.AllValidVerificationTest.validVerification[Lifetime_Va'
+                                       'lid_1]#wyc.testing.AllValidVerificationTest.validVerification[Lif'
+                                       'etime_Valid_2]#wyc.testing.AllValidVerificationTest.validVerifica'
+                                       'tion[Lifetime_Valid_3]#wyc.testing.AllValidVerificationTest.valid'
+                                       'Verification[Lifetime_Valid_4]#wyc.testing.AllValidVerificationTe'
+                                       'st.validVerification[Lifetime_Valid_5]#wyc.testing.AllValidVerifi'
+                                       'cationTest.validVerification[MessageRef_Valid_2]#wyc.testing.AllV'
+                                       'alidVerificationTest.validVerification[MessageSend_Valid_2]#wyc.'
+                                       'testing.AllValidVerificationTest.validVerification[MessageSend_V'
+                                       'alid_3]#wyc.testing.AllValidVerificationTest.validVerification[Me'
+                                       'ssageSend_Valid_4]#wyc.testing.AllValidVerificationTest.validVeri'
+                                       'fication[MessageSend_Valid_5]#wyc.testing.AllValidVerificationTes'
+                                       't.validVerification[MethodCall_Valid_4]#wyc.testing.AllValidVerif'
+                                       'icationTest.validVerification[ProcessAccess_Valid_1]#wyc.testing.'
+                                       'AllValidVerificationTest.validVerification[Process_Valid_12]#wyc.'
+                                       'testing.AllValidVerificationTest.validVerification[Process_Valid_4'
+                                       ']#wyc.testing.AllValidVerificationTest.validVerification[Process_V'
+                                       'alid_5]#wyc.testing.AllValidVerificationTest.validVerification[Pro'
+                                       'cess_Valid_6]#wyc.testing.AllValidVerificationTest.validVerificat'
+                                       'ion[Process_Valid_7]#wyc.testing.AllValidVerificationTest.validVer'
+                                       'ification[Process_Valid_8]#wyc.testing.AllValidVerificationTest.va'
+                                       'lidVerification[RecordAccess_Valid_1]#wyc.testing.AllValidVerifica'
+                                       'tionTest.validVerification[Reference_Valid_1]#wyc.testing.AllValid'
+                                       'VerificationTest.validVerification[Reference_Valid_7]#wyc.testing.'
                                        'AllValidVerificationTest.validVerification[Reference_Valid_8]')
 
     def test_build_system_0(self):
