@@ -260,7 +260,7 @@ class Test(unittest.TestCase):
         for i, log in enumerate(logs_folder):
             file_path = logs_folder + log
             if isfile(file_path) and log[-4:] == ".log":
-                ts, r = self. self.get_trigger_sha_and_repo(job_ids[i])
+                ts, r = self.get_trigger_sha_and_repo(job_ids[i])
                 result = self.dispatcher.analyze(file_path, job_ids[i], trigger_sha=ts, repo=r)
                 yield self.compare_analyzer, result, "java-maven"
 
