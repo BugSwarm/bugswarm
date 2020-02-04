@@ -197,52 +197,40 @@ class Test(unittest.TestCase):
                 result = self.dispatcher.analyze(file_path, job_id, trigger_sha=ts, repo=r)
                 yield self.compare_analyzer, result, "java-gradle"
 
-    @staticmethod
-    def compare_status(result, should_be):
+    def compare_status(self, result, should_be):
         self.assertEqual(result["tr_log_status"], should_be)
 
-    @staticmethod
-    def compare_analyzer(result, should_be):
+    def compare_analyzer(self, result, should_be):
         self.assertEqual(result["tr_log_analyzer"], should_be)
 
-    @staticmethod
-    def compare_build_system(result, should_be):
+    def compare_build_system(self, result, should_be):
         self.assertEqual(result['tr_build_system'], should_be)
 
-    @staticmethod
-    def compare_frameworks(result, should_be):
+    def compare_frameworks(self, result, should_be):
         self.assertEqual(result["tr_log_frameworks"], should_be)
 
-    @staticmethod
-    def compare_bool_t_ran(result, should_be):
+    def compare_bool_t_ran(self, result, should_be):
         self.assertEqual(result["tr_log_bool_tests_ran"], should_be)
 
-    @staticmethod
-    def compare_bool_t_failed(result, should_be):
+    def compare_bool_t_failed(self, result, should_be):
         self.assertEqual(result["tr_log_bool_tests_failed"], should_be)
 
-    @staticmethod
-    def compare_num_t_ok(result, should_be):
+    def compare_num_t_ok(self, result, should_be):
         self.assertEqual(result["tr_log_num_tests_ok"], should_be)
 
-    @staticmethod
-    def compare_num_t_failed(result, should_be):
+    def compare_num_t_failed(self, result, should_be):
         self.assertEqual(result["tr_log_num_tests_failed"], should_be)
 
-    @staticmethod
-    def compare_num_t_run(result, should_be):
+    def compare_num_t_run(self, result, should_be):
         self.assertEqual(result["tr_log_num_tests_run"], should_be)
 
-    @staticmethod
-    def compare_num_t_skipped(result, should_be):
+    def compare_num_t_skipped(self, result, should_be):
         self.assertEqual(result["tr_log_num_tests_skipped"], should_be)
 
-    @staticmethod
-    def compare_t_failed(result, should_be):
+    def compare_t_failed(self, result, should_be):
         self.assertEqual(result["tr_log_tests_failed"], should_be)
 
-    @staticmethod
-    def compare_tr_t_failed(result, should_be):
+    def compare_tr_t_failed(self, result, should_be):
         self.assertEqual(result['tr_log_tests_failed'], should_be)
 
     def compare_t_duration(self, result, should_be):
@@ -254,16 +242,13 @@ class Test(unittest.TestCase):
             return True
         return False
 
-    @staticmethod
     def compare_buildduration(self, result, should_be):
         self.assertTrue(self.assert_equal_tolerance(result["tr_log_buildduration"], should_be))
 
-    @staticmethod
-    def check_build_language(build_log_lang, lang):
+    def check_build_language(self, build_log_lang, lang):
         self.assertEqual(build_log_lang, lang)
 
-    @staticmethod
-    def check_build_language_not_java(lang):
+    def check_build_language_not_java(self, lang):
         self.assertNotEqual(lang, "java")
 
     def check_match(self, my_result, travis_result):
