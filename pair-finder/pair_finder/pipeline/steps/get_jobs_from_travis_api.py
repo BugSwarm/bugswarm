@@ -9,8 +9,8 @@ from typing import Any
 from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
-import dateutil.parser
 from datetime import datetime
+import dateutil.parser
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -77,18 +77,15 @@ class GetJobsFromTravisAPI(Step):
         for build in build_list:
             try:
                 # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
-                # while context['last_date_mined'] returns a String object formatted as: 'Tue, 28 Apr 2015 00:00:00 GMT'
-                # We must reformat the time ISO time representation to be formatted similarly as a String. Both strings
-                # are then converted to a datetime object for comparison.
+                # while context['last_date_mined'] returns an int representing Unix Epoch formatted as: '1580098839'
+                # We must convert the ISODate representation to datetime and the Unix Epoch to datetime for comparison
                 parsed_time = dateutil.parser.parse(build['finished_at'])
                 build_formatted_date = parsed_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
                 build_date = datetime.strptime(build_formatted_date, '%a, %d %b %Y %H:%M:%S GMT')
-                last_mined_date = datetime.strptime(context['original_mined_project_metrics']['last_date_mined'],
-                                                    '%a, %d %b %Y %H:%M:%S GMT')
+                last_mined_date = datetime.fromtimestamp(context['original_mined_project_metrics']['last_date_mined'])
                 if latest_build_date_time < build_date:
                     latest_build_date_time = build_date
-                    context['mined_project_builder'].last_date_mined = \
-                        latest_build_date_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                    context['mined_project_builder'].last_date_mined = latest_build_date_time.timestamp()
                 if build_date <= last_mined_date:
                     continue
             except KeyError:

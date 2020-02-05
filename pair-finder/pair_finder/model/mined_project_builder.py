@@ -52,7 +52,7 @@ class MinedProjectBuilder(object):
             return {
                 'repo': '',
                 'latest_mined_version': '',
-                'last_date_mined': 'Mon, 01 Jan 1970 00:00:00 GMT',
+                'last_date_mined': 0,
                 'progression_metrics': {
                     'builds': 0,
                     'jobs': 0,
