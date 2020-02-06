@@ -295,6 +295,20 @@ class DatabaseAPI(object):
         updates = {'current_status': {'status': status, 'time_stamp': date}}
         return self._patch(DatabaseAPI._artifact_image_tag_endpoint(image_tag), updates)
 
+    def update_artifact_repo_name(self, image_tag: str, new_repo: str) -> Response:
+        """
+        Update the repository name of an artifact.
+        :param image_tag: The image tag identifying the artifact to update.
+        :param new_repo: The updated repo name we are setting.
+        :return: The response object.
+        """
+        if not isinstance(image_tag, str):
+            raise TypeError
+        if not isinstance(new_repo, str):
+            raise TypeError
+        updates = {'repo': new_repo}
+        return self._patch(DatabaseAPI._artifact_image_tag_endpoint(image_tag), updates)
+
     ###################################
     # Mined Build Pair REST methods
     ###################################
@@ -353,6 +367,18 @@ class DatabaseAPI(object):
             return False
         return True
 
+    def update_mined_build_pairs_repo_name(self, obj_id: str, new_repo: str) -> Response:
+        """
+        Update the repository name of an artifact in the minedBuildPairs db.
+        :param obj_id: The unique id of an object.
+        :param new_repo: The updated repo name we are setting.
+        :return: The response object.
+        """
+        if not isinstance(new_repo, str):
+            raise TypeError
+        updates = {'repo': new_repo}
+        return self._patch(DatabaseAPI._mined_build_pair_object_id_endpoint(obj_id), updates)
+
     ###################################
     # Mined Project REST methods
     ###################################
@@ -403,6 +429,14 @@ class DatabaseAPI(object):
         if not metric_name:
             raise ValueError
         updates = {'progression_metrics.{}'.format(metric_name): metric_value}
+        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
+
+    def update_mined_project_repo_name(self, repo: str, new_repo: str):
+        if not isinstance(repo, str):
+            raise TypeError
+        if not isinstance(repo, str):
+            raise TypeError
+        updates = {'repo': new_repo}
         return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
 
     ###################################
