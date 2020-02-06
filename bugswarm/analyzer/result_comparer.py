@@ -24,6 +24,11 @@ class ResultComparer(object):
             if attr == 'tr_log_tests_failed':
                 reproduced_failed_tests_set = set(reproduced[attr].split('#'))
                 original_failed_tests_set = set(original[attr].split('#'))
+                if reproduced_failed_tests_set == set(['']):
+                    reproduced_failed_tests_set = set()
+                if original_failed_tests_set == set(['']):
+                    original_failed_tests_set = set()
+
                 if reproduced_failed_tests_set != original_failed_tests_set:
                     match = False
                     mismatched_attributes.append({
