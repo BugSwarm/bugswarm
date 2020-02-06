@@ -4,6 +4,7 @@ from os import listdir
 from os.path import isfile
 from os.path import join
 
+from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.analyzer.dispatcher import Dispatcher
 from bugswarm.common.travis_wrapper import TravisWrapper
 
@@ -14,6 +15,7 @@ class Test(unittest.TestCase):
         super(Test, self).__init__(*args, **kwargs)
         self.dispatcher = Dispatcher()
         self.travis_wrapper = TravisWrapper()
+        self.analyzer = Analyzer()
 
     def get_trigger_sha_and_repo(self, job_id):
         with self.travis_wrapper as tw:
@@ -253,6 +255,27 @@ class Test(unittest.TestCase):
 
     def check_match(self, my_result, travis_result):
         self.assertTrue(self.compare_with_tt(my_result, travis_result))
+
+    def compare_rc_match(self, result, should_be):
+        self.assertEqual(result[0], should_be)
+
+    def compare_rc_tr_t_failed(self, actual_repr, actual_orig, expected_repr, expected_orig):
+        self.assertEqual(set(actual_repr), set(expected_repr))
+        self.assertEqual(set(actual_orig), set(expected_orig))
+
+    def compare_rc_mismatch(self, attr_name, result, expected_repr, expected_orig):
+        for attr in result[1]:
+            if attr['attr'] == attr_name:
+                target_attr = attr
+                break
+        else:
+            self.fail('Result does not have attr "{}"'.format(attr_name))
+
+        if attr_name == 'tr_log_tests_failed':
+            self.compare_rc_tr_t_failed(target_attr["reproduced"], target_attr["orig"], expected_repr, expected_orig)
+        else:
+            should_be = {"attr": attr_name, "reproduced": expected_repr, "orig": expected_orig}
+            self.assertEqual(target_attr, should_be)
 
     def test_detect_analyzer_maven(self):
         logs_folder = "maven/"
@@ -1452,6 +1475,54 @@ class Test(unittest.TestCase):
         self.compare_num_t_ok(oa6, "NA")
         self.compare_num_t_failed(oa6, 0)
         self.compare_num_t_skipped(oa6, "NA")
+
+    def test_result_comparer_1(self):
+        job_id = 251797108
+        o_path = "result_comparer/{}-orig.log".format(job_id)
+        r_path = "result_comparer/{}-repr.log".format(job_id)
+        ts, r = self.get_trigger_sha_and_repo(job_id)
+        build_system = "maven"
+        rc1 = self.analyzer.compare_single_log(r_path, o_path, job_id, build_system, ts, r)
+        self.compare_rc_match(rc1, False)
+        self.compare_rc_mismatch("tr_log_status", rc1, "stopped", "broken")
+        self.compare_rc_mismatch("tr_log_bool_tests_ran", rc1, False, True)
+        self.compare_rc_mismatch("tr_log_bool_tests_failed", rc1, False, True)
+        self.compare_rc_mismatch("tr_log_num_tests_run", rc1, 0, 1646)
+        self.compare_rc_mismatch("tr_log_num_tests_ok", rc1, "NA", 1645)
+        self.compare_rc_mismatch("tr_log_num_tests_failed", rc1, 0, 1)
+        self.compare_rc_mismatch("tr_log_num_tests_skipped", rc1, "NA", 0)
+        self.compare_rc_mismatch("tr_log_tests_failed", rc1,
+                                 [],
+                                 ["testDatasetGroupFiles(loci.plugins.in.ImporterTest)"])
+
+    def test_result_comparer_2(self):
+        job_id = 407884143
+        o_path = "result_comparer/{}-orig.log".format(job_id)
+        r_path = "result_comparer/{}-repr.log".format(job_id)
+        ts, r = self.get_trigger_sha_and_repo(job_id)
+        build_system = "maven"
+        rc1 = self.analyzer.compare_single_log(r_path, o_path, job_id, build_system, ts, r)
+        self.compare_rc_match(rc1, False)
+        self.compare_rc_mismatch("tr_log_frameworks", "", "pytest")
+        self.compare_rc_mismatch("tr_log_bool_tests_ran", rc1, False, True)
+        self.compare_rc_mismatch("tr_log_bool_tests_failed", rc1, False, True)
+        self.compare_rc_mismatch("tr_log_num_tests_run", rc1, 0, 9856)
+        self.compare_rc_mismatch("tr_log_num_tests_ok", rc1, "NA", 9845)
+        self.compare_rc_mismatch("tr_log_num_tests_failed", rc1, 0, 11)
+        self.compare_rc_mismatch("tr_log_num_tests_skipped", rc1, "NA", 309)
+        self.compare_rc_mismatch("tr_log_tests_failed", rc1,
+                                 [],
+                                 ["sklearn.datasets.tests.test_openml::test_fetch_openml_anneal_multitarget",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_iris",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_cpu",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_australian",
+                                  "sklearn.datasets.tests.test_openml::test_warn_ignore_attribute",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_iris_multitarget",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_anneal",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_inactive",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_miceprotein",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_emotions",
+                                  "sklearn.datasets.tests.test_openml::test_fetch_openml_notarget"])
 
 
 if __name__ == '__main__':
