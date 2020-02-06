@@ -1500,10 +1500,9 @@ class Test(unittest.TestCase):
         o_path = "result_comparer/{}-orig.log".format(job_id)
         r_path = "result_comparer/{}-repr.log".format(job_id)
         ts, r = self.get_trigger_sha_and_repo(job_id)
-        build_system = "maven"
-        rc1 = self.analyzer.compare_single_log(r_path, o_path, job_id, build_system, ts, r)
+        rc1 = self.analyzer.compare_single_log(r_path, o_path, job_id, trigger_sha=ts, repo=r)
         self.compare_rc_match(rc1, False)
-        self.compare_rc_mismatch("tr_log_frameworks", "", "pytest")
+        self.compare_rc_mismatch("tr_log_frameworks", rc1, "", "pytest")
         self.compare_rc_mismatch("tr_log_bool_tests_ran", rc1, False, True)
         self.compare_rc_mismatch("tr_log_bool_tests_failed", rc1, False, True)
         self.compare_rc_mismatch("tr_log_num_tests_run", rc1, 0, 9856)
@@ -1523,6 +1522,15 @@ class Test(unittest.TestCase):
                                   "sklearn.datasets.tests.test_openml::test_fetch_openml_miceprotein",
                                   "sklearn.datasets.tests.test_openml::test_fetch_openml_emotions",
                                   "sklearn.datasets.tests.test_openml::test_fetch_openml_notarget"])
+
+    def test_result_comparer_3(self):
+        job_id = 102015358
+        o_path = "result_comparer/{}-orig.log".format(job_id)
+        r_path = "result_comparer/{}-repr.log".format(job_id)
+        ts, r = self.get_trigger_sha_and_repo(job_id)
+        rc3 = self.analyzer.compare_single_log(r_path, o_path, job_id, trigger_sha=ts, repo=r)
+        self.compare_rc_match(rc3, True)
+        self.assertEqual(rc3[1], [])
 
 
 if __name__ == '__main__':
