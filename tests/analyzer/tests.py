@@ -258,6 +258,10 @@ class Test(unittest.TestCase):
 
     def compare_rc_match(self, result, should_be):
         self.assertEqual(result[0], should_be)
+        if result[0]:
+            self.assertEqual(result[1], [])
+        else:
+            self.assertNotEqual(result[1], [])
 
     def compare_rc_tr_t_failed(self, actual_repr, actual_orig, expected_repr, expected_orig):
         self.assertEqual(set(actual_repr), set(expected_repr))
@@ -1530,7 +1534,6 @@ class Test(unittest.TestCase):
         ts, r = self.get_trigger_sha_and_repo(job_id)
         rc3 = self.analyzer.compare_single_log(r_path, o_path, job_id, trigger_sha=ts, repo=r)
         self.compare_rc_match(rc3, True)
-        self.assertEqual(rc3[1], [])
 
 
 if __name__ == '__main__':
