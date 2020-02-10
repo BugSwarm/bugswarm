@@ -1,0 +1,54 @@
+# == Rational ==
+# To enable development work in private repo, but at the same time open our work
+# in master branch to the public.
+#
+# == Description ==
+# Whenever a push event to master branch happens in this repo, this workflow syncs
+# master branches between the current repo and the corresponding public/private
+# repo, as defined in `env`.
+#
+# == Notes ==
+# Due to the limitation of expressions in GitHub Actions, we define two `steps`
+# with `if` conditions such that only one will be executed during a given `build`,
+# depending on whether the current repo is private or public.
+#
+# The actual sync logic is implemented in this GitHub action:
+# https://github.com/BugSwarm/git-mirror-action
+
+
+name: Sync
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  PRIVATE_REPO: 'BugSwarm/bugswarm-dev'
+  PUBLIC_REPO: 'BugSwarm/bugswarm'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # If the current repo is private, then push master branch to the public repo
+    - name: Sync to public repo
+      if: github.repository == env.PRIVATE_REPO
+      uses: BugSwarm/git-mirror-action@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        source-repo: 'git@github.com:${{ env.PRIVATE_REPO }}.git'
+        destination-repo: 'git@github.com:${{ env.PUBLIC_REPO }}.git'
+
+    # If the current repo is public, then push master branch to the private repo
+    - name: Sync to private repo
+      if: github.repository == env.PUBLIC_REPO
+      uses: BugSwarm/git-mirror-action@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        source-repo: 'git@github.com:${{ env.PUBLIC_REPO }}.git'
+        destination-repo: 'git@github.com:${{ env.PRIVATE_REPO }}.git'
