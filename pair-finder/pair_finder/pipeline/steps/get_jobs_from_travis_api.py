@@ -8,12 +8,14 @@ import time
 from typing import Any
 from typing import Optional
 from typing import Tuple
+from requests.exceptions import RequestException
+from datetime import datetime
+import dateutil.parser
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from bugswarm.common.travis_wrapper import TravisWrapper
-from requests.exceptions import RequestException
 
 from .step import Step
 from .step import StepException
@@ -71,7 +73,23 @@ class GetJobsFromTravisAPI(Step):
         #   LEFT JOIN commits c on b.commit = c.sha
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
+        latest_build_date_time = datetime(1970, 1, 1)
         for build in build_list:
+            try:
+                # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
+                # while context['last_date_mined'] returns an int representing Unix Epoch formatted as: '1580098839'
+                # We must convert the ISODate representation to datetime and the Unix Epoch to datetime for comparison
+                parsed_time = dateutil.parser.parse(build['finished_at'])
+                build_formatted_date = parsed_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                build_date = datetime.strptime(build_formatted_date, '%a, %d %b %Y %H:%M:%S GMT')
+                last_mined_date = datetime.fromtimestamp(context['original_mined_project_metrics']['last_date_mined'])
+                if latest_build_date_time < build_date:
+                    latest_build_date_time = build_date
+                    context['mined_project_builder'].last_date_mined = latest_build_date_time.timestamp()
+                if build_date <= last_mined_date:
+                    continue
+            except KeyError:
+                pass
             for job in build['build_info']['matrix']:
                 j = {
                     'job_id': job['id'],
@@ -101,12 +119,18 @@ class GetJobsFromTravisAPI(Step):
         # Do not raise a StepException before the context is populated.
         failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(build_list)
         failed_jobs, failed_pr_jobs = GetJobsFromTravisAPI._count_failed_jobs(build_list)
-        context['mined_project_builder'].builds = len(build_list)
-        context['mined_project_builder'].jobs = len(jobs)
-        context['mined_project_builder'].failed_builds = failed_builds
-        context['mined_project_builder'].failed_jobs = failed_jobs
-        context['mined_project_builder'].failed_pr_builds = failed_pr_builds
-        context['mined_project_builder'].failed_pr_jobs = failed_pr_jobs
+        context['mined_project_builder'].builds = len(build_list) + \
+            context['original_mined_project_metrics']['progression_metrics']['builds']
+        context['mined_project_builder'].jobs = len(jobs) + \
+            context['original_mined_project_metrics']['progression_metrics']['jobs']
+        context['mined_project_builder'].failed_builds = failed_builds + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_builds']
+        context['mined_project_builder'].failed_jobs = failed_jobs + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_jobs']
+        context['mined_project_builder'].failed_pr_builds = failed_pr_builds + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_pr_builds']
+        context['mined_project_builder'].failed_pr_jobs = failed_pr_jobs + \
+            context['original_mined_project_metrics']['progression_metrics']['failed_pr_jobs']
 
         if not jobs:
             msg = 'Did not get any jobs for {}.'.format(repo)

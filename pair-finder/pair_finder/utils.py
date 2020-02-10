@@ -22,6 +22,7 @@ CLONE_DIR = 'intermediates/clones'
 HISTORY_DIR = 'intermediates/histories'
 LOG_DIR = 'intermediates/logs'
 OUTPUT_DIR = 'output'
+ORIGNAL_METRICS_DIR = 'output/original_metrics'
 API_RESULT_DIR = 'intermediates/api-results'
 
 
@@ -38,6 +39,7 @@ class Utils(object):
         os.makedirs(LOG_DIR, exist_ok=True)
         os.makedirs(API_RESULT_DIR, exist_ok=True)
         os.makedirs(OUTPUT_DIR, exist_ok=True)
+        os.makedirs(ORIGNAL_METRICS_DIR, exist_ok=True)
         task_dir = os.path.join(OUTPUT_DIR, task_name)
         os.makedirs(task_dir, exist_ok=True)
 
@@ -188,6 +190,11 @@ class Utils(object):
         filename = Utils._canonical_repo(repo) + '.json'
         task_dir = os.path.join(OUTPUT_DIR, task_name)
         return os.path.join(task_dir, filename)
+
+    @staticmethod
+    def output_metrics_path_from_repo(repo: str, task_name: str) -> str:
+        filename = Utils._canonical_repo(repo) + '.json'
+        return os.path.join(ORIGNAL_METRICS_DIR, filename)
 
     @staticmethod
     def log_file_path_from_repo(repo: str) -> str:

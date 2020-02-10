@@ -1,5 +1,9 @@
 from typing import Dict
 
+from bugswarm.common import log
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
+from bugswarm.common.rest_api.database_api import DatabaseAPI
+
 
 class MinedProjectBuilder(object):
     def __init__(self):
@@ -17,11 +21,13 @@ class MinedProjectBuilder(object):
         self.mined_job_pairs = None
         self.mined_pr_build_pairs = None
         self.mined_pr_job_pairs = None
+        self.last_date_mined = None
 
     def build(self) -> Dict:
         return {
             'repo': self.repo,
             'latest_mined_version': self.latest_mined_version,
+            'last_date_mined': self.last_date_mined,
             'progression_metrics': {
                 'builds': self.builds,
                 'jobs': self.jobs,
@@ -35,3 +41,29 @@ class MinedProjectBuilder(object):
                 'mined_pr_job_pairs': self.mined_pr_job_pairs,
             },
         }
+
+    @staticmethod
+    def query_current_metrics(repo: str) -> dict:
+        log.info('Attempting to query metrics from database for {}'.format(repo))
+        bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
+        results = bugswarmapi.find_mined_project(repo)
+        if results.status_code != 200:
+            log.info('Repository: {} has yet to be mined. Continuing.'.format(repo))
+            return {
+                'repo': '',
+                'latest_mined_version': '',
+                'last_date_mined': 0,
+                'progression_metrics': {
+                    'builds': 0,
+                    'jobs': 0,
+                    'failed_builds': 0,
+                    'failed_jobs': 0,
+                    'failed_pr_builds': 0,
+                    'failed_pr_jobs': 0,
+                    'mined_build_pairs': 0,
+                    'mined_job_pairs': 0,
+                    'mined_pr_build_pairs': 0,
+                    'mined_pr_job_pairs': 0,
+                },
+            }
+        return results.json()
