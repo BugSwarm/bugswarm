@@ -1,4 +1,5 @@
 import unittest
+import warnings
 
 from os import listdir
 from os.path import isfile
@@ -155,6 +156,11 @@ class Test(unittest.TestCase):
         #                 self.check_match(result, self.travis_result)
         #
         #     self.assertEqual(count, 1628)
+
+    # Silence superfluous ResourceWarnings thrown by requests
+    # (fix taken from https://github.com/boto/boto3/issues/454#issuecomment-380900404)
+    def setUp(self):
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
 
     # detect_logs_with_build_language_not_in_java
     def test_analyze_primary_language_1(self):
