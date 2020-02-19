@@ -147,6 +147,25 @@ class Packager(object):
         builds = [bp['failed_build'], bp['passed_build']]
         jobs = [failed_job, passed_job]
 
+        # In the case where "No files are changed", determined by our pair-classifier.py, there would not be a
+        # classification key for that jobpair. We insert a blank template in case the artifact is populated to our
+        # website
+        try:
+            classification = jp['classification']
+            classification = {
+                'test': classification['test'],
+                'build': classification['build'],
+                'code': classification['code'],
+                'exceptions': classification['exceptions']
+            }
+        except KeyError:
+            classification = {
+                'test': 'NA',
+                'build': 'NA',
+                'code': 'NA',
+                'exceptions': []
+            }
+
         today = str(date.today())
         status = 'Unreproducible'
         if reproduce_successes == 5:
@@ -187,7 +206,8 @@ class Packager(object):
 
             # Metrics. Empty by default and will be populated later by other components during post-processing.
             'metrics': {},
-            'current_status': current_status
+            'current_status': current_status,
+            'classification': classification
         }
 
         for i in range(2):
