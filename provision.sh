@@ -76,7 +76,7 @@ exit_if_failed 'Updating the apt package index failed.'
 
 # Install Travis.
 print_green 'Install Travis'
-sudo gem install travis -v 1.8.8 --no-rdoc --no-ri
+sudo gem install travis -v 1.8.8 --no-document
 exit_if_failed 'Installing Travis failed.'
 
 # Install travis-build.

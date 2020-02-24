@@ -22,7 +22,7 @@ setup(
         'requests-cache==0.4.13',
         'termcolor==1.1.0',
         'docker==2.5.1',
-        'gitpython==2.1.7',
+        'gitpython==3.0.8',
         'python-dateutil==2.8.1',
         'PyYAML==5.2.0',
     ],
