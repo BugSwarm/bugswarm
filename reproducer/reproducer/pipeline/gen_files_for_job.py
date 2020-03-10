@@ -1,15 +1,14 @@
 import os
-
 from os.path import isfile
 
 from bugswarm.common.log_downloader import download_log
-
 from reproducer.pipeline.setup_repo import setup_repo
 from reproducer.pipeline.setup_repo import tar_repo
 from reproducer.pipeline.modify_build_sh import modify_build_sh
 from reproducer.pipeline.modify_build_sh import patch_build_script
 from reproducer.pipeline.gen_dockerfile import gen_dockerfile
 from reproducer.pipeline.gen_script import gen_script
+from reproducer.pipeline.apply_patching import modify_pom_file
 
 
 def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=False):
@@ -51,6 +50,10 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     setup_repo(job, job_dispatcher.utils, job_dispatcher)
     reproduce_tmp_path = job_dispatcher.utils.get_reproduce_tmp_dir(job)
     os.makedirs(reproduce_tmp_path, exist_ok=True)
+
+    # Apply patching on project's pom.xml
+    reproducer_repo_dir = job_dispatcher.utils.get_reproducing_repo_dir(job)
+    modify_pom_file(reproducer_repo_dir)
 
     # STEP 2: Download the original log if we do not yet have it.
     original_log_path = job_dispatcher.utils.get_orig_log_path(job.job_id)

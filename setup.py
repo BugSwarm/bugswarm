@@ -25,5 +25,7 @@ setup(
         'gitpython==3.0.8',
         'python-dateutil==2.8.1',
         'PyYAML==5.2.0',
+        'beautifulsoup4==4.8.2',
+        'lxml==4.5.0',
     ],
 )
