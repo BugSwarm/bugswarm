@@ -69,7 +69,7 @@ class Packager(object):
     @staticmethod
     def _flatten_keys():
         keys = [
-            'tag',
+            'current_image_tag',
             'image_tag',
             'repo',
             'repo_mined_version',
@@ -178,7 +178,7 @@ class Packager(object):
         }
 
         d = {
-            'tag': image_tag,
+            'current_image_tag': image_tag,
             'image_tag': image_tag,
             'repo': repo,
             'repo_mined_version': bp['repo_mined_version'],
