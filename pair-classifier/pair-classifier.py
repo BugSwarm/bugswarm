@@ -178,10 +178,10 @@ class PairClassifier(object):
 
 
 def _print_usage():
-    log.info('Usage: python3 pair_classifier.py (-r <repo-slug> | --repo-file <repo-file>) '
+    log.info('Usage: python3 pair_classifier.py (-r <repo-slug> | --file <repo-file>) '
              '[--log-path <origin_log_dir>]')
     log.info('repo:         The GitHub slug for the project whose pairs were filtered.')
-    log.info('repo-file:    file contains newline-separated list of repo.')
+    log.info('file:    file contains newline-separated list of repo.')
     log.info('dir-of-jsons: Input directory containing JSON files of filtered pairs. '
              'Often be the PairFilter output directory. If not provided, will generate from DB')
     log.info('log-path: Input directory containing original logs of filtered job pairs. This directory is '
@@ -202,7 +202,7 @@ def generate_build_pair_json(repo):
 def _validate_input(args):
     repo = args.get('repo')
     origin_log = args.get('log-path')
-    repo_file = args.get('repo-file')
+    repo_file = args.get('file')
     if repo and repo_file:
         log.error('The repo-slug and repo-file is mutual exclusive. Exiting.')
         _print_usage()
@@ -247,7 +247,7 @@ def main(args=dict()):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-r', '--repo', default=None, help="Specify repo-slug")
-    parser.add_argument('--repo-file', default=None, help="repo-slug file")
+    parser.add_argument('--file', default=None, help="repo-slug file")
     parser.add_argument('--log-path', default=None, help="original logs directory")
     args = parser.parse_args()
     sys.exit(main(vars(args)))

@@ -133,6 +133,9 @@ class PairFilter(object):
             log.error('At least one JSON file in {} contains invalid JSON. Exiting.'.format(dir_of_jsons))
             sys.exit(1)
 
+        if not buildpairs:
+            return None
+
         log.info('Filtering. Starting with', utils.count_jobpairs(buildpairs), 'jobpairs.')
 
         PairFilter._set_attribute_defaults(buildpairs)
@@ -181,7 +184,6 @@ def main(argv=None):
 
     # Configure logging.
     log.config_logging(getattr(logging, 'INFO', None))
-
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('PairFilter'))
     if not path.exists(DOCKERHUB_IMAGES_JSON):

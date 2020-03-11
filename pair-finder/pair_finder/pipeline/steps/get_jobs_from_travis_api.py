@@ -88,7 +88,8 @@ class GetJobsFromTravisAPI(Step):
                     context['mined_project_builder'].last_date_mined = latest_build_date_time.timestamp()
                 if build_date <= last_mined_date:
                     continue
-            except KeyError:
+            except (KeyError, TypeError) as e:
+                log.error(e)
                 pass
             for job in build['build_info']['matrix']:
                 j = {

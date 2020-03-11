@@ -2,6 +2,7 @@ import json
 import os
 import subprocess
 
+from builtins import FileNotFoundError
 from typing import List
 from typing import Optional
 
@@ -33,7 +34,10 @@ def load_buildpairs(dir_of_jsons: str, repo: str):
         data = read_json(os.path.join(dir_of_jsons, filename))
     except json.decoder.JSONDecodeError:
         log.error('{} contains invalid JSON.'.format(filename))
-        raise
+        return None
+    except FileNotFoundError:
+        log.error('{} is not found.'.format(filename))
+        return None
 
     all_buildpairs.extend(data)
     if not data:
