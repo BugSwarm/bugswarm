@@ -97,7 +97,6 @@ class DockerWrapper(object):
             raise ReproduceError('Encountered a Docker API error while pushing a Docker image to Docker Hub.')
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Hub.')
-        
         # Push to Registry
         try:
             result = self.client.images.push(self.utils.config.docker_registry_repo,
