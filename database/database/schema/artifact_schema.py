@@ -75,7 +75,7 @@ ArtifactSchema = {
     'reproduce_successes': RequiredInt,
     'reproduced': RequiredBool,
     'stability': NonEmptyStr,
-    'tag': NonEmptyStr,
+    'current_image_tag': NonEmptyStr,
     'test_framework': RequiredStr,
 
     # The project attributes are separate because they may be removed or relocated.
