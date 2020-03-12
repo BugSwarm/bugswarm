@@ -23,7 +23,11 @@ class DockerWrapper(object):
         # self.swarm = docker.from_env()
         # docker.DockerClient(base_url='10.0.0.4:22')
         self.utils = utils
-        self.auth_config = {
+        self.dockerhub_auth_config = {
+            'username': self.utils.config.docker_user,
+            'password': self.utils.config.docker_pass,
+        }
+        self.docker_registry_auth_config = {
             'username': self.utils.config.docker_user,
             'password': self.utils.config.docker_pass,
         }
@@ -74,7 +78,7 @@ class DockerWrapper(object):
             log.error('Caught a KeyboardInterrupt while building a Docker image.')
         return image
 
-    def push_image(self, image_tag):
+    def push_image(self, image_tag, registry):
         try:
             result = self.client.images.push(self.utils.config.dockerhub_repo,
                                              tag=image_tag,
