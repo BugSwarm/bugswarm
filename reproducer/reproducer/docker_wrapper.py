@@ -99,8 +99,8 @@ class DockerWrapper(object):
             log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Hub.')
         # Push to Registry
         if not self.utils.config.docker_registry_repo:
-           log.warning('Docker Private Registry info not being set. Skipping.')
-           return
+            log.warning('Docker Private Registry info not being set. Skipping.')
+            return
         try:
             result = self.client.images.push(self.utils.config.docker_registry_repo,
                                              tag=image_tag,

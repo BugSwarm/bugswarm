@@ -27,7 +27,7 @@ if not DOCKER_REGISTRY_USERNAME:
 if not DOCKER_REGISTRY_PASSWORD:
     print('[WARNING]: DOCKER_REGISTRY_PASSWORD has not been found. Skip pushing to docker private registry '
           'in reproducing stage')
- 
+
 # GitHub
 # These GitHub tokens are hard-coded and can be used for token switching to minimize the time spent waiting for our
 # GitHub quota to reset.
