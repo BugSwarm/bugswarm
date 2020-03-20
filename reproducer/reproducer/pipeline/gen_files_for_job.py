@@ -8,7 +8,7 @@ from reproducer.pipeline.modify_build_sh import modify_build_sh
 from reproducer.pipeline.modify_build_sh import patch_build_script
 from reproducer.pipeline.gen_dockerfile import gen_dockerfile
 from reproducer.pipeline.gen_script import gen_script
-from reproducer.pipeline.apply_patching import modify_pom_file
+from reproducer.pipeline.apply_patching import modify_deprecated_links
 
 
 def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=False):
@@ -53,7 +53,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
 
     # Apply patching on project's pom.xml
     reproducer_repo_dir = job_dispatcher.utils.get_reproducing_repo_dir(job)
-    modify_pom_file(reproducer_repo_dir)
+    modify_deprecated_links(reproducer_repo_dir)
 
     # STEP 2: Download the original log if we do not yet have it.
     original_log_path = job_dispatcher.utils.get_orig_log_path(job.job_id)
@@ -64,6 +64,8 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     if not isfile(build_sh_path):
         gen_script(job_dispatcher.utils, job, dependency_solver)
         modify_build_sh(job.repo, build_sh_path)
+        # Attempt to patch any deprecated links in build script
+        modify_deprecated_links(build_sh_path)
         # Check if job is java and is jdk7. If so, then patch the build.sh file by adding flags to mvn command to use
         # TLSv1.2 instead of the default TLSv1.0.
         if job.config.get('jdk') in ['oraclejdk7', 'openjdk7']:
