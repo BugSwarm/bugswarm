@@ -2,39 +2,29 @@ name: Build
 on: [push,pull_request]
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-16.04, ubuntu-18.04]
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.6
     - name: Add Credentials
       env:
         gh_token: ${{ secrets.GH_TOKEN }}
       run: |
         sed -i "s~''~'#'~g" bugswarm/common/credentials.py
         sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
-    - name: Install dependencies
+    - name: Start Environment w/ Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install .
+        source /home/bugswarm/actions-runner/runners-venv/bin/activate
     - name: Lint with flake8
       run: |
-        pip install flake8
         flake8 . --count --max-line-length=120 --statistics
     - name: Test Analyzer
       working-directory: ./tests/analyzer
       run: |
-        python -m unittest discover
+        python3 -m unittest discover
     - name: Test Classifier
       working-directory: ./pair-classifier/tests
       run: |
-        python -m unittest discover
+        python3 -m unittest discover
     - name: Test PairFilter
       working-directory: ./pair-filter/tests
       run: |
-        python -m unittest discover
+        python3 -m unittest discover
