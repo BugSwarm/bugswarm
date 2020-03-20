@@ -49,7 +49,7 @@ def modify_deprecated_links(search_dir):
                         for url in _LIST_OF_DEPRECATED_URLS:
                             match_obj = re.search(url, line)
                             if match_obj:
-                                print(line.replace(url, _REPLACEMENT_URL))
+                                print(line.replace(url, _REPLACEMENT_URL).strip('\n'))
                                 file_modified = True
                                 match_obj_found = True
                                 continue
