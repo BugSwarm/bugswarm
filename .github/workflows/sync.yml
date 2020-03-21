@@ -38,8 +38,8 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       with:
-        source-repo: 'git@github.com:${{ env.PRIVATE_REPO }}.git'
-        destination-repo: 'git@github.com:${{ env.PUBLIC_REPO }}.git'
+        source-repo: 'git@github.com:BugSwarm/bugswarm-dev.git'
+        destination-repo: 'git@github.com:BugSwarm/bugswarm.git'
 
   job_2:
     if: github.repository == 'BugSwarm/bugswarm'
@@ -52,5 +52,5 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          source-repo: 'git@github.com:${{ env.PUBLIC_REPO }}.git'
-          destination-repo: 'git@github.com:${{ env.PRIVATE_REPO }}.git'
+          source-repo: 'git@github.com:BugSwarm/bugswarm.git'
+          destination-repo: 'git@github.com:BugSwarm/bugswarm-dev.git'
