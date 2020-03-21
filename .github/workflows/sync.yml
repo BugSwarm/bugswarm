@@ -26,13 +26,9 @@ on:
     branches:
       - master
 
-env:
-  PRIVATE_REPO: 'BugSwarm/bugswarm-dev'
-  PUBLIC_REPO: 'BugSwarm/bugswarm'
-
 jobs:
   job_1:
-    if: github.repository == env.PRIVATE_REPO
+    if: github.repository == 'BugSwarm/bugswarm-dev'
     runs-on: self-hosted
 
     steps:
@@ -46,7 +42,7 @@ jobs:
         destination-repo: 'git@github.com:${{ env.PUBLIC_REPO }}.git'
 
   job_2:
-    if: github.repository == env.PUBLIC_REPO
+    if: github.repository == 'BugSwarm/bugswarm'
     runs-on: ubuntu-16.04
 
     steps:
