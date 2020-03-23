@@ -7,30 +7,31 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Add Credentials
-      env:
-        gh_token: ${{ secrets.GH_TOKEN }}
-      run: |
-        sed -i "s~''~'#'~g" bugswarm/common/credentials.py
-        sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
-    - name: Start Environment w/ Dependencies
-      run: |
-        source /home/bugswarm/actions-runner/runners-venv/bin/activate
-    - name: Lint with flake8
-      run: |
-        flake8 . --count --max-line-length=120 --statistics
-    - name: Test Analyzer
-      working-directory: ./tests/analyzer
-      run: |
-        python3 -m unittest discover
-    - name: Test Classifier
-      working-directory: ./pair-classifier/tests
-      run: |
-        python3 -m unittest discover
-    - name: Test PairFilter
-      working-directory: ./pair-filter/tests
-      run: |
-        python3 -m unittest discover
+      - uses: actions/checkout@v2
+      - name: Add Credentials
+        env:
+          gh_token: ${{ secrets.GH_TOKEN }}
+        run: |
+          sed -i "s~''~'#'~g" bugswarm/common/credentials.py
+          sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
+      - name: Start Environment w/ Dependencies
+        run: |
+          source /home/bugswarm/actions-runner/runners-venv/bin/activate
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --max-line-length=120 --statistics
+      - name: Test Analyzer
+        working-directory: ./tests/analyzer
+        run: |
+          python3 -m unittest discover
+      - name: Test Classifier
+        working-directory: ./pair-classifier/tests
+        run: |
+          python3 -m unittest discover
+      - name: Test PairFilter
+        working-directory: ./pair-filter/tests
+        run: |
+          python3 -m unittest discover
 
   job_2:
     if: github.repository == 'BugSwarm/bugswarm'
@@ -40,7 +41,7 @@ jobs:
         os: [ubuntu-16.04, ubuntu-18.04]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
         with:
