@@ -23,9 +23,13 @@ class DockerWrapper(object):
         # self.swarm = docker.from_env()
         # docker.DockerClient(base_url='10.0.0.4:22')
         self.utils = utils
-        self.auth_config = {
-            'username': self.utils.config.docker_user,
-            'password': self.utils.config.docker_pass,
+        self.docker_hub_auth_config = {
+            'username': self.utils.config.docker_hub_user,
+            'password': self.utils.config.docker_hub_pass,
+        }
+        self.docker_registry_auth_config = {
+            'username': self.utils.config.docker_registry_user,
+            'password': self.utils.config.docker_registry_pass,
         }
 
     def build_and_run(self, job):
@@ -75,11 +79,12 @@ class DockerWrapper(object):
         return image
 
     def push_image(self, image_tag):
+        # Push to Docker Hub
         try:
-            result = self.client.images.push(self.utils.config.dockerhub_repo,
+            result = self.client.images.push(self.utils.config.docker_hub_repo,
                                              tag=image_tag,
                                              stream=False,
-                                             auth_config=self.auth_config)
+                                             auth_config=self.docker_hub_auth_config)
             result = result.splitlines()
             result = result[-1]
             dictionary = ast.literal_eval(result)
@@ -89,9 +94,30 @@ class DockerWrapper(object):
                 log.info('Status: ', dictionary.get('status'))
 
         except docker.errors.APIError:
-            raise ReproduceError('Encountered a Docker API error while pushing a Docker image.')
+            raise ReproduceError('Encountered a Docker API error while pushing a Docker image to Docker Hub.')
         except KeyboardInterrupt:
-            log.error('Caught a KeyboardInterrupt while pushing a Docker image.')
+            log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Hub.')
+        # Push to Registry
+        if not self.utils.config.docker_registry_repo:
+            log.warning('Docker Private Registry info not being set. Skipping.')
+            return
+        try:
+            result = self.client.images.push(self.utils.config.docker_registry_repo,
+                                             tag=image_tag,
+                                             stream=False,
+                                             auth_config=self.docker_registry_auth_config)
+            result = result.splitlines()
+            result = result[-1]
+            dictionary = ast.literal_eval(result)
+            if "error" in dictionary.keys():
+                log.error('Error: ', dictionary.get('error'))
+            elif "status" in dictionary.keys():
+                log.info('Status: ', dictionary.get('status'))
+
+        except docker.errors.APIError:
+            raise ReproduceError('Encountered a Docker API error while pushing a Docker image to Docker Registry.')
+        except KeyboardInterrupt:
+            log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Registry.')
 
     def spawn_container(self, image, container_name, reproduced_log_destination):
         container_runtime = 0

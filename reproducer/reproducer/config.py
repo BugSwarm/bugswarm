@@ -1,6 +1,7 @@
 import os
 
-from bugswarm.common.credentials import DOCKER_HUB_PASSWORD, DOCKER_HUB_REPO, DOCKER_HUB_USERNAME
+from bugswarm.common.credentials import DOCKER_HUB_PASSWORD, DOCKER_HUB_REPO, DOCKER_HUB_USERNAME, \
+    DOCKER_REGISTRY_PASSWORD, DOCKER_REGISTRY_REPO, DOCKER_REGISTRY_USERNAME
 
 
 class Config(object):
@@ -18,9 +19,12 @@ class Config(object):
         self.reproduced_logs_dir = 'outout/reproduced_logs'
         self.csv_dir = 'output/csv'  # Deprecated. Was previously, but is no longer, used bythe metadata Packager.
         self.verbose = False
-        self.docker_user = DOCKER_HUB_USERNAME
-        self.docker_pass = DOCKER_HUB_PASSWORD
-        self.dockerhub_repo = DOCKER_HUB_REPO
+        self.docker_hub_user = DOCKER_HUB_USERNAME
+        self.docker_hub_pass = DOCKER_HUB_PASSWORD
+        self.docker_hub_repo = DOCKER_HUB_REPO
+        self.docker_registry_user = DOCKER_REGISTRY_USERNAME
+        self.docker_registry_pass = DOCKER_REGISTRY_PASSWORD
+        self.docker_registry_repo = DOCKER_REGISTRY_REPO
         self.tar_repo_sh = 'reproducer/pipeline/tar_repo.sh'
         self.copy_and_reset_sh = 'reproducer/pipeline/copy_and_reset.sh'
         self.travis_build_sh = 'reproducer/pipeline/travis_build.sh'

@@ -14,6 +14,20 @@ if not DOCKER_HUB_PASSWORD:
     print('[ERROR]: DOCKER_HUB_PASSWORD has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')
 
+# Docker Private Registry
+DOCKER_REGISTRY_REPO = ''
+DOCKER_REGISTRY_USERNAME = ''
+DOCKER_REGISTRY_PASSWORD = ''
+if not DOCKER_REGISTRY_REPO:
+    print('[WARNING]: DOCKER_REGISTRY_REPO has not been found. Skip pushing to docker private registry '
+          'in reproducing stage')
+if not DOCKER_REGISTRY_USERNAME:
+    print('[WARNING]: DOCKER_REGISTRY_USERNAME has not been found. Skip pushing to docker private registry '
+          'in reproducing stage')
+if not DOCKER_REGISTRY_PASSWORD:
+    print('[WARNING]: DOCKER_REGISTRY_PASSWORD has not been found. Skip pushing to docker private registry '
+          'in reproducing stage')
+
 # GitHub
 # These GitHub tokens are hard-coded and can be used for token switching to minimize the time spent waiting for our
 # GitHub quota to reset.
