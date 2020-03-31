@@ -11,11 +11,10 @@ from bugswarm.common.log_downloader import download_log
 from bugswarm.common.utils import get_current_component_version_message
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
-from bugswarm.common import github_wrapper
-from bugswarm.common import credentials
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from pair_classifier.classify_bugs import classify_build, classify_code, classify_test, process_error, process_logs
+from get_changed_files import get_github_url, gather_info
 from bugswarm.analyzer.analyzer import Analyzer
 
 
@@ -71,7 +70,6 @@ class PairClassifier(object):
 
     @staticmethod
     def run(repo: str, dir_of_jsons: str, args: dict):
-        git_wrapper = github_wrapper.GitHubWrapper(credentials.GITHUB_TOKENS)
         task_name = repo.replace('/', '-')
         analyzer = Analyzer()
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
@@ -86,7 +84,7 @@ class PairClassifier(object):
             bp_id = bp['_id']
             for jp in bp['jobpairs']:
                 _ = jp.setdefault('build_system', "NA")
-                files_changed, files_deleted, files_added = [], [], []
+                files_changed = []
                 if jp['is_filtered']:
                     continue
 
@@ -94,19 +92,13 @@ class PairClassifier(object):
                     bp['failed_build']['head_sha']
                 passed_sha = bp['passed_build']['travis_merge_sha'] if bp['passed_build']['travis_merge_sha'] else \
                     bp['passed_build']['head_sha']
-                url = 'https://api.github.com/repos/{}/compare/{}...{}'.format(repo, failed_sha, passed_sha)
-                status, json_data = git_wrapper.get(url)
-                if status is None or not status.ok:
-                    print('Network Err: {}'.format(status))
-                    continue
+                url = get_github_url(failed_sha, passed_sha, repo)
+                image_tag_info = gather_info(url)
+                jp['metrics'] = image_tag_info['metrics']
 
-                for f in json_data['files']:
-                    if f['status'] == 'added':
-                        files_added.append(f['filename'])
-                    elif f['status'] == 'modified':
-                        files_changed.append(f['filename'])
-                    elif f['status'] == 'deleted':
-                        files_deleted.append(f['filename'])
+                for file in image_tag_info['changed_paths']:
+                    files_changed.append(file)
+
                 failed_job_id = jp['failed_job']['job_id']
                 passed_job_id = jp['passed_job']['job_id']
 
@@ -138,8 +130,6 @@ class PairClassifier(object):
                 # CLASSIFICATION
                 files_modified = []
                 files_modified.extend(files_changed)
-                files_modified.extend(files_deleted)
-                files_modified.extend(files_added)
                 files_modified = list(filter(lambda x: '.git' not in x, files_modified))
                 is_test, test_confidence, remain_files = classify_test(files_modified)
                 is_build, build_confidence, remain_files = classify_build(remain_files, files_modified)

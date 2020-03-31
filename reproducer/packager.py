@@ -204,8 +204,7 @@ class Packager(object):
             # Evaluation info.
             'filtered_reason': jp.get('filtered_reason', ''),
 
-            # Metrics. Empty by default and will be populated later by other components during post-processing.
-            'metrics': {},
+            'metrics': jp['metrics'],
             'current_status': current_status,
             'classification': classification
         }

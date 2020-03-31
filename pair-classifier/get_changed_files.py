@@ -14,9 +14,33 @@ lock = RLock()
 SUPPRESS_THREAD_EXCEPTIONS = False
 
 
+def get_changed_files_metrics(soup):
+    """
+    Returns the metrics of added, deleted, and modified files
+    :param soup: beautifulsoup4 object for parsing
+    :return metrics: returns a dictionary of metrics for changed files
+    """
+    metrics = {
+        'modified': 0,
+        'added': 0,
+        'removed': 0
+    }
+    ol = soup.find('ol', class_='content collapse js-transitionable')
+    svg_list = ol.find_all('svg')
+    for svg in svg_list:
+        if svg['title'] == 'modified':
+            metrics['modified'] += 1
+        elif svg['title'] == 'added':
+            metrics['added'] += 1
+        elif svg['title'] == 'removed':
+            metrics['removed'] += 1
+    return metrics
+
+
 # Returns the count and names of modified files
 def get_changed_files(soup):
-    links = soup.find_all("div", class_="details-collapse table-of-contents js-details-container Details")
+    links = soup.find_all('div', class_='details-collapse table-of-contents js-details-container Details')
+
     count = 0
     changed_files = []
     for link in links:
@@ -62,7 +86,7 @@ def get_github_url(failed_sha, passed_sha, repo):
     return url
 
 
-def _thread_main(url):
+def gather_info(url):
     list_of_user_agents = ['Mozilla/5.0', 'AppleWebKit/537.36', 'Chrome/79.0.3945.88', 'Safari/537.36']
     stat_code = 0
     tag_info = {
@@ -101,6 +125,9 @@ def _thread_main(url):
         read_count = get_num_changed_files(soup)
         tag_info['num_changed_files'] = read_count
 
+        metrics = get_changed_files_metrics(soup)
+        tag_info['metrics'] = metrics
+
         count, changed_files = get_changed_files(soup)
         if count == 0:
             tag_info['changed_paths'] = ['NONE FOUND']
@@ -136,7 +163,7 @@ def main():
 
     # format: {'image_tag': {'url': url, 'num_files': num_files, 'changed_paths': changed_paths}, ...}
     with ThreadPoolExecutor(max_workers=4) as executor:
-        future_to_tag = {executor.submit(_thread_main,
+        future_to_tag = {executor.submit(gather_info,
                                          url_list[image_tag]): image_tag for image_tag in url_list.keys()}
         for future in as_completed(future_to_tag):
             try:

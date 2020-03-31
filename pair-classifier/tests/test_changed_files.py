@@ -857,7 +857,7 @@ class Test(unittest.TestCase):
         )
 
         headers = {
-            "User-Agent": "AppleWebKit/537.36",
+            "User-Agent": "Safari/537.36",
             "Accept": "text/html, application/xhtml+xml, application/xml; q = 0.9, image/webp,image/apng, */*;q = 0.8",
             "Accept-Encoding": "gzip, deflate, br",
             "Accept-Language": "en-US,en; q = 0.9"

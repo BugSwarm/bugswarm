@@ -32,6 +32,10 @@ _MinedJobPairSchema = {
         'passed_job': _MinedJobPairJobSchema,
         'classification': _MinedBuildPairClassificationSchema,
         'build_system': RequiredStr,
+        'metrics': {
+            'type': 'dict',
+            'allow_unknown': True,
+        },
     },
 }
 
