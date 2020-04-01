@@ -128,7 +128,7 @@ class ReproducedResultsAnalyzer(object):
                     # Optional: Write buildpair match type.
                     # This is not used since we switched to jobpair packaging.
                     p['match'] = bp.match.value
-
+                    trigger_sha = p['failed_build']['head_sha']
                     # Similarly, for each job pair in build pair, try to find it in the pair center.
                     for jp in p['jobpairs']:
                         found_in_paircenter = False
@@ -155,7 +155,8 @@ class ReproducedResultsAnalyzer(object):
                                 original_log_path = self.utils.get_orig_log_path(job_id)
                                 if not download_log(job_id, original_log_path):
                                     continue
-                                original_result = self.analyzer.analyze_single_log(original_log_path)
+                                original_result = self.analyzer.analyze_single_log(original_log_path, job_id,
+                                                                                   trigger_sha, repo)
                                 if 'not_in_supported_language' in original_result:
                                     continue
                                 jp[job_name]['orig_result'] = original_result

@@ -8,6 +8,7 @@ from .java_analyzers.java_gradle_analyzer import JavaGradleAnalyzer
 from .java_analyzers.java_maven_analyzer import JavaMavenAnalyzer
 from .java_analyzers.java_other_analyzer import JavaOtherAnalyzer
 from .python_log_file_analyzer import PythonLogFileAnalyzer
+from .javascript_log_file_analyzer import JavaScriptFileAnalyzer
 
 
 class Dispatcher(object):
@@ -175,6 +176,8 @@ class Dispatcher(object):
                 log.error('Need build system or trigger sha and repo to analyze java log')
                 return None
             return self._get_java_analyzer(primary_language, lines, folds, job_id, build_system, trigger_sha, repo)
+        elif lang == 'node_js':
+            return JavaScriptFileAnalyzer(primary_language, folds, job_id)
         elif lang == 'python':
             return PythonLogFileAnalyzer(primary_language, folds, job_id)
         else:
