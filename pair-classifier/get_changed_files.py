@@ -21,19 +21,19 @@ def get_changed_files_metrics(soup):
     :return metrics: returns a dictionary of metrics for changed files
     """
     metrics = {
-        'modified': 0,
-        'added': 0,
-        'removed': 0
+        'changes': 0,
+        'additions': 0,
+        'deletions': 0
     }
     ol = soup.find('ol', class_='content collapse js-transitionable')
     svg_list = ol.find_all('svg')
     for svg in svg_list:
         if svg['title'] == 'modified':
-            metrics['modified'] += 1
+            metrics['changes'] += 1
         elif svg['title'] == 'added':
-            metrics['added'] += 1
+            metrics['additions'] += 1
         elif svg['title'] == 'removed':
-            metrics['removed'] += 1
+            metrics['deletions'] += 1
     return metrics
 
 
