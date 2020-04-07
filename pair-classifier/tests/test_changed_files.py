@@ -8,8 +8,6 @@ sys.path.append('../')
 from get_changed_files import get_num_changed_files  # noqa: E402
 from get_changed_files import get_changed_files  # noqa: E402
 
-MAX_NUM_OF_CHANGED_FILES = 20
-
 
 class Test(unittest.TestCase):
 
@@ -357,11 +355,8 @@ class Test(unittest.TestCase):
             json_data=self._mock_data('test_mozilla_21')
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
-        count, _ = get_changed_files(soup)
 
-        read_count = get_num_changed_files(soup)
-        if read_count > MAX_NUM_OF_CHANGED_FILES:
-            return self.assertEqual(count, 0)
+        count = get_num_changed_files(soup)
         self.assertEqual(count, 394)
 
     def test_mozilla_22(self):  # igniterealtime-Openfire-302593314
@@ -370,11 +365,7 @@ class Test(unittest.TestCase):
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
-        count, _ = get_changed_files(soup)
-
-        read_count = get_num_changed_files(soup)
-        if read_count > MAX_NUM_OF_CHANGED_FILES:
-            return self.assertEqual(count, 0)
+        count = get_num_changed_files(soup)
         self.assertEqual(count, 2019)
 
     def test_applewebkit_1(self):
