@@ -13,6 +13,8 @@ from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from bugswarm.common.shell_wrapper import ShellWrapper
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
+from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 from .github import GitHub
 from .travis import Travis
@@ -24,6 +26,7 @@ LOG_DIR = 'intermediates/logs'
 OUTPUT_DIR = 'output'
 ORIGNAL_METRICS_DIR = 'output/original_metrics'
 API_RESULT_DIR = 'intermediates/api-results'
+BUGSWARMAPI = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
 
 
 class Utils(object):
@@ -238,6 +241,15 @@ class Utils(object):
     @staticmethod
     def canonical_task_name_from_repo(repo: str):
         return repo.replace('/', '-')
+
+    @staticmethod
+    def is_repo_previously_mined(repo: str):
+        current_mining_repo = repo.lower()
+        projects = BUGSWARMAPI.list_mined_projects()
+        for project in projects:
+            if current_mining_repo == project['repo'].lower():
+                return repo != project['repo'], project['repo']
+        return False, None
 
     # ---------- Private Utils ----------
 

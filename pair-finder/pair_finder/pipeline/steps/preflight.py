@@ -27,6 +27,11 @@ class Preflight(Step):
             log.error(msg)
             raise StepException(msg)
 
+        is_mined, repo_in_db = Utils.is_repo_previously_mined(repo)
+        if is_mined:
+            # Set the current mining repo to be what our DB contains
+            repo = repo_in_db
+
         if Utils.store_git_log(repo) is False:
             # The clone failed, likely because this repo has been removed or made private.
             # So signal that this repo should be skipped.
