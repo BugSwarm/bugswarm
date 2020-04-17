@@ -13,6 +13,7 @@ jobs:
         env:
           gh_token: ${{ secrets.GH_TOKEN }}
         run: |
+          cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
           sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
       - name: Installing Dependencies
@@ -47,6 +48,7 @@ jobs:
         env:
           gh_token: ${{ secrets.GH_TOKEN }}
         run: |
+          cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
           sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
       - name: Installing Dependencies
@@ -87,6 +89,7 @@ jobs:
         env:
           gh_token: ${{ secrets.GH_TOKEN }}
         run: |
+          cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
           sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~\[\]~\['${gh_token}'\]~g" bugswarm/common/credentials.py
       - name: Install dependencies

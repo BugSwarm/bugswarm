@@ -85,17 +85,22 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     ```
     $ mongo
     ```
-1. Input the necessary credentials in `bugswarm/common/credentials.py`:
-    ```
-    DOCKER_HUB_REPO=<DOCKER_HUB_REPO>
-    DOCKER_HUB_USERNAME=<DOCKER_HUB_USERNAME>
-    DOCKER_HUB_PASSWORD=<DOCKER_HUB_PASSWORD>
-    GITHUB_TOKENS=<GITHUB_TOKENS>
-    DATABASE_PIPELINE_TOKEN=<DATABASE_PIPELINE_TOKEN> ('testDBPassword' if using Docker image of Mongo)
-    COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
-    ```
-   > The following values are required for authentication, accessing components and APIs used within
-   > the BugSwarm pipeline. Please see the [FAQ](#FAQ) for details regarding the credentials.
+1. Configure necessary credentials:
+    1. Make a copy of the credentials file:
+        ```
+        $ cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
+        ```
+    1. Fill in credentials in `bugswarm/common/credentials.py`:
+        ```
+        DOCKER_HUB_REPO=<DOCKER_HUB_REPO>
+        DOCKER_HUB_USERNAME=<DOCKER_HUB_USERNAME>
+        DOCKER_HUB_PASSWORD=<DOCKER_HUB_PASSWORD>
+        GITHUB_TOKENS=<GITHUB_TOKENS>
+        DATABASE_PIPELINE_TOKEN=<DATABASE_PIPELINE_TOKEN> ('testDBPassword' if using Docker image of Mongo)
+        COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
+        ```
+       > The following values are required for authentication, accessing components and APIs used within
+       > the BugSwarm pipeline. Please see the [FAQ](#FAQ) for details regarding the credentials.
 1. Run the provision script:  
     ```
     $ ./provision.sh
