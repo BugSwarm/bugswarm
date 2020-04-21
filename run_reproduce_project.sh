@@ -76,17 +76,17 @@ done
 
 # ReproducedResultsAnalyzer
 print_step "${STAGE}" ${TOTAL_STEPS} "ReproducedResultsAnalyzer"
-python3 reproduced_results_analyzer.py -i ${pair_file_path} -n ${REPRODUCER_RUNS} --task-name ${task_name}_${failed_job_id}
+python3 reproduced_results_analyzer.py -i ${pair_file_path} -n ${REPRODUCER_RUNS} --task-name ${task_name}
 exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS}
+python3 entry.py -i output/result_json/${task_name}.json --package -k -t ${threads} -o ${task_name}_run${REPRODUCER_RUNS}
 exit_if_failed 'ImagePackager encountered an error.'
 
 # MetadataPackager (push artifact metadata to the database)
 print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
-python3 packager.py -i output/result_json/${task_name}_${failed_job_id}.json
+python3 packager.py -i output/result_json/${task_name}.json
 exit_if_failed 'MetadataPackager encountered an error.'
 
 print_stage_done "${STAGE}"

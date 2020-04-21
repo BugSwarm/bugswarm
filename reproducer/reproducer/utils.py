@@ -375,7 +375,7 @@ class Utils(object):
         return bugswarmutils.get_image_tag(slug, jobpair['failed_job']['job_id'])
 
     def construct_full_image_name(self, image_tag):
-        return '{}:{}'.format(self.config.dockerhub_repo, image_tag)
+        return '{}:{}'.format(self.config.docker_hub_repo, image_tag)
 
     @staticmethod
     def check_disk_space_available():
