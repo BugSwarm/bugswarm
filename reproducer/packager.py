@@ -177,6 +177,13 @@ class Packager(object):
             'status': status
         }
 
+        # Previously mined jobpairs that are ran through the Reproducer, for example from generated pairs,
+        # may not contain any 'metrics' so we add add a blank template for updating
+        try:
+            metrics = jp['metrics']
+        except KeyError:
+            metrics = {}
+
         d = {
             'current_image_tag': image_tag,
             'image_tag': image_tag,
@@ -204,7 +211,7 @@ class Packager(object):
             # Evaluation info.
             'filtered_reason': jp.get('filtered_reason', ''),
 
-            'metrics': jp['metrics'],
+            'metrics': metrics,
             'current_status': current_status,
             'classification': classification
         }
