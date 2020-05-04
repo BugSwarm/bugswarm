@@ -1,6 +1,7 @@
 import time
 import json
 import sys
+import re
 from builtins import Exception, len, str
 from concurrent.futures import as_completed
 from concurrent.futures import ThreadPoolExecutor
@@ -21,19 +22,37 @@ def get_changed_files_metrics(soup):
     :return metrics: returns a dictionary of metrics for changed files
     """
     metrics = {
+        'num_of_changed_files': 0,
         'changes': 0,
         'additions': 0,
         'deletions': 0
     }
-    ol = soup.find('ol', class_='content collapse js-transitionable')
-    svg_list = ol.find_all('svg')
-    for svg in svg_list:
-        if svg['title'] == 'modified':
-            metrics['changes'] += 1
-        elif svg['title'] == 'added':
-            metrics['additions'] += 1
-        elif svg['title'] == 'removed':
-            metrics['deletions'] += 1
+
+    list_of_metrics = []
+    div = soup.find('div', class_='toc-diff-stats')
+
+    button = div.find('button', class_='btn-link js-details-target')
+    if button:
+        result = re.search(r'[0-9]+', button.string)
+        list_of_metrics.append(int(result.group()))
+
+    # num of changed files is part of the <strong> tag if the number is large
+    strong_list = div.find_all('strong')
+    for strong in strong_list:
+        # matches numbers similar to 1,000, 10,000, etc & then we strip out the comma
+        # as our previous data is only numbers
+        result = re.search(r'[0-9]+,?[0-9]+', strong.string)
+        if ',' in result.group():
+            result = result.group().replace(',', '')
+            list_of_metrics.append(int(result))
+        else:
+            list_of_metrics.append(int(result.group()))
+
+    if len(list_of_metrics) == 3:
+        metrics['num_of_changed_files'] = list_of_metrics[0]
+        metrics['additions'] = list_of_metrics[1]
+        metrics['deletions'] = list_of_metrics[2]
+        metrics['changes'] = list_of_metrics[1] + list_of_metrics[2]
     return metrics
 
 
@@ -51,30 +70,6 @@ def get_changed_files(soup):
                 count += 1
 
     return count, changed_files
-
-
-# Returns the number of modified files used against the threshold in testing
-def get_num_changed_files(soup):
-    links = soup.find_all("div", class_="toc-diff-stats")
-    current_num = 0
-    for link in links:
-        # default: searching for button (small amt of changed files)
-        searching = link.find('button')
-        if searching is None:
-            # if large amt of changed files, use 'strong' tag
-            searching = link.find('strong')
-        num_started = False
-        # parses text to get integer type of number of changed files
-        for letter in searching.text:
-            if num_started is False and letter.isdigit():
-                current_num = int(letter)
-                num_started = True
-            elif num_started is True and letter.isdigit():
-                current_num = current_num * 10
-                current_num = current_num + int(letter)
-            elif num_started is True and letter == ' ':
-                break
-    return current_num
 
 
 def get_github_url(failed_sha, passed_sha, repo):
@@ -113,7 +108,7 @@ def gather_info(url):
             stat_code = r.get_status_code()
 
     if try_count == len(list_of_user_agents):
-        tag_info['num_changed_files'] = -1
+        tag_info['num_of_changed_files'] = -1
         tag_info['changed_paths'] = ['ERROR, CANNOT FULFILL REQUEST']
         tag_info['error_found'] = 'ERROR, TOO MANY PROXY ATTEMPTS'
         return tag_info
@@ -121,9 +116,6 @@ def gather_info(url):
     # proxy successful, continue reading the page
     if stat_code == 200:
         soup = BeautifulSoup(source, 'lxml')
-        # get changed files info
-        read_count = get_num_changed_files(soup)
-        tag_info['num_changed_files'] = read_count
 
         metrics = get_changed_files_metrics(soup)
         tag_info['metrics'] = metrics
@@ -134,7 +126,7 @@ def gather_info(url):
         else:
             tag_info['changed_paths'] = changed_files
 
-        if count != read_count:
+        if count != tag_info['metrics']['num_of_changed_files']:
             tag_info['error_found'] = 'ERROR, MISMATCH IN COUNT'
         else:
             tag_info['error_found'] = 'NONE'

@@ -5,8 +5,7 @@ import sys
 from unittest import mock
 
 sys.path.append('../')
-from get_changed_files import get_num_changed_files  # noqa: E402
-from get_changed_files import get_changed_files  # noqa: E402
+from get_changed_files import get_changed_files, get_changed_files_metrics  # noqa: E402
 
 
 class Test(unittest.TestCase):
@@ -356,8 +355,8 @@ class Test(unittest.TestCase):
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
-        count = get_num_changed_files(soup)
-        self.assertEqual(count, 394)
+        metrics = get_changed_files_metrics(soup)
+        self.assertEqual(metrics['num_of_changed_files'], 394)
 
     def test_mozilla_22(self):  # igniterealtime-Openfire-302593314
         mock_resp = self._mock_response(
@@ -365,8 +364,8 @@ class Test(unittest.TestCase):
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
-        count = get_num_changed_files(soup)
-        self.assertEqual(count, 2019)
+        metrics = get_changed_files_metrics(soup)
+        self.assertEqual(metrics['num_of_changed_files'], 2019)
 
     def test_applewebkit_1(self):
         mock_resp = self._mock_response(
@@ -374,9 +373,8 @@ class Test(unittest.TestCase):
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
-        count, _ = get_changed_files(soup)
-
-        self.assertEqual(count, 7)
+        metrics = get_changed_files_metrics(soup)
+        self.assertEqual(metrics['num_of_changed_files'], 7)
 
     def test_applewebkit_2(self):
         mock_resp = self._mock_response(
@@ -384,9 +382,8 @@ class Test(unittest.TestCase):
         )
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
-        count, _ = get_changed_files(soup)
-
-        self.assertEqual(count, 3)
+        metrics = get_changed_files_metrics(soup)
+        self.assertEqual(metrics['num_of_changed_files'], 3)
 
     def test_applewebkit_3(self):
         mock_resp = self._mock_response(
