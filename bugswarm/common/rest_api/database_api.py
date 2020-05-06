@@ -101,9 +101,9 @@ class DatabaseAPI(object):
 
     def list_artifacts(self) -> List:
         """
-        Return a List of java and python artifacts that has at least one reproduce_successes.
+        Return a List of artifacts that has at least one reproduce_successes.
         """
-        api_filter = '{"reproduce_successes":{"$gt":0},"lang":{"$in":["Java","Python"]}}'
+        api_filter = '{"reproduce_successes":{"$gt":0}}'
         return self.filter_artifacts(api_filter)
 
     def filter_artifacts(self, api_filter: str) -> List:
