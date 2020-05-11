@@ -2,6 +2,7 @@ import getopt
 import logging
 import os
 import sys
+import json
 
 from bugswarm.common import log
 from bugswarm.common.json import write_json
@@ -25,12 +26,21 @@ def main(argv=None):
         log.error('No mined build pairs exist in the database for {}. Exiting.'.format(repo))
         return 1
 
+    filename = 'artifacts_for_comparing.json'
+    if not os.path.isfile(filename):
+        artifacts = bugswarmapi.list_artifacts()
+        _create_static_artifacts_file(filename, artifacts)
+    with open(filename, 'r') as file:
+        artifacts = json.load(file)
+
     filtered_buildpairs = []
     filtered_jobpair_count = 0
     for bp in buildpairs:
         filtered_jobpairs = []
         for jp in bp['jobpairs']:
-            if _should_include_jobpair(jp, failed_job_id, passed_job_id):
+            if should_include_jobpair(jp, failed_job_id, passed_job_id):
+                if not is_jp_unique(repo, jp, artifacts):
+                    continue
                 filtered_jobpairs.append(jp)
                 filtered_jobpair_count += 1
         if filtered_jobpairs:
@@ -48,7 +58,29 @@ def main(argv=None):
     log.info('Done!')
 
 
-def _should_include_jobpair(jp, failed_job_id, passed_job_id):
+def _create_static_artifacts_file(filename, artifacts):
+    artifact_dict = {}
+    for artifact in artifacts:
+        artifact_failed_job_id = artifact['failed_job']['job_id']
+        artifact_dict[artifact_failed_job_id] = artifact
+    with open(filename, 'w+') as f:
+        json.dump(artifact_dict, f)
+
+
+def is_jp_unique(repo, jp, artifacts):
+    failed_job_id = jp['failed_job']['job_id']
+    if str(failed_job_id) in artifacts:
+        artifact_failed_job_id = artifacts[str(failed_job_id)]['failed_job']['job_id']
+        artifact_repo = artifacts[str(failed_job_id)]['repo']
+
+        if artifact_failed_job_id == failed_job_id and artifact_repo != repo:
+            log.info("Failed Job ID: {} is already associated Artifact's image_tag: {}"
+                     .format(failed_job_id, artifacts[str(artifact_failed_job_id)]['image_tag']))
+            return False
+    return True
+
+
+def should_include_jobpair(jp, failed_job_id, passed_job_id):
     # Always include if no job ID filters provided.
     if not failed_job_id and not passed_job_id:
         return True
