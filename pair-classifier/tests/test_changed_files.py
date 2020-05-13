@@ -57,7 +57,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 4)
         self.assertListEqual(changed_files, changed_github)
 
@@ -70,7 +69,6 @@ class Test(unittest.TestCase):
         changed_github = ['abjad/tools/datastructuretools/Pattern.py']
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertListEqual(changed_files, changed_github)
 
@@ -103,7 +101,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 19)
         self.assertListEqual(changed_files, changed_github)
 
@@ -128,7 +125,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 11)
         self.assertListEqual(changed_files, changed_github)
 
@@ -141,7 +137,6 @@ class Test(unittest.TestCase):
         changed_github = ['src/org/traccar/helper/Parser.java']
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertListEqual(changed_files, changed_github)
 
@@ -157,7 +152,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 2)
         self.assertListEqual(changed_files, changed_github)
 
@@ -173,7 +167,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 2)
         self.assertListEqual(changed_files, changed_github)
 
@@ -191,7 +184,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 4)
         self.assertListEqual(changed_files, changed_github)
 
@@ -216,7 +208,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 11)
         self.assertListEqual(changed_files, changed_github)
 
@@ -245,7 +236,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 15)
         self.assertListEqual(changed_files, changed_github)
 
@@ -264,7 +254,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 5)
         self.assertListEqual(changed_files, changed_github)
 
@@ -276,7 +265,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 8)
 
     def test_mozilla_14(self):  # apache-dubbo-506092104
@@ -286,7 +274,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 26)
 
     def test_mozilla_15(self):  # scikit-learn-scikit-learn-79576031
@@ -296,7 +283,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 37)
 
     def test_mozilla_16(self):  # charite-jannovar-249719464 #90 changed
@@ -306,7 +292,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 90)
 
     def test_mozilla_17(self):  # scikit-learn-scikit-learn-398261936
@@ -316,7 +301,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 91)
 
     def test_mozilla_18(self):  # Azure-azure-sdk-for-java-159452848
@@ -326,7 +310,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 97)
 
     def test_mozilla_19(self):  # scikit-learn-scikit-learn-414758534
@@ -336,7 +319,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 252)
 
     def test_mozilla_20(self):  # scikit-learn-scikit-learn-409303510
@@ -346,7 +328,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 270)
 
     def test_mozilla_21(self):  # SonarSource-sonar-java-341335847 #WRONG 0/394
@@ -357,6 +338,8 @@ class Test(unittest.TestCase):
 
         metrics = get_changed_files_metrics(soup)
         self.assertEqual(metrics['num_of_changed_files'], 394)
+        self.assertEqual(metrics['additions'], 9603)
+        self.assertEqual(metrics['deletions'], 1679)
 
     def test_mozilla_22(self):  # igniterealtime-Openfire-302593314
         mock_resp = self._mock_response(
@@ -366,6 +349,8 @@ class Test(unittest.TestCase):
 
         metrics = get_changed_files_metrics(soup)
         self.assertEqual(metrics['num_of_changed_files'], 2019)
+        self.assertEqual(metrics['additions'], 319480)
+        self.assertEqual(metrics['deletions'], 319481)
 
     def test_applewebkit_1(self):
         mock_resp = self._mock_response(
@@ -375,6 +360,8 @@ class Test(unittest.TestCase):
 
         metrics = get_changed_files_metrics(soup)
         self.assertEqual(metrics['num_of_changed_files'], 7)
+        self.assertEqual(metrics['additions'], 47)
+        self.assertEqual(metrics['deletions'], 329)
 
     def test_applewebkit_2(self):
         mock_resp = self._mock_response(
@@ -384,6 +371,8 @@ class Test(unittest.TestCase):
 
         metrics = get_changed_files_metrics(soup)
         self.assertEqual(metrics['num_of_changed_files'], 3)
+        self.assertEqual(metrics['additions'], 51)
+        self.assertEqual(metrics['deletions'], 34)
 
     def test_applewebkit_3(self):
         mock_resp = self._mock_response(
@@ -392,7 +381,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 1)
 
     def test_chrome_1(self):
@@ -406,7 +394,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -422,7 +409,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 2)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -437,7 +423,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -452,7 +437,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -469,7 +453,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 3)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -510,7 +493,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 27)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -525,7 +507,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 1)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -549,7 +530,6 @@ class Test(unittest.TestCase):
         ]
 
         count, changed_files = get_changed_files(soup)
-
         self.assertEqual(count, 10)
         self.assertEqual(changed_files, changed_on_github)
 
@@ -560,7 +540,6 @@ class Test(unittest.TestCase):
         soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
 
         count, _ = get_changed_files(soup)
-
         self.assertEqual(count, 1)
 
 

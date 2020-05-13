@@ -41,7 +41,7 @@ def get_changed_files_metrics(soup):
     for strong in strong_list:
         # matches numbers similar to 1,000, 10,000, etc & then we strip out the comma
         # as our previous data is only numbers
-        result = re.search(r'[0-9]+,?[0-9]+', strong.string)
+        result = re.search(r'([0-9]+),?([0-9]+)?', strong.string)
         if ',' in result.group():
             result = result.group().replace(',', '')
             list_of_metrics.append(int(result))
