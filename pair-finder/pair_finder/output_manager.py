@@ -89,7 +89,7 @@ class OutputManager(object):
                             'build_job': '{}.{}'.format(build.build_num, j.job_num),
                             'job_id': j.job_id,
                             'config': j.config,
-                            'language': j.language,
+                            'language': OutputManager.adjust_language(j.language),
                         }
                         pair[build_name]['jobs'].append(job)
 
@@ -111,6 +111,12 @@ class OutputManager(object):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
         bugswarmapi.upsert_mined_project(mined_project)
         log.info('Done writing to database.')
+
+    @staticmethod
+    def adjust_language(lang: str):
+        if lang.lower() == 'node_js':
+            return 'javascript'
+        return lang
 
     @staticmethod
     def _convert_datetime_to_github_timestamp(dt):
