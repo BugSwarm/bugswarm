@@ -16,12 +16,12 @@ def setup_repo(job, utils, job_dispatcher):
     clone_repo = False
     wait_for_repo_cloned = False
     wait_for_repo_setup = False
-    build_id = job.build.build_id
+    job_id = job.job_id
 
     if job.repo in job_dispatcher.cloned_repos and job_dispatcher.cloned_repos[job.repo] == -1:
         # Already tried cloning this repository and failed. So skip it.
         raise ReproduceError('Previously encountered an error while cloning a repository. Skipping.')
-    if build_id in job_dispatcher.workspace_locks and job_dispatcher.workspace_locks[build_id] == -1:
+    if job_id in job_dispatcher.workspace_locks and job_dispatcher.workspace_locks[job_id] == -1:
         # Already tried setting up this repository and failed. So skip it.
         raise ReproduceError('Previously encountered an error while setting up a repository. Skipping.')
 
@@ -60,18 +60,18 @@ def setup_repo(job, utils, job_dispatcher):
     # -------  setup_repo: Copy, reset, and tar -------
 
     job_dispatcher.lock.acquire()
-    if build_id not in job_dispatcher.workspace_locks:
-        job_dispatcher.workspace_locks[build_id] = 0
+    if job_id not in job_dispatcher.workspace_locks:
+        job_dispatcher.workspace_locks[job_id] = 0
         to_setup_repo = True
     else:
-        if job_dispatcher.workspace_locks[build_id] == 0:
+        if job_dispatcher.workspace_locks[job_id] == 0:
             wait_for_repo_setup = True
     job_dispatcher.lock.release()
 
     if wait_for_repo_setup:
-        while job_dispatcher.workspace_locks[build_id] == 0:
+        while job_dispatcher.workspace_locks[job_id] == 0:
             time.sleep(3)
-        if job_dispatcher.workspace_locks[build_id] == -1:
+        if job_dispatcher.workspace_locks[job_id] == -1:
             raise ReproduceError('already error in setup_repo')
 
     if to_setup_repo:
@@ -86,12 +86,12 @@ def setup_repo(job, utils, job_dispatcher):
             log.error('Caught a KeyboardInterrupt while setting up a repository.')
             raise
         except Exception as e:
-            job_dispatcher.workspace_locks[build_id] = -1
+            job_dispatcher.workspace_locks[job_id] = -1
             raise ReproduceError('Encountered an error while setting up a repository: {}'.format(e))
         else:
-            job_dispatcher.workspace_locks[build_id] = 1
+            job_dispatcher.workspace_locks[job_id] = 1
     else:
-        log.debug('Job', job.job_id, 'is already set up.')
+        log.debug('Job', job_id, 'is already set up.')
 
     # Lastly, check if .travis.yml exists in the repository. If not, skip.
     if not os.path.isfile(os.path.join(job_dispatcher.utils.get_reproducing_repo_dir(job), '.travis.yml')):
@@ -134,11 +134,12 @@ def download_repo(job, utils):
         # Correct job sha is necessary for correct file path generation.
         job.sha = job.travis_merge_sha
 
-    src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
-    repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
+    if not os.path.exists(utils.get_project_storage_repo_zip_path(job)):
+        src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
+        repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
 
-    log.info('Downloading the repository from the GitHub archive at {}.'.format(src))
-    urllib.request.urlretrieve(src, utils.get_project_storage_repo_zip_path(job))
+        log.info('Downloading the repository from the GitHub archive at {}.'.format(src))
+        urllib.request.urlretrieve(src, utils.get_project_storage_repo_zip_path(job))
 
     # Copy repository from stored project repositories to the workspace repository directory by untar-ing the storage
     # repository tar file into the workspace directory.
