@@ -14,8 +14,9 @@ $ Usage: python3 pair-classifier.py (-r <repo-slug> | --repo-file <repo-file>) [
     --repo-file         Path to file containing a newline-separated list of repo slugs. Cannot be used with --repo.
 
     OPTION:
-        --log-path          Path to the directory where original logs were stored. If not provided, classifier
-                            will try to download the logs. 
+        --log-path      Path to the directory where original logs were stored. If not provided, classifier
+                        will try to download the logs.
+        --pipeline      Flag set to true for when script is ran with run_mine_project.sh for processing.
 ```
 _Example:_
 ```

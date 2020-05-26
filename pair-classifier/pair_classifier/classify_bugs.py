@@ -22,13 +22,13 @@
 # REQUIREMENTS:
 #     1. This script is run with Python3.x
 #     2. main.py has been run
-
 import re
 import sys
 import time
 import os
 import json
 import argparse
+
 from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common import log
 from .exception_lists import python_exceptions, python_nonstd, java_all, java_nonstd, not_errors
@@ -243,12 +243,17 @@ def process_logs(root, file_list):
     :return: list
     """
     file_list.sort()
-    with open(root + "/" + file_list[1]) as f:
-        passed = f.readlines()
-    passed = list(filter(None, [line.strip() for line in passed]))
-    with open(root + "/" + file_list[0]) as f:
-        failed = f.readlines()
-    failed = list(filter(None, [line.strip() for line in failed]))
+    try:
+        with open(os.path.join(root, file_list[1])) as passed_file:
+            passed = passed_file.readlines()
+        passed = list(filter(None, [line.strip() for line in passed]))
+        with open(os.path.join(root, file_list[0])) as failed_file:
+            failed = failed_file.readlines()
+        failed = list(filter(None, [line.strip() for line in failed]))
+    except OSError as e:
+        log.error(e)
+        return None
+
     if "Done. Your build exited with 0." not in passed[-1]:
         # error-condition, skip classification
         if "Done. Your build exited with 0." not in failed[-1]:

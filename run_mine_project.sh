@@ -112,11 +112,11 @@ print_step "${STAGE}" ${TOTAL_STEPS} 'Classifier'
 cd ${pair_classifier_dir}
 
 if ${repo_flag}; then
-    python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs
+    python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs --pipeline true
     exit_if_failed 'PairClassifier encountered an error.'
 else
     while read repo; do
-        python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs
+        python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs --pipeline true
         exit_if_failed 'PairClassifier encountered an error.'
     done <${file_path}
 fi

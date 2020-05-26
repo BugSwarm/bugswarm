@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import os
+import os.path
 import sys
 
 from typing import List
@@ -169,13 +170,14 @@ class PairClassifier(object):
 
 def _print_usage():
     log.info('Usage: python3 pair_classifier.py (-r <repo-slug> | --file <repo-file>) '
-             '[--log-path <origin_log_dir>]')
+             '[--log-path <origin_log_dir>] [--pipeline true]')
     log.info('repo:         The GitHub slug for the project whose pairs were filtered.')
     log.info('file:    file contains newline-separated list of repo.')
     log.info('dir-of-jsons: Input directory containing JSON files of filtered pairs. '
              'Often be the PairFilter output directory. If not provided, will generate from DB')
     log.info('log-path: Input directory containing original logs of filtered job pairs. This directory is '
              'often be within the PairFilter directory. If not provide will download the log')
+    log.info('pipeline: Flag set to true for when script is ran with run_mine_project.sh for processing.')
 
 
 def generate_build_pair_json(repo):
@@ -193,6 +195,7 @@ def _validate_input(args):
     repo = args.get('repo')
     origin_log = args.get('log-path')
     repo_file = args.get('file')
+    pipeline = args.get('pipeline')
     if repo and repo_file:
         log.error('The repo-slug and repo-file is mutual exclusive. Exiting.')
         _print_usage()
@@ -217,7 +220,7 @@ def _validate_input(args):
         log.error('The log-path argument is not a directory or does not exist. Exiting.')
         _print_usage()
         sys.exit(1)
-    return repo_list
+    return repo_list, pipeline
 
 
 def main(args=dict()):
@@ -226,9 +229,17 @@ def main(args=dict()):
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('Classifier'))
 
-    repo_list = _validate_input(args)
+    repo_list, pipeline = _validate_input(args)
 
     for repo in repo_list:
+        if pipeline:
+            output_file_path = os.path.join(os.path.dirname(__file__), '../pair-filter/output-json/')
+            if os.path.exists(output_file_path):
+                task_repo = repo.replace('/', '-')
+                json_path = output_file_path + '{}'.format(task_repo) + '.json'
+                if not os.path.exists(json_path):
+                    log.error('Repo:', repo, 'will be skipped.')
+                    continue
         # get the input json from DB
         dir_of_jsons = generate_build_pair_json(repo)
         PairClassifier.run(repo, dir_of_jsons, args)
@@ -239,5 +250,6 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--repo', default=None, help="Specify repo-slug")
     parser.add_argument('--file', default=None, help="repo-slug file")
     parser.add_argument('--log-path', default=None, help="original logs directory")
+    parser.add_argument('-p', '--pipeline', default=None, help='pipeline run through')
     args = parser.parse_args()
     sys.exit(main(vars(args)))

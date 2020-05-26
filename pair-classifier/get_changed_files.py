@@ -111,6 +111,12 @@ def gather_info(url):
         tag_info['num_of_changed_files'] = -1
         tag_info['changed_paths'] = ['ERROR, CANNOT FULFILL REQUEST']
         tag_info['error_found'] = 'ERROR, TOO MANY PROXY ATTEMPTS'
+        tag_info['metrics'] = {
+            'num_of_changed_files': 0,
+            'changes': 0,
+            'additions': 0,
+            'deletions': 0
+        }
         return tag_info
 
     # proxy successful, continue reading the page

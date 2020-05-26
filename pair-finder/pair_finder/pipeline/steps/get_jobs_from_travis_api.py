@@ -89,8 +89,9 @@ class GetJobsFromTravisAPI(Step):
                 if build_date <= last_mined_date:
                     continue
             except (KeyError, TypeError) as e:
+                log.info('Build ID:', build['id'], 'contains the following error:')
                 log.error(e)
-                pass
+                continue
             for job in build['build_info']['matrix']:
                 j = {
                     'job_id': job['id'],
@@ -135,7 +136,6 @@ class GetJobsFromTravisAPI(Step):
 
         if not jobs:
             msg = 'Did not get any jobs for {}.'.format(repo)
-            log.warning(msg)
             raise StepException(msg)
 
         return jobs
