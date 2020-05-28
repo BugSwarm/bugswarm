@@ -9,6 +9,11 @@ class MinedProjectBuilder(object):
     def __init__(self):
         self.repo = None
         self.latest_mined_version = None
+        self.last_date_mined = None
+        self.last_build_mined = {
+            'build_id': 0,
+            'build_number': 0
+        }
 
         # Progression metrics.
         self.builds = None
@@ -21,13 +26,13 @@ class MinedProjectBuilder(object):
         self.mined_job_pairs = None
         self.mined_pr_build_pairs = None
         self.mined_pr_job_pairs = None
-        self.last_date_mined = None
 
     def build(self) -> Dict:
         return {
             'repo': self.repo,
             'latest_mined_version': self.latest_mined_version,
             'last_date_mined': self.last_date_mined,
+            'last_build_mined': self.last_build_mined,
             'progression_metrics': {
                 'builds': self.builds,
                 'jobs': self.jobs,
@@ -53,6 +58,10 @@ class MinedProjectBuilder(object):
                 'repo': '',
                 'latest_mined_version': '',
                 'last_date_mined': 0,
+                'last_build_mined': {
+                    'build_id': 0,
+                    'build_number': 0
+                },
                 'progression_metrics': {
                     'builds': 0,
                     'jobs': 0,

@@ -26,6 +26,11 @@ class GetJobsFromTravisAPI(Step):
     def process(self, data: Any, context: dict) -> Optional[Any]:
         repo = context['repo']
         travis = TravisWrapper()
+        mined_build_exists = False
+
+        if context['original_mined_project_metrics']['last_build_mined']['build_number']:
+            last_mined_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
+            mined_build_exists = True
 
         builds_json_file = Utils.get_repo_builds_api_result_file(repo)
         builds_info_json_file = Utils.get_repo_builds_info_api_result_file(repo)
@@ -35,7 +40,12 @@ class GetJobsFromTravisAPI(Step):
             log.info('Getting the list of builds...')
             start_time = time.time()
             try:
-                builds = travis.get_builds_for_repo(repo)
+                if not mined_build_exists:
+                    # gets all builds for project
+                    builds = travis.get_builds_for_repo(repo)
+                else:
+                    # gets builds until our latest build id mined ('last_mined_build_id')
+                    builds = travis.get_builds_for_repo(repo, last_mined_build_number)
             except RequestException:
                 error_message = 'Encountered an error while downloading builds for repository {}.'.format(repo)
                 raise StepException(error_message)
@@ -43,6 +53,9 @@ class GetJobsFromTravisAPI(Step):
             write_json(builds_json_file, build_list)
             log.info('Got the list of builds in', time.time() - start_time, 'seconds.')
 
+        highest_build_number = 0
+        if mined_build_exists:
+            highest_build_number = last_mined_build_number
         if os.path.isfile(builds_info_json_file):
             build_list = read_json(builds_info_json_file)
         else:
@@ -52,6 +65,10 @@ class GetJobsFromTravisAPI(Step):
             start_time = time.time()
             for idx, build in enumerate(build_list):
                 build_id = build['id']
+                build_number = int(build['number'])
+                if build_number > highest_build_number:
+                    highest_build_number_id = build_id
+                    highest_build_number = build_number
                 try:
                     build_info = travis.get_build_info(build_id)
                 except RequestException:
@@ -117,6 +134,10 @@ class GetJobsFromTravisAPI(Step):
                 j['language'] = language
                 jobs.append(j)
 
+        if not jobs:
+            msg = 'Did not get any jobs for {}.'.format(repo)
+            raise StepException(msg)
+
         # Expose mining progression metrics via the context. Other pipeline steps must not change these values.
         # Do not raise a StepException before the context is populated.
         failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(build_list)
@@ -133,10 +154,8 @@ class GetJobsFromTravisAPI(Step):
             context['original_mined_project_metrics']['progression_metrics']['failed_pr_builds']
         context['mined_project_builder'].failed_pr_jobs = failed_pr_jobs + \
             context['original_mined_project_metrics']['progression_metrics']['failed_pr_jobs']
-
-        if not jobs:
-            msg = 'Did not get any jobs for {}.'.format(repo)
-            raise StepException(msg)
+        context['mined_project_builder'].last_build_mined['build_id'] = highest_build_number_id
+        context['mined_project_builder'].last_build_mined['build_number'] = highest_build_number
 
         return jobs
 

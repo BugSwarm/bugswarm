@@ -47,9 +47,15 @@ class TravisWrapper(object):
 
     def _get_iterate(self, address, **kwargs):
         after_number = None
+        build_number_exists = False
+        if 'last_build_number' in kwargs:
+            build_number = kwargs['last_build_number']
+            build_number_exists = True
         result = self._get(address, **kwargs)
         while True:
             if after_number:
+                if build_number_exists and int(after_number) < build_number:
+                    return
                 result = self._get(address, after_number=after_number)
             if not result:
                 return
@@ -65,7 +71,10 @@ class TravisWrapper(object):
     def search(self, term):
         return self._get_iterate(TravisWrapper._endpoint('search/repositories'), query=term)
 
-    def get_builds_for_repo(self, repo):
+    def get_builds_for_repo(self, repo, build_number=None):
+        if build_number:
+            return self._get_iterate(TravisWrapper._endpoint('repositories/{}/builds'.format(repo)),
+                                     last_build_number=build_number)
         return self._get_iterate(TravisWrapper._endpoint('repositories/{}/builds'.format(repo)))
 
     def get_build_info(self, build_id):
