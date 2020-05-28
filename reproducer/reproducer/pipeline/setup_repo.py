@@ -134,10 +134,9 @@ def download_repo(job, utils):
         # Correct job sha is necessary for correct file path generation.
         job.sha = job.travis_merge_sha
 
+    repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
     if not os.path.exists(utils.get_project_storage_repo_zip_path(job)):
         src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
-        repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
-
         log.info('Downloading the repository from the GitHub archive at {}.'.format(src))
         urllib.request.urlretrieve(src, utils.get_project_storage_repo_zip_path(job))
 
