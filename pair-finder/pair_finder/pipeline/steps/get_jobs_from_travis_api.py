@@ -4,13 +4,14 @@ Download metadata via the Travis API for all jobs for a repository.
 
 import os
 import time
+import dateutil.parser
 
+from threading import Lock
 from typing import Any
 from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
 from datetime import datetime
-import dateutil.parser
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -25,11 +26,16 @@ from ...utils import Utils
 class GetJobsFromTravisAPI(Step):
     def process(self, data: Any, context: dict) -> Optional[Any]:
         repo = context['repo']
-        travis = TravisWrapper()
         mined_build_exists = False
+        lock = Lock()
+        with lock:
+            travis = TravisWrapper()
 
+        highest_build_number = 0
+        highest_build_number_id = 0
         if context['original_mined_project_metrics']['last_build_mined']['build_number']:
-            last_mined_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
+            highest_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
+            highest_build_number_id = context['original_mined_project_metrics']['last_build_mined']['build_id']
             mined_build_exists = True
 
         builds_json_file = Utils.get_repo_builds_api_result_file(repo)
@@ -44,8 +50,8 @@ class GetJobsFromTravisAPI(Step):
                     # gets all builds for project
                     builds = travis.get_builds_for_repo(repo)
                 else:
-                    # gets builds until our latest build id mined ('last_mined_build_id')
-                    builds = travis.get_builds_for_repo(repo, last_mined_build_number)
+                    # gets the latest builds and stops mining after reaching our last mined build number
+                    builds = travis.get_builds_for_repo(repo, highest_build_number)
             except RequestException:
                 error_message = 'Encountered an error while downloading builds for repository {}.'.format(repo)
                 raise StepException(error_message)
@@ -53,9 +59,6 @@ class GetJobsFromTravisAPI(Step):
             write_json(builds_json_file, build_list)
             log.info('Got the list of builds in', time.time() - start_time, 'seconds.')
 
-        highest_build_number = 0
-        if mined_build_exists:
-            highest_build_number = last_mined_build_number
         if os.path.isfile(builds_info_json_file):
             build_list = read_json(builds_info_json_file)
         else:

@@ -96,6 +96,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         DOCKER_HUB_USERNAME=<DOCKER_HUB_USERNAME>
         DOCKER_HUB_PASSWORD=<DOCKER_HUB_PASSWORD>
         GITHUB_TOKENS=<GITHUB_TOKENS>
+        TRAVIS_TOKENS=<TRAVIS_CI_TOKEN>
         DATABASE_PIPELINE_TOKEN=<DATABASE_PIPELINE_TOKEN> ('testDBPassword' if using Docker image of Mongo)
         COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
         ```
@@ -221,7 +222,9 @@ the "NullPointerException".
 * `DOCKER_HUB_PASSWORD` - This is the password credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`.
 * `GITHUB_TOKENS` - A [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
   to perform Git Operations over HTTPS via the Git API (used for Mining projects)
-* `DATABASE_PIPELINE_TOKEN` - The token of a user's account used to access MongoDB. 
+* `TRAVIS_TOKENS` - A [Travis CI Access Token](https://developer.travis-ci.com/authentication) to send authenticated requests
+  to Travis CI (used for gathering builds)
+* `DATABASE_PIPELINE_TOKEN` - The token of a user's account used to access MongoDB.
   ('testDBPassword' if using Docker image of Mongo)
 * `COMMON_HOSTNAME`- <LOCAL-IPADDRESS>:5000, this hostname is used to integrate the API usage with your
   local database.

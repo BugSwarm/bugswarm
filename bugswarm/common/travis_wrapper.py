@@ -1,19 +1,31 @@
 import time
+from collections import deque
 
 import cachecontrol
 import requests
 
 from bugswarm.common import log
+from bugswarm.common import credentials
 
 _BASE_URL = 'https://api.travis-ci.org'
 # Number of seconds to sleep before retrying. Five seconds has been long enough to obey the Travis API rate limit.
 _SLEEP_SECONDS = 5
-_MAX_SLEEP_SECONDS = 60 * 5  # 5 minutes.
+_TOKENS = deque(credentials.TRAVIS_TOKENS)
 
 
 class TravisWrapper(object):
     def __init__(self):
         self._session = cachecontrol.CacheControl(requests.Session())
+        if credentials.TRAVIS_TOKENS:
+            if not isinstance(credentials.TRAVIS_TOKENS, list):
+                raise TypeError('TRAVIS_TOKENS must be a list.')
+            if not all(isinstance(t, str) for t in credentials.TRAVIS_TOKENS):
+                raise ValueError('All Travis CI Tokens must be given as strings.')
+
+            # Start with the first token in TRAVIS_TOKENS list and pop() element from right and append to front
+            # In the case where we are using 2 or more threads, each thread will grab the next token in the list
+            self._session.headers['Authorization'] = 'token {}'.format(_TOKENS[0])
+            _TOKENS.appendleft(_TOKENS.pop())
 
     def __enter__(self):
         return self
@@ -27,6 +39,7 @@ class TravisWrapper(object):
     # Potentially raises requests.exceptions.Timeout or requests.exceptions.RequestException.
     def _get(self, address, **kwargs):
         sleep_seconds = _SLEEP_SECONDS
+        attempts = 0
         while True:
             response = self._session.get(address, params=kwargs)
             code = response.status_code
@@ -36,11 +49,17 @@ class TravisWrapper(object):
                 log.error('Get request for {} returned 404 Not Found.'.format(address))
                 response.raise_for_status()
             elif code == 429:
-                log.warning(
-                    'The Travis API returned status code 429 Too Many Requests. '
-                    'Retrying after sleeping for {} seconds.'.format(sleep_seconds))
-                time.sleep(sleep_seconds)
-                sleep_seconds = min(sleep_seconds * 2, _MAX_SLEEP_SECONDS)
+                if attempts < 1:
+                    log.warning(
+                        'The Travis API returned status code 429 Too Many Requests. '
+                        'Retrying after sleeping for {} seconds.'.format(sleep_seconds))
+                    time.sleep(sleep_seconds)
+                    attempts += 1
+                else:
+                    # Use another token if # of attempts for GET Requests >= 1, will use next token in list
+                    # deque.pop() removes element from the right so we appendleft()
+                    self._session.headers['Authorization'] = 'token {}'.format(_TOKENS[0])
+                    _TOKENS.appendleft(_TOKENS.pop())
             else:
                 log.error('Get request for {} returned {}.'.format(address, code))
                 raise requests.exceptions.ConnectionError('{} download failed. Error code is {}.'.format(address, code))

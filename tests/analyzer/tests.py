@@ -1,9 +1,12 @@
+import json
 import unittest
 import warnings
+import os
 
 from os import listdir
 from os.path import isfile
 from os.path import join
+
 
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.analyzer.dispatcher import Dispatcher
@@ -17,15 +20,6 @@ class Test(unittest.TestCase):
         self.dispatcher = Dispatcher()
         self.travis_wrapper = TravisWrapper()
         self.analyzer = Analyzer()
-
-    def get_trigger_sha_and_repo(self, job_id):
-        with self.travis_wrapper as tw:
-            info = tw.get_job_info(job_id)
-        trigger_sha = info['commit']
-        url = info['compare_url']
-        url = url.split('/')
-        repo = url[3] + '/' + url[4]
-        return trigger_sha, repo
 
     @staticmethod
     def my_split(l):
@@ -197,11 +191,14 @@ class Test(unittest.TestCase):
 
     def test_detect_analyzer_gradle(self):
         logs_folder = 'gradle/'
+        with open(logs_folder + 'test_detect_analyzer_gradle.json', 'r') as f:
+            data = json.load(f)
         for log in listdir(logs_folder):
             file_path = join(logs_folder, log)
             if isfile(file_path) and log[-4:] == '.log':
                 job_id = log.split('-')[0]
-                trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+                trigger_sha = data[job_id]['trigger_sha']
+                repo = data[job_id]['repo']
                 result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
                 self.compare_analyzer(result, 'java-gradle')
 
@@ -289,11 +286,14 @@ class Test(unittest.TestCase):
 
     def test_detect_analyzer_maven(self):
         logs_folder = 'maven/'
+        with open(logs_folder + 'test_detect_analyzer_maven.json', 'r') as f:
+            data = json.load(f)
         job_ids = [35776350, 109895373, 148851383, 190697114, 214130455, 214130456, 37935504, 28224683, 3574443]
-        for i, log in enumerate(logs_folder):
-            file_path = logs_folder + log
-            if isfile(file_path) and log[-4:] == '.log':
-                trigger_sha, repo = self.get_trigger_sha_and_repo(job_ids[i])
+        for i, job_id in enumerate(job_ids):
+            file_path = os.path.join(logs_folder, str(job_id) + '-orig' + '.log')
+            if isfile(file_path) and file_path[-4:] == '.log':
+                trigger_sha = data[str(job_ids[i])]['trigger_sha']
+                repo = data[str(job_ids[i])]['repo']
                 result = self.dispatcher.analyze(file_path, job_ids[i], trigger_sha=trigger_sha, repo=repo)
                 self.compare_analyzer(result, 'java-maven')
 
@@ -301,7 +301,8 @@ class Test(unittest.TestCase):
         log = '1f7d1fda0001e35a945299dcdf574ccf60fcba28-3.1.log'
         job_id = 18826820
         file_path = 'logs/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '1f7d1fda0001e35a945299dcdf574ccf60fcba28'
+        repo = 'xetorthio/jedis'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.assertIn('redis.clients.jedis.tests.commands.ObjectCommandsTest', result['tr_log_tests_failed'])
 
@@ -309,7 +310,8 @@ class Test(unittest.TestCase):
         log = 'a25097b2092937b7a66212eaa2ca1b48d7d2f813-90.3.log'
         job_id = 12080983
         file_path = 'logs/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'a25097b2092937b7a66212eaa2ca1b48d7d2f813'
+        repo = 'searls/jasmine-maven-plugin'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.assertIn('com.github.searls.jasmine.runner.SpecRunnerExecutorTest', result['tr_log_tests_failed'])
 
@@ -317,7 +319,8 @@ class Test(unittest.TestCase):
         log = 'e5586dff6dbd4e418585fba6920be9cada824b36-204.1.log'
         job_id = 10708652
         file_path = 'logs/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'e5586dff6dbd4e418585fba6920be9cada824b36'
+        repo = 'cloudfoundry/uaa'
         maven1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven1, 'broken')
         self.compare_analyzer(maven1, 'java-maven')
@@ -334,7 +337,8 @@ class Test(unittest.TestCase):
         log = '8143a3795946471a966d0747aa84d172cd812743-3.1.log'
         job_id = 37935504
         file_path = 'logs/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '8143a3795946471a966d0747aa84d172cd812743'
+        repo = 'HubSpot/jinjava'
         maven2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven2, 'ok')
         self.compare_analyzer(maven2, 'java-maven')
@@ -351,7 +355,8 @@ class Test(unittest.TestCase):
         log = '148851383-orig.log'
         job_id = 148851383
         file_path = 'maven/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'ec9a24ec2a3f77802799498b7c55353d8457dc3c'
+        repo = 'apache/struts'
         maven3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven3, 'broken')
         self.compare_analyzer(maven3, 'java-maven')
@@ -366,7 +371,8 @@ class Test(unittest.TestCase):
         log = '214130456-orig.log'
         job_id = 214130456
         file_path = 'maven/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '82f61666f8f8337f4aa23e5ed38d66aa12f87b4c'
+        repo = 'apache/struts'
         maven4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven4, 'broken')
         self.compare_analyzer(maven4, 'java-maven')
@@ -382,7 +388,8 @@ class Test(unittest.TestCase):
         log = '109895373-orig.log'
         job_id = 109895373
         file_path = 'maven/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '6f90726b8e2a9228e7c2e5572d121b2b06f28047'
+        repo = 'chewiebug/GCViewer'
         maven5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven5, 'broken')
         self.compare_analyzer(maven5, 'java-maven')
@@ -400,7 +407,8 @@ class Test(unittest.TestCase):
         log = '190697114-orig.log'
         job_id = 190697114
         file_path = 'maven/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '880c4c2d33f67c28a834a44da5a2523b858601b3'
+        repo = 'apache/struts'
         maven6 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven6, 'broken')
         self.compare_analyzer(maven6, 'java-maven')
@@ -417,7 +425,8 @@ class Test(unittest.TestCase):
         log = '214130455-orig.log'
         job_id = 214130455
         file_path = 'maven/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '82f61666f8f8337f4aa23e5ed38d66aa12f87b4c'
+        repo = 'apache/struts'
         maven7 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(maven7, 'broken')
         self.compare_analyzer(maven7, 'java-maven')
@@ -439,7 +448,8 @@ class Test(unittest.TestCase):
         log = '33664717.log'
         job_id = 33664717
         file_path = 'terminated/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'f68a5b09f61ee4e335fa1e1c9330c9a8664198c4'
+        repo = 'knightliao/disconf'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(result, 'terminated')
 
@@ -873,7 +883,8 @@ class Test(unittest.TestCase):
         log = '88551599-orig.log'
         job_id = 88551599
         file_path = 'gradle/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
+        repo = 'cbeust/testng'
         gradle0 = self.dispatcher.analyze(file_path, job_id,
                                           trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle0, 'broken')
@@ -889,7 +900,8 @@ class Test(unittest.TestCase):
         log = '68605615-orig.log'
         job_id = 68605615
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '3749eb2262c5c4d12163ad0badf9e1924ff1e715'
+        repo = 'cbeust/testng'
         gradle1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle1, 'broken')
         self.compare_analyzer(gradle1, 'java-gradle')
@@ -906,7 +918,8 @@ class Test(unittest.TestCase):
         log = '49327415-orig.log'
         job_id = 49327415
         file_path = 'gradle/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '26dd5c12cddf668a3c314e6c93cf8d5089632113'
+        repo = 'puniverse/capsule'
         gradle2 = self.dispatcher.analyze(file_path, job_id,
                                           trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle2, 'broken')
@@ -922,7 +935,8 @@ class Test(unittest.TestCase):
         log = '114088869-orig.log'
         job_id = 114088869
         file_path = 'gradle/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'dd35dd06eca19f3368f0c8a3a3c4c5b5cd271164'
+        repo = 'stagemonitor/stagemonitor'
         gradle3 = self.dispatcher.analyze(file_path, job_id,
                                           trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle3, 'broken')
@@ -941,7 +955,8 @@ class Test(unittest.TestCase):
         log = '254312312-orig.log'
         job_id = 254312312
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '10004ed41e69e83876f9778db1f9f6b485595d3a'
+        repo = 'stagemonitor/stagemonitor'
         gradle4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle4, 'broken')
         self.compare_analyzer(gradle4, 'java-gradle')
@@ -973,7 +988,8 @@ class Test(unittest.TestCase):
         log = '49327415-orig.log'
         job_id = 49327415
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '26dd5c12cddf668a3c314e6c93cf8d5089632113'
+        repo = 'puniverse/capsule'
         gradle5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle5, 'broken')
         self.compare_analyzer(gradle5, 'java-gradle')
@@ -990,7 +1006,8 @@ class Test(unittest.TestCase):
         log = '144826560-orig.log'
         job_id = 144826560
         file_path = 'gradle/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '56b57ca492080f76d0d3377bb05fa04608f319f7'
+        repo = 'cbeust/testng'
         gradle6 = self.dispatcher.analyze(file_path, job_id,
                                           trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle6, 'broken')
@@ -1007,7 +1024,8 @@ class Test(unittest.TestCase):
         log = '88551597-orig.log'
         job_id = 88551597
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
+        repo = 'cbeust/testng'
         gradle7 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle7, 'broken')
         self.compare_analyzer(gradle7, 'java-gradle')
@@ -1055,7 +1073,8 @@ class Test(unittest.TestCase):
         log = '111273215-orig.log'
         job_id = 111273215
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '269d73a67a572a4ef0656847ee908a05b055a0f1'
+        repo = 'puniverse/quasar'
         gradle8 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle8, 'broken')
         self.compare_analyzer(gradle8, 'java-gradle')
@@ -1078,7 +1097,8 @@ class Test(unittest.TestCase):
         log = '269855203-orig.log'
         job_id = 269855203
         file_path = 'gradle/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '994b3bf716cdf2441d27f7fb4df370118bc804ed'
+        repo = 'cbeust/testng'
         gradle9 = self.dispatcher.analyze(file_path, job_id,
                                           trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle9, 'broken')
@@ -1098,7 +1118,8 @@ class Test(unittest.TestCase):
         log = '153491211-orig.log'
         job_id = 153491211
         file_path = 'gradle/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'ba413b1c2d758a5f92b0f9dd0aa91dbe62c4801e'
+        repo = 'TNG/JGiven'
         gradle10 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(gradle10, 'broken')
         self.compare_analyzer(gradle10, 'java-gradle')
@@ -1240,7 +1261,8 @@ class Test(unittest.TestCase):
         log = '264241708-orig.log'
         job_id = 264241708
         file_path = 'ant/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'fe918979b88a32c0a797bf5039e1673370063e9c'
+        repo = 'Whiley/WhileyCompiler'
         ant0 = self.dispatcher.analyze(file_path, job_id,
                                        trigger_sha=trigger_sha, repo=repo)
         self.compare_status(ant0, 'broken')
@@ -1259,7 +1281,8 @@ class Test(unittest.TestCase):
         log = '233645906-orig.log'
         job_id = 233645906
         file_path = 'ant/' + log
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '458c4bf5f047d4107c1b9fd94d0015cef4891a84'
+        repo = 'Whiley/WhileyCompiler'
         ant1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_status(ant1, 'broken')
         self.compare_analyzer(ant1, 'java-ant')
@@ -1305,7 +1328,8 @@ class Test(unittest.TestCase):
         log = '88551597.log'
         job_id = 88551597
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
+        repo = 'cbeust/testng'
         mf1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf1, 'Gradle')
 
@@ -1313,7 +1337,8 @@ class Test(unittest.TestCase):
         log = '165108370.log'
         job_id = 165108370
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '9dd5739c00e17f4737482fd8e9d15e0f718da65b'
+        repo = 'ProjectKorra/ProjectKorra'
         mf2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf2, 'Maven')
 
@@ -1321,7 +1346,8 @@ class Test(unittest.TestCase):
         log = '144826559.log'
         job_id = 144826559
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '56b57ca492080f76d0d3377bb05fa04608f319f7'
+        repo = 'cbeust/testng'
         mf3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf3, 'Gradle')
 
@@ -1329,7 +1355,8 @@ class Test(unittest.TestCase):
         log = '251797108.log'
         job_id = 251797108
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'd6618dca5e8e1bb4c521b91ed985da04899646e5'
+        repo = 'ome/bioformats'
         mf4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf4, 'Maven')
 
@@ -1337,7 +1364,8 @@ class Test(unittest.TestCase):
         log = '250416678.log'
         job_id = 250416678
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'b47922a4a4a639cdc504a7eeb5542db97571ec42'
+        repo = 'apache/incubator-shardingsphere'
         mvn1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mvn1, 'Maven')
 
@@ -1345,7 +1373,8 @@ class Test(unittest.TestCase):
         log = '259221978.log'
         job_id = 259221978
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '0e1a06c2ebcc172a9804337f82b0f93aac8d5c6e'
+        repo = 'apache/incubator-shardingsphere'
         mvn2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mvn2, 'Maven')
 
@@ -1353,7 +1382,8 @@ class Test(unittest.TestCase):
         log = '161141427.log'
         job_id = 161141427
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '31f23885df0cb383392b953eb59daf36eadcefb9'
+        repo = 'jindrapetrik/jpexs-decompiler'
         ant1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(ant1, 'Ant')
 
@@ -1361,7 +1391,8 @@ class Test(unittest.TestCase):
         log = '81961806.log'
         job_id = 81961806
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '961b8b5446515c6db12ea8b2db3eb8cc04fbc480'
+        repo = 'hbz/nwbib'
         play1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(play1, 'play')
 
@@ -1369,7 +1400,8 @@ class Test(unittest.TestCase):
         log = '92030727.log'
         job_id = 92030727
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '9614e8692bad32eccbdc910080139b1cc41eb6a5'
+        repo = 'hbz/nwbib'
         play2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(play2, 'play')
 
@@ -1377,7 +1409,8 @@ class Test(unittest.TestCase):
         log = '160772310.log'
         job_id = 160772310
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'da6b98cc13fcaefb27571147fed2b64ddd21fe96'
+        repo = 'kairosdb/kairosdb'
         none2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(none2, 'NA')
 
@@ -1385,7 +1418,8 @@ class Test(unittest.TestCase):
         log = '156977713.log'
         job_id = 156977713
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
+        repo = 'kairosdb/kairosdb'
         none3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(none3, 'NA')
 
@@ -1393,7 +1427,8 @@ class Test(unittest.TestCase):
         log = '97793256.log'
         job_id = 97793256
         file_path = 'build_system_testing/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '39ea4b4397f59277d7dd6f1d0714e8fa9743c3a6'
+        repo = 'google/closure-compiler'
         mf5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf5, 'Maven')
 
@@ -1401,7 +1436,8 @@ class Test(unittest.TestCase):
         log = '81961806.log'
         job_id = 81961806
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '961b8b5446515c6db12ea8b2db3eb8cc04fbc480'
+        repo = 'hbz/nwbib'
         oa0 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa0, 'java-other')
         self.compare_build_system(oa0, 'play')
@@ -1416,7 +1452,8 @@ class Test(unittest.TestCase):
         log = '81965531.log'
         job_id = 81965531
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '86a557d494bb657d88c47ec4e0e2a7aa1a1f8afc'
+        repo = 'hbz/nwbib'
         oa1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa1, 'java-other')
         self.compare_build_system(oa1, 'play')
@@ -1431,7 +1468,8 @@ class Test(unittest.TestCase):
         log = '92030727.log'
         job_id = 92030727
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '9614e8692bad32eccbdc910080139b1cc41eb6a5'
+        repo = 'hbz/nwbib'
         oa2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa2, 'java-other')
         self.compare_build_system(oa2, 'play')
@@ -1446,7 +1484,8 @@ class Test(unittest.TestCase):
         log = '92031917.log'
         job_id = 92031917
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '1ac4cd9130fcc01914b7490d3cd6ccc33a9dcd67'
+        repo = 'hbz/nwbib'
         oa3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa3, 'java-other')
         self.compare_build_system(oa3, 'play')
@@ -1461,7 +1500,8 @@ class Test(unittest.TestCase):
         log = '156977713.log'
         job_id = 156977713
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
+        repo = 'kairosdb/kairosdb'
         oa4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa4, 'java-other')
         self.compare_build_system(oa4, 'NA')
@@ -1475,7 +1515,8 @@ class Test(unittest.TestCase):
         log = '157259479.log'
         job_id = 157259479
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '7a3b4dfd3e369d8a6e74844aea8e7fdb3ffde364'
+        repo = 'kairosdb/kairosdb'
         oa5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa5, 'java-other')
         self.compare_build_system(oa5, 'NA')
@@ -1490,7 +1531,8 @@ class Test(unittest.TestCase):
         log = '156977714.log'
         job_id = 156977714
         file_path = 'other/' + log
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
+        repo = 'kairosdb/kairosdb'
         oa6 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_analyzer(oa6, 'java-other')
         self.compare_build_system(oa6, 'NA')
@@ -1635,7 +1677,8 @@ class Test(unittest.TestCase):
         job_id = 251797108
         o_path = 'result_comparer/{}-orig.log'.format(job_id)
         r_path = 'result_comparer/{}-repr.log'.format(job_id)
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'd6618dca5e8e1bb4c521b91ed985da04899646e5'
+        repo = 'ome/bioformats"'
         build_system = 'maven'
         rc1 = self.analyzer.compare_single_log(
             r_path,
@@ -1660,7 +1703,8 @@ class Test(unittest.TestCase):
         job_id = 407884143
         o_path = 'result_comparer/{}-orig.log'.format(job_id)
         r_path = 'result_comparer/{}-repr.log'.format(job_id)
-        trigger_sha, repo = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = 'bcc0577e54adcd3df60751194848b722e39ae6d0'
+        repo = 'bcc0577e54adcd3df60751194848b722e39ae6d0'
         rc2 = self.analyzer.compare_single_log(r_path, o_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_rc_match(rc2, False)
         self.compare_rc_mismatch('tr_log_frameworks', rc2, '', 'pytest')
@@ -1687,7 +1731,8 @@ class Test(unittest.TestCase):
         job_id = 102015358
         o_path = 'result_comparer/{}-orig.log'.format(job_id)
         r_path = 'result_comparer/{}-repr.log'.format(job_id)
-        (trigger_sha, repo) = self.get_trigger_sha_and_repo(job_id)
+        trigger_sha = '25471f14b1ea1ff40c44054481b7536b7711dbd1'
+        repo = 'numpy/numpy'
         rc3 = self.analyzer.compare_single_log(
             r_path, o_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_rc_match(rc3, True)

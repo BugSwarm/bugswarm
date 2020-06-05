@@ -37,6 +37,10 @@ if not GITHUB_TOKENS:
           'rerun the bugswarm/provision.sh script.')
     sys.exit(1)
 
+# Travis CI Access Token for sending authenticated requests up to 2000/min
+# Unauthenticated requests are up to 500/min
+TRAVIS_TOKENS = []
+
 # Authentication tokens for the database.
 DATABASE_PIPELINE_TOKEN = ''
 if not DATABASE_PIPELINE_TOKEN:
