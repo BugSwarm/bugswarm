@@ -14,6 +14,20 @@ from bugswarm.common.travis_wrapper import TravisWrapper
 
 
 class Test(unittest.TestCase):
+    ant = 'ant/'
+    gradle = 'gradle/'
+    maven = 'maven/'
+    python = 'python/'
+    build_language_not_java = 'build_language_not_java/'
+    build_system_testing = 'build_system_testing/'
+    logs = 'logs/'
+    other = 'other/'
+    ruby = 'ruby/'
+    terminated = 'terminated/'
+    unknowns = 'unknowns/'
+    javascript_mocha = 'javascript/mocha/'
+    javascript_jest = 'javascript/jest/'
+    javascript_multiple_frameworks = 'javascript/multiple_frameworks/'
 
     def __init__(self, *args, **kwargs):
         super(Test, self).__init__(*args, **kwargs)
@@ -158,7 +172,7 @@ class Test(unittest.TestCase):
 
     # detect_logs_with_build_language_not_in_java
     def test_analyze_primary_language_1(self):
-        logs_folder = 'build_language_not_java/'
+        logs_folder = self.build_language_not_java
         for log in listdir(logs_folder):
             file_path = join(logs_folder, log)
             if isfile(file_path) and log[-4:] == '.log':
@@ -169,7 +183,7 @@ class Test(unittest.TestCase):
 
     # detect_logs_with_build_language is ruby
     def test_analyze_primary_language_2(self):
-        logs_folder = 'ruby/'
+        logs_folder = self.ruby
         for log in listdir(logs_folder):
             file_path = join(logs_folder, log)
             if isfile(file_path) and log[-4:] == '.log':
@@ -180,7 +194,7 @@ class Test(unittest.TestCase):
 
     # detect_logs_with_build_language is unknown
     def test_analyze_primary_language_3(self):
-        logs_folder = 'unknowns/'
+        logs_folder = self.unknowns
         for log in listdir(logs_folder):
             file_path = join(logs_folder, log)
             if isfile(file_path) and log[-4:] == '.log':
@@ -190,7 +204,7 @@ class Test(unittest.TestCase):
                 self.check_build_language(primary_language, 'unknown')
 
     def test_detect_analyzer_gradle(self):
-        logs_folder = 'gradle/'
+        logs_folder = self.gradle
         with open(logs_folder + 'test_detect_analyzer_gradle.json', 'r') as f:
             data = json.load(f)
         for log in listdir(logs_folder):
@@ -285,7 +299,7 @@ class Test(unittest.TestCase):
             self.assertEqual(target_attr, should_be)
 
     def test_detect_analyzer_maven(self):
-        logs_folder = 'maven/'
+        logs_folder = self.maven
         with open(logs_folder + 'test_detect_analyzer_maven.json', 'r') as f:
             data = json.load(f)
         job_ids = [35776350, 109895373, 148851383, 190697114, 214130455, 214130456, 37935504, 28224683, 3574443]
@@ -300,7 +314,7 @@ class Test(unittest.TestCase):
     def test_detect_failed_function_name_1(self):
         log = '1f7d1fda0001e35a945299dcdf574ccf60fcba28-3.1.log'
         job_id = 18826820
-        file_path = 'logs/' + log
+        file_path = join(self.logs, log)
         trigger_sha = '1f7d1fda0001e35a945299dcdf574ccf60fcba28'
         repo = 'xetorthio/jedis'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -309,7 +323,7 @@ class Test(unittest.TestCase):
     def test_detect_failed_function_name_2(self):
         log = 'a25097b2092937b7a66212eaa2ca1b48d7d2f813-90.3.log'
         job_id = 12080983
-        file_path = 'logs/' + log
+        file_path = join(self.logs, log)
         trigger_sha = 'a25097b2092937b7a66212eaa2ca1b48d7d2f813'
         repo = 'searls/jasmine-maven-plugin'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -318,7 +332,7 @@ class Test(unittest.TestCase):
     def test_maven_1(self):
         log = 'e5586dff6dbd4e418585fba6920be9cada824b36-204.1.log'
         job_id = 10708652
-        file_path = 'logs/' + log
+        file_path = join(self.logs, log)
         trigger_sha = 'e5586dff6dbd4e418585fba6920be9cada824b36'
         repo = 'cloudfoundry/uaa'
         maven1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -336,7 +350,7 @@ class Test(unittest.TestCase):
     def test_maven_2(self):
         log = '8143a3795946471a966d0747aa84d172cd812743-3.1.log'
         job_id = 37935504
-        file_path = 'logs/' + log
+        file_path = join(self.logs, log)
         trigger_sha = '8143a3795946471a966d0747aa84d172cd812743'
         repo = 'HubSpot/jinjava'
         maven2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -354,7 +368,7 @@ class Test(unittest.TestCase):
     def test_maven_3(self):
         log = '148851383-orig.log'
         job_id = 148851383
-        file_path = 'maven/' + log
+        file_path = join(self.maven, log)
         trigger_sha = 'ec9a24ec2a3f77802799498b7c55353d8457dc3c'
         repo = 'apache/struts'
         maven3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -370,7 +384,7 @@ class Test(unittest.TestCase):
     def test_maven_4(self):
         log = '214130456-orig.log'
         job_id = 214130456
-        file_path = 'maven/' + log
+        file_path = join(self.maven, log)
         trigger_sha = '82f61666f8f8337f4aa23e5ed38d66aa12f87b4c'
         repo = 'apache/struts'
         maven4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -387,7 +401,7 @@ class Test(unittest.TestCase):
     def test_maven_5(self):
         log = '109895373-orig.log'
         job_id = 109895373
-        file_path = 'maven/' + log
+        file_path = join(self.maven, log)
         trigger_sha = '6f90726b8e2a9228e7c2e5572d121b2b06f28047'
         repo = 'chewiebug/GCViewer'
         maven5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -406,7 +420,7 @@ class Test(unittest.TestCase):
     def test_maven_6(self):
         log = '190697114-orig.log'
         job_id = 190697114
-        file_path = 'maven/' + log
+        file_path = join(self.maven, log)
         trigger_sha = '880c4c2d33f67c28a834a44da5a2523b858601b3'
         repo = 'apache/struts'
         maven6 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -424,7 +438,7 @@ class Test(unittest.TestCase):
     def test_maven_7(self):
         log = '214130455-orig.log'
         job_id = 214130455
-        file_path = 'maven/' + log
+        file_path = join(self.maven, log)
         trigger_sha = '82f61666f8f8337f4aa23e5ed38d66aa12f87b4c'
         repo = 'apache/struts'
         maven7 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -447,7 +461,7 @@ class Test(unittest.TestCase):
     def test_status_terminated(self):
         log = '33664717.log'
         job_id = 33664717
-        file_path = 'terminated/' + log
+        file_path = join(self.terminated, log)
         trigger_sha = 'f68a5b09f61ee4e335fa1e1c9330c9a8664198c4'
         repo = 'knightliao/disconf'
         result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -456,7 +470,7 @@ class Test(unittest.TestCase):
     def test_python_0(self):
         log = '250808150-orig.log'
         job_id = 250808150
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python0 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python0, 'ok')
         self.compare_analyzer(python0, 'python')
@@ -473,7 +487,7 @@ class Test(unittest.TestCase):
     def test_python_1(self):
         log = '78170279-orig.log'
         job_id = 78170279
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python1 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python1, 'broken')
         self.compare_analyzer(python1, 'python')
@@ -490,7 +504,7 @@ class Test(unittest.TestCase):
     def test_python_2(self):
         log = '73309390-orig.log'
         job_id = 73309390
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python2 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python2, 'broken')
         self.compare_analyzer(python2, 'python')
@@ -507,7 +521,7 @@ class Test(unittest.TestCase):
     def test_python_3(self):
         log = '78833091-orig.log'
         job_id = 78833091
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python3 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python3, 'broken')
         self.compare_analyzer(python3, 'python')
@@ -524,7 +538,7 @@ class Test(unittest.TestCase):
     def test_python_4(self):
         log = '159557987-orig.log'
         job_id = 159557987
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python4 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python4, 'broken')
         self.compare_analyzer(python4, 'python')
@@ -541,7 +555,7 @@ class Test(unittest.TestCase):
     def test_python_5(self):
         log = '109227526-orig.log'
         job_id = 109227526
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python5 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python5, 'broken')
         self.compare_analyzer(python5, 'python')
@@ -563,7 +577,7 @@ class Test(unittest.TestCase):
     def test_python_6(self):
         log = '109231519-orig.log'
         job_id = 109231519
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python6 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python6, 'ok')
         self.compare_analyzer(python6, 'python')
@@ -580,7 +594,7 @@ class Test(unittest.TestCase):
     def test_python_7(self):
         log = '212206923-orig.log'
         job_id = 212206923
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python7 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python7, 'broken')
         self.compare_analyzer(python7, 'python')
@@ -598,7 +612,7 @@ class Test(unittest.TestCase):
     def test_python_8(self):
         log = '212215615-orig.log'
         job_id = 212215615
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python8 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python8, 'ok')
         self.compare_analyzer(python8, 'python')
@@ -615,7 +629,7 @@ class Test(unittest.TestCase):
     def test_python_9(self):
         log = '210833092-orig.log'
         job_id = 210833092
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python9 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python9, 'broken')
         self.compare_analyzer(python9, 'python')
@@ -633,7 +647,7 @@ class Test(unittest.TestCase):
     def test_python_10(self):
         log = '149257173-orig.log'
         job_id = 149257173
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python10 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python10, 'broken')
         self.compare_analyzer(python10, 'python')
@@ -661,7 +675,7 @@ class Test(unittest.TestCase):
     def test_python_11(self):
         log = '398075675-modified.log'
         job_id = 398075675
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python11 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python11, 'python')
         self.compare_num_t_run(python11, 9465)
@@ -681,7 +695,7 @@ class Test(unittest.TestCase):
     def test_python_12(self):
         log = '109787645-orig.log'
         job_id = 109787645
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python12 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python12, 'broken')
         self.compare_analyzer(python12, 'python')
@@ -728,7 +742,7 @@ class Test(unittest.TestCase):
     def test_python_13(self):
         log = '256802843-orig.log'
         job_id = 256802843
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python13 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python13, 'broken')
         self.compare_analyzer(python13, 'python')
@@ -761,7 +775,7 @@ class Test(unittest.TestCase):
     def test_python_14(self):
         log = '299944105-orig.log'
         job_id = 299944105
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python14 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python14, 'broken')
         self.compare_analyzer(python14, 'python')
@@ -785,7 +799,7 @@ class Test(unittest.TestCase):
     def test_python_15(self):
         log = '334185447-orig.log'
         job_id = 334185447
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python15 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python15, 'python')
         self.compare_num_t_run(python15, 984)
@@ -800,7 +814,7 @@ class Test(unittest.TestCase):
     def test_python_16(self):
         log = '403765814-orig.log'
         job_id = 403765814
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python16 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python16, 'python')
         self.compare_num_t_run(python16, 9627)
@@ -816,7 +830,7 @@ class Test(unittest.TestCase):
     def test_python_17(self):
         log = '113007194-orig.log'
         job_id = 113007194
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python17 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python17, 'python')
         self.compare_num_t_run(python17, 6508)
@@ -833,7 +847,7 @@ class Test(unittest.TestCase):
     def test_python_18(self):
         log = '65721530-orig.log'
         job_id = 65721530
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python18 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python18, 'python')
         self.compare_num_t_run(python18, 5388)
@@ -850,7 +864,7 @@ class Test(unittest.TestCase):
     def test_python_19(self):
         log = '309853010-orig.log'
         job_id = 309853010
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python19 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python19, 'python')
         self.compare_num_t_run(python19, 6783)
@@ -866,7 +880,7 @@ class Test(unittest.TestCase):
     def test_python_20(self):
         log = '189738938-orig.log'
         job_id = 189738938
-        file_path = 'python/' + log
+        file_path = join(self.python, log)
         python20 = self.dispatcher.analyze(file_path, job_id)
         self.compare_analyzer(python20, 'python')
         self.compare_num_t_run(python20, 7607)
@@ -882,7 +896,7 @@ class Test(unittest.TestCase):
     def test_gradle_0(self):
         log = '88551599-orig.log'
         job_id = 88551599
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
         repo = 'cbeust/testng'
         gradle0 = self.dispatcher.analyze(file_path, job_id,
@@ -899,7 +913,7 @@ class Test(unittest.TestCase):
     def test_gradle_1(self):
         log = '68605615-orig.log'
         job_id = 68605615
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '3749eb2262c5c4d12163ad0badf9e1924ff1e715'
         repo = 'cbeust/testng'
         gradle1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -917,7 +931,7 @@ class Test(unittest.TestCase):
     def test_gradle_2(self):
         log = '49327415-orig.log'
         job_id = 49327415
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '26dd5c12cddf668a3c314e6c93cf8d5089632113'
         repo = 'puniverse/capsule'
         gradle2 = self.dispatcher.analyze(file_path, job_id,
@@ -934,7 +948,7 @@ class Test(unittest.TestCase):
     def test_gradle_3(self):
         log = '114088869-orig.log'
         job_id = 114088869
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = 'dd35dd06eca19f3368f0c8a3a3c4c5b5cd271164'
         repo = 'stagemonitor/stagemonitor'
         gradle3 = self.dispatcher.analyze(file_path, job_id,
@@ -954,7 +968,7 @@ class Test(unittest.TestCase):
     def test_gradle_4(self):
         log = '254312312-orig.log'
         job_id = 254312312
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '10004ed41e69e83876f9778db1f9f6b485595d3a'
         repo = 'stagemonitor/stagemonitor'
         gradle4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -987,7 +1001,7 @@ class Test(unittest.TestCase):
     def test_gradle_5(self):
         log = '49327415-orig.log'
         job_id = 49327415
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '26dd5c12cddf668a3c314e6c93cf8d5089632113'
         repo = 'puniverse/capsule'
         gradle5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1005,7 +1019,7 @@ class Test(unittest.TestCase):
     def test_gradle_6(self):
         log = '144826560-orig.log'
         job_id = 144826560
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '56b57ca492080f76d0d3377bb05fa04608f319f7'
         repo = 'cbeust/testng'
         gradle6 = self.dispatcher.analyze(file_path, job_id,
@@ -1023,7 +1037,7 @@ class Test(unittest.TestCase):
     def test_gradle_7(self):
         log = '88551597-orig.log'
         job_id = 88551597
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
         repo = 'cbeust/testng'
         gradle7 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1072,7 +1086,7 @@ class Test(unittest.TestCase):
     def test_gradle_8(self):
         log = '111273215-orig.log'
         job_id = 111273215
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '269d73a67a572a4ef0656847ee908a05b055a0f1'
         repo = 'puniverse/quasar'
         gradle8 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1096,7 +1110,7 @@ class Test(unittest.TestCase):
     def test_gradle_9(self):
         log = '269855203-orig.log'
         job_id = 269855203
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = '994b3bf716cdf2441d27f7fb4df370118bc804ed'
         repo = 'cbeust/testng'
         gradle9 = self.dispatcher.analyze(file_path, job_id,
@@ -1117,7 +1131,7 @@ class Test(unittest.TestCase):
     def test_gradle_10(self):
         log = '153491211-orig.log'
         job_id = 153491211
-        file_path = 'gradle/' + log
+        file_path = join(self.gradle, log)
         trigger_sha = 'ba413b1c2d758a5f92b0f9dd0aa91dbe62c4801e'
         repo = 'TNG/JGiven'
         gradle10 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1260,7 +1274,7 @@ class Test(unittest.TestCase):
     def test_ant_0(self):
         log = '264241708-orig.log'
         job_id = 264241708
-        file_path = 'ant/' + log
+        file_path = join(self.ant, log)
         trigger_sha = 'fe918979b88a32c0a797bf5039e1673370063e9c'
         repo = 'Whiley/WhileyCompiler'
         ant0 = self.dispatcher.analyze(file_path, job_id,
@@ -1280,7 +1294,7 @@ class Test(unittest.TestCase):
     def test_ant_1(self):
         log = '233645906-orig.log'
         job_id = 233645906
-        file_path = 'ant/' + log
+        file_path = join(self.ant, log)
         trigger_sha = '458c4bf5f047d4107c1b9fd94d0015cef4891a84'
         repo = 'Whiley/WhileyCompiler'
         ant1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1327,7 +1341,7 @@ class Test(unittest.TestCase):
     def test_build_system_0(self):
         log = '88551597.log'
         job_id = 88551597
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
         repo = 'cbeust/testng'
         mf1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1336,7 +1350,7 @@ class Test(unittest.TestCase):
     def test_build_system_1(self):
         log = '165108370.log'
         job_id = 165108370
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '9dd5739c00e17f4737482fd8e9d15e0f718da65b'
         repo = 'ProjectKorra/ProjectKorra'
         mf2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1345,7 +1359,7 @@ class Test(unittest.TestCase):
     def test_build_system_2(self):
         log = '144826559.log'
         job_id = 144826559
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '56b57ca492080f76d0d3377bb05fa04608f319f7'
         repo = 'cbeust/testng'
         mf3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1354,7 +1368,7 @@ class Test(unittest.TestCase):
     def test_build_system_3(self):
         log = '251797108.log'
         job_id = 251797108
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = 'd6618dca5e8e1bb4c521b91ed985da04899646e5'
         repo = 'ome/bioformats'
         mf4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1363,7 +1377,7 @@ class Test(unittest.TestCase):
     def test_build_system_4(self):
         log = '250416678.log'
         job_id = 250416678
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = 'b47922a4a4a639cdc504a7eeb5542db97571ec42'
         repo = 'apache/incubator-shardingsphere'
         mvn1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1372,7 +1386,7 @@ class Test(unittest.TestCase):
     def test_build_system_5(self):
         log = '259221978.log'
         job_id = 259221978
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '0e1a06c2ebcc172a9804337f82b0f93aac8d5c6e'
         repo = 'apache/incubator-shardingsphere'
         mvn2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1381,7 +1395,7 @@ class Test(unittest.TestCase):
     def test_build_system_6(self):
         log = '161141427.log'
         job_id = 161141427
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '31f23885df0cb383392b953eb59daf36eadcefb9'
         repo = 'jindrapetrik/jpexs-decompiler'
         ant1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1390,7 +1404,7 @@ class Test(unittest.TestCase):
     def test_build_system_7(self):
         log = '81961806.log'
         job_id = 81961806
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '961b8b5446515c6db12ea8b2db3eb8cc04fbc480'
         repo = 'hbz/nwbib'
         play1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1399,7 +1413,8 @@ class Test(unittest.TestCase):
     def test_build_system_8(self):
         log = '92030727.log'
         job_id = 92030727
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
+        file_path = self.build_system_testing + log
         trigger_sha = '9614e8692bad32eccbdc910080139b1cc41eb6a5'
         repo = 'hbz/nwbib'
         play2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1408,7 +1423,7 @@ class Test(unittest.TestCase):
     def test_build_system_9(self):
         log = '160772310.log'
         job_id = 160772310
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = 'da6b98cc13fcaefb27571147fed2b64ddd21fe96'
         repo = 'kairosdb/kairosdb'
         none2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1417,7 +1432,7 @@ class Test(unittest.TestCase):
     def test_build_system_10(self):
         log = '156977713.log'
         job_id = 156977713
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
         repo = 'kairosdb/kairosdb'
         none3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1426,7 +1441,7 @@ class Test(unittest.TestCase):
     def test_build_system_11(self):
         log = '97793256.log'
         job_id = 97793256
-        file_path = 'build_system_testing/' + log
+        file_path = join(self.build_system_testing, log)
         trigger_sha = '39ea4b4397f59277d7dd6f1d0714e8fa9743c3a6'
         repo = 'google/closure-compiler'
         mf5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1435,7 +1450,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_0(self):
         log = '81961806.log'
         job_id = 81961806
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '961b8b5446515c6db12ea8b2db3eb8cc04fbc480'
         repo = 'hbz/nwbib'
         oa0 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1451,7 +1466,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_1(self):
         log = '81965531.log'
         job_id = 81965531
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '86a557d494bb657d88c47ec4e0e2a7aa1a1f8afc'
         repo = 'hbz/nwbib'
         oa1 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1467,7 +1482,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_2(self):
         log = '92030727.log'
         job_id = 92030727
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '9614e8692bad32eccbdc910080139b1cc41eb6a5'
         repo = 'hbz/nwbib'
         oa2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1483,7 +1498,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_3(self):
         log = '92031917.log'
         job_id = 92031917
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '1ac4cd9130fcc01914b7490d3cd6ccc33a9dcd67'
         repo = 'hbz/nwbib'
         oa3 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1499,7 +1514,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_4(self):
         log = '156977713.log'
         job_id = 156977713
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
         repo = 'kairosdb/kairosdb'
         oa4 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1514,7 +1529,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_5(self):
         log = '157259479.log'
         job_id = 157259479
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '7a3b4dfd3e369d8a6e74844aea8e7fdb3ffde364'
         repo = 'kairosdb/kairosdb'
         oa5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1530,7 +1545,7 @@ class Test(unittest.TestCase):
     def test_other_analyzer_6(self):
         log = '156977714.log'
         job_id = 156977714
-        file_path = 'other/' + log
+        file_path = join(self.other, log)
         trigger_sha = '4bf496ee971d9a2ec431eee89a0883d919119178'
         repo = 'kairosdb/kairosdb'
         oa6 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1545,12 +1560,15 @@ class Test(unittest.TestCase):
     def test_javascript_analyzer_0(self):
         log = '425225977.log'
         job_id = 425225977
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 11)
         self.compare_num_t_ok(jsa, 0)
         self.compare_num_t_failed(jsa, 11)
         self.compare_t_duration(jsa, 0.654)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'Html5 history navigation "before all" hook:'
                                       '#Html5 history navigation "after all" hook:'
                                       '#Hashbang option enabled "before all" hook:'
@@ -1566,26 +1584,30 @@ class Test(unittest.TestCase):
     def test_javascript_analyzer_1(self):
         log = '454920816.log'
         job_id = 454920816
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 189)
         self.compare_num_t_ok(jsa, 188)
         self.compare_num_t_skipped(jsa, 17)
         self.compare_num_t_failed(jsa, 1)
         self.compare_t_duration(jsa, 2.0)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'PapaParse piped streaming CSV should be correctly parsed:')
 
     def test_javascript_analyzer_2(self):
         log = '600889160.log'
         job_id = 600889160
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 24)
         self.compare_num_t_ok(jsa, 21)
         self.compare_num_t_failed(jsa, 3)
         self.compare_t_duration(jsa, 0.116)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'lozad picture inside viewport with different class should load the picture:#'
                                       'lozad picture inside viewport with different class should append image after '
                                       'last source:#lozad picture inside viewport with different class should add alt'
@@ -1594,14 +1616,16 @@ class Test(unittest.TestCase):
     def test_javascript_analyzer_3(self):
         log = '627024009.log'
         job_id = 627024009
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 702)
         self.compare_num_t_ok(jsa, 698)
         self.compare_num_t_skipped(jsa, 22)
         self.compare_num_t_failed(jsa, 4)
         self.compare_t_duration(jsa, 2.957)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'Heatmap Element "after all" hook:#Interval Element Default init:'
                                       '#Interval Element Default init:'
                                       '#Interval Element Interval with dodge adjust destroy:')
@@ -1609,21 +1633,44 @@ class Test(unittest.TestCase):
     def test_javascript_analyzer_4(self):
         log = '635927212.log'
         job_id = 635927212
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
-        self.compare_bool_t_ran(jsa, False)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 1566)
+        self.compare_num_t_ok(jsa, 1536)
+        self.compare_num_t_skipped(jsa, 7)
+        self.compare_num_t_failed(jsa, 30)
+        self.compare_t_duration(jsa, 39.232)
+        self.compare_frameworks(jsa, 'mocha')
+        self.compare_tr_t_failed(jsa, 'draw altitude of marker without altitude prop#display '
+                                      'outline#change symbol in event listener#rotate text '
+                                      'marker outline#draw 3 points with smoothness#display '
+                                      'outline#can bringToFront#can bringToBack#can '
+                                      'bringToBack and bringToFront#can setZIndex#zIndex in '
+                                      'options#zIndex in ser/dser#update symbol when '
+                                      'editing#fill radial gradient#fill radial gradient '
+                                      '2#line radial gradient#vector marker#fill linear '
+                                      'gradient#fill linear gradient 2#line linear '
+                                      'gradient#vector marker#sort layers by map and '
+                                      'paint#can set mask,TileLayer#can set '
+                                      'mask,VectorLayer#zoom with mask,VectorLayer#paint a '
+                                      'geometry#update symbol#change zindex#change '
+                                      'properties#ignore geometries out of container extent')
 
     def test_javascript_analyzer_5(self):
         log = '637986979.log'
         job_id = 637986979
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 654)
         self.compare_num_t_ok(jsa, 652)
         self.compare_num_t_skipped(jsa, 3)
         self.compare_num_t_failed(jsa, 2)
         self.compare_t_duration(jsa, 6)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'PIXI.systems.MaskSystem should apply scissor with transform on canvas or renderT'
                                       'exture:#PIXI.systems.FramebufferSystem should choose correct AA samples based on'
                                       ' samples array:')
@@ -1631,47 +1678,381 @@ class Test(unittest.TestCase):
     def test_javascript_analyzer_6(self):
         log = '643564899.log'
         job_id = 643564899
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
         self.compare_num_t_run(jsa, 775)
         self.compare_num_t_ok(jsa, 774)
         self.compare_num_t_skipped(jsa, 35)
         self.compare_num_t_failed(jsa, 1)
         self.compare_t_duration(jsa, 480)
+        self.compare_frameworks(jsa, 'mocha')
         self.compare_tr_t_failed(jsa, 'Slack API "before all" hook:')
 
     def test_javascript_analyzer_7(self):
         log = '399806714.log'
         job_id = 399806714
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
         self.compare_num_t_run(jsa, 9)
         self.compare_num_t_ok(jsa, 9)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_num_t_failed(jsa, 0)
         self.compare_t_duration(jsa, 0.024)
+        self.compare_frameworks(jsa, 'mocha')
 
     def test_javascript_analyzer_8(self):
         log = '497875903.log'
         job_id = 497875903
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
         self.compare_num_t_run(jsa, 351)
         self.compare_num_t_ok(jsa, 351)
         self.compare_t_duration(jsa, 1.506)
+        self.compare_frameworks(jsa, 'mocha')
 
     def test_javascript_analyzer_9(self):
         log = '454929763.log'
         job_id = 454929763
-        file_path = 'javascript/mocha/' + log
+        file_path = join(self.javascript_mocha, log)
         jsa = self.dispatcher.analyze(file_path, job_id)
         self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
         self.compare_num_t_run(jsa, 379)
         self.compare_num_t_ok(jsa, 379)
         self.compare_num_t_skipped(jsa, 23)
         self.compare_num_t_failed(jsa, 0)
         self.compare_t_duration(jsa, 4)
+        self.compare_frameworks(jsa, 'mocha')
+
+    def test_javascript_analyzer_10(self):
+        log = '634055071.log'
+        job_id = 634055071
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 51)
+        self.compare_num_t_ok(jsa, 51)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 23.12)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_11(self):
+        log = '584307061.log'
+        job_id = 584307061
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 9778)
+        self.compare_num_t_ok(jsa, 9777)
+        self.compare_num_t_failed(jsa, 1)
+        self.compare_num_t_skipped(jsa, 116)
+        self.compare_t_duration(jsa, 197.914)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_12(self):
+        log = '499269596.log'
+        job_id = 499269596
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, False)
+        self.compare_bool_t_failed(jsa, 'NA')
+        self.compare_num_t_run(jsa, 0)
+        self.compare_num_t_ok(jsa, 'NA')
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 'NA')
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_13(self):
+        log = '564797426.log'
+        job_id = 564797426
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 44)
+        self.compare_num_t_ok(jsa, 43)
+        self.compare_num_t_failed(jsa, 1)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_tr_t_failed(jsa, 'throws on string')
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_14(self):
+        log = '571351164.log'
+        job_id = 571351164
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 9624)
+        self.compare_num_t_ok(jsa, 9621)
+        self.compare_num_t_failed(jsa, 3)
+        self.compare_num_t_skipped(jsa, 116)
+        self.compare_t_duration(jsa, 228.486)
+        self.compare_frameworks(jsa, 'jest')
+        self.compare_tr_t_failed(jsa, '@babel/code-frame › opts.highlightCode'
+                                      '#@babel/code-frame › opts.forceColor'
+                                      '#@babel/highlight › highlight › when colors are supported › highlights code')
+
+    def test_javascript_analyzer_15(self):
+        log = '503877270.log'
+        job_id = 503877270
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        # test suite failed to run
+        self.compare_bool_t_ran(jsa, False)
+        self.compare_bool_t_failed(jsa, 'NA')
+        self.compare_num_t_run(jsa, 0)
+        self.compare_num_t_ok(jsa, 'NA')
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 'NA')
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_16(self):
+        log = '200893563.log'
+        job_id = 200893563
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 65)
+        self.compare_num_t_ok(jsa, 62)
+        self.compare_num_t_failed(jsa, 3)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 4.234)
+        self.compare_frameworks(jsa, 'jest')
+        self.compare_tr_t_failed(jsa, 'ObjectSchema denormalization › denormalizes an object'
+                                      '#ObjectSchema denormalization › denormalizes plain object shorthand'
+                                      '#denormalize › denormalizes recursive immutables')
+
+    def test_javascript_analyzer_17(self):
+        log = '654605639.log'
+        job_id = 654605639
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 421)
+        self.compare_num_t_ok(jsa, 415)
+        self.compare_num_t_failed(jsa, 6)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 73.832)
+        self.compare_frameworks(jsa, 'jest')
+        self.compare_tr_t_failed(jsa, 'sub plugins › resizer › ResizeObserver › should call callback'
+                                      '#Terminal plugin › terminal create / terminal destroy › should create multiple t'
+                                      'erminals#Terminal plugin › jQuery Terminal methods › destroy › should remove ter'
+                                      'minal class#Terminal plugin › jQuery Terminal methods › destroy › should remove '
+                                      'command line and output#Terminal plugin › jQuery Terminal methods › destroy › sh'
+                                      'ould leave span intact#Terminal plugin › jQuery Terminal methods › destroy › sho'
+                                      'uld throw when calling method after destroy')
+
+    def test_javascript_analyzer_18(self):
+        log = '651071534.log'
+        job_id = 651071534
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 421)
+        self.compare_num_t_ok(jsa, 417)
+        self.compare_num_t_failed(jsa, 4)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 77.608)
+        self.compare_frameworks(jsa, 'jest')
+        self.compare_tr_t_failed(jsa, 'Terminal utils › $.terminal.less › should split image'
+                                      '#Terminal utils › $.terminal.less › should revoke images'
+                                      '#Terminal utils › $.terminal.less › should render broken image'
+                                      '#Terminal utils › $.terminal.pipe › should work with async commands')
+
+    def test_javascript_analyzer_19(self):
+        log = '495236809.log'
+        job_id = 495236809
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 96)
+        self.compare_num_t_ok(jsa, 96)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 1)
+        self.compare_t_duration(jsa, 5.168)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_analyzer_20(self):
+        log = '357124468.log'
+        job_id = 357124468
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, False)
+        self.compare_bool_t_failed(jsa, 'NA')
+        self.compare_num_t_run(jsa, 0)
+        self.compare_num_t_ok(jsa, 'NA')
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 'NA')
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_21(self):
+        log = '624184843.log'
+        job_id = 624184843
+        file_path = join(self.javascript_mocha, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 23)
+        self.compare_num_t_ok(jsa, 23)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 0.091)
+        self.compare_frameworks(jsa, 'mocha')
+
+    def test_javascript_22(self):
+        log = '675642968.log'
+        job_id = 675642968
+        file_path = join(self.javascript_mocha, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 468)
+        self.compare_num_t_ok(jsa, 468)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 1)
+        self.compare_t_duration(jsa, 7.908)
+        self.compare_frameworks(jsa, 'mocha')
+
+    def test_javascript_23(self):
+        log = '676633892.log'
+        job_id = 676633892
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 159)
+        self.compare_num_t_ok(jsa, 159)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 21)
+        self.compare_t_duration(jsa, 16.821)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_24(self):
+        log = '485251441.log'
+        job_id = 485251441
+        file_path = join(self.javascript_mocha, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 7)
+        self.compare_num_t_ok(jsa, 7)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 0.047)
+        self.compare_frameworks(jsa, 'mocha')
+
+    def test_javascript_25(self):
+        log = '670873684.log'
+        job_id = 670873684
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 10)
+        self.compare_num_t_ok(jsa, 10)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 1.999)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_26(self):
+        log = '591214219.log'
+        job_id = 591214219
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 34)
+        self.compare_num_t_ok(jsa, 34)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 8.87)
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_27(self):
+        log = '639928569.log'
+        job_id = 639928569
+        file_path = join(self.javascript_multiple_frameworks, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 118)
+        self.compare_num_t_ok(jsa, 118)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 3)
+        self.compare_t_duration(jsa, 17.502)
+        self.compare_frameworks(jsa, 'jest#mocha')
+
+    def test_javascript_28(self):
+        log = '677867558.log'
+        job_id = 677867558
+        file_path = join(self.javascript_multiple_frameworks, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 216)
+        self.compare_num_t_ok(jsa, 216)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 3.081)
+        self.compare_frameworks(jsa, 'jest#mocha')
+
+    def test_javascript_29(self):
+        log = '677867560.log'
+        job_id = 677867560
+        file_path = join(self.javascript_jest, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, False)
+        self.compare_bool_t_failed(jsa, 'NA')
+        self.compare_num_t_run(jsa, 0)
+        self.compare_num_t_ok(jsa, 'NA')
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 'NA')
+        self.compare_frameworks(jsa, 'jest')
+
+    def test_javascript_30(self):
+        log = '520965498.log'
+        job_id = 520965498
+        file_path = join(self.javascript_multiple_frameworks, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, False)
+        self.compare_num_t_run(jsa, 233)
+        self.compare_num_t_ok(jsa, 233)
+        self.compare_num_t_failed(jsa, 0)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 41.504)
+        self.compare_frameworks(jsa, 'mocha#jest')
+
+    def test_javascript_31(self):
+        log = '392465785.log'
+        job_id = 392465785
+        file_path = join(self.javascript_multiple_frameworks, log)
+        jsa = self.dispatcher.analyze(file_path, job_id)
+        self.compare_bool_t_ran(jsa, True)
+        self.compare_bool_t_failed(jsa, True)
+        self.compare_num_t_run(jsa, 233)
+        self.compare_num_t_ok(jsa, 232)
+        self.compare_num_t_failed(jsa, 1)
+        self.compare_num_t_skipped(jsa, 0)
+        self.compare_t_duration(jsa, 53.803)
+        self.compare_frameworks(jsa, 'mocha#jest')
+        self.compare_tr_t_failed(jsa, 'react-wildcat-prefetch › data fetching › sad path › '
+                                      'returns error payload on an invalid url')
 
     def test_result_comparer_1(self):
         job_id = 251797108
