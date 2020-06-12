@@ -611,11 +611,32 @@ class DatabaseAPI(object):
         log.debug('Trying to bulk insert {} {}.'.format(len(entities), plural_entity_name))
         # Insert the entities in chunks to avoid a 413 Request Entity Too Large error.
         for chunk in DatabaseAPI._chunks(entities, 100):
-            resp = self._post(endpoint, chunk)
+            list_for_insertion = []
+            list_of_build_ids = []
+            for data in chunk:
+                failed_build_id = data['failed_build']['build_id']
+                list_of_build_ids.append(failed_build_id)
+
+            api_filter = '{"failed_build.build_id":{"$in":' + '{}'.format(list_of_build_ids) + '}}'
+            list_of_existing_build_pairs = self.filter_mined_build_pairs(api_filter)
+            for data in chunk:
+                bp_exists = False
+                for bp in list_of_existing_build_pairs:
+                    if data['failed_build']['build_id'] == bp['failed_build']['build_id']:
+                        log.info('Failed Build ID: {} already exists in the database. Skipping insertion.'
+                                 .format(data['failed_build']['build_id']))
+                        bp_exists = True
+                        break
+                if bp_exists:
+                    continue
+                list_for_insertion.append(data)
+            resp = self._post(endpoint, list_for_insertion)
             if resp.status_code == 422:
                 log.error('The', plural_entity_name, 'were not inserted because they failed validation.')
                 log.error(pprint.pformat(chunk))
                 log.error(resp.content)
+            elif resp.status_code == 400:
+                log.error('Buildpairs were not inserted because the list is either empty, or all pairs already exist.')
             yield resp
 
     def _upsert(self, endpoint: Endpoint, entity, singular_entity_name: str = 'entity') -> Response:

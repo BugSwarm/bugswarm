@@ -47,8 +47,8 @@ class PairFilter(object):
     @staticmethod
     def _insert_buildpairs(repo: str, buildpairs: List):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-        if not bugswarmapi.replace_mined_build_pairs_for_repo(repo, buildpairs):
-            log.error('Could not replace mined build pairs for {}. Exiting.'.format(repo))
+        if not bugswarmapi.bulk_insert_mined_build_pairs(buildpairs):
+            log.error('Could not bulk insert mined build pairs for {}. Exiting.'.format(repo))
             sys.exit(1)
 
     @staticmethod
