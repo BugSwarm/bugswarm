@@ -23,11 +23,30 @@ class GroupJobsByBranch(Step):
         # Mapping from branch ID to Branch object.
         branches = {}
 
+        saved_pr_to_branch = {}
+        next_page = 1
+        last_page = utils.github.get_last_pr_page(repo)
         for job in data:
             if job['event_type'] == 'pull_request':
                 if job['compare_at'] and '/pull/' in job['compare_at']:
                     pr_num = int(job['compare_at'].split('/pull/')[1])
-                    branch_name = utils.github.get_head_branch_for_pr(repo, str(pr_num))
+                    if pr_num in saved_pr_to_branch:
+                        # PR is saved from previous API call
+                        branch_name = saved_pr_to_branch[pr_num]
+                    elif next_page > last_page:
+                        # pr_num not found in GitHub's PR list; see if there's a PR page for it that's not in the list
+                        # (Not sure if this ever happens in practice, but it doesn't hurt to check)
+                        branch_name = utils.github.get_head_branch_for_pr(repo, str(pr_num))
+                        saved_pr_to_branch[pr_num] = branch_name
+                    else:
+                        # Check next page to see if PR is present
+                        saved_pr_to_branch.update(utils.github.get_head_branch_for_pr_paginated(repo, next_page))
+                        next_page += 1
+                        if pr_num in saved_pr_to_branch:
+                            branch_name = saved_pr_to_branch[pr_num]
+                        else:
+                            branch_name = utils.github.get_head_branch_for_pr(repo, str(pr_num))
+                            saved_pr_to_branch[pr_num] = branch_name
                 else:
                     log.debug('job_id =', job['job_id'], 'compare_at =', job['compare_at'])
                     log.error('Job was triggered from a pull request, but cannot get pr_num from compare_at.')

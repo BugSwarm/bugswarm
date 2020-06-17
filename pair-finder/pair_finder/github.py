@@ -28,6 +28,21 @@ class GitHub(object):
         _, result = self.github_wrapper.get('https://api.github.com/repos/{}/pulls/{}'.format(repo, pr_num))
         return result
 
+    def get_pr_info_paginated(self, repo, page_num):
+        endpoint = 'https://api.github.com/repos/{}/pulls?state=all&page={}'.format(repo, page_num)
+        _, result = self.github_wrapper.get(endpoint)
+        return result
+
+    def get_last_pr_page(self, repo):
+        # Since the GithubWrapper doesn't have a HEAD method, just make a GET request instead
+        response, _ = self.github_wrapper.get('https://api.github.com/repos/{}/pulls?state=all&page=1'.format(repo))
+        if 'Link' not in response.headers:
+            return 1
+        match = re.search(r'<\S*page=(\d+)\S*>; rel="last"', response.headers['Link'])
+        if match is None:
+            return 1
+        return int(match.group(1))
+
     @staticmethod
     def get_pr_commits_by_html(repo, pr_num, branch):
         url = 'https://github.com/{}/pull/{}/commits'.format(repo, pr_num)
@@ -127,3 +142,13 @@ class GitHub(object):
         # See https://api.github.com/repos/gwtbootstrap3/gwtbootstrap3/pulls/370 for an example.
         # In this case we return None and let the caller handle it.
         return pr_info['head']['ref']
+
+    def get_head_branch_for_pr_paginated(self, repo, page_num):
+        multi_pr_info = self.get_pr_info_paginated(repo, page_num)
+        heads = {}
+        for pr_info in multi_pr_info:
+            if pr_info is None or 'head' not in pr_info or 'label' not in pr_info['head']:
+                heads[pr_info['number']] = None
+            else:
+                heads[pr_info['number']] = pr_info['head']['ref']
+        return heads
