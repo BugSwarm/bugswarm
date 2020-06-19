@@ -85,7 +85,11 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     ```
     $ mongo
     ```
-1. Configure necessary credentials:
+1. Step into initial BugSwarm directory and configure necessary credentials:
+    1. Change directories to BugSwarm:
+        ```
+        $ cd bugswarm
+        ```
     1. Make a copy of the credentials file:
         ```
         $ cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
