@@ -188,22 +188,25 @@ in the "credentials.py" file and push metadata to the MongoDB.
  the user to be selective in which job pairs they'd want to reproduce through the optional argument filters. The output 
  will result as such: repo-slug, failing-job-id, and passing-job-id.
 ```
-Usage: python3 generate_pair_input.py -r <repo-slug> -o <output-path> [OPTIONS]
- 
-    <repo-slug>         Repo slug of the project
-    <output-path>       Path for the output
+Usage: python3 generate_pair_input.py (-r <repo-slug> | --repo-file <repo-file>) -o <output-path> [options]
 
-    OPTIONS:
-        --include-attempted           Include job pairs in the artifact database collection that we have already attempted to reproduce. Defaults to false.
-        --include-archived-only       Include job pairs in the artifact database collection that are marked as archived by GitHub but not resettable. Defaults to false.
-        --include-resettable          Include job pairs in the artifact database collection that are marked as resettable. Defaults to false.
-        --include-test-failures-only  Include job pairs that have a test failure according to the Analyzer. Defaults to false.
-        --classified-build            Restrict job pairs that have been classified as build according to classifier Defaults to false.
-        --classified-code             Restrict job pairs that have been classified as code according to classifier Defaults to false.
-        --classified-test             Restrict job pairs that have been classified as test according to classifier Defaults to false.
-        --classified-exception        Restrict job pairs that have been classified as contain certain exception
-        --build-system                Restricted to certain build system
-        --os-version                  Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)
+Options:
+     -r, --repo                         Repo slug for the mined project from which to choose pairs. Cannot be used with --repo-file.
+         --repo-file                    Path to file containing a newline-separated list of repo slugs for the mined projects from which to choose pairs. Cannot be used with --repo.
+     -o, --output-path                  Path to the file where chosen pairs will be written.
+         --include-attempted            Include job pairs in the artifact database collection that we have already attempted to reproduce. Defaults to false.
+         --include-archived-only        Include job pairs in the artifact database collection that are marked as archived by GitHub but not resettable. Defaults to false.
+         --include-resettable           Include job pairs in the artifact database collection that are marked as resettable. Defaults to false.
+         --include-test-failures-only   Include job pairs that have a test failure according to the Analyzer. Defaults to false.
+         --include-different-base-image Include job pairs that passed and failed job have different base images. Defaults to false.
+         --classified-build             Restrict job pairs that have been classified as build according to classifier Defaults to false.
+         --classified-code              Restrict job pairs that have been classified as code according to classifier Defaults to false.
+         --classified-test              Restrict job pairs that have been classified as test according to classifier Defaults to false.
+         --exclusive-classify           Restrict to job pairs that have been exclusively classified as build/code/test, as specified by their respective options. Defaults to false.
+         --classified-exception         Restrict job pairs that have been classified as contain certain exception
+         --build-system                 Restricted to certain build system
+         --os-version                   Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)
+         --diff-size                    Restricted to certain diff size MIN~MAX(e.g. 0~5)
 ```
 _Example_:
 ```

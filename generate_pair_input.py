@@ -32,6 +32,7 @@ class JobPairSelector(object):
                restrict_classified_build: bool,
                restrict_classified_code: bool,
                restrict_classified_test: bool,
+               restrict_classified_exclusive: bool,
                restrict_classified_exception: str,
                restrict_build_system: str,
                restrict_os_version: str,
@@ -51,6 +52,7 @@ class JobPairSelector(object):
         :param restrict_classified_build: bool,
         :param restrict_classified_code: bool,
         :param restrict_classified_test: bool,
+        :param restrict_classified_exclusive: bool,
         :param restrict_classified_exception: str,
         :param restrict_build_system: str,
         :param restrict_os_version: str,
@@ -85,6 +87,13 @@ class JobPairSelector(object):
             final = final.intersection(classified_test_only)
         if restrict_classified_code:
             final = final.intersection(classified_code_only)
+        if restrict_classified_exclusive:
+            if not restrict_classified_build:
+                final = final.difference(classified_build_only)
+            if not restrict_classified_test:
+                final = final.difference(classified_test_only)
+            if not restrict_classified_code:
+                final = final.difference(classified_code_only)
         if restrict_classified_exception != '':
             final = final.intersection(classified_exception_only)
         if restrict_build_system != '':
@@ -223,7 +232,8 @@ def main(argv=None):
 
     repo_list, output_path, include_attempted, include_archived_only, include_resettable, include_test_failures_only, \
         include_different_base_image, restrict_classified_build, restrict_classified_code, restrict_classified_test, \
-        restrict_classified_exception, restrict_build_system, restrict_os_version, restrict_diff_size = \
+        restrict_classified_exclusive, restrict_classified_exception, restrict_build_system, restrict_os_version, \
+        restrict_diff_size = \
         _validate_input(argv)
 
     # create tmp folder to store logs
@@ -254,6 +264,8 @@ def main(argv=None):
         log.info('Restricted to classified test')
     if restrict_classified_code:
         log.info('Restricted to classified code')
+    if restrict_classified_exclusive:
+        log.info('Restricted to exclusively classified build/test/code')
     if restrict_classified_exception != '':
         log.info('Restricted to classified exception: {}'.format(restrict_classified_exception))
     if restrict_build_system != '':
@@ -275,6 +287,7 @@ def main(argv=None):
                                           restrict_classified_build,
                                           restrict_classified_code,
                                           restrict_classified_test,
+                                          restrict_classified_exclusive,
                                           restrict_classified_exception,
                                           restrict_build_system,
                                           restrict_os_version,
@@ -324,6 +337,7 @@ def _choose_pairs_from_repo(repo: str,
                             restrict_classified_build: bool,
                             restrict_classified_code: bool,
                             restrict_classified_test: bool,
+                            restrict_classified_exclusive: bool,
                             restrict_classified_exception: str,
                             build_system: str,
                             restrict_os_version: str,
@@ -343,8 +357,8 @@ def _choose_pairs_from_repo(repo: str,
 
     jobpairs = JobPairSelector.select(buildpairs, repo, include_attempted, include_archived, include_resettable,
                                       include_only_test_failures, include_different_base_image,
-                                      restrict_classified_build,
-                                      restrict_classified_code, restrict_classified_test,
+                                      restrict_classified_build, restrict_classified_code, restrict_classified_test,
+                                      restrict_classified_exclusive,
                                       restrict_classified_exception, build_system, restrict_os_version,
                                       restrict_diff_size)
     lines = []
@@ -387,7 +401,7 @@ def _validate_input(argv):
     short_opts = 'r:o:'
     long_opts = 'repo= repo-file= output-path= include-attempted include-archived-only include-resettable ' \
                 'include-test-failures-only include-different-base-image classified-build classified-code ' \
-                'classified-test classified-exception= build-system= os-version= diff-size='.split()
+                'classified-test exclusive-classify classified-exception= build-system= os-version= diff-size='.split()
 
     try:
         optlist, args = getopt.getopt(argv[1:], short_opts, long_opts)
@@ -406,6 +420,7 @@ def _validate_input(argv):
     restrict_classified_build = False
     restrict_classified_code = False
     restrict_classified_test = False
+    restrict_classified_exclusive = False
     restrict_classified_exception = ''
     restrict_build_system = ''
     restrict_os_version = ''
@@ -434,6 +449,8 @@ def _validate_input(argv):
             restrict_classified_code = True
         if opt == '--classified-test':
             restrict_classified_test = True
+        if opt == '--exclusive-classify':
+            restrict_classified_exclusive = True
         if opt == '--classified-exception':
             restrict_classified_exception = arg
             if arg is None:
@@ -468,8 +485,8 @@ def _validate_input(argv):
     return \
         repo_list, output_path, include_attempted, include_archived_only, include_resettable, \
         include_test_failures_only, include_different_base_image, restrict_classified_build, restrict_classified_code, \
-        restrict_classified_test, restrict_classified_exception, restrict_build_system, restrict_os_version, \
-        restrict_diff_size
+        restrict_classified_test, restrict_classified_exclusive, restrict_classified_exception, restrict_build_system, \
+        restrict_os_version, restrict_diff_size
 
 
 def _print_usage(msg=None):
@@ -477,38 +494,41 @@ def _print_usage(msg=None):
         log.info(msg)
     log.info('Usage: python3 generate_pair_input.py OPTIONS')
     log.info('Options:')
-    log.info('{:>6}, {:<30}{}'.format('-r', '--repo', 'Repo slug for the mined project from which to choose pairs. '
+    log.info('{:>6}, {:<31}{}'.format('-r', '--repo', 'Repo slug for the mined project from which to choose pairs. '
                                                       'Cannot be used with --repo-file.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--repo-file', 'Path to file containing a newline-separated list of repo '
+    log.info('{:>6}  {:<31}{}'.format('', '--repo-file', 'Path to file containing a newline-separated list of repo '
                                                          'slugs for the mined projects from which to choose pairs. '
                                                          'Cannot be used with --repo.'))
-    log.info('{:>6}, {:<30}{}'.format('-o', '--output-path', 'Path to the file where chosen pairs will be written.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--include-attempted', 'Include job pairs in the artifact database '
+    log.info('{:>6}, {:<31}{}'.format('-o', '--output-path', 'Path to the file where chosen pairs will be written.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--include-attempted', 'Include job pairs in the artifact database '
                                                                  'collection that we have already attempted to '
                                                                  'reproduce. Defaults to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--include-archived-only', 'Include job pairs in the artifact database '
+    log.info('{:>6}  {:<31}{}'.format('', '--include-archived-only', 'Include job pairs in the artifact database '
                                                                      'collection that are marked as archived by '
                                                                      'GitHub but not resettable. Defaults to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--include-resettable', 'Include job pairs in the artifact database '
+    log.info('{:>6}  {:<31}{}'.format('', '--include-resettable', 'Include job pairs in the artifact database '
                                                                   'collection that are marked as resettable. Defaults '
                                                                   'to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--include-test-failures-only', 'Include job pairs that have a test failure '
+    log.info('{:>6}  {:<31}{}'.format('', '--include-test-failures-only', 'Include job pairs that have a test failure '
                                                                           'according to the Analyzer. Defaults to '
                                                                           'false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--include-different-base-image', 'Include job pairs that passed and failed '
+    log.info('{:>6}  {:<31}{}'.format('', '--include-different-base-image', 'Include job pairs that passed and failed '
                                                                             'job have different base images. Defaults '
                                                                             'to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--classified-build', 'Restrict job pairs that have been classified as build '
+    log.info('{:>6}  {:<31}{}'.format('', '--classified-build', 'Restrict job pairs that have been classified as build '
                                                                 'according to classifier Defaults to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--classified-code', 'Restrict job pairs that have been classified as code '
+    log.info('{:>6}  {:<31}{}'.format('', '--classified-code', 'Restrict job pairs that have been classified as code '
                                                                'according to classifier Defaults to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--classified-test', 'Restrict job pairs that have been classified as test '
+    log.info('{:>6}  {:<31}{}'.format('', '--classified-test', 'Restrict job pairs that have been classified as test '
                                                                'according to classifier Defaults to false.'))
-    log.info('{:>6}  {:<30}{}'.format('', '--classified-exception', 'Restrict job pairs that have been classified as '
+    log.info('{:>6}  {:<31}{}'.format('', '--exclusive-classify', 'Restrict to job pairs that have been exclusively '
+                                                                  'classified as build/code/test, as specified by '
+                                                                  'their respective options. Defaults to false.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--classified-exception', 'Restrict job pairs that have been classified as '
                                                                     'contain certain exception'))
-    log.info('{:>6}  {:<30}{}'.format('', '--build-system', 'Restricted to certain build system'))
-    log.info('{:>6}  {:<30}{}'.format('', '--os-version', 'Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)'))
-    log.info('{:>6}  {:<30}{}'.format('', '--diff-size', 'Restricted to certain diff size MIN~MAX(e.g. 0~5)'))
+    log.info('{:>6}  {:<31}{}'.format('', '--build-system', 'Restricted to certain build system'))
+    log.info('{:>6}  {:<31}{}'.format('', '--os-version', 'Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)'))
+    log.info('{:>6}  {:<31}{}'.format('', '--diff-size', 'Restricted to certain diff size MIN~MAX(e.g. 0~5)'))
 
 
 if __name__ == '__main__':
