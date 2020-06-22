@@ -159,7 +159,7 @@ class AssignTriggerCommits(Step):
                         pr_builds += 1
 
                         # travistorrent approach
-                        # found_using_travistorrent_way = AssignTriggerCommits.travistorrent_approach(b)
+                        AssignTriggerCommits.travistorrent_approach(b)
                         # found_trigger_from_github = AssignTriggerCommits.base_approach(branch_obj, b)
                         # found_trigger_from_html = AssignTriggerCommits.html_approach(branch_obj, b)
                         # if AssignTriggerCommits.fill_more_trigger_from_ght(utils, repo, branch_obj, b):
