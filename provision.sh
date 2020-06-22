@@ -84,8 +84,9 @@ print_green 'Install travis-build'
 mkdir -p ~/.travis
 if [ ! -d ~/.travis/travis-build ]; then
     git clone -q https://github.com/travis-ci/travis-build.git ~/.travis/travis-build
-    cd ~/.travis/travis-build/
 fi
+
+cd ~/.travis/travis-build/
 yes | sudo gem install bundler
 yes | sudo bundle install --gemfile ~/.travis/travis-build/Gemfile
 bundler binstubs travis
