@@ -83,7 +83,9 @@ class PairClassifier(object):
 
         for bp in buildpairs:
             bp_id = bp['_id']
-            for jp in bp['jobpairs']:
+
+            if bp['jobpairs']:
+                jp = bp['jobpairs'][0]
                 _ = jp.setdefault('build_system', "NA")
                 files_changed = []
                 if jp['is_filtered']:
@@ -155,6 +157,11 @@ class PairClassifier(object):
                 classification = {'code': code_confidence, 'test': test_confidence, 'build': build_confidence,
                                   'exceptions': list(error_dict.keys()), 'tr_log_num_tests_failed': num_tests_failed}
                 jp['classification'] = classification
+
+                # Propagate classification and metrics for the rest of the jobpairs.
+                for jp in bp['jobpairs'][1:]:
+                    jp['classification'] = classification
+                    jp['metrics'] = image_tag_info['metrics']
 
             log.info('patching job pairs to the database.')
             resp = bugswarmapi.patch_job_pairs(bp_id, bp['jobpairs'])
