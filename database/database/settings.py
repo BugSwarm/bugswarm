@@ -28,6 +28,8 @@ ALLOWED_WRITE_ROLES = list(map(str, schema.Role.write_roles()))
 OPTIMIZE_PAGINATION_FOR_SPEED = True
 PAGINATION_DEFAULT = 250
 
+SOFT_DELETE = True
+
 artifacts = {
     # 'schema': schema.ArtifactSchema,
     'schema': {
