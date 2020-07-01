@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 # Provision the environment for the BugSwarm reproducing pipeline.
-# Tested on Ubuntu 16.04.
+# Tested on Ubuntu 16.04 & 18.04.
 
 # Assumptions:
 # 1. The user running this script has sudo privileges.
-# 2. The operating system is Ubuntu 16.04.
-# 3. The repository was cloned into the REPO_DIR directory. If that is not the case, update the REPO_DIR variable.
 
 # Include common functions and constants.
 source "${BASH_SOURCE%/*}"/common.sh
-
-REPO_DIR=~/bugswarm/bugswarm
 
 USAGE='Usage: bash provision.sh [github-credential]'
 
@@ -50,15 +46,26 @@ git config --global credential.helper 'cache --timeout=86400'
 print_green "Install BugSwarm components"
 pip3 install --upgrade --force-reinstall . --user
 
-# We need curl to install rvm.
+# We need curl to install rvm and software-properties-common to install rvm
 print_green 'Install curl'
 sudo apt-get --assume-yes install curl
 exit_if_failed 'Installing curl failed.'
 
-# We need Ruby to install the Travis CLI (travis.rb).
-print_green 'Install Ruby 2.3.1'
-sudo apt-get --assume-yes install ruby-full
-exit_if_failed 'Installing Ruby failed.'
+print_green 'Install software-properties-common'
+sudo apt-get --assume-yes install software-properties-common
+exit_if_failed 'Installing software-properties-common failed.'
+
+# Installation of RVM through their Ubuntu Doc: https://github.com/rvm/ubuntu_rvm
+print_green 'Install RVM'
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get --assume-yes update
+sudo apt-get --assume-yes install rvm
+source /etc/profile.d/rvm.sh
+sudo usermod -aG rvm $(whoami)
+exit_if_failed 'Updating the apt package index failed'
+
+print_green 'Install Ruby 2.4.0'
+rvm install ruby-2.4.0
 
 print_green 'Install system packages'
 sudo apt-get --assume-yes install libffi-dev gcc make
@@ -76,7 +83,7 @@ exit_if_failed 'Updating the apt package index failed.'
 
 # Install Travis.
 print_green 'Install Travis'
-sudo gem install travis -v 1.8.8 --no-document
+gem install travis -v 1.8.8 --no-document
 exit_if_failed 'Installing Travis failed.'
 
 # Install travis-build.
@@ -87,8 +94,8 @@ if [ ! -d ~/.travis/travis-build ]; then
 fi
 
 cd ~/.travis/travis-build/
-yes | sudo gem install bundler
-yes | sudo bundle install --gemfile ~/.travis/travis-build/Gemfile
+yes | gem install bundler
+yes | bundle install --gemfile ~/.travis/travis-build/Gemfile
 bundler binstubs travis
 cd ~
 yes | travis
