@@ -8,8 +8,8 @@ source "${SCRIPT_DIR}"/common.sh
 
 # Increase REPRODUCER_RUNS to be more confident about pair stability at the cost of throughput.
 REPRODUCER_RUNS=5
-# Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager, and
-# MetadataPackager.
+# Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager,
+# MetadataPackager, and CacheDependency.
 STAGE='Reproduce Pair'
 
 USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>]'
@@ -68,7 +68,8 @@ if [ ${repo} ]; then
 fi
 
 reproducer_dir="${component_directory}"/reproducer
-total_steps=$((${REPRODUCER_RUNS} + 4))
+cache_dep_dir="${component_directory}"/cache-dependency
+total_steps=$((${REPRODUCER_RUNS} + 5))
 
 # Check for existence of the required repositories.
 check_repo_exists ${reproducer_dir} 'reproducer'
@@ -106,5 +107,14 @@ exit_if_failed 'MetadataPackager encountered an error.'
 
 # clean up output task
 rm -rf output/tasks/${task_name}_${failed_job_id}*
+
+print_step "${STAGE}" ${TOTAL_STEPS} 'CacheDependency'
+cd ${cache_dep_dir}
+python3 get_reproducer_output.py -i ${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json -o ${task_name}_${failed_job_id}
+exit_if_failed 'CacheDependency encountered an error.'
+if [ -s input/${task_name}_${failed_job_id} ]; then
+    python3 CacheMaven.py input/${task_name}_${failed_job_id} ${task_name}_${failed_job_id}
+    exit_if_failed 'CacheDependency encountered an error.'
+fi
 
 print_stage_done "${STAGE}"
