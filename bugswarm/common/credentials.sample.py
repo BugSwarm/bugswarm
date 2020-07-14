@@ -2,11 +2,14 @@ import sys
 
 # DockerHub
 DOCKER_HUB_REPO = ''
+DOCKER_HUB_CACHED_REPO = ''
 DOCKER_HUB_USERNAME = ''
 DOCKER_HUB_PASSWORD = ''
 if not DOCKER_HUB_REPO:
     print('[ERROR]: DOCKER_HUB_REPO has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')
+if not DOCKER_HUB_CACHED_REPO:
+    print('[WARNING]: DOCKER_HUB_CACHED_REPO has not been found. Skip caching dependencies in reproducing stage.')
 if not DOCKER_HUB_USERNAME:
     print('[ERROR]: DOCKER_HUB_USERNAME has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')

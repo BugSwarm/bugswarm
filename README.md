@@ -97,6 +97,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     1. Fill in credentials in `bugswarm/common/credentials.py`:
         ```
         DOCKER_HUB_REPO=<DOCKER_HUB_REPO>
+        DOCKER_HUB_CACHED_REPO=<DOCKER_HUB_CACHED_REPO>
         DOCKER_HUB_USERNAME=<DOCKER_HUB_USERNAME>
         DOCKER_HUB_PASSWORD=<DOCKER_HUB_PASSWORD>
         GITHUB_TOKENS=<GITHUB_TOKENS>
@@ -225,6 +226,8 @@ the "NullPointerException".
 **What credentials do I input?**
 * `DOCKER_HUB_REPO` - The DockerHub repository that will hold Docker Images pushed by the BugSwarm
   Reproducer.
+* `DOCKER_HUB_CACHED_REPO` - The DockerHub repository that will hold Docker Images pushed by the CacheDependencies step
+  in the BugSwarm Reproducer. Leave this blank to skip caching dependencies.
 * `DOCKER_HUB_USERNAME` - This is the username credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`.
 * `DOCKER_HUB_PASSWORD` - This is the password credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`.
 * `GITHUB_TOKENS` - A [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)

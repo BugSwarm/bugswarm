@@ -9,7 +9,7 @@ from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common import log
 from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
-from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
 from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 
@@ -98,7 +98,7 @@ def _validate_input(argv):
 
 def _create_container(image_tag, docker_image_tag, f_or_p):
     """
-    Creates a contaniner from the image on dockerhub repo bugswarm/images
+    Creates a contaniner from the image on dockerhub repo DOCKER_HUB_REPO
     :param image_tag: The image tag associated with the artifact on DockerHub
     :param docker_image_tag: The full image tag for the image on DockerHub. E.g. bugswarm/images:image-tag
     :param f_or_p: Create the failed or passed container
@@ -108,7 +108,7 @@ def _create_container(image_tag, docker_image_tag, f_or_p):
     _, stdout, stderr, ok = _run_command('docker pull {}'.format(docker_image_tag))
     if ok:
         print('Successfully pulled {}'.format(image_tag))
-        _, stdout, stderr, ok = _run_command('docker images bugswarm/images:%s --format "{{.Size}}"' % image_tag)
+        _, stdout, stderr, ok = _run_command('docker images %s:%s --format "{{.Size}}"' % (DOCKER_HUB_REPO, image_tag))
         if ok:
             original_size = stdout
     else:
@@ -201,7 +201,7 @@ def _copy_files_out_of_container(image_tag, container_id, f_or_p):
     :return: None
     """
     _, stdout, stderr, ok = _run_command('cd $HOME')
-    _, stdout, stderr, ok = _run_command('mkdir -m 777 $HOME/bugswarm-sandbox/tmp/{}'.format(image_tag))
+    _, stdout, stderr, ok = _run_command('mkdir -m 777 {}/{}'.format(_TMP_DIR, image_tag))
     if ok:
         print('Successfully created directory for {}'.format(image_tag))
     else:
@@ -277,7 +277,7 @@ def _cache_artifact_dependency(image_tag, output_file):
     if not result:
         _print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
 
-    docker_image_tag = 'bugswarm/images:{}'.format(image_tag)
+    docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
     for option in ['offline', 'build']:
         for fail_or_pass in ['failed', 'passed']:
             # Create Docker container
@@ -298,7 +298,7 @@ def _cache_artifact_dependency(image_tag, output_file):
 
 
 def _pack_artifact(image_tag, repo, option):
-    docker_image_tag = 'bugswarm/images:{}'.format(image_tag)
+    docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
     # Create Docker container
     _create_container(image_tag, docker_image_tag, None)
     # Copy files into container
@@ -339,16 +339,15 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
             print('Both failed and passed are reproduced for {}.'.format(image_tag))
             print('Packaging Docker image for {}.'.format(image_tag))
             container_id = _pack_artifact(image_tag, repo, option)
-            _run_command('docker commit {} bugswarm/cached-images:{}'
-                         .format(container_id, image_tag))
+            _run_command('docker commit {} {}:{}'.format(container_id, DOCKER_HUB_CACHED_REPO, image_tag))
 
-            _, stdout, stderr, ok = _run_command('docker image history bugswarm/cached-images:%s --format "{{.Size}}"'
-                                                 % image_tag)
+            _, stdout, stderr, ok = _run_command('docker image history %s:%s --format "{{.Size}}"'
+                                                 % (DOCKER_HUB_CACHED_REPO, image_tag))
 
             if ok:
                 latest_layer_size = stdout.split('\n')[0]
 
-            _run_command('docker push bugswarm/cached-images:{}'.format(image_tag))
+            _run_command('docker push {}:{}'.format(DOCKER_HUB_CACHED_REPO, image_tag))
             _run_command('docker rm -f {}'.format(container_id))
             status = 'succeed'
 
@@ -364,6 +363,10 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
 
 
 def main(argv=None):
+    if not DOCKER_HUB_CACHED_REPO:
+        print('DOCKER_HUB_CACHED_REPO not set. Skipping CacheDependency.')
+        return
+
     argv = argv or sys.argv
     image_tags_file, output_file = _validate_input(argv)
 
