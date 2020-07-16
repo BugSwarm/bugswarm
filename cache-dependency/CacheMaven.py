@@ -1,3 +1,4 @@
+import logging
 import os
 import subprocess
 import sys
@@ -53,9 +54,11 @@ class PatchArtifactRunner(ParallelArtifactRunner):
 
 def _create_work_space():
     _, stdout, stderr, _ = _run_command('mkdir -p {} && chmod 777 {}'.format(_TMP_DIR, _TMP_DIR))
-    print(stderr)
+    if stderr != '':
+        log.error(stderr)
     _, stdout, stderr, _ = _run_command('cp -r from_host/ {}'.format(_SANDBOX_DIR))
-    print(stderr)
+    if stderr != '':
+        log.error(stderr)
 
 
 def _run_command(command):
@@ -68,16 +71,17 @@ def _run_command(command):
 
 
 def _print_error(msg, stdout=None, stderr=None):
-    print('Error: ' + msg)
-    if stdout is not None:
-        print('stdout:\n{}'.format(stdout))
-    if stderr is not None:
-        print('stderr:\n{}'.format(stderr))
+    log.error(msg)
+    if stdout != '':
+        log.error('stdout:\n{}'.format(stdout))
+    if stderr != '':
+        log.error('stderr:\n{}'.format(stderr))
 
 
 def _print_usage():
-    log.info('Usage: python3 CacheMaven.py <image_tags_file>')
+    log.info('Usage: python3 CacheMaven.py <image_tags_file> <task-name>')
     log.info('image_tags_file: Path to a file containing a newline-separated list of image tags to process.')
+    log.info('task-name: Name of current task. Results will be put in ./output/<task-name>.csv.')
 
 
 def _validate_input(argv):
@@ -107,7 +111,7 @@ def _create_container(image_tag, docker_image_tag, f_or_p):
     original_size = -1
     _, stdout, stderr, ok = _run_command('docker pull {}'.format(docker_image_tag))
     if ok:
-        print('Successfully pulled {}'.format(image_tag))
+        log.info('Successfully pulled {}'.format(image_tag))
         _, stdout, stderr, ok = _run_command('docker images %s:%s --format "{{.Size}}"' % (DOCKER_HUB_REPO, image_tag))
         if ok:
             original_size = stdout
@@ -117,7 +121,7 @@ def _create_container(image_tag, docker_image_tag, f_or_p):
         _, stdout, stderr, ok = _run_command(
             'docker run -t -d  --name {}-{} {} /bin/bash'.format(image_tag, f_or_p, docker_image_tag))
         if ok:
-            print('Created Docker container for {}'.format(image_tag))
+            log.info('Created Docker container for {}'.format(image_tag))
         else:
             _print_error('Error creating Docker container for {}'.format(image_tag), stdout, stderr)
             sys.exit(1)
@@ -125,7 +129,7 @@ def _create_container(image_tag, docker_image_tag, f_or_p):
         _, stdout, stderr, ok = _run_command(
             'docker run -t -d  --name {} {} /bin/bash'.format(image_tag, docker_image_tag))
         if ok:
-            print('Created Docker container for {}'.format(image_tag))
+            log.info('Created Docker container for {}'.format(image_tag))
         else:
             _print_error('Error creating Docker container for {}'.format(image_tag), stdout, stderr)
             sys.exit(1)
@@ -147,7 +151,7 @@ def _copy_files_to_container(image_tag, f_or_p):
             'docker cp {}/{}/{} {}:{}/{}'.format(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT, container_id,
                                                  _TRAVIS_DIR, _PROCESS_SCRIPT))
         if ok:
-            print('Copied {} into container'.format(_PROCESS_SCRIPT))
+            log.info('Copied {} into container'.format(_PROCESS_SCRIPT))
         else:
             _print_error('Error copying {} into container for {}'.format(_PROCESS_SCRIPT, image_tag), stdout, stderr)
             sys.exit(1)
@@ -158,7 +162,7 @@ def _copy_files_to_container(image_tag, f_or_p):
             'docker cp {}/{}/{} {}:{}/{}'.format(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT, container_id,
                                                  _TRAVIS_DIR, _PROCESS_SCRIPT))
         if ok:
-            print('Copied {} into container'.format(_PROCESS_SCRIPT))
+            log.info('Copied {} into container'.format(_PROCESS_SCRIPT))
         else:
             _print_error('Error copying {} into container for {}'.format(_PROCESS_SCRIPT, image_tag), stdout, stderr)
             sys.exit(1)
@@ -179,14 +183,14 @@ def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode
         _print_error('Error changing permissions in container {}'.format(container_id), stdout, stderr)
         sys.exit(1)
 
-    print('docker exec {} python {}/patch_artifact_and_cache.py {} {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
-                                                                                    f_or_p, option, package_mode))
+    log.info('docker exec {} python {}/patch_artifact_and_cache.py {} {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
+                                                                                       f_or_p, option, package_mode))
 
     _, stdout, stderr, ok = _run_command(
         'docker exec {} python {}/patch_artifact_and_cache.py {} {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
                                                                                   f_or_p, option, package_mode))
     if ok:
-        print('Apply {} on container {} for {}'.format(option, container_id, f_or_p))
+        log.info('Apply {} on container {} for {}'.format(option, container_id, f_or_p))
     else:
         _print_error('Apply {} on container {} for {}'.format(option, container_id, f_or_p), stdout,
                      stderr)
@@ -201,9 +205,9 @@ def _copy_files_out_of_container(image_tag, container_id, f_or_p):
     :return: None
     """
     _, stdout, stderr, ok = _run_command('cd $HOME')
-    _, stdout, stderr, ok = _run_command('mkdir -m 777 {}/{}'.format(_TMP_DIR, image_tag))
+    _, stdout, stderr, ok = _run_command('mkdir -p -m 777 {}/{}'.format(_TMP_DIR, image_tag))
     if ok:
-        print('Successfully created directory for {}'.format(image_tag))
+        log.info('Successfully created directory for {}'.format(image_tag))
     else:
         _print_error('Error with mkdir', stdout, stderr)
     if f_or_p == 'failed':
@@ -211,7 +215,7 @@ def _copy_files_out_of_container(image_tag, container_id, f_or_p):
             'docker cp {}:{}/log-failed.log {}/tmp/{}/log-failed.log'.format(container_id, _TRAVIS_DIR,
                                                                              procutils.HOST_SANDBOX, image_tag))
         if ok:
-            print("Successfully copied failed files")
+            log.info('Successfully copied failed files')
         else:
             _print_error('Error copying failed files', stdout, stderr)
     elif f_or_p == 'passed':
@@ -219,7 +223,7 @@ def _copy_files_out_of_container(image_tag, container_id, f_or_p):
             'docker cp {}:{}/log-passed.log {}/tmp/{}/log-passed.log'.format(container_id, _TRAVIS_DIR,
                                                                              procutils.HOST_SANDBOX, image_tag))
         if ok:
-            print("Successfully copied passed files")
+            log.info('Successfully copied passed files')
         else:
             _print_error('Error copying passed files', stdout, stderr)
 
@@ -235,14 +239,14 @@ def _remove_files(container_id, f_or_p):
             'docker exec {} sudo rm {}/patch_artifact_and_cache.py {}/log-failed.log'.format(container_id, _TRAVIS_DIR,
                                                                                              _TRAVIS_DIR))
         if ok:
-            print('Successfully removed files from {}-{}'.format(container_id, f_or_p))
+            log.info('Successfully removed files from {}-{}'.format(container_id, f_or_p))
         else:
             _print_error('Error removing files from {}-{}'.format(container_id, f_or_p), stdout, stderr)
     else:
         _, stdout, stderr, ok = _run_command(
             'docker exec {} sudo rm {}/patch_artifact_and_cache.py'.format(container_id, _TRAVIS_DIR))
         if ok:
-            print('Successfully removed files from {}-{}'.format(container_id, f_or_p))
+            log.info('Successfully removed files from {}-{}'.format(container_id, f_or_p))
         else:
             _print_error('Error removing files from {}-{}'.format(container_id, f_or_p), stdout, stderr)
 
@@ -251,7 +255,7 @@ def _cache_artifact_dependency(image_tag, output_file):
 
     response = bugswarmapi.find_artifact(image_tag)
     if not response.ok:
-        print('[ERROR] Unable to get artifact data for {}. Skipping this artifact.'.format(image_tag))
+        log.error('Unable to get artifact data for {}. Skipping this artifact.'.format(image_tag))
         with open(output_file, 'a+') as file:
             file.write('{}, API error\n'.format(image_tag))
         return
@@ -290,7 +294,7 @@ def _cache_artifact_dependency(image_tag, output_file):
             # Remove docker container
             _, stdout, stderr, ok = _run_command('docker rm -f {}'.format(container_id))
             if ok:
-                print('Successfully removed docker container {}'.format(container_id))
+                log.info('Successfully removed docker container {}'.format(container_id))
             else:
                 _print_error('Error removing docker container {}'.format(container_id), stdout, stderr)
         if _verify_cache(image_tag, repo, option, original_size, output_file):
@@ -310,7 +314,7 @@ def _pack_artifact(image_tag, repo, option):
 
     # Remove files
     _remove_files(container_id, None)
-    print('Successfully packaged image {}'.format(image_tag))
+    log.info('Successfully packaged image {}'.format(image_tag))
     return container_id
 
 
@@ -336,8 +340,8 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
         latest_layer_size = -1
 
         if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
-            print('Both failed and passed are reproduced for {}.'.format(image_tag))
-            print('Packaging Docker image for {}.'.format(image_tag))
+            log.info('Both failed and passed are reproduced for {}.'.format(image_tag))
+            log.info('Packaging Docker image for {}.'.format(image_tag))
             container_id = _pack_artifact(image_tag, repo, option)
             _run_command('docker commit {} {}:{}'.format(container_id, DOCKER_HUB_CACHED_REPO, image_tag))
 
@@ -355,7 +359,7 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
         with open(output_file, 'a+') as file:
             file.write(write_line + '\n')
     except (Exception, BaseException, TypeError):
-        print('[ERROR] An error occurred while attempting to verify & cache {}.'.format(image_tag))
+        log.error('An error occurred while attempting to verify & cache {}.'.format(image_tag))
         with open(output_file, 'a+') as file:
             file.write(write_line + ', error' + '\n')
 
@@ -363,8 +367,9 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
 
 
 def main(argv=None):
+    log.config_logging(getattr(logging, 'INFO', None))
     if not DOCKER_HUB_CACHED_REPO:
-        print('DOCKER_HUB_CACHED_REPO not set. Skipping CacheDependency.')
+        log.warning('DOCKER_HUB_CACHED_REPO not set. Skipping CacheDependency.')
         return
 
     argv = argv or sys.argv
@@ -373,7 +378,7 @@ def main(argv=None):
     t_start = time.time()
     PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, workers=4).run()
     t_end = time.time()
-    print('Running patch took {}s'.format(t_end - t_start))
+    log.info('Running patch took {}s'.format(t_end - t_start))
 
 
 if __name__ == '__main__':
