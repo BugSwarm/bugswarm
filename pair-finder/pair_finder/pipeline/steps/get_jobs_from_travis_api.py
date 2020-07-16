@@ -17,6 +17,8 @@ from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from bugswarm.common.travis_wrapper import TravisWrapper
+from bugswarm.common.rest_api.database_api import DatabaseAPI
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 
 from .step import Step
 from .step import StepException
@@ -68,10 +70,6 @@ class GetJobsFromTravisAPI(Step):
             start_time = time.time()
             for idx, build in enumerate(build_list):
                 build_id = build['id']
-                build_number = int(build['number'])
-                if build_number > highest_build_number:
-                    highest_build_number_id = build_id
-                    highest_build_number = build_number
                 try:
                     build_info = travis.get_build_info(build_id)
                 except RequestException:
@@ -95,6 +93,11 @@ class GetJobsFromTravisAPI(Step):
         jobs = []
         latest_build_date_time = datetime(1970, 1, 1)
         for build in build_list:
+            build_id = build['id']
+            build_number = int(build['number'])
+            if build_number > highest_build_number:
+                highest_build_number_id = build_id
+                highest_build_number = build_number
             try:
                 # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
                 # while context['last_date_mined'] returns an int representing Unix Epoch formatted as: '1580098839'
@@ -139,6 +142,9 @@ class GetJobsFromTravisAPI(Step):
 
         if not jobs:
             msg = 'Did not get any jobs for {}.'.format(repo)
+            # Set the build_number & build_id metric to the latest build info we've received if no jobs are found.
+            bugswarmapi = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
+            bugswarmapi.set_latest_build_info_metric(repo, highest_build_number, highest_build_number_id)
             raise StepException(msg)
 
         # Expose mining progression metrics via the context. Other pipeline steps must not change these values.
