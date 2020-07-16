@@ -407,6 +407,33 @@ class DatabaseAPI(object):
         assert repo
         return self._upsert(DatabaseAPI._mined_project_repo_endpoint(repo), mined_project, 'mined project')
 
+    def set_latest_build_info_metric(self, repo: str, build_number: int, build_id: int):
+        """
+        Set the build information regarding the build number and build id of the latest build we've mined.
+
+        :param repo: The repository slug for identifying the mined project to update.
+        :param build_number: The latest build number associated to the last build we've mined
+        :param build_id: The latest build id associated to the last build we've mined
+        :return: The response object.
+        """
+        if not isinstance(repo, str):
+            raise TypeError
+        if not repo:
+            raise ValueError
+        if not isinstance(build_number, int):
+            raise TypeError
+        if not build_number:
+            raise ValueError
+        if not isinstance(build_id, int):
+            raise TypeError
+        if not build_id:
+            raise ValueError
+        updates = {
+            'last_build_mined.build_number': build_number,
+            'last_build_mined.build_id': build_id
+        }
+        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
+
     def set_mined_project_progression_metric(self, repo: str, metric_name: str, metric_value) -> Response:
         """
         Add a mining progression metric to an existing mined project.
