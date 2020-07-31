@@ -71,6 +71,10 @@ class TravisWrapper(object):
             build_number = kwargs['last_build_number']
             build_number_exists = True
         result = self._get(address, **kwargs)
+        latest_result_build_number = result[0]['number']
+        if build_number_exists:
+            if int(latest_result_build_number) == build_number:
+                return
         while True:
             if after_number:
                 if build_number_exists and int(after_number) < build_number:

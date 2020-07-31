@@ -4,14 +4,12 @@ Download metadata via the Travis API for all jobs for a repository.
 
 import os
 import time
-import dateutil.parser
 
 from threading import Lock
 from typing import Any
 from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
-from datetime import datetime
 
 from bugswarm.common import log
 from bugswarm.common.json import read_json
@@ -33,11 +31,9 @@ class GetJobsFromTravisAPI(Step):
         with lock:
             travis = TravisWrapper()
 
-        highest_build_number = 0
-        highest_build_number_id = 0
+        last_mined_build_number = 0
         if context['original_mined_project_metrics']['last_build_mined']['build_number']:
-            highest_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
-            highest_build_number_id = context['original_mined_project_metrics']['last_build_mined']['build_id']
+            last_mined_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
             mined_build_exists = True
 
         builds_json_file = Utils.get_repo_builds_api_result_file(repo)
@@ -53,13 +49,17 @@ class GetJobsFromTravisAPI(Step):
                     builds = travis.get_builds_for_repo(repo)
                 else:
                     # gets the latest builds and stops mining after reaching our last mined build number
-                    builds = travis.get_builds_for_repo(repo, highest_build_number)
+                    builds = travis.get_builds_for_repo(repo, last_mined_build_number)
             except RequestException:
                 error_message = 'Encountered an error while downloading builds for repository {}.'.format(repo)
                 raise StepException(error_message)
             build_list = list(builds)
             write_json(builds_json_file, build_list)
             log.info('Got the list of builds in', time.time() - start_time, 'seconds.')
+
+        if not build_list:
+            msg = 'Did not get any new builds for {}.'.format(repo)
+            raise StepException(msg)
 
         if os.path.isfile(builds_info_json_file):
             build_list = read_json(builds_info_json_file)
@@ -91,30 +91,23 @@ class GetJobsFromTravisAPI(Step):
         #   LEFT JOIN commits c on b.commit = c.sha
         #   WHERE j.repo_id = "<repo_id>"
         jobs = []
-        latest_build_date_time = datetime(1970, 1, 1)
+        leftover_build_list = []
+        highest_build_number = 0
+        highest_build_number_id = 0
+
+        # The 'build_list' will return at minimum 25 builds due to the response gathered from Travis API being a page.
+        # We will always set the 'highest_build_number/id' and skip builds that we have mined previously by checking if
+        # the 'build_number <= last_mined_build_number'
         for build in build_list:
             build_id = build['id']
             build_number = int(build['number'])
+
             if build_number > highest_build_number:
                 highest_build_number_id = build_id
                 highest_build_number = build_number
-            try:
-                # build['finished_at'] returns an ISO 8601 time representation. Ex - 2015-07-13T12:40:51Z
-                # while context['last_date_mined'] returns an int representing Unix Epoch formatted as: '1580098839'
-                # We must convert the ISODate representation to datetime and the Unix Epoch to datetime for comparison
-                parsed_time = dateutil.parser.parse(build['finished_at'])
-                build_formatted_date = parsed_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
-                build_date = datetime.strptime(build_formatted_date, '%a, %d %b %Y %H:%M:%S GMT')
-                last_mined_date = datetime.fromtimestamp(context['original_mined_project_metrics']['last_date_mined'])
-                if latest_build_date_time < build_date:
-                    latest_build_date_time = build_date
-                    context['mined_project_builder'].last_date_mined = latest_build_date_time.timestamp()
-                if build_date <= last_mined_date:
-                    continue
-            except (KeyError, TypeError) as e:
-                log.info('Build ID:', build['id'], 'contains the following error:')
-                log.error(e)
+            if build_number <= last_mined_build_number:
                 continue
+
             for job in build['build_info']['matrix']:
                 j = {
                     'job_id': job['id'],
@@ -140,6 +133,8 @@ class GetJobsFromTravisAPI(Step):
                 j['language'] = language
                 jobs.append(j)
 
+            leftover_build_list.append(build)
+
         if not jobs:
             msg = 'Did not get any jobs for {}.'.format(repo)
             # Set the build_number & build_id metric to the latest build info we've received if no jobs are found.
@@ -149,9 +144,9 @@ class GetJobsFromTravisAPI(Step):
 
         # Expose mining progression metrics via the context. Other pipeline steps must not change these values.
         # Do not raise a StepException before the context is populated.
-        failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(build_list)
-        failed_jobs, failed_pr_jobs = GetJobsFromTravisAPI._count_failed_jobs(build_list)
-        context['mined_project_builder'].builds = len(build_list) + \
+        failed_builds, failed_pr_builds = GetJobsFromTravisAPI._count_failed_builds(leftover_build_list)
+        failed_jobs, failed_pr_jobs = GetJobsFromTravisAPI._count_failed_jobs(leftover_build_list)
+        context['mined_project_builder'].builds = len(leftover_build_list) + \
             context['original_mined_project_metrics']['progression_metrics']['builds']
         context['mined_project_builder'].jobs = len(jobs) + \
             context['original_mined_project_metrics']['progression_metrics']['jobs']

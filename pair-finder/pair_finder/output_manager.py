@@ -109,7 +109,15 @@ class OutputManager(object):
         # Update the mined projects database collection with the mining progression metrics.
         log.info('Writing mined project to the database.')
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-        bugswarmapi.upsert_mined_project(mined_project)
+        results = bugswarmapi.find_mined_project(mined_project['repo'])
+        if results.status_code != 200:
+            bugswarmapi.upsert_mined_project(mined_project)
+        else:
+            for key, val in mined_project['progression_metrics'].items():
+                bugswarmapi.set_mined_project_progression_metric(mined_project['repo'], key, val)
+            bugswarmapi.set_latest_build_info_metric(mined_project['repo'],
+                                                     mined_project['last_build_mined']['build_number'],
+                                                     mined_project['last_build_mined']['build_id'])
         log.info('Done writing to database.')
 
     @staticmethod

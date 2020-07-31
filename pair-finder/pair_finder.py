@@ -150,7 +150,7 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
     if not result:
         # A filter in the pipeline encountered a fatal error and made the pipeline exit early.
         # Skip writing the output file.
-        log.info('Skipping ', repo, ' as there are no jobs to continue mining.')
+        log.info('Skipping', repo, 'as there are no jobs to continue mining.')
         return
 
     builder = out_context['mined_project_builder']

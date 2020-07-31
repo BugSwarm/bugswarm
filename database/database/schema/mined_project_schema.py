@@ -1,9 +1,8 @@
-from .common_schema import NonEmptyStr, RequiredInt
+from .common_schema import NonEmptyStr
 
 MinedProjectSchema = {
     'repo': NonEmptyStr,
     'latest_mined_version': NonEmptyStr,
-    'last_date_mined': RequiredInt,
     'last_build_mined': {
         'type': 'dict',
         'allow_unknown': True,
