@@ -1,3 +1,4 @@
+import os
 from typing import List
 from typing import Tuple
 
@@ -90,7 +91,7 @@ def filter_non_exact_images(pairs: List) -> Tuple[int, int, int, int]:
 
                 job_id = j['job_id']
                 orig_log_path = utils.get_orig_log_path(job_id)
-                if not download_log(job_id, orig_log_path):
+                if not os.path.exists(orig_log_path) and not download_log(job_id, orig_log_path):
                     no_original_log += 1
                     jp[FILTERED_REASON_KEY] = reasons.NO_ORIGINAL_LOG
                     continue
