@@ -49,7 +49,7 @@ class TravisWrapper(object):
                 log.error('Get request for {} returned 404 Not Found.'.format(address))
                 response.raise_for_status()
             elif code == 429:
-                if attempts < 1:
+                if attempts < 1 or not _TOKENS:
                     log.warning(
                         'The Travis API returned status code 429 Too Many Requests. '
                         'Retrying after sleeping for {} seconds.'.format(sleep_seconds))
