@@ -35,8 +35,8 @@ def modify_deprecated_links(search_dir):
                             file_modified = True
                     # Overwrite the existing POM with the updated POM.
                     if file_modified:
-                        with open(file_path, 'w') as f:
-                            f.write(soup.prettify().encode('utf-8'))
+                        with open(file_path, 'w', encoding='utf-8') as f:
+                            f.write(soup.prettify())
                         log.info('Modified {} file.'.format(file_path))
                 except IOError:
                     log.error('Error reading file: ', file_path)

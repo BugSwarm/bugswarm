@@ -93,7 +93,12 @@ if [ ! -d ~/.travis/travis-build ]; then
     git clone -q https://github.com/travis-ci/travis-build.git ~/.travis/travis-build
 fi
 
-cd ~/.travis/travis-build/
+# Pin travis-build to a version that forces all maven repos to use https instead of http, which aids reproducibility.
+# See https://github.com/travis-ci/travis-build/pull/1842
+print_green 'Reset travis-build'
+# commit sha of MASTER branch 8/14/2020
+travis_build_sha=bf094c42837ceb4e02e68c79e1355b786a4d1333
+cd ~/.travis/travis-build && git reset --hard ${travis_build_sha}
 yes | gem install bundler
 yes | bundle install --gemfile ~/.travis/travis-build/Gemfile
 bundler binstubs travis

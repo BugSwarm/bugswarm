@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 import time
+import logging
 
 from bugswarm.common import log
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
@@ -77,6 +78,7 @@ def _validate_input(argv):
 
 
 def main(argv=None):
+    log.config_logging(getattr(logging, 'INFO', None))
     argv = argv or sys.argv
 
     image_tags_file, num_workers = _validate_input(argv)

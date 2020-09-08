@@ -45,11 +45,6 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
         'ADD {} /usr/local/bin/run.sh'.format(job_id + '.sh'),
         'RUN chmod +x /usr/local/bin/run.sh',
 
-        # Modify m2 settings.xml with official insecure Maven Repository link.
-        'RUN replace "</settings>" "<mirrors><mirror><id>central-no-ssl</id><name>Central official insecure '
-        'link</name><url>http://insecure.repo1.maven.org/maven2</url><mirrorOf>central</mirrorOf></mirror></mirrors'
-        '></settings>" -- /home/travis/.m2/settings.xml',
-
         # Set the user to use when running the image. Our Google Drive contains a file that explains why we do this.
         'USER travis',
 
