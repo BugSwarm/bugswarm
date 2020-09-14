@@ -79,7 +79,7 @@ minedProjects = {
 
     # PATCH: Allow updating mined projects when adding mining progression metrics.
     # PUT: Allow upserting mined projects when a project is re-mined.
-    'item_methods': ITEM_METHODS + ['PATCH', 'PUT'],
+    'item_methods': ITEM_METHODS + ['PATCH', 'PUT', 'DELETE'],
 }
 
 emailSubscribers = {

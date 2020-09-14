@@ -466,6 +466,13 @@ class DatabaseAPI(object):
         updates = {'repo': new_repo}
         return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
 
+    def soft_delete_mined_project(self, repo: str) -> Response:
+        if not isinstance(repo, str):
+            raise TypeError
+        if not repo:
+            raise ValueError
+        return self._delete(DatabaseAPI._mined_project_repo_endpoint(repo))
+
     ###################################
     # Email Subscriber REST methods
     ###################################
