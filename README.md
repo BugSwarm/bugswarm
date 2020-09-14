@@ -33,8 +33,8 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 ```
 ## Setting up BugSwarm
 1. Install the prerequisites:
-    * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](#FAQ)
-    * Install [MongoDB](https://docs.mongodb.com/manual/installation/) - [Why MongoDB?](#FAQ) (Optional)
+    * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
+    * Install [MongoDB](https://docs.mongodb.com/manual/installation/) - [Why MongoDB?](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions) (Optional)
 
 1. Clone the repository:
     ```
@@ -44,19 +44,6 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 1. Setup MongoDB:
 
     Note: If you wish to use your own local MongoDB, skip to Step 4.
-    
-    Select either of the options BugSwarm provides below:
-    
-    **Pulling the Docker Image of the BugSwarm MongoDB:**
-    1. [Pull](https://docs.docker.com/engine/reference/commandline/pull/) the image from our BugSwarm DockerHub repository:
-        ```
-        $ docker pull bugswarm/images:bugswarm-db
-        ```
-    1. Run & [port](https://docs.docker.com/config/containers/container-networking/) the Docker container containing MongoDB:
-        ```
-        $ docker run -it -p 27017:27017 -p 5000:5000 bugswarm-db
-        ```
-    1. Move to step 4.
     
     **Create your own Docker Image of the BugSwarm MongoDB:**
 
@@ -79,7 +66,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         $ docker run -it -p 27017:27017 -p 5000:5000 bugswarm-db
         ```
         > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
-        > Please see the [FAQ](#FAQ)
+        > Please see the [FAQ](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
     1. Move to step 4.
 1. Mongo should now be up and running, test the connection by opening a new Terminal and use:
     ```
@@ -106,7 +93,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
         ```
        > The following values are required for authentication, accessing components and APIs used within
-       > the BugSwarm pipeline. Please see the [FAQ](#FAQ) for details regarding the credentials.
+       > the BugSwarm pipeline. Please see the [FAQ](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions) for details regarding the credentials.
 1. Run the provision script:  
     ```
     $ ./provision.sh
