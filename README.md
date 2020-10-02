@@ -134,7 +134,7 @@ build log from Travis CI. We do this five times to account for reproducibility a
 #### Reproduce a Project
 `run_reproduce_project.sh`: Reproduces all job-pairs mined from a project given its repo slug.
 ```
-Usage: ./run_reproduce_project -r <repo-slug> [OPTIONS]
+Usage: ./run_reproduce_project.sh -r <repo-slug> [OPTIONS]
 
     <repo-slug>         Repo slug of the project
 
@@ -144,7 +144,7 @@ Usage: ./run_reproduce_project -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_reproduce_project -r "Flipkart/foxtrot" -c ~/bugswarm/
+$ ./run_reproduce_project.sh -r "Flipkart/foxtrot" -c ~/bugswarm/
 ```
 The example will attempt to reproduce all job-pairs mined from the "Flipkart/foxtrot" project. We add the "-c"
 argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
