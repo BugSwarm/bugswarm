@@ -8,14 +8,17 @@ DOCKER_HUB_PASSWORD = ''
 if not DOCKER_HUB_REPO:
     print('[ERROR]: DOCKER_HUB_REPO has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')
+    sys.exit(1)
 if not DOCKER_HUB_CACHED_REPO:
     print('[WARNING]: DOCKER_HUB_CACHED_REPO has not been found. Skip caching dependencies in reproducing stage.')
 if not DOCKER_HUB_USERNAME:
     print('[ERROR]: DOCKER_HUB_USERNAME has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')
+    sys.exit(1)
 if not DOCKER_HUB_PASSWORD:
     print('[ERROR]: DOCKER_HUB_PASSWORD has not been found. Please input your credentials under '
           'common/credentials.py and rerun the bugswarm/provision.sh script.')
+    sys.exit(1)
 
 # Docker Private Registry
 DOCKER_REGISTRY_REPO = ''
