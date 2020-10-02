@@ -67,6 +67,10 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
         > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
         > Please see the [FAQ](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
+    1. Get back to parent folder:
+        ```
+        $ cd ../..
+        ```
     1. Move to step 4.
 1. Mongo should now be up and running, test the connection by opening a new Terminal and use:
     ```
