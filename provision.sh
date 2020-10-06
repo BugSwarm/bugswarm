@@ -5,8 +5,11 @@
 # Assumptions:
 # 1. The user running this script has sudo privileges.
 
+# Get the absolute path to the directory containing this script. Source: https://stackoverflow.com/a/246128.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Include common functions and constants.
-source "${BASH_SOURCE%/*}"/common.sh
+source "${SCRIPT_DIR}"/common.sh
 
 USAGE='Usage: bash provision.sh [github-credential]'
 
