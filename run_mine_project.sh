@@ -52,7 +52,7 @@ if [[ -z "${threads}" ]]; then
 fi
 
 if [[ -z "${component_directory}" ]]; then
-    component_directory="/home/$(whoami)/bugswarm"
+    component_directory="$SCRIPT_DIR"
 fi
 
 if ${repo_flag} && [[ ${repo} != ?*"/"?* ]]; then
