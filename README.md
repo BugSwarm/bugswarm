@@ -34,7 +34,6 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 ## Setting up BugSwarm
 1. Install the prerequisites:
     * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
-    * Install [MongoDB](https://docs.mongodb.com/manual/installation/) - [Why MongoDB?](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions) (Optional)
 
 1. Clone the repository:
     ```
@@ -42,8 +41,6 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     ```
 
 1. Setup MongoDB:
-
-    Note: If you wish to use your own local MongoDB, skip to Step 4.
     
     **Create your own Docker Image of the BugSwarm MongoDB:**
 
