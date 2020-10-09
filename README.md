@@ -48,9 +48,9 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     [Docker image](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/) 
     of MongoDB to port with the pipeline. Follow the steps below:
 
-    1. Depending on where you cloned the repository, change to the database directory:
+    1. Change to the database directory:
         ```
-        $ cd ~/bugswarm/database
+        $ cd bugswarm/database
         ```
     1. [Build](https://docs.docker.com/engine/reference/commandline/build/) the Docker Image with the tag as `bugswarm-db`
     from the Dockerfile located similarly to the above directory:
