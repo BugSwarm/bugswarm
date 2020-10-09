@@ -102,6 +102,11 @@ def clone_project_repo_if_not_exists(utils, job):
     if not utils.check_if_project_repo_exist(job.repo):
         os.makedirs(utils.get_repo_storage_dir(job), exist_ok=True)
         git.Repo.clone_from(utils.construct_github_repo_url(job.repo), utils.get_repo_storage_dir(job))
+        repo = git.Repo(utils.get_repo_storage_dir(job))
+        with repo.config_writer('repository') as cw:
+            cw.add_section('user')
+            cw.set('user', 'name', 'BugSwarm')
+            cw.set('user', 'email', 'dev.bugswarm@gmail.com')
         utils.fetch_pr_data(job)
 
 
