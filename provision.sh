@@ -82,15 +82,15 @@ exit_if_failed 'Installing system packages failed.'
 
 # Install Docker.
 print_green 'Install Docker'
-sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get --assume-yes install apt-transport-https ca-certificates curl software-properties-common
 exit_if_failed 'Installing prerequisites for docker failed.'
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 exit_if_failed 'Adding apt key for docker failed.'
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 exit_if_failed 'Adding apt repository for docker failed.'
-sudo apt --assume-yes update
+sudo apt-get --assume-yes update
 exit_if_failed 'Updating the apt package index failed.'
-sudo apt -y install docker-ce
+sudo apt-get --assume-yes install docker-ce
 exit_if_failed 'Installing docker failed.'
 sudo usermod -aG docker $(whoami)
 exit_if_failed 'Adding user to docker group failed.'
