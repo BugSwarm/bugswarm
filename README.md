@@ -169,7 +169,7 @@ Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-
 ```
 _Example_:
 ```
-$ ./run_reproduce_pair.sh -r Flipkart/foxtrot -f 433449696 - p 433455764 -t 2
+$ ./run_reproduce_pair.sh -r Flipkart/foxtrot -f 433449696 -p 433455764 -t 2
 ```
 The example above will take the repo-slug "Flipkart/foxtrot" and both failed/passed job id to reproduce through
 the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the DockerHub repository specified
