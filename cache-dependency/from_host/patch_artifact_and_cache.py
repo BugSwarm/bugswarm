@@ -112,7 +112,7 @@ def main(argv=None):
         line = line.strip()
         if line.startswith('travis_cmd mvn\\ install'):
             index = line.find('install\\')
-            line = line[:index] + '-o\\' + line[index:]
+            line = line[:index] + '-o\\ ' + line[index:]
         print(line)
     fileinput.close()
 

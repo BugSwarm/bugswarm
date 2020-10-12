@@ -282,7 +282,7 @@ def _cache_artifact_dependency(image_tag, output_file):
         _print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
 
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    for option in ['offline', 'build']:
+    for option in ['build', 'offline']:
         for fail_or_pass in ['failed', 'passed']:
             # Create Docker container
             original_size = _create_container(image_tag, docker_image_tag, fail_or_pass)
