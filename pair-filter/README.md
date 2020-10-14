@@ -29,4 +29,4 @@ $ python3 pair-filter.py Flipkart/foxtrot ~/bugswarm/pair-filter/output-json/Fli
 1. `filter_unavailable` detects pairs that both non-resettable and not archived by GitHub. A pair is non-resettable if
     the trigger commit or base commit of either the failed build or passed build is not found in the project's git log.
     The attributes that indicates resettable and archived by GitHub are set by pair-finder.
-1. `filter_non_quay_images` detects pairs that did not use Quay travis images. See [Why We Are Reproducing Only Quay Pairs](https://github.com/BugSwarm/reproducer/wiki/Why-We-Are-Reproducing-Only-QUAY-Pairs) for details.
+1. `filter_non_quay_images` detects pairs that did not use Quay travis images. See [Why We Are Reproducing Only Quay Pairs](/docs/Why-We-Are-Reproducing-Only-QUAY-Pairs.md) for details.

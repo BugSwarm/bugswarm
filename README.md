@@ -33,7 +33,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 ```
 ## Setting up BugSwarm
 1. Install the prerequisites:
-    * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
+    * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](docs/Frequently-Answered-Questions.md#why-do-we-use-docker)
 
 1. Clone the repository:
     ```
@@ -63,7 +63,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         $ docker run -it -p 27017:27017 -p 5000:5000 bugswarm-db
         ```
         > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
-        > Please see the [FAQ](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
+        > Please see the [FAQ](docs/Frequently-Answered-Questions.md)
     1. Get back to parent folder:
         ```
         $ cd ../..
@@ -94,8 +94,8 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
         ```
        > The following values are required for authentication, accessing components and APIs used within
-       > the BugSwarm pipeline. Please see the [FAQ](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions) for details regarding the credentials.
-1. Run the provision script:  
+       > the BugSwarm pipeline. Please see the [FAQ](docs/Frequently-Answered-Questions.md) for details regarding the credentials.
+1. Run the provision script:
     ```
     $ ./provision.sh
     ```
@@ -211,5 +211,5 @@ as resettable, and finally we restrict the job pairs further to those that were 
 the "NullPointerException".
 
 ## Questions:
-Visit our FAQ Wiki [page](https://github.com/BugSwarm/bugswarm/wiki/Frequently-Answered-Questions)
+Visit our FAQ docs [page](docs/Frequently-Answered-Questions.md)
 

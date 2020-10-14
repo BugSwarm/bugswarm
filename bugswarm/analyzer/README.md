@@ -5,7 +5,7 @@
 
 The BugSwarm build log analyzer is derived from the [TravisTorrent build log analyzer](https://github.com/TestRoots/travistorrent-tools). Before extending the TravisTorrent analyzer, we ported it to Python.
 
-The BugSwarm analyzer fixes some problems present in the TravisTorrent analyzer and also supports additional features. See the [wiki page](https://github.com/BugSwarm/analyzer/wiki/Differences-from-original-TravisTorrent-Build-Log-Analyzer) for more details.
+The BugSwarm analyzer fixes some problems present in the TravisTorrent analyzer and also supports additional features. See the [docs page](/docs/Differences-from-original-TravisTorrent-Build-Log-Analyzer.md) for more details.
 
 ## Motivation
 We implemented a new build log analyzer because
