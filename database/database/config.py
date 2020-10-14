@@ -1,6 +1,6 @@
 """
 Modify the values in this file to match your configuration.
-This file is ignored by Git to prevent exposure of sensitive data.
+This file is NOT ignored by Git. So make sure not to check in sensitive data.
 """
 
 # MongoDB username and password.
