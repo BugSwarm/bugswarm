@@ -2,20 +2,19 @@
 
 ## What credentials do I input?
 * `DOCKER_HUB_REPO` - The DockerHub repository that will hold Docker Images pushed by the BugSwarm
-  Reproducer.
+  Reproducer. For example `bugswarm/images`.
 * `DOCKER_HUB_CACHED_REPO` - The DockerHub repository that will hold Docker Images pushed by the CacheDependencies step
-  in the BugSwarm Reproducer. Leave this blank to skip caching dependencies.
-* `DOCKER_HUB_USERNAME` - This is the username credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`.
-* `DOCKER_HUB_PASSWORD` - This is the password credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`.
+  in the BugSwarm Reproducer. Leave this blank to skip caching dependencies. For example `bugswarm/cached-images`.
+* `DOCKER_HUB_USERNAME` - This is the username credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`. For example `bugswarm`.
+* `DOCKER_HUB_PASSWORD` - This is the password credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`. You can also use an [access token](https://docs.docker.com/docker-hub/access-tokens/) instead.
 * `GITHUB_TOKENS` - A [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
-  to perform Git Operations over HTTPS via the Git API (used for Mining projects)
+  to perform Git Operations over HTTPS via the Git API. (used for Mining projects)
 * `TRAVIS_TOKENS` - A [Travis CI Access Token](https://developer.travis-ci.com/authentication) to send authenticated requests
-  to Travis CI (used for gathering builds)
+  to Travis CI. (used for gathering builds)
 * `DATABASE_PIPELINE_TOKEN` - The token of a user's account used to access MongoDB.
   ('testDBPassword' if using Docker image of Mongo)
-* `COMMON_HOSTNAME`- &lt;LOCAL-IPADDRESS&gt;:5000, this hostname is used to integrate the API usage with your
-  local database.
-  
+* `COMMON_HOSTNAME`- This hostname is used to integrate the API usage with your local database. It should be `<LOCAL-IPADDRESS>:5000`, for example `127.0.0.1:5000`.
+
 ## BugSwarm still using old credentials input?
 
 In the case where you modify your credentials under the `common/credentials.py` file, but ran the `provision.sh`
