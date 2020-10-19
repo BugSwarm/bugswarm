@@ -69,14 +69,14 @@ fi
 
 reproducer_dir="${component_directory}"/reproducer
 cache_dep_dir="${component_directory}"/cache-dependency
-total_steps=$((${REPRODUCER_RUNS} + 5))
+TOTAL_STEPS=$((${REPRODUCER_RUNS} + 5))
 
 # Check for existence of the required repositories.
 check_repo_exists ${reproducer_dir} 'reproducer'
 
 # Create a file containing all pairs mined from the project.
 cd ${reproducer_dir}
-print_step "${STAGE}" ${total_steps} "PairChooser"
+print_step "${STAGE}" ${TOTAL_STEPS} "PairChooser"
 
 # failed-job-id is used for unique identifier for each job pair since different job pairs could has the same task name
 pair_file_path=${reproducer_dir}/input/json/${failed_job_id}/${task_name}.json
@@ -85,23 +85,23 @@ exit_if_failed 'PairChooser encountered an error.'
 
 # Reproducer
 for i in $(seq ${REPRODUCER_RUNS}); do
-    print_step "${STAGE}" ${total_steps} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
+    print_step "${STAGE}" ${TOTAL_STEPS} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
     python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_${failed_job_id}_run${i}
     exit_if_failed 'Reproducer encountered an error.'
 done
 
 # ReproducedResultsAnalyzer
-print_step "${STAGE}" ${total_steps} "ReproducedResultsAnalyzer"
+print_step "${STAGE}" ${TOTAL_STEPS} "ReproducedResultsAnalyzer"
 python3 reproduced_results_analyzer.py -i ${pair_file_path} -n ${REPRODUCER_RUNS} --task-name ${task_name}_${failed_job_id}
 exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
-print_step "${STAGE}" ${total_steps} 'ImagePackager'
+print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
 python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS}
 exit_if_failed 'ImagePackager encountered an error.'
 
 # MetadataPackager (push artifact metadata to the database)
-print_step "${STAGE}" ${total_steps} 'MetadataPackager'
+print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
 python3 packager.py -i output/result_json/${task_name}_${failed_job_id}.json
 exit_if_failed 'MetadataPackager encountered an error.'
 
