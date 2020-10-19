@@ -2,6 +2,7 @@ import json
 import unittest
 import warnings
 import os
+import requests_mock
 
 from os import listdir
 from os.path import isfile
@@ -11,6 +12,7 @@ from os.path import join
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.analyzer.dispatcher import Dispatcher
 from bugswarm.common.travis_wrapper import TravisWrapper
+from bugswarm.common.github_wrapper import GitHubWrapper
 
 
 class Test(unittest.TestCase):
@@ -28,12 +30,32 @@ class Test(unittest.TestCase):
     javascript_mocha = 'javascript/mocha/'
     javascript_jest = 'javascript/jest/'
     javascript_multiple_frameworks = 'javascript/multiple_frameworks/'
+    github_cache = 'github_cache/'
 
     def __init__(self, *args, **kwargs):
         super(Test, self).__init__(*args, **kwargs)
         self.dispatcher = Dispatcher()
         self.travis_wrapper = TravisWrapper()
         self.analyzer = Analyzer()
+        github_get = GitHubWrapper.get
+
+        def github_get_cached_name(url: str):
+            return join(self.github_cache, url.replace('/', '-'))
+
+        def github_get_build_cache(self, url: str):
+            ans = github_get(self, url)
+            with open(github_get_cached_name(url), 'w') as f:
+                json.dump(ans[1], f)
+            return ans
+
+        def github_get_use_cache(self, url: str):
+            with open(github_get_cached_name(url), 'r') as f:
+                ans = json.load(f)
+            with requests_mock.Mocker() as m:
+                m.get(url, text=json.dumps(ans))
+                return github_get(self, url)
+
+        GitHubWrapper.get = github_get_use_cache
 
     @staticmethod
     def my_split(l):

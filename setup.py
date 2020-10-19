@@ -20,6 +20,7 @@ setup(
         'requests>=2.20.0',
         'CacheControl==0.12.3',
         'requests-cache==0.4.13',
+        'requests-mock==1.8.0',
         'termcolor==1.1.0',
         'docker==2.5.1',
         'gitpython==3.0.8',
