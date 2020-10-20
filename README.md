@@ -60,7 +60,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
     1. Run & [port](https://docs.docker.com/config/containers/container-networking/) the Docker container containing MongoDB:
         ```
-        $ docker run -it -p 27017:27017 -p 5000:5000 bugswarm-db
+        $ docker run -itd -p 27017:27017 -p 5000:5000 bugswarm-db
         ```
         > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
         > Please see the [FAQ](docs/Frequently-Answered-Questions.md)
