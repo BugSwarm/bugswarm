@@ -55,3 +55,24 @@ VMs. In principle, Travis CI creates and retains a base Docker image which is th
 MongoDB is an object-oriented, scalable and dynamic NoSQL database. The data is stored as JSON or BSON documents
 inside a collection. The use of high performance, availability, and scaling provides easy integration thus 
 satisfying the BugSwarm needs.
+
+## How to change the database token?
+
+1. Connect to the database
+    ```sh
+    $ mongo
+    ```
+
+1. Execute the following commands in Mongo Shell
+    ```
+    > use bugswarm
+    > db.accounts.find()
+    > db.accounts.findAndModify({
+    ... query: { email: "pipeline.bugswarm@gmail.com", token: "testDBPassword" },
+    ... update: { $set: { token: "new-token" } }
+    ... })
+    > db.accounts.find()
+    > exit
+    ```
+
+1. The new token will be `new-token`. Be sure to update `DATABASE_PIPELINE_TOKEN` in `common/credentials.py`.
