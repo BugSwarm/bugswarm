@@ -131,6 +131,11 @@ class ReproducedResultsAnalyzer(object):
                     trigger_sha = p['failed_build']['head_sha']
                     # Similarly, for each job pair in build pair, try to find it in the pair center.
                     for jp in p['jobpairs']:
+                        # For a build that has some jobs filtered and some jobs not filtered,
+                        # the job cannot be found in paircenter.
+                        if jp['is_filtered']:
+                            continue
+
                         found_in_paircenter = False
                         for jobpair in bp.jobpairs:
                             if str(jobpair.jobs[0].job_id) == str(jp['failed_job']['job_id']):
