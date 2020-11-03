@@ -1,5 +1,10 @@
 # Frequently Answered Questions
 
+## What accounts do I need to sign up to generate the credentials?
+* [GitHub](https://github.com/join)
+* [Travis CI](https://travis-ci.org/signup)
+* [Docker Hub](https://hub.docker.com/signup)
+
 ## What credentials do I input?
 * `DOCKER_HUB_REPO` - The DockerHub repository that will hold Docker Images pushed by the BugSwarm
   Reproducer. For example `bugswarm/images`.
