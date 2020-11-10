@@ -32,6 +32,12 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 }
 ```
 ## Setting up BugSwarm
+1. System requirements:
+    * The `sudo` command is installed on the system.
+    * You have `sudo` privileges on the system.
+    * The system uses `apt-get` to manage packages (or you may need to edit
+      `provision.sh` to make it work correctly).
+
 1. Install the prerequisites:
     * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](docs/Frequently-Answered-Questions.md#why-do-we-use-docker)
 
@@ -41,7 +47,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     ```
 
 1. Setup MongoDB:
-    
+
     **Create your own Docker Image of the BugSwarm MongoDB:**
 
     BugSwarm provides a [Dockerfile](https://docs.docker.com/engine/reference/builder/) to build a 
@@ -54,7 +60,6 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
     1. [Build](https://docs.docker.com/engine/reference/commandline/build/) the Docker Image with the tag as `bugswarm-db`
     from the Dockerfile located similarly to the above directory:
-    
         ```
         $ docker build . -t bugswarm-db
         ```

@@ -4,6 +4,8 @@
 
 # Assumptions:
 # 1. The user running this script has sudo privileges.
+# 2. The host system uses apt-get to manage packages (e.g. Debian, Ubuntu)
+# 3. sudo is installed in the host system.
 
 # Get the absolute path to the directory containing this script. Source: https://stackoverflow.com/a/246128.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
