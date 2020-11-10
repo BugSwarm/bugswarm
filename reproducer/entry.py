@@ -20,14 +20,15 @@ def main(argv=None):
     log.info(get_current_component_version_message('Reproducer'))
 
     # Parse input.
-    shortopts = 'i:t:o:kpd'
-    longopts = 'input-file= threads= task-name= keep package'.split()
+    shortopts = 'i:t:o:kpds'
+    longopts = 'input-file= threads= task-name= keep package skip-check-disk'.split()
     input_file = None
     threads = 1
     task_name = None
     keep = False
     package_mode = False
     dependency_solver = False
+    skip_check_disk = False
     try:
         optlist, args = getopt.getopt(argv[1:], shortopts, longopts)
     except getopt.GetoptError:
@@ -47,6 +48,8 @@ def main(argv=None):
             package_mode = True
         if opt in ['-d', '--dependency-solver']:
             dependency_solver = True
+        if opt in ['-s', '--skip-check-disk']:
+            skip_check_disk = True
 
     if not input_file:
         print_usage()
@@ -63,9 +66,11 @@ def main(argv=None):
 
     # Initialize JobDispatcher.
     if package_mode:
-        reproducer = ImagePackager(input_file, task_name, threads, keep, package_mode, dependency_solver)
+        reproducer = ImagePackager(input_file, task_name, threads, keep, package_mode, dependency_solver,
+                                   skip_check_disk)
     else:
-        reproducer = JobReproducer(input_file, task_name, threads, keep, package_mode, dependency_solver)
+        reproducer = JobReproducer(input_file, task_name, threads, keep, package_mode, dependency_solver,
+                                   skip_check_disk)
     reproducer.run()
 
 
@@ -76,6 +81,7 @@ def print_usage():
     log.info('OPTIONS:')
     log.info('{:<30}{:<30}'.format('-t, --threads', 'Number of threads to use, defaults to 1.'))
     log.info('{:<30}{:<30}'.format('-k, --keep', 'Whether to skip deletion of repo files after running.'))
+    log.info('{:<30}{:<30}'.format('-s, --skip-check-disk', 'Whether to check for free disk space.'))
 
 
 if __name__ == '__main__':

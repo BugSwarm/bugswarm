@@ -19,6 +19,9 @@ class Config(object):
         self.reproduced_logs_dir = 'outout/reproduced_logs'
         self.csv_dir = 'output/csv'  # Deprecated. Was previously, but is no longer, used bythe metadata Packager.
         self.verbose = False
+        self.skip_check_disk = False
+        self.disk_space_requirement = 50 * 1024**3         # 50 GiB
+        self.docker_disk_space_requirement = 50 * 1024**3  # 50 GiB
         self.docker_hub_user = DOCKER_HUB_USERNAME
         self.docker_hub_pass = DOCKER_HUB_PASSWORD
         self.docker_hub_repo = DOCKER_HUB_REPO

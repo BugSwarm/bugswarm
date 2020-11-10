@@ -24,7 +24,8 @@ class JobDispatcher(object):
     Subclasses determine the specific task.
     """
 
-    def __init__(self, input_file, task_name, threads=1, keep=False, package_mode=False, dependency_solver=False):
+    def __init__(self, input_file, task_name, threads=1, keep=False, package_mode=False, dependency_solver=False,
+                 skip_check_disk=False):
         """
         Initializes JobDispatcher with user specified input and starts work.
         If `threads` is specified, JobDispatcher will dispatch jobs to be reproduced in each thread. Otherwise, each job
@@ -38,6 +39,7 @@ class JobDispatcher(object):
         self.dependency_solver = dependency_solver
         # -----
         self.config = Config(task_name)
+        self.config.skip_check_disk = skip_check_disk
         self.utils = Utils(self.config)
         self.items_processed = Value('i', 0)
         self.reproduce_err = Value('i', 0)

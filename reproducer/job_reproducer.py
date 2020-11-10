@@ -21,8 +21,8 @@ class JobReproducer(JobDispatcher):
     Subclass of JobDispatcher that reproduces jobs.
     """
 
-    def __init__(self, input_file, task_name, threads, keep, package_mode, dependency_solver):
-        super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver)
+    def __init__(self, input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk):
+        super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk)
         self.newly_reproduced = Value('i', 0)
         self.already_reproduced = Value('i', 0)
         self.unicode_decode_error = Value('i', 0)

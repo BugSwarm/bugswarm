@@ -377,22 +377,23 @@ class Utils(object):
     def construct_full_image_name(self, image_tag):
         return '{}:{}'.format(self.config.docker_hub_repo, image_tag)
 
-    @staticmethod
-    def check_disk_space_available():
+    def check_disk_space_available(self):
+        if self.config.skip_check_disk:
+            return True
         total_b, used_b, free_b = shutil.disk_usage('.')
-        available = free_b / total_b
-        if available < 0.2:
-            percent = str(round(available * 100, 2))
-            log.warning('Inadequate disk space available for reproducing: {}%.'.format(percent))
+        if free_b < self.config.disk_space_requirement:
+            amount = str(round(free_b / 1024**3, 2))
+            log.warning('Inadequate disk space available for reproducing: {} GiB.'.format(amount))
             return False
         return True
 
     def check_docker_disk_space_available(self, docker_storage_path):
+        if self.config.skip_check_disk:
+            return True
         total_b, used_b, free_b = shutil.disk_usage(docker_storage_path)
-        available = free_b / total_b
-        if available < 0.3:
-            percent = str(round(available * 100, 2))
-            log.warning('Inadequate disk space available for storing Docker Images: {}%.'.format(percent))
+        if free_b < self.config.docker_disk_space_requirement:
+            amount = str(round(free_b / 1024**3, 2))
+            log.warning('Inadequate disk space available for storing Docker Images: {} GiB.'.format(amount))
             return False
         return True
 

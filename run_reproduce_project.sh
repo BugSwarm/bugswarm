@@ -13,17 +13,18 @@ REPRODUCER_RUNS=5
 TOTAL_STEPS=$((${REPRODUCER_RUNS} + 5))
 STAGE='Reproduce Project'
 
-USAGE='Usage: bash run_reproduce_project.sh -r <repo-slug> [-t <threads>] [-c <component-directory>]'
+USAGE='Usage: bash run_reproduce_project.sh -r <repo-slug> [-t <threads>] [-c <component-directory>] [-s]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t: --long component-directory:,repo:,threads: -n 'run-reproduce-project' -- "$@")
+OPTS=$(getopt -o c:r:t:s --long component-directory:,repo:,threads:,skip-check-disk -n 'run-reproduce-project' -- "$@")
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
       -c | --component-directory ) component_directory="$2"; shift; shift ;;
       -r | --repo                ) repo="$2";                shift; shift ;;
       -t | --threads             ) threads="$2";             shift; shift ;;
+      -s | --skip-check-disk     ) skip_check_disk="-s";     shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -71,7 +72,7 @@ exit_if_failed 'PairChooser encountered an error.'
 # Reproducer
 for i in $(seq ${REPRODUCER_RUNS}); do
     print_step "${STAGE}" ${TOTAL_STEPS} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
-    python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_run${i}
+    python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_run${i} ${skip_check_disk}
     exit_if_failed 'Reproducer encountered an error.'
 done
 
@@ -82,7 +83,7 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i output/result_json/${task_name}.json --package -k -t ${threads} -o ${task_name}_run${REPRODUCER_RUNS}
+python3 entry.py -i output/result_json/${task_name}.json --package -k -t ${threads} -o ${task_name}_run${REPRODUCER_RUNS} ${skip_check_disk}
 exit_if_failed 'ImagePackager encountered an error.'
 
 # MetadataPackager (push artifact metadata to the database)

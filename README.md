@@ -142,6 +142,8 @@ Usage: ./run_reproduce_project.sh -r <repo-slug> [OPTIONS]
     OPTIONS:
         -t, --threads                Maximum number of worker threads to spawn. Defaults to 1.
         -c, --component-directory    The directory containing all the required BugSwarm components.
+        -s, --skip-check-disk        Skip checking for disk space (default requires 50 GiB free space).
+                                     This can result in your disk filling up depending on how many/big projects are being reproduced.
 ```
 _Example_:
 ```
@@ -166,6 +168,8 @@ Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-
     OPTIONS:
         -t, --threads                Maximum number of worker threads to spawn. Defaults to 1.
         -c, --component-directory    The directory containing all the required BugSwarm components.
+        -s, --skip-check-disk        Skip checking for disk space (default requires 50 GiB free space).
+                                     This can result in your disk filling up depending on how many/big projects are being reproduced.
 ```
 _Example_:
 ```

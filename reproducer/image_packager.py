@@ -23,8 +23,8 @@ class ImagePackager(JobDispatcher):
     Subclass of JobDispatcher that packages Docker images for jobs.
     """
 
-    def __init__(self, input_file, task_name, threads, keep, package_mode, dependency_solver):
-        super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver)
+    def __init__(self, input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk):
+        super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk)
         self.jobpairs_packaged = Value('i', 0)
         self.dockerhub = DockerHub()
 

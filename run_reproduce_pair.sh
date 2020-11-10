@@ -12,11 +12,11 @@ REPRODUCER_RUNS=5
 # MetadataPackager, and CacheDependency.
 STAGE='Reproduce Pair'
 
-USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>]'
+USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>] [-s]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p: --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs: -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk -n 'run-reproduce-pair' -- "$@")
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
@@ -26,6 +26,7 @@ while true; do
       -f | --failed-job-id       ) failed_job_id="$2";       shift; shift ;;
       -p | --passed-job-id       ) passed_job_id="$2";       shift; shift ;;
            --reproducer-runs     ) REPRODUCER_RUNS="$2";     shift; shift ;;
+      -s | --skip-check-disk     ) skip_check_disk="-s";     shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -86,7 +87,7 @@ exit_if_failed 'PairChooser encountered an error.'
 # Reproducer
 for i in $(seq ${REPRODUCER_RUNS}); do
     print_step "${STAGE}" ${TOTAL_STEPS} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
-    python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_${failed_job_id}_run${i}
+    python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_${failed_job_id}_run${i} ${skip_check_disk}
     exit_if_failed 'Reproducer encountered an error.'
 done
 
@@ -97,7 +98,7 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS}
+python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS} ${skip_check_disk}
 exit_if_failed 'ImagePackager encountered an error.'
 
 # MetadataPackager (push artifact metadata to the database)
