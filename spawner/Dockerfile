@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install git sudo -y \
 	useradd bugswarm && sudo usermod -aG rvm,docker bugswarm && \
 	chsh bugswarm -s /bin/bash && \
 	echo bugswarm ALL=NOPASSWD:ALL | sudo tee -a /etc/sudoers && \
-	mkdir /home/bugswarm; chown bugswarm /home/bugswarm && \
+	mkdir /home/bugswarm && chown bugswarm /home/bugswarm && \
 	ln -snf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime && \
 	echo America/Los_Angeles > /etc/timezone
 USER bugswarm
