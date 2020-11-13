@@ -2,31 +2,19 @@
 A docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs.
 
 ### Building the Spawner
-1. Build the spawner using docker
+1. Clone the BugSwarm repository.
 	```sh
-	$ cd spawner
+	$ git clone https://github.com/BugSwarm/bugswarm.git
+	```
+1. Build the spawner using Docker.
+	```sh
+	$ cd bugswarm/spawner
 	$ docker build -t bugswarm-spawner .
 	```
-
 ### Starting the Spawner Container
 There are two ways to run the spawner.
 
-#### Run Docker Inside Docker
-1. Run the container with `--privileged` mode.
-	```sh
-	$ docker run --privileged -it bugswarm-spawner
-	```
-1. Start docker daemon and build and run the database container.
-	```sh
-	$ sudo dockerd &
-	$ cd database
-	$ docker build -t bugswarm-db .
-	$ cd ..
-	$ docker run -tid -p 27017:27017 -p 5000:5000 bugswarm-db
-	```
-	(not tested)
-
-#### Run Docker on Host
+#### Run Docker on Host (Preferred)
 1. Run the container with `/var/run/docker.sock` mounted and network set to `host`.
 	```sh
 	$ docker run -v /var/run/docker.sock:/var/run/docker.sock \
@@ -39,20 +27,24 @@ There are two ways to run the spawner.
 	$ sudo usermod -aG $DOCKER_GID bugswarm
 	$ sudo su bugswarm
 	```
-1. Make sure `bugswarm-db` is built and set up on the host.
+	
+#### OR Run Docker Inside Docker
+1. Run the container with `--privileged` mode.
+	```sh
+	$ docker run --privileged -it bugswarm-spawner
+	```
+1. Start docker daemon and build and run the database container.
+	```sh
+	$ sudo dockerd &
+	$ cd database
+	$ docker build -t bugswarm-db .
+	$ cd ..
+	$ docker run -tid -p 27017:27017 -p 5000:5000 bugswarm-db
+	```
 
 ### Setting up environment
 1. Inside the container, pull the git repository
 	```sh
 	$ git pull
 	```
-1. Add the credentials file
-	```sh
-	$ cat > bugswarm/common/credentials.py
-	```
-1. Re-run `./provision.sh`
-	```sh
-	$ ./provision.sh
-	```
-1. Continue with any other commands (e.g. `./run_reproduce_project.sh`)
-
+1. Proceed with the database setup and provisioning instructions described [here](https://github.com/BugSwarm/bugswarm).
