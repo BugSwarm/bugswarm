@@ -36,7 +36,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     * The `sudo` command is installed on the system.
     * You have `sudo` privileges on the system.
     * The system uses `apt-get` to manage packages (or you may need to edit
-      `provision.sh` to make it work correctly).
+      `provision.sh` to make it work correctly / use spawner (see below)).
 
 1. Install the prerequisites:
     * Install [Docker](https://docs.docker.com/install/) -  [Why Docker?](docs/Frequently-Answered-Questions.md#why-do-we-use-docker)
@@ -73,11 +73,42 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
         $ cd ../..
         ```
-    1. Move to step 4.
+
+1. (Optional) Build and run spawner:
+
+    Spawner is a docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs. If using spawner, the host only needs to install Docker.
+
+    For details about spawner, please see [spawner README](spawner/README.md).
+
+    1. Build the spawner using docker
+        ```sh
+        $ cd spawner
+        $ docker build -t bugswarm-spawner .
+        ```
+    1. Run the container with `/var/run/docker.sock` mounted and network set to `host`.
+        ```sh
+        $ docker run -v /var/run/docker.sock:/var/run/docker.sock \
+            -v /var/lib/docker:/var/lib/docker --net=host -it bugswarm-spawner
+        ```
+    1. Add user to docker group and re-login.
+        ```sh
+        $ DOCKER_GID=`stat -c %g /var/run/docker.sock`
+        $ sudo groupadd -g $DOCKER_GID docker_host
+        $ sudo usermod -aG $DOCKER_GID bugswarm
+        $ sudo su bugswarm
+        ```
+    1. Pull the git repository
+        ```sh
+        $ git pull
+        ```
+
+1. If you are using the spawner container, continue the following commands in the containers. If you are using the host, continue with the host.
+
 1. Mongo should now be up and running, test the connection by opening a new Terminal and use:
     ```
     $ mongo
     ```
+
 1. Step into initial BugSwarm directory and configure necessary credentials:
     1. Change directories to BugSwarm:
         ```
@@ -100,6 +131,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
        > The following values are required for authentication, accessing components and APIs used within
        > the BugSwarm pipeline. Please see the [FAQ](docs/Frequently-Answered-Questions.md) for details regarding the credentials.
+
 1. Run the provision script:
     ```
     $ ./provision.sh
