@@ -1,8 +1,8 @@
+import fileinput
+import os.path
 import subprocess
 import sys
 from xml.dom.minidom import parse
-import os.path
-import fileinput
 
 
 def _run_command(command):
@@ -34,7 +34,7 @@ def main(argv=None):
     if not os.path.exists(travis_xml_setting_file_path):
         travis_xml_setting_file_path = '/home/travis/.m2/settings.xml'
         setting_dom = parse(travis_xml_setting_file_path)
-        setting_element = setting_dom.getElementsByTagName("settings").item(0)
+        setting_element = setting_dom.getElementsByTagName('settings').item(0)
 
         existing_nodes = setting_dom.getElementsByTagName('localRepository')
         if existing_nodes:
@@ -42,12 +42,12 @@ def main(argv=None):
                 parent = node.parentNode
                 parent.removeChild(node)
 
-        insert_element = setting_dom.createElement("localRepository")
+        insert_element = setting_dom.createElement('localRepository')
         insert_element.appendChild(setting_dom.createTextNode(local_repository_path))
         setting_element.appendChild(insert_element)
         output_file = '/home/travis/.m2/{}_settings.xml'.format(f_or_p)
         file = open(output_file, 'w+')
-        setting_dom.writexml(file, encoding="utf-8")
+        setting_dom.writexml(file, encoding='utf-8')
         file.close()
 
         for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
@@ -59,13 +59,13 @@ def main(argv=None):
         fileinput.close()
     else:
         setting_dom = parse(travis_xml_setting_file_path)
-        setting_element = setting_dom.getElementsByTagName("settings").item(0)
+        setting_element = setting_dom.getElementsByTagName('settings').item(0)
         if not setting_dom.getElementsByTagName('localRepository'):
-            insert_element = setting_dom.createElement("localRepository")
+            insert_element = setting_dom.createElement('localRepository')
             insert_element.appendChild(setting_dom.createTextNode(local_repository_path))
             setting_element.appendChild(insert_element)
             file = open(travis_xml_setting_file_path, 'w')
-            setting_dom.writexml(file, encoding="utf-8")
+            setting_dom.writexml(file, encoding='utf-8')
             file.close()
 
     print('Apply caching')
@@ -128,7 +128,7 @@ def main(argv=None):
 
 def _print_usage():
     print(
-        'Usage: python patch_artifact_and_cache.py <repo> <f_or_p> <option> <package_mode>')
+        'Usage: python patch_and_cache_maven.py <repo> <f_or_p> <option> <package_mode>')
 
 
 def _validate_input(argv):

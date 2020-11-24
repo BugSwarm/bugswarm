@@ -6,6 +6,7 @@ from builtins import Exception
 from pathlib import Path
 
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
+from python_log_parser import parse_log
 
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common import log
@@ -18,7 +19,7 @@ from utils import copy_file_to_container, copy_log_out_of_container, create_cont
     remove_container, mkdir, validate_input
 
 _COPY_DIR = 'from_host'
-_PROCESS_SCRIPT = 'patch_and_cache_maven.py'
+_PROCESS_SCRIPT = 'patch_and_cache_python.py'
 _FAILED_BUILD_SCRIPT = '/usr/local/bin/run_failed.sh'
 _PASSED_BUILD_SCRIPT = '/usr/local/bin/run_passed.sh'
 _TRAVIS_DIR = '/home/travis'
@@ -56,25 +57,67 @@ class PatchArtifactRunner(ParallelArtifactRunner):
 
 
 def _print_usage():
-    print('Usage: python3 CacheMaven.py <image_tags_file> <task-name>')
+    print('Usage: python3 CachePython.py <image_tags_file> <task-name>')
     print('       image_tags_file: Path to a file containing a newline-separated list of image tags to process.')
     print('       task-name: Name of current task. Results will be put in ./output/<task-name>.csv.')
 
 
-def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode=False):
+def get_dependencies(log_path):
+    pip_install_list = parse_log(log_path)
+    return pip_install_list
+
+
+def download_dependencies(image_tag, f_or_p, pip_packages: dict, job_id):
+    package_cache_directory_host = '{}/tmp/{}/{}/requirements'.format(procutils.HOST_SANDBOX, image_tag, f_or_p)
+    package_cache_directory_container = '/pypkg'
+
+    mkdir(package_cache_directory_host)
+    for python_version, package_list in pip_packages.items():
+        if len(python_version) == 6:  # python
+            python_image_name = python_version
+        else:  # python3.6, python2.7.1, python3, etc.
+            python_image_name = python_version[:6] + ':' + python_version[6:]
+        python_image_name += '-slim'  # python:3.7-slim
+        py_image_name = '{}-py'.format(job_id)
+        cmd = 'docker run -v {}:{} --name {} -dt {} /bin/bash'.format(package_cache_directory_host,
+                                                                      package_cache_directory_container,
+                                                                      py_image_name,
+                                                                      python_image_name,
+                                                                      )
+        _, stdout, stderr, ok = run_command(cmd)
+
+        container_id = find_container_id_by_image_tag(py_image_name)
+
+        for package in package_list:
+            cmd = 'docker exec {} pip download --no-deps {} -d {}'.format(container_id, package,
+                                                                          package_cache_directory_container)
+            _, stdout, _, _ = run_command(cmd)
+        remove_container(container_id)
+
+
+def move_dependencies_into_container(image_tag, container_id, f_or_p):
+    log.info('Moving dependencies to container {} for {}-{}'.format(container_id, image_tag, f_or_p))
+    package_cache_directory = '{}/tmp/{}/{}/requirements'.format(procutils.HOST_SANDBOX, image_tag, f_or_p)
+    destination = '/home/travis/build/{}/requirements'.format(f_or_p)
+    copy_file_to_container(container_id, package_cache_directory, destination)
+
+    cmd = 'docker exec -td {} sudo chown -R travis:travis {}'.format(container_id, destination)
+    run_command(cmd)
+
+
+def _run_cache_script_and_build(container_id, f_or_p, repo, package_mode=False):
     _, stdout, stderr, ok = run_command('docker exec -td {} sudo chmod -R o+w /usr/local/bin'.format(container_id))
     if not ok:
         print_error('Error changing permissions in container {}'.format(container_id), stdout, stderr)
         sys.exit(1)
 
     _, stdout, stderr, ok = run_command(
-        'docker exec {} python {}/patch_and_cache_maven.py {} {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
-                                                                               f_or_p, option, package_mode))
+        'docker exec {} python {}/patch_and_cache_python.py {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
+                                                                             f_or_p, package_mode))
     if ok:
-        log.info('Apply {} on container {} for {}'.format(option, container_id, f_or_p))
+        log.info('Apply on container {} for {}'.format(container_id, f_or_p))
     else:
-        print_error('Apply {} on container {} for {}'.format(option, container_id, f_or_p), stdout,
-                    stderr)
+        print_error('Apply on container {} for {}'.format(container_id, f_or_p), stdout, stderr)
 
 
 def _cache_artifact_dependency(image_tag, output_file):
@@ -105,38 +148,50 @@ def _cache_artifact_dependency(image_tag, output_file):
         print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
 
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    for option in ['build', 'offline']:
-        for fail_or_pass in ['failed', 'passed']:
-            original_size = create_container(image_tag, docker_image_tag, fail_or_pass)
-            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
-            des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-            container_id = find_container_id_by_image_tag(image_tag, fail_or_pass)
-            copy_file_to_container(container_id, src, des)
-            _run_cache_script_and_build(container_id, fail_or_pass, repo, option)
-            copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
-            remove_container(container_id)
-        if _verify_cache(image_tag, repo, option, original_size, output_file):
-            break
+
+    for fail_or_pass in ['failed', 'passed']:
+        original_size = create_container(image_tag, docker_image_tag, fail_or_pass)
+        container_id = find_container_id_by_image_tag(image_tag, fail_or_pass)
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
+        des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
+        copy_file_to_container(container_id, src, des)
+
+        # Extract Dependencies && Download Dependencies
+        if fail_or_pass == 'failed':
+            pip_packages = get_dependencies(failed_job_orig_log_path)
+            download_dependencies(image_tag, fail_or_pass, pip_packages, failed_job_id)
+        else:
+            pip_packages = get_dependencies(passed_job_orig_log_path)
+            download_dependencies(image_tag, fail_or_pass, pip_packages, passed_job_id)
+
+        move_dependencies_into_container(image_tag, container_id, fail_or_pass)
+        # Patch build script then test
+        _run_cache_script_and_build(container_id, fail_or_pass, repo)
+        copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
+        remove_container(container_id)
+    _verify_cache(image_tag, repo, original_size, output_file)
 
 
-def _pack_artifact(image_tag, repo, option):
+def _pack_artifact(image_tag, repo):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    create_container(image_tag, docker_image_tag)
+    create_container(image_tag, docker_image_tag, None)
     container_id = find_container_id_by_image_tag(image_tag)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-    copy_file_to_container(image_tag, src, des)
+    copy_file_to_container(container_id, src, des)
 
     for fail_or_pass in ['failed', 'passed']:
-        _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
+        move_dependencies_into_container(image_tag, container_id, fail_or_pass)
+        _run_cache_script_and_build(container_id, fail_or_pass, repo, True)
 
-    patch_script_path = '{}/{}'.format(_TRAVIS_DIR, _PROCESS_SCRIPT)
+    # Remove patch script and logs
+    patch_script_path = '{}/patch_and_cache_python.py'.format(_TRAVIS_DIR)
     remove_file_from_container(container_id, patch_script_path)
     log.info('Successfully packaged image {}'.format(image_tag))
     return container_id
 
 
-def _verify_cache(image_tag, repo, option, original_size, output_file):
+def _verify_cache(image_tag, repo, original_size, output_file):
     write_line = '{}, {}'.format(image_tag, original_size)
     status = 'failed'
     try:
@@ -159,12 +214,12 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
         if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
             log.info('Both failed and passed are reproduced for {}.'.format(image_tag))
             log.info('Packaging Docker image for {}.'.format(image_tag))
-            container_id = _pack_artifact(image_tag, repo, option)
+            container_id = _pack_artifact(image_tag, repo)
             latest_layer_size = pack_push_container(container_id, image_tag)
             remove_container(container_id)
             status = 'succeed'
 
-        write_line += ', {}, {}, {}'.format(status, latest_layer_size, option)
+        write_line += ', {}, {}'.format(status, latest_layer_size)
         with open(output_file, 'a+') as file:
             file.write(write_line + '\n')
     except (Exception, BaseException, TypeError):
