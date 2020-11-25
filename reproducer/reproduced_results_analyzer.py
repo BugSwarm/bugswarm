@@ -181,7 +181,7 @@ class ReproducedResultsAnalyzer(object):
         all_task_names = []
         for jp in all_jobpairs:
             for task_name in jp.match_history:
-                all_task_names.append(task_name)
+                all_task_names.append(str(task_name))
         all_task_names = list(set(all_task_names))
         all_task_names.sort()
         return all_jobpairs, all_task_names
