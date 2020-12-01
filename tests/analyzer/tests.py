@@ -915,6 +915,53 @@ class Test(unittest.TestCase):
         self.compare_tr_t_failed(
             python20, 'sklearn.neighbors.classification.KNeighborsClassifier')
 
+    def test_python_21(self):
+        log = '316134246-modified.log'
+        job_id = 316134246
+        file_path = join(self.python, log)
+        python21 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_analyzer(python21, 'python')
+        self.compare_num_t_ok(python21, 11580)
+        self.compare_num_t_failed(python21, 10)
+        self.compare_num_t_skipped(python21, 28)
+        self.compare_bool_t_ran(python21, True)
+        self.compare_bool_t_failed(python21, True)
+        self.compare_t_duration(python21, 390.56)
+        self.compare_num_t_run(python21, 11590)
+        self.compare_frameworks(python21, 'pytest')
+        self.compare_tr_t_failed(
+            python21, 'abjad.tools.commandlinetools.test.test_commandlinetools_ManageBuildTarget'
+            'Script_render::Test::test_success_all#abjad.tools'
+            '.commandlinetools.test.test_commandlinetools_ManageBuildTargetScript_rende'
+            'r::Test::test_success_back_cover#abjad.tools.commandlinetools.test.test_com'
+            'mandlinetools_ManageBuildTargetScript_render::Test::test_success_front_cover'
+            '#abjad.tools.commandlinetools.test.test_commandlinetools_ManageBuildTargetScript'
+            '_render::Test::test_success_music#abjad.tools.commandlinetools.test.test_comman'
+            'dlinetools_ManageBuildTargetScript_render::Test::test_success_preface#abjad.to'
+            'ols.commandlinetools.test.test_commandlinetools_ManageSegmentScript_collect:'
+            ':Test::test_success#abjad.tools.commandlinetools.test.test_commandlinetools_Manage'
+            'SegmentScript_illustrate::Test::test_success_all_segments#abjad.tools.commandline'
+            'tools.test.test_commandlinetools_ManageSegmentScript_illustrate::Test::test_succ'
+            'ess_filtered_segments#abjad.tools.commandlinetools.test.test_commandlinetools_Man'
+            'ageSegmentScript_illustrate::Test::test_success_one_segment#abjad.tools.commandl'
+            'inetools.test.test_commandlinetools_ManageSegmentScript_render::Test::test_succe'
+            'ss_one_segment')
+
+    def test_python_22(self):
+        log = '327327997-latest.log'
+        job_id = 3327327997
+        file_path = join(self.python, log)
+        python22 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_analyzer(python22, 'python')
+        self.compare_num_t_ok(python22, 212)
+        self.compare_num_t_failed(python22, 0)
+        self.compare_num_t_skipped(python22, 14)
+        self.compare_bool_t_ran(python22, True)
+        self.compare_bool_t_failed(python22, False)
+        self.compare_t_duration(python22, 114.16)
+        self.compare_num_t_run(python22, 212)
+        self.compare_frameworks(python22, 'pytest')
+
     def test_gradle_0(self):
         log = '88551599-orig.log'
         job_id = 88551599

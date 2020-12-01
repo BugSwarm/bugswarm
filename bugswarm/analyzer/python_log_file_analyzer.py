@@ -104,10 +104,11 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 self.has_summary = True
                 summary_seen = True
                 continue
-            match_obj = re.search(r'==+ (.+) in (.+) seconds ==+', line, re.M)
+            match_obj = re.search(r'==+ (.+) in ([0-9\.]+)(?:s[ )(0-9:]*| seconds) ==+', line, re.M)
             if match_obj:
-                # Matches the pytest test summary,
+                # Matches the pytest test summary, now compatible with pytest 6 formatting
                 # i.e. '==================== 442 passed, 2 xpassed in 50.65 seconds ===================='
+                # OR '==== 20 failed, 9721 passed, 23 skipped, 1908 warnings in 541.28s (0:09:01) ====
                 self.setup_python_tests()
                 self.add_framework('pytest')
                 self.analyze_pytest_status_info_list(match_obj.group(1))
