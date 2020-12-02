@@ -71,7 +71,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         > Please see the [FAQ](docs/Frequently-Answered-Questions.md)
     1. Get back to parent folder:
         ```
-        $ cd ../..
+        $ cd ..
         ```
 
 1. (Optional) Build and run spawner:
@@ -110,10 +110,6 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     ```
 
 1. Step into initial BugSwarm directory and configure necessary credentials:
-    1. Change directories to BugSwarm:
-        ```
-        $ cd bugswarm
-        ```
     1. Make a copy of the credentials file:
         ```
         $ cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py

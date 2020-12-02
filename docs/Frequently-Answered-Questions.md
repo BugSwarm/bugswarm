@@ -13,19 +13,68 @@
 * `DOCKER_HUB_USERNAME` - This is the username credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`. For example `bugswarm`.
 * `DOCKER_HUB_PASSWORD` - This is the password credential being used by the DockerHub API to access the `DOCKER_HUB_REPO`. You can also use an [access token](https://docs.docker.com/docker-hub/access-tokens/) instead.
 * `GITHUB_TOKENS` - A [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
-  to perform Git Operations over HTTPS via the Git API. (used for Mining projects)
+  to perform Git Operations over HTTPS via the Git API. The token only needs "public access", so it does not need any additional scopes in the "Select scopes" page. (used for Mining projects)
 * `TRAVIS_TOKENS` - A [Travis CI Access Token](https://developer.travis-ci.com/authentication) to send authenticated requests
   to Travis CI. (used for gathering builds)
 * `DATABASE_PIPELINE_TOKEN` - The token of a user's account used to access MongoDB.
   ('testDBPassword' if using Docker image of Mongo)
 * `COMMON_HOSTNAME`- This hostname is used to integrate the API usage with your local database. It should be `<LOCAL-IPADDRESS>:5000`, for example `127.0.0.1:5000`.
 
+## How do I double check whether my tokens are valid?
+
+### GitHub Tokens
+* The GitHub tokens should look like this in `credentials.py`:
+    ```py
+    GITHUB_TOKENS = ['11223344556677889900aabbccddeeff11223344']
+    ```
+* You can verify the token using the following curl command:
+    ```sh
+    $ curl -u u:11223344556677889900aabbccddeeff11223344 https://api.github.com/repos/BugSwarm/bugswarm
+    ```
+* If you see `{"message": "Bad credentials ...`, then the token is not valid.
+  ([Reference](https://developer.github.com/v3/auth/#via-oauth-and-personal-access-tokens))
+
+### Docker Password / Tokens
+* The Docker tokens should look like this in `credentials.py`:
+    ```py
+    DOCKER_HUB_REPO = 'YOUR_USER_NAME/REPO_1'
+    DOCKER_HUB_CACHED_REPO = 'YOUR_USER_NAME/REPO_2'
+    DOCKER_HUB_USERNAME = 'YOUR_USER_NAME'
+    DOCKER_HUB_PASSWORD = '11223344-5566-7788-9900-aabbccddeeff'
+    ```
+* You can verify the token using the docker client:
+    ```sh
+    $ docker login
+    # enter your username (YOUR_USER_NAME)
+    # enter your password / token (11223344-5566-7788-9900-aabbccddeeff)
+    $ docker pull ubuntu:20.04
+    $ docker tag ubuntu:20.04 YOUR_USER_NAME/REPO_1:docker_test_image
+    $ docker tag ubuntu:20.04 YOUR_USER_NAME/REPO_2:docker_test_image
+    $ docker push YOUR_USER_NAME/REPO_1:docker_test_image
+    $ echo $?
+    $ docker push YOUR_USER_NAME/REPO_2:docker_test_image
+    $ echo $?
+    ```
+* If one of the `echo $?` gives a non-zero value, then the password / token is not valid.
+
+### Travis Token
+* The Travis tokens should look like this in `credentials.py`:
+    ```py
+    TRAVIS_TOKENS = ['1234567890A-bCdEfGhIjK']
+    ```
+* You can verify the token using the following curl command:
+    ```sh
+    $ curl -H "Travis-API-Version: 3" -H "Authorization: token 1234567890A-bCdEfGhIjK" https://api.travis-ci.org/repos
+    ```
+* If you see `access denied`, then the token is not valid.
+  ([Reference](https://developer.travis-ci.com/authentication))
+
 ## BugSwarm still using old credentials input?
 
 In the case where you modify your credentials under the `common/credentials.py` file, but ran the `provision.sh`
 script previously, the BugSwarm package will still retain the old values. You would need to uninstall the package and
 run the `provision.sh` script once more.
-  
+
 ## Have multiple instances of MongoDB Running?
 
 If you have an existing MongoDB instance running on your machine, it's most likely utilizing the default port `27017`.
