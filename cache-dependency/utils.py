@@ -67,6 +67,8 @@ def print_error(msg, stdout=None, stderr=None):
 
 def copy_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, sandbox_path):
     mkdir('{}/{}'.format(tmp_dir, image_tag))
+
+    # if cache pinned artifacts, make sure the log file name match existing logs
     if f_or_p == 'failed':
         src = '{}/log-failed.log'.format(travis_dir)
         des = '{}/tmp/{}/log-failed.log'.format(sandbox_path, image_tag)

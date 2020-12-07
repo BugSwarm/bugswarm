@@ -136,9 +136,11 @@ def _cache_artifact_dependency(image_tag, output_file):
     mkdir('{}/{}'.format(_TMP_DIR, failed_job_id))
     mkdir('{}/{}'.format(_TMP_DIR, passed_job_id))
 
+    # if cache pinned artifacts change the orig_log_path to the existing logs
     failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
     passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
 
+    # if cache pinned artifacts comments out the download_log
     result = download_log(failed_job_id, failed_job_orig_log_path)
     if not result:
         print_error('Error downloading log for failed_job_id {}'.format(failed_job_id))
@@ -199,6 +201,7 @@ def _verify_cache(image_tag, repo, original_size, output_file):
         failed_job_id = artifact['failed_job']['job_id']
         passed_job_id = artifact['passed_job']['job_id']
 
+        # if cache pinned artifacts change the orig_log_path to the existing logs
         failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
         failed_job_repr_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, image_tag)
         passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
@@ -206,9 +209,9 @@ def _verify_cache(image_tag, repo, original_size, output_file):
 
         analyzer = Analyzer()
         failed_job_reproduced_result = analyzer.compare_single_log(failed_job_repr_log_path, failed_job_orig_log_path,
-                                                                   failed_job_id, build_system='maven')
+                                                                   failed_job_id)
         passed_job_reproduced_result = analyzer.compare_single_log(passed_job_repr_log_path, passed_job_orig_log_path,
-                                                                   passed_job_id, build_system='maven')
+                                                                   passed_job_id)
         latest_layer_size = -1
 
         if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
