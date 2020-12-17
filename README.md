@@ -74,11 +74,11 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         $ cd ..
         ```
 
-1. (Optional) Build and run spawner:
+1. (Recommended) Build and run spawner (to run BugSwarm in host, go to step 6):
 
     Spawner is a docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs. If using spawner, the host only needs to install Docker.
 
-    For details about spawner, please see [spawner README](spawner/README.md).
+    To understand how spawner works, please see [spawner README](spawner/README.md).
 
     1. Build the spawner using docker
         ```sh
