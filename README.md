@@ -33,6 +33,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 ```
 ## Setting up BugSwarm
 1. System requirements:
+    * A Unix-based operating system. (BugSwarm does not support Windows.)
     * The `sudo` command is installed on the system.
     * You have `sudo` privileges on the system.
     * The system uses `apt-get` to manage packages (or you may need to edit
