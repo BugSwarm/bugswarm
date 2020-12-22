@@ -13,9 +13,9 @@ from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
 from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from utils import copy_file_to_container, copy_log_out_of_container, create_container, create_work_space, \
-    remove_file_from_container, pack_push_container, find_container_id_by_image_tag, run_command, print_error, \
-    remove_container, mkdir, validate_input
+from utils import copy_file_to_container, copy_log_out_of_container, create_container, pull_image, \
+    create_work_space, remove_file_from_container, pack_push_container, run_command, print_error, remove_container, \
+    mkdir, validate_input
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
@@ -105,12 +105,12 @@ def _cache_artifact_dependency(image_tag, output_file):
         print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
 
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
+    original_size = pull_image(image_tag, docker_image_tag)
     for option in ['build', 'offline']:
         for fail_or_pass in ['failed', 'passed']:
-            original_size = create_container(image_tag, docker_image_tag, fail_or_pass)
+            container_id = create_container(image_tag, docker_image_tag, fail_or_pass)
             src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
             des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-            container_id = find_container_id_by_image_tag(image_tag, fail_or_pass)
             copy_file_to_container(container_id, src, des)
             _run_cache_script_and_build(container_id, fail_or_pass, repo, option)
             copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
@@ -121,8 +121,7 @@ def _cache_artifact_dependency(image_tag, output_file):
 
 def _pack_artifact(image_tag, repo, option):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    create_container(image_tag, docker_image_tag)
-    container_id = find_container_id_by_image_tag(image_tag)
+    container_id = create_container(image_tag, docker_image_tag)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
     copy_file_to_container(image_tag, src, des)

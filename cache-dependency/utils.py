@@ -96,16 +96,6 @@ def copy_file_out_of_container(container_id, src, des):
         print_error('Error copying files', stdout, stderr)
 
 
-def find_container_id_by_image_tag(image_tag, f_or_p=None):
-    if f_or_p:
-        _, container_id, _, _ = run_command(
-            'docker ps -a --format "{{.ID}}" --filter "name=%s-%s"' % (image_tag, f_or_p))
-    else:
-        _, container_id, _, _ = run_command('docker ps -a --format "{{.ID}}" --filter "name=%s"' % image_tag)
-
-    return container_id
-
-
 def run_command(command):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     stdout, stderr = process.communicate()
@@ -123,8 +113,7 @@ def remove_container(container_id):
         print_error('Error removing docker container {}'.format(container_id), stdout, stderr)
 
 
-def create_container(image_tag, docker_image_tag, f_or_p=None):
-    original_size = -1
+def pull_image(image_tag, docker_image_tag):
     _, stdout, stderr, ok = run_command('docker pull {}'.format(docker_image_tag))
     if ok:
         log.info('Successfully pulled {}'.format(image_tag))
@@ -133,24 +122,23 @@ def create_container(image_tag, docker_image_tag, f_or_p=None):
             original_size = stdout
     else:
         print_error('Error pulling {}'.format(image_tag), stdout, stderr)
-    if f_or_p is not None:
-        _, stdout, stderr, ok = run_command(
-            'docker run -t -d  --name {}-{} {} /bin/bash'.format(image_tag, f_or_p, docker_image_tag))
-        if ok:
-            log.info('Created Docker container for {}'.format(image_tag))
-        else:
-            print_error('Error creating Docker container for {}'.format(image_tag), stdout, stderr)
-            sys.exit(1)
-    else:
-        _, stdout, stderr, ok = run_command(
-            'docker run -t -d  --name {} {} /bin/bash'.format(image_tag, docker_image_tag))
-        if ok:
-            log.info('Created Docker container for {}'.format(image_tag))
-        else:
-            print_error('Error creating Docker container for {}'.format(image_tag), stdout, stderr)
-            sys.exit(1)
-
+        sys.exit(1)
     return original_size
+
+
+def create_container(image_tag, docker_image_tag, f_or_p=None):
+    if f_or_p is not None:
+        container_name = '{}-{}'.format(image_tag, f_or_p)
+    else:
+        container_name = image_tag
+    _, stdout, stderr, ok = run_command(
+        'docker run -t -d  --name {} {} /bin/bash'.format(container_name, docker_image_tag))
+    if ok:
+        log.info('Created Docker container for {}'.format(image_tag))
+        return stdout.strip()   # Container id
+    else:
+        print_error('Error creating Docker container for {}'.format(image_tag), stdout, stderr)
+        sys.exit(1)
 
 
 def remove_file_from_container(container_id, file_path):

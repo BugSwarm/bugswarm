@@ -14,9 +14,9 @@ from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
 from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from utils import copy_file_to_container, copy_log_out_of_container, create_container, create_work_space, \
-    remove_file_from_container, pack_push_container, find_container_id_by_image_tag, run_command, print_error, \
-    remove_container, mkdir, validate_input
+from utils import copy_file_to_container, copy_log_out_of_container, create_container, pull_image, \
+    create_work_space, remove_file_from_container, pack_push_container, run_command, print_error, remove_container, \
+    mkdir, validate_input
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_python.py'
@@ -67,7 +67,7 @@ def get_dependencies(log_path):
     return pip_install_list
 
 
-def download_dependencies(image_tag, f_or_p, pip_packages: dict, job_id):
+def download_dependencies(image_tag, f_or_p, container_id, pip_packages: dict, job_id):
     package_cache_directory_host = '{}/tmp/{}/{}/requirements'.format(procutils.HOST_SANDBOX, image_tag, f_or_p)
     package_cache_directory_container = '/pypkg'
 
@@ -85,8 +85,6 @@ def download_dependencies(image_tag, f_or_p, pip_packages: dict, job_id):
                                                                       python_image_name,
                                                                       )
         _, stdout, stderr, ok = run_command(cmd)
-
-        container_id = find_container_id_by_image_tag(py_image_name)
 
         for package in package_list:
             cmd = 'docker exec {} pip download --no-deps {} -d {}'.format(container_id, package,
@@ -151,9 +149,9 @@ def _cache_artifact_dependency(image_tag, output_file):
 
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
 
+    original_size = pull_image(image_tag, docker_image_tag)
     for fail_or_pass in ['failed', 'passed']:
-        original_size = create_container(image_tag, docker_image_tag, fail_or_pass)
-        container_id = find_container_id_by_image_tag(image_tag, fail_or_pass)
+        container_id = create_container(image_tag, docker_image_tag, fail_or_pass)
         src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
         des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
         copy_file_to_container(container_id, src, des)
@@ -161,10 +159,10 @@ def _cache_artifact_dependency(image_tag, output_file):
         # Extract Dependencies && Download Dependencies
         if fail_or_pass == 'failed':
             pip_packages = get_dependencies(failed_job_orig_log_path)
-            download_dependencies(image_tag, fail_or_pass, pip_packages, failed_job_id)
+            download_dependencies(image_tag, fail_or_pass, container_id, pip_packages, failed_job_id)
         else:
             pip_packages = get_dependencies(passed_job_orig_log_path)
-            download_dependencies(image_tag, fail_or_pass, pip_packages, passed_job_id)
+            download_dependencies(image_tag, fail_or_pass, container_id, pip_packages, passed_job_id)
 
         move_dependencies_into_container(image_tag, container_id, fail_or_pass)
         # Patch build script then test
@@ -176,8 +174,7 @@ def _cache_artifact_dependency(image_tag, output_file):
 
 def _pack_artifact(image_tag, repo):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    create_container(image_tag, docker_image_tag, None)
-    container_id = find_container_id_by_image_tag(image_tag)
+    container_id = create_container(image_tag, docker_image_tag, None)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
     copy_file_to_container(container_id, src, des)
