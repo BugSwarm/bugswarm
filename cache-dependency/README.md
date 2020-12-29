@@ -14,12 +14,14 @@ In following this README, we will run the tool to generate results and then eval
 
 ## Usage
 ```
-python3 CacheMaven.py <image-tag-file> <task-name>
+python3 CacheMaven.py <image-tag-file> <task-name> [--copy-m2 | --copy-m2-aggressive]
 python3 CachePython.py <image-tag-file> <task-name>
 ```
 
 * `image_tags_file`: Path to a file containing a newline-separated list of image tags to process.
 * `task-name`: Results will be put in `output/<task-name>.csv`.
+* `--copy-m2`: Copy `~/.m2/failed/` and `~/.m2/passed/` to solve dirty workspace problem.
+* `--copy-m2-aggressive`: Copy `~/.m2/` to solve dirty workspace problem.
 
     
 ## Output

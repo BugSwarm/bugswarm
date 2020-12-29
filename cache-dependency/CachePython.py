@@ -56,12 +56,6 @@ class PatchArtifactRunner(ParallelArtifactRunner):
         pass
 
 
-def _print_usage():
-    print('Usage: python3 CachePython.py <image_tags_file> <task-name>')
-    print('       image_tags_file: Path to a file containing a newline-separated list of image tags to process.')
-    print('       task-name: Name of current task. Results will be put in ./output/<task-name>.csv.')
-
-
 def get_dependencies(log_path):
     pip_install_list = parse_log(log_path)
     return pip_install_list
@@ -237,7 +231,7 @@ def main(argv=None):
         return
 
     argv = argv or sys.argv
-    image_tags_file, output_file = validate_input(argv, _print_usage)
+    image_tags_file, output_file, args = validate_input(argv, 'python')
 
     t_start = time.time()
     PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, workers=4).run()

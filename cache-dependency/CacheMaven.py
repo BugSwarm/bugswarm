@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import time
+import argparse
 from builtins import Exception
 from pathlib import Path
 
@@ -13,9 +14,9 @@ from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
 from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from utils import copy_file_to_container, copy_log_out_of_container, create_container, pull_image, \
-    create_work_space, remove_file_from_container, pack_push_container, run_command, print_error, remove_container, \
-    mkdir, validate_input
+from utils import copy_file_to_container, copy_file_out_of_container, copy_log_out_of_container, \
+    change_container_file_owner, create_container, pull_image, create_work_space, remove_file_from_container, \
+    pack_push_container, run_command, print_error, remove_container, mkdir, validate_input
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
@@ -30,7 +31,8 @@ bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
 
 
 class PatchArtifactRunner(ParallelArtifactRunner):
-    def __init__(self, image_tags_file: str, copy_dir: str, output_file: str, workers: int = 1):
+    def __init__(self, image_tags_file: str, copy_dir: str, output_file: str, args: argparse.Namespace,
+                 workers: int = 1):
         """
         :param image_tags_file: Path to a file containing a newline-separated list of image tags.
         :param copy_dir: A directory to copy into the host-side sandbox before any artifacts are processed.
@@ -44,21 +46,16 @@ class PatchArtifactRunner(ParallelArtifactRunner):
         super().__init__(image_tags, workers)
         self.copy_dir = copy_dir
         self.output_file = output_file
+        self.args = args
 
     def pre_run(self):
         create_work_space(_TMP_DIR, _SANDBOX_DIR)
 
     def process_artifact(self, image_tag: str):
-        _cache_artifact_dependency(image_tag.strip(), self.output_file)
+        _cache_artifact_dependency(image_tag.strip(), self.output_file, self.args)
 
     def post_run(self):
         pass
-
-
-def _print_usage():
-    print('Usage: python3 CacheMaven.py <image_tags_file> <task-name>')
-    print('       image_tags_file: Path to a file containing a newline-separated list of image tags to process.')
-    print('       task-name: Name of current task. Results will be put in ./output/<task-name>.csv.')
 
 
 def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode=False):
@@ -77,7 +74,7 @@ def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode
                     stderr)
 
 
-def _cache_artifact_dependency(image_tag, output_file):
+def _cache_artifact_dependency(image_tag, output_file, args):
     response = bugswarmapi.find_artifact(image_tag)
     if not response.ok:
         log.error('Unable to get artifact data for {}. Skipping this artifact.'.format(image_tag))
@@ -112,19 +109,81 @@ def _cache_artifact_dependency(image_tag, output_file):
             src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
             des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
             copy_file_to_container(container_id, src, des)
-            _run_cache_script_and_build(container_id, fail_or_pass, repo, option)
-            copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
+            if args.copy_m2 or args.copy_m2_aggressive:
+                _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
+                mkdir('{}/{}'.format(_TMP_DIR, image_tag))
+                if args.copy_m2_aggressive:
+                    cont_path = '/home/travis/.m2/'
+                    cont_tar = '/tmp/m2-{}-{}.tar'.format(fail_or_pass, option)
+                    host_path = '{}/{}/m2-{}-{}.tar'.format(_TMP_DIR, image_tag, fail_or_pass, option)
+                    _, stdout, stderr, ok = run_command(
+                        'docker exec {} tar -cvf {} {}'.format(container_id, cont_tar, cont_path))
+                    if ok:
+                        log.info('Tar cvf succeed')
+                    else:
+                        print_error('Tar cvf failed', stdout, stderr)
+                        remove_container(container_id)
+                        continue
+                    copy_file_out_of_container(container_id, cont_tar, host_path)
+                    container2_id = create_container(image_tag, docker_image_tag, '{}_2'.format(fail_or_pass))
+                    copy_file_to_container(container2_id, src, des)
+                    copy_file_to_container(container2_id, host_path, cont_tar)
+                    _, stdout, stderr, ok = run_command(
+                        'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar))
+                    if ok:
+                        log.info('Tar xkvf succeed')
+                    else:
+                        print_error('Tar xkvf failed', stdout, stderr)
+                        remove_container(container_id)
+                        remove_container(container2_id)
+                        continue
+                else:
+                    cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
+                    host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
+                    copy_file_out_of_container(container_id, cont_path, host_path)
+                    container2_id = create_container(image_tag, docker_image_tag, '{}_2'.format(fail_or_pass))
+                    copy_file_to_container(container2_id, src, des)
+                    copy_file_to_container(container2_id, host_path, cont_path)
+                change_container_file_owner(container2_id, cont_path, 'travis', 'travis')
+                _run_cache_script_and_build(container2_id, fail_or_pass, repo, 'none', False)
+                copy_log_out_of_container(image_tag, container2_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
+                remove_container(container2_id)
+            else:
+                _run_cache_script_and_build(container_id, fail_or_pass, repo, option, False)
+                copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
             remove_container(container_id)
-        if _verify_cache(image_tag, repo, option, original_size, output_file):
+        if _verify_cache(image_tag, repo, option, original_size, output_file, args):
             break
 
 
-def _pack_artifact(image_tag, repo, option):
+def _pack_artifact(image_tag, repo, option, args):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
     container_id = create_container(image_tag, docker_image_tag)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-    copy_file_to_container(image_tag, src, des)
+    copy_file_to_container(container_id, src, des)
+
+    if args.copy_m2:
+        for fail_or_pass in ['failed', 'passed']:
+            cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
+            host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
+            copy_file_to_container(container_id, host_path, cont_path)
+            change_container_file_owner(container_id, cont_path, 'travis', 'travis')
+        option = 'none'
+    elif args.copy_m2_aggressive:
+        for fail_or_pass in ['failed', 'passed']:
+            cont_tar = '/tmp/m2-{}-{}.tar'.format(fail_or_pass, option)
+            host_path = '{}/{}/m2-{}-{}.tar'.format(_TMP_DIR, image_tag, fail_or_pass, option)
+            copy_file_to_container(container_id, host_path, cont_tar)
+            _, stdout, stderr, ok = run_command(
+                'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar))
+            if ok:
+                log.info('Tar xkvf succeed')
+            else:
+                print_error('Tar xkvf failed', stdout, stderr)
+                remove_container(container_id)
+                return None
+        option = 'none'
 
     for fail_or_pass in ['failed', 'passed']:
         _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
@@ -135,7 +194,7 @@ def _pack_artifact(image_tag, repo, option):
     return container_id
 
 
-def _verify_cache(image_tag, repo, option, original_size, output_file):
+def _verify_cache(image_tag, repo, option, original_size, output_file, args):
     write_line = '{}, {}'.format(image_tag, original_size)
     status = 'failed'
     try:
@@ -158,10 +217,13 @@ def _verify_cache(image_tag, repo, option, original_size, output_file):
         if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
             log.info('Both failed and passed are reproduced for {}.'.format(image_tag))
             log.info('Packaging Docker image for {}.'.format(image_tag))
-            container_id = _pack_artifact(image_tag, repo, option)
-            latest_layer_size = pack_push_container(container_id, image_tag)
-            remove_container(container_id)
-            status = 'succeed'
+            container_id = _pack_artifact(image_tag, repo, option, args)
+            if container_id:
+                latest_layer_size = pack_push_container(container_id, image_tag)
+                remove_container(container_id)
+                status = 'succeed'
+            else:
+                status = 'failed'
 
         write_line += ', {}, {}, {}'.format(status, latest_layer_size, option)
         with open(output_file, 'a+') as file:
@@ -181,10 +243,10 @@ def main(argv=None):
         return
 
     argv = argv or sys.argv
-    image_tags_file, output_file = validate_input(argv, _print_usage)
+    image_tags_file, output_file, args = validate_input(argv, 'maven')
 
     t_start = time.time()
-    PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, workers=4).run()
+    PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, args, workers=4).run()
     t_end = time.time()
     log.info('Running patch took {}s'.format(t_end - t_start))
 

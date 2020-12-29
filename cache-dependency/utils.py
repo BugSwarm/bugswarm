@@ -1,27 +1,40 @@
 import os
 import subprocess
+import argparse
 from bugswarm.common import log
 from bugswarm.common.credentials import DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
 import sys
 
 
-def validate_input(argv, print_usage):
-    if len(argv) != 3:
-        print_usage()
-        exit(1)
+def validate_input(argv, artifact_type):
+    assert artifact_type in ['maven', 'python']
+    parser = argparse.ArgumentParser()
+    parser.add_argument('image_tags_file',
+                        help='Path to a file containing a newline-separated list of image tags to process.')
+    parser.add_argument('task_name',
+                        help='Name of current task. Results will be put in ./output/<task-name>.csv.')
+    if artifact_type == 'maven':
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument('--copy-m2', action='store_true',
+                           help='Copy .m2/{passed,failed} directory out of container.')
+        group.add_argument('--copy-m2-aggressive', action='store_true',
+                           help='Copy .m2 directory out of container.')
 
-    image_tags_file = argv[1]
+    args = parser.parse_args(argv[1:])
+
+    image_tags_file = args.image_tags_file
+    task_name = args.task_name
 
     if not os.path.isfile(image_tags_file):
         print_error('{} is not a file or does not exist. Exiting.'.format(image_tags_file))
-        print_usage()
+        parser.print_usage()
         exit(1)
 
-    output_file = 'output/{}.csv'.format(argv[2])
+    output_file = 'output/{}.csv'.format(task_name)
     if not os.path.isdir('output'):
         os.mkdir('output')
 
-    return image_tags_file, output_file
+    return image_tags_file, output_file, args
 
 
 def pack_push_container(container_id, image_tag):
@@ -94,6 +107,15 @@ def copy_file_out_of_container(container_id, src, des):
         log.info('Successfully copied {}'.format(src))
     else:
         print_error('Error copying files', stdout, stderr)
+
+
+def change_container_file_owner(container_id, file_path, new_owner, new_group):
+    _, stdout, stderr, ok = run_command(
+        'docker exec {} sudo chown -R {}:{} {}'.format(container_id, new_owner, new_group, file_path))
+    if ok:
+        log.info('Successfully changed owners for {}'.format(file_path))
+    else:
+        print_error('Error changing owners in {}'.format(container_id), stdout, stderr)
 
 
 def run_command(command):
