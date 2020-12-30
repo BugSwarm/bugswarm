@@ -4,6 +4,7 @@ import sys
 import time
 from builtins import Exception
 from pathlib import Path
+from packaging import version
 
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
 from python_log_parser import parse_log
@@ -66,7 +67,7 @@ def download_dependencies(image_tag, f_or_p, container_id, pip_packages: dict, j
     package_cache_directory_container = '/pypkg'
 
     mkdir(package_cache_directory_host)
-    for python_version, package_list in pip_packages.items():
+    for python_version, value in pip_packages.items():
         if len(python_version) == 6:  # python
             python_image_name = python_version
         else:  # python3.6, python2.7.1, python3, etc.
@@ -80,10 +81,28 @@ def download_dependencies(image_tag, f_or_p, container_id, pip_packages: dict, j
                                                                       )
         _, stdout, stderr, ok = run_command(cmd)
 
-        for package in package_list:
-            cmd = 'docker exec {} pip download --no-deps {} -d {}'.format(container_id, package,
-                                                                          package_cache_directory_container)
-            _, stdout, _, _ = run_command(cmd)
+        default_pip_version = None
+        if 'default' in value:
+            default_pip = value['default']
+            cmd = 'docker exec {} pip install {}'.format(container_id, default_pip)
+            _, stdout, stderr, _ = run_command(cmd)
+            default_pip_version = default_pip.split('==')[1]
+
+        for package in value['packages']:
+            if package.split('==')[0] == 'pip':  # switch to the corresponding pip version
+                cmd = 'docker exec {} pip install {}'.format(container_id, package)
+                _, stdout, stderr, _ = run_command(cmd)
+                default_pip_version = package.split('==')[1]
+            if default_pip_version and version.parse(default_pip_version) < version.parse('8.0.0'):
+                cmd = 'docker exec {} pip install {} --no-deps --download="{}"'.format(container_id,
+                                                                                       package,
+                                                                                       package_cache_directory_container
+                                                                                       )
+            else:
+                cmd = 'docker exec {} pip download --no-deps {} -d {}'.format(container_id, package,
+                                                                              package_cache_directory_container)
+            _, stdout, stderr, _ = run_command(cmd)
+
         remove_container(container_id)
 
 

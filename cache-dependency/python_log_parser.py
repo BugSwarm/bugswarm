@@ -5,11 +5,15 @@ from collections import defaultdict
 def extract_python_from_pip_version(line):
     # pip 6.0.7 from /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (python 3.4)
     # pip 9.0.1 from /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages (python 3.6)
-    regex = r'(?<!pip from)python[0-9\.]*(?=/site-packages)'
-    matches = re.finditer(regex, line)
-    for match in matches:
-        return match.group(0)
-    return None
+    python_regex = r'(?<!pip from)python[0-9\.]*(?=/site-packages)|$'
+    python_version = re.findall(python_regex, line)[0]
+
+    pip_regex = r'pip [0-9.]+|$'
+    pip_version = re.findall(pip_regex, line)[0]
+
+    if pip_version:
+        pip_version = "==".join(pip_version.split(" "))
+    return python_version, pip_version
 
 
 def extract_python_from_virtual_env(line):
@@ -54,7 +58,7 @@ def extract_packages(line):
 
 
 def parse_log(log_path):
-    pip_install_list = defaultdict(list)
+    pip_install_list = defaultdict(dict)
     python_version = 'python2'
     with open(log_path) as file:
         lines = file.readlines()
@@ -63,13 +67,17 @@ def parse_log(log_path):
             line = lines[idx]
             line = line.strip()
             if 'pip --version' in line:
-                result = extract_python_from_pip_version(lines[idx + 1])
-                python_version = result if result is not None else python_version
+                py_version, pip_version = extract_python_from_pip_version(lines[idx + 1])
+                python_version = py_version if py_version else python_version
+                if pip_version:
+                    pip_install_list[python_version]['default'] = pip_version
                 idx += 1
             elif 'source' in line:
                 result = extract_python_from_virtual_env(lines[idx])
                 python_version = result if result is not None else python_version
             elif line.startswith('Successfully installed'):
-                pip_install_list[python_version] += extract_packages(line)
+                package_list = pip_install_list[python_version].get('packages', [])
+                package_list += extract_packages(line)
+                pip_install_list[python_version]['packages'] = package_list
             idx += 1
     return pip_install_list
