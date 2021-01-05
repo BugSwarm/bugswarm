@@ -58,6 +58,13 @@ class PatchArtifactRunner(ParallelArtifactRunner):
         pass
 
 
+def copy_intermediate_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, sandbox_path, option):
+    mkdir('{}/{}'.format(tmp_dir, image_tag))
+    src = '{}/log-{}-{}.log'.format(travis_dir, option, f_or_p)
+    des = '{}/tmp/{}/log-{}-interm-{}.log'.format(sandbox_path, image_tag, option, f_or_p)
+    copy_file_out_of_container(container_id, src, des)
+
+
 def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode=False):
     _, stdout, stderr, ok = run_command('docker exec -td {} sudo chmod -R o+w /usr/local/bin'.format(container_id))
     if not ok:
@@ -72,6 +79,17 @@ def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode
     else:
         print_error('Apply {} on container {} for {}'.format(option, container_id, f_or_p), stdout,
                     stderr)
+
+
+def _remove_container_maven_repositories(container_id, m2_path):
+    """
+    Remove `_remote.repositories` and `_maven.repositories` files in container
+    `m2_path` should be `~/.m2/`
+    """
+    _, stdout, stderr, ok = run_command(
+        r'docker exec {} find {} \( -name _maven.repositories -o -name _remote.repositories \) -exec rm -v {{}} \;'
+        .format(container_id, m2_path))
+    # Ignore errors
 
 
 def _cache_artifact_dependency(image_tag, output_file, args):
@@ -111,6 +129,8 @@ def _cache_artifact_dependency(image_tag, output_file, args):
             copy_file_to_container(container_id, src, des)
             if args.copy_m2 or args.copy_m2_aggressive:
                 _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
+                copy_intermediate_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR,
+                                                       _SANDBOX_DIR, option)
                 mkdir('{}/{}'.format(_TMP_DIR, image_tag))
                 if args.copy_m2_aggressive:
                     cont_path = '/home/travis/.m2/'
@@ -122,7 +142,8 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                         log.info('Tar cvf succeed')
                     else:
                         print_error('Tar cvf failed', stdout, stderr)
-                        remove_container(container_id)
+                        if not args.keep_containers:
+                            remove_container(container_id)
                         continue
                     copy_file_out_of_container(container_id, cont_tar, host_path)
                     container2_id = create_container(args.task_name, image_tag, docker_image_tag, option,
@@ -134,10 +155,8 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                     if ok:
                         log.info('Tar xkvf succeed')
                     else:
+                        # Ignore error because tar's -k may return non-zero values
                         print_error('Tar xkvf failed', stdout, stderr)
-                        remove_container(container_id)
-                        remove_container(container2_id)
-                        continue
                 else:
                     cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
                     host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
@@ -146,14 +165,22 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                                                      fail_or_pass, 'check')
                     copy_file_to_container(container2_id, src, des)
                     copy_file_to_container(container2_id, host_path, cont_path)
+                if args.remove_maven_repositories:
+                    _remove_container_maven_repositories(container_id, '/home/travis/.m2/')
                 change_container_file_owner(container2_id, cont_path, 'travis', 'travis')
                 _run_cache_script_and_build(container2_id, fail_or_pass, repo, 'none', False)
-                copy_log_out_of_container(image_tag, container2_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
-                remove_container(container2_id)
+                copy_log_out_of_container(image_tag, container2_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR,
+                                          option)
+                if not args.keep_containers:
+                    remove_container(container2_id)
             else:
                 _run_cache_script_and_build(container_id, fail_or_pass, repo, option, False)
-                copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
-            remove_container(container_id)
+                copy_intermediate_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR,
+                                                       _SANDBOX_DIR, option)
+                copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR,
+                                          option)
+            if not args.keep_containers:
+                remove_container(container_id)
         if _verify_cache(image_tag, repo, option, original_size, output_file, args):
             break
 
@@ -182,10 +209,12 @@ def _pack_artifact(image_tag, repo, option, args):
             if ok:
                 log.info('Tar xkvf succeed')
             else:
+                # Ignore error because tar's -k may return non-zero values
                 print_error('Tar xkvf failed', stdout, stderr)
-                remove_container(container_id)
-                return None
         option = 'none'
+
+    if args.remove_maven_repositories:
+        _remove_container_maven_repositories(container_id, '/home/travis/.m2/')
 
     for fail_or_pass in ['failed', 'passed']:
         _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
@@ -205,9 +234,9 @@ def _verify_cache(image_tag, repo, option, original_size, output_file, args):
         passed_job_id = artifact['passed_job']['job_id']
 
         failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
-        failed_job_repr_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, image_tag)
+        failed_job_repr_log_path = '{}/{}/log-{}-failed.log'.format(_TMP_DIR, image_tag, option)
         passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
-        passed_job_repr_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, image_tag)
+        passed_job_repr_log_path = '{}/{}/log-{}-passed.log'.format(_TMP_DIR, image_tag, option)
 
         analyzer = Analyzer()
         failed_job_reproduced_result = analyzer.compare_single_log(failed_job_repr_log_path, failed_job_orig_log_path,
@@ -222,7 +251,8 @@ def _verify_cache(image_tag, repo, option, original_size, output_file, args):
             container_id = _pack_artifact(image_tag, repo, option, args)
             if container_id:
                 latest_layer_size = pack_push_container(container_id, image_tag)
-                remove_container(container_id)
+                if not args.keep_containers:
+                    remove_container(container_id)
                 status = 'succeed'
             else:
                 status = 'failed'

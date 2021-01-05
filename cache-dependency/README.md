@@ -22,8 +22,9 @@ python3 CachePython.py <image-tag-file> <task-name>
 * `task-name`: Results will be put in `output/<task-name>.csv`. Docker containers names will start with `<task-name>-`.
 * `--copy-m2`: Copy `~/.m2/failed/` and `~/.m2/passed/` to solve dirty workspace problem.
 * `--copy-m2-aggressive`: Copy `~/.m2/` to solve dirty workspace problem.
+* `--remove_maven_repositories`: Remove `_remote.repositories` and `_maven.repositories`.
 
-    
+
 ## Output
 Output files are placed in the `output` directory.
 

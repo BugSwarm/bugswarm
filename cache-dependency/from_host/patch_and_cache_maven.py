@@ -81,7 +81,7 @@ def main(argv=None):
             print(line)
         fileinput.close()
         # run it
-        run_command = 'bash /usr/local/bin/run_{}.sh'.format(f_or_p)
+        run_command = 'bash /usr/local/bin/run_{}.sh > /home/travis/log-{}-{}.log 2>&1'.format(f_or_p, option, f_or_p)
         _, stdout, stderr, ok = _run_command(run_command)
 
         # Make sure write permissions are still active
@@ -101,7 +101,7 @@ def main(argv=None):
 
     # Approach 2: build the target
     if option == 'build':
-        run_command = 'bash /usr/local/bin/run_{}.sh'.format(f_or_p)
+        run_command = 'bash /usr/local/bin/run_{}.sh > /home/travis/log-{}-{}.log 2>&1'.format(f_or_p, option, f_or_p)
         _, stdout, stderr, ok = _run_command(run_command)
 
         # Make sure write permissions are still active
@@ -119,7 +119,7 @@ def main(argv=None):
     print('Ran build script')
 
     if not package_mode:
-        run_command = 'bash /usr/local/bin/run_{}.sh > /home/travis/log-{}.log'.format(f_or_p, f_or_p)
+        run_command = 'bash /usr/local/bin/run_{}.sh > /home/travis/log-{}.log 2>&1'.format(f_or_p, f_or_p)
         _, stdout, stderr, ok = _run_command(run_command)
         print('Ran the {} build script.'.format(f_or_p))
 

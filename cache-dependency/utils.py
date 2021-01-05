@@ -14,11 +14,15 @@ def validate_input(argv, artifact_type):
     parser.add_argument('task_name',
                         help='Name of current task. Results will be put in ./output/<task-name>.csv.')
     if artifact_type == 'maven':
+        parser.add_argument('--keep-containers', action='store_true',
+                            help='Keep containers in order to debug')
         group = parser.add_mutually_exclusive_group()
         group.add_argument('--copy-m2', action='store_true',
                            help='Copy .m2/{passed,failed} directory out of container.')
         group.add_argument('--copy-m2-aggressive', action='store_true',
                            help='Copy .m2 directory out of container.')
+        parser.add_argument('--remove_maven_repositories', action='store_true',
+                            help='Remove `_remote.repositories` and `_maven.repositories`.')
 
     args = parser.parse_args(argv[1:])
 
@@ -78,16 +82,15 @@ def print_error(msg, stdout=None, stderr=None):
         log.error('stderr:\n{}'.format(stderr))
 
 
-def copy_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, sandbox_path):
+def copy_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, sandbox_path, option=None):
     mkdir('{}/{}'.format(tmp_dir, image_tag))
 
     # if cache pinned artifacts, make sure the log file name match existing logs
-    if f_or_p == 'failed':
-        src = '{}/log-failed.log'.format(travis_dir)
-        des = '{}/tmp/{}/log-failed.log'.format(sandbox_path, image_tag)
+    src = '{}/log-{}.log'.format(travis_dir, f_or_p)
+    if option is None:
+        des = '{}/tmp/{}/log-{}.log'.format(sandbox_path, image_tag, f_or_p)
     else:
-        src = '{}/log-passed.log'.format(travis_dir)
-        des = '{}/tmp/{}/log-passed.log'.format(sandbox_path, image_tag)
+        des = '{}/tmp/{}/log-{}-{}.log'.format(sandbox_path, image_tag, option, f_or_p)
     copy_file_out_of_container(container_id, src, des)
 
 
