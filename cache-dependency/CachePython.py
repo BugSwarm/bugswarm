@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import time
+import argparse
 from builtins import Exception
 from pathlib import Path
 from packaging import version
@@ -32,7 +33,8 @@ bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
 
 
 class PatchArtifactRunner(ParallelArtifactRunner):
-    def __init__(self, image_tags_file: str, copy_dir: str, output_file: str, workers: int = 1):
+    def __init__(self, image_tags_file: str, copy_dir: str, output_file: str, args: argparse.Namespace,
+                 workers: int = 1):
         """
         :param image_tags_file: Path to a file containing a newline-separated list of image tags.
         :param copy_dir: A directory to copy into the host-side sandbox before any artifacts are processed.
@@ -46,12 +48,13 @@ class PatchArtifactRunner(ParallelArtifactRunner):
         super().__init__(image_tags, workers)
         self.copy_dir = copy_dir
         self.output_file = output_file
+        self.args = args
 
     def pre_run(self):
         create_work_space(_TMP_DIR, _SANDBOX_DIR)
 
     def process_artifact(self, image_tag: str):
-        _cache_artifact_dependency(image_tag.strip(), self.output_file)
+        _cache_artifact_dependency(image_tag.strip(), self.output_file, self.args)
 
     def post_run(self):
         pass
@@ -131,7 +134,7 @@ def _run_cache_script_and_build(container_id, f_or_p, repo, package_mode=False):
         print_error('Apply on container {} for {}'.format(container_id, f_or_p), stdout, stderr)
 
 
-def _cache_artifact_dependency(image_tag, output_file):
+def _cache_artifact_dependency(image_tag, output_file, args):
     response = bugswarmapi.find_artifact(image_tag)
     if not response.ok:
         log.error('Unable to get artifact data for {}. Skipping this artifact.'.format(image_tag))
@@ -164,7 +167,7 @@ def _cache_artifact_dependency(image_tag, output_file):
 
     original_size = pull_image(image_tag, docker_image_tag)
     for fail_or_pass in ['failed', 'passed']:
-        container_id = create_container(image_tag, docker_image_tag, fail_or_pass)
+        container_id = create_container(args.task_name, image_tag, docker_image_tag, fail_or_pass)
         src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
         des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
         copy_file_to_container(container_id, src, des)
@@ -182,12 +185,12 @@ def _cache_artifact_dependency(image_tag, output_file):
         _run_cache_script_and_build(container_id, fail_or_pass, repo)
         copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR)
         remove_container(container_id)
-    _verify_cache(image_tag, repo, original_size, output_file)
+    _verify_cache(image_tag, repo, original_size, output_file, args)
 
 
-def _pack_artifact(image_tag, repo):
+def _pack_artifact(image_tag, repo, args):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    container_id = create_container(image_tag, docker_image_tag, None)
+    container_id = create_container(args.task_name, image_tag, docker_image_tag)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
     copy_file_to_container(container_id, src, des)
@@ -203,7 +206,7 @@ def _pack_artifact(image_tag, repo):
     return container_id
 
 
-def _verify_cache(image_tag, repo, original_size, output_file):
+def _verify_cache(image_tag, repo, original_size, output_file, args):
     write_line = '{}, {}'.format(image_tag, original_size)
     status = 'failed'
     try:
@@ -227,7 +230,7 @@ def _verify_cache(image_tag, repo, original_size, output_file):
         if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
             log.info('Both failed and passed are reproduced for {}.'.format(image_tag))
             log.info('Packaging Docker image for {}.'.format(image_tag))
-            container_id = _pack_artifact(image_tag, repo)
+            container_id = _pack_artifact(image_tag, repo, args)
             latest_layer_size = pack_push_container(container_id, image_tag)
             remove_container(container_id)
             status = 'succeed'
@@ -253,7 +256,7 @@ def main(argv=None):
     image_tags_file, output_file, args = validate_input(argv, 'python')
 
     t_start = time.time()
-    PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, workers=4).run()
+    PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, args, workers=4).run()
     t_end = time.time()
     log.info('Running patch took {}s'.format(t_end - t_start))
 

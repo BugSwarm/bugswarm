@@ -105,7 +105,7 @@ def _cache_artifact_dependency(image_tag, output_file, args):
     original_size = pull_image(image_tag, docker_image_tag)
     for option in ['build', 'offline']:
         for fail_or_pass in ['failed', 'passed']:
-            container_id = create_container(image_tag, docker_image_tag, fail_or_pass)
+            container_id = create_container(args.task_name, image_tag, docker_image_tag, option, fail_or_pass)
             src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
             des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
             copy_file_to_container(container_id, src, des)
@@ -125,7 +125,8 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                         remove_container(container_id)
                         continue
                     copy_file_out_of_container(container_id, cont_tar, host_path)
-                    container2_id = create_container(image_tag, docker_image_tag, '{}_2'.format(fail_or_pass))
+                    container2_id = create_container(args.task_name, image_tag, docker_image_tag, option,
+                                                     fail_or_pass, 'check')
                     copy_file_to_container(container2_id, src, des)
                     copy_file_to_container(container2_id, host_path, cont_tar)
                     _, stdout, stderr, ok = run_command(
@@ -141,7 +142,8 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                     cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
                     host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
                     copy_file_out_of_container(container_id, cont_path, host_path)
-                    container2_id = create_container(image_tag, docker_image_tag, '{}_2'.format(fail_or_pass))
+                    container2_id = create_container(args.task_name, image_tag, docker_image_tag, option,
+                                                     fail_or_pass, 'check')
                     copy_file_to_container(container2_id, src, des)
                     copy_file_to_container(container2_id, host_path, cont_path)
                 change_container_file_owner(container2_id, cont_path, 'travis', 'travis')
@@ -158,7 +160,7 @@ def _cache_artifact_dependency(image_tag, output_file, args):
 
 def _pack_artifact(image_tag, repo, option, args):
     docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    container_id = create_container(image_tag, docker_image_tag)
+    container_id = create_container(args.task_name, image_tag, docker_image_tag, option)
     src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
     des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
     copy_file_to_container(container_id, src, des)

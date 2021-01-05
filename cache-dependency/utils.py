@@ -148,11 +148,8 @@ def pull_image(image_tag, docker_image_tag):
     return original_size
 
 
-def create_container(image_tag, docker_image_tag, f_or_p=None):
-    if f_or_p is not None:
-        container_name = '{}-{}'.format(image_tag, f_or_p)
-    else:
-        container_name = image_tag
+def create_container(task_name, image_tag, docker_image_tag, *tags):
+    container_name = '-'.join((task_name, image_tag, *tags))
     _, stdout, stderr, ok = run_command(
         'docker run -t -d  --name {} {} /bin/bash'.format(container_name, docker_image_tag))
     if ok:
