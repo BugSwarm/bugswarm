@@ -151,7 +151,7 @@ def _cache_artifact_dependency(image_tag, output_file, args):
                     copy_file_to_container(container2_id, src, des)
                     copy_file_to_container(container2_id, host_path, cont_tar)
                     _, stdout, stderr, ok = run_command(
-                        'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar))
+                        'docker exec {} tar --directory / -xkvf {}'.format(container2_id, cont_tar))
                     if ok:
                         log.info('Tar xkvf succeed')
                     else:
