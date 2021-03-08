@@ -2,283 +2,183 @@ import logging
 import os
 import sys
 import time
-import argparse
-from builtins import Exception
-from pathlib import Path
 
-from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 
-from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common import log
 from bugswarm.common.artifact_processing import utils as procutils
-from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
 from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from utils import copy_file_to_container, copy_file_out_of_container, copy_log_out_of_container, \
-    change_container_file_owner, create_container, pull_image, create_work_space, remove_file_from_container, \
-    pack_push_container, run_command, print_error, remove_container, mkdir, validate_input
+from utils import PatchArtifactRunner, PatchArtifactTask, validate_input, CachingScriptError
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
 _FAILED_BUILD_SCRIPT = '/usr/local/bin/run_failed.sh'
 _PASSED_BUILD_SCRIPT = '/usr/local/bin/run_passed.sh'
 _TRAVIS_DIR = '/home/travis'
-_HOME_DIR = str(Path.home())
-_SANDBOX_DIR = '{}/bugswarm-sandbox'.format(_HOME_DIR)
-_TMP_DIR = '{}/tmp'.format(_SANDBOX_DIR)
 
 bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
 
-
-class PatchArtifactRunner(ParallelArtifactRunner):
-    def __init__(self, image_tags_file: str, copy_dir: str, output_file: str, args: argparse.Namespace,
-                 workers: int = 1):
-        """
-        :param image_tags_file: Path to a file containing a newline-separated list of image tags.
-        :param copy_dir: A directory to copy into the host-side sandbox before any artifacts are processed.
-        :param command: A callable used to determine what command(s) to execute in each artifact container. `command` is
-                        called once for each processed artifact. The only parameter is the image tag of the artifact
-                        about to be processed.
-        :param workers: The same as for the superclass initializer.
-        """
-        with open(image_tags_file) as f:
-            image_tags = list(map(str.strip, f.readlines()))
-        super().__init__(image_tags, workers)
-        self.copy_dir = copy_dir
-        self.output_file = output_file
-        self.args = args
-
-    def pre_run(self):
-        create_work_space(_TMP_DIR, _SANDBOX_DIR)
-
-    def process_artifact(self, image_tag: str):
-        _cache_artifact_dependency(image_tag.strip(), self.output_file, self.args)
-
-    def post_run(self):
-        pass
+"""
+List of directories that dependencies may be cached to
+"""
+CACHE_DIRECTORIES = {
+    'home-m2': lambda f_or_p, repo: '/home/travis/.m2/',
+    'home-gradle': lambda f_or_p, repo: '/home/travis/.gradle/',
+    'home-ivy2': lambda f_or_p, repo: '/home/travis/.ivy2/',
+    'proj-gradle': lambda f_or_p, repo: '/home/travis/build/{}/{}/.gradle/'.format(f_or_p, repo),
+}
 
 
-def copy_intermediate_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, sandbox_path, option):
-    mkdir('{}/{}'.format(tmp_dir, image_tag))
-    src = '{}/log-{}-{}.log'.format(travis_dir, option, f_or_p)
-    des = '{}/tmp/{}/log-{}-interm-{}.log'.format(sandbox_path, image_tag, option, f_or_p)
-    copy_file_out_of_container(container_id, src, des)
+class PatchArtifactMavenTask(PatchArtifactTask):
+    def cache_artifact_dependency(self):
+        response = bugswarmapi.find_artifact(self.image_tag)
+        if not response.ok:
+            raise CachingScriptError('Unable to get artifact data')
 
+        artifact = response.json()
+        build_system = artifact['build_system']
+        job_id = {
+            'failed': artifact['failed_job']['job_id'],
+            'passed': artifact['passed_job']['job_id'],
+        }
+        repo = artifact['repo']
 
-def _run_cache_script_and_build(container_id, f_or_p, repo, option, package_mode=False):
-    _, stdout, stderr, ok = run_command('docker exec -td {} sudo chmod -R o+w /usr/local/bin'.format(container_id))
-    if not ok:
-        print_error('Error changing permissions in container {}'.format(container_id), stdout, stderr)
-        sys.exit(1)
+        job_orig_log = {
+            'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
+            'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
+        }
+        if not download_log(job_id['failed'], job_orig_log['failed']):
+            raise CachingScriptError('Error downloading log for failed job {}'.format(job_id['failed']))
+        if not download_log(job_id['passed'], job_orig_log['passed']):
+            raise CachingScriptError('Error downloading log for passed job {}'.format(job_id['passed']))
 
-    _, stdout, stderr, ok = run_command(
-        'docker exec {} python {}/patch_and_cache_maven.py {} {} {} {}'.format(container_id, _TRAVIS_DIR, repo,
-                                                                               f_or_p, option, package_mode))
-    if ok:
-        log.info('Apply {} on container {} for {}'.format(option, container_id, f_or_p))
-    else:
-        print_error('Apply {} on container {} for {}'.format(option, container_id, f_or_p), stdout,
-                    stderr)
+        docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
+        original_size = self.pull_image(docker_image_tag)
 
-
-def _remove_container_maven_repositories(container_id, m2_path):
-    """
-    Remove `_remote.repositories` and `_maven.repositories` files in container
-    `m2_path` should be `~/.m2/`
-    """
-    _, stdout, stderr, ok = run_command(
-        r'docker exec {} find {} \( -name _maven.repositories -o -name _remote.repositories \) -exec rm -v {{}} \;'
-        .format(container_id, m2_path))
-    # Ignore errors
-
-
-def _cache_artifact_dependency(image_tag, output_file, args):
-    response = bugswarmapi.find_artifact(image_tag)
-    if not response.ok:
-        log.error('Unable to get artifact data for {}. Skipping this artifact.'.format(image_tag))
-        with open(output_file, 'a+') as file:
-            file.write('{}, API error\n'.format(image_tag))
-        return
-
-    artifact = response.json()
-    failed_job_id = artifact['failed_job']['job_id']
-    passed_job_id = artifact['passed_job']['job_id']
-    repo = artifact['repo']
-
-    mkdir('{}/{}'.format(_TMP_DIR, failed_job_id))
-    mkdir('{}/{}'.format(_TMP_DIR, passed_job_id))
-
-    failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
-    passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
-
-    result = download_log(failed_job_id, failed_job_orig_log_path)
-    if not result:
-        print_error('Error downloading log for failed_job_id {}'.format(failed_job_id))
-
-    result = download_log(passed_job_id, passed_job_orig_log_path)
-    if not result:
-        print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
-
-    docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    original_size = pull_image(image_tag, docker_image_tag)
-    for option in ['build', 'offline']:
+        # Start a failed build and a passed build to collect cached files
+        caching_build_log_path = {
+            'failed': '{}/cache-failed.log'.format(self.workdir),
+            'passed': '{}/cache-passed.log'.format(self.workdir),
+        }
         for fail_or_pass in ['failed', 'passed']:
-            container_id = create_container(args.task_name, image_tag, docker_image_tag, option, fail_or_pass)
+            container_id = self.create_container(docker_image_tag, 'cache', fail_or_pass)
             src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
             des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-            copy_file_to_container(container_id, src, des)
-            if args.copy_m2 or args.copy_m2_aggressive:
-                _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
-                copy_intermediate_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR,
-                                                       _SANDBOX_DIR, option)
-                mkdir('{}/{}'.format(_TMP_DIR, image_tag))
-                if args.copy_m2_aggressive:
-                    cont_path = '/home/travis/.m2/'
-                    cont_tar = '/tmp/m2-{}-{}.tar'.format(fail_or_pass, option)
-                    host_path = '{}/{}/m2-{}-{}.tar'.format(_TMP_DIR, image_tag, fail_or_pass, option)
-                    _, stdout, stderr, ok = run_command(
-                        'docker exec {} tar -cvf {} {}'.format(container_id, cont_tar, cont_path))
+            self.copy_file_to_container(container_id, src, des)
+            self._run_patch_script(container_id, repo, ['add-mvn-local-repo'])
+            build_result = self.run_build_script(container_id, fail_or_pass, caching_build_log_path[fail_or_pass],
+                                                 job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system)
+            if not build_result and not self.args.ignore_cache_error:
+                raise CachingScriptError('Run build script not reproducible for caching {}'.format(fail_or_pass))
+            for name, path_func in CACHE_DIRECTORIES.items():
+                cont_path = path_func(fail_or_pass, repo)
+                cont_tar = '{}/{}.tar'.format(_TRAVIS_DIR, name)
+                host_tar = '{}/{}-{}.tar'.format(self.workdir, name, fail_or_pass)
+                _, stdout, stderr, ok = self.run_command(
+                    'docker exec {} tar -cvf {} {}'.format(container_id, cont_tar, cont_path),
+                    fail_on_error=False, print_on_error=False)
+                if not ok:
+                    # Check whether path does not exist
+                    _, _, _, ok = self.run_command(
+                        'docker exec {} ls -d {}'.format(container_id, cont_path), fail_on_error=False,
+                        print_on_error=False)
                     if ok:
-                        log.info('Tar cvf succeed')
-                    else:
-                        print_error('Tar cvf failed', stdout, stderr)
-                        if not args.keep_containers:
-                            remove_container(container_id)
-                        continue
-                    copy_file_out_of_container(container_id, cont_tar, host_path)
-                    container2_id = create_container(args.task_name, image_tag, docker_image_tag, option,
-                                                     fail_or_pass, 'check')
-                    copy_file_to_container(container2_id, src, des)
-                    copy_file_to_container(container2_id, host_path, cont_tar)
-                    _, stdout, stderr, ok = run_command(
-                        'docker exec {} tar --directory / -xkvf {}'.format(container2_id, cont_tar))
-                    if ok:
-                        log.info('Tar xkvf succeed')
-                    else:
-                        # Ignore error because tar's -k may return non-zero values
-                        print_error('Tar xkvf failed', stdout, stderr)
+                        self.print_error('Cannot tar {}'.format(cont_path), stdout, stderr)
+                        raise CachingScriptError('Cannot tar {}'.format(cont_path))
                 else:
-                    cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
-                    host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
-                    copy_file_out_of_container(container_id, cont_path, host_path)
-                    container2_id = create_container(args.task_name, image_tag, docker_image_tag, option,
-                                                     fail_or_pass, 'check')
-                    copy_file_to_container(container2_id, src, des)
-                    copy_file_to_container(container2_id, host_path, cont_path)
-                if args.remove_maven_repositories:
-                    _remove_container_maven_repositories(container_id, '/home/travis/.m2/')
-                change_container_file_owner(container2_id, cont_path, 'travis', 'travis')
-                _run_cache_script_and_build(container2_id, fail_or_pass, repo, 'none', False)
-                copy_log_out_of_container(image_tag, container2_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR,
-                                          option)
-                if not args.keep_containers:
-                    remove_container(container2_id)
-            else:
-                _run_cache_script_and_build(container_id, fail_or_pass, repo, option, False)
-                copy_intermediate_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR,
-                                                       _SANDBOX_DIR, option)
-                copy_log_out_of_container(image_tag, container_id, fail_or_pass, _TMP_DIR, _TRAVIS_DIR, _SANDBOX_DIR,
-                                          option)
-            if not args.keep_containers:
-                remove_container(container_id)
-        if _verify_cache(image_tag, repo, option, original_size, output_file, args):
-            break
+                    self.copy_file_out_of_container(container_id, cont_tar, host_tar)
+            self.remove_container(container_id)
 
-
-def _pack_artifact(image_tag, repo, option, args):
-    docker_image_tag = '{}:{}'.format(DOCKER_HUB_REPO, image_tag)
-    container_id = create_container(args.task_name, image_tag, docker_image_tag, option)
-    src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
-    des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-    copy_file_to_container(container_id, src, des)
-
-    if args.copy_m2:
+        # Create a new container and place files into it
+        container_id = self.create_container(docker_image_tag, 'pack')
+        # Run patching script (add localRepository and offline)
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
+        des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
+        self.copy_file_to_container(container_id, src, des)
+        self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven'])
+        self.remove_file_from_container(container_id, des)
+        # Copy files to the new container
         for fail_or_pass in ['failed', 'passed']:
-            cont_path = '/home/travis/.m2/{}/'.format(fail_or_pass)
-            host_path = '{}/{}/m2-{}-{}/'.format(_TMP_DIR, image_tag, fail_or_pass, option)
-            copy_file_to_container(container_id, host_path, cont_path)
-            change_container_file_owner(container_id, cont_path, 'travis', 'travis')
-        option = 'none'
-    elif args.copy_m2_aggressive:
+            container_tar_files = []
+            for name, path_func in CACHE_DIRECTORIES.items():
+                cont_path = path_func(fail_or_pass, repo)
+                cont_tar = '{}/{}.tar'.format(_TRAVIS_DIR, name)
+                host_tar = '{}/{}-{}.tar'.format(self.workdir, name, fail_or_pass)
+                if self.args.__getattribute__('no_copy_' + name.replace('-', '_')):
+                    self.logger.info('Skipping {} because of command line arguments')
+                    continue
+                if not os.path.exists(host_tar):
+                    self.logger.info('{} does not exist'.format(host_tar))
+                    continue
+                self.copy_file_to_container(container_id, host_tar, cont_tar)
+                _, stdout, stderr, ok = self.run_command(
+                    'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar),
+                    fail_on_error=False, loglevel=logging.INFO)
+                if not ok:
+                    # Ignore error because tar's -k may return non-zero values
+                    self.logger.info('Tar xkvf failed for {}, {}'.format(fail_or_pass, name))
+                container_tar_files.append(cont_tar)
+            if self.args.separate_passed_failed:
+                # TODO: sometimes need to support separating passed and failed files
+                raise NotImplementedError
+            else:
+                for cont_tar in container_tar_files:
+                    self.remove_file_from_container(container_id, cont_tar)
+        if not self.args.no_remove_maven_repositories:
+            self._remove_container_maven_repositories(container_id, '/home/travis/.m2/')
+        # Commit cached image
+        cached_tag, cached_id = self.docker_commit(self.image_tag, container_id)
+        self.remove_container(container_id)
+
+        # Start two runs to test cached image
+        test_build_log_path = {
+            'failed': '{}/test-failed.log'.format(self.workdir),
+            'passed': '{}/test-passed.log'.format(self.workdir),
+        }
         for fail_or_pass in ['failed', 'passed']:
-            cont_tar = '/tmp/m2-{}-{}.tar'.format(fail_or_pass, option)
-            host_path = '{}/{}/m2-{}-{}.tar'.format(_TMP_DIR, image_tag, fail_or_pass, option)
-            copy_file_to_container(container_id, host_path, cont_tar)
-            _, stdout, stderr, ok = run_command(
-                'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar))
-            if ok:
-                log.info('Tar xkvf succeed')
-            else:
-                # Ignore error because tar's -k may return non-zero values
-                print_error('Tar xkvf failed', stdout, stderr)
-        option = 'none'
+            container_id = self.create_container(cached_tag, 'test', fail_or_pass)
+            # When testing here, we by default apply a stricter patch (offline-all-maven, offline-all-gradle)
+            if not self.args.no_strict_offline_test:
+                src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
+                des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
+                self.copy_file_to_container(container_id, src, des)
+                self._run_patch_script(container_id, repo, ['offline-all-maven', 'offline-all-gradle'])
+            build_result = self.run_build_script(container_id, fail_or_pass, test_build_log_path[fail_or_pass],
+                                                 job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system)
+            if not build_result:
+                raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
 
-    if args.remove_maven_repositories:
-        _remove_container_maven_repositories(container_id, '/home/travis/.m2/')
+        # Push image
+        latest_layer_size = self.get_last_layer_size(cached_tag)
+        self.tag_and_push_cached_image(self.image_tag, cached_tag)
+        self.write_output(self.image_tag, 'succeed, {}, {}'.format(original_size, latest_layer_size))
 
-    for fail_or_pass in ['failed', 'passed']:
-        _run_cache_script_and_build(container_id, fail_or_pass, repo, option, True)
+    def _run_patch_script(self, container_id, repo, actions):
+        _, stdout, stderr, ok = self.run_command(
+            'docker exec {} sudo python {}/{} {} {}'.format(container_id, _TRAVIS_DIR, _PROCESS_SCRIPT, repo,
+                                                            ' '.join(actions)))
 
-    patch_script_path = '{}/{}'.format(_TRAVIS_DIR, _PROCESS_SCRIPT)
-    remove_file_from_container(container_id, patch_script_path)
-    log.info('Successfully packaged image {}'.format(image_tag))
-    return container_id
-
-
-def _verify_cache(image_tag, repo, option, original_size, output_file, args):
-    write_line = '{}, {}'.format(image_tag, original_size)
-    status = 'failed'
-    try:
-        artifact = bugswarmapi.find_artifact(image_tag).json()
-        failed_job_id = artifact['failed_job']['job_id']
-        passed_job_id = artifact['passed_job']['job_id']
-
-        failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
-        failed_job_repr_log_path = '{}/{}/log-{}-failed.log'.format(_TMP_DIR, image_tag, option)
-        passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
-        passed_job_repr_log_path = '{}/{}/log-{}-passed.log'.format(_TMP_DIR, image_tag, option)
-
-        analyzer = Analyzer()
-        failed_job_reproduced_result = analyzer.compare_single_log(failed_job_repr_log_path, failed_job_orig_log_path,
-                                                                   failed_job_id, build_system='maven')
-        passed_job_reproduced_result = analyzer.compare_single_log(passed_job_repr_log_path, passed_job_orig_log_path,
-                                                                   passed_job_id, build_system='maven')
-        latest_layer_size = -1
-
-        if failed_job_reproduced_result[0] and passed_job_reproduced_result[0]:
-            log.info('Both failed and passed are reproduced for {}.'.format(image_tag))
-            log.info('Packaging Docker image for {}.'.format(image_tag))
-            container_id = _pack_artifact(image_tag, repo, option, args)
-            if container_id:
-                latest_layer_size = pack_push_container(container_id, image_tag)
-                if not args.keep_containers:
-                    remove_container(container_id)
-                status = 'succeed'
-            else:
-                status = 'failed'
-
-        write_line += ', {}, {}, {}'.format(status, latest_layer_size, option)
-        with open(output_file, 'a+') as file:
-            file.write(write_line + '\n')
-    except (Exception, BaseException, TypeError):
-        log.error('An error occurred while attempting to verify & cache {}.'.format(image_tag))
-        with open(output_file, 'a+') as file:
-            file.write(write_line + ', error' + '\n')
-
-    return status == 'succeed'
+    def _remove_container_maven_repositories(self, container_id, m2_path):
+        """
+        Remove `_remote.repositories` and `_maven.repositories` files in container
+        `m2_path` should be `~/.m2/`
+        """
+        _, stdout, stderr, ok = self.run_command(
+            r'docker exec {} find {} \( -name _maven.repositories -o -name _remote.repositories \) -exec rm -v {{}} \;'
+            .format(container_id, m2_path), print_on_error=False, fail_on_error=False)
+        # Ignore errors
 
 
 def main(argv=None):
     log.config_logging(getattr(logging, 'INFO', None))
-    if not DOCKER_HUB_CACHED_REPO:
-        log.warning('DOCKER_HUB_CACHED_REPO not set. Skipping CacheDependency.')
-        return
 
     argv = argv or sys.argv
     image_tags_file, output_file, args = validate_input(argv, 'maven')
 
     t_start = time.time()
-    PatchArtifactRunner(image_tags_file, _COPY_DIR, output_file, args, workers=4).run()
+    PatchArtifactRunner(PatchArtifactMavenTask, image_tags_file, _COPY_DIR, output_file, args,
+                        workers=args.workers).run()
     t_end = time.time()
     log.info('Running patch took {}s'.format(t_end - t_start))
 
