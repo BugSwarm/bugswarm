@@ -13,6 +13,8 @@ In following this README, we will run the tool to generate results and then eval
 
 
 ## Usage
+**First `docker login` to the desired repository**
+
 ```
 python3 CacheMaven.py <image-tag-file> <task-name> [arguments]
 python3 CachePython.py <image-tag-file> <task-name> [arguments]
@@ -37,8 +39,8 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
 * `--ignore-cache-error`: Ignore error when running build script to download
   cached files.
 * `--no-strict-offline-test`: Do not apply strict offline mode when testing.
-* `--separate-passed-failed`: (WIP) Separate passed and failed cached files
-  (will increase artifact size).
+* `--separate-passed-failed`: Separate passed and failed cached files. Will fix
+  some Java artifacts, but will increase artifact size.
 
 
 ## Algorithm

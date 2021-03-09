@@ -147,7 +147,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             self.run_command('docker exec {} tar xvf {} -C {}'.format(container_id, tar_file_container,
                                                                       cache_dir_container))
             self.remove_file_from_container(container_id, tar_file_container)
-        self.run_command('docker exec -td {} sudo chown -R travis:travis {}'.format(container_id, cache_dir_container))
+        self.run_command('docker exec -t {} sudo chown -R travis:travis {}'.format(container_id, cache_dir_container))
 
 
 def get_dependencies(log_path):

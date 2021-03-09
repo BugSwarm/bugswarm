@@ -112,19 +112,21 @@ class PatchArtifactMavenTask(PatchArtifactTask):
                     self.logger.info('{} does not exist'.format(host_tar))
                     continue
                 self.copy_file_to_container(container_id, host_tar, cont_tar)
+                if self.args.separate_passed_failed:
+                    container_tar_files.append(cont_tar)
+                    continue
+                # Without --separate-passed-failed: untar the tar file now
                 _, stdout, stderr, ok = self.run_command(
                     'docker exec {} tar --directory / -xkvf {}'.format(container_id, cont_tar),
                     fail_on_error=False, loglevel=logging.INFO)
                 if not ok:
                     # Ignore error because tar's -k may return non-zero values
                     self.logger.info('Tar xkvf failed for {}, {}'.format(fail_or_pass, name))
-                container_tar_files.append(cont_tar)
+                self.remove_file_from_container(container_id, cont_tar)
             if self.args.separate_passed_failed:
-                # TODO: sometimes need to support separating passed and failed files
-                raise NotImplementedError
-            else:
-                for cont_tar in container_tar_files:
-                    self.remove_file_from_container(container_id, cont_tar)
+                # With --separate-passed-failed: untar the tar file at the start of build script
+                # This can fix some caching errors when failed and passed caches conflict (e.g. in ~/.gradle/)
+                self._add_untar_to_build_script(container_id, fail_or_pass, container_tar_files)
         if not self.args.no_remove_maven_repositories:
             self._remove_container_maven_repositories(container_id, '/home/travis/.m2/')
         # Commit cached image
@@ -168,6 +170,39 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             r'docker exec {} find {} \( -name _maven.repositories -o -name _remote.repositories \) -exec rm -v {{}} \;'
             .format(container_id, m2_path), print_on_error=False, fail_on_error=False)
         # Ignore errors
+
+    def _add_untar_to_build_script(self, container_id, f_or_p, tar_files):
+        """
+        * Copy build script to `run_<failed-or-passed>_old.sh`.
+        * Add a few lines to untar tar_files.
+        * Save the new script to `run_<failed-or-passed>_new.sh`.
+        * Copy back to the container.
+        """
+        build_script_container = '/usr/local/bin/run_{}.sh'.format(f_or_p)
+        build_script_host_old = '{}/run_{}_old.sh'.format(self.workdir, f_or_p)
+        build_script_host_new = '{}/run_{}_new.sh'.format(self.workdir, f_or_p)
+        self.copy_file_out_of_container(container_id, build_script_container, build_script_host_old)
+        assert os.path.exists(build_script_host_old)
+        assert not os.path.exists(build_script_host_new)
+        with open(build_script_host_old, 'r') as input_file:
+            with open(build_script_host_new, 'w') as output_file:
+                # Copy the first line
+                shebang = input_file.readline()
+                assert shebang == '#!/bin/bash\n'
+                output_file.write(shebang)
+                # Add commands to untar
+                output_file.write('# Untar cached dependency files\n')
+                for tar_file in tar_files:
+                    output_file.write('tar --directory / -xkf {}\n'.format(tar_file))
+                # Copy the rest of the input file
+                while True:
+                    line = input_file.readline()
+                    if not line:
+                        break
+                    output_file.write(line)
+        self.copy_file_to_container(container_id, build_script_host_new, build_script_container)
+        self.run_command('docker exec {} sudo chown travis:travis {}'.format(container_id, build_script_container))
+        self.run_command('docker exec {} sudo chmod 777 {}'.format(container_id, build_script_container))
 
 
 def main(argv=None):

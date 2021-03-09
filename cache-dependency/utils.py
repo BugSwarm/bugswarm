@@ -200,6 +200,10 @@ class PatchArtifactTask:
         _, stdout, stderr, ok = self.run_command(
             'docker exec {} bash /usr/local/bin/run_{}.sh 2>&1'.format(container_id, f_or_p), fail_on_error=False,
             print_on_error=False, timeout=7200)
+        if stderr == 'subprocess.TimeoutExpired':
+            with open(log_path, 'w') as f:
+                f.write(stderr)
+                return False
         with open(log_path, 'w') as f:
             f.write(stdout)
         analyzer = Analyzer()
