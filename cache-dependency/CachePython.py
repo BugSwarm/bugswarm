@@ -51,7 +51,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         # Download cached files
         for fail_or_pass in ['failed', 'passed']:
             pip_packages = get_dependencies(job_orig_log[fail_or_pass])
-            self.download_dependencies(fail_or_pass, pip_packages)
+            self.download_dependencies(fail_or_pass, pip_packages, docker_image_tag)
 
         # Create a new container and place files into it
         container_id = self.create_container(docker_image_tag, 'pack')
@@ -91,7 +91,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             'docker exec {} sudo python {}/{} {} {}'.format(container_id, _TRAVIS_DIR, _PROCESS_SCRIPT, repo,
                                                             f_or_p))
 
-    def download_dependencies(self, f_or_p, pip_packages):
+    def download_dependencies(self, f_or_p, pip_packages, docker_image_tag):
         """
         Download Python dependencies in a newly created container.
         Files are saved in `requirements-<f_or_p>-<python_version>.tar`
@@ -100,40 +100,71 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         # Note: this script was originally written by mounding Docker volumes.
         # However, volumes does not work in spawner. So we use tar instead.
 
-        cache_dir_container = '/pypkg'
-        tar_file_container = '/requirements.tar'
         for python_version, value in pip_packages.items():
             # Create container
-            if len(python_version) == 6:  # python
-                python_image_name = python_version
+            matched = re.fullmatch(r'(python)([0-9\.]*)', python_version)
+            if not matched:
+                raise CachingScriptError('Unknown python_version: {}'.format(python_version))
+            python, python_ver = matched.groups()
+            if not python_ver:  # just 'python'
+                raise CachingScriptError('Python version not specified')
+            # For python<=2.6 and <=3.1, Docker does not provide official images.
+            # It looks like Travis CI does not support python<=2.5 and <=3.1:
+            #   https://docs.travis-ci.com/user/languages/python/#python-versions .
+            # The solution for 2.6 is to use python provided in Travis CI's virtualenv.
+            #   See https://docs.travis-ci.com/user/languages/python/#travis-ci-uses-isolated-virtualenvs
+            #   e.g. ~/virtualenv/python2.6/bin/pip install nose --no-deps --download=/tmp
+            if python_ver == '2.6':  # python2.6
+                # e.g. bugswarm/images:numpy-numpy-100031171
+                # e.g. bugswarm/images:web2py-web2py-54526374
+                # Here we directly spawn the BugSwarm image and use the pip in the virtual environment
+                # To avoid complicated things in activating the virtual environment, we simply call the pip
+                # binary in the virtual environment (i.e. not a standard approach).
+                cache_dir_container = '/home/travis/pypkg'
+                tar_file_container = '/home/travis/requirements.tar'
+                python_image_name = docker_image_tag
+                pip = '/home/travis/virtualenv/python2.6/bin/pip'
             else:  # python3.6, python2.7.1, python3, etc.
-                python_image_name = python_version[:6] + ':' + python_version[6:]
-            python_image_name += '-slim'  # python:3.7-slim
-            container_id = self.create_container(python_image_name, python_image_name.replace(':', '-'), f_or_p)
+                # Use Docker's official Python slim containers (e.g. 'python:3.6-slim')
+                cache_dir_container = '/pypkg'
+                tar_file_container = '/requirements.tar'
+                python_image_name = '{}:{}-slim'.format(python, python_ver)
+                pip = 'pip'
+            container_id = self.create_container(python_image_name, python_ver, f_or_p)
             # Download to container
             self.run_command('docker exec {} mkdir {}'.format(container_id, cache_dir_container))
             default_pip_version = None
             if 'default' in value:
                 default_pip = value['default']
-                self.run_command('docker exec {} pip install {}'.format(container_id, default_pip))
+                self.run_docker_pip_command(container_id, 'install {}'.format(default_pip), pip=pip)
                 default_pip_version = default_pip.split('==')[1]
             for package in value.get('packages', []):
                 if package.split('==')[0] == 'pip':  # switch to the corresponding pip version
-                    self.run_command('docker exec {} pip install {}'.format(container_id, package))
+                    pip_command = 'install {}'.format(package)
                     default_pip_version = package.split('==')[1]
-                if default_pip_version and version.parse(default_pip_version) < version.parse('8.0.0'):
-                    self.run_command('docker exec {} pip install {} --no-deps --download="{}"'.format(
-                        container_id, package, cache_dir_container))
+                elif default_pip_version and version.parse(default_pip_version) < version.parse('8.0.0'):
+                    pip_command = 'install {} --no-deps --download="{}"'.format(package, cache_dir_container)
                 else:
-                    self.run_command('docker exec {} pip download --no-deps {} -d {}'.format(
-                        container_id, package, cache_dir_container))
+                    pip_command = 'download --no-deps {} -d {}'.format(package, cache_dir_container)
+                self.run_docker_pip_command(container_id, pip_command, pip=pip)
             # Create tar file
             # TODO: fail_on_error=False
             _, stdout, stderr, ok = self.run_command(
-                'docker exec {} tar -cvf {} -C {} .'.format(container_id, tar_file_container, cache_dir_container))
+                'docker exec {} tar -cvf {} -C {} .'.format(container_id, tar_file_container,
+                                                            cache_dir_container))
             tar_file_host = '{}/requirements-{}-{}.tar'.format(self.workdir, f_or_p, python_version)
             self.copy_file_out_of_container(container_id, tar_file_container, tar_file_host)
             self.remove_container(container_id)
+
+    def run_docker_pip_command(self, container_id, command, pip='pip', **kwargs):
+        """
+        Run a pip command in a container.
+        container_id: The container id to run on.
+        command: The command string after "pip", not escaped (e.g. 'install jkl -d "/tmp"').
+        pip: The pip binary. By default "pip", but can be an absolute path, can start with 'sudo'.
+        **kwargs: other arguments for run_command()
+        """
+        return self.run_command('docker exec {} {} {}'.format(container_id, pip, command), **kwargs)
 
     def move_dependencies_into_container(self, container_id, f_or_p):
         cache_dir_container = '/home/travis/build/{}/requirements'.format(f_or_p)
