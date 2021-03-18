@@ -43,6 +43,10 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
 * `--separate-passed-failed`: Separate passed and failed cached files. Will fix
   some Java artifacts, but will increase artifact size.
 
+### Python only options
+* `--parse-new-log`: Instead of parsing the original build log, reproduce the
+  artifact and parse this new log.
+
 
 ## Algorithm
 1. Download cached files
@@ -50,9 +54,12 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
       then copy files in localRepositories out as tar files.
         * If the build script fails for either the failed job or the passed job,
           caching will fail.
-    * For Python artifacts, parse the original build log (downloaded from Travis
+    * For Python artifacts, parse the build log (downloaded from Travis
       CI) to determine the list of packages to be downloaded, and then download
       the files using a Python container (e.g. `python:3.7-slim`).
+    	* By default the original build log is parsed.
+    	* The user can choose to reproduce the artifact and parse this new log
+    	  using `--parse-new-log`.
 2. Create a new container from `src-repo`
     * Setup build system configurations (e.g. offline mode, local repository)
     * Put downloaded files into it.

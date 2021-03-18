@@ -48,9 +48,23 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)
 
+        # Reproduce the artifact if needed
+        logs_to_parse = {}
+        for fail_or_pass in ['failed', 'passed']:
+            if self.args.parse_new_log:
+                logs_to_parse[fail_or_pass] = '{}/repr-{}-{}.log'.format(self.workdir, fail_or_pass,
+                                                                         job_id[fail_or_pass])
+                container_id = self.create_container(docker_image_tag, 'repr', fail_or_pass)
+                build_result = self.run_build_script(container_id, fail_or_pass, logs_to_parse[fail_or_pass],
+                                                     job_orig_log[fail_or_pass], job_id[fail_or_pass], None)
+                if not build_result:
+                    raise CachingScriptError('Cannot reproduce {}'.format(fail_or_pass))
+            else:
+                logs_to_parse[fail_or_pass] = job_orig_log[fail_or_pass]
+
         # Download cached files
         for fail_or_pass in ['failed', 'passed']:
-            pip_packages = get_dependencies(job_orig_log[fail_or_pass])
+            pip_packages = get_dependencies(logs_to_parse[fail_or_pass])
             self.download_dependencies(fail_or_pass, pip_packages, docker_image_tag)
 
         # Create a new container and place files into it

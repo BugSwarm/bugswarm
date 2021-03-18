@@ -283,6 +283,10 @@ def validate_input(argv, artifact_type):
                             help='Do not apply strict offline mode when testing.')
         parser.add_argument('--separate-passed-failed', action='store_true',
                             help='Separate passed and failed cached files (will increase artifact size).')
+    if artifact_type == 'python':
+        parser.add_argument('--parse-new-log', action='store_true',
+                            help='Run build script on the artifact and parse this log for list of packages '
+                            'to download (otherwise will parse the original build log)')
 
     args = parser.parse_args(argv[1:])
 
