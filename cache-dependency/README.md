@@ -21,16 +21,17 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
 ```
 
 * `image-tag-file`: Path to a file containing a newline-separated list of image tags to process.
-* `task-name`: A unique name assigned to this invokation of the caching script
+* `task-name`: A unique name assigned to this invokation of the caching script. The name should match regular expression `[a-zA-Z0-9\-\_]+`.
     * Results will be put in `output/<task-name>.csv`.
     * Temporary files will be put in `~/bugswarm-sandbox/<task-name>/<image-tag>/` (a.k.a. work directory)
-    * Docker containers names will start with `<task-name>-`.
+    * Docker containers' names will start with `<task-name>-`.
     * Temporary container images will be placed into the `<task-name>` repository.
 * `--workers`: Set number of worker threads in the script.
 * `--no-push`: Do not push to destination repository at the end.
 * `--src-repo`: Source repository (e.g. `bugswarm/images`)
 * `--dst-repo`: Destination repository (e.g. `bugswarm/cached-images`)
-* `--keep-containers`: Do not remove intermediate containers during the build script for debugging (will consume a lot of disk space)
+* `--keep-tmp-images`: Do not remove temporary container images in the temporary repository `<task-name>`.
+* `--keep-containers`: Do not remove intermediate containers during the build script for debugging (will consume a lot of disk space).
 * `--keep-tars`: Do not remove tar files in the work directory.
 
 ### Java only options
@@ -135,9 +136,9 @@ You should be able to see `python-test:Abjad-abjad-289716771` and `temp-dst-repo
 
 ### Python
 1. Parse the original logs to get a list of dependencies and versions.
-1. Based on python/pip version, we initiate a docker container with same `python version` to download packages via `pip download`.  
+1. Based on python/pip version, we initiate a docker container with same `python version` to download packages via `pip download`.
 1. Copy them into the artifact(`failed/requirements/`, `passed/requirements/`).
-1. Patch build script with `--no-index --find-link` to utilize the download dependencies. 
+1. Patch build script with `--no-index --find-link` to utilize the download dependencies.
 
 
 ## Unit tests for log parser

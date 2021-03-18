@@ -96,9 +96,13 @@ class PatchArtifactTask:
             self.logger.exception(e)
             self.write_output(self.image_tag, '{}, -, -'.format(repr(e)))
         finally:
+            self.logger.info('Start cleaning up.')
             if not self.args.keep_containers:
                 for container_id in self.containers:
                     self.run_command('docker rm -f {}'.format(container_id), fail_on_error=False)
+            if not self.args.keep_tmp_images:
+                self.run_command('docker image rm {}:{}'.format(self.args.task_name, self.image_tag),
+                                 fail_on_error=False)
             if not self.args.keep_tars:
                 self.run_command('rm -f {}/*.tar'.format(self.workdir), fail_on_error=False)
         t_end = time.time()
@@ -256,6 +260,8 @@ def validate_input(argv, artifact_type):
     parser.add_argument('--no-push', action='store_true', help='Do not push the artifact to Docker Hub.')
     parser.add_argument('--src-repo', default=DOCKER_HUB_REPO, help='Which repo to pull non-cached images from.')
     parser.add_argument('--dst-repo', default=DOCKER_HUB_CACHED_REPO, help='Which repo to push cached images to.')
+    parser.add_argument('--keep-tmp-images', action='store_true',
+                        help='Keep temporary container images in the temporary repository.')
     parser.add_argument('--keep-containers', action='store_true',
                         help='Keep containers in order to debug.')
     parser.add_argument('--keep-tars', action='store_true',
@@ -285,6 +291,11 @@ def validate_input(argv, artifact_type):
 
     if not os.path.isfile(image_tags_file):
         log.error('{} is not a file or does not exist. Exiting.'.format(image_tags_file))
+        parser.print_usage()
+        exit(1)
+
+    if not re.fullmatch(r'[a-zA-Z0-9\-\_]+', task_name):
+        log.error('Invalid task_name: {}. Exiting.'.format(repr(task_name)))
         parser.print_usage()
         exit(1)
 
