@@ -49,9 +49,9 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
 
 
 ## Algorithm
-1. Download cached files
+1. Download cached files in containers and copy them out as tar files
     * For Java artifacts, setup localRepositories and run the build script,
-      then copy files in localRepositories out as tar files.
+      then copy files in localRepositories out.
         * If the build script fails for either the failed job or the passed job,
           caching will fail.
     * For Python artifacts, parse the build log (downloaded from Travis
@@ -124,6 +124,55 @@ You should be able to see the result in `output/python-test.csv`
 You should be able to see intermediate files in `~/bugswarm-sandbox/python-test/Abjad-abjad-289716771/`
 
 You should be able to see `python-test:Abjad-abjad-289716771` and `temp-dst-repo:Abjad-abjad-289716771` created
+
+
+## Suggested Workflow
+When working with caching a lot of artifacts and pushing them to the production
+registry, it is important to keep things organized.
+
+As of Mar 24, 2021, we use `bugswarm/images` on DockerHub for non-cached images
+and `bugswarm/cached-images` for cached images. We use a Google spreadsheet to
+track the status of each image. We primarily use bugcatcher to test whether an
+artifact is reproducible.
+
+The following workflow is just a recommendation
+
+1. Get a list of image tags to be cached from the Google spreadsheet. Make sure
+   their status is not cached (goal2). Store them to a file (I usually use
+   `name_mar24a`, where `name` represents my name, `mar24` is today's date,
+   `a` is the index of this file within today)
+2. Pick a task name for the run. I usually pick `name_mar24a1`, where `1` is the
+   index of run done on `name_mar24a`.
+3. Run the caching script and let it push to a temporary docker repo (in
+   contrast to `bugswarm/cached-images`, which is the production repo). Consider
+   creating a private repository like `bugswarm/tmp_name_mar24a1`. Note that if
+   the repository does not exist, DockerHub will create a public one
+   automatically.
+	* It is possible (but not recommended) to use non-bugswarm users, like
+	  `dockeruser/name_mar24a1`, where `dockeruser` is my user name on
+	  DockerHub.
+4. Wait for the script to complete. It is going to take a long time.
+5. After the script completes, go to `output/name_mar24a1.csv` to see the status
+   of each artifact.
+6. For images that success:
+	1. It is recommended to test them first using bugcatcher.
+	2. After that, push them to the production repo using the
+	   `move_docker_images.py` helper script (this script will avoid overwriting
+	   an existing image by default, which is good).
+	3. Test the images in `bugswarm/cached-images` using bugcatcher. Create 2
+	   test suites: one with connected network and one with disconnected.
+	4. After testing, update the images in the Google spreadsheet to goal1 /
+	   done according to the test result.
+	5. Ping the person responding for the next step in the pipeline
+7. For images that fail:
+	1. First try again with extra caching features (e.g.
+	   `--separate-passed-failed` for Java and `--parse-new-log` for Python)
+	2. If that still does not work, go to `~/bugswarm-sandbox/name_mar24a1` and
+	   debug by looking through the logs.
+	3. To debug deeper, use `--keep-tmp-images`, `--keep-containers`, and
+	  `--keep-tars` to save temporary files and Docker images. Note that these
+	  options will consume a lot of disk space, so don't use them on a large
+	  number of images. Also make sure to clean up after debugging.
 
 
 ## Caching Details
