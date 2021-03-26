@@ -223,8 +223,6 @@ class LogFileAnalyzer(object):
             'tr_build_id': 'build_id',
             # The job ID of the build job under analysis.
             'tr_job_id': 'job_id',
-            # The SHA of the original Travis commit, unparsed and unchanged.
-            'tr_original_commit': 'commit',
             # The primary programming language.
             'tr_log_lan': 'primary_language',
             # The overall return status of the build.
