@@ -207,6 +207,7 @@ class PatchArtifactTask:
         if stderr == 'subprocess.TimeoutExpired':
             with open(log_path, 'w') as f:
                 f.write(stderr)
+                self.logger.error('subprocess.TimeoutExpired when running build script for {}.'.format(f_or_p))
                 return False
         with open(log_path, 'w') as f:
             f.write(stdout)
@@ -221,6 +222,10 @@ class PatchArtifactTask:
         compare_result = analyzer.compare_single_log(log_path, orig_log_path, orig_job_id, bs)
         with open(log_path + '.cmp', 'w') as f:
             print(repr(compare_result), file=f)
+        if not compare_result[0]:
+            self.logger.error('Build script log comparision failed.')
+            self.logger.error('Reproduced log: {}'.format(log_path))
+            self.logger.error('Original log: {}'.format(orig_log_path))
         return compare_result[0]
 
     def docker_commit(self, image_tag, container_id):
