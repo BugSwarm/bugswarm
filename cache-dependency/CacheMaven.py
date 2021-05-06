@@ -7,7 +7,6 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 
 from bugswarm.common import log
 from bugswarm.common.artifact_processing import utils as procutils
-from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from utils import PatchArtifactRunner, PatchArtifactTask, validate_input, CachingScriptError
 
@@ -48,10 +47,13 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
             'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
         }
-        if not download_log(job_id['failed'], job_orig_log['failed']):
-            raise CachingScriptError('Error downloading log for failed job {}'.format(job_id['failed']))
-        if not download_log(job_id['passed'], job_orig_log['passed']):
-            raise CachingScriptError('Error downloading log for passed job {}'.format(job_id['passed']))
+        try:
+            for f_or_p in ['failed', 'passed']:
+                content = bugswarmapi.get_build_log(job_id[f_or_p])
+                with open(job_orig_log[f_or_p], 'w') as f:
+                    f.write(content)
+        except Exception:
+            raise CachingScriptError('Error getting log for failed job {}'.format(job_id['failed']))
 
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)

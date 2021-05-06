@@ -5,7 +5,6 @@ from packaging import version
 
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
-from bugswarm.common.log_downloader import download_log
 from utils import validate_input, print_error, mkdir
 from python_log_parser import parse_log
 
@@ -13,6 +12,8 @@ from python_log_parser import parse_log
 _HOME_DIR = str(Path.home())
 _SANDBOX_DIR = '{}/bugswarm-sandbox'.format(_HOME_DIR)
 _TMP_DIR = '{}/tmp'.format(_SANDBOX_DIR)
+
+bugswarmapi = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
 
 
 def _print_usage():
@@ -31,15 +32,22 @@ def download_artifact_log(artifact):
     failed_job_orig_log_path = '{}/{}/log-failed.log'.format(_TMP_DIR, failed_job_id)
     passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
 
-    result = download_log(failed_job_id, failed_job_orig_log_path)
-    if not result:
+    try:
+        content = bugswarmapi.get_build_log(failed_job_id)
+        with open(failed_job_orig_log_path, 'w') as f:
+            f.write(content)
+    except Exception:
         print_error('Error downloading log for failed_job_id {}'.format(failed_job_id))
         return -1, failed_job_orig_log_path, passed_job_orig_log_path
 
-    result = download_log(passed_job_id, passed_job_orig_log_path)
-    if not result:
+    try:
+        content = bugswarmapi.get_build_log(passed_job_id)
+        with open(passed_job_orig_log_path, 'w') as f:
+            f.write(content.read())
+    except Exception:
         print_error('Error downloading log for passed_job_id {}'.format(passed_job_id))
         return -1, failed_job_orig_log_path, passed_job_orig_log_path
+
     return 1, failed_job_orig_log_path, passed_job_orig_log_path
 
 
@@ -76,7 +84,6 @@ def java_filter(artifact):
 def main(argv=None):
     argv = argv or sys.argv
     image_tags_file, output_file = validate_input(argv, _print_usage)
-    bugswarmapi = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
     artifact_list = list()
     with open(image_tags_file, "r") as file:
         for line in file:

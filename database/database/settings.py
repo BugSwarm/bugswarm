@@ -123,10 +123,21 @@ accounts = {
     'cache_expires': 0,
 }
 
+logs = {
+    'schema': schema.LogSchema,
+    'allow_unknown': True,
+    'id_field': 'job_id',
+    'item_lookup_field': 'job_id',
+    'item_url': 'regex(".+")',
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+}
+
 DOMAIN = {
     'artifacts': artifacts,
     'minedBuildPairs': minedBuildPairs,
     'minedProjects': minedProjects,
     'emailSubscribers': emailSubscribers,
     'accounts': accounts,
+    'logs': logs,
 }

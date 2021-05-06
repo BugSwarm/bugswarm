@@ -1,3 +1,4 @@
+import os
 import datetime
 import json
 import pprint
@@ -42,6 +43,7 @@ class DatabaseAPI(object):
     _MINED_PROJECTS_RESOURCE = 'minedProjects'
     _EMAIL_SUBSCRIBERS_RESOURCE = 'emailSubscribers'
     _ACCOUNTS_RESOURCE = 'accounts'
+    _LOGS_RESOURCE = 'logs'
 
     def __init__(self, token: str):
         """
@@ -308,6 +310,48 @@ class DatabaseAPI(object):
             raise TypeError
         updates = {'repo': new_repo}
         return self._patch(DatabaseAPI._artifact_image_tag_endpoint(image_tag), updates)
+
+    ###################################
+    # Logs REST methods
+    ###################################
+    def set_build_log(self, job_id: int, build_log_fp: str) -> Response:
+        """
+        Add the failed or passed build log for the artifact to the logs collection.
+        :param job_id: The job id corresponding to the passed or failed build log.
+        :param build_log_fp: The path for the build log to be loaded into the database.
+        :return: The response object.
+        """
+        if not isinstance(job_id, int):
+            raise TypeError
+        if not job_id:
+            raise ValueError
+        if not isinstance(build_log_fp, str):
+            raise TypeError
+        if not build_log_fp:
+            raise ValueError
+        if not os.path.exists(build_log_fp):
+            raise IOError
+        with open(build_log_fp, 'r') as build_log:
+            build_log_text = build_log.read()
+        log_entry = {
+            'job_id': job_id,
+            'build_log': build_log_text,
+        }
+        return self._insert(DatabaseAPI._logs_endpoint(), log_entry, 'log')
+
+    def get_build_log(self, job_id: int, error_if_not_found: bool = True) -> Response:
+        """
+        Get artifact failed or passed build log based on job id.
+        :param job_id: The job id corresponding to the passed or failed build log.
+        :param error_if_not_found: return err if the image tag not found. default True.
+        :return: The build_log.
+        """
+        if not isinstance(job_id, int):
+            raise TypeError
+        if not job_id:
+            raise ValueError
+        log_object = self._get(DatabaseAPI._logs_image_tag_endpoint(job_id), error_if_not_found).json()
+        return log_object['build_log']
 
     ###################################
     # Mined Build Pair REST methods
@@ -844,3 +888,15 @@ class DatabaseAPI(object):
         if not email:
             raise ValueError
         return '/'.join([DatabaseAPI._accounts_endpoint(), email])
+
+    @staticmethod
+    def _logs_endpoint() -> Endpoint:
+        return DatabaseAPI._endpoint(DatabaseAPI._LOGS_RESOURCE)
+
+    @staticmethod
+    def _logs_image_tag_endpoint(image_tag: str) -> Endpoint:
+        if not isinstance(image_tag, str):
+            raise TypeError
+        if not image_tag:
+            raise ValueError
+        return '/'.join([DatabaseAPI._logs_endpoint(), image_tag])
