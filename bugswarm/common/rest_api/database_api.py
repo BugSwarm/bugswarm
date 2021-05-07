@@ -314,14 +314,14 @@ class DatabaseAPI(object):
     ###################################
     # Logs REST methods
     ###################################
-    def set_build_log(self, job_id: int, build_log_fp: str) -> Response:
+    def set_build_log(self, job_id: str, build_log_fp: str) -> Response:
         """
         Add the failed or passed build log for the artifact to the logs collection.
         :param job_id: The job id corresponding to the passed or failed build log.
         :param build_log_fp: The path for the build log to be loaded into the database.
         :return: The response object.
         """
-        if not isinstance(job_id, int):
+        if not isinstance(job_id, str):
             raise TypeError
         if not job_id:
             raise ValueError
@@ -339,18 +339,18 @@ class DatabaseAPI(object):
         }
         return self._insert(DatabaseAPI._logs_endpoint(), log_entry, 'log')
 
-    def get_build_log(self, job_id: int, error_if_not_found: bool = True) -> Response:
+    def get_build_log(self, job_id: str, error_if_not_found: bool = True) -> Response:
         """
         Get artifact failed or passed build log based on job id.
         :param job_id: The job id corresponding to the passed or failed build log.
         :param error_if_not_found: return err if the image tag not found. default True.
         :return: The build_log.
         """
-        if not isinstance(job_id, int):
+        if not isinstance(job_id, str):
             raise TypeError
         if not job_id:
             raise ValueError
-        log_object = self._get(DatabaseAPI._logs_image_tag_endpoint(job_id), error_if_not_found).json()
+        log_object = self._get(DatabaseAPI._logs_job_id_endpoint(job_id), error_if_not_found).json()
         return log_object['build_log']
 
     ###################################
@@ -894,9 +894,9 @@ class DatabaseAPI(object):
         return DatabaseAPI._endpoint(DatabaseAPI._LOGS_RESOURCE)
 
     @staticmethod
-    def _logs_image_tag_endpoint(image_tag: str) -> Endpoint:
-        if not isinstance(image_tag, str):
+    def _logs_job_id_endpoint(job_id: str) -> Endpoint:
+        if not isinstance(job_id, str):
             raise TypeError
-        if not image_tag:
+        if not job_id:
             raise ValueError
-        return '/'.join([DatabaseAPI._logs_endpoint(), image_tag])
+        return '/'.join([DatabaseAPI._logs_endpoint(), job_id])

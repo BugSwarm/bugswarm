@@ -1,6 +1,6 @@
-from .common_schema import RequiredInt, NonEmptyStr
+from .common_schema import RequiredStr, NonEmptyStr
 
 LogSchema = {
-    'job_id': RequiredInt,
+    'job_id': RequiredStr,
     'build_log': NonEmptyStr,
 }
