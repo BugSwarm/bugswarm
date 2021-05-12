@@ -33,7 +33,7 @@ def download_artifact_log(artifact):
     passed_job_orig_log_path = '{}/{}/log-passed.log'.format(_TMP_DIR, passed_job_id)
 
     try:
-        content = bugswarmapi.get_build_log(failed_job_id)
+        content = bugswarmapi.get_build_log(str(failed_job_id))
         with open(failed_job_orig_log_path, 'w') as f:
             f.write(content)
     except Exception:
@@ -41,7 +41,7 @@ def download_artifact_log(artifact):
         return -1, failed_job_orig_log_path, passed_job_orig_log_path
 
     try:
-        content = bugswarmapi.get_build_log(passed_job_id)
+        content = bugswarmapi.get_build_log(str(passed_job_id))
         with open(passed_job_orig_log_path, 'w') as f:
             f.write(content.read())
     except Exception:

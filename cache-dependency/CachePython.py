@@ -41,7 +41,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         }
         try:
             for f_or_p in ['failed', 'passed']:
-                content = bugswarmapi.get_build_log(job_id[f_or_p])
+                content = bugswarmapi.get_build_log(str(job_id[f_or_p]))
                 with open(job_orig_log[f_or_p], 'w') as f:
                     f.write(content)
         except Exception:
