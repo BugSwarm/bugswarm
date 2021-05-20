@@ -71,6 +71,9 @@ class GitHubWrapper(object):
                 elif response.status_code == 451:  # Repository access blocked.
                     log.error('Repository access blocked:', url)
                     return None, None
+                elif response.status_code == 401:  # Not authorized.
+                    log.error('Invalid GitHub API token: ', self._session.headers['Authorization'])
+                    return None, None
                 elif response.status_code == 422:
                     return None, None
                 else:
