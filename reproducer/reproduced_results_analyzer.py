@@ -172,24 +172,24 @@ class ReproducedResultsAnalyzer(object):
         filepath = os.path.join(self.config.result_json_dir, filename)
         write_json(filepath, pairs)
 
-    def _get_all_jobpairs_and_task_names(self) -> Tuple[List[JobPair], List[str]]:
+    def _get_all_jobpairs_and_all_runs(self) -> Tuple[List[JobPair], List[str]]:
         all_jobpairs = []
         for r in self.pair_center.repos:
             for bp in self.pair_center.repos[r].buildpairs:
                 for jp in bp.jobpairs:
                     all_jobpairs.append(jp)
-        all_task_names = []
+        all_runs = []
         for jp in all_jobpairs:
-            for task_name in jp.match_history:
-                all_task_names.append(str(task_name))
-        all_task_names = list(set(all_task_names))
-        all_task_names.sort()
-        return all_jobpairs, all_task_names
+            for run in jp.match_history:
+                all_runs.append(run)
+        all_runs = list(set(all_runs))
+        all_runs.sort()
+        return all_jobpairs, all_runs
 
     def _visualize_match_history(self):
         log.info('Visualizing match history:')
         log.info('N means no reproduced log exists. (An error occured in reproducer while reproducing the job.)')
-        all_jobpairs, all_task_names = self._get_all_jobpairs_and_task_names()
+        all_jobpairs, all_runs = self._get_all_jobpairs_and_all_runs()
         for jp in all_jobpairs:
             log.info(jp.full_name)
             match_histories = [
@@ -198,7 +198,8 @@ class ReproducedResultsAnalyzer(object):
                 (jp.passed_job_match_history, 'Passed job'),
             ]
             for match_history, history_name in match_histories:
-                mh = [str(match_history.get(task_name, 'N')) for task_name in all_task_names]
+                # Task name is run number 1-5
+                mh = [str(match_history.get(run, 'N')) for run in all_runs]
                 if mh:
                     full_history_name = '{} match history'.format(history_name)
                     log.info('{:>24}:'.format(full_history_name), ' -> '.join(mh))
@@ -207,20 +208,26 @@ class ReproducedResultsAnalyzer(object):
 
     def _show_reproducibility(self):
         log.info('Visualizing reproducibility:')
-        all_jobpairs, all_task_names = self._get_all_jobpairs_and_task_names()
+        all_jobpairs, all_runs = self._get_all_jobpairs_and_all_runs()
         if not all_jobpairs:
             log.info('Nothing to visualize since no jobs were run.')
         else:
             full_name_max_length = max([len(jp.full_name) for jp in all_jobpairs])
             for jp in all_jobpairs:
-                mh = [str(jp.match_history.get(task_name, 'N')) for task_name in all_task_names]
-                # Reproduce attempts excludes 'N' match types. Remove 'N's and convert list items to ints.
-                mh = [int(r) for r in mh if str(r).isdigit()]
-                # Convert all non-1 entries to 0.
-                mh = [r if r == 1 else 0 for r in mh]
-                if sum(mh) == 0:
+                mh = []
+                for run in all_runs:
+                    run_result = jp.match_history.get(run)
+                    # run_result could be 'N', 0, or 1
+                    if run_result != 1:
+                        mh.append(0)
+                    else:
+                        mh.append(run_result)
+
+                # No reproducing runs were successful
+                if all(v == 0 for v in mh):
                     reproducibility = 'Unreproducible'
-                elif sum(mh) == len(mh):
+                # match history is all 1s, all runs reproducible
+                elif all(mh):
                     reproducibility = 'Reproducible'
                 else:
                     reproducibility = 'Flaky'

@@ -91,8 +91,9 @@ class ImagePackager(JobDispatcher):
         # Create and push a Docker image to Docker Hub.
         package_jobpair_image(self.utils, self.docker, jobpair)
         elapsed = time.time() - start_time
-        log.info(colored('[THREAD {}] Finished creating and pushing Docker image in {} seconds.'
-                         .format(tid, int(elapsed)), 'green'))
+        image_tag = self.utils.construct_jobpair_image_tag(jobpair)
+        log.info(colored('[THREAD {}] Finished creating and pushing Docker image {} in {} seconds.'
+                         .format(tid, image_tag, int(elapsed)), 'green'))
         self.jobpairs_packaged.value += 1
 
     def record_error_reason(self, item, message):
