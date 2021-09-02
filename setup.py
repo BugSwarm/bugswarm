@@ -30,5 +30,6 @@ setup(
         'lxml==4.6.2',
         'proxy_requests==0.3.5',
         'packaging==20.7',
+        'urllib3==1.25.11',
     ],
 )

@@ -155,17 +155,21 @@ Usage: ./run_mine_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_mine_project.sh -r Flipkart/foxtrot
+$ ./run_mine_project.sh -r TechCavern/WaveTact
 ```
-The example will mine job-pairs from the "Flipkart/foxtrot" project. This will run through the Miner component
-of the BugSwarm pipeline. The output will push data to your MongoDB specified and outputs several .json files
+The example will mine job-pairs from the "TechCavern/WaveTact" project. This will run through the Miner component
+of the BugSwarm pipeline. The output will push data to your MongoDB specified and outputs several `.json` files
 after each sub-step.
 
 ## [Reproducer](/reproducer/README.md)
 BugSwarm obtains the original build environment that was used by Travis CI, via a Docker image, and generate
 scripts to build and run regression tests for each build. We match the reproduced build log, which is a
 transcript of everything that happens at the command line during build and testing, with the historical
-build log from Travis CI. We do this five times to account for reproducibility and flakiness.
+build log from Travis CI. We do this five times to account for reproducibility and flakiness. Reproducible pairs
+are then pushed as an an Artifact to `DOCKER_HUB_REPO` in as specified in `credentials.py`, as a temporary repo. 
+Metadata is not pushed to the MongoDB until after completing of the following caching step which pushes the Artifact
+with cached dependencies to the final repo, described below.
+
 #### Reproduce a Project
 `run_reproduce_project.sh`: Reproduces all job-pairs mined from a project given its repo slug.
 ```
@@ -181,12 +185,11 @@ Usage: ./run_reproduce_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_reproduce_project.sh -r "Flipkart/foxtrot" -c ~/bugswarm/
+$ ./run_reproduce_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm
 ```
-The example will attempt to reproduce all job-pairs mined from the "Flipkart/foxtrot" project. We add the "-c"
-argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
-sucessfully. If successful, metadata will be pushed to our specified MongoDB and the Artifact is pushed to the
-DockerHub repository we specified.
+The example will attempt to reproduce all job-pairs mined from the "TechCavern/WaveTact" project. We add the "-c"
+argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline
+sucessfully.
 
 #### Reproducing a Pair
 `run_reproduce_pair.sh`: Reproduces a single job-pair given the slug for the project from which the job-pair
@@ -207,11 +210,11 @@ Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-
 ```
 _Example_:
 ```
-$ ./run_reproduce_pair.sh -r Flipkart/foxtrot -f 433449696 -p 433455764 -t 2
+$ ./run_reproduce_pair.sh -r TechCavern/WaveTact -f 334169735 -p 334184621 -t 2
 ```
-The example above will take the repo-slug "Flipkart/foxtrot" and both failed/passed job id to reproduce through
-the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the DockerHub repository specified
-in the "credentials.py" file and push metadata to the MongoDB.
+The example above will take the repo-slug "TechCavern/WaveTact" and both failed/passed job id to reproduce through
+the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the temporary 
+DockerHub repository specified as `DOCKER_HUB_REPO` in the `credentials.py` file for attempted caching in the following step described below.
 
 #### Generate Pair Input
 
@@ -241,12 +244,42 @@ Options:
 ```
 _Example_:
 ```
-$ python3 generate_pair_input.py --repo stormpath/stormpath-sdk-java --include-resettable --include-test-failures-only --include-archived-only --classified-code --classified-exception NullPointerException -o /home/user/results_output.txt
+$ python3 generate_pair_input.py --repo TechCavern/WaveTact --include-resettable --include-test-failures-only --include-archived-only --classified-code --classified-exception NullPointerException -o /home/user/results_output.txt
 ```
 The example above will include job pairs that were previously attempted to reproduce from the Artifact database collection,
 among those job pairs we include only those that have test failure according to the Analyzer, marked
 as resettable, and finally we restrict the job pairs further to those that were classified with having 
 the "NullPointerException".
+
+## [Cache Reproduced Project](/cache-dependency/README.md)
+Artifacts with cached dependencies are more stable over time, and are the form in which Artifacts should be added to a dataset.
+Successfully cached Artifacts are then pushed to the final repo, specified as `DOCKER_HUB_CACHED_REPO` in `credentials.py`, with
+crucial metadata pushed to the MongoDB.
+
+#### Cache Reproduced Project
+`cache_project.sh`: Cache reproduced job-pair Artifacts from a project.
+```
+Usage: ./cache_project.sh -r <repo-slug> [OPTIONS]
+
+    <repo-slug>         Repo slug of the project
+
+    OPTIONS:
+        -t, --threads                Maximum number of worker threads to spawn. Defaults to 1.
+        -c, --component-directory    The directory containing all the required BugSwarm components.
+        -ca, --caching-args          Optional flags to caching script, written as normal enclosed by
+                                     single-quotes. See cache-dependency/README for details on flags.
+```
+_Example_:
+```
+$ ./cache_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
+```
+The example will attempt to cache all reproducible job-pairs from the "TechCavern/WaveTact" project. We add the "-c"
+argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
+sucessfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags. 
+If successful, metadata will be pushed to our specified MongoDB and the post-cached Artifact is pushed to the
+DockerHub repository we specified. This script tracks successfully cached Artifacts, so that only uncached are attempted.
+This script is meant to be re-run as necessary with different caching script flags to iteratively attempt caching candidate
+reproducible Artifacts.
 
 ## Questions:
 Visit our FAQ docs [page](docs/Frequently-Answered-Questions.md)

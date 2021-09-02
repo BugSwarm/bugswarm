@@ -31,6 +31,13 @@ class Packager(object):
     def run(self):
         buildpairs = read_json(self.input_file)
         # Only check for skipping if CSV mode is disabled.
+        cached_image_tags = []
+        with open('../cache-dependency/output/{}.csv'.format(self.task)) as f:
+            for row in f:
+                # This assumes format  '<image tag>, <succeed/error>, <size>, <size increase>'
+                row_list = row.split(', ')
+                if row_list[1] == 'succeed':
+                    cached_image_tags.append(row_list[0])
         to_insert = []
         for bp in buildpairs:
             for jp in bp['jobpairs']:
@@ -40,7 +47,8 @@ class Packager(object):
                 if artifact_exists and not reproduce_successes:
                     log.info('Artifact', image_tag, 'already exists in the database.')
                     continue
-                to_insert.append((image_tag, artifact_exists, self._structure_artifact_data(image_tag, bp, jp)))
+                if image_tag in cached_image_tags:
+                    to_insert.append((image_tag, artifact_exists, self._structure_artifact_data(image_tag, bp, jp)))
 
         if self.csv_mode:
             self._write_csv(to_insert)

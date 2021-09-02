@@ -8,7 +8,7 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common import log
 from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from utils import PatchArtifactRunner, PatchArtifactTask, validate_input, CachingScriptError
+from utils import PatchArtifactRunner, PatchArtifactTask, validate_input, get_repr_metadata_dict, CachingScriptError
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
@@ -31,11 +31,15 @@ CACHE_DIRECTORIES = {
 
 class PatchArtifactMavenTask(PatchArtifactTask):
     def cache_artifact_dependency(self):
-        response = bugswarmapi.find_artifact(self.image_tag)
-        if not response.ok:
-            raise CachingScriptError('Unable to get artifact data')
+        if self.repr_metadata:
+            artifact = self.repr_metadata[self.image_tag]
+        # Normal case, outside of reproducer pipeline
+        else:
+            response = bugswarmapi.find_artifact(self.image_tag)
+            if not response.ok:
+                raise CachingScriptError('Unable to get artifact data')
+            artifact = response.json()
 
-        artifact = response.json()
         build_system = artifact['build_system']
         job_id = {
             'failed': artifact['failed_job']['job_id'],
@@ -43,17 +47,27 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         }
         repo = artifact['repo']
 
-        job_orig_log = {
-            'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
-            'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
-        }
-        try:
+        if self.repr_metadata:
+            job_orig_log = {
+                'failed': '/home/bugswarm/bugswarm/pair-filter/original-logs/{}-orig.log'.format(job_id['failed']),
+                'passed': '/home/bugswarm/bugswarm/pair-filter/original-logs/{}-orig.log'.format(job_id['passed']),
+            }
             for f_or_p in ['failed', 'passed']:
-                content = bugswarmapi.get_build_log(str(job_id[f_or_p]))
-                with open(job_orig_log[f_or_p], 'w') as f:
-                    f.write(content)
-        except Exception:
-            raise CachingScriptError('Error getting log for failed job {}'.format(job_id['failed']))
+                if os.path.isfile(job_orig_log[f_or_p]) is False:
+                    raise CachingScriptError('Error getting log for {} job {}'.format(f_or_p, job_id[f_or_p]))
+        else:
+            job_orig_log = {
+                'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
+                'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
+            }
+            for f_or_p in ['failed', 'passed']:
+                try:
+                    content = bugswarmapi.get_build_log(str(job_id[f_or_p]))
+                    with open(job_orig_log[f_or_p], 'w') as f:
+                        f.write(content)
+                except Exception:
+                    raise CachingScriptError(
+                        'Error getting log for {} job {}'.format(f_or_p, job_id[f_or_p]))
 
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)
@@ -213,9 +227,15 @@ def main(argv=None):
     argv = argv or sys.argv
     image_tags_file, output_file, args = validate_input(argv, 'maven')
 
+    # Remains empty if run outside of reproducer pipeline
+    repr_metadata_dict = dict()
+    # Task JSON path will be an empty string by default
+    if args.task_json:
+        log.info('Writing pairs to reference dict from ReproducedResultsAnalyzer JSON')
+        repr_metadata_dict = get_repr_metadata_dict(args.task_json, repr_metadata_dict)
     t_start = time.time()
-    PatchArtifactRunner(PatchArtifactMavenTask, image_tags_file, _COPY_DIR, output_file, args,
-                        workers=args.workers).run()
+    PatchArtifactRunner(PatchArtifactMavenTask, image_tags_file, _COPY_DIR, output_file, repr_metadata_dict,
+                        args, workers=args.workers).run()
     t_end = time.time()
     log.info('Running patch took {}s'.format(t_end - t_start))
 

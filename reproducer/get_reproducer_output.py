@@ -8,8 +8,11 @@ def main(argv):
     in_paths, out_path = _validate_input(argv)
 
     buildpairs = []
+    tasks = []
     for path in in_paths:
         with open(path) as f:
+            # Get task names to check for previous caching output CSVs
+            tasks.append(str(os.path.splitext(path)[0].split('/')[-1]))
             buildpairs += json.load(f)
 
     to_be_cached = []
@@ -42,9 +45,20 @@ def main(argv):
     except FileExistsError:
         pass
 
+    cached_image_tags = set()
+    for task in tasks:
+        if os.path.isfile('output/{}'.format(task)):
+            with open('output/{}.csv'.format(task)) as f:
+                for row in f:
+                    row_list = row.split(', ')
+                    if row_list[1] == 'succeed':
+                        cached_image_tags.add(row_list[0])
+
     with open(out_path, 'w') as f:
         for image_tag in to_be_cached:
-            f.write(image_tag + '\n')
+            if image_tag not in cached_image_tags:
+                f.write(image_tag + '\n')
+    print('Wrote file to {}'.format(out_path))
 
 
 def _validate_input(argv):

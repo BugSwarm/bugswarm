@@ -8,10 +8,12 @@ import threading
 import time
 from pathlib import Path
 
+from bugswarm.common.json import read_json
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common import log
 from bugswarm.common.artifact_processing.runners import ParallelArtifactRunner
 from bugswarm.common.credentials import DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
+from bugswarm.common import utils as bugswarmutils
 import traceback
 
 _HOME_DIR = str(Path.home())
@@ -24,10 +26,13 @@ class CachingScriptError(Exception):
 
 class PatchArtifactRunner(ParallelArtifactRunner):
     def __init__(self, task_class: type, image_tags_file: str, copy_dir: str, output_file: str,
-                 args: argparse.Namespace, workers: int = 1):
+                 repr_metadata: dict, args: argparse.Namespace, workers: int = 1):
         """
         :param image_tags_file: Path to a file containing a newline-separated list of image tags.
         :param copy_dir: A directory to copy into the host-side sandbox before any artifacts are processed.
+        :param output_file: File location for output CSV to be written to. Path is defined in validate_input.
+        :param repr_metadata: Dictionary mapping build pair image_tag to relevant metadata for runs with the
+        reproducer pipeline, empty if run outside the pipeline.
         :param command: A callable used to determine what command(s) to execute in each artifact container. `command` is
                         called once for each processed artifact. The only parameter is the image tag of the artifact
                         about to be processed.
@@ -36,6 +41,7 @@ class PatchArtifactRunner(ParallelArtifactRunner):
         with open(image_tags_file) as f:
             image_tags = list(map(str.strip, f.readlines()))
         super().__init__(image_tags, workers)
+        self.repr_metadata = repr_metadata
         self.task_class = task_class
         self.copy_dir = copy_dir
         self.output_file = output_file
@@ -57,6 +63,7 @@ class PatchArtifactRunner(ParallelArtifactRunner):
 class PatchArtifactTask:
     def __init__(self, runner: PatchArtifactRunner, image_tag: str):
         self.image_tag = image_tag
+        self.repr_metadata = runner.repr_metadata
         self.containers = []
         self.copy_dir = runner.copy_dir
         self.output_file = runner.output_file
@@ -229,7 +236,7 @@ class PatchArtifactTask:
         return compare_result[0]
 
     def docker_commit(self, image_tag, container_id):
-        new_repo = '{}:{}'.format(self.args.task_name, image_tag)
+        new_repo = '{}:{}'.format(self.args.task_name.lower(), image_tag)
         _, stdout, stderr, ok = self.run_command('docker commit {} {}'.format(container_id, new_repo))
         image_id = re.fullmatch('sha256:([0-9a-f]{64})', stdout.strip()).groups()
         return new_repo, image_id
@@ -261,6 +268,8 @@ def validate_input(argv, artifact_type):
                         help='Path to a file containing a newline-separated list of image tags to process.')
     parser.add_argument('task_name',
                         help='Name of current task. Results will be put in ./output/<task-name>.csv.')
+    parser.add_argument('--task_json', default='',
+                        help='Location of task JSON from ReproducedResultsAnalyzer')
     parser.add_argument('--workers', type=int, default=4, help='Number of parallel tasks to run.')
     parser.add_argument('--no-push', action='store_true', help='Do not push the artifact to Docker Hub.')
     parser.add_argument('--src-repo', default=DOCKER_HUB_REPO, help='Which repo to pull non-cached images from.')
@@ -297,11 +306,18 @@ def validate_input(argv, artifact_type):
 
     image_tags_file = args.image_tags_file
     task_name = args.task_name
+    task_json_path = args.task_json
 
     if not os.path.isfile(image_tags_file):
         log.error('{} is not a file or does not exist. Exiting.'.format(image_tags_file))
         parser.print_usage()
         exit(1)
+
+    if task_json_path:
+        if not os.path.isfile(task_json_path):
+            log.error('{} is not a file or does not exist. Exiting.'.format(task_json_path))
+            parser.print_usage()
+            exit(1)
 
     if not re.fullmatch(r'[a-zA-Z0-9\-\_]+', task_name):
         log.error('Invalid task_name: {}. Exiting.'.format(repr(task_name)))
@@ -343,16 +359,19 @@ def create_work_space(tmp_dir, sandbox_dir):
     _, stdout, stderr, ok = _run_command('cp -r from_host/ {}'.format(sandbox_dir))
 
 
-# Deprecated
-'''
-def copy_log_out_of_container(image_tag, container_id, f_or_p, tmp_dir, travis_dir, option=None):
-    mkdir('{}/{}'.format(tmp_dir, image_tag))
-
-    # if cache pinned artifacts, make sure the log file name match existing logs
-    src = '{}/log-{}.log'.format(travis_dir, f_or_p)
-    if option is None:
-        des = '{}/{}/log-{}.log'.format(tmp_dir, image_tag, f_or_p)
-    else:
-        des = '{}/{}/log-{}-{}.log'.format(tmp_dir, image_tag, option, f_or_p)
-    copy_file_out_of_container(container_id, src, des)
-'''
+def get_repr_metadata_dict(task_json_path, repr_metadata_dict):
+    buildpairs = read_json(task_json_path)
+    for bp in buildpairs:
+        for jp in bp['jobpairs']:
+            image_tag = bugswarmutils.get_image_tag(bp['repo'], jp['failed_job']['job_id'])
+            failed_job = jp['failed_job']
+            passed_job = jp['passed_job']
+            jobs = [failed_job, passed_job]
+            tag_metadata = dict()
+            tag_metadata['repo'] = bp['repo']
+            build_system = failed_job['orig_result']['tr_build_system'] if failed_job['orig_result'] else ''
+            tag_metadata['build_system'] = build_system
+            tag_metadata['failed_job'] = {'job_id': jobs[0]['job_id']}
+            tag_metadata['passed_job'] = {'job_id': jobs[1]['job_id']}
+            repr_metadata_dict[image_tag] = tag_metadata
+    return repr_metadata_dict

@@ -8,9 +8,8 @@ source "${SCRIPT_DIR}"/common.sh
 
 # Increase REPRODUCER_RUNS to be more confident about pair stability at the cost of throughput.
 REPRODUCER_RUNS=5
-# Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager,
-# MetadataPackager, and CacheDependency.
-TOTAL_STEPS=$((${REPRODUCER_RUNS} + 5))
+# Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager.
+TOTAL_STEPS=$((${REPRODUCER_RUNS} + 3))
 STAGE='Reproduce Project'
 
 USAGE='Usage: bash run_reproduce_project.sh -r <repo-slug> [-t <threads>] [-c <component-directory>] [-s]'
@@ -85,19 +84,5 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
 python3 entry.py -i output/result_json/${task_name}.json --package -k -t ${threads} -o ${task_name}_run${REPRODUCER_RUNS} ${skip_check_disk}
 exit_if_failed 'ImagePackager encountered an error.'
-
-# MetadataPackager (push artifact metadata to the database)
-print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
-python3 packager.py -i output/result_json/${task_name}.json
-exit_if_failed 'MetadataPackager encountered an error.'
-
-print_step "${STAGE}" ${TOTAL_STEPS} 'CacheDependency'
-cd ${cache_dep_dir}
-python3 get_reproducer_output.py -i ${reproducer_dir}/output/result_json/${task_name}.json -o ${task_name}
-exit_if_failed 'CacheDependency encountered an error.'
-if [ -s input/${task_name} ]; then
-    python3 CacheMaven.py input/${task_name} ${task_name}
-    exit_if_failed 'CacheDependency encountered an error.'
-fi
 
 print_stage_done "${STAGE}"

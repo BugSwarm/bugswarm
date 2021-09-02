@@ -39,13 +39,14 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
             'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
         }
-        try:
-            for f_or_p in ['failed', 'passed']:
+        for f_or_p in ['failed', 'passed']:
+            try:
                 content = bugswarmapi.get_build_log(str(job_id[f_or_p]))
                 with open(job_orig_log[f_or_p], 'w') as f:
                     f.write(content)
-        except Exception:
-            raise CachingScriptError('Error getting log for failed job {}'.format(job_id['failed']))
+            except Exception:
+                raise CachingScriptError(
+                    'Error getting log for {} job {}'.format(f_or_p, job_id[f_or_p]))
 
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)
@@ -207,10 +208,11 @@ def main(argv=None):
 
     argv = argv or sys.argv
     image_tags_file, output_file, args = validate_input(argv, 'python')
+    repr_metadata_dict = dict()  # This arg for PatchArtifactRunner only used in Java at the moment
 
     t_start = time.time()
-    PatchArtifactRunner(PatchArtifactPythonTask, image_tags_file, _COPY_DIR, output_file, args,
-                        workers=args.workers).run()
+    PatchArtifactRunner(PatchArtifactPythonTask, image_tags_file, _COPY_DIR, output_file, repr_metadata_dict,
+                        args, workers=args.workers).run()
     t_end = time.time()
     log.info('Running patch took {}s'.format(t_end - t_start))
 
