@@ -44,8 +44,11 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
   some Java artifacts, but will increase artifact size.
 
 ### Python only options
-* `--parse-new-log`: Instead of parsing the original build log, reproduce the
-  artifact and parse this new log.
+* `--parse-original-log`: Instead of using the output of pip freeze on the reproduced
+  artifact and then downloading them in the same container, use the old method of parsing
+  the orginal build logs to find a list of dependencies then download them to an intermediate container.
+* `--parse-new-log`: Like parse-original-log but instead of parsing the original
+  build log, reproduce the artifact and parse this new log.
 
 
 ## Algorithm
@@ -54,12 +57,16 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
       then copy files in localRepositories out.
         * If the build script fails for either the failed job or the passed job,
           caching will fail.
-    * For Python artifacts, parse the build log (downloaded from Travis
-      CI) to determine the list of packages to be downloaded, and then download
-      the files using a Python container (e.g. `python:3.7-slim`).
-    	* By default the original build log is parsed.
-    	* The user can choose to reproduce the artifact and parse this new log
-    	  using `--parse-new-log`.
+    * For Python artifacts run the build script then use pip freeze to get a
+      list of all installed packages and versions, also check all anaconda 
+      environments, if any, for any additional packages. Next use pip to download
+      all the packages on the list, and then copy the files out.
+        * For Python artifacts using the `parse-original-log` or `parse-new-log` 
+          options, parse the build log (either the original build log 
+          downloaded from Travis-CI or a newly reproduced build log from running the
+          build script, depending upon which option is used) to determine the list
+          of packages to be downloaded, and then download the files using a Python
+          container (e.g. `python:3.7-slim`).
 2. Create a new container from `src-repo`
     * Setup build system configurations (e.g. offline mode, local repository)
     * Put downloaded files into it.
@@ -96,6 +103,7 @@ Temporary files will be stored in `~/bugswram-sandbox/<task-name>/<image-tag>/`
 * `home-m2-{failed,passed}.log` etc.: Cached files for Java build systems.
     * A complete list is at `CACHE_DIRECTORIES` in `CacheMaven.py`
 * `requirements-{failed,passed}-*.tar`: Cached files for Python build systems.
+* `{failed,passed}-dep-download.log`: Output of pip while downloading the dependencies for Python build systems.
 
 
 ## Example
@@ -166,7 +174,7 @@ The following workflow is just a recommendation
 	5. Ping the person responding for the next step in the pipeline
 7. For images that fail:
 	1. First try again with extra caching features (e.g.
-	   `--separate-passed-failed` for Java and `--parse-new-log` for Python)
+	   `--separate-passed-failed` for Java and `--parse-{new/old}-log` for Python)
 	2. If that still does not work, go to `~/bugswarm-sandbox/name_mar24a1` and
 	   debug by looking through the logs.
 	3. To debug deeper, use `--keep-tmp-images`, `--keep-containers`, and
@@ -191,7 +199,23 @@ The following workflow is just a recommendation
    When testing cached artifact, add offline flag in Maven and Gradle binary.
 
 ### Python
-1. Parse the original logs to get a list of dependencies and versions.
+
+### Pip Freeze Method (default)
+1. Edit build scripts so that if a python virtual environment needs to be downloaded, the file it downloaded will not be deleted.
+1. Runs the failed and passed jobs using `run_failed.sh` and `run_passed.sh`.
+1. Use grep to find which python virtualenv was used and activate it.
+1. Use `pip freeze` to get list of all installed packages.
+1. Look for additional pip packages by looping through all anaconda virtualenvs if any, activating them and getting a list of their pip dependencies with `pip freeze`.
+1. Download all the dependencies using `pip download` (or `pip install --download` for older versions of pip) to a new folder. Put the folder into a tarball and copy it out of the container.
+   1. If a virtualenv was downloaded (the download file is still around), then copy the tar file it came from into the folder also before copying it out.
+1. Copy the dependencies into a fresh instance of the artifact(`failed/requirements/`, `passed/requirements/`).
+1. Patch build script with `--no-index --find-link` to utilize the download dependencies.
+   1. If a virtualenv is downloaded by build script then place the cached tar file in the `/home/travis/build` directory and comment out the line to download it from the build script.
+
+#### Parsing Method (activated with `--parse-original-log` or `--parse-new-log`)
+1. Parse the passed or failed job logs to get a list of dependencies and versions.
+   1. `--parse-original-log` will download then parse the original Travis-CI logs.
+   1. `--parse-new-log` will reproduce the artifact then parse the log of that run.
 1. Based on python/pip version, we initiate a docker container with same `python version` to download packages via `pip download`.
 1. Copy them into the artifact(`failed/requirements/`, `passed/requirements/`).
 1. Patch build script with `--no-index --find-link` to utilize the download dependencies.

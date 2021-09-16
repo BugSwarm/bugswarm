@@ -57,6 +57,15 @@ def main(argv=None):
             print(line)
     fileinput.close()
 
+    # Copy virtualenv tars if any and remove download from script
+    _, stdout, _, ok = _run_command('ls {}/py*.tar.bz2'.format(package_cache_directory))
+    if ok:
+        for venv_download in stdout.splitlines():
+            _run_command('cp {} /home/travis/build/'.format(venv_download))
+            # Comment out the download line in the build script
+            venv_download_name = venv_download.split('/')[-1]
+            _run_command('sudo sed -i "/curl.*{}/s/^/#/" {}'.format(venv_download_name, build_script_fp))
+
     print('Done')
 
 

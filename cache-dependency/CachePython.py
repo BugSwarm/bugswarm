@@ -15,6 +15,7 @@ from utils import PatchArtifactTask, PatchArtifactRunner, validate_input, Cachin
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_python.py'
+_DEPENDENCY_DOWNLOAD_SCRIPT = 'download_python_dependencies.sh'
 _FAILED_BUILD_SCRIPT = '/usr/local/bin/run_failed.sh'
 _PASSED_BUILD_SCRIPT = '/usr/local/bin/run_passed.sh'
 _TRAVIS_DIR = '/home/travis'
@@ -51,40 +52,12 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)
 
-        # Reproduce the artifact if needed
-        logs_to_parse = {}
-        for fail_or_pass in ['failed', 'passed']:
-            if self.args.parse_new_log:
-                logs_to_parse[fail_or_pass] = '{}/repr-{}-{}.log'.format(self.workdir, fail_or_pass,
-                                                                         job_id[fail_or_pass])
-                container_id = self.create_container(docker_image_tag, 'repr', fail_or_pass)
-                build_result = self.run_build_script(container_id, fail_or_pass, logs_to_parse[fail_or_pass],
-                                                     job_orig_log[fail_or_pass], job_id[fail_or_pass], None)
-                if not build_result:
-                    raise CachingScriptError('Cannot reproduce {}'.format(fail_or_pass))
-            else:
-                logs_to_parse[fail_or_pass] = job_orig_log[fail_or_pass]
+        if self.args.parse_original_log or self.args.parse_new_log:
+            self.parse_log_download_dependencies(job_id, job_orig_log, docker_image_tag)
+        else:
+            self.pip_freeze_download_dependencies(job_id, job_orig_log, docker_image_tag)
 
-        # Download cached files
-        for fail_or_pass in ['failed', 'passed']:
-            pip_packages = get_dependencies(logs_to_parse[fail_or_pass])
-            self.download_dependencies(fail_or_pass, pip_packages, docker_image_tag)
-
-        # Create a new container and place files into it
-        container_id = self.create_container(docker_image_tag, 'pack')
-        # Run patching script (add localRepository and offline)
-        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
-        des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
-        self.copy_file_to_container(container_id, src, des)
-        for fail_or_pass in ['failed', 'passed']:
-            self._run_patch_script(container_id, repo, fail_or_pass)
-        self.remove_file_from_container(container_id, des)
-        # Copy files to the new container
-        for fail_or_pass in ['failed', 'passed']:
-            self.move_dependencies_into_container(container_id, fail_or_pass)
-        # Commit cached image
-        cached_tag, cached_id = self.docker_commit(self.image_tag, container_id)
-        self.remove_container(container_id)
+        cached_tag = self.move_dependencies_to_new_container_and_patch(repo, docker_image_tag)
 
         # Start two runs to test cached image
         test_build_log_path = {
@@ -103,12 +76,94 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         self.tag_and_push_cached_image(self.image_tag, cached_tag)
         self.write_output(self.image_tag, 'succeed, {}, {}'.format(original_size, latest_layer_size))
 
+    def parse_log_download_dependencies(self, job_id, job_orig_log, docker_image_tag):
+        # Reproduce the artifact if needed
+        logs_to_parse = {}
+        for fail_or_pass in ['failed', 'passed']:
+            if self.args.parse_new_log:
+                logs_to_parse[fail_or_pass] = '{}/repr-{}-{}.log'.format(self.workdir, fail_or_pass,
+                                                                         job_id[fail_or_pass])
+                container_id = self.create_container(docker_image_tag, 'repr', fail_or_pass)
+                build_result = self.run_build_script(container_id, fail_or_pass, logs_to_parse[fail_or_pass],
+                                                     job_orig_log[fail_or_pass], job_id[fail_or_pass], None)
+                if not build_result:
+                    raise CachingScriptError('Cannot reproduce {}'.format(fail_or_pass))
+            else:
+                logs_to_parse[fail_or_pass] = job_orig_log[fail_or_pass]
+
+        # Download cached files
+        for fail_or_pass in ['failed', 'passed']:
+            pip_packages = get_dependencies(logs_to_parse[fail_or_pass])
+            self.download_dependencies_intermediate_container(fail_or_pass, pip_packages, docker_image_tag)
+
+    def pip_freeze_download_dependencies(self, job_id, job_orig_log, docker_image_tag):
+        for fail_or_pass in ['failed', 'passed']:
+            build_script = _PASSED_BUILD_SCRIPT if fail_or_pass == 'passed' else _FAILED_BUILD_SCRIPT
+            # Reproduce the artifact
+            logs = '{}/repr-{}-{}.log'.format(self.workdir, fail_or_pass, job_id[fail_or_pass])
+            container_id = self.create_container(docker_image_tag, 'repr', fail_or_pass)
+            # Keep the virtualenv downloads so they can be backed up as well
+            _, stdout, stderr, ok = self.run_command('docker exec {} sudo sed -i "/rm.* py.*\\.tar\\.bz2/d" {}'
+                                                     .format(container_id, build_script))
+            build_result = self.run_build_script(container_id, fail_or_pass, logs,
+                                                 job_orig_log[fail_or_pass], job_id[fail_or_pass], None)
+            if not build_result:
+                raise CachingScriptError('Cannot reproduce {}'.format(fail_or_pass))
+
+            # Get Python version number
+            _, stdout, stderr, ok = self.run_command('docker exec {} grep -o -m 1 "/virtualenv/.*/bin/activate" {}'
+                                                     .format(container_id, build_script))
+            python_version_match = re.search(r'/virtualenv/(.*)/bin/activate', stdout)
+            python_version = ''
+            if python_version_match:
+                python_version = python_version_match.group(1)
+            else:
+                raise CachingScriptError('Could not find python environment for {}'.format(fail_or_pass))
+
+            # Copy script to download dependencies in
+            script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _DEPENDENCY_DOWNLOAD_SCRIPT)
+            script_des = os.path.join(_TRAVIS_DIR, _DEPENDENCY_DOWNLOAD_SCRIPT)
+            self.copy_file_to_container(container_id, script_src, script_des)
+
+            # Run script to get dependency list and download them
+            _, stdout, stderr, ok = self.run_command('docker exec {} bash {} {} 2>&1'
+                                                     .format(container_id, script_des, fail_or_pass))
+            if not ok:
+                raise CachingScriptError('Pip download script failed for {}'.format(fail_or_pass))
+            dep_download_log = '{}/{}-dep-download.log'.format(self.workdir, fail_or_pass)
+            with open(dep_download_log, 'w') as f:
+                f.write(stdout)
+
+            # Copy dependency tar out of container
+            tar_file_host = '{}/requirements-{}-{}.tar'.format(self.workdir, fail_or_pass, python_version)
+            self.copy_file_out_of_container(container_id, _TRAVIS_DIR + '/requirements.tar', tar_file_host)
+
+            self.remove_container(container_id)
+
+    def move_dependencies_to_new_container_and_patch(self, repo, docker_image_tag):
+        # Create a new container and place files into it
+        container_id = self.create_container(docker_image_tag, 'pack')
+        # Copy files to the new container
+        for fail_or_pass in ['failed', 'passed']:
+            self.move_dependencies_into_container(container_id, fail_or_pass)
+        # Run patching script (add localRepository and offline)
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
+        des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
+        self.copy_file_to_container(container_id, src, des)
+        for fail_or_pass in ['failed', 'passed']:
+            self._run_patch_script(container_id, repo, fail_or_pass)
+        self.remove_file_from_container(container_id, des)
+        # Commit cached image
+        cached_tag, cached_id = self.docker_commit(self.image_tag, container_id)
+        self.remove_container(container_id)
+        return cached_tag
+
     def _run_patch_script(self, container_id, repo, f_or_p):
         _, stdout, stderr, ok = self.run_command(
             'docker exec {} sudo python {}/{} {} {}'.format(container_id, _TRAVIS_DIR, _PROCESS_SCRIPT, repo,
                                                             f_or_p))
 
-    def download_dependencies(self, f_or_p, pip_packages, docker_image_tag):
+    def download_dependencies_intermediate_container(self, f_or_p, pip_packages, docker_image_tag):
         """
         Download Python dependencies in a newly created container.
         Files are saved in `requirements-<f_or_p>-<python_version>.tar`
