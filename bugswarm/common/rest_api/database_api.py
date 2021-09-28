@@ -3,6 +3,7 @@ import datetime
 import json
 import pprint
 import sys
+import secrets
 import requests
 import requests.auth
 
@@ -549,8 +550,23 @@ class DatabaseAPI(object):
     # Account REST methods
     ###################################
 
-    def insert_account(self, account) -> Response:
-        return self._insert(DatabaseAPI._accounts_endpoint(), account, 'account')
+    def create_account(self, email: str, role: list = None) -> Response:
+        """
+       Create an account with given email and role. Return token in Response if succeed.
+       :param email: email address.
+       :param role: default to ['user'].
+       :return: The response object.
+       """
+        token = secrets.token_urlsafe()
+        while self.filter_account_for_token(token):
+            token = secrets.token_urlsafe()
+        if role is None:
+            role = ['user']
+        account = {'email': email, 'roles': role, 'token': token, 'password': ''}
+        response = self._insert(DatabaseAPI._accounts_endpoint(), account, 'account')
+        if response.ok:
+            response._content = json.dumps(account).encode('utf-8')
+        return response
 
     def find_account(self, email: str, error_if_not_found: bool = True) -> Response:
         log.debug('Trying to find account with email {}.'.format(email))
