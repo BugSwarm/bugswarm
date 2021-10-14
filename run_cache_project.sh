@@ -10,10 +10,10 @@ TOTAL_STEPS=$((3))
 # CacheDependency, MetadataPackager, ArtifactLogPackager.
 STAGE='Cache Project'
 
-USAGE='Usage: bash cache_project.sh [-r <repo-slug>] [-t <threads>] [-c <component-directory>] [-ca "<caching-args>"]'
+USAGE='Usage: bash run_cache_project.sh [-r <repo-slug>] [-t <threads>] [-c <component-directory>] [-ca "<caching-args>"]'
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:ca --long component-directory:,repo:,threads:,caching-args 'cache-project' -- "$@")
+OPTS=$(getopt -o c:r:t:ca --long component-directory:,repo:,threads:,caching-args 'run-cache-project' -- "$@")
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
@@ -43,7 +43,7 @@ if [[ -z "${component_directory}" ]]; then
 fi
 
 if [[ ${repo} != *"/"* ]]; then
-    echo 'The repo slug must be in the form <username>/<project> (e.g. google/guice). Exiting.'
+    echo '[   ERROR] --- The repo slug must be in the form <username>/<project> (e.g. google/guice). Exiting.'
     exit 1
 fi
 
@@ -65,15 +65,21 @@ check_repo_exists ${cache_dep_dir} 'cache-dependency'
 
 print_step "${STAGE}" ${TOTAL_STEPS} 'CacheDependency'
 cd ${reproducer_dir}
-echo "python3 get_reproducer_output.py -i output/result_json/${task_name}.json -o ${task_name}"
+echo "[    INFO] --- Running: python3 get_reproducer_output.py -i output/result_json/$task_name.json -o $task_name"
 python3 get_reproducer_output.py -i output/result_json/${task_name}.json -o ${task_name}
 cd ${cache_dep_dir}
-echo "$python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}"
-exit_if_failed 'CacheDependency encountered an error.'
-if [ -s input/${task_name} ]; then
-    python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}
-    exit_if_failed 'CacheDependency encountered an error.'
+
+if [ ! -s ${reproducer_dir}/input/${task_name} ]; then
+    echo "[   ERROR] --- ${reproducer_dir}/input/${task_name} does not exist, which should be created by get_reproducer_output.py."
+    echo '[   ERROR] --- Either all reproducible artifacts have been cached, or there were no reproducible artifacts to begin with.'
+    exit 1
 fi
+
+echo 'Attempting to cache the following artifacts:'
+cat ${reproducer_dir}/input/${task_name}
+echo "[    INFO] --- Running: python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}"
+python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}
+exit_if_failed 'CacheDependency encountered an error.'
 
 # MetadataPackager (push artifact metadata to the database)
 print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'

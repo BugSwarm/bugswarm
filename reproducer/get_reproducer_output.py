@@ -1,10 +1,14 @@
 import argparse
+import logging
 import json
 import os
 import sys
 
+from bugswarm.common import log
+
 
 def main(argv):
+    log.config_logging(getattr(logging, 'INFO', None))
     in_paths, out_path = _validate_input(argv)
 
     buildpairs = []
@@ -47,8 +51,8 @@ def main(argv):
 
     cached_image_tags = set()
     for task in tasks:
-        if os.path.isfile('output/{}'.format(task)):
-            with open('output/{}.csv'.format(task)) as f:
+        if os.path.isfile('../cache-dependency/output/{}'.format(task)):
+            with open('../cache-dependency/output/{}.csv'.format(task)) as f:
                 for row in f:
                     row_list = row.split(', ')
                     if row_list[1] == 'succeed':
@@ -58,7 +62,7 @@ def main(argv):
         for image_tag in to_be_cached:
             if image_tag not in cached_image_tags:
                 f.write(image_tag + '\n')
-    print('Wrote file to {}'.format(out_path))
+    log.info('Wrote file to {}/{}'.format(os.getcwd(), out_path))
 
 
 def _validate_input(argv):

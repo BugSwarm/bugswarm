@@ -191,31 +191,6 @@ The example will attempt to reproduce all job-pairs mined from the "TechCavern/W
 argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline
 sucessfully.
 
-#### Reproducing a Pair
-`run_reproduce_pair.sh`: Reproduces a single job-pair given the slug for the project from which the job-pair
- was mined, the failed Job ID, and the passed job ID.
-
-```
-Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [OPTIONS]
-
-    <repo-slug>         Repo slug of the project
-    <failed-job-id>     The failed job ID
-    <passed-job-id>     The passed job ID
-
-    OPTIONS:
-        -t, --threads                Maximum number of worker threads to spawn. Defaults to 1.
-        -c, --component-directory    The directory containing all the required BugSwarm components.
-        -s, --skip-check-disk        Skip checking for disk space (default requires 50 GiB free space).
-                                     This can result in your disk filling up depending on how many/big projects are being reproduced.
-```
-_Example_:
-```
-$ ./run_reproduce_pair.sh -r TechCavern/WaveTact -f 334169735 -p 334184621 -t 2
-```
-The example above will take the repo-slug "TechCavern/WaveTact" and both failed/passed job id to reproduce through
-the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the temporary 
-DockerHub repository specified as `DOCKER_HUB_REPO` in the `credentials.py` file for attempted caching in the following step described below.
-
 #### Generate Pair Input
 
 `generate_pair_input.py`: Generate job pairs from the given repo slug or file containing a list of repos. This allows
@@ -251,15 +226,41 @@ among those job pairs we include only those that have test failure according to 
 as resettable, and finally we restrict the job pairs further to those that were classified with having 
 the "NullPointerException".
 
-## [Cache Reproduced Project](/cache-dependency/README.md)
+The output of this script can then be used with the below step, Reproduce a Pair.
+
+#### Reproduce a Pair
+`run_reproduce_pair.sh`: Reproduces a single job-pair given the slug for the project from which the job-pair
+ was mined, the failed Job ID, and the passed job ID.
+```
+Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [OPTIONS]
+
+    <repo-slug>         Repo slug of the project
+    <failed-job-id>     The failed job ID
+    <passed-job-id>     The passed job ID
+
+    OPTIONS:
+        -t, --threads                Maximum number of worker threads to spawn. Defaults to 1.
+        -c, --component-directory    The directory containing all the required BugSwarm components.
+        -s, --skip-check-disk        Skip checking for disk space (default requires 50 GiB free space).
+                                     This can result in your disk filling up depending on how many/big projects are being reproduced.
+```
+_Example_:
+```
+$ ./run_reproduce_pair.sh -r TechCavern/WaveTact -f 334169735 -p 334184621 -t 2
+```
+The example above will take the repo-slug "TechCavern/WaveTact" and both failed/passed job id to reproduce through
+the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the temporary 
+DockerHub repository specified as `DOCKER_HUB_REPO` in the `credentials.py` file for attempted caching in the following step described below.
+
+## [Cacher](/cache-dependency/README.md)
 Artifacts with cached dependencies are more stable over time, and are the form in which Artifacts should be added to a dataset.
 Successfully cached Artifacts are then pushed to the final repo, specified as `DOCKER_HUB_CACHED_REPO` in `credentials.py`, with
 crucial metadata pushed to the MongoDB.
 
 #### Cache Reproduced Project
-`cache_project.sh`: Cache reproduced job-pair Artifacts from a project.
+`run_cache_project.sh`: Cache reproduced job-pair Artifacts from a project.
 ```
-Usage: ./cache_project.sh -r <repo-slug> [OPTIONS]
+Usage: ./run_cache_project.sh -r <repo-slug> [OPTIONS]
 
     <repo-slug>         Repo slug of the project
 
@@ -271,16 +272,39 @@ Usage: ./cache_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./cache_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
+$ ./run_cache_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
 ```
 The example will attempt to cache all reproducible job-pairs from the "TechCavern/WaveTact" project. We add the "-c"
 argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
 sucessfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags. 
-If successful, metadata will be pushed to our specified MongoDB and the post-cached Artifact is pushed to the
-DockerHub repository we specified. This script tracks successfully cached Artifacts, so that only uncached are attempted.
-This script is meant to be re-run as necessary with different caching script flags to iteratively attempt caching candidate
-reproducible Artifacts.
+If successful, metadata will be pushed to our specified MongoDB and the cached Artifact is pushed to the
+DockerHub repository we specified by `DOCKER_HUB_CACHED_REPO`. This script tracks successfully cached Artifacts, 
+so that only the remaining uncached are attempted. This script is meant to be re-run as necessary with different 
+caching script flags to iteratively attempt caching candidate reproducible Artifacts. Successfully cached artifacts
+then have their metadata inserted into the Database and their failed and passed build logs uploaded to the database.
+
+#### Cache Reproduced Pair
+`run_cache_pair.sh`: Caches a single reproduced Artifact given the slug for the project from which the job-pair
+ was mined and the failed Job ID. The passed Job ID is not necessary any longer for this step.
+
+```
+Usage: ./run_cache_pair.sh -r <repo-slug> -f <failed-job-id> [OPTIONS]
+
+    <repo-slug>         Repo slug of the project
+    <failed-job-id>     The failed job ID
+
+    OPTIONS:
+        -c, --component-directory    The directory containing all the required BugSwarm components.
+        -ca <caching-args>           Optional flags to caching script, written as normal enclosed by
+                                     single-quotes. See cache-dependency/README for details on flags.
+```
+_Example_:
+```
+$ ./run_cache_pair.sh -r TechCavern/WaveTact -f 334169735 -ca '--keep-tmp-images --keep-containers'
+```
+The example above takes command line arguments repo-slug "TechCavern/WaveTact", the failed job id, and optional caching
+script arguments `--keep-tmp-images` and `--keep-containers` to cache the reproduced jobpair which was pushed to a temporary 
+repo by `run_reproduce_pair.sh` to the cached Artifact repo `DOCKERHUB_CACHED_REPO`.
 
 ## Questions:
 Visit our FAQ docs [page](docs/Frequently-Answered-Questions.md)
-

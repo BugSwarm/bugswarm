@@ -7,7 +7,6 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from reproducer.config import Config
 from reproducer.utils import Utils
-from pathlib import Path
 
 
 class ArtifactLogAdder(object):
@@ -46,8 +45,8 @@ class ArtifactLogAdder(object):
             }
 
             job_orig_log = {
-                'failed': str(Path.home()) + '/bugswarm/reproducer/' + self.utils.get_orig_log_path(job_id['failed']),
-                'passed': str(Path.home()) + '/bugswarm/reproducer/' + self.utils.get_orig_log_path(job_id['passed']),
+                'failed': os.getcwd() + '/' + self.utils.get_orig_log_path(job_id['failed']),
+                'passed': os.getcwd() + '/' + self.utils.get_orig_log_path(job_id['passed']),
             }
 
             for f_or_p in ['failed', 'passed']:

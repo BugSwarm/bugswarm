@@ -49,8 +49,8 @@ class PatchArtifactMavenTask(PatchArtifactTask):
 
         if self.repr_metadata:
             job_orig_log = {
-                'failed': '/home/bugswarm/bugswarm/pair-filter/original-logs/{}-orig.log'.format(job_id['failed']),
-                'passed': '/home/bugswarm/bugswarm/pair-filter/original-logs/{}-orig.log'.format(job_id['passed']),
+                'failed': '../pair-filter/original-logs/{}-orig.log'.format(job_id['failed']),
+                'passed': '../pair-filter/original-logs/{}-orig.log'.format(job_id['passed']),
             }
             for f_or_p in ['failed', 'passed']:
                 if os.path.isfile(job_orig_log[f_or_p]) is False:

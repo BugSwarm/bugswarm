@@ -70,7 +70,7 @@ fi
 
 reproducer_dir="${component_directory}"/reproducer
 cache_dep_dir="${component_directory}"/cache-dependency
-TOTAL_STEPS=$((${REPRODUCER_RUNS} + 5))
+TOTAL_STEPS=$((${REPRODUCER_RUNS} + 3))
 
 # Check for existence of the required repositories.
 check_repo_exists ${reproducer_dir} 'reproducer'
@@ -100,22 +100,5 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
 python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS} ${skip_check_disk}
 exit_if_failed 'ImagePackager encountered an error.'
-
-# MetadataPackager (push artifact metadata to the database)
-print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
-python3 packager.py -i output/result_json/${task_name}_${failed_job_id}.json
-exit_if_failed 'MetadataPackager encountered an error.'
-
-# clean up output task
-rm -rf output/tasks/${task_name}_${failed_job_id}*
-
-print_step "${STAGE}" ${TOTAL_STEPS} 'CacheDependency'
-cd ${cache_dep_dir}
-python3 get_reproducer_output.py -i ${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json -o ${task_name}_${failed_job_id}
-exit_if_failed 'CacheDependency encountered an error.'
-if [ -s input/${task_name}_${failed_job_id} ]; then
-    python3 CacheMaven.py input/${task_name}_${failed_job_id} ${task_name}_${failed_job_id}
-    exit_if_failed 'CacheDependency encountered an error.'
-fi
 
 print_stage_done "${STAGE}"
