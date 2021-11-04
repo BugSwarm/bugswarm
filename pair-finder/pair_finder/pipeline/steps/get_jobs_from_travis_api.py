@@ -4,6 +4,8 @@ Download metadata via the Travis API for all jobs for a repository.
 
 import os
 import time
+import requests
+import urllib.request
 
 from threading import Lock
 from typing import Any
@@ -35,6 +37,20 @@ class GetJobsFromTravisAPI(Step):
         if context['original_mined_project_metrics']['last_build_mined']['build_number']:
             last_mined_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
             mined_build_exists = True
+
+        project_url = TravisWrapper._endpoint('repositories/{}/builds'.format(repo))
+        response = requests.get(project_url)
+        if response.status_code != 200:
+            msg = '{} gave response code {}.'.format(project_url, response.status_code)
+            raise StepException(msg)
+
+        with urllib.request.urlopen(project_url) as response:
+            html = response.read()
+            # If repo not on Travis, gives b'[]' with length 2
+            # This catches case when response code is 200 but page is empty
+            if len(html) == 2:
+                msg = '{} does not exist on Travis API.'.format(repo)
+                raise StepException(msg)
 
         builds_json_file = Utils.get_repo_builds_api_result_file(repo)
         builds_info_json_file = Utils.get_repo_builds_info_api_result_file(repo)
