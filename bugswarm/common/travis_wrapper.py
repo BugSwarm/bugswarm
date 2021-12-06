@@ -48,6 +48,11 @@ class TravisWrapper(object):
             elif code == 404:
                 log.error('Get request for {} returned 404 Not Found.'.format(address))
                 response.raise_for_status()
+            elif code == 403:
+                # Token did not successfully authorize, try next one in list
+                # deque.pop() removes element from the right so we appendleft()
+                self._session.headers['Authorization'] = 'token {}'.format(_TOKENS[0])
+                _TOKENS.appendleft(_TOKENS.pop())
             elif code == 429:
                 if attempts < 1 or not _TOKENS:
                     log.warning(
@@ -57,7 +62,6 @@ class TravisWrapper(object):
                     attempts += 1
                 else:
                     # Use another token if # of attempts for GET Requests >= 1, will use next token in list
-                    # deque.pop() removes element from the right so we appendleft()
                     self._session.headers['Authorization'] = 'token {}'.format(_TOKENS[0])
                     _TOKENS.appendleft(_TOKENS.pop())
             else:

@@ -4,7 +4,6 @@ Download metadata via the Travis API for all jobs for a repository.
 
 import os
 import time
-import requests
 import urllib.request
 
 from threading import Lock
@@ -13,6 +12,7 @@ from typing import Optional
 from typing import Tuple
 from requests.exceptions import RequestException
 
+from bugswarm.common import credentials
 from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
@@ -23,6 +23,8 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from .step import Step
 from .step import StepException
 from ...utils import Utils
+
+_TOKENS = credentials.TRAVIS_TOKENS
 
 
 class GetJobsFromTravisAPI(Step):
@@ -38,19 +40,29 @@ class GetJobsFromTravisAPI(Step):
             last_mined_build_number = context['original_mined_project_metrics']['last_build_mined']['build_number']
             mined_build_exists = True
 
-        project_url = TravisWrapper._endpoint('repositories/{}/builds'.format(repo))
-        response = requests.get(project_url)
-        if response.status_code != 200:
-            msg = '{} gave response code {}.'.format(project_url, response.status_code)
-            raise StepException(msg)
-
-        with urllib.request.urlopen(project_url) as response:
-            html = response.read()
-            # If repo not on Travis, gives b'[]' with length 2
-            # This catches case when response code is 200 but page is empty
-            if len(html) == 2:
-                msg = '{} does not exist on Travis API.'.format(repo)
-                raise StepException(msg)
+        # Verify project exists on Travis API
+        for idx, token in enumerate(_TOKENS):
+            project_url = TravisWrapper._endpoint('repositories/{}/builds'.format(repo))
+            req = urllib.request.Request(project_url)
+            req.add_header('Authorization', 'token {}'.format(token))
+            try:
+                empty_list = False
+                # The below request will raise an exception if error code 403 returned
+                # Primary use of try...except block
+                content = urllib.request.urlopen(req).read()
+                # If repo not on Travis, gives b'[]' with length 2
+                # Secondary use of try...except block
+                if len(content) == 2:
+                    empty_list = True
+                    msg = '{} does not exist on Travis API.'.format(repo)
+                    raise Exception
+                else:
+                    break
+            except Exception:
+                if idx == len(_TOKENS) - 1:
+                    if not empty_list:
+                        msg = 'All Travis tokens failed authorization. Update credentials file.'
+                    raise StepException(msg)
 
         builds_json_file = Utils.get_repo_builds_api_result_file(repo)
         builds_info_json_file = Utils.get_repo_builds_info_api_result_file(repo)
