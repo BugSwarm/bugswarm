@@ -110,6 +110,18 @@ if [ ! -d ~/.travis/travis-build ]; then
     exit_if_failed 'Cloning travis-build failed.'
 fi
 
+# Install puppeteer and its dependencies via npm, for web scraping functionality used by pair-classifier.
+print_green 'Install npm'
+sudo apt-get install -y npm
+exit_if_failed 'Installing npm failed.'
+print_green 'Install puppeteer'
+npm i puppeteer
+exit_if_failed 'Installing puppeteer failed.'
+print_green 'Install puppeteer dependencies'
+sudo apt update
+sudo apt install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev
+exit_if_failed 'Installing puppeteer dependencies failed.'
+
 # Pin travis-build to a version that forces all maven repos to use https instead of http, which aids reproducibility.
 # See https://github.com/travis-ci/travis-build/pull/1842
 print_green 'Reset travis-build'

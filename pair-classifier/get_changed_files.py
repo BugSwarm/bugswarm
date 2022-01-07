@@ -2,6 +2,7 @@ import time
 import json
 import sys
 import re
+import subprocess
 from builtins import Exception, len, str
 from concurrent.futures import as_completed
 from concurrent.futures import ThreadPoolExecutor
@@ -9,7 +10,6 @@ from threading import RLock
 
 from bugswarm.common import log
 from bs4 import BeautifulSoup
-from proxy_requests import ProxyRequests
 
 lock = RLock()
 SUPPRESS_THREAD_EXCEPTIONS = False
@@ -30,7 +30,8 @@ def get_changed_files_metrics(soup):
 
     list_of_metrics = []
     div = soup.find('div', class_='toc-diff-stats')
-
+    if div is None:
+        return metrics
     button = div.find('button', class_='btn-link js-details-target')
     if button:
         result = re.search(r'[0-9]+', button.string)
@@ -82,45 +83,25 @@ def get_github_url(failed_sha, passed_sha, repo):
 
 
 def gather_info(url):
-    list_of_user_agents = ['Mozilla/5.0', 'AppleWebKit/537.36', 'Chrome/79.0.3945.88', 'Safari/537.36']
-    stat_code = 0
     tag_info = {
         'url': url
     }
 
-    try_count = 0
-    # continue attempting up to 4 proxies
-    for user_agent in list_of_user_agents:
-        if stat_code != 200:
-            try_count += 1
+    command = 'node get_github_html.js {}'.format(url)
+    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               shell=True)
+    try:
+        stdout, stderr = process.communicate(None, timeout=7200)
+        stdout = stdout.decode('utf-8').strip()
+        stderr = stderr.decode('utf-8').strip()
+        ok = process.returncode == 0
+    except subprocess.TimeoutExpired:
+        stdout = ''
+        stderr = 'subprocess.TimeoutExpired'
+        ok = False
 
-            headers = {
-                "User-Agent": user_agent,
-                "Accept": "text/html, application/xhtml+xml, application/xml; q = 0.9, image/webp,image/apng, */*;\
-                q = 0.8",
-                "Accept-Encoding": "gzip, deflate, br", "Accept-Language": "en-US,en; q = 0.9"
-            }
-
-            r = ProxyRequests(url)
-            r.set_headers(headers)
-            r.get_with_headers()
-            source = r.get_raw()
-            stat_code = r.get_status_code()
-
-    if try_count == len(list_of_user_agents):
-        tag_info['num_of_changed_files'] = -1
-        tag_info['changed_paths'] = ['ERROR, CANNOT FULFILL REQUEST']
-        tag_info['error_found'] = 'ERROR, TOO MANY PROXY ATTEMPTS'
-        tag_info['metrics'] = {
-            'num_of_changed_files': 0,
-            'changes': 0,
-            'additions': 0,
-            'deletions': 0
-        }
-        return tag_info
-
-    # proxy successful, continue reading the page
-    if stat_code == 200:
+    if ok:
+        source = stdout
         soup = BeautifulSoup(source, 'lxml')
 
         metrics = get_changed_files_metrics(soup)
@@ -136,6 +117,16 @@ def gather_info(url):
             tag_info['error_found'] = 'ERROR, MISMATCH IN COUNT'
         else:
             tag_info['error_found'] = 'NONE'
+    else:
+        tag_info['num_of_changed_files'] = -1
+        tag_info['changed_paths'] = ['ERROR, CANNOT FULFILL REQUEST']
+        tag_info['error_found'] = 'ERROR, {}'.format(stderr)
+        tag_info['metrics'] = {
+            'num_of_changed_files': 0,
+            'changes': 0,
+            'additions': 0,
+            'deletions': 0
+        }
     return tag_info
 
 

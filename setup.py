@@ -28,7 +28,6 @@ setup(
         'PyYAML==5.2.0',
         'beautifulsoup4==4.8.2',
         'lxml==4.6.2',
-        'proxy_requests==0.3.5',
         'packaging==20.7',
         'urllib3==1.25.11',
     ],

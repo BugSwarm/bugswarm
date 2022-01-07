@@ -7,7 +7,7 @@ import requests
 from bugswarm.common import log
 from bugswarm.common import credentials
 
-_BASE_URL = 'https://api.travis-ci.org'
+_BASE_URL = 'https://api.travis-ci.com'
 # Number of seconds to sleep before retrying. Five seconds has been long enough to obey the Travis API rate limit.
 _SLEEP_SECONDS = 5
 _TOKENS = deque(credentials.TRAVIS_TOKENS)
