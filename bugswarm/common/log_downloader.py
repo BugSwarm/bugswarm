@@ -44,7 +44,11 @@ def download_log(job_id: Union[str, int],
     content = _get_log_from_url(travis_log_link, retries)
 
     if not content:
-        return False
+        travis_log_link = 'https://api.travis-ci.com/v3/job/{}/log.txt'.format(job_id)
+        content = _get_log_from_url(travis_log_link, retries)
+        # If this endpoint fails, the log is not on either endpoint and does not exist
+        if not content:
+            return False
 
     with open(destination, 'wb') as f:
         f.write(content)
