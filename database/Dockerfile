@@ -1,4 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN \
 	apt-get update && \
   	apt-get install \
@@ -14,14 +16,17 @@ RUN \
 	  	locales locales-all \
 	  	lsb-release \
 	  	ufw -y \
-	  	apt-transport-https -y
+	  	apt-transport-https -y \
+		gnupg \
+		wget
 
-RUN \ 	
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4 && \
-	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list && \
-  	apt-get update && \
-  	apt-get install \
-  		mongodb-org=4.0.5 mongodb-org-server=4.0.5 mongodb-org-shell=4.0.5 mongodb-org-mongos=4.0.5 mongodb-org-tools=4.0.5 -y
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add
+
+RUN \   
+	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list && \
+	apt-get update && \
+	apt-get install \
+		-y mongodb-org=5.0.0 mongodb-org-database=5.0.0 mongodb-org-server=5.0.0 mongodb-org-shell=5.0.0 mongodb-org-mongos=5.0.0 mongodb-org-tools=5.0.0
 
 RUN \
 	add-apt-repository ppa:deadsnakes/ppa && \
