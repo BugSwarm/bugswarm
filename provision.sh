@@ -74,9 +74,9 @@ exit_if_failed 'Sourcing rvm.sh failed.'
 sudo usermod -aG rvm $(whoami)
 exit_if_failed 'Adding user to rvm group failed.'
 
-print_green 'Install Ruby 2.4.0'
-rvm install ruby-2.4.0
-exit_if_failed 'Installing Ruby 2.4.0 failed.'
+print_green 'Install Ruby 2.5.8'
+rvm install ruby-2.5.8
+exit_if_failed 'Installing Ruby 2.5.8 failed.'
 
 print_green 'Install system packages'
 sudo apt-get --assume-yes install libffi-dev gcc make
