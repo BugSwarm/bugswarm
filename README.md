@@ -47,23 +47,26 @@ If you use our infrastructure or dataset, please cite our paper as follows:
     $ git clone https://github.com/BugSwarm/bugswarm.git
     ```
 
-1. Setup MongoDB:
+1. Set up MongoDB:
 
-    **Create your own Docker Image of the BugSwarm MongoDB:**
-
-    BugSwarm provides a [Dockerfile](https://docs.docker.com/engine/reference/builder/) to build a 
-    [Docker image](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/) 
-    of MongoDB to port with the pipeline. Follow the steps below:
+    BugSwarm provides a [Docker image](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/) of MongoDB to port with the pipeline. Alternatively, you can use [Dockerfile](https://docs.docker.com/engine/reference/builder/) to build your own image from scratch.
+    1. Pull the provided Docker image from the BugSwarm Docker Hub repo:
+        ```
+        $ docker pull bugswarm/containers:bugswarm-db
+        $ docker tag bugswarm/containers:bugswarm-db bugswarm-db
+        ```
+    Build your own Docker image of the BugSwarm MongoDB from the source Dockerfile:
 
     1. Change to the database directory:
         ```
         $ cd bugswarm/database
         ```
-    1. [Build](https://docs.docker.com/engine/reference/commandline/build/) the Docker Image with the tag as `bugswarm-db`
-    from the Dockerfile located similarly to the above directory:
+    1. [Build](https://docs.docker.com/engine/reference/commandline/build/) the Docker image with the tag as `bugswarm-db`
+    from the Dockerfile:
         ```
         $ docker build . -t bugswarm-db
         ```
+    Now that the Docker image is ready: 
     1. Run & [port](https://docs.docker.com/config/containers/container-networking/) the Docker container containing MongoDB:
         ```
         $ docker run -itd -p 27017:27017 -p 5000:5000 bugswarm-db
@@ -75,13 +78,18 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         $ cd ..
         ```
 
-1. (Recommended) Build and run spawner (to run BugSwarm in host, go to step 6):
+1. (Recommended) Set up and run spawner (to run BugSwarm in host, go to step 6):
 
-    Spawner is a docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs. If using spawner, the host only needs to install Docker.
+    Spawner is a Docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs. If using spawner, the host only needs to install Docker.
 
     To understand how spawner works, please see [spawner README](spawner/README.md).
 
-    1. Build the spawner using docker
+    1. Pull the spawner container and update the tag:
+       ```
+       $ docker pull bugswarm/containers:bugswarm-spawner
+       $ docker image tag bugswarm/containers:bugswarm-spawner bugswarm-spawner
+       ```
+       Alternatively, build the spawner using Docker:
         ```sh
         $ cd spawner
         $ docker build -t bugswarm-spawner .
@@ -155,9 +163,9 @@ Usage: ./run_mine_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_mine_project.sh -r TechCavern/WaveTact
+$ ./run_mine_project.sh -r alibaba/canal
 ```
-The example will mine job-pairs from the "TechCavern/WaveTact" project. This will run through the Miner component
+The example will mine job-pairs from the "alibaba/canal" project. This will run through the Miner component
 of the BugSwarm pipeline. The output will push data to your MongoDB specified and outputs several `.json` files
 after each sub-step.
 
@@ -185,9 +193,9 @@ Usage: ./run_reproduce_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_reproduce_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm
+$ ./run_reproduce_project.sh -r alibaba/canal -c ~/bugswarm
 ```
-The example will attempt to reproduce all job-pairs mined from the "TechCavern/WaveTact" project. We add the "-c"
+The example will attempt to reproduce all job-pairs mined from the "alibaba/canal" project. We add the "-c"
 argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline
 sucessfully.
 
@@ -219,7 +227,7 @@ Options:
 ```
 _Example_:
 ```
-$ python3 generate_pair_input.py --repo TechCavern/WaveTact --include-resettable --include-test-failures-only --include-archived-only --classified-code --classified-exception NullPointerException -o /home/user/results_output.txt
+$ python3 generate_pair_input.py --repo alibaba/canal --include-resettable --include-test-failures-only --include-archived-only --classified-code --classified-exception NullPointerException -o /home/user/results_output.txt
 ```
 The example above will include job pairs that were previously attempted to reproduce from the Artifact database collection,
 among those job pairs we include only those that have test failure according to the Analyzer, marked
@@ -246,9 +254,9 @@ Usage: ./run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-
 ```
 _Example_:
 ```
-$ ./run_reproduce_pair.sh -r TechCavern/WaveTact -f 334169735 -p 334184621 -t 2
+$ ./run_reproduce_pair.sh -r alibaba/canal -f 256610197 -p 256621225 -t 2
 ```
-The example above will take the repo-slug "TechCavern/WaveTact" and both failed/passed job id to reproduce through
+The example above will take the repo-slug "alibaba/canal" and both failed/passed job id to reproduce through
 the Reproducer component of the pipeline. We use 2 threads to run the process. If successful, we push the Artifact to the temporary 
 DockerHub repository specified as `DOCKER_HUB_REPO` in the `credentials.py` file for attempted caching in the following step described below.
 
@@ -272,9 +280,9 @@ Usage: ./run_cache_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_cache_project.sh -r "TechCavern/WaveTact" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
+$ ./run_cache_project.sh -r "alibaba/canal" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
 ```
-The example will attempt to cache all reproducible job-pairs from the "TechCavern/WaveTact" project. We add the "-c"
+The example will attempt to cache all reproducible job-pairs from the "alibaba/canal" project. We add the "-c"
 argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
 sucessfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags. 
 If successful, metadata will be pushed to our specified MongoDB and the cached Artifact is pushed to the
@@ -300,9 +308,9 @@ Usage: ./run_cache_pair.sh -r <repo-slug> -f <failed-job-id> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_cache_pair.sh -r TechCavern/WaveTact -f 334169735 -ca '--keep-tmp-images --keep-containers'
+$ ./run_cache_pair.sh -r alibaba/canal -f 256610197 -ca '--keep-tmp-images --keep-containers'
 ```
-The example above takes command line arguments repo-slug "TechCavern/WaveTact", the failed job id, and optional caching
+The example above takes command line arguments repo-slug "alibaba/canal", the failed job id, and optional caching
 script arguments `--keep-tmp-images` and `--keep-containers` to cache the reproduced jobpair which was pushed to a temporary 
 repo by `run_reproduce_pair.sh` to the cached Artifact repo `DOCKERHUB_CACHED_REPO`.
 
