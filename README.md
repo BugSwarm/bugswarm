@@ -73,6 +73,9 @@ If you use our infrastructure or dataset, please cite our paper as follows:
         ```
         > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
         > Please see the [FAQ](docs/Frequently-Answered-Questions.md)
+        >
+        > In some operating systems, this command will expose ports so that everyone from the outside world will be able to connect.
+        > To stop this, replace `-p 27017:27017 -p 5000:5000` with `-p 127.0.0.1:27017:27017 -p 127.0.0.1:5000:5000`
     1. Get back to parent folder:
         ```
         $ cd ..
@@ -174,7 +177,7 @@ BugSwarm obtains the original build environment that was used by Travis CI, via 
 scripts to build and run regression tests for each build. We match the reproduced build log, which is a
 transcript of everything that happens at the command line during build and testing, with the historical
 build log from Travis CI. We do this five times to account for reproducibility and flakiness. Reproducible pairs
-are then pushed as an an Artifact to `DOCKER_HUB_REPO` in as specified in `credentials.py`, as a temporary repo. 
+are then pushed as an Artifact to `DOCKER_HUB_REPO` in as specified in `credentials.py`, as a temporary repo. 
 Metadata is not pushed to the MongoDB until after completing of the following caching step which pushes the Artifact
 with cached dependencies to the final repo, described below.
 
@@ -197,7 +200,7 @@ $ ./run_reproduce_project.sh -r alibaba/canal -c ~/bugswarm
 ```
 The example will attempt to reproduce all job-pairs mined from the "alibaba/canal" project. We add the "-c"
 argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline
-sucessfully.
+successfully.
 
 #### Generate Pair Input
 
@@ -284,7 +287,7 @@ $ ./run_cache_project.sh -r "alibaba/canal" -c ~/bugswarm -ca '--separate-passed
 ```
 The example will attempt to cache all reproducible job-pairs from the "alibaba/canal" project. We add the "-c"
 argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
-sucessfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags. 
+successfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags. 
 If successful, metadata will be pushed to our specified MongoDB and the cached Artifact is pushed to the
 DockerHub repository we specified by `DOCKER_HUB_CACHED_REPO`. This script tracks successfully cached Artifacts, 
 so that only the remaining uncached are attempted. This script is meant to be re-run as necessary with different 
