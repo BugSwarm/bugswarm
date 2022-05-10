@@ -3,6 +3,7 @@ from bugswarm.common import log
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.travis_wrapper import TravisWrapper
 from bugswarm.common.credentials import GITHUB_TOKENS
+from requests.exceptions import HTTPError
 from .java_analyzers.java_ant_analyzer import JavaAntAnalyzer
 from .java_analyzers.java_gradle_analyzer import JavaGradleAnalyzer
 from .java_analyzers.java_maven_analyzer import JavaMavenAnalyzer
@@ -44,7 +45,7 @@ class Dispatcher(object):
             elif play1 or play2:
                 return 'play'
 
-        return None
+        return 'NA'
 
     def get_build_system_from_github_api(self, repo: str, build_commit_sha: str):
         url = 'https://api.github.com/repos/{}/git/commits/{}'.format(repo, build_commit_sha)
@@ -96,7 +97,10 @@ class Dispatcher(object):
     def get_build_system_from_travis_info(self, job_id, files_found):
         build_system = 'NA'
 
-        info = self.tw.get_job_info(job_id)
+        try:
+            info = self.tw.get_job_info(job_id)
+        except HTTPError:
+            return build_system
         config = None
         if 'env' in info['config']:
             config = info['config']['env']
@@ -131,7 +135,8 @@ class Dispatcher(object):
         if confirmed_analyzer is None:
             confirmed_analyzer = self.get_build_system(lines, job_id, trigger_sha, repo)
 
-        if confirmed_analyzer is not None:
+        # get_build_system will return 'NA' if it can not determine the build system
+        if confirmed_analyzer != 'NA':
             if confirmed_analyzer == 'maven':
                 self.build_system['maven'] += 1
                 log.debug('Using maven Analyzer')
