@@ -237,6 +237,13 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
                     match = re.search(r'^(\[ERROR\] )?(\w+)  Time elapsed:', line, re.M)
                     if match:
                         failedtest = match.group(2) + '(' + cur_test_class + ')'
+                if failedtest is None and cur_test_class != '':
+                    # Matches the likes of [ERROR] path.to.TestClass.testMethod  Time elapsed: 0.011 sec  <<< FAILURE!
+                    # This sets failedtest to 'testMethod(path.to.TestClass)'
+                    test_class = re.escape(cur_test_class)
+                    match = re.search(r'^(\[ERROR\] )?{}\.(\w+)  Time elapsed:'.format(test_class), line, re.M)
+                    if match:
+                        failedtest = match.group(2) + '(' + cur_test_class + ')'
                 if failedtest is None:
                     # Matches the likes of [ERROR] path.to.TestClass  Time elapsed: 0.011 sec  <<< FAILURE!
                     # This condition is only reached if the name of the test method is not present in the log.

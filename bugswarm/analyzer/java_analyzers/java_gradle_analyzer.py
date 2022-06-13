@@ -34,15 +34,24 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
             elif re.search(r'\A:(\w*)', line, re.M) and line_marker == 1:
                 line_marker = 0
                 test_section_started = False
+            elif re.search(r'^> Task', line, re.M):
+                # New version of Gradle use > Task :name instead of :name
+                line_marker = 1
+                test_section_started = True
+            elif re.search(r'^BUILD (SUCCESSFUL|FAILED) in ', line, re.M) and line_marker == 1:
+                line_marker = 0
+                test_section_started = False
 
             if test_section_started:
                 self.test_lines.append(line)
 
     def match_failed_test(self, line):
         # Matches the likes of co.paralleluniverse.fibers.FiberTest > testSerializationWithThreadLocals[0] FAILED
+        # and DownloadExtensionTest > downloadSingleFileError() FAILED
         # Appends 'co.paralle.universe.fibers.FiberTest.testSerializationWithThreadLocals[0]' to self.tests_failed
-        match = re.search(r'([^\s]+) > ([^\s\.\[\(]+(\[.+\])?) FAILED$', line, re.M)
+        match = re.search(r'([^\s]+) > ([^\s\.\[\(]+(\[.+\]|\(\))?) FAILED$', line, re.M)
         if match:
+            self.tests_run = True
             self.init_tests()
             self.tests_failed.append(match.group(1) + '.' + match.group(2))
             self.did_tests_fail = True
@@ -51,6 +60,7 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
         # Appends 'test.groupinvocation.GroupSuiteTest.Regression2' to self.tests_failed
         match = re.search(r'(.* >)+ ([^\s\[\(]+\.[^\[\(]+(\[.+\])?) FAILED$', line, re.M)
         if match:
+            self.tests_run = True
             self.init_tests()
             self.tests_failed.append(match.group(2))
             self.did_tests_fail = True
@@ -62,6 +72,7 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
 
             match = re.search(r'(\d*) tests completed(, (\d*) failed)?(, (\d*) skipped)?', line, re.M)
             if match:
+                self.tests_run = True
                 self.init_tests()
                 self.add_framework('JUnit')
                 self.num_tests_run += int(match.group(1))
@@ -74,6 +85,7 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
             # a testng version that outputs whitespace differently.
             match = re.search(r'^Total tests run: (\d+), Failures: (\d+), Skips: (\d+)', line, re.M)
             if match:
+                self.tests_run = True
                 self.init_tests()
                 self.add_framework('testng')
                 self.num_tests_run += int(match.group(1))

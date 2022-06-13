@@ -1340,6 +1340,46 @@ class Test(unittest.TestCase):
                                            '.jgiven.integration.spring.test.XmlConfiguredSpringScenarioT'
                                            'estTest.spring_can_inject_beans_into_stages')
 
+    def test_gradle_11(self):
+        log = '581212464-orig.log'
+        job_id = 581212464
+        file_path = join(self.gradle, log)
+        trigger_sha = '85b1fc6ef5cc2d454e97df30a7a828b4557642f5'
+        repo = 'stagemonitor/stagemonitor'
+        gradle11 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
+        self.compare_status(gradle11, 'broken')
+        self.compare_analyzer(gradle11, 'java-gradle')
+        self.compare_num_t_run(gradle11, 100)
+        self.compare_num_t_ok(gradle11, 99)
+        self.compare_num_t_failed(gradle11, 1)
+        self.compare_num_t_skipped(gradle11, 2)
+        self.compare_bool_t_ran(gradle11, True)
+        self.compare_bool_t_failed(gradle11, True)
+        self.compare_frameworks(gradle11, 'JUnit')
+        self.compare_tr_t_failed(
+            gradle11,
+            'org.stagemonitor.tracing.TracedTransformerTest.testNestedTracing')
+
+    def test_gradle_12(self):
+        log = '732494428-orig.log'
+        job_id = 732494428
+        file_path = join(self.gradle, log)
+        trigger_sha = '898744a709671ce263e3ac7cff1ce97a8330c4d3'
+        repo = 'dita-ot/dita-ot'
+        gradle12 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
+        self.compare_status(gradle12, 'broken')
+        self.compare_analyzer(gradle12, 'java-gradle')
+        self.compare_num_t_run(gradle12, 597)
+        self.compare_num_t_ok(gradle12, 594)
+        self.compare_num_t_failed(gradle12, 3)
+        self.compare_num_t_skipped(gradle12, 9)
+        self.compare_bool_t_ran(gradle12, True)
+        self.compare_bool_t_failed(gradle12, True)
+        self.compare_frameworks(gradle12, 'JUnit')
+        self.compare_tr_t_failed(gradle12, 'org.dita.dost.reader.TestDitaValReader.testRead#'
+                                           'org.dita.dost.reader.TestDitaValReader.testAnyAttributeDisabled#'
+                                           'org.dita.dost.reader.TestDitaValReader.testAnyAttribute')
+
     def test_ant_0(self):
         log = '264241708-orig.log'
         job_id = 264241708
