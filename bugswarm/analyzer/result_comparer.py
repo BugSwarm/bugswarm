@@ -13,7 +13,7 @@ class ResultComparer(object):
         ignored_attributes = [
             'tr_log_testduration', 'tr_log_buildduration', 'tr_log_setup_time', 'tr_err_msg', 'tr_build_image',
             'tr_worker_instance', 'tr_connection_lines', 'tr_using_worker',
-            'could_not_resolve_dep', 'tr_os', 'tr_cookbook'
+            'tr_could_not_resolve_dep', 'tr_os', 'tr_cookbook'
         ]
         if ignore_status:
             ignored_attributes.append('tr_log_status')
