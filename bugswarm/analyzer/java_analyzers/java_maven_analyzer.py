@@ -43,7 +43,10 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
                 self.err_msg.append(line)
             if '-------------------------------------------------------' in line and line_marker == 0:
                 line_marker = 1
-            elif re.search(r'\[INFO\] Reactor Summary:', line, re.M):
+            elif re.search(r'\[INFO\] Reactor Summary(:| for)', line, re.M):
+                # Matches two kinds of format:
+                # [INFO] Reactor Summary for PROJECT_NAME:
+                # [INFO] Reactor Summary:
                 reactor_started = True
                 test_section_started = False
             elif reactor_started and not re.search(r'\[.*\]', line, re.M):
@@ -71,6 +74,7 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
                 self.reactor_lines.append(line)
 
     def analyze_reactor(self):
+        # Same with Gradle and Ant. Only use the last build to calculate pure_build_duration
         reactor_time = 0
         for line in self.reactor_lines:
             match = re.search(r'\[INFO\] .*test.*? (\w+) \[ (.+)\]', line, re.I)
@@ -79,9 +83,8 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
             match = re.search(r'Total time: (.+)', line, re.I)
             if match:
                 self.pure_build_duration = JavaMavenAnalyzer.convert_maven_time_to_seconds(match.group(1))
-            if match:
-                self.error = JavaMavenAnalyzer.convert_maven_time_to_seconds(match.group(1))
         if not hasattr(self, 'test_duration') or (reactor_time > self.test_duration):
+            # Search inside the reactor summary: if the subproject's name contains 'test', add its time to reactor_time
             self.test_duration = reactor_time
 
     @staticmethod
@@ -131,6 +134,13 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
                 self.add_framework('JUnit')
                 self.test_duration += JavaMavenAnalyzer.convert_maven_time_to_seconds(match.group(1))
                 continue
+
+            # To calculate num_tests_run, num_tests_failed, num_tests_skipped,
+            # We ignore lines like Tests run: %d, Failures: %d, Errors: %d, Skipped: %d, Time elapsed: %f s - in ...
+            # We only match summary lines like
+            # Results :
+            # ...
+            # Tests run: %d, Failures: %d, Errors: %d, Skipped: %d
             match = re.search(r'Tests run: (\d*), Failures: (\d*), Errors: (\d*)(, Skipped: (\d*))?', line, re.M)
             if match:
                 running_test = False
@@ -203,13 +213,12 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
             return True
         return False
 
+    # Remove empty line or useless help line
     def clean_err_msg(self):
-        for line in self.err_msg:
-            if len(line) < 2:
-                self.err_msg.remove(line)
-            if line == '-> [Help 1]':
-                self.err_msg.remove(line)
+        self.err_msg = [line for line in self.err_msg if len(line) >= 2 and line != '-> [Help 1]']
 
+    # self.err_lines are all the lines that start with [ERROR]
+    # Convert err_lines into err_msg, all the lines before the `To see the full stack trace` line
     def extract_err_msg(self):
         new_arr = self.err_msg
         for line in self.err_lines:

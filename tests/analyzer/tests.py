@@ -962,6 +962,61 @@ class Test(unittest.TestCase):
         self.compare_num_t_run(python22, 212)
         self.compare_frameworks(python22, 'pytest')
 
+    def test_python_23(self):
+        log = '543124497-orig.log'
+        job_id = 543124497
+        file_path = join(self.python, log)
+        python23 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_analyzer(python23, 'python')
+        self.compare_num_t_ok(python23, 1958)
+        self.compare_num_t_failed(python23, 1)
+        self.compare_num_t_skipped(python23, 37)
+        self.compare_bool_t_ran(python23, True)
+        self.compare_bool_t_failed(python23, True)
+        self.compare_t_duration(python23, 111.05)
+        self.compare_num_t_run(python23, 1959)
+        self.compare_frameworks(python23, 'pytest')
+        self.compare_tr_t_failed(
+            python23, 'tests.test_rio_merge::test_merge_tiny_res_bounds')
+
+    def test_python_24(self):
+        log = '434232464-orig.log'
+        job_id = 434232464
+        file_path = join(self.python, log)
+        python24 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_analyzer(python24, 'python')
+        self.compare_num_t_ok(python24, 830)
+        self.compare_num_t_failed(python24, 1)
+        self.compare_num_t_skipped(python24, 1)
+        self.compare_bool_t_ran(python24, True)
+        self.compare_bool_t_failed(python24, True)
+        self.compare_t_duration(python24, 526.79)
+        self.compare_num_t_run(python24, 831)
+        self.compare_frameworks(python24, 'pytest')
+        self.compare_tr_t_failed(
+            python24, 'plotting.tests.test_surf_plotting::test_plot_surf_contours')
+
+    def test_python_25(self):
+        log = '446719552-orig.log'
+        job_id = 446719552
+        file_path = join(self.python, log)
+        python25 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_analyzer(python25, 'python')
+        self.compare_num_t_ok(python25, 0)
+        self.compare_num_t_failed(python25, 9)
+        self.compare_num_t_skipped(python25, 0)
+        self.compare_bool_t_ran(python25, True)
+        self.compare_bool_t_failed(python25, True)
+        self.compare_t_duration(python25, 1.67)
+        self.compare_num_t_run(python25, 9)
+        self.compare_frameworks(python25, 'pytest')
+        self.compare_tr_t_failed(
+            python25, '(grids.tests.test_cartesian)#(grids.tests.test_cylindrical)#'
+                      '(grids.tests.test_generic)#(grids.tests.test_spherical)#'
+                      '(pdes.tests.test_generic)#(solvers.tests.test_generic)#'
+                      '(storage.tests.test_generic)#(tools.tests.test_spherical)#'
+                      '(visualization.tests.test_plotting)')
+
     def test_gradle_0(self):
         log = '88551599-orig.log'
         job_id = 88551599

@@ -26,12 +26,13 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
         line_marker = 0
 
         for line in self.folds[self.OUT_OF_FOLD]["content"]:
-            if re.search(r'\A:.+', line, re.M):
+            # We cannot tell when the test started, so we assume test started when we have the first task.
+            if re.search(r'^:.+', line, re.M):
                 line_marker = 1
                 test_section_started = True
                 self.tests_run = True
                 self.add_framework('JUnit')
-            elif re.search(r'\A:(\w*)', line, re.M) and line_marker == 1:
+            elif re.search(r'^:', line, re.M) and line_marker == 1:
                 line_marker = 0
                 test_section_started = False
             elif re.search(r'^> Task', line, re.M):
@@ -39,6 +40,7 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
                 line_marker = 1
                 test_section_started = True
             elif re.search(r'^BUILD (SUCCESSFUL|FAILED) in ', line, re.M) and line_marker == 1:
+                self.test_lines.append(line)  # We still need this line
                 line_marker = 0
                 test_section_started = False
 
@@ -56,6 +58,21 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
             self.tests_failed.append(match.group(1) + '.' + match.group(2))
             self.did_tests_fail = True
             return
+
+        # Matches the likes of
+        # ProtocolCompatibilityTest > serviceTalkToServiceTalkClientTimeout(boolean, boolean, String) > io.servicetalk.g
+        # rpc.netty.ProtocolCompatibilityTest.serviceTalkToServiceTalkClientTimeout(boolean, boolean, String)[10] FAILED
+        #
+        # Appends io.servicetalk.grpc.netty.ProtocolCompatibilityTest.serviceTalkToServiceTalkClientTimeout
+        # (boolean, boolean, String)[10] to self.tests_failed
+        match = re.search(r'([^\s]+(\(.*\))? > )+([^\s\[\(]+(\(.*\))?(\[.+\]|\(\))?) FAILED', line, re.M)
+        if match:
+            self.tests_run = True
+            self.init_tests()
+            self.tests_failed.append(match.group(3))
+            self.did_tests_fail = True
+            return
+
         # Matches the likes of TestNG > Regression2 > test.groupinvocation.GroupSuiteTest.Regression2 FAILED
         # Appends 'test.groupinvocation.GroupSuiteTest.Regression2' to self.tests_failed
         match = re.search(r'(.* >)+ ([^\s\[\(]+\.[^\[\(]+(\[.+\])?) FAILED$', line, re.M)
@@ -93,16 +110,29 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
                 self.num_tests_skipped += int(match.group(3))
                 continue
 
+            # Same with Maven and Ant. Only use the last build to calculate pure_build_duration
             match = re.search(r'Total time: (.*)', line, re.M)
             if match:
                 self.pure_build_duration = JavaGradleAnalyzer.convert_gradle_time_to_seconds(match.group(1))
+
+            match = re.search(r'BUILD (FAILED|SUCCESSFUL) in (.*)', line, re.M)
+            if match:
+                self.pure_build_duration = JavaGradleAnalyzer.convert_gradle_time_to_seconds(match.group(2))
+
         self.uninit_ok_tests()
 
     @staticmethod
     def convert_gradle_time_to_seconds(string):
         match = re.search(r'((\d+) mins)? (\d+)(\.\d+) secs', string, re.M)
         if match:
-            return int(match.group(2)) * 60 + int(match.group(3))
+            # If we have minute, we add 60 * minutes to the seconds, final unit is seconds
+            return int(match.group(3)) if match.group(2) is None else int(match.group(2)) * 60 + int(match.group(3))
+
+        match = re.search(r'((\d+)m )?(\d+)s', string, re.M)
+        if match:
+            # If we have minute, we add 60 * minutes to the seconds, final unit is seconds
+            return int(match.group(3)) if match.group(2) is None else int(match.group(2)) * 60 + int(match.group(3))
+
         return 0
 
     def bool_tests_failed(self):

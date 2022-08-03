@@ -66,7 +66,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
             val, key = a.split(' ')
             if key.lower() == 'passed':
                 self.num_tests_run += int(val)
-            elif key.lower() == 'failed' or key.lower() == 'errored':
+            elif key.lower() == 'failed' or key.lower()[:5] == 'error':  # errored, errors, or error
                 self.num_tests_failed += int(val)
                 self.num_tests_run += int(val)
             elif key.lower() == 'skipped':
@@ -85,18 +85,25 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
 
     def analyze_tests(self):
         summary_seen = False
+        short_summary_seen = False
         ignore_pytest_failures = False
         pytest_test_files = []
+        summary_tests_failed = []
         last_pytest_file = ''
         for line in self.test_lines:
             summary_seen = False
+            if re.search(r'test session starts', line, re.M):
+                self.setup_python_tests()
+                self.add_framework('pytest')
+                continue
+
             if re.search(r'==+ FAILURES ==+', line, re.M):
                 ignore_pytest_failures = len(self.tests_failed) > 0
                 continue
 
             match_obj = re.search(r'Ran (\d+) tests? in (.+s)', line, re.M)
             if match_obj:
-                # Matches the testunit test summary, i.e. 'Ran 3 tests in 0.000s'
+                # Matches the unittest test summary, i.e. 'Ran 3 tests in 0.000s'
                 self.setup_python_tests()
                 self.add_framework('unittest')
                 self.num_tests_run += int(match_obj.group(1))
@@ -104,7 +111,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 self.has_summary = True
                 summary_seen = True
                 continue
-            match_obj = re.search(r'==+ (.+) in ([0-9\.]+)(?:s[ )(0-9:]*| seconds) ==+', line, re.M)
+            match_obj = re.search(r'=+ (.+) in ([0-9\.]+)(?:s[ )(0-9:]*| seconds) =+', line, re.M)
             if match_obj:
                 # Matches the pytest test summary, now compatible with pytest 6 formatting
                 # i.e. '==================== 442 passed, 2 xpassed in 50.65 seconds ===================='
@@ -115,6 +122,10 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 self.test_duration += float(match_obj.group(2))
                 self.has_summary = True
                 summary_seen = True
+                short_summary_seen = False
+                if len(self.tests_failed) <= len(summary_tests_failed):
+                    # Prefer summary_tests_failed if it contains more failed tests because summary is more accurate.
+                    self.tests_failed = summary_tests_failed
                 continue
             match_obj = re.search(r'^OK( \((.+)\))?\s*$', line, re.M)
             if match_obj and self.has_summary:
@@ -158,6 +169,38 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 self.setup_python_tests()
                 self.tests_failed.append(match_obj.group(3))
                 continue
+
+            # For pytest
+            # Used to check ===== short test summary info =====
+            # Without this, test_python_4 will fail.
+            match_obj = re.search(r'=====+ short test summary info =====+', line, re.M)
+            if match_obj:
+                # We have short test summary, we can use it instead
+                short_summary_seen = True
+                summary_tests_failed = []
+                continue
+
+            if short_summary_seen:
+                match_obj = re.search(r'^(FAILED|ERROR) ([\w\/.]+)\.py::([\w:]+)(\[.+\])?', line, re.M)
+                if match_obj:
+                    # Matches the likes of
+                    # FAILED gammapy/irf/psf/tests/test_parametric.py::test_psf_king_containment_radius
+                    # Appends gammapy.irf.psf.tests.test_parametric::test_psf_king_containment_radius to tests_failed
+                    # Or FAILED gammapy/irf/edisp/tests/test_map.py::test_edisp_from_diagonal_response[0d 0d]
+                    # Appends gammapy.irf.edisp.tests.test_map::test_edisp_from_diagonal_response[0d 0d]
+                    test_file = match_obj.group(2).replace('/', '.')
+                    test_method = match_obj.group(3).replace('.', '::')
+                    failed_test = test_file + '::' + test_method
+                    if match_obj.group(4) is not None:
+                        failed_test += match_obj.group(4)
+                    summary_tests_failed.append(failed_test)
+                    continue
+                match_obj = re.search(r'^(FAILED|ERROR) ([\w\/.]+)\.py', line, re.M)
+                if match_obj:
+                    # class error, no method name
+                    test_file = match_obj.group(2).replace('/', '.')
+                    summary_tests_failed.append('(' + test_file + ')')
+
             # Used to extract failing tests for verbose pytest logs
             match_obj = re.search(r'^([\w\/]+)\.py((::\w+)+)(\[.+\])? FAILED(\s+\[\s*\d+%\])?$', line, re.M)
             if match_obj and not summary_seen:
@@ -170,6 +213,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                     failed_test += match_obj.group(4)
                 self.tests_failed.append(failed_test)
                 continue
+
             # Used to extract failing doctests in verbose pytest logs (as in test_python_15)
             match_obj = re.search(r'^([\w\/]+)\.py::([\w\.]+)(\[.+\])? FAILED(\s+\[\s*\d+%\])?$', line, re.M)
             if match_obj and not summary_seen:
@@ -183,6 +227,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                     failed_test += match_obj.group(3)
                 self.tests_failed.append(failed_test)
                 continue
+
             # Used to extract failing test *files* for pytest
             match_obj = re.search(r'^([\w\/]+)\.py ([FEXxs.]+)', line, re.M)
             if match_obj and not summary_seen:
@@ -191,13 +236,27 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 last_pytest_file = match_obj.group(1).replace('/', '.')
                 pytest_test_files += [last_pytest_file] * match_obj.group(2).count('F')
                 continue
+
+            match_obj = re.search(r'\[ \d+\%\] (FAILED|ERROR) ([\w\/.]+)\.py::([\w:]+)(\[.+\])?', line, re.M)
+            if match_obj and not summary_seen:
+                # Matches the likes of [ 88%] FAILED tests/integration/test_mongodb.py::TestMongoCache::test_ttl
+                # Appends 'tests.integration.test_mongodb::TestMongoCache::test_ttl' to self.tests_failed
+                test_file = match_obj.group(2).replace('/', '.')
+                test_method = match_obj.group(3).replace('.', '::')
+                failed_test = test_file + '::' + test_method
+                if match_obj.group(4) is not None:
+                    failed_test += match_obj.group(4)
+                self.tests_failed.append(failed_test)
+                continue
+
             # Helps extract failing test files
             match_obj = re.search(r'^([FEXxs.]*F[FEXxs.]*)', line, re.M)
-            if match_obj and not summary_seen:
+            if match_obj and not summary_seen and last_pytest_file != '':
                 # Matches the likes of ................F...............s........F.......
                 # Appends the last element of pytest_test_files to pytest_test_files 2 times
                 pytest_test_files += [last_pytest_file] * match_obj.group(1).count('F')
                 continue
+
             # Used to extract failing tests *classes and methods* for pytest
             match_obj = re.search(r'^_* ((?!summary)[\w\.]+(\[.+\])?) _*$', line, re.M)
             if match_obj and not summary_seen and not ignore_pytest_failures:
@@ -210,6 +269,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 else:
                     self.tests_failed.append(match_obj.group(1))
                 continue
+
             # Used to extract failing test *classes and methods* for doctests in pytest logs
             match_obj = re.search(r'^_* \[doctest\] ((?!summary)[\w\.]+(\[.+\])?) _*$', line, re.M)
             if match_obj and not summary_seen and not ignore_pytest_failures:
@@ -225,6 +285,18 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 else:
                     self.tests_failed.append(match_obj.group(1))
                 continue
+
+            # Used to extract errored test *files* for pytest
+            # class error, no method name
+            match_obj = re.search(r'_+ ERROR (\w+ )?([\w\/.]+)\.py _+', line, re.M)
+            if match_obj and not summary_seen:
+                # Matches the likes of _______________ ERROR collecting test/unittests/tts/test_tts.py ________________
+                # Appends '(test.unittests.tts.test_tts)' to self.tests_failed
+                self.setup_python_tests()
+                test_file = match_obj.group(2).replace('/', '.')
+                self.tests_failed.append('(' + test_file + ')')
+                continue
+
         self.uninit_ok_tests()
 
     def bool_tests_failed(self):
