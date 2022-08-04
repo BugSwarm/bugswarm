@@ -93,6 +93,7 @@ def setup_repo(job, utils, job_dispatcher):
     else:
         log.debug('Job', job_id, 'is already set up.')
 
+    # TODO: Check if workflow file exists in the repository.
     # Lastly, check if .travis.yml exists in the repository. If not, skip.
     if not os.path.isfile(os.path.join(job_dispatcher.utils.get_reproducing_repo_dir(job), '.travis.yml')):
         raise ReproduceError('Cannot find .travis.yml in repository. Skipping.')
@@ -122,12 +123,8 @@ def copy_and_reset_repo(job, utils):
     repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))
     # git reset the workspace repository.
     repo = git.Repo(utils.get_reproducing_repo_dir(job))
-    if job.is_pr:
-        repo.git.reset('--hard', job.base_sha)
-        repo.git.merge(job.sha)
-    else:
-        log.debug('Resetting repository to', job.sha, 'for job id', str(job.job_id) + '.')
-        repo.git.reset('--hard', job.sha)
+    # GitHub pipeline doesn't need to reset and merge PR jobs.
+    repo.git.reset('--hard', job.sha)
 
 
 def download_repo(job, utils):
@@ -135,10 +132,6 @@ def download_repo(job, utils):
     os.makedirs(utils.get_stored_repo_path(job), exist_ok=True)
 
     # Download the repository.
-    if job.is_pr:
-        # Correct job sha is necessary for correct file path generation.
-        job.sha = job.travis_merge_sha
-
     repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
     if not os.path.exists(utils.get_project_storage_repo_zip_path(job)):
         src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
