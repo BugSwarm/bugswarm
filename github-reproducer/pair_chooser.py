@@ -1,3 +1,12 @@
+"""
+PairChooser will filter build pairs based on --failed-job-id and --passed-job-id.
+Steps:
+1: Use Database to list all artifacts, save [failed job id: artifact] json into a file
+2: For each job pair in build pair, filter job pairs based on the inputs.
+3: Use json to check if the failed job id is in Database. If yes, names should match.
+4: Write filtered build pairs into a file.
+"""
+
 import getopt
 import logging
 import os
@@ -31,6 +40,7 @@ def main(argv=None):
         artifacts = bugswarmapi.list_artifacts()
         _create_static_artifacts_file(filename, artifacts)
     with open(filename, 'r') as file:
+        # artifacts -> [failed job id: artifact]
         artifacts = json.load(file)
 
     filtered_buildpairs = []
@@ -38,6 +48,7 @@ def main(argv=None):
     for bp in buildpairs:
         filtered_jobpairs = []
         for jp in bp['jobpairs']:
+            # Filter jobs based on input.
             if should_include_jobpair(jp, failed_job_id, passed_job_id):
                 if not is_jp_unique(repo, jp, artifacts):
                     continue
@@ -68,6 +79,7 @@ def _create_static_artifacts_file(filename, artifacts):
 
 
 def is_jp_unique(repo, jp, artifacts):
+    # Return False if failed job ID is in the database but repo name doesn't match.
     failed_job_id = jp['failed_job']['job_id']
     if str(failed_job_id) in artifacts:
         artifact_failed_job_id = artifacts[str(failed_job_id)]['failed_job']['job_id']
@@ -139,6 +151,7 @@ def _validate_input(argv):
         sys.exit(2)
     f_id_given = failed_job_id != 0
     p_id_given = passed_job_id != 0
+    # TODO: Fix this or fix the usage: mode 2 and 3 in usage don't work due to this assertion.
     # Assert that exactly neither or both of the job ID arguments were provided. In other words, if exactly one job ID
     # argument was provided, then exit. Logically, the condition is equivalent to f_id_given XOR p_id_given.
     if f_id_given is not p_id_given:
@@ -168,6 +181,7 @@ def _print_usage(msg=None):
     log.info('     Input:  repo, failed job ID')
     log.info('3. Choose pairs from a project s.t. the passed job has a specific ID.')
     log.info('     Input:  repo, passed job ID')
+    # TODO: Current behavior is OR, not AND. Bug or feature?
     log.info('4. Choose pairs from a project s.t. the failed and passed jobs have specific IDs.')
     log.info('     Input:  repo, failed job ID, passed job ID')
 

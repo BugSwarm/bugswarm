@@ -65,6 +65,7 @@ def main(argv=None):
         sys.exit(2)
 
     # Initialize JobDispatcher.
+    # Pipeline will run JobReproducer (5 times) first, then it will run ImagePackager.
     if package_mode:
         reproducer = ImagePackager(input_file, task_name, threads, keep, package_mode, dependency_solver,
                                    skip_check_disk)

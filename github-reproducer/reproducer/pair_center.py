@@ -34,6 +34,7 @@ class PairCenter(JobCenter):
     def _load_jobs_from_pairs_for_repo(self, input_file):
         """
         Read the input file, which should contain mined pairs from the database.
+        Turn json dict into objects.
         """
         try:
             buildpairs = read_json(input_file)

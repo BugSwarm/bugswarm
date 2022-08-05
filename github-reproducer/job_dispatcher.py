@@ -201,6 +201,7 @@ class JobDispatcher(object):
         if os.path.isfile(self.utils.get_error_reason_file_path()):
             self.error_reasons = read_json(self.utils.get_error_reason_file_path())
         self.error_reasons = self.manager.dict(self.error_reasons)
+        # TODO: Remove this
         # Check if commands to Travis work.
         if not Utils.is_travis_installed():
             log.error(colored('Commands to Travis are failing unexpectedly. Try restarting your shell and ensure your '
