@@ -1,4 +1,6 @@
-from .common_schema import RequiredInt, NullableStr, RequiredEnum, RequiredStr, RequiredBool, NonEmptyStr
+from .common_schema import (NonEmptyStr, NullableStr, RequiredBool,
+                            RequiredCIService, RequiredEnum, RequiredInt,
+                            RequiredStr)
 
 # Schema for jobs within mined job pairs.
 _MinedJobPairJobSchema = {
@@ -36,6 +38,8 @@ _MinedJobPairSchema = {
             'type': 'dict',
             'allow_unknown': True,
         },
+        'failed_step_kind': NullableStr,
+        'failed_step_command': NullableStr,
     },
 }
 
@@ -78,6 +82,7 @@ _MinedBuildSchema = {
 MinedBuildPairSchema = {
     'base_branch': RequiredStr,
     'branch': NonEmptyStr,
+    'ci_service': RequiredCIService,
     'failed_build': _MinedBuildSchema,
     'is_error_pass': RequiredBool,
     'jobpairs': {

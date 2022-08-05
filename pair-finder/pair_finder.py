@@ -128,7 +128,7 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
         'keep_clone': keep_clone,
         'task_name': task_name,
         'mined_project_builder': MinedProjectBuilder(),
-        'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo)
+        'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo, 'travis')
     }
     steps = [
         Preflight(),
@@ -155,6 +155,7 @@ def _thread_main(repo, task_name, log_level, skip_if_output_exists, keep_clone):
 
     builder = out_context['mined_project_builder']
     builder.repo = repo
+    builder.ci_service = 'travis'
     builder.latest_mined_version = Utils.get_latest_commit_for_repo(repo)
     (mined_build_pairs,
      mined_job_pairs,

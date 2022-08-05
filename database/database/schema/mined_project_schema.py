@@ -1,7 +1,8 @@
-from .common_schema import NonEmptyStr
+from .common_schema import NonEmptyStr, RequiredCIService
 
 MinedProjectSchema = {
     'repo': NonEmptyStr,
+    'ci_service': RequiredCIService,
     'latest_mined_version': NonEmptyStr,
     'last_build_mined': {
         'type': 'dict',

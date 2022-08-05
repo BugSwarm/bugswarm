@@ -167,7 +167,7 @@ class GetJobsFromTravisAPI(Step):
             msg = 'Did not get any jobs for {}.'.format(repo)
             # Set the build_number & build_id metric to the latest build info we've received if no jobs are found.
             bugswarmapi = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
-            bugswarmapi.set_latest_build_info_metric(repo, highest_build_number, highest_build_number_id)
+            bugswarmapi.set_latest_build_info_metric(repo, 'travis', highest_build_number, highest_build_number_id)
             raise StepException(msg)
 
         # Expose mining progression metrics via the context. Other pipeline steps must not change these values.

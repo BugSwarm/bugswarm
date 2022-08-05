@@ -8,6 +8,7 @@ from bugswarm.common.rest_api.database_api import DatabaseAPI
 class MinedProjectBuilder(object):
     def __init__(self):
         self.repo = None
+        self.ci_service = None
         self.latest_mined_version = None
         self.last_build_mined = {
             'build_id': 0,
@@ -29,6 +30,7 @@ class MinedProjectBuilder(object):
     def build(self) -> Dict:
         return {
             'repo': self.repo,
+            'ci_service': self.ci_service,
             'latest_mined_version': self.latest_mined_version,
             'last_build_mined': self.last_build_mined,
             'progression_metrics': {
@@ -46,14 +48,15 @@ class MinedProjectBuilder(object):
         }
 
     @staticmethod
-    def query_current_metrics(repo: str) -> dict:
+    def query_current_metrics(repo: str, ci_service: str) -> dict:
         log.info('Attempting to query metrics from database for {}'.format(repo))
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-        results = bugswarmapi.find_mined_project(repo)
+        results = bugswarmapi.find_mined_project(repo, ci_service)
         if results.status_code != 200:
             log.info('Repository: {} has yet to be mined. Continuing.'.format(repo))
             return {
                 'repo': '',
+                'ci_service': ci_service,
                 'latest_mined_version': '',
                 'last_build_mined': {
                     'build_id': 0,

@@ -119,7 +119,7 @@ class PairFilter(object):
                 metric_value = metric_value + original_d['progression_metrics'][metric_name]
             except KeyError:
                 pass
-            if not bugswarmapi.set_mined_project_progression_metric(repo, metric_name, metric_value):
+            if not bugswarmapi.set_mined_project_progression_metric(repo, 'travis', metric_name, metric_value):
                 log.error('Encountered an error while setting a progression metric. Exiting.')
                 sys.exit(1)
 

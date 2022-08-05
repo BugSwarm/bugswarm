@@ -247,7 +247,8 @@ class Utils(object):
         current_mining_repo = repo.lower()
         projects = BUGSWARMAPI.list_mined_projects()
         for project in projects:
-            if current_mining_repo == project['repo'].lower():
+            if current_mining_repo == project['repo'].lower() and (
+                    'ci_service' not in project or project['ci_service'] == 'travis'):
                 return repo != project['repo'], project['repo']
         return False, None
 

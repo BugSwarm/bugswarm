@@ -37,7 +37,6 @@ class JobPairSelector(object):
                restrict_build_system: str,
                restrict_os_version: str,
                restrict_diff_size: str) -> List:
-
         """
         Select job pairs from `buildpairs`. The `include_*` parameters are used to decide which job pairs to include.
 
@@ -348,7 +347,8 @@ def _choose_pairs_from_repo(repo: str,
     """
     log.info('Choosing pairs from {}.'.format(repo))
     bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-    if not bugswarmapi.find_mined_project(repo, error_if_not_found=False):
+    if (not bugswarmapi.find_mined_project(repo, 'travis', error_if_not_found=False) and
+            not bugswarmapi.find_mined_project(repo, 'github', error_if_not_found=False)):
         log.error('It seems that {} has not yet been mined. Skipping.'.format(repo))
         return [], repo
 
@@ -463,6 +463,7 @@ def _validate_input(argv):
         if opt == '--diff-size':
             if not arg or '~' not in arg or len(arg.split('~')) != 2:
                 _print_usage(msg='Diff size argument should be MIN~MAX. Exiting.')
+                sys.exit(2)
             restrict_diff_size = arg
 
     if repo and repo_file_path:

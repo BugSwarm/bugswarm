@@ -431,9 +431,9 @@ class DatabaseAPI(object):
     def insert_mined_project(self, mined_project) -> Response:
         return self._insert(DatabaseAPI._mined_projects_endpoint(), mined_project, 'mined project')
 
-    def find_mined_project(self, repo: str, error_if_not_found: bool = True) -> Response:
-        log.debug('Trying to find mined project with repo {}.'.format(repo))
-        return self._get(DatabaseAPI._mined_project_repo_endpoint(repo), error_if_not_found)
+    def find_mined_project(self, repo: str, ci_service: str, error_if_not_found: bool = True) -> Response:
+        log.debug('Trying to find mined project with repo {} and CI service {}.'.format(repo, ci_service))
+        return self._get(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service), error_if_not_found)
 
     def list_mined_projects(self) -> List:
         return self._list(DatabaseAPI._mined_projects_endpoint())
@@ -441,6 +441,7 @@ class DatabaseAPI(object):
     def filter_mined_projects(self, api_filter: str) -> List:
         return self._filter(DatabaseAPI._mined_projects_endpoint(), api_filter)
 
+    # TODO should this count repos, or repo-CI pairs?
     def count_mined_projects(self) -> int:
         return self._count(DatabaseAPI._mined_projects_endpoint())
 
@@ -449,14 +450,17 @@ class DatabaseAPI(object):
         Upsert a mined project. Can be used for initial mining or re-mining of a project.
         """
         repo = mined_project.get('repo')
+        ci_service = mined_project.get('ci_service')
         assert repo
-        return self._upsert(DatabaseAPI._mined_project_repo_endpoint(repo), mined_project, 'mined project')
+        assert ci_service
+        return self._upsert(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service), mined_project, 'mined project')
 
-    def set_latest_build_info_metric(self, repo: str, build_number: int, build_id: int):
+    def set_latest_build_info_metric(self, repo: str, ci_service: str, build_number: int, build_id: int):
         """
         Set the build information regarding the build number and build id of the latest build we've mined.
 
         :param repo: The repository slug for identifying the mined project to update.
+        :param ci_service: The CI service for identifying the project to update.
         :param build_number: The latest build number associated to the last build we've mined
         :param build_id: The latest build id associated to the last build we've mined
         :return: The response object.
@@ -477,9 +481,10 @@ class DatabaseAPI(object):
             'last_build_mined.build_number': build_number,
             'last_build_mined.build_id': build_id
         }
-        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
+        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service), updates)
 
-    def set_mined_project_progression_metric(self, repo: str, metric_name: str, metric_value) -> Response:
+    def set_mined_project_progression_metric(self, repo: str, ci_service: str,
+                                             metric_name: str, metric_value) -> Response:
         """
         Add a mining progression metric to an existing mined project.
         The value of the metric can be any valid database type.
@@ -501,22 +506,22 @@ class DatabaseAPI(object):
         if not metric_name:
             raise ValueError
         updates = {'progression_metrics.{}'.format(metric_name): metric_value}
-        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
+        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service), updates)
 
-    def update_mined_project_repo_name(self, repo: str, new_repo: str):
+    def update_mined_project_repo_name(self, repo: str, ci_service: str, new_repo: str):
         if not isinstance(repo, str):
             raise TypeError
         if not isinstance(repo, str):
             raise TypeError
         updates = {'repo': new_repo}
-        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo), updates)
+        return self._patch(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service), updates)
 
-    def soft_delete_mined_project(self, repo: str) -> Response:
+    def soft_delete_mined_project(self, repo: str, ci_service: str) -> Response:
         if not isinstance(repo, str):
             raise TypeError
         if not repo:
             raise ValueError
-        return self._delete(DatabaseAPI._mined_project_repo_endpoint(repo))
+        return self._delete(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service))
 
     ###################################
     # Email Subscriber REST methods
@@ -874,12 +879,14 @@ class DatabaseAPI(object):
         return DatabaseAPI._endpoint(DatabaseAPI._MINED_PROJECTS_RESOURCE)
 
     @staticmethod
-    def _mined_project_repo_endpoint(repo: str) -> Endpoint:
+    def _mined_project_repo_endpoint(repo: str, ci_service) -> Endpoint:
         if not isinstance(repo, str):
             raise TypeError
         if not repo:
             raise ValueError
-        return '/'.join([DatabaseAPI._mined_projects_endpoint(), repo])
+        if ci_service not in ['travis', 'github']:
+            raise ValueError
+        return '/'.join([DatabaseAPI._mined_projects_endpoint(), ci_service, repo])
 
     @staticmethod
     def _email_subscribers_endpoint() -> Endpoint:

@@ -73,9 +73,51 @@ minedProjects = {
     # By default, the standard item entry point is defined as '/minedProjects/<ObjectId>/'. We change this entry point
     # to use the 'repo' field to look up mined projects. This way, consumers can also perform GET requests at
     # '/minedProjects/<repo>/', instead of the more verbose '/minedProjects?where={"repo":<repo>}'.
+    # 'id_field': 'repo',
+    # 'item_lookup_field': 'repo',
+    # 'item_url': 'regex(".+")',
+
+    # PATCH: Allow updating mined projects when adding mining progression metrics.
+    # Upserting with PUT is not allowed, since we need to enforce that the (id_field, ci_service) combo is unique.
+    'item_methods': ITEM_METHODS + ['PATCH', 'DELETE'],
+}
+
+minedProjectsTravis = {
+    'schema': schema.MinedProjectSchema,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_read_roles': ALLOWED_WRITE_ROLES,
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_read_roles': ALLOWED_WRITE_ROLES,
+    # By default, the standard item entry point is defined as '/minedProjects/<ObjectId>/'. We change this entry point
+    # to use the 'repo' field to look up mined projects. This way, consumers can also perform GET requests at
+    # '/minedProjects/<repo>/', instead of the more verbose '/minedProjects?where={"repo":<repo>}'.
+    'url': 'minedProjects/travis',
     'id_field': 'repo',
     'item_lookup_field': 'repo',
     'item_url': 'regex(".+")',
+
+    'datasource': {'source': 'minedProjects', 'filter': {'ci_service': 'travis'}},
+
+    # PATCH: Allow updating mined projects when adding mining progression metrics.
+    # PUT: Allow upserting mined projects when a project is re-mined.
+    'item_methods': ITEM_METHODS + ['PATCH', 'PUT', 'DELETE'],
+}
+
+minedProjectsGithub = {
+    'schema': schema.MinedProjectSchema,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_read_roles': ALLOWED_WRITE_ROLES,
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_read_roles': ALLOWED_WRITE_ROLES,
+    # By default, the standard item entry point is defined as '/minedProjects/<ObjectId>/'. We change this entry point
+    # to use the 'repo' field to look up mined projects. This way, consumers can also perform GET requests at
+    # '/minedProjects/<repo>/', instead of the more verbose '/minedProjects?where={"repo":<repo>}'.
+    'url': 'minedProjects/github',
+    'id_field': 'repo',
+    'item_lookup_field': 'repo',
+    'item_url': 'regex(".+")',
+
+    'datasource': {'source': 'minedProjects', 'filter': {'ci_service': 'github'}},
 
     # PATCH: Allow updating mined projects when adding mining progression metrics.
     # PUT: Allow upserting mined projects when a project is re-mined.
@@ -137,6 +179,8 @@ DOMAIN = {
     'artifacts': artifacts,
     'minedBuildPairs': minedBuildPairs,
     'minedProjects': minedProjects,
+    '_minedProjectsTravis': minedProjectsTravis,
+    '_minedProjectsGithub': minedProjectsGithub,
     'emailSubscribers': emailSubscribers,
     'accounts': accounts,
     'logs': logs,
