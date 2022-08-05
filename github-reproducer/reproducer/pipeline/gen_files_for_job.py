@@ -11,6 +11,7 @@ from reproducer.pipeline.gen_script import gen_script
 from reproducer.pipeline.apply_patching import modify_deprecated_links
 
 
+
 def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=False):
     """
     This function generates the files needed to reproduce a job.
@@ -57,12 +58,13 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
 
     # STEP 2: Download the original log if we do not yet have it.
     original_log_path = job_dispatcher.utils.get_orig_log_path(job.job_id)
-    download_log(job.job_id, original_log_path)
+    download_log(job.job_id, original_log_path, repo=job.repo)
 
     # STEP 3: Generate the build script with travis-build and then modify and patch it.
     build_sh_path = job_dispatcher.utils.get_build_sh_path(job)
     if not isfile(build_sh_path):
         gen_script(job_dispatcher.utils, job, dependency_solver)
+        # TODO: Probably don't need this step anymore since we generate the build script ourselves.
         modify_build_sh(job.repo, build_sh_path)
         # Attempt to patch any deprecated links in build script
         modify_deprecated_links(build_sh_path)

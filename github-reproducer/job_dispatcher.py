@@ -95,7 +95,8 @@ class JobDispatcher(object):
         t = Process(target=self._thread_main, args=(tid,))
         thread = {'process': t, 'exit_reason': ''}
         self.threads[tid] = thread
-        t.start()
+        # TODO: Add this back when we are ready to reproduce.
+        # t.start()
 
     def _thread_watcher(self):
         """
@@ -201,8 +202,10 @@ class JobDispatcher(object):
         if os.path.isfile(self.utils.get_error_reason_file_path()):
             self.error_reasons = read_json(self.utils.get_error_reason_file_path())
         self.error_reasons = self.manager.dict(self.error_reasons)
+
         # TODO: Remove this
         # Check if commands to Travis work.
+        """
         if not Utils.is_travis_installed():
             log.error(colored('Commands to Travis are failing unexpectedly. Try restarting your shell and ensure your '
                               'environment is provisioned correctly. Also try restarting your shell.', 'red'))
@@ -213,6 +216,7 @@ class JobDispatcher(object):
         except FileNotFoundError:
             log.error(colored(self.config.travis_images_json + ' not found. Exiting.', 'red'))
             raise
+        """
 
     def pre_run(self):
         """

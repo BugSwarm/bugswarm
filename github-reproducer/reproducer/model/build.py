@@ -1,4 +1,5 @@
 from .job import Job
+from reproducer.utils import Utils
 
 
 class Build(object):
@@ -21,21 +22,27 @@ class Build(object):
                 j['build_job'] = '.'.join([components[0], components[2]])
 
             # Find image tag from buildpair JSON.
+            # TODO: Find out why we only care about the first pair?
             jobpairs = buildpair.json_data['jobpairs']
             failed_job = jobpairs[0]['failed_job']
             passed_job = jobpairs[0]['passed_job']
             # Job objects are made for each job in a build. We only want to look for the image_tag if it is the failing
             # or passing job.
+            config = Utils.replace_matrix(j['config'])
+
             if j['job_id'] == failed_job['job_id']:
-                image_tag = failed_job['heuristically_parsed_image_tag']
+                # image_tag = failed_job['heuristically_parsed_image_tag']
+                # Replace matrix
+                image_tag = config['runs-on']
             elif j['job_id'] == passed_job['job_id']:
-                image_tag = passed_job['heuristically_parsed_image_tag']
+                # image_tag = passed_job['heuristically_parsed_image_tag']
+                image_tag = config['runs-on']
             else:
                 image_tag = None
 
             # Create the Job object. If the reproduced result and analyzed result are already in the JSON file, which
             # means this job has been reproduced before, add those results to the Job object.
-            job_obj = Job(self, j['build_job'], j['job_id'], j['language'], j['config'], image_tag)
+            job_obj = Job(self, j['build_job'], j['job_id'], j['language'], config, image_tag)
             job_obj.reproduced_result = j.get('reproduced_result')
             job_obj.orig_result = j.get('orig_result')
             self.jobs.append(job_obj)

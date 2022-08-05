@@ -11,6 +11,7 @@ from bugswarm.common.credentials import GITHUB_TOKENS
 from reproducer.reproduce_exception import ReproduceError
 
 
+# TODO: Generate our own build script
 def gen_script(utils, job, dependence_solver):
     """
     Invoke travis-build to generate the build script.

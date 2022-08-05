@@ -101,12 +101,15 @@ class PairCenter(JobCenter):
             failed_job_id = jp['failed_job']['job_id']
             failed_job = [failed_job for failed_job in buildpair_obj.builds[0].jobs
                           if failed_job.job_id == str(failed_job_id)][0]
-            failed_job.image_tag = jp['failed_job']['heuristically_parsed_image_tag']
+            # TODO: Find out why we need to set image_tag here?
+            # failed_job.image_tag = jp['failed_job']['heuristically_parsed_image_tag']
+            # failed_job.image_tag = failed_job.config['runs-on']
 
             passed_job_id = jp['passed_job']['job_id']
             passed_job = [passed_job for passed_job in buildpair_obj.builds[1].jobs
                           if passed_job.job_id == str(passed_job_id)][0]
-            passed_job.image_tag = jp['passed_job']['heuristically_parsed_image_tag']
+            # passed_job.image_tag = jp['passed_job']['heuristically_parsed_image_tag']
+            # passed_job.image_tag = passed_job.config['runs-on']
 
             if 'match_history' in jp:
                 buildpair_obj.jobpairs.append(JobPair(repo,

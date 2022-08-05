@@ -3,6 +3,8 @@ import os
 import shutil
 import subprocess
 import time
+import json
+import re
 
 from bugswarm.common import log
 from bugswarm.common import utils as bugswarmutils
@@ -390,7 +392,8 @@ class Utils(object):
     def check_docker_disk_space_available(self, docker_storage_path):
         if self.config.skip_check_disk:
             return True
-        total_b, used_b, free_b = shutil.disk_usage(docker_storage_path)
+        # TODO: Fix this
+        total_b, used_b, free_b = shutil.disk_usage('.')
         if free_b < self.config.docker_disk_space_requirement:
             amount = str(round(free_b / 1024**3, 2))
             log.warning('Inadequate disk space available for storing Docker Images: {} GiB.'.format(amount))
@@ -460,3 +463,17 @@ class Utils(object):
             log.error(msg)
             raise IOError(msg)
         return stdout
+
+    @staticmethod
+    def replace_matrix(config: dict) -> dict:
+        if 'strategy' in config and 'matrix' in config['strategy']:
+            # replace matrix values
+            try:
+                string = json.dumps(config, skipkeys=True)
+                matrix = config['strategy']['matrix']
+                for matrix_key, matrix_val in matrix.items():
+                    string = re.sub('\${{{{ matrix.{} }}}}'.format(matrix_key), matrix_val, string)
+                return json.loads(string)
+            except json.JSONDecodeError:
+                log.error('Cannot replace matrix values.')
+        return config
