@@ -70,8 +70,9 @@ class JobReproducer(JobDispatcher):
         log.info('[THREAD {}] Running {}'.format(tid, job))
 
         gen_files_for_job(self, job, self.keep, self.dependency_solver)
-        self.docker.build_and_run(job)
-        copy_log(self, job)
+        # TODO: Uncomment this.
+        # self.docker.build_and_run(job)
+        # copy_log(self, job)
 
         elapsed = time.time() - start_time
         self.job_time_acc += elapsed

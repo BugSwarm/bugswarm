@@ -67,12 +67,6 @@ class Utils(object):
     def get_repo_storage_dir(self, job):
         return os.path.join(self.config.stored_repos_dir, job.repo)
 
-    @staticmethod
-    def is_travis_installed():
-        command = 'travis'
-        result, _, _ = ShellWrapper.run_commands(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        return 'Usage: travis COMMAND' in result
-
     def clone_project_repo(self, repo):
         owner, project_name = repo.split('/')
         owner_dir = self.get_repo_owner_dir(owner)

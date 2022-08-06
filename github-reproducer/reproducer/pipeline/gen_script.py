@@ -2,6 +2,7 @@ import os
 import subprocess
 import yaml
 
+from .github_builder import GitHubBuilder
 from bugswarm.common.json import write_json
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.shell_wrapper import ShellWrapper
@@ -16,9 +17,14 @@ def gen_script(utils, job, dependence_solver):
     """
     Invoke travis-build to generate the build script.
     """
-    build_sh = os.path.join('reproduce_tmp', job.job_id + '.sh')
+    build_sh = os.path.join('reproduce_tmp', job.job_id, 'run.sh')
     reproducing_dir = utils.get_reproducing_repo_dir(job)
 
+    builder = GitHubBuilder(job, os.path.join('reproduce_tmp', job.job_id), utils)
+    builder.build()
+
+    # TODO: Add dependence_solver
+    """
     if dependence_solver:
         from bugswarm.dependency_solver.dependency_solver import fix_dict
         pip_patch_result = os.path.join(utils.get_jobpair_dir(job), '{}-pip-patch.json'.format(job.job_id))
@@ -50,3 +56,4 @@ def gen_script(utils, job, dependence_solver):
     if returncode != 0:
         raise ReproduceError(
             'Encountered an error while generating the build script with travis-build: {}.'.format(stderr))
+    """

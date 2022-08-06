@@ -95,8 +95,7 @@ class JobDispatcher(object):
         t = Process(target=self._thread_main, args=(tid,))
         thread = {'process': t, 'exit_reason': ''}
         self.threads[tid] = thread
-        # TODO: Add this back when we are ready to reproduce.
-        # t.start()
+        t.start()
 
     def _thread_watcher(self):
         """

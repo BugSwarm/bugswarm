@@ -95,8 +95,10 @@ def setup_repo(job, utils, job_dispatcher):
 
     # TODO: Check if workflow file exists in the repository.
     # Lastly, check if .travis.yml exists in the repository. If not, skip.
+    """
     if not os.path.isfile(os.path.join(job_dispatcher.utils.get_reproducing_repo_dir(job), '.travis.yml')):
         raise ReproduceError('Cannot find .travis.yml in repository. Skipping.')
+    """
 
 
 def clone_project_repo_if_not_exists(utils, job):

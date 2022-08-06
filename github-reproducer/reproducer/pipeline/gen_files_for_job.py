@@ -11,7 +11,6 @@ from reproducer.pipeline.gen_script import gen_script
 from reproducer.pipeline.apply_patching import modify_deprecated_links
 
 
-
 def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=False):
     """
     This function generates the files needed to reproduce a job.
@@ -64,6 +63,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     build_sh_path = job_dispatcher.utils.get_build_sh_path(job)
     if not isfile(build_sh_path):
         gen_script(job_dispatcher.utils, job, dependency_solver)
+        return
         # TODO: Probably don't need this step anymore since we generate the build script ourselves.
         modify_build_sh(job.repo, build_sh_path)
         # Attempt to patch any deprecated links in build script
@@ -72,7 +72,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
         # TLSv1.2 instead of the default TLSv1.0.
         if job.config.get('jdk') in ['oraclejdk7', 'openjdk7']:
             patch_build_script(build_sh_path)
-
+    return
     # STEP 3.5: Tar the repository.
     tar_path = job_dispatcher.utils.get_repo_tar_path(job)
     if not isfile(tar_path):
