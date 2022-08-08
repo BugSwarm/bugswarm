@@ -63,16 +63,17 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     build_sh_path = job_dispatcher.utils.get_build_sh_path(job)
     if not isfile(build_sh_path):
         gen_script(job_dispatcher.utils, job, dependency_solver)
-        return
         # TODO: Probably don't need this step anymore since we generate the build script ourselves.
-        modify_build_sh(job.repo, build_sh_path)
+        # modify_build_sh(job.repo, build_sh_path)
         # Attempt to patch any deprecated links in build script
         modify_deprecated_links(build_sh_path)
         # Check if job is java and is jdk7. If so, then patch the build.sh file by adding flags to mvn command to use
         # TLSv1.2 instead of the default TLSv1.0.
-        if job.config.get('jdk') in ['oraclejdk7', 'openjdk7']:
-            patch_build_script(build_sh_path)
-    return
+        for step in job.config.get('steps', []):
+            if 'uses' in step and 'with' in step:
+                if step.get('uses').startswith('actions/setup-java') and step.get('with').get('java-version') == 7:
+                    # patch_build_script(build_sh_path)
+                    pass
     # STEP 3.5: Tar the repository.
     tar_path = job_dispatcher.utils.get_repo_tar_path(job)
     if not isfile(tar_path):

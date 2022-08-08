@@ -29,6 +29,8 @@ class GitHubBuilder:
         return str(self)
 
     def build(self):
+        log.debug('Building build script with {}'.format(self))
+
         # Create build script for GitHub job
         if 'steps' not in self.job.config or not isinstance(self.job.config['steps'], list):
             GitHubBuilder.raise_error(
@@ -40,15 +42,135 @@ class GitHubBuilder:
                 steps.append(self.predefined_action(step_number, step))
             elif 'run' in step:
                 steps.append(self.custom_action(step_number, step))
-        # TODO: Create build script based on steps.
+
+        log.debug('Generating build script... ({} steps)'.format(len(steps)))
+        self.generate_build_script(steps)
+
+    # TODO: Create build script based on steps.
+    def generate_build_script(self, steps):
+        lines = [
+            '#!/usr/bin/env bash',
+            '',
+            # So we can run this script anywhere.
+            'cd /home/github/{}/'.format('failed' if self.job.is_failed else 'passed'),
+            '',
+            # Analyzer needs this header to get OS.
+            'echo "##[group]Operating System"',
+            'cat /etc/lsb-release | grep -oP \'(?<=DISTRIB_ID=).*\'',
+            'cat /etc/lsb-release | grep -oP \'(?<=DISTRIB_RELEASE=).*\'',
+            'echo "LTS"',
+            'echo "##[endgroup]"',
+            '',
+            # Predefined actions need this directory.
+            'mkdir -p /var/run/bugswarm/workflow/',
+            '',
+            'CURRENT_ENV=\'\''
+        ]
+
+        for step in steps:
+            # step is None or (Step Number: str, Step Name: str, Step Commands: [str])
+            if step is not None:
+                step_number, step_name, step_commands = step
+                log.debug('Generate build script for step {} (#{})'.format(step_name, step_number))
+                lines.append('echo "##[group]{}"'.format(step_name))
+
+                # Setup environment variable
+                try:
+                    with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'r') as f:
+                        prefix = f.read()
+                        if prefix != '':
+                            lines.append('CURRENT_ENV=\'{} \''.format(prefix.replace('\'', '\'"\'"\'')))
+                except FileNotFoundError:
+                    # No environment variables for this step.
+                    log.debug('No environment variable for step {} (#{})'.format(step_name, step_number))
+                    pass
+
+                lines += [
+                    '',
+                    # If we have envs.txt file
+                    'if [ -f /var/run/bugswarm/workflow/envs.txt ]; then',
+                    # Use bash to convert _GitHubActionsFileCommandDelimeter_ list to env list
+                    '   KEY=\'\'',
+                    '   VALUE=\'\'',
+                    # Define regex
+                    '   regex=\'(.*)<<_GitHubActionsFileCommandDelimeter_\'',
+                    '   while read line ',
+                    '   do',
+                    # If the line is var_name<<_GitHubActionsFileCommandDelimeter_
+                    '      if [[ $key = \'\' && $line =~ $regex ]]; then',
+                    # Save var_name to KEY
+                    '         KEY=${BASH_REMATCH[1]}',
+                    # If the line is _GitHubActionsFileCommandDelimeter_
+                    '      elif [[ $line = \'_GitHubActionsFileCommandDelimeter_\' ]]; then',
+                    # Add KEY VALUE pairs to CURRENT_ENV
+                    # TODO: Check VALUE is not empty
+                    '         CURRENT_ENV="${CURRENT_ENV}${KEY}=${VALUE} "',
+                    # Reset KEY and VALUE
+                    '         KEY=\'\'',
+                    '         VALUE=\'\'',
+                    '      else',
+                    # If VALUE is empty, set VALUE to current line
+                    # Otherwise, append line to VALUE.
+                    # TODO: Check KEY is not empty
+                    '         if [[ $VALUE = \'\' ]]; then',
+                    '            VALUE="${VALUE}${line}"',
+                    '         else',
+                    '            VALUE="${VALUE}\\n${line}"',
+                    '         fi',
+                    '      fi',
+                    '   done <<< "$(cat /var/run/bugswarm/workflow/envs.txt)"',
+                    '',
+                    'else',
+                    # We don't have envs.txt file, create one
+                    '  echo -n \'\' > /var/run/bugswarm/workflow/envs.txt',
+                    'fi',
+                    '',
+                    # We don't have paths file, create one
+                    'if [ ! -f /var/run/bugswarm/workflow/paths.txt ]; then',
+                    '  echo -n \'\' > /var/run/bugswarm/workflow/paths.txt',
+                    'fi',
+                    '',
+                    'if [ ! -f /var/run/bugswarm/workflow/event.json ]; then',
+                    '  echo -n \'{}\' > /var/run/bugswarm/workflow/event.json',
+                    'fi'
+                ]
+
+                for command in step_commands:
+                    lines += [
+                        # Put commands to cmd.sh, and run it. We need cmd.sh, running `env .. command` doesn't work.
+                        'if [[ $CURRENT_ENV != \'\' ]]; then',
+                        '  echo "env ${CURRENT_ENV}' + command + '" > cmd.sh',
+                        'else',
+                        '  echo "${CURRENT_ENV}' + command + '" > cmd.sh',
+                        'fi',
+                        '',
+                        'chmod u+x cmd.sh',
+                        './cmd.sh',
+                        '',
+                        # Check previous command exit code
+                        #  TODO: Don't exit right away, check always() condition and continue-on-error for future steps.
+                        'if [ $? -ne 0 ]; then',
+                        '	echo "##[error]Process completed with exit code $?."',
+                        '	exit 1',
+                        'fi'
+                    ]
+                lines.append('echo "##[endgroup]"')
+                lines.append('')
+
+        log.debug('Writing build script to {}'.format(self.location, 'run.sh'))
+        content = ''.join(map(lambda l: l + '\n', lines))
+        with open(os.path.join(self.location, 'run.sh'), 'w') as f:
+            f.write(content)
 
     def clone_action_repo_if_not_exists(self, action_name, repo, branch):
-        log.debug('Download action to {} '.format(os.path.join(self.location, action_name)))
+        log.debug('Download action to {} '.format(os.path.join(self.location, 'actions', action_name)))
 
-        if not os.path.isdir(os.path.join(self.location, action_name)):
-            os.makedirs(os.path.join(self.location, action_name), exist_ok=True)
+        if not os.path.isdir(os.path.join(self.location, 'actions', action_name)):
+            os.makedirs(os.path.join(self.location, 'actions', action_name), exist_ok=True)
             git.Repo.clone_from(
-                self.utils.construct_github_repo_url(repo), os.path.join(self.location, action_name), branch=branch
+                self.utils.construct_github_repo_url(repo),
+                os.path.join(self.location, 'actions', action_name),
+                branch=branch
             )
 
     def predefined_action_env(self, step_number, action_repo):
@@ -99,9 +221,10 @@ class GitHubBuilder:
             return
 
         # Download action source code
-        self.clone_action_repo_if_not_exists(name, action_repo, tag)
+        self.clone_action_repo_if_not_exists(name.replace('/', '-'), action_repo, tag)
 
-        github_envs = self.predefined_action_env()
+        github_envs = self.predefined_action_env(step_number, action_repo)
+        log.debug('Got GitHub {} envs.'.format(len(github_envs)))
 
         envs = copy.deepcopy(self.ENV)
         cmd = ''
@@ -117,7 +240,8 @@ class GitHubBuilder:
         try:
             # TODO: Change action.yml based on 'uses'
             action_file = 'action.yml'
-            with open(os.path.join(name.replace('/', '-'), action_file), 'r') as f:
+            print(os.path.join(self.location, 'actions', name.replace('/', '-'), action_file))
+            with open(os.path.join(self.location, 'actions', name.replace('/', '-'), action_file), 'r') as f:
                 action_file = yaml.safe_load(f)
                 # TODO: Handle non-nodejs predefined workflow.
                 cmd = 'node /home/github/actions/' + name.replace('/', '-') + '/' + action_file['runs']['main']
@@ -153,10 +277,11 @@ class GitHubBuilder:
             for key, value in step['env'].items():
                 envs[key] = value
 
-        with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'w') as f:
-            for key, value in envs.items():
-                if value != '':
-                    f.write('{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value))
+        if len(envs) > 0:
+            with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'w') as f:
+                for key, value in envs.items():
+                    if value != '':
+                        f.write('{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value))
 
         return step_number, 'Run {}'.format(commands[0]), commands
 

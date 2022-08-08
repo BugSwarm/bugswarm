@@ -23,6 +23,7 @@ def gen_dockerfile(image_tag: str, job_id: str, destination: str = None):
 
     destination = destination or job_id + '-Dockerfile'
     _write_dockerfile(destination, image_tag, job_id)
+    log.debug('Wrote Dockerfile to {}'.format(destination))
 
 
 def _write_dockerfile(destination: str, base_image: str, job_id: str):
@@ -35,18 +36,18 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev',
+        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev vim',
 
         # Add the repository.
-        'ADD repo-to-docker.tar /home/travis/build/',
-        'RUN chmod 777 -R /home/travis/build',
+        'ADD repo-to-docker.tar /home/github/build/',
+        'RUN chmod 777 -R /home/github/build',
 
         # Add the build script.
-        'ADD {} /usr/local/bin/run.sh'.format(job_id + '.sh'),
+        'ADD run.sh /usr/local/bin/run.sh',
         'RUN chmod +x /usr/local/bin/run.sh',
 
         # Set the user to use when running the image. Our Google Drive contains a file that explains why we do this.
-        'USER travis',
+        'USER github',
 
         # Run the build script.
         'CMD ["usr/local/bin/run.sh"]',

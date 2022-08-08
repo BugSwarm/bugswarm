@@ -10,6 +10,7 @@ _LIST_OF_DEPRECATED_URLS = ['http://repo.maven.apache.org/maven2', 'http://repo1
 _REPLACEMENT_URL = 'http://insecure.repo1.maven.org/maven2'
 
 
+# TODO: Verify this function is up to date
 def modify_deprecated_links(search_dir):
     file_path_result = []
 
