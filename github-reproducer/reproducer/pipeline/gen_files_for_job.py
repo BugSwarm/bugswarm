@@ -74,6 +74,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
                 if step.get('uses').startswith('actions/setup-java') and step.get('with').get('java-version') == 7:
                     # patch_build_script(build_sh_path)
                     pass
+
     # STEP 3.5: Tar the repository.
     tar_path = job_dispatcher.utils.get_repo_tar_path(job)
     if not isfile(tar_path):

@@ -186,7 +186,7 @@ class Utils(object):
 
     @staticmethod
     def construct_build_sh_name(job):
-        return '{}.sh'.format(job.job_id)
+        return 'run.sh'
 
     def get_build_sh_path(self, job, reproduce_tmp_path=None):
         if not reproduce_tmp_path:

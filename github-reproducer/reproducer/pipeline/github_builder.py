@@ -21,6 +21,8 @@ class GitHubBuilder:
         self.JOB_NAME = 'build'
         self.WORKFLOW_NAME = 'CI'
         self.ENV = {}
+        # predefined actions directory
+        os.makedirs(os.path.join(location, 'actions'), exist_ok=True)
 
     def __str__(self):
         return 'GitHubBuilder({} @ {})'.format(self.job.job_id, self.location)
@@ -52,7 +54,7 @@ class GitHubBuilder:
             '#!/usr/bin/env bash',
             '',
             # So we can run this script anywhere.
-            'cd /home/github/{}/'.format('failed' if self.job.is_failed else 'passed'),
+            'cd /home/github/build/{}'.format(self.job.repo),
             '',
             # Analyzer needs this header to get OS.
             'echo "##[group]Operating System"',
@@ -62,7 +64,7 @@ class GitHubBuilder:
             'echo "##[endgroup]"',
             '',
             # Predefined actions need this directory.
-            'mkdir -p /var/run/bugswarm/workflow/',
+            'mkdir -p /home/github/workflow/',
             '',
             'CURRENT_ENV=\'\''
         ]
@@ -76,6 +78,7 @@ class GitHubBuilder:
 
                 # Setup environment variable
                 try:
+                    # TODO: Read from memory, not disk
                     with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'r') as f:
                         prefix = f.read()
                         if prefix != '':
@@ -88,7 +91,7 @@ class GitHubBuilder:
                 lines += [
                     '',
                     # If we have envs.txt file
-                    'if [ -f /var/run/bugswarm/workflow/envs.txt ]; then',
+                    'if [ -f /home/github/workflow/envs.txt ]; then',
                     # Use bash to convert _GitHubActionsFileCommandDelimeter_ list to env list
                     '   KEY=\'\'',
                     '   VALUE=\'\'',
@@ -118,34 +121,35 @@ class GitHubBuilder:
                     '            VALUE="${VALUE}\\n${line}"',
                     '         fi',
                     '      fi',
-                    '   done <<< "$(cat /var/run/bugswarm/workflow/envs.txt)"',
+                    '   done <<< "$(cat /home/github/workflow/envs.txt)"',
                     '',
                     'else',
                     # We don't have envs.txt file, create one
-                    '  echo -n \'\' > /var/run/bugswarm/workflow/envs.txt',
+                    '  echo -n \'\' > /home/github/workflow/envs.txt',
                     'fi',
                     '',
                     # We don't have paths file, create one
-                    'if [ ! -f /var/run/bugswarm/workflow/paths.txt ]; then',
-                    '  echo -n \'\' > /var/run/bugswarm/workflow/paths.txt',
+                    'if [ ! -f /home/github/workflow/paths.txt ]; then',
+                    '  echo -n \'\' > /home/github/workflow/paths.txt',
                     'fi',
                     '',
-                    'if [ ! -f /var/run/bugswarm/workflow/event.json ]; then',
-                    '  echo -n \'{}\' > /var/run/bugswarm/workflow/event.json',
+                    'if [ ! -f /home/github/workflow/event.json ]; then',
+                    '  echo -n \'{}\' > /home/github/workflow/event.json',
                     'fi'
                 ]
 
                 for command in step_commands:
                     lines += [
-                        # Put commands to cmd.sh, and run it. We need cmd.sh, running `env .. command` doesn't work.
+                        # Put commands to bugswarm_cmd.sh, and run it.
+                        # We need bugswarm_cmd.sh, running `env .. command` doesn't work.
                         'if [[ $CURRENT_ENV != \'\' ]]; then',
-                        '  echo "env ${CURRENT_ENV}' + command + '" > cmd.sh',
+                        '  echo "env ${CURRENT_ENV}' + command + '" > bugswarm_cmd.sh',
                         'else',
-                        '  echo "${CURRENT_ENV}' + command + '" > cmd.sh',
+                        '  echo "${CURRENT_ENV}' + command + '" > bugswarm_cmd.sh',
                         'fi',
                         '',
-                        'chmod u+x cmd.sh',
-                        './cmd.sh',
+                        'chmod u+x bugswarm_cmd.sh',
+                        './bugswarm_cmd.sh',
                         '',
                         # Check previous command exit code
                         #  TODO: Don't exit right away, check always() condition and continue-on-error for future steps.
@@ -183,13 +187,13 @@ class GitHubBuilder:
             'GITHUB_ACTOR': 'bugswarm/bugswarm',
             'GITHUB_API_URL': 'https://api.github.com',
             'GITHUB_BASE_REF': '',
-            'GITHUB_ENV': '/var/run/bugswarm/workflow/envs.txt',
+            'GITHUB_ENV': '/home/github/workflow/envs.txt',
             'GITHUB_EVENT_NAME': 'push',
-            'GITHUB_EVENT_PATH': '/var/run/bugswarm/workflow/event.json',
+            'GITHUB_EVENT_PATH': '/home/github/workflow/event.json',
             'GITHUB_GRAPHQL_URL': 'https://api.github.com/graphql',
             'GITHUB_HEAD_REF': '',
             'GITHUB_JOB': self.JOB_NAME,
-            'GITHUB_PATH': '/var/run/bugswarm/workflow/paths.txt',
+            'GITHUB_PATH': '/home/github/workflow/paths.txt',
             'GITHUB_REF': 'master',
             'GITHUB_REF_NAME': '',
             'GITHUB_REF_TYPE': '',
@@ -203,7 +207,7 @@ class GitHubBuilder:
             'GITHUB_SHA': self.job.sha,
             'GITHUB_STEP_SUMMARY': '',
             'GITHUB_WORKFLOW': self.WORKFLOW_NAME,
-            'GITHUB_WORKSPACE': '/home/github/{}'.format('failed' if self.job.is_failed else 'passed'),
+            'GITHUB_WORKSPACE': '/home/github/build',
             'RUNNER_ARCH': '',
             'RUNNER_NAME': '',
             'RUNNER_OS': 'Linux',
@@ -240,7 +244,6 @@ class GitHubBuilder:
         try:
             # TODO: Change action.yml based on 'uses'
             action_file = 'action.yml'
-            print(os.path.join(self.location, 'actions', name.replace('/', '-'), action_file))
             with open(os.path.join(self.location, 'actions', name.replace('/', '-'), action_file), 'r') as f:
                 action_file = yaml.safe_load(f)
                 # TODO: Handle non-nodejs predefined workflow.
@@ -251,11 +254,15 @@ class GitHubBuilder:
                         if 'INPUT_{}'.format(key.upper().replace(' ', '_')) not in envs:
                             if 'default' in value:
                                 # TODO: Evaluate expression
+                                if '${{' in str(value['default']):
+                                    # SKIP them for now.
+                                    continue
                                 envs['INPUT_{}'.format(key.upper().replace(' ', '_'))] = str(value['default']).replace(
                                     '\n', '\\n')
         except Exception as e:
             GitHubBuilder.raise_error(repr(e), 1)
 
+        # TODO: Save to memory, not disk
         with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'w') as f:
             for key, value in github_envs.items():
                 if value != '':

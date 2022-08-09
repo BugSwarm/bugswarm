@@ -22,7 +22,20 @@ def gen_dockerfile(image_tag: str, job_id: str, destination: str = None):
     log.info('Selecting Docker image to use for reproducing this job.')
 
     destination = destination or job_id + '-Dockerfile'
-    _write_dockerfile(destination, image_tag, job_id)
+    image_tags = {
+        'ubuntu-latest': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
+        'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
+        'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04'
+    }
+
+    if image_tag not in image_tags:
+        base_image = image_tags['ubuntu-latest']
+        log.debug('Unknown GitHub image tag {}, use {} instead'.format(image_tag, base_image))
+    else:
+        base_image = image_tags[image_tag]
+        log.debug('GitHub image tag is {}, use base image {}'.format(image_tag, base_image))
+
+    _write_dockerfile(destination, base_image, job_id)
     log.debug('Wrote Dockerfile to {}'.format(destination))
 
 
@@ -36,21 +49,31 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev vim',
+        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev',
+        # TODO: Install vim for dev
+        'RUN sudo apt-get install vim',
+
+        # Otherwise: docker: Error response from daemon: unable to find user github: no matching entries in passwd file.
+        'RUN useradd -ms /bin/bash github',
 
         # Add the repository.
         'ADD repo-to-docker.tar /home/github/build/',
         'RUN chmod 777 -R /home/github/build',
 
-        # Add the build script.
-        'ADD run.sh /usr/local/bin/run.sh',
-        'RUN chmod +x /usr/local/bin/run.sh',
+        # Add the build script and predefined actions.
+        'ADD {}/run.sh /usr/local/bin/'.format(job_id),
+        'ADD {}/actions /home/github/actions'.format(job_id),
+        'RUN chmod ugo+x /usr/local/bin/run.sh',
+        'RUN chmod -R 777 /home/github/actions',
 
+        # TODO: Find this doc
         # Set the user to use when running the image. Our Google Drive contains a file that explains why we do this.
         'USER github',
 
+        # Need bash, otherwise: Syntax error: redirection unexpected
+        'ENTRYPOINT ["/bin/bash", "-c"]'
         # Run the build script.
-        'CMD ["usr/local/bin/run.sh"]',
+        'CMD ["/usr/local/bin/run.sh"]',
     ]
     # Append a newline to each line and then concatenate all the lines.
     content = ''.join(map(lambda l: l + '\n', lines))

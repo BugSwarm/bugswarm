@@ -122,6 +122,7 @@ class DockerWrapper(object):
     def spawn_container(self, image, container_name, reproduced_log_destination):
         container_runtime = 0
         try:
+            # Find out why we use CPU_COUNT = 2?
             container = self.client.containers.run(image, detach=True, cpu_count=2, mem_limit='4g',
                                                    tty=True)  # privileged=True
         except docker.errors.ImageNotFound:

@@ -17,10 +17,8 @@ def gen_script(utils, job, dependence_solver):
     """
     Invoke travis-build to generate the build script.
     """
-    build_sh = os.path.join('reproduce_tmp', job.job_id, 'run.sh')
     reproducing_dir = utils.get_reproducing_repo_dir(job)
-
-    builder = GitHubBuilder(job, os.path.join('reproduce_tmp', job.job_id), utils)
+    builder = GitHubBuilder(job, os.path.join(reproducing_dir, 'reproduce_tmp', job.job_id), utils)
     builder.build()
 
     # TODO: Add dependence_solver
