@@ -21,6 +21,7 @@ def gen_dockerfile(image_tag: str, job_id: str, destination: str = None):
     """
     log.info('Selecting Docker image to use for reproducing this job.')
 
+    # TODO: Remove this block to other file.
     destination = destination or job_id + '-Dockerfile'
     image_tags = {
         'ubuntu-latest': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
@@ -71,7 +72,7 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
         'USER github',
 
         # Need bash, otherwise: Syntax error: redirection unexpected
-        'ENTRYPOINT ["/bin/bash", "-c"]'
+        'ENTRYPOINT ["/bin/bash", "-c"]',
         # Run the build script.
         'CMD ["/usr/local/bin/run.sh"]',
     ]
