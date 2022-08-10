@@ -75,6 +75,8 @@ class GitHubBuilder:
                 step_number, step_name, step_commands, envs = step
                 log.debug('Generate build script for step {} (#{})'.format(step_name, step_number))
                 lines.append('echo "##[group]{}"'.format(step_name))
+                # TODO: Add group details.
+                lines.append('echo "##[endgroup]"')
 
                 # Setup environment variable
                 if envs != '':
@@ -145,12 +147,12 @@ class GitHubBuilder:
                         '',
                         # Check previous command exit code
                         #  TODO: Don't exit right away, check always() condition and continue-on-error for future steps.
-                        'if [ $? -ne 0 ]; then',
-                        '	echo "" && echo "##[error]Process completed with exit code $?."',
-                        '	exit 1',
+                        'EXIT_CODE=$?',
+                        'if [[ $EXIT_CODE != 0 ]]; then',
+                        '	echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
+                        '	exit $EXIT_CODE',
                         'fi'
                     ]
-                lines.append('echo "" && echo "##[endgroup]"')
                 lines.append('')
 
         log.debug('Writing build script to {}'.format(self.location, 'run.sh'))
