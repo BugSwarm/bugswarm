@@ -2,7 +2,7 @@ import os
 import subprocess
 import yaml
 
-from .github_builder import GitHubBuilder
+from reproducer.pipeline.github.github_builder import GitHubBuilder
 from bugswarm.common.json import write_json
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.shell_wrapper import ShellWrapper
