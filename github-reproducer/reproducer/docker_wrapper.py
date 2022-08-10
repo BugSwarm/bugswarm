@@ -68,7 +68,11 @@ class DockerWrapper(object):
     def build_image(self, path, dockerfile, full_image_name):
         image = None
         try:
-            image = self.client.images.build(path=path, dockerfile=dockerfile, tag=full_image_name)
+            # TODO: Travis pipeline doesn't remove intermediate containers?
+            # Future improvement: build 2 temporary containers (Ubuntu 18.04/20.04) before we start the job, and remove
+            # them after we reproduced all jobs. This will speed up the building process.
+            image = self.client.images.build(path=path, dockerfile=dockerfile, tag=full_image_name, rm=True,
+                                             forcerm=True)
         except docker.errors.BuildError as e:
             log.debug(e)
             raise ReproduceError('Encountered a build error while building a Docker image: {}'.format(e))
@@ -122,7 +126,7 @@ class DockerWrapper(object):
     def spawn_container(self, image, container_name, reproduced_log_destination):
         container_runtime = 0
         try:
-            # Find out why we use CPU_COUNT = 2?
+            # TODO: Find out why we use CPU_COUNT = 2?
             container = self.client.containers.run(image, detach=True, cpu_count=2, mem_limit='4g',
                                                    tty=True)  # privileged=True
         except docker.errors.ImageNotFound:
@@ -150,6 +154,7 @@ class DockerWrapper(object):
             f.write(logs)
 
         container.remove(force=True)
+        # TODO: Future improvement, delete job image after we finished a job.
 
     def remove_image(self, image_name):
         self.client.images.remove(image=image_name, force=True, noprune=True)
@@ -174,6 +179,7 @@ class DockerWrapper(object):
         _, _, returncode = ShellWrapper.run_commands(command, shell=True)
         return returncode
 
+    # TODO: Need to verify this function
     @staticmethod
     def remove_all_images():
         log.info('Removing all containers and Docker images (except Travis images).')

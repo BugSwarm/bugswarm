@@ -72,21 +72,13 @@ class GitHubBuilder:
         for step in steps:
             # step is None or (Step Number: str, Step Name: str, Step Commands: [str])
             if step is not None:
-                step_number, step_name, step_commands = step
+                step_number, step_name, step_commands, envs = step
                 log.debug('Generate build script for step {} (#{})'.format(step_name, step_number))
                 lines.append('echo "##[group]{}"'.format(step_name))
 
                 # Setup environment variable
-                try:
-                    # TODO: Read from memory, not disk
-                    with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'r') as f:
-                        prefix = f.read()
-                        if prefix != '':
-                            lines.append('CURRENT_ENV=\'{} \''.format(prefix.replace('\'', '\'"\'"\'')))
-                except FileNotFoundError:
-                    # No environment variables for this step.
-                    log.debug('No environment variable for step {} (#{})'.format(step_name, step_number))
-                    pass
+                if envs != '':
+                    lines.append('CURRENT_ENV=\'{} \''.format(envs.replace('\'', '\'"\'"\'')))
 
                 lines += [
                     '',
@@ -154,11 +146,11 @@ class GitHubBuilder:
                         # Check previous command exit code
                         #  TODO: Don't exit right away, check always() condition and continue-on-error for future steps.
                         'if [ $? -ne 0 ]; then',
-                        '	echo "##[error]Process completed with exit code $?."',
+                        '	echo "" && echo "##[error]Process completed with exit code $?."',
                         '	exit 1',
                         'fi'
                     ]
-                lines.append('echo "##[endgroup]"')
+                lines.append('echo "" && echo "##[endgroup]"')
                 lines.append('')
 
         log.debug('Writing build script to {}'.format(self.location, 'run.sh'))
@@ -216,6 +208,18 @@ class GitHubBuilder:
         }
 
     def predefined_action(self, step_number, step):
+        """
+        Parse a predefined action step.
+
+        Parameters:
+            step_number (int): zero-indexed step's number
+            step (dict): a predefined action step
+        Returns:
+            step_number (int): step_number parameter
+            step_name (str): human-readable name
+            commands ([str]): an array of commands from this step. (should only has 1)
+            envs (str): environment variables in string
+        """
         name = step['uses']
         action_repo, _, tag = name.partition('@')
 
@@ -239,8 +243,12 @@ class GitHubBuilder:
                 if is_setup and key == 'cache':
                     # TODO: Need to ignore cache key, find out why.
                     continue
-
                 envs['INPUT_{}'.format(key.upper().replace(' ', '_'))] = str(value).replace('\n', '\\n')
+
+        if 'env' in step:
+            for key, value in step['env'].items():
+                envs[key] = value
+
         try:
             # TODO: Change action.yml based on 'uses'
             action_file = 'action.yml'
@@ -255,26 +263,38 @@ class GitHubBuilder:
                             if 'default' in value:
                                 # TODO: Evaluate expression
                                 if '${{' in str(value['default']):
-                                    # SKIP them for now.
+                                    # TODO: SKIP them for now.
                                     continue
                                 envs['INPUT_{}'.format(key.upper().replace(' ', '_'))] = str(value['default']).replace(
                                     '\n', '\\n')
         except Exception as e:
             GitHubBuilder.raise_error(repr(e), 1)
 
-        # TODO: Save to memory, not disk
-        with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'w') as f:
-            for key, value in github_envs.items():
-                if value != '':
-                    f.write('{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value))
+        # Convert envs dictionary into a string
+        env_str = ''
+        for key, value in github_envs.items():
+            if value != '':
+                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
 
-            for key, value in envs.items():
-                if value != '':
-                    f.write('{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value))
+        for key, value in envs.items():
+            if value != '':
+                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
 
-        return step_number, 'Run {}'.format(name), [cmd]
+        return step_number, 'Run {}'.format(name), [cmd], env_str
 
     def custom_action(self, step_number, step):
+        """
+            Parse a custom action step.
+
+            Parameters:
+                step_number (int): zero-indexed step's number
+                step (dict): a custom action step
+            Returns:
+                step_number (int): step_number parameter
+                step_name (str): human-readable name
+                commands ([str]): an array of commands from this step.
+                envs (str): environment variables in string
+        """
         commands = [line for line in step['run'].split('\n') if line]
         envs = copy.deepcopy(self.ENV)
 
@@ -284,13 +304,13 @@ class GitHubBuilder:
             for key, value in step['env'].items():
                 envs[key] = value
 
-        if len(envs) > 0:
-            with open(os.path.join(self.location, 'step_{}.env'.format(step_number)), 'w') as f:
-                for key, value in envs.items():
-                    if value != '':
-                        f.write('{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value))
+        # Convert envs dictionary into a string
+        env_str = ''
+        for key, value in envs.items():
+            if value != '':
+                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
 
-        return step_number, 'Run {}'.format(commands[0]), commands
+        return step_number, 'Run {}'.format(commands[0]), commands, env_str
 
     @staticmethod
     def raise_error(message, return_code):
