@@ -29,10 +29,10 @@ def get_changed_files_metrics(soup):
     }
 
     list_of_metrics = []
-    div = soup.find('div', class_='toc-diff-stats')
+    div = soup.select_one('div.toc-diff-stats')
     if div is None:
         return metrics
-    button = div.find('button', class_='btn-link js-details-target')
+    button = div.select_one('button.btn-link.js-details-target')
     if button:
         result = re.search(r'[0-9]+', button.string)
         list_of_metrics.append(int(result.group()))
@@ -59,16 +59,21 @@ def get_changed_files_metrics(soup):
 
 # Returns the count and names of modified files
 def get_changed_files(soup):
-    links = soup.find_all('div', class_='details-collapse table-of-contents js-details-container Details')
+    links = soup.select('div#files div.file-info a')
+    count = len(links)
+    changed_files = [link['title'] for link in links]
 
-    count = 0
-    changed_files = []
-    for link in links:
+    # If the full list of links can't be loaded for some reason, fall back to "table of contents" method
+    # (Required to pass test_mozilla_14 to 20, test_mozilla_4 to 5, and test_safari_1)
+    toc = soup.select('div.table-of-contents')
+    toc_changed_files = []
+    for link in toc:
         for a in link.find_all('a', href=lambda href: href and '#diff' in href):
-
             if a.find('span') is None:
-                changed_files.append(a.text)
-                count += 1
+                toc_changed_files.append(a.text)
+
+    if toc_changed_files and len(toc_changed_files) != len(changed_files):
+        return len(toc_changed_files), toc_changed_files
 
     return count, changed_files
 

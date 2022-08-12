@@ -352,6 +352,35 @@ class Test(unittest.TestCase):
         self.assertEqual(metrics['additions'], 319480)
         self.assertEqual(metrics['deletions'], 319481)
 
+    def test_mozilla_23(self):
+        mock_resp = self._mock_response(json_data=self._mock_data('test_mozilla_23'))
+        soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
+        with open('webscraped_files/test_mozilla_23_filelist.txt') as f:
+            changed_github = f.read().splitlines()
+
+        count, changed_files = get_changed_files(soup)
+        self.assertEqual(count, 321)
+        self.assertListEqual(changed_files, changed_github)
+
+        metrics = get_changed_files_metrics(soup)
+        self.assertEqual(metrics['num_of_changed_files'], 321)
+        self.assertEqual(metrics['additions'], 288)
+        self.assertEqual(metrics['deletions'], 35115)
+
+    def test_mozilla_24(self):
+        mock_resp = self._mock_response(json_data=self._mock_data('test_mozilla_24'))
+        soup = bs.BeautifulSoup(mock_resp.json.return_value, 'lxml')
+
+        changed_github = [
+            'core/src/main/java/com/orientechnologies/orient/core/serialization/serializer/record/binary/'
+            'OBinaryComparatorV0.java',
+            'core/src/main/java/com/orientechnologies/orient/core/util/ODateHelper.java'
+        ]
+
+        count, changed_files = get_changed_files(soup)
+        self.assertEqual(count, 2)
+        self.assertListEqual(changed_files, changed_github)
+
     def test_applewebkit_1(self):
         mock_resp = self._mock_response(
             json_data=self._mock_data('test_applewebkit_1')

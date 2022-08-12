@@ -338,7 +338,7 @@ def get_java_error_data(failed_log: list, error_list: list, non_std_list: list):
     error_dict = dict()
     user_defined = set()
     std_error = common_error = user_error = 0
-    basic_err_regex = r"[A-Za-z\.\$]+(\.|\$)([A-Za-z]+)(: |; |:$|\s*$| at )"
+    basic_err_regex = r"[\w\.\$]+(\.|\$)(\w+)(: |; |:$|\s*$| at )"
     err_indicator = [r"<<< ERROR!\s*\Z",
                      r"<<< FAILURE!\s*\Z",
                      r"\S+ FAILED\s*\Z",

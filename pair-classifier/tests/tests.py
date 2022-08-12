@@ -537,6 +537,18 @@ class Test(unittest.TestCase):
             'Exception': 1})
         self.compare_user_def_error(user_def_errors, ['PersistenceException', 'BuilderException'])
 
+    def test_java_mvn_github_actions_log(self):
+        log_path = 'logs/6791988572.log'
+        lines = self.read_file_to_list(log_path)
+
+        # TODO Once we have the GitHub classifier, we'll want to change this test to use it.
+        # Instead, just strip the timestamps and use the Travis classifier.
+        lines = [line[29:] for line in lines]
+
+        error_dict, user_def_errors, _ = process_error('java', lines)
+        self.compare_error_dict(error_dict, {'StackOverflowError': 1, 'AssertionFailedError': 5})
+        self.compare_user_def_error(user_def_errors, [])
+
 
 if __name__ == '__main__':
     unittest.main()
