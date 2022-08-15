@@ -5,12 +5,19 @@ This is a version of PairFinder that mines Github Actions jobs instead of Travis
 ## Usage
 
 ```
-$ python3 run.py <repo> <last-run-id> [-o/--out-file <out-file>]
+$ python3 pair_finder.py (-r REPO | --repo-file REPO_FILE) [args...]
 ```
 
-- `repo`: The repo to mine.
-- `last-run-id`: The ID of the last workflow run mined in a previous run. All mined workflow runs will have IDs greater than this value. In the real pipeline, this will be obtained from the database.
-- `out-file`: The file to dump the JSON output into. Defaults to `out_data.json`.
+- `-r / --repo <repo>`: The repo to mine. Cannot be used with `--repo-file`.
+- `--repo-file <path>`: Path to a file containing a newline-separated list of repos to mine. Cannot be used with `--repo`.
+
+### Optional arguments
+- `-t / --threads <n>`: Maximum number of worker threads. Only useful if mining more than one repo. Defaults to 1.
+- `--log <level>`: Log level. One of `CRITICAL` (least verbose), `ERROR`, `WARNING`, `INFO` (default), or `DEBUG` (most verbose).
+- `--last-run-override <n>`: Override the run ID of the last run that was mined for a repo. The miner will mine all runs from all given repos with an ID greater than N. Use with caution, especially with `--repo-file` &mdash; this will mess up the database metrics.
+- `--keep-clone`: Prevent the cloned repo in `intermediates/repos/<repo-name>` from being cleaned up at the end of the run.
+- `--fast`: Skip mining repos that already have an output file.
+- `--no-cutoff-date`: Disable the 400-day mining limit, so workflow runs older than 400 days can be mined. Note that if a repo has already been mined, only runs newer than the last run of that repo at the time will be mined unless `--last-run-override` is provided.
 
 ### Run Tests
 

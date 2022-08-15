@@ -1,13 +1,12 @@
-import json
+import argparse
 import os
 import sys
-
-import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from bugswarm.common import log
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
-from bugswarm.common.json import read_json, write_json
+from bugswarm.common.json import write_json
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 from model.mined_project_builder import MinedProjectBuilder
@@ -17,20 +16,33 @@ from pipeline.steps import *
 
 def parse_argv():
     p = argparse.ArgumentParser()
-    p.add_argument('repo', help='The repo to mine.')
-    p.add_argument(
-        'last_run_id',
-        type=int,
-        nargs='?',
-        help='''The cutoff workflow run ID. All mined workflow runs will have been run
-                after <last-run>. In the real pipeline, this is obtained from the database.''')
-    p.add_argument('-o', '--out-file', default='out_data.json',
-                   help='The file to write the output data to. Default: out_data.json')
-    p.add_argument('--no-cutoff-date', action='store_true',
-                   help='Flag that removes the 400-day mining limit (aka workflow runs older than 400 days can be mined).')
 
-    args = p.parse_args()
-    return args.repo, args.last_run_id, args.out_file, args.no_cutoff_date
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument('-r', '--repo', help='Repo slug. Cannot be used with --repo-file.')
+    g.add_argument('--repo-file',
+                   help='Path to file containing a newline-separated list of repo slugs. Cannot be used with --repo.')
+
+    p.add_argument('-t', '--threads', type=int, default=1,
+                   help='Maximum number of worker threads. Only useful if mining more than one repo. Defaults to '
+                        '%(default)s.')
+    p.add_argument('--log', default='INFO',
+                   help='Log level. Use CRITICAL (least verbose), ERROR, WARNING, INFO (default), '
+                        'or DEBUG (most verbose).')
+
+    p.add_argument('--keep-clone', action='store_true',
+                   help='Prevent the default cleanup of the cloned repo after running.')
+    p.add_argument('--fast', action='store_true', help='Skips repos that already have an output file.')
+    p.add_argument('--no-cutoff-date', action='store_true',
+                   help='Disable the 400-day mining limit (workflow runs older than 400 days *can* be mined).')
+    p.add_argument('--last-run-override', type=int,
+                   help='Override the run ID of the last run that was mined for a repo. The miner will mine all runs '
+                        'after the run with the given ID.')
+
+    args = vars(p.parse_args())
+
+    if args['threads'] < 1:
+        p.error('-t/--threads cannot be less than 1')
+    return args
 
 
 def count_mined_pairs(build_groups):
@@ -46,11 +58,6 @@ def count_mined_pairs(build_groups):
             mined_push_build_pairs += 1
             mined_push_job_pairs += len(build_pair.jobpairs)
     return mined_push_build_pairs, mined_push_job_pairs, mined_pr_build_pairs, mined_pr_job_pairs
-
-
-def get_head_commit(gh: GitHubWrapper, repo):
-    _, result = gh.get('https://api.github.com/repos/{}/commits'.format(repo))
-    return result[0]['sha']
 
 
 def output_json(repo, data, output_path):
@@ -124,11 +131,14 @@ def output_json(repo, data, output_path):
     write_json(output_path, output_pairs)
 
 
-def main():
-    log.config_logging('INFO')
-
-    repo, last_run, out_file, no_cutoff_date = parse_argv()
+def thread_main(repo, task_name, args):
+    hyphenated_repo = repo.replace('/', '-')
     ci_service = 'github'
+
+    output_json_path = os.path.join('output', task_name, f'{hyphenated_repo}.json')
+    if args['fast'] and os.path.exists(output_json_path) and os.path.getsize(output_json_path) > 0:
+        log.info('Output file for', repo, 'already exists. Skipping.')
+        return
 
     pipeline = Pipeline([
         Preflight(),
@@ -144,16 +154,16 @@ def main():
     ])
     in_context = {
         'repo': repo,
-        'keep_clone': False,
+        'keep_clone': args['keep_clone'],
         'github_api': GitHubWrapper(GITHUB_TOKENS),
         'mined_project_builder': MinedProjectBuilder(),
         'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo, ci_service),
         'utils': None,
-        'use_cutoff_date': not no_cutoff_date,
+        'use_cutoff_date': not args['no_cutoff_date'],
     }
 
-    if last_run is not None:
-        in_context['original_mined_project_metrics']['last_build_mined']['build_id'] = last_run
+    if args['last_run_override'] is not None:
+        in_context['original_mined_project_metrics']['last_build_mined']['build_id'] = args['last_run_override']
 
     data, out_context = pipeline.run(None, in_context)
 
@@ -162,7 +172,6 @@ def main():
         return
 
     # Set up mined project statistics
-    head_commit = get_head_commit(out_context['github_api'], repo)
     (mined_push_build_pairs, mined_push_job_pairs,
      mined_pr_build_pairs, mined_pr_job_pairs) = count_mined_pairs(data)
     orig_metrics = out_context['original_mined_project_metrics']['progression_metrics']
@@ -170,7 +179,7 @@ def main():
     builder: MinedProjectBuilder = out_context['mined_project_builder']
     builder.repo = repo
     builder.ci_service = ci_service
-    builder.latest_mined_version = head_commit
+    builder.latest_mined_version = out_context['head_commit']
     builder.mined_build_pairs = orig_metrics['mined_build_pairs'] + mined_push_build_pairs
     builder.mined_job_pairs = orig_metrics['mined_job_pairs'] + mined_push_job_pairs
     builder.mined_pr_build_pairs = orig_metrics['mined_pr_build_pairs'] + mined_pr_build_pairs
@@ -194,15 +203,45 @@ def main():
     log.info('Done outputting to database.')
 
     # Output json
-    output_json(repo, data, out_file)
-    log.info('Wrote output data to', out_file)
+    output_json_path = os.path.join('output', task_name, f'{hyphenated_repo}.json')
+    os.makedirs(os.path.dirname(output_json_path), exist_ok=True)
+    output_json(repo, data, output_json_path)
+    log.info('Wrote output data to', output_json_path)
 
-    original_metrics_path = 'output/original_metrics/{}.json'.format(repo.replace('/', '-'))
+    original_metrics_path = 'output/original_metrics/{}.json'.format(hyphenated_repo)
     os.makedirs(os.path.dirname(original_metrics_path), exist_ok=True)
     write_json(original_metrics_path, out_context['original_mined_project_metrics'])
     log.info('Wrote original metrics to', original_metrics_path)
 
     log.info('Pipeline finished!')
+
+
+def main():
+    args = parse_argv()
+
+    try:
+        log.config_logging(args['log'].upper())
+    except ValueError:
+        log.config_logging('INFO')
+        log.warning('Unknown/invalid log level "{}". Defaulting to "INFO".'.format(args['log']))
+
+    if args['repo_file']:
+        with open(args['repo_file']) as f:
+            repos = [line.strip() for line in f.readlines()]
+        task_name = os.path.basename(os.path.splitext(args['repo_file'])[0])
+    else:
+        repos = [args['repo']]
+        task_name = args['repo'].replace('/', '-')
+
+    with ThreadPoolExecutor(max_workers=args['threads']) as exe:
+        futures = [exe.submit(thread_main, repo, task_name, args) for repo in repos]
+
+    for future in as_completed(futures):
+        try:
+            future.result()
+        except Exception as e:
+            log.error(e)
+            raise
 
 
 if __name__ == '__main__':
