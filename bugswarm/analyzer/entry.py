@@ -16,19 +16,22 @@ def main(argv=None):
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('Analyzer'))
 
-    mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo = _validate_input(argv)
+    mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo, mining =\
+        _validate_input(argv)
+
     analyzer = Analyzer()
     if mode == 0:
-        analyzer.compare_single_log(reproduced, orig, job_id, build_system, trigger_sha, repo, print_result)
+        analyzer.compare_single_log(reproduced, orig, job_id, build_system, trigger_sha, repo, print_result,
+                                    mining=mining)
     elif mode == 1:
-        analyzer.analyze_single_log(log_filename, job_id, build_system, trigger_sha, repo, print_result)
+        analyzer.analyze_single_log(log_filename, job_id, build_system, trigger_sha, repo, print_result, mining=mining)
     else:
         raise Exception('Unsupported mode: {}.'.format(mode))
 
 
 def _validate_input(argv):
     shortopts = 'r:o:l:j:b:t:'
-    longopts = 'reproduced= orig= log= job_id= build_system= trigger_sha= repo= print '.split()
+    longopts = 'reproduced= orig= log= job_id= build_system= trigger_sha= repo= mining= print '.split()
     mode = -1
     reproduced = None
     orig = None
@@ -38,6 +41,7 @@ def _validate_input(argv):
     build_system = None
     trigger_sha = None
     repo = None
+    mining = True
 
     try:
         optlist, args = getopt.getopt(argv[1:], shortopts, longopts)
@@ -62,6 +66,8 @@ def _validate_input(argv):
             repo = arg
         if opt == '--print':
             print_result = True
+        if opt == '--mining':
+            mining = False if arg.lower() in ['0', 'off', 'false'] else True
 
     if reproduced and orig:
         if job_id and '.log' in reproduced and '.log' in orig:
@@ -72,7 +78,7 @@ def _validate_input(argv):
     else:
         print_usage()
         sys.exit(2)
-    return mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo
+    return mode, reproduced, orig, log_filename, print_result, job_id, build_system, trigger_sha, repo, mining
 
 
 def print_usage():
@@ -99,6 +105,7 @@ def print_usage():
     log.info('{:<30}{:<30}'.format('-b, --build_system', 'build system of the project'))
     log.info('{:<30}{:<30}'.format('-t, --trigger_sha', 'trigger sha for log'))
     log.info('{:<30}{:<30}'.format('--repo', 'repository of the project'))
+    log.info('{:<30}{:<30}'.format('--mining', 'use false to turn off mining mode, default is on.'))
 
 
 if __name__ == '__main__':

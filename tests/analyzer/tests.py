@@ -1578,7 +1578,6 @@ class Test(unittest.TestCase):
         log = '92030727.log'
         job_id = 92030727
         file_path = join(self.build_system_testing, log)
-        file_path = self.build_system_testing + log
         trigger_sha = '9614e8692bad32eccbdc910080139b1cc41eb6a5'
         repo = 'hbz/nwbib'
         play2 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -1610,6 +1609,36 @@ class Test(unittest.TestCase):
         repo = 'google/closure-compiler'
         mf5 = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
         self.compare_build_system(mf5, 'Maven')
+
+    def test_build_system_12(self):
+        log = '97793256.log'
+        job_id = 97793256
+        file_path = join(self.build_system_testing, log)
+        trigger_sha = '39ea4b4397f59277d7dd6f1d0714e8fa9743c3a6'
+        repo = 'google/closure-compiler'
+        # self.analyzer to get build system then and call self.dispatcher.analyze
+        mf5 = self.analyzer.analyze_single_log(file_path, job_id, trigger_sha=trigger_sha, repo=repo, mining=False)
+        self.compare_build_system(mf5, 'Maven')
+
+    def test_build_system_13(self):
+        log = '88551597.log'
+        job_id = 88551597
+        file_path = join(self.build_system_testing, log)
+        trigger_sha = '20d161692fc7a7e9b8d32995844707f2b637c6db'
+        repo = 'cbeust/testng'
+        # self.analyzer to get build system then and call self.dispatcher.analyze
+        mf1 = self.analyzer.analyze_single_log(file_path, job_id, trigger_sha=trigger_sha, repo=repo, mining=False)
+        self.compare_build_system(mf1, 'Gradle')
+
+    def test_build_system_14(self):
+        log = '161141427.log'
+        job_id = 161141427
+        file_path = join(self.build_system_testing, log)
+        trigger_sha = '31f23885df0cb383392b953eb59daf36eadcefb9'
+        repo = 'jindrapetrik/jpexs-decompiler'
+        # self.analyzer to get build system then and call self.dispatcher.analyze
+        ant1 = self.analyzer.analyze_single_log(file_path, job_id, trigger_sha=trigger_sha, repo=repo, mining=False)
+        self.compare_build_system(ant1, 'Ant')
 
     def test_other_analyzer_0(self):
         log = '81961806.log'
@@ -2223,16 +2252,12 @@ class Test(unittest.TestCase):
         o_path = 'result_comparer/{}-orig.log'.format(job_id)
         r_path = 'result_comparer/{}-repr.log'.format(job_id)
         trigger_sha = 'd6618dca5e8e1bb4c521b91ed985da04899646e5'
-        repo = 'ome/bioformats"'
+        repo = 'ome/bioformats'
         build_system = 'maven'
-        rc1 = self.analyzer.compare_single_log(
-            r_path,
-            o_path,
-            job_id,
-            build_system,
-            trigger_sha,
-            repo,
-        )
+        rc0 = self.analyzer.compare_single_log(r_path, o_path, job_id, build_system, trigger_sha, repo)
+        rc1 = self.analyzer.compare_single_log(r_path, o_path, job_id, trigger_sha=trigger_sha, repo=repo, mining=False)
+        self.assertEqual(rc0, rc1)
+
         self.compare_rc_match(rc1, False)
         self.compare_rc_mismatch('tr_log_status', rc1, 'stopped', 'broken')
         self.compare_rc_mismatch('tr_log_bool_tests_ran', rc1, False, True)

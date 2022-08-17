@@ -2,7 +2,8 @@ import re
 from bugswarm.common import log
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.travis_wrapper import TravisWrapper
-from bugswarm.common.credentials import GITHUB_TOKENS
+from bugswarm.common.credentials import GITHUB_TOKENS, DATABASE_PIPELINE_TOKEN
+from bugswarm.common.rest_api.database_api import DatabaseAPI
 from requests.exceptions import HTTPError
 from .java_analyzers.java_ant_analyzer import JavaAntAnalyzer
 from .java_analyzers.java_gradle_analyzer import JavaGradleAnalyzer
@@ -115,6 +116,19 @@ class Dispatcher(object):
                 build_system = 'ant'
 
         return build_system
+
+    def get_build_system_from_bugswarm_database(self, job_id):
+        try:
+            int_job_id = int(job_id)
+            filters = '{"$or": [{"passed_job.job_id": %d}, {"failed_job.job_id": %d}]}' % (int_job_id, int_job_id)
+            for result in DatabaseAPI(DATABASE_PIPELINE_TOKEN).filter_artifacts(filters):
+                # For non-Java artifact, this will return 'NA'.
+                build_system = result['build_system']
+                return build_system if build_system == 'NA' else build_system.lower()
+        except Exception as e:
+            log.error('Unable to get build system from BugSwarm\'s API due to {}'.format(repr(e)))
+        # We call this function in analyzer.py, it expects 'None' if we cannot get build system from BugSwarm API.
+        return None
 
     def get_build_system(self, lines, job_id, trigger_sha, repo):
         build_system = 'NA'
@@ -268,8 +282,10 @@ class Dispatcher(object):
         lines = Dispatcher.read_log_into_lines(log_path)
         folds = Dispatcher.split(lines)
         primary_language = Dispatcher.analyze_primary_language(folds)
+
         analyzer = self._get_specific_language_analyzer(
             primary_language, lines, folds, job_id, build_system, trigger_sha, repo, force)
+
         if analyzer:
             analyzer.analyze()
             return analyzer.output()
