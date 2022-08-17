@@ -2,6 +2,7 @@ import os
 import git
 import yaml
 import copy
+import shlex
 from bugswarm.common import log
 from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError
@@ -79,7 +80,7 @@ class GitHubBuilder:
 
                 # Setup environment variable
                 if envs != '':
-                    lines.append('CURRENT_ENV=\'{} \''.format(envs.replace('\'', '\'"\'"\'')))
+                    lines.append('CURRENT_ENV={} '.format(shlex.quote(envs)))
 
                 lines += [
                     '',
@@ -100,6 +101,7 @@ class GitHubBuilder:
                     '      elif [[ $line = \'_GitHubActionsFileCommandDelimeter_\' ]]; then',
                     # Add KEY VALUE pairs to CURRENT_ENV
                     # TODO: Check VALUE is not empty
+                    # TODO: Doesn't work if we have space/quote inside $VALUE
                     '         CURRENT_ENV="${CURRENT_ENV}${KEY}=${VALUE} "',
                     # Reset KEY and VALUE
                     '         KEY=\'\'',
@@ -317,11 +319,9 @@ class GitHubBuilder:
         env_str = ''
         for key, value in github_envs.items():
             if value != '':
-                value = str(value).replace('"', '\"')
-                env_str += '{}="{}" '.format(key, value) if ' ' in value else '{}={} '.format(key, value)
+                env_str += '{}={} '.format(key, shlex.quote(str(value)))
 
         for key, value in envs.items():
             if value != '':
-                value = str(value).replace('"', '\"')
-                env_str += '{}="{}" '.format(key, value) if ' ' in value else '{}={} '.format(key, value)
+                env_str += '{}={} '.format(key, shlex.quote(str(value)))
         return env_str
