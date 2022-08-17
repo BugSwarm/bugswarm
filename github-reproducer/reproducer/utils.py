@@ -466,7 +466,7 @@ class Utils(object):
                 string = json.dumps(config, skipkeys=True)
                 matrix = config['strategy']['matrix']
                 for matrix_key, matrix_val in matrix.items():
-                    string = re.sub('\${{{{ matrix.{} }}}}'.format(matrix_key), str(matrix_val), string)
+                    string = re.sub(r'\${{{{ matrix.{} }}}}'.format(matrix_key), str(matrix_val), string)
                 return json.loads(string)
             except json.JSONDecodeError:
                 log.error('Cannot replace matrix values.')

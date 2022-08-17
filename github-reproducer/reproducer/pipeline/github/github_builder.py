@@ -2,7 +2,6 @@ import os
 import git
 import yaml
 import copy
-from bugswarm.common.shell_wrapper import ShellWrapper
 from bugswarm.common import log
 from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError

@@ -4,8 +4,9 @@ from os.path import isfile
 from bugswarm.common.log_downloader import download_log
 from reproducer.pipeline.setup_repo import setup_repo
 from reproducer.pipeline.setup_repo import tar_repo
-from reproducer.pipeline.modify_build_sh import modify_build_sh
-from reproducer.pipeline.modify_build_sh import patch_build_script
+# TODO: Add them to the pipeline
+# from reproducer.pipeline.modify_build_sh import modify_build_sh
+# from reproducer.pipeline.modify_build_sh import patch_build_script
 from reproducer.pipeline.gen_dockerfile import gen_dockerfile
 from reproducer.pipeline.gen_script import gen_script
 from reproducer.pipeline.apply_patching import modify_deprecated_links
