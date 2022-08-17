@@ -38,7 +38,7 @@ class GitHubBuilder:
             GitHubBuilder.raise_error(
                 'Encountered an error while generating the build script: steps attribute is missing from config.', 1)
 
-        steps = []  # (Step Number: str, Step Name: str, Step Commands: [str])
+        steps = []  # (Step Number: str, Step Name: str, Step Commands: [str], Step Environment Variables: str)
         for step_number, step in enumerate(self.job.config['steps']):
             if 'uses' in step:
                 steps.append(self.predefined_action(step_number, step))
