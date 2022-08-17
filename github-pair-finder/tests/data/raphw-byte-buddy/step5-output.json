@@ -1,0 +1,116 @@
+{
+    "21903~master": {
+        "branch_name": "master",
+        "workflow_id": 21903,
+        "workflow_path": ".github/workflows/main.yml",
+        "pairs": [
+            {
+                "failed_build": {
+                    "build_id": 2549440080,
+                    "build_num": 910,
+                    "commit": "db7aede5e68772486617dfe573ddd2306be927dc",
+                    "message": "Adjust annotation.",
+                    "committed_at": "2022-06-23T13:25:53Z",
+                    "status": "failed"
+                },
+                "passed_build": {
+                    "build_id": 2561765990,
+                    "build_num": 911,
+                    "commit": "5ef0cdddc720ab83b79a2e2f555d84405b634999",
+                    "message": "[release] Release new version",
+                    "committed_at": "2022-06-25T19:53:25Z",
+                    "status": "passed"
+                },
+                "jobpairs": [
+                    {
+                        "failed_job": {
+                            "job_id": 7024682480,
+                            "job_num": 31,
+                            "job_name": "Coverage",
+                            "config": {
+                                "name": "Coverage",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "hotspot-ea",
+                                    "hotspot-supported",
+                                    "j9-supported",
+                                    "hotspot-unsupported",
+                                    "hotspot-32",
+                                    "hotspot-legacy"
+                                ],
+                                "if": "github.event_name == 'push'",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "failure",
+                            "failed_step_kind": "run",
+                            "failed_step_command": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks"
+                        },
+                        "passed_job": {
+                            "job_id": 7056085675,
+                            "job_name": "Coverage",
+                            "job_num": 31,
+                            "config": {
+                                "name": "Coverage",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "hotspot-ea",
+                                    "hotspot-supported",
+                                    "j9-supported",
+                                    "hotspot-unsupported",
+                                    "hotspot-32",
+                                    "hotspot-legacy"
+                                ],
+                                "if": "github.event_name == 'push'",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_command": null,
+                            "failed_step_kind": null
+                        }
+                    }
+                ]
+            }
+        ],
+        "ght_commits": [],
+        "github_commits": [],
+        "html_commits": {},
+        "base_branch": "",
+        "pr_info": null
+    }
+}
