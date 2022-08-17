@@ -70,7 +70,7 @@ class GitHubBuilder:
         ]
 
         for step in steps:
-            # step is None or (Step Number: str, Step Name: str, Step Commands: [str])
+            # step is None or (Step Number: str, Step Name: str, Step Commands: [str], Step Environment Variables: str)
             if step is not None:
                 step_number, step_name, step_commands, envs = step
                 log.debug('Generate build script for step {} (#{})'.format(step_name, step_number))
@@ -171,26 +171,26 @@ class GitHubBuilder:
                 branch=branch
             )
 
-    def predefined_action_env(self, step_number, action_repo):
+    def github_action_env(self, step_number, action_repo):
         return {
             'CI': True,
-            'GITHUB_ACTION': step_number,
+            'GITHUB_ACTION': step_number,  # TODO: Fix this
             'GITHUB_ACTION_PATH': '',
             'GITHUB_ACTION_REPOSITORY': action_repo,
             'GITHUB_ACTIONS': True,
             'GITHUB_ACTOR': 'bugswarm/bugswarm',
             'GITHUB_API_URL': 'https://api.github.com',
-            'GITHUB_BASE_REF': '',
+            'GITHUB_BASE_REF': '',  # TODO: Fix this
             'GITHUB_ENV': '/home/github/workflow/envs.txt',
             'GITHUB_EVENT_NAME': 'push',
             'GITHUB_EVENT_PATH': '/home/github/workflow/event.json',
             'GITHUB_GRAPHQL_URL': 'https://api.github.com/graphql',
-            'GITHUB_HEAD_REF': '',
+            'GITHUB_HEAD_REF': '',  # TODO: Fix this
             'GITHUB_JOB': self.JOB_NAME,
             'GITHUB_PATH': '/home/github/workflow/paths.txt',
-            'GITHUB_REF': 'master',
-            'GITHUB_REF_NAME': '',
-            'GITHUB_REF_TYPE': '',
+            'GITHUB_REF': 'master',  # TODO: Fix this
+            'GITHUB_REF_NAME': self.job.branch,
+            'GITHUB_REF_TYPE': 'branch',
             'GITHUB_REPOSITORY': self.job.repo,
             'GITHUB_REPOSITORY_OWNER': self.job.repo.split('/')[0],
             'GITHUB_RETENTION_DAYS': 0,
@@ -199,11 +199,11 @@ class GitHubBuilder:
             'GITHUB_RUN_NUMBER': 1,
             'GITHUB_SERVER_URL': 'https://github.com',
             'GITHUB_SHA': self.job.sha,
-            'GITHUB_STEP_SUMMARY': '',
+            'GITHUB_STEP_SUMMARY': '',  # TODO: Fix this
             'GITHUB_WORKFLOW': self.WORKFLOW_NAME,
             'GITHUB_WORKSPACE': '/home/github/build',
-            'RUNNER_ARCH': '',
-            'RUNNER_NAME': '',
+            'RUNNER_ARCH': 'X64',
+            'RUNNER_NAME': 'Bugswarm GitHub Actions Runner',  # Don't know which name to use.
             'RUNNER_OS': 'Linux',
             'RUNNER_TEMP': '/tmp',
             'RUNNER_TOOL_CACHE': '/opt/hostedtoolcache'
@@ -233,7 +233,7 @@ class GitHubBuilder:
         # Download action source code
         self.clone_action_repo_if_not_exists(name.replace('/', '-'), action_repo, tag)
 
-        github_envs = self.predefined_action_env(step_number, action_repo)
+        github_envs = self.github_action_env(step_number, action_repo)
         log.debug('Got GitHub {} envs.'.format(len(github_envs)))
 
         envs = copy.deepcopy(self.ENV)
@@ -273,14 +273,7 @@ class GitHubBuilder:
             GitHubBuilder.raise_error(repr(e), 1)
 
         # Convert envs dictionary into a string
-        env_str = ''
-        for key, value in github_envs.items():
-            if value != '':
-                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
-
-        for key, value in envs.items():
-            if value != '':
-                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
+        env_str = GitHubBuilder.get_env_str(github_envs, envs)
 
         return step_number, 'Run {}'.format(name), [cmd], env_str
 
@@ -297,7 +290,11 @@ class GitHubBuilder:
                 commands ([str]): an array of commands from this step.
                 envs (str): environment variables in string
         """
+        # TODO: Handle custom action properly (turn them into shell script)
         commands = [line for line in step['run'].split('\n') if line]
+
+        github_envs = self.github_action_env(step_number, '')
+        log.debug('Got GitHub {} envs.'.format(len(github_envs)))
         envs = copy.deepcopy(self.ENV)
 
         log.debug('Setting up build code for custom commands action #{}'.format(step_number))
@@ -307,10 +304,7 @@ class GitHubBuilder:
                 envs[key] = value
 
         # Convert envs dictionary into a string
-        env_str = ''
-        for key, value in envs.items():
-            if value != '':
-                env_str += '{}="{}" '.format(key, value) if ' ' in str(value) else '{}={} '.format(key, value)
+        env_str = GitHubBuilder.get_env_str(github_envs, envs)
 
         return step_number, 'Run {}'.format(commands[0]), commands, env_str
 
@@ -318,3 +312,17 @@ class GitHubBuilder:
     def raise_error(message, return_code):
         if return_code:
             raise ReproduceError(message)
+
+    @staticmethod
+    def get_env_str(github_envs, envs):
+        env_str = ''
+        for key, value in github_envs.items():
+            if value != '':
+                value = str(value).replace('"', '\"')
+                env_str += '{}="{}" '.format(key, value) if ' ' in value else '{}={} '.format(key, value)
+
+        for key, value in envs.items():
+            if value != '':
+                value = str(value).replace('"', '\"')
+                env_str += '{}="{}" '.format(key, value) if ' ' in value else '{}={} '.format(key, value)
+        return env_str

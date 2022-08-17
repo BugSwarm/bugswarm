@@ -46,6 +46,10 @@ def main(argv=None):
     filtered_buildpairs = []
     filtered_jobpair_count = 0
     for bp in buildpairs:
+        if bp['ci_service'] != 'github':
+            # Filter out non-GitHub builds.
+            continue
+
         filtered_jobpairs = []
         for jp in bp['jobpairs']:
             # Filter jobs based on input.

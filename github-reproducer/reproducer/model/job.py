@@ -12,6 +12,7 @@ class Job(object):
         self.image_tag = image_tag
 
         self.repo = build.buildpair.repo
+        self.branch = build.buildpair.branch
         self.base_sha = build.base_sha
         self.sha = build.head_sha
         self.travis_merge_sha = build.travis_merge_sha
