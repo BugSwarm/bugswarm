@@ -1,0 +1,3932 @@
+{
+  "4039946~garyrussell~GH-2357": {
+    "branch_name": "GH-2357",
+    "branch_owner": "garyrussell",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2707063627,
+        "build_num": 686,
+        "commit": "0bc521a064789cc63782bd5ddd59c2c7e37776f0",
+        "message": "GH-2357: Switch to CompletableFuture\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2357\n\nSpring Framework is planning to deprecate `ListenableFuture` in 6.0.\n\nAdd methods to the `KafkaOperations` (`KafkaTemplate`) that return\n`CompletableFuture` instead; the `ListenableFuture` methods have now\nbeen removed in 3.0.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-20T19:08:14Z",
+        "jobs": [
+          {
+            "job_id": 7436264598,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2712860544,
+        "build_num": 687,
+        "commit": "e1dfe24ad25a48eee88a063a66e0f4a04725ae16",
+        "message": "Remove KafkaOperations2; doc polishing.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-21T15:22:23Z",
+        "jobs": [
+          {
+            "job_id": 7452540717,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2712922383,
+        "build_num": 688,
+        "commit": "497f8d79547704c2e96ea06707bd43692ff7b164",
+        "message": "Fix import.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-21T15:32:23Z",
+        "jobs": [
+          {
+            "job_id": 7452731043,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2712860544,
+          "build_num": 687,
+          "commit": "e1dfe24ad25a48eee88a063a66e0f4a04725ae16",
+          "message": "Remove KafkaOperations2; doc polishing.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-21T15:22:23Z",
+          "jobs": [
+            {
+              "job_id": 7452540717,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2712922383,
+          "build_num": 688,
+          "commit": "497f8d79547704c2e96ea06707bd43692ff7b164",
+          "message": "Fix import.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-21T15:32:23Z",
+          "jobs": [
+            {
+              "job_id": 7452731043,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 7452540717,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 7452731043,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~garyrussell~GH-2332": {
+    "branch_name": "GH-2332",
+    "branch_owner": "garyrussell",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2625217404,
+        "build_num": 670,
+        "commit": "b6901c7f30aa30bb7f8f847080f99cbd0ce037a0",
+        "message": "GH-2332: Fix Container.pause() with Manual Assign.\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2332\n\nUse manual assignments, if present, for pause.\nAlso, in the rebalance listener, use `isPaused()` rather than `consumerPaused`\nto determine whether the partitions should be paused.\n\nAdd logs and events for pauses in the rebal listener.\n\nRevert errant log4j commit.\n\n**cherry-pick to 2.9.x, 2.8.x**",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T19:46:01Z",
+        "jobs": [
+          {
+            "job_id": 7221806322,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2625480855,
+        "build_num": 672,
+        "commit": "7093ba66cd3bbe5991c3051563cb17e00e6af972",
+        "message": "Use CollectionUtils.isEmpty()\n\nCo-authored-by: Artem Bilan <abilan@vmware.com>",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T20:39:16Z",
+        "jobs": [
+          {
+            "job_id": 7222539841,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2625572612,
+        "build_num": 675,
+        "commit": "d9e250e1676968a3b08e8e0e0989194011f88aee",
+        "message": "Fix import.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T20:57:25Z",
+        "jobs": [
+          {
+            "job_id": 7222795710,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2625480855,
+          "build_num": 672,
+          "commit": "7093ba66cd3bbe5991c3051563cb17e00e6af972",
+          "message": "Use CollectionUtils.isEmpty()\n\nCo-authored-by: Artem Bilan <abilan@vmware.com>",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-06T20:39:16Z",
+          "jobs": [
+            {
+              "job_id": 7222539841,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2625572612,
+          "build_num": 675,
+          "commit": "d9e250e1676968a3b08e8e0e0989194011f88aee",
+          "message": "Fix import.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-06T20:57:25Z",
+          "jobs": [
+            {
+              "job_id": 7222795710,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 7222539841,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 7222795710,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~garyrussell~GH-2195": {
+    "branch_name": "GH-2195",
+    "branch_owner": "garyrussell",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2296579060,
+        "build_num": 620,
+        "commit": "1ef4f058c234b0294418ae2d53e8e751744995c1",
+        "message": "GH-2195: Fix No Seek Retry Mode\n\n- Revert to seeking when `CommitFailedException` - due to a rebalance\n- For batch listeners, move committing to the try block\n- For record listeners, `AckMode.RECORD` already commits in the try block\n- With `AckMode.BATCH`, detect a no-seek retry and call the error handler `handleRemaining`\n\n**cherry-pick to 2.9.x**",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-05-09T20:14:25Z",
+        "jobs": [
+          {
+            "job_id": 6359006467,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2296810711,
+        "build_num": 621,
+        "commit": "ec8d8675a18d7373ee64e847780f6b5b570a6e25",
+        "message": "Fix test class names.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-05-09T21:05:31Z",
+        "jobs": [
+          {
+            "job_id": 6359671535,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2504657821,
+        "build_num": 639,
+        "commit": "88005e74e4b71ba2960a3b6ddfdff50c2f822f81",
+        "message": "Fix test class names.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-15T19:30:49Z",
+        "jobs": [
+          {
+            "job_id": 6906828291,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2617100100,
+        "build_num": 660,
+        "commit": "e22b97933266b41418389fa384b32597094e8ffd",
+        "message": "GH-2195: Fix No Seek Retries with Non-Blocking\n\nRelated to https://github.com/spring-projects/spring-kafka/issues/2195\n\nDo not process the remaining records if the first record is from a\npaused partition.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-05T15:06:40Z",
+        "jobs": [
+          {
+            "job_id": 7199022762,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2618534458,
+        "build_num": 661,
+        "commit": "fc64368de7a70701b522718b30659d8a6046c1ad",
+        "message": "GH-2195: Polishing\n\nRelated to https://github.com/spring-projects/spring-kafka/issues/2195\n\n- check `isPartitionPauseRequested()` instead of `isPartitionPaused()`\n- add diagnostic debug logging\n- prevent re-pausing the entire consumer each time a poll exits but the first\n  partition is still paused.\n\n**cherry-pick to 2.9.x**",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-05T19:52:43Z",
+        "jobs": [
+          {
+            "job_id": 7203226012,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2618554462,
+        "build_num": 662,
+        "commit": "294090dfe4bac2c20e8b924be6f62de1874a6a0b",
+        "message": "Checkstyle fix.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-05T19:58:42Z",
+        "jobs": [
+          {
+            "job_id": 7203285950,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2624380453,
+        "build_num": 667,
+        "commit": "90f4b6ec3d29eac83358b7fc7397b4fa450c37aa",
+        "message": "GH-2195: Fix Fix No Seek Retries with Pause\n\nRelated to https://github.com/spring-projects/spring-kafka/issues/2195\n\nSimilar to the recent fix when the first partition is paused, we should\nnot continue to process the remaining records if the container itself\nwas paused during the poll after an error occurred with `seekAfterError=false`.\n\n**cherry-pick to 2.9.x**",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T16:56:39Z",
+        "jobs": [
+          {
+            "job_id": 7219439793,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2624481635,
+        "build_num": 668,
+        "commit": "45fde2d448099a29b702be8165aedb3bd65f2c25",
+        "message": "Remove unneeded copy/paste code from test.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T17:21:01Z",
+        "jobs": [
+          {
+            "job_id": 7219731449,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2624596852,
+        "build_num": 669,
+        "commit": "979462da752383335ca60a2fc4a099de648d0dc1",
+        "message": "Fix creation of remaining records.\n\nPreviously, they were all inserted into the failed record's `TopicPartition` record list.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-07-06T17:42:33Z",
+        "jobs": [
+          {
+            "job_id": 7220056976,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2618534458,
+          "build_num": 661,
+          "commit": "fc64368de7a70701b522718b30659d8a6046c1ad",
+          "message": "GH-2195: Polishing\n\nRelated to https://github.com/spring-projects/spring-kafka/issues/2195\n\n- check `isPartitionPauseRequested()` instead of `isPartitionPaused()`\n- add diagnostic debug logging\n- prevent re-pausing the entire consumer each time a poll exits but the first\n  partition is still paused.\n\n**cherry-pick to 2.9.x**",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-05T19:52:43Z",
+          "jobs": [
+            {
+              "job_id": 7203226012,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2618554462,
+          "build_num": 662,
+          "commit": "294090dfe4bac2c20e8b924be6f62de1874a6a0b",
+          "message": "Checkstyle fix.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-07-05T19:58:42Z",
+          "jobs": [
+            {
+              "job_id": 7203285950,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 7203226012,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 7203285950,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~artembilan~GH-666": {
+    "branch_name": "GH-666",
+    "branch_owner": "artembilan",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2505016367,
+        "build_num": 640,
+        "commit": "df75957267bd12dcd46b5e249768647582038b3d",
+        "message": "GH-666: Single global embedded Kafka with JUnit 5\n\nFixes https://github.com/spring-projects/spring-kafka/issues/666\n\n* Introduce a `GlobalEmbeddedKafkaTestExecutionListener` which is registered\nby the service loader from JUnit Platform\n* Make its activation conditional based on the `spring.kafka.global.embedded.enabled`\nsystem property\n* Expose some other configuration properties for the target global `EmbeddedKafkaBroker`\n* Verify its functionality via manual `Launcher.execute()`\n* Add more `@DirtiesContext` to some tests in the `spring-kafka-test` which don't close\ntheir embedded brokers on the exit",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-15T20:41:57Z",
+        "jobs": [
+          {
+            "job_id": 6907928855,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2505115300,
+        "build_num": 641,
+        "commit": "c124c612e74114fdd731cdcb00aeebce09a5cbf9",
+        "message": "* Print local launcher summary into SOUT for tracing the nested problems",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-15T21:02:43Z",
+        "jobs": [
+          {
+            "job_id": 6908127500,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2505156946,
+        "build_num": 642,
+        "commit": "d82143fcccbf3e1ca7592304db33afb3c8936b4f",
+        "message": "* Fix prefix for `file:` resource in the test",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-15T21:10:55Z",
+        "jobs": [
+          {
+            "job_id": 6908243057,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2510094069,
+        "build_num": 643,
+        "commit": "2b739a0daa015eca417745b6e01d4614f5163f82",
+        "message": "* Make `junit-platform-launcher` as provided dep -\nthis is part of JUnit platform the test plan is going to be run\n* Add missed new line in the end of `junit-platform.properties`\n* Rethrow an exception from the local launcher in the `GlobalEmbeddedKafkaTestExecutionListenerTests`\nto fail if its suite test classes have failed.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-16T15:34:31Z",
+        "jobs": [
+          {
+            "job_id": 6921524398,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2516370774,
+        "build_num": 644,
+        "commit": "ece2d83640e98bb8d678117d13ec68d1c3c17cb5",
+        "message": "* Fix JavaDocs for `GlobalEmbeddedKafkaTestExecutionListener` constants\n* Move system properties clean up in the `GlobalEmbeddedKafkaTestExecutionListenerTests` into `@AfterAll`\n* Add docs for this new feature\n* Add `sample-05` to demonstrate global embedded Kafka in action via Maven configuration",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-17T15:12:12Z",
+        "jobs": [
+          {
+            "job_id": 6938457888,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2517478359,
+        "build_num": 645,
+        "commit": "27f0eef9c595bcf5c06b0f5904e6d42f645fc126",
+        "message": "* Mention `sample-05` in the common `README.adoc` for samples",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-17T19:10:52Z",
+        "jobs": [
+          {
+            "job_id": 6941553162,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2544947417,
+        "build_num": 651,
+        "commit": "70cb7b8892d705f89a8c2e87381927dc1846fa1a",
+        "message": "* Fix language in the `testing.adoc`\n* Add new lines into new files\n* Add `spring.kafka.consumer.auto-offset-reset=earliest` to make a consumer to start from the beginning of the partition:\nfixes a race condition when publishing happens before consumer is started\n* Make `mvnw` as an executable\n* Add `spring.embedded.kafka.brokers.property` explanation into docs",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-22T20:27:26Z",
+        "jobs": [
+          {
+            "job_id": 7012095864,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2545001727,
+        "build_num": 652,
+        "commit": "055a4793bda4357bcd8bd95982a7dea9896badef",
+        "message": "* Fix language in docs\n\nCo-authored-by: Gary Russell <grussell@vmware.com>",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-22T20:38:25Z",
+        "jobs": [
+          {
+            "job_id": 7012252602,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2545162794,
+        "build_num": 653,
+        "commit": "0e62de847a59383a6914451ac8a986352a9815e2",
+        "message": "* Make `Sample05Application2Tests` passing\n* Remove `deliberately failing` sentence from the JavaDoc an README\n* Clean up unused imports",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-22T21:09:07Z",
+        "jobs": [
+          {
+            "job_id": 7012717886,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2505115300,
+          "build_num": 641,
+          "commit": "c124c612e74114fdd731cdcb00aeebce09a5cbf9",
+          "message": "* Print local launcher summary into SOUT for tracing the nested problems",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-06-15T21:02:43Z",
+          "jobs": [
+            {
+              "job_id": 6908127500,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2505156946,
+          "build_num": 642,
+          "commit": "d82143fcccbf3e1ca7592304db33afb3c8936b4f",
+          "message": "* Fix prefix for `file:` resource in the test",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-06-15T21:10:55Z",
+          "jobs": [
+            {
+              "job_id": 6908243057,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6908127500,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6908243057,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~RuslanHryn~main": {
+    "branch_name": "main",
+    "branch_owner": "RuslanHryn",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2429940565,
+        "build_num": 628,
+        "commit": "7746bc1b76ce54d38a8f0d5b209be4340aaa002d",
+        "message": "Changed log level to improve troubleshooting",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-02T17:33:03Z",
+        "jobs": [
+          {
+            "job_id": 6714161364,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2430314665,
+        "build_num": 630,
+        "commit": "947f1e23cf8bb7bc2d4aa026a5e84a6496d23735",
+        "message": "Changed log level to improve troubleshooting",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-02T19:03:18Z",
+        "jobs": [
+          {
+            "job_id": 6714502353,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2430350677,
+        "build_num": 631,
+        "commit": "2d8ab404cd2322ec8c508ee72081e9b7d666abe0",
+        "message": "Fixed formatting",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-06-02T19:10:06Z",
+        "jobs": [
+          {
+            "job_id": 6714573364,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2430314665,
+          "build_num": 630,
+          "commit": "947f1e23cf8bb7bc2d4aa026a5e84a6496d23735",
+          "message": "Changed log level to improve troubleshooting",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-06-02T19:03:18Z",
+          "jobs": [
+            {
+              "job_id": 6714502353,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2430350677,
+          "build_num": 631,
+          "commit": "2d8ab404cd2322ec8c508ee72081e9b7d666abe0",
+          "message": "Fixed formatting",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-06-02T19:10:06Z",
+          "jobs": [
+            {
+              "job_id": 6714573364,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6714502353,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6714573364,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~garyrussell~GH-2225": {
+    "branch_name": "GH-2225",
+    "branch_owner": "garyrussell",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2270999326,
+        "build_num": 608,
+        "commit": "b744512cada02579203f1672cc95918c97c06689",
+        "message": "GH-2225: Fix New Package Tangle\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2255",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-05-04T16:16:21Z",
+        "jobs": [
+          {
+            "job_id": 6293396997,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2271080989,
+        "build_num": 609,
+        "commit": "487578634cfccd63bedd3030ea5e6a13fd24c42c",
+        "message": "Also move test; fix deprecation warnings.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-05-04T16:36:03Z",
+        "jobs": [
+          {
+            "job_id": 6293646741,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2270999326,
+          "build_num": 608,
+          "commit": "b744512cada02579203f1672cc95918c97c06689",
+          "message": "GH-2225: Fix New Package Tangle\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2255",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-05-04T16:16:21Z",
+          "jobs": [
+            {
+              "job_id": 6293396997,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2271080989,
+          "build_num": 609,
+          "commit": "487578634cfccd63bedd3030ea5e6a13fd24c42c",
+          "message": "Also move test; fix deprecation warnings.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-05-04T16:36:03Z",
+          "jobs": [
+            {
+              "job_id": 6293646741,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6293396997,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6293646741,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~tomazfernandes~GH-2247": {
+    "branch_name": "GH-2247",
+    "branch_owner": "tomazfernandes",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2241289375,
+        "build_num": 602,
+        "commit": "6cb7f0d8b59f3c3fd234945efdf21b9ff51a138a",
+        "message": "Introduce @DelayedTopic\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2247\n\nNow that we have the KafkaConsumerBackOffManager, we can build an arbitrary delay mechanism for topics.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-28T18:39:19Z",
+        "jobs": [
+          {
+            "job_id": 6216872470,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2241355001,
+        "build_num": 603,
+        "commit": "ec2e0e072d54a2eec983bfc8aff0d73a379b528e",
+        "message": "Introduce @DelayedTopic\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2247\n\nNow that we have the KafkaConsumerBackOffManager, we can build an arbitrary delay mechanism for topics.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-28T19:02:19Z",
+        "jobs": [
+          {
+            "job_id": 6217054810,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2241366654,
+        "build_num": 604,
+        "commit": "7f4102f4d8945cff650a344a9d128d6cca26b955",
+        "message": "Introduce @DelayedTopic\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2247\n\nNow that we have the KafkaConsumerBackOffManager, we can build an arbitrary delay mechanism for topics.",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-28T19:04:25Z",
+        "jobs": [
+          {
+            "job_id": 6217086486,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2241289375,
+          "build_num": 602,
+          "commit": "6cb7f0d8b59f3c3fd234945efdf21b9ff51a138a",
+          "message": "Introduce @DelayedTopic\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2247\n\nNow that we have the KafkaConsumerBackOffManager, we can build an arbitrary delay mechanism for topics.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-28T18:39:19Z",
+          "jobs": [
+            {
+              "job_id": 6216872470,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2241355001,
+          "build_num": 603,
+          "commit": "ec2e0e072d54a2eec983bfc8aff0d73a379b528e",
+          "message": "Introduce @DelayedTopic\n\nResolves https://github.com/spring-projects/spring-kafka/issues/2247\n\nNow that we have the KafkaConsumerBackOffManager, we can build an arbitrary delay mechanism for topics.",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-28T19:02:19Z",
+          "jobs": [
+            {
+              "job_id": 6217054810,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6216872470,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6217054810,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  },
+  "4039946~tomazfernandes~GH-2226": {
+    "branch_name": "GH-2226",
+    "branch_owner": "tomazfernandes",
+    "workflow_id": 4039946,
+    "workflow_path": ".github/workflows/pr-build-workflow.yml",
+    "builds": [
+      {
+        "build_id": 2170308131,
+        "build_num": 581,
+        "commit": "9d8273c7728232d0c3124e66b735a2dbd97aa141",
+        "message": "Add unit tests",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-15T00:26:15Z",
+        "jobs": [
+          {
+            "job_id": 6032756628,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2170326980,
+        "build_num": 582,
+        "commit": "c82fa572c953f44452cd75392ff3c24a9b12b123",
+        "message": "Add unit tests",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-15T00:33:20Z",
+        "jobs": [
+          {
+            "job_id": 6032804498,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2177620105,
+        "build_num": 583,
+        "commit": "a887fbae25b73a4dbeaeca4f23d2cc47e24a1e6e",
+        "message": "Make provided TaskExecutor a bean\n\nAdd KafkaBackOffManagerConfigurer to RetryTopicConfigurationSupport",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-16T18:47:25Z",
+        "jobs": [
+          {
+            "job_id": 6049297536,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2186677757,
+        "build_num": 585,
+        "commit": "20a8711f05d133d31cb8b9b5f5e58cc1c2ff37e0",
+        "message": "Add documentation\n\nReview javadocs",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-18T23:46:30Z",
+        "jobs": [
+          {
+            "job_id": 6070113176,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2186710224,
+        "build_num": 586,
+        "commit": "e36fab7b3a0b7e4eb069569bdca373da0945eddf",
+        "message": "Add documentation\n\nReview javadocs",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-18T23:58:12Z",
+        "jobs": [
+          {
+            "job_id": 6070199712,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2186795978,
+        "build_num": 587,
+        "commit": "822dbb1855b554c940e1d5d09cfcc037bf693e4c",
+        "message": "Add documentation\n\nReview javadocs\n\nFew other adjustments",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-19T00:20:34Z",
+        "jobs": [
+          {
+            "job_id": 6070423045,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2186806928,
+        "build_num": 588,
+        "commit": "eac8ecbb2cf14c53ac2d92fcc833173cfdcb25c0",
+        "message": "Add documentation\n\nReview javadocs\n\nFew other adjustments",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-19T00:24:00Z",
+        "jobs": [
+          {
+            "job_id": 6070451546,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "failure"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "failed",
+        "resettable": false,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2186807934,
+        "build_num": 589,
+        "commit": "d0f726556e810e4e61f25827868647538928c802",
+        "message": "Add documentation\n\nReview javadocs\n\nFew other adjustments",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-19T00:24:11Z",
+        "jobs": [
+          {
+            "job_id": 6070454466,
+            "job_num": 1,
+            "job_name": "build",
+            "config": {
+              "runs-on": "ubuntu-latest",
+              "steps": [
+                {
+                  "uses": "actions/checkout@v2"
+                },
+                {
+                  "name": "Set up JDK 17",
+                  "uses": "actions/setup-java@v1",
+                  "with": {
+                    "java-version": 17
+                  }
+                },
+                {
+                  "name": "Run Gradle",
+                  "uses": "burrunan/gradle-cache-action@v1",
+                  "env": {
+                    "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                  },
+                  "with": {
+                    "arguments": "check api"
+                  }
+                },
+                {
+                  "name": "Capture Test Results",
+                  "if": "failure()",
+                  "uses": "actions/upload-artifact@v2",
+                  "with": {
+                    "name": "test-results",
+                    "path": "*/build/reports/tests/**/*.*",
+                    "retention-days": 3
+                  }
+                }
+              ]
+            },
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": true,
+        "github_archived": true,
+        "squashed": false
+      },
+      {
+        "build_id": 2187389534,
+        "build_num": 590,
+        "commit": "38a58a9332e120670e727cf5a12c805ee0e677fe",
+        "message": "Use JavaUtils instead of if statements\n\nAdd acceptIfInstanceOf to JavaUtils",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-19T03:48:56Z",
+        "jobs": [
+          {
+            "job_id": 6071936813,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2191950880,
+        "build_num": 591,
+        "commit": "c43f15995bb3999a208584b4f330fe6d0c99eb50",
+        "message": "Address PR review comments",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-19T20:14:47Z",
+        "jobs": [
+          {
+            "job_id": 6084639127,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      },
+      {
+        "build_id": 2197605268,
+        "build_num": 592,
+        "commit": "dd512b460ee98409e89fc874a6b995302cf0e37f",
+        "message": "Restore `ThreadPoolTaskExecutor` bean",
+        "trigger_commit": "",
+        "base_commit": "",
+        "committed_at": "2022-04-20T18:35:38Z",
+        "jobs": [
+          {
+            "job_id": 6100529713,
+            "job_num": 1,
+            "job_name": "build",
+            "config": null,
+            "language": "java",
+            "result": "success"
+          }
+        ],
+        "virtual_commit_info": null,
+        "status": "passed",
+        "resettable": false,
+        "github_archived": false,
+        "squashed": false
+      }
+    ],
+    "merged_at": null,
+    "pairs": [
+      {
+        "failed_build": {
+          "build_id": 2170308131,
+          "build_num": 581,
+          "commit": "9d8273c7728232d0c3124e66b735a2dbd97aa141",
+          "message": "Add unit tests",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-15T00:26:15Z",
+          "jobs": [
+            {
+              "job_id": 6032756628,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2170326980,
+          "build_num": 582,
+          "commit": "c82fa572c953f44452cd75392ff3c24a9b12b123",
+          "message": "Add unit tests",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-15T00:33:20Z",
+          "jobs": [
+            {
+              "job_id": 6032804498,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6032756628,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6032804498,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      },
+      {
+        "failed_build": {
+          "build_id": 2186677757,
+          "build_num": 585,
+          "commit": "20a8711f05d133d31cb8b9b5f5e58cc1c2ff37e0",
+          "message": "Add documentation\n\nReview javadocs",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-18T23:46:30Z",
+          "jobs": [
+            {
+              "job_id": 6070113176,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2186710224,
+          "build_num": 586,
+          "commit": "e36fab7b3a0b7e4eb069569bdca373da0945eddf",
+          "message": "Add documentation\n\nReview javadocs",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-18T23:58:12Z",
+          "jobs": [
+            {
+              "job_id": 6070199712,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6070113176,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6070199712,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      },
+      {
+        "failed_build": {
+          "build_id": 2186806928,
+          "build_num": 588,
+          "commit": "eac8ecbb2cf14c53ac2d92fcc833173cfdcb25c0",
+          "message": "Add documentation\n\nReview javadocs\n\nFew other adjustments",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-19T00:24:00Z",
+          "jobs": [
+            {
+              "job_id": 6070451546,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "failed",
+          "resettable": false,
+          "github_archived": true,
+          "squashed": false
+        },
+        "passed_build": {
+          "build_id": 2186807934,
+          "build_num": 589,
+          "commit": "d0f726556e810e4e61f25827868647538928c802",
+          "message": "Add documentation\n\nReview javadocs\n\nFew other adjustments",
+          "trigger_commit": "",
+          "base_commit": "",
+          "committed_at": "2022-04-19T00:24:11Z",
+          "jobs": [
+            {
+              "job_id": 6070454466,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            }
+          ],
+          "virtual_commit_info": null,
+          "status": "passed",
+          "resettable": true,
+          "github_archived": true,
+          "squashed": false
+        },
+        "repo_mined_version": null,
+        "jobpairs": [
+          {
+            "failed_job": {
+              "job_id": 6070451546,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "failure"
+            },
+            "passed_job": {
+              "job_id": 6070454466,
+              "job_num": 1,
+              "job_name": "build",
+              "config": {
+                "runs-on": "ubuntu-latest",
+                "steps": [
+                  {
+                    "uses": "actions/checkout@v2"
+                  },
+                  {
+                    "name": "Set up JDK 17",
+                    "uses": "actions/setup-java@v1",
+                    "with": {
+                      "java-version": 17
+                    }
+                  },
+                  {
+                    "name": "Run Gradle",
+                    "uses": "burrunan/gradle-cache-action@v1",
+                    "env": {
+                      "GRADLE_ENTERPRISE_URL": "https://ge.spring.io/"
+                    },
+                    "with": {
+                      "arguments": "check api"
+                    }
+                  },
+                  {
+                    "name": "Capture Test Results",
+                    "if": "failure()",
+                    "uses": "actions/upload-artifact@v2",
+                    "with": {
+                      "name": "test-results",
+                      "path": "*/build/reports/tests/**/*.*",
+                      "retention-days": 3
+                    }
+                  }
+                ]
+              },
+              "language": "java",
+              "result": "success"
+            },
+            "build_system": "Gradle"
+          }
+        ],
+        "exclude_from_output": false
+      }
+    ],
+    "ght_commits": [],
+    "github_commits": [],
+    "html_commits": {},
+    "base_branch": "",
+    "pr_info": null
+  }
+}
