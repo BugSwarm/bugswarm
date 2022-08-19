@@ -3,6 +3,6 @@ Reproduce jobs that originally ran on Travis CI by providing the same or a simil
 
 ## Learn More
 To learn more about `reproducer`, see the following [docs](/docs/) articles:
-- [Key Files Explained](/docs/Understanding-Key-Files.md)
 - [What Happens When a Job Is Reproduced](/docs/What-Happens-When-a-Job-Is-Reproduced.md)
-- [Folder Structure Explained](/docs/Folder-Structure-Explained.md)
+- [Folder Structure Explained](/docs/Reproducer-Folder-Structure-Explained.md)
+- [How Matching Is Defined for Reproducibility](/docs/How-Matching-Is-Defined-for-Reproducibility.md)

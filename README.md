@@ -32,6 +32,8 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 }
 ```
 ## Setting up BugSwarm
+**You only have to follow the steps below if you want to produce your own artifacts.
+If you want to use BugSwarm artifact dataset, follow the [client](https://github.com/BugSwarm/client) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.**
 1. System requirements:
     * A Unix-based operating system. (BugSwarm does not support Windows.)
     * The `sudo` command is installed on the system.
@@ -170,7 +172,7 @@ $ ./run_mine_project.sh -r alibaba/canal
 ```
 The example will mine job-pairs from the "alibaba/canal" project. This will run through the Miner component
 of the BugSwarm pipeline. The output will push data to your MongoDB specified and outputs several `.json` files
-after each sub-step.
+after each sub-step. This process should take less than 10 minutes.
 
 ## [Reproducer](/reproducer/README.md)
 BugSwarm obtains the original build environment that was used by Travis CI, via a Docker image, and generate
@@ -196,11 +198,11 @@ Usage: ./run_reproduce_project.sh -r <repo-slug> [OPTIONS]
 ```
 _Example_:
 ```
-$ ./run_reproduce_project.sh -r alibaba/canal -c ~/bugswarm
+$ ./run_reproduce_project.sh -r alibaba/canal -c ~/bugswarm -t 4
 ```
 The example will attempt to reproduce all job-pairs mined from the "alibaba/canal" project. We add the "-c"
 argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline
-successfully.
+successfully. We use 4 threads to run the process.
 
 #### Generate Pair Input
 
@@ -230,14 +232,14 @@ Options:
 ```
 _Example_:
 ```
-$ python3 generate_pair_input.py --repo alibaba/canal --include-resettable --include-test-failures-only --include-archived-only --classified-code --classified-exception NullPointerException -o /home/user/results_output.txt
+$ python3 generate_pair_input.py --repo alibaba/canal --include-resettable --include-test-failures-only --include-archived-only --classified-exception IllegalAccessError -o /home/bugswarm/results_output.txt
 ```
 The example above will include job pairs that were previously attempted to reproduce from the Artifact database collection,
 among those job pairs we include only those that have test failure according to the Analyzer, marked
 as resettable, and finally we restrict the job pairs further to those that were classified with having 
-the "NullPointerException".
+the "IllegalAccessError".
 
-The output of this script can then be used with the below step, Reproduce a Pair.
+The output file of this script can then be used to define the repo slug, failed job ID, and passed job ID arguments of the below step, Reproduce a Pair.
 
 #### Reproduce a Pair
 `run_reproduce_pair.sh`: Reproduces a single job-pair given the slug for the project from which the job-pair
@@ -282,6 +284,8 @@ Usage: ./run_cache_project.sh -r <repo-slug> [OPTIONS]
                                      single-quotes. See cache-dependency/README for details on flags.
 ```
 _Example_:
+
+First, log in to a Docker registry with `docker login`
 ```
 $ ./run_cache_project.sh -r "alibaba/canal" -c ~/bugswarm -ca '--separate-passed-failed --no-strict-offline-test'
 ```
@@ -310,6 +314,8 @@ Usage: ./run_cache_pair.sh -r <repo-slug> -f <failed-job-id> [OPTIONS]
                                      single-quotes. See cache-dependency/README for details on flags.
 ```
 _Example_:
+
+First, log in to a Docker registry with `docker login`
 ```
 $ ./run_cache_pair.sh -r alibaba/canal -f 256610197 -ca '--keep-tmp-images --keep-containers'
 ```
