@@ -104,7 +104,6 @@ class GetJobsFromGitHubAPI:
             # We don't want to consider them.
             if run['conclusion'] not in ['success', 'failure']:
                 continue
-            filtered_runs.append(run)
 
             if latest_run_id is None:
                 latest_run_id = run['id']
@@ -122,10 +121,13 @@ class GetJobsFromGitHubAPI:
                 if job['labels'] == '':
                     continue
 
-                # Get name and index of the step that failed in this job, if any.
-                # Assumes that only one step can fail (and the rest are skipped).
-                # (Note that in the API, steps that fail but have `continue-on-error` set to true are recorded as having
-                # passed.)
+                if run not in filtered_runs:
+                    filtered_runs.append(run)
+
+                # Get name and index of the first step that failed in this job, if any.
+                # Assumes that only one step can fail, and the rest are skipped. This is not always true!
+                # Note that steps that fail but have `continue-on-error` set to True are considered passing in the API,
+                # and thus in PairFinder as well.
                 failed_step_number = None
                 for s, step in enumerate(job['steps']):
                     if step['conclusion'] == 'failure':

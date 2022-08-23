@@ -19,6 +19,19 @@ class RecoverableException(Exception):
     pass
 
 
+def flatten_dict_keys(d, prefix=None):
+    """
+    Given a nested dict {'a': {'b': {'c': 1}, {'d': 2}}, 'e'}, yields the
+    key of each leaf node in dot notation ('a.b.c', 'a.b.d', 'a.e').
+    """
+    if isinstance(d, dict):
+        for k, v in d.items():
+            next_prefix = k if prefix is None else '{}.{}'.format(prefix, k)
+            yield from flatten_dict_keys(v, next_prefix)
+    else:
+        yield prefix
+
+
 def get_job_api_name(base_name: str, matrix_combination, default_keys):
     """
     Finds the job's API name by interpolating the appropriate matrix variables.
@@ -29,7 +42,9 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
     interpolations = []
     for key in default_keys:
         if key in matrix_combination and matrix_combination[key] != '':
-            interpolations.append('${{{{ matrix.{} }}}}'.format(key))
+            # Handle nested dicts, e.g. https://github.com/Robert-Furth/actions-test/actions/runs/2835879042
+            for flattened_key in flatten_dict_keys(matrix_combination[key], key):
+                interpolations.append('${{{{ matrix.{} }}}}'.format(flattened_key))
 
     intermediate_name = base_name
     if interpolations and not re.search(MATRIX_INTERPOLATE_REGEX, intermediate_name):
@@ -38,21 +53,35 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
     # Find the start/end indexes of all interpolated matrix variables.
     indexes = []
     for match in re.finditer(MATRIX_INTERPOLATE_REGEX, intermediate_name):
-        key = match.group(1)
-        value = str(matrix_combination[key]) if key in matrix_combination else ''
-        indexes.append((match.start(), match.end(), value))
+        # Handle dot-indexing of nested dicts.
+        # e.g. ${{ matrix.foo.bar }} -> matrix_combination['foo']['bar']
+        keys = match.group(1).split('.')
+        value = matrix_combination
+        for key in keys:
+            value = value[key] if isinstance(value, dict) and key in value else ''
+        indexes.append((match.start(), match.end(), str(value)))
 
     # Interpolate
     job_name = intermediate_name
     for start, end, value in reversed(indexes):
         job_name = job_name[:start] + value + job_name[end:]
 
-    return job_name.strip()
+    job_name = job_name.strip()
+
+    # Job names over 100 characters are truncated, *even in the API*
+    # https://api.github.com/repos/apache/zookeeper/actions/runs/1189465687/jobs
+    if len(job_name) > 100:
+        job_name = job_name[:97] + '...'
+
+    return job_name
 
 
 def partial_match(d1, d2):
+    if not isinstance(d1, dict) or not isinstance(d2, dict):
+        return d1 == d2
+
     for key, val in d1.items():
-        if key in d2 and d2[key] != val:
+        if key in d2 and not partial_match(val, d2[key]):
             return False
     return True
 
@@ -186,7 +215,8 @@ def expand_job_matrixes(workflow: dict):
                 raise RecoverableException()
             disambiguated.append(job_base_api_name)
 
-            names_and_configs.append([(job_base_api_name, job_base_api_name, job)])
+            job_api_name = get_job_api_name(job_base_api_name, {}, [])
+            names_and_configs.append([(job_api_name, job_base_api_name, job)])
 
     # Sort by length in descending order.
     return sorted(names_and_configs, key=lambda l: len(l), reverse=True)

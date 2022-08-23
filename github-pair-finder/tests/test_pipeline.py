@@ -440,26 +440,26 @@ class TestPipeline(unittest.TestCase):
 
     ## CleanPairs ##
 
-    @requests_mock.Mocker()
-    def test_clean_pairs_sets_repo_mined_version(self, mock):
+    # @requests_mock.Mocker()
+    def test_clean_pairs_sets_repo_mined_version(self):
         repo = 'raphw/byte-buddy'
         datadir = join(DATA_DIR, repo.replace('/', '-'))
-
-        with open(join(datadir, 'commits-response.json')) as f:
-            resp = json.load(f)
-            lastest_commit = resp[0]['sha']
-            mock.get('https://api.github.com/repos/{}/commits'.format(repo), json=resp)
+        latest_commit = '0308dfed5be3beebe9ca777fc891b78b6ecf058b'
+        # with open(join(datadir, 'commits-response.json')) as f:
+        #     resp = json.load(f)
+        #     latest_commit = resp[0]['sha']
+        #     mock.get('https://api.github.com/repos/{}/commits'.format(repo), json=resp)
 
         with open(join(datadir, 'step5-output.json')) as f:
             input = pipeline_data_from_dict(json.load(f))
 
         step = CleanPairs()
         gh = GitHubWrapper(GITHUB_TOKENS)
-        output = step.process(input, {'repo': repo, 'github_api': gh, 'utils': None})
+        output = step.process(input, {'repo': repo, 'head_commit': latest_commit, 'utils': None})
 
         for group in output.values():
             for pair in group.pairs:
-                self.assertEqual(pair.repo_mined_version, lastest_commit)
+                self.assertEqual(pair.repo_mined_version, latest_commit)
 
     ## Helpers ##
 
