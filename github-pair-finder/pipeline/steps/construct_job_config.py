@@ -199,11 +199,17 @@ def expand_job_matrixes(workflow: dict):
 
             # All keys not added by include rules. Used to generate job_api_name.
             default_keys = [key for key in job_matrix if key not in ['include', 'exclude']]
+            # If a matrix only contains 'include' rules, then Actions uses those includes to generate
+            # the API name.
+            default_keys_are_dynamic = default_keys == [] and 'include' in job_matrix
 
             # For each possible combination of matrix values, generate the corresponding API name.
             # (Note: reliant on the specific order itertools.product generates. In practice it works fine.)
             names_and_configs.append([])
             for combination in build_combinations(job_matrix):
+                if default_keys_are_dynamic:
+                    default_keys = list(combination.keys())
+
                 config = deepcopy(job)
                 config['strategy']['matrix'] = combination
                 job_api_name = get_job_api_name(job_base_api_name, combination, default_keys)
