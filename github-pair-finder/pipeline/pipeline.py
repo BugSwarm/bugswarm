@@ -16,5 +16,6 @@ class Pipeline:
                 return None, in_context
             except Exception as e:
                 log.error(e)
+                log.error("Exiting this thread's pipeline due to the previous error.")
                 raise e
         return data, in_context

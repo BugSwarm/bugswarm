@@ -55,7 +55,7 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
     for match in re.finditer(MATRIX_INTERPOLATE_REGEX, intermediate_name):
         # Handle dot-indexing of nested dicts.
         # e.g. ${{ matrix.foo.bar }} -> matrix_combination['foo']['bar']
-        keys = match.group(1).split('.')
+        keys = [key.lower() for key in match.group(1).split('.')]
         value = matrix_combination
         for key in keys:
             value = value[key] if isinstance(value, dict) and key in value else ''
@@ -86,6 +86,23 @@ def partial_match(d1, d2):
     return True
 
 
+def lowercase_dict_keys(d):
+    """
+    Recursively convert all string keys in `d` to lowercase.
+    """
+    if isinstance(d, dict):
+        lowercased = {}
+        for k, v in d.items():
+            if isinstance(k, str):
+                k = k.lower()
+            lowercased[k] = lowercase_dict_keys(v)
+        return lowercased
+    elif isinstance(d, list):
+        return [lowercase_dict_keys(x) for x in d]
+    else:
+        return d
+
+
 def build_combinations(job_matrix):
     """
     Given a GHA job matrix, generate all possible permutations of that
@@ -93,7 +110,7 @@ def build_combinations(job_matrix):
     """
 
     # Separate matrix includes and excludes
-    job_matrix = deepcopy(job_matrix)
+    job_matrix = lowercase_dict_keys(job_matrix)
     includes = excludes = []
     if 'include' in job_matrix:
         includes = job_matrix['include']
@@ -228,7 +245,7 @@ def expand_job_matrixes(workflow: dict):
     return sorted(names_and_configs, key=lambda l: len(l), reverse=True)
 
 
-def get_failed_step(failed_step_index: int, job_config: dict):
+def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     steps = job_config['steps']
 
     # The first step in the API is always "Set up job", which has no equivalent in the workflow file.
@@ -237,16 +254,44 @@ def get_failed_step(failed_step_index: int, job_config: dict):
 
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
-    if 'container' in job_config:
+    if 'container' in job_config or 'services' in job_config:
         index -= 1
 
     # For each unique docker image used by a `uses` step, an API step is added to the start called "Pull <image>".
     # No workflow file equivalent, so decrement.
-    dockerhub_steps = set((step['uses'] for step in job_config['steps']
-                           if 'uses' in step and step['uses'].startswith('docker://')))
+    dockerhub_steps = set(step['uses'] for step in steps
+                          if 'uses' in step and step['uses'].startswith('docker://'))
     index -= len(dockerhub_steps)
 
-    failed_step = steps[index]
+    # Some predefined actions run in a container; if that's the case, then an API step is added to the start called
+    # "Build <action name>". No workflow file equivalent, so decrement.
+    api_step_names = [step['name'] for step in api_steps]
+    build_steps = set(step['uses'] for step in steps
+                      if 'uses' in step and 'Build {}'.format(step['uses']) in api_step_names)
+    index -= len(build_steps)
+
+    try:
+        failed_step = steps[index]
+    except IndexError:
+        raise RecoverableException('Step index out of bounds (Unknown API step or wrong workflow file?)')
+
+    failed_step_name = None
+    if 'name' in failed_step:
+        matrix = job_config.get('strategy', {}).get('matrix', {})
+        # Interpolate matrix variables into the step's name.
+        failed_step_name = get_job_api_name(failed_step['name'], matrix, {})
+    elif 'uses' in failed_step:
+        failed_step_name = 'Run {}'.format(failed_step['uses'])
+    elif 'run' in failed_step:
+        failed_step_name = 'Run {}'.format(failed_step['run'].splitlines()[0])
+
+    if api_steps[failed_step_index]['name'] != failed_step_name and '${{' not in failed_step_name:
+        # The calculated step is different from the actual step, and it's not an interpolation issue.
+        raise RecoverableException(
+            'Error finding step index: names differ ("{}" != "{}")'.format(
+                api_steps[failed_step_index]['name'],
+                failed_step_name))
+
     if 'uses' in failed_step:
         return 'uses', failed_step['uses']
     elif 'run' in failed_step:
@@ -342,8 +387,10 @@ class ConstructJobConfig:
 
                         if target_job.failed_step_index is not None:
                             try:
-                                kind, command = get_failed_step(target_job.failed_step_index, job_config)
+                                kind, command = get_failed_step(
+                                    target_job.failed_step_index, job_config, target_job.steps)
                             except RecoverableException as e:
+                                log.warning('Error getting failed step for job {}:'.format(target_job.job_id))
                                 log.warning(e)
                                 continue
                             target_job.failed_step_kind = kind

@@ -44,7 +44,8 @@ class GroupJobs:
                     job['language'],
                     job['result'],
                     job['job_name'],
-                    job['failed_step_number'])
+                    job['failed_step_number'],
+                    job['steps'])
                 build.jobs.append(j)
 
         for group in groups.values():

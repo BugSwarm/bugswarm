@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from bugswarm.common import log
@@ -169,7 +170,7 @@ def thread_main(repo, task_name, args):
 
     if not data:
         log.info('Skipping', repo, 'since the pipeline exited early.')
-        return
+        return False
 
     # Set up mined project statistics
     (mined_push_build_pairs, mined_push_job_pairs,
@@ -213,7 +214,8 @@ def thread_main(repo, task_name, args):
     write_json(original_metrics_path, out_context['original_mined_project_metrics'])
     log.info('Wrote original metrics to', original_metrics_path)
 
-    log.info('Pipeline finished!')
+    log.info('Finished processing {}!'.format(repo))
+    return True
 
 
 def main():
@@ -234,14 +236,35 @@ def main():
         task_name = args['repo'].replace('/', '-')
 
     with ThreadPoolExecutor(max_workers=args['threads']) as exe:
-        futures = [exe.submit(thread_main, repo, task_name, args) for repo in repos]
+        futures = {exe.submit(thread_main, repo, task_name, args): repo for repo in repos}
 
+    num_successful = 0
+    num_skipped = 0
+    tracebacks = []
     for future in as_completed(futures):
+        repo = futures[future]
         try:
-            future.result()
-        except Exception as e:
-            log.error(e)
-            raise
+            if future.result():
+                num_successful += 1
+            else:
+                num_skipped += 1
+        except Exception:
+            tracebacks.append((repo, traceback.format_exc()))
+
+    log.info()
+    log.info('=== SUMMARY ===')
+    log.info(len(futures), 'repo(s) processed.', num_successful, 'succeeded,', num_skipped, 'got skipped, and',
+             len(tracebacks), 'errored.')
+
+    for repo, tb in tracebacks:
+        log.error(repo, 'encountered the following exception:')
+        for line in tb.splitlines():
+            log.error(line)
+
+    if num_successful == 0:
+        log.error('Pipeline finished, but no repos were successfully mined.')
+        return 1
+    log.info('Pipeline finished!')
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from os.path import join
 
@@ -189,8 +190,8 @@ class TestPipeline(unittest.TestCase):
                 actual_failed_build = output[group_id]['pairs'][i]['failed_build']
                 expected_passed_build = expected_output[group_id]['pairs'][i]['passed_build']
                 actual_passed_build = output[group_id]['pairs'][i]['passed_build']
-                self.assertEqual(expected_failed_build['jobs'], actual_failed_build['jobs'])
-                self.assertEqual(expected_passed_build['jobs'], actual_passed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_failed_build['jobs'], actual_failed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_passed_build['jobs'], actual_passed_build['jobs'])
 
     def test_expand_config_matrix_with_includes_1(self):
         input_job = {
@@ -381,6 +382,35 @@ class TestPipeline(unittest.TestCase):
         output = expand_job_matrixes(input_job)
         actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
         self.assertEqual(expected_matrixes, actual_matrixes)
+
+    @requests_mock.Mocker()
+    def test_step_name_interpolation(self, mock: requests_mock.Mocker):
+        repo = 'exadel-inc/etoolbox-authoring-kit'
+        datadir = join(DATA_DIR, repo.replace('/', '-'))
+
+        with open(join(datadir, 'workflow.yml')) as f:
+            workflow_text = f.read()
+
+        workflow_url = re.compile(
+            r'^https://raw\.githubusercontent\.com/{}/.*/\.github/workflows/tests\.yml'.format(repo))
+        mock.get(workflow_url, text=workflow_text)
+
+        input_path = join(datadir, 'extract-build-pairs-output.json')
+        output_path = join(datadir, 'construct-job-config-output.json')
+        input = pipeline_data_from_dict(read_json(input_path))
+        expected_output = read_json(output_path)
+
+        step = ConstructJobConfig()
+        output = to_dict(step.process(input, {'repo': repo}))
+
+        for group_id in output:
+            for i in range(len(output[group_id]['pairs'])):
+                expected_failed_build = expected_output[group_id]['pairs'][i]['failed_build']
+                actual_failed_build = output[group_id]['pairs'][i]['failed_build']
+                expected_passed_build = expected_output[group_id]['pairs'][i]['passed_build']
+                actual_passed_build = output[group_id]['pairs'][i]['passed_build']
+                self.assertRecursiveDictSubset(expected_failed_build['jobs'], actual_failed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_passed_build['jobs'], actual_passed_build['jobs'])
 
     ## AlignJobPairs ##
 
