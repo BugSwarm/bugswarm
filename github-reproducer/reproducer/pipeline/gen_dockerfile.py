@@ -19,30 +19,33 @@ def gen_dockerfile(image_tag: str, job_id: str, destination: str = None):
     :param job_id: The job ID identifying the original Travis job.
     :param destination: Path where the generated Dockerfile should be written.
     """
-    log.info('Selecting Docker image to use for reproducing this job.')
+    log.info('Use Docker image {} for job runner.'.format(image_tag))
 
-    # TODO: Remove this block to other file.
     destination = destination or job_id + '-Dockerfile'
-    image_tags = {
-        'ubuntu-latest': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
-        'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
-        'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04'
-    }
-
-    if image_tag not in image_tags:
-        base_image = image_tags['ubuntu-latest']
-        log.debug('Unknown GitHub image tag {}, use {} instead'.format(image_tag, base_image))
-    else:
-        base_image = image_tags[image_tag]
-        log.debug('GitHub image tag is {}, use base image {}'.format(image_tag, base_image))
-
-    _write_dockerfile(destination, base_image, job_id)
+    _write_dockerfile(destination, image_tag, job_id)
     log.debug('Wrote Dockerfile to {}'.format(destination))
 
 
 def _write_dockerfile(destination: str, base_image: str, job_id: str):
+    job_runner = base_image.startswith('bugswarm/githubactionsjobrunners')
+
+    # TODO: CentOS, RHEL base image
     lines = [
         'FROM {}'.format(base_image),
+        ]
+
+    if not job_runner:
+        # If we are running in container image, then we need to install the following tools:
+        # cat (for build script), node (for custom actions)
+        lines += [
+            'RUN apt-get update && apt-get -y install sudo curl coreutils',
+            'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
+            'RUN apt-get install -y nodejs'
+        ]
+
+    lines += [
+        # If we are not using BugSwarm's job runner, then install sudo (for following commands),
+        # cat (for build script), node (for custom actions), and vim (help debug), otherwise install vim only.
         # Remove PPA and clean APT
         'RUN sudo rm -rf /var/lib/apt/lists/*',
         'RUN sudo rm -rf /etc/apt/sources.list.d/*',
@@ -50,22 +53,28 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev',
-        # TODO: Install vim for dev
-        'RUN sudo apt-get install vim',
+        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev',
+
+        'RUN echo "TERM=dumb" >> /etc/environment',
 
         # Otherwise: docker: Error response from daemon: unable to find user github: no matching entries in passwd file.
         'RUN useradd -ms /bin/bash github',
 
+        # TODO: Do we need linuxbrew (it is huge)?
+        # Let user own the entire /home directory to avoid permission issue.
+        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
+        'RUN chown github:github /home /home/github' if job_runner else 'RUN chown -R github:github /home',
+
         # Add the repository.
         'ADD repo-to-docker.tar /home/github/build/',
-        'RUN chmod 777 -R /home/github/build',
+        'RUN chown -R github:github /home/github/build',
 
         # Add the build script and predefined actions.
-        'ADD {}/run.sh /usr/local/bin/'.format(job_id),
-        'ADD {}/actions /home/github/actions'.format(job_id),
-        'RUN chmod ugo+x /usr/local/bin/run.sh',
-        'RUN chmod -R 777 /home/github/actions',
+        'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),
+        'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(job_id, job_id),
+        'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(job_id, job_id),
+        'RUN chmod 777 /usr/local/bin/run.sh',
+        'RUN chmod -R 777 /home/github/{}'.format(job_id),
 
         # TODO: Find this doc
         # Set the user to use when running the image. Our Google Drive contains a file that explains why we do this.

@@ -60,7 +60,7 @@ def _get_original_result(analyzer, utils, job_id, trigger_sha, repo):
     if not os.path.isfile(original_log_path):
         log.debug('Original log not found at {}.'.format(original_log_path))
         log.info('Download original log.')
-        if not download_log(job_id, original_log_path):
+        if not download_log(job_id, original_log_path, repo=repo):
             log.info('Could not download original log.')
             return None, original_log_path
 

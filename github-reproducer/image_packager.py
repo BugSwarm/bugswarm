@@ -87,6 +87,7 @@ class ImagePackager(JobDispatcher):
         start_time = time.time()
         for j in jobpair.jobs:
             self.utils.setup_jobpair_dir(j)
+            # We will skip this step if we already had the files in our output/tasks directory.
             gen_files_for_job(self, j, True)
         # Create and push a Docker image to Docker Hub.
         package_jobpair_image(self.utils, self.docker, jobpair)

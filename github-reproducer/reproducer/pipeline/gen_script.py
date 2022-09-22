@@ -10,10 +10,9 @@ from reproducer.pipeline.github.github_builder import GitHubBuilder
 # from reproducer.reproduce_exception import ReproduceError
 
 
-# TODO: Generate our own build script
 def gen_script(utils, job, dependence_solver):
     """
-    Invoke travis-build to generate the build script.
+    Invoke GitHub builder to generate the build script.
     """
     reproducing_dir = utils.get_reproducing_repo_dir(job)
     builder = GitHubBuilder(job, os.path.join(reproducing_dir, 'reproduce_tmp', job.job_id), utils)

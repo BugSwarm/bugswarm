@@ -93,13 +93,6 @@ def setup_repo(job, utils, job_dispatcher):
     else:
         log.debug('Job', job_id, 'is already set up.')
 
-    # TODO: Check if workflow file exists in the repository.
-    # Lastly, check if .travis.yml exists in the repository. If not, skip.
-    """
-    if not os.path.isfile(os.path.join(job_dispatcher.utils.get_reproducing_repo_dir(job), '.travis.yml')):
-        raise ReproduceError('Cannot find .travis.yml in repository. Skipping.')
-    """
-
 
 def clone_project_repo_if_not_exists(utils, job):
     if not utils.check_if_project_repo_exist(job.repo):
@@ -122,7 +115,7 @@ def copy_and_reset_repo(job, utils):
         tar.add(utils.get_repo_storage_dir(job), arcname=job.repo)
     repo_tar_obj = tarfile.TarFile(name=utils.get_project_storage_repo_tar_path(job))
     utils.clean_workspace_job_dir(job)
-    repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))
+    repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))  # TODO: This line causes missing or bad subsequent header
     # git reset the workspace repository.
     repo = git.Repo(utils.get_reproducing_repo_dir(job))
     # GitHub pipeline doesn't need to reset and merge PR jobs.

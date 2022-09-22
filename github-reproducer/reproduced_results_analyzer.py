@@ -158,7 +158,7 @@ class ReproducedResultsAnalyzer(object):
                                 job_name = 'failed_job' if i == 0 else 'passed_job'
                                 job_id = jp[job_name]['job_id']
                                 original_log_path = self.utils.get_orig_log_path(job_id)
-                                if not download_log(job_id, original_log_path):
+                                if not download_log(job_id, original_log_path, repo=repo):
                                     continue
                                 original_result = self.analyzer.analyze_single_log(original_log_path, job_id,
                                                                                    trigger_sha, repo)

@@ -68,7 +68,6 @@ class DockerWrapper(object):
     def build_image(self, path, dockerfile, full_image_name):
         image = None
         try:
-            # TODO: Travis pipeline doesn't remove intermediate containers?
             # Future improvement: build 2 temporary containers (Ubuntu 18.04/20.04) before we start the job, and remove
             # them after we reproduced all jobs. This will speed up the building process.
             image = self.client.images.build(path=path, dockerfile=dockerfile, tag=full_image_name, rm=True,
@@ -127,8 +126,10 @@ class DockerWrapper(object):
         container_runtime = 0
         try:
             # TODO: Find out why we use CPU_COUNT = 2?
-            container = self.client.containers.run(image, detach=True, cpu_count=2, mem_limit='4g',
-                                                   tty=True)  # privileged=True
+            # TODO: Find a good memory limit
+            # TTY: https://github.com/actions/runner/issues/241
+            container = self.client.containers.run(image, detach=True, cpu_count=2, mem_limit='32g',
+                                                   tty=False)  # privileged=True
         except docker.errors.ImageNotFound:
             log.error('Docker image not found.')
             return 1

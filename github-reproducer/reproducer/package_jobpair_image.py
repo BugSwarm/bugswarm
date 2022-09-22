@@ -5,7 +5,6 @@ from bugswarm.common import log
 from bugswarm.common.log_downloader import download_log
 
 from reproducer.docker_wrapper import DockerWrapper
-from reproducer.model.job import Job
 from reproducer.model.jobpair import JobPair
 from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError
@@ -23,6 +22,7 @@ def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair)
     docker.build_image(utils.get_abs_jobpair_dir(jobpair.jobs[0]),
                        utils.get_abs_jobpair_dockerfile_path(jobpair),
                        full_image_name)
+
     docker.push_image(image_tag)
 
     _clean_after_package(utils, docker, jobpair, full_image_name)
@@ -38,41 +38,33 @@ def _copy_repo_tar(utils: Utils, jobpair: JobPair):
 def _copy_original_log(utils: Utils, jobpair: JobPair):
     for j in jobpair.jobs:
         original_log_path = utils.get_orig_log_path(j.job_id)
-        if not download_log(j.job_id, original_log_path):
+        if not download_log(j.job_id, original_log_path, repo=j.repo):
             raise ReproduceError('Error while copying the original log for {}.'.format(j.job_id))
         utils.copy_orig_log_into_jobpair_dir(j)
 
 
-def _replace_repo_path(job: Job, l: str):
-    if job.is_failed == 'failed':
-        return l.replace(job.repo, 'failed/' + job.repo)
-    else:
-        return l.replace(job.repo, 'passed/' + job.repo)
-
-
 def _modify_script(utils: Utils, jobpair: JobPair):
     for j in jobpair.jobs:
-        script_path = join(utils.get_jobpair_dir(jobpair.jobs[0]), j.job_id + '.sh')
+        script_path = join(utils.get_jobpair_dir(jobpair.jobs[0]), j.job_id, 'run.sh')
         if not isfile(script_path):
             log.error('Script file not found at', script_path)
             return 1
 
         lines = []
         with open(script_path) as f:
-            found_cd_line = False
-            for l in f:
-                if r'travis_cmd cd\ ' + j.repo in l:
-                    found_cd_line = True
-                    lines.append(_replace_repo_path(j, l))
-                elif 'export TRAVIS_BUILD_DIR=$HOME/build/' in l:
-                    lines.append(_replace_repo_path(j, l))
+            found_build_path = False
+            for line in f:
+                if not found_build_path and line.startswith('export BUILD_PATH='):
+                    # Usually is the second line.
+                    lines.append('export BUILD_PATH={}\n'.format('/home/github/build/{}/{}'.format(j.is_failed, j.repo)))
+                    found_build_path = True
                 else:
-                    lines.append(l)
+                    lines.append(line)
 
-            if not found_cd_line:
-                raise ReproduceError('found_cd_line is False for {}'.format(j.job_id))
+            if not found_build_path:
+                raise ReproduceError('found_build_path is False for {}'.format(j.job_id))
 
-        with open(join(utils.get_jobpair_dir(jobpair.jobs[0]), j.job_id + '-p.sh'), 'w') as f:
+        with open(join(utils.get_jobpair_dir(jobpair.jobs[0]), j.job_id, 'run.sh'), 'w') as f:
             for l in lines:
                 f.write(l)
 
@@ -94,8 +86,23 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
     if failed_lines[0] != passed_lines[0]:
         raise ReproduceError('The failed job and the passed job used different Travis Docker images.')
 
+    job_runner = failed_lines[0].startswith('FROM bugswarm/githubactionsjobrunners')
+
+    # TODO: CentOS, RHEL base image
     lines = [
-        failed_lines[0],
+        failed_lines[0],  # Base image
+    ]
+
+    if not job_runner:
+        # If we are running in container image, then we need to install the following tools:
+        # cat (for build script), node (for custom actions)
+        lines += [
+            'RUN apt-get update && apt-get -y install sudo curl coreutils',
+            'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
+            'RUN apt-get install -y nodejs'
+        ]
+
+    lines += [
         # Remove PPA and clean APT
         'RUN sudo rm -rf /var/lib/apt/lists/*',
         'RUN sudo rm -rf /etc/apt/sources.list.d/*',
@@ -103,25 +110,45 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev',
+        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev',
+
+        'RUN echo "TERM=dumb" >> /etc/environment',
+
+        # Otherwise: docker: Error response from daemon: unable to find user GitHub: no matching entries in passwd file.
+        'RUN useradd -ms /bin/bash github',
+
+        # TODO: Do we need linuxbrew (it is huge)?
+        # Let user own the entire /home directory to avoid permission issue.
+        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
+        'RUN chown github:github /home /home/github' if job_runner else 'RUN chown -R github:github /home',
 
         # Add the repositories.
-        'ADD failed.tar /home/travis/build/failed/',
-        'ADD passed.tar /home/travis/build/passed/',
+        'ADD failed.tar /home/github/build/failed/',
+        'ADD passed.tar /home/github/build/passed/',
+        'RUN chown -R github:github /home/github/build/',
 
         # Add the original logs.
-        'ADD {}-orig.log /home/travis/build/'.format(failed_job_id),
-        'ADD {}-orig.log /home/travis/build/'.format(passed_job_id),
-        'RUN chmod 777 -R /home/travis/build',
+        'ADD {}-orig.log /home/github/build/'.format(failed_job_id),
+        'ADD {}-orig.log /home/github/build/'.format(passed_job_id),
 
-        # Add the build scripts.
-        'ADD {}-p.sh /usr/local/bin/run_failed.sh'.format(failed_job_id),
-        'ADD {}-p.sh /usr/local/bin/run_passed.sh'.format(passed_job_id),
-        'RUN chmod +x /usr/local/bin/run_failed.sh',
-        'RUN chmod +x /usr/local/bin/run_passed.sh',
+        # Add the build scripts and predefined action.
+        'ADD --chown=github:github {}/run.sh /usr/local/bin/run_failed.sh'.format(failed_job_id),
+        'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(failed_job_id, failed_job_id),
+        'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(failed_job_id, failed_job_id),
+        'RUN chmod 777 /usr/local/bin/run_failed.sh',
+        'RUN chmod -R 777 /home/github/{}'.format(failed_job_id),
+
+        'ADD --chown=github:github {}/run.sh /usr/local/bin/run_passed.sh'.format(passed_job_id),
+        'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(passed_job_id, passed_job_id),
+        'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(passed_job_id, passed_job_id),
+        'RUN chmod 777 /usr/local/bin/run_passed.sh',
+        'RUN chmod -R 777 /home/github/{}'.format(passed_job_id),
 
         # Set the user to use when running the image.
-        'USER travis',
+        'USER github',
+
+        # Need bash, otherwise: Syntax error: redirection unexpected
+        'ENTRYPOINT ["/bin/bash"]',
     ]
     # Append a newline to each line and then concatenate all the lines.
     content = ''.join(map(lambda l: l + '\n', lines))

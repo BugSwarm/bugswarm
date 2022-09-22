@@ -18,7 +18,7 @@ class Job(object):
         self.travis_merge_sha = build.travis_merge_sha
         self.resettable = build.resettable
         self.github_archived = build.github_archived
-        self.is_failed = 'failed' if build.is_failed else 'passed'
+        self.is_failed = 'failed' if build.is_failed else 'passed'  # TODO: WHY NOT BOOLEAN???
         if build.buildpair.pr_num != -1:
             self.is_pr = True
         else:

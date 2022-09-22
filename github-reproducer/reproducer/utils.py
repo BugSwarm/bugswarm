@@ -189,12 +189,15 @@ class Utils(object):
         return 'run.sh'
 
     def get_build_sh_path(self, job, reproduce_tmp_path=None):
+        return os.path.join(self.get_build_dir_path(job, reproduce_tmp_path), Utils.construct_build_sh_name(job))
+
+    def get_build_dir_path(self, job, reproduce_tmp_path=None):
         if not reproduce_tmp_path:
             reproduce_tmp_path = self.get_reproduce_tmp_dir(job)
-        return os.path.join(reproduce_tmp_path, Utils.construct_build_sh_name(job))
+        return os.path.join(reproduce_tmp_path, job.job_id)
 
     def get_build_sh_path_in_task(self, job):
-        return os.path.join(self.get_jobpair_dir(job), Utils.construct_build_sh_name(job))
+        return os.path.join(self.get_jobpair_dir(job), job.job_id, Utils.construct_build_sh_name(job))
 
     def copy_build_sh_from_task_into_workspace(self, job):
         shutil.copy(self.get_build_sh_path_in_task(job), self.get_build_sh_path(job))
@@ -265,6 +268,11 @@ class Utils(object):
     def copy_build_sh_into_current_task_dir(self, job):
         shutil.copy(self.get_build_sh_path(job), self.get_jobpair_dir(job))
 
+    def copy_build_dir_into_current_task_dir(self, job):
+        if os.path.exists(os.path.join(self.get_jobpair_dir(job), job.job_id)):
+            shutil.rmtree(os.path.join(self.get_jobpair_dir(job), job.job_id))
+        shutil.copytree(self.get_build_dir_path(job), os.path.join(self.get_jobpair_dir(job), job.job_id))
+
     def copy_travis_build_log_into_current_task_dir(self, job):
         shutil.copy(self.get_travis_build_log_path(job), self.get_jobpair_dir(job))
 
@@ -286,6 +294,10 @@ class Utils(object):
         dst = os.path.join(self.get_jobpair_dir(job), 'repo', 'reproduce_tmp', job.build_job)
         os.makedirs(dst, exist_ok=True)
         shutil.copy(build_sh, dst)
+
+    def copy_reproducing_repo_dir(self, job, dest):
+        # Copy reproducing repo directory into dest, but ignore reproduce_tmp directory.
+        shutil.copytree(self.get_reproducing_repo_dir(job), dest, ignore=shutil.ignore_patterns('reproduce_tmp'))
 
     # --------------------------------------------
     # ---------- Other helper functions ----------
@@ -471,3 +483,29 @@ class Utils(object):
             except json.JSONDecodeError:
                 log.error('Cannot replace matrix values.')
         return config
+
+    @staticmethod
+    def get_image_tag(config: dict) -> str:
+        # Given job's config
+        # Get job runner's image tag, and return BugSwarm's Ubuntu 20.04 image if failed.
+        bugswarm_image_tags = {
+            'ubuntu-latest': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
+            'ubuntu-22.04': 'bugswarm/githubactionsjobrunners:ubuntu-22.04-aug2022',
+            'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
+            'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04',
+        }
+
+        runs_on = config.get('runs-on', None)
+        container = config.get('container', None)
+        if runs_on:
+            # This will only handle very basic container image
+            # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+            if isinstance(container, str):
+                return container
+            if isinstance(container, dict) and 'image' in container:
+                return container['image']
+
+            if runs_on in bugswarm_image_tags:
+                return bugswarm_image_tags[runs_on]
+
+        return bugswarm_image_tags['ubuntu-latest']

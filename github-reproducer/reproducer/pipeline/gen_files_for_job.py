@@ -5,7 +5,6 @@ from bugswarm.common.log_downloader import download_log
 from reproducer.pipeline.setup_repo import setup_repo
 from reproducer.pipeline.setup_repo import tar_repo
 # TODO: Add them to the pipeline
-# from reproducer.pipeline.modify_build_sh import modify_build_sh
 # from reproducer.pipeline.modify_build_sh import patch_build_script
 from reproducer.pipeline.gen_dockerfile import gen_dockerfile
 from reproducer.pipeline.gen_script import gen_script
@@ -31,6 +30,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     :param job_dispatcher:
     :param job:
     :param copy_files:
+    :param build_path:
     """
     job_dispatcher.utils.setup_jobpair_dir(job)
 
@@ -58,14 +58,13 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
 
     # STEP 2: Download the original log if we do not yet have it.
     original_log_path = job_dispatcher.utils.get_orig_log_path(job.job_id)
-    download_log(job.job_id, original_log_path, repo=job.repo)
+    if not isfile(original_log_path):
+        download_log(job.job_id, original_log_path, repo=job.repo)
 
-    # STEP 3: Generate the build script with travis-build and then modify and patch it.
+    # STEP 3: Generate the build script with GitHub builder and then modify and patch it.
     build_sh_path = job_dispatcher.utils.get_build_sh_path(job)
     if not isfile(build_sh_path):
         gen_script(job_dispatcher.utils, job, dependency_solver)
-        # TODO: Probably don't need this step anymore since we generate the build script ourselves.
-        # modify_build_sh(job.repo, build_sh_path)
         # Attempt to patch any deprecated links in build script
         modify_deprecated_links(build_sh_path)
         # Check if job is java and is jdk7. If so, then patch the build.sh file by adding flags to mvn command to use
@@ -92,11 +91,12 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
 
 
 def _copy_workspace_files(utils, job):
-    # Copy build.sh if it exists. Otherwise, copy the travis-build log if it exists.
+    # Copy build directory if it exists.
     if utils.check_if_build_sh_exist(job):
-        utils.copy_build_sh_into_current_task_dir(job)
-    elif utils.check_if_travis_build_log_exist(job):
-        utils.copy_travis_build_log_into_current_task_dir(job)
+        try:
+            utils.copy_build_dir_into_current_task_dir(job)
+        except FileExistsError:
+            pass
 
     # Copy the Dockerfile.
     if utils.check_if_dockerfile_exist(job):

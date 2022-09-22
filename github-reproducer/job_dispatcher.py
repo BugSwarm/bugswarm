@@ -202,21 +202,6 @@ class JobDispatcher(object):
             self.error_reasons = read_json(self.utils.get_error_reason_file_path())
         self.error_reasons = self.manager.dict(self.error_reasons)
 
-        # TODO: Remove this
-        # Check if commands to Travis work.
-        """
-        if not Utils.is_travis_installed():
-            log.error(colored('Commands to Travis are failing unexpectedly. Try restarting your shell and ensure your '
-                              'environment is provisioned correctly. Also try restarting your shell.', 'red'))
-            raise Exception('Unexpected state: Commands to Travis are failing unexpectedly.')
-        # Read travis_images.json.
-        try:
-            self.travis_images = read_json(self.config.travis_images_json)
-        except FileNotFoundError:
-            log.error(colored(self.config.travis_images_json + ' not found. Exiting.', 'red'))
-            raise
-        """
-
     def pre_run(self):
         """
         Called before any items have been processed.
