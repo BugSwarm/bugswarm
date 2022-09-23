@@ -1,22 +1,24 @@
-import uuid
 import shlex
+
 from bugswarm.common import log
+from reproducer.model.step import Step
+
 from .github_builder import GitHubBuilder
 
 
-def generate(github_builder: GitHubBuilder, steps, output_path, setup=True):
+def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, setup=True):
     # path to the source code
     if setup:
         lines = [
             '#!/usr/bin/env bash',
-            'export BUILD_PATH={}'.format(github_builder.build_path),
+            'export GITHUB_WORKSPACE={}'.format(github_builder.build_path),
             '',
             'set -o allexport',
             'source /etc/environment',
             'set +o allexport',
             '',
             # So we can run this script anywhere.
-            'cd ${BUILD_PATH}',
+            'cd ${GITHUB_WORKSPACE}',
             '',
             # Analyzer needs this header to get OS.
             'echo "##[group]Operating System"',
@@ -28,7 +30,8 @@ def generate(github_builder: GitHubBuilder, steps, output_path, setup=True):
             # Predefined actions need this directory.
             'mkdir -p /home/github/workflow/',
             '',
-            'cp -a /home/github/{}/steps/. ${{BUILD_PATH}}/'.format(github_builder.job.job_id),
+            'cp -a /home/github/{}/steps/. ${{GITHUB_WORKSPACE}}/'.format(github_builder.job.job_id),
+            'cp /home/github/{}/event.json /home/github/workflow/event.json'.format(github_builder.job.job_id),
             '',
             'CURRENT_ENV=\'\'',
             'PREVIOUS_STEP_FAILED=false'
@@ -41,20 +44,18 @@ def generate(github_builder: GitHubBuilder, steps, output_path, setup=True):
             'source /etc/environment',
             'set +o allexport',
             '',
-            'cd ${BUILD_PATH}',
+            'cd ${GITHUB_WORKSPACE}',
             'CURRENT_ENV=\'\'',
             'PREVIOUS_STEP_FAILED=false'
         ]
 
     for s in steps:
-        # s is None or (Step number: str, Step name: str, Custom command: bool, Command to set up: str,
-        # Command to run: str, Step environment variables: str, Step workflow data: dict)
+        # s is None or a Step object
         if s is not None:
-            step_number, step_name, is_custom_command, setup_command, run_command, envs, working_dir, step = s
-            log.debug('Generate build script for step {} (#{})'.format(step_name, step_number))
+            log.debug('Generate build script for step {} (#{})'.format(s.name, s.number))
 
             # Handle super basic if condition (always() and failure())
-            step_if_condition = step['if'] if 'if' in step else ''
+            step_if_condition = s.step['if'] if 'if' in s.step else ''
 
             if 'always()' in step_if_condition:
                 condition = 'true'
@@ -65,17 +66,13 @@ def generate(github_builder: GitHubBuilder, steps, output_path, setup=True):
 
             lines.append('if [[ {} ]]; then'.format(condition))
 
-            lines.append('echo {}'.format(shlex.quote("##[group]{}".format(step_name))))
+            lines.append('echo {}'.format(shlex.quote("##[group]{}".format(s.name))))
             # TODO: Add group details.
             lines.append('echo "##[endgroup]"')
 
-            # Setup environment variable
-            if envs != '':
-                lines.append('CURRENT_ENV={} '.format(shlex.quote(envs)))
-
             # TODO: Fix spacing
             lines += [
-                '',
+                'CURRENT_ENV=""',
                 # If we have envs.txt file
                 'if [ -f /home/github/workflow/envs.txt ]; then',
                 # Use bash to convert DELIMITER list to env list
@@ -140,34 +137,36 @@ def generate(github_builder: GitHubBuilder, steps, output_path, setup=True):
                 'fi'
             ]
 
-            if setup_command:
-                lines.append(setup_command)
+            continue_on_error = 'continue-on-error' in s.step and s.step['continue-on-error']
+            filepath = '${GITHUB_WORKSPACE}/' + s.filename
 
-            continue_on_error = 'continue-on-error' in step and step['continue-on-error']
+            # Setup command for predefined action
+            # See https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runspre
+            if s.setup_cmd:
+                lines += [
+                    'echo ' + s.setup_cmd + ' > ' + filepath,
+                    'chmod u+x ' + filepath,
+                    'env ' + s.envs + ' ${CURRENT_ENV} ' + s.exec_template.format(filepath)
+                ]
+
             lines += [
-                'RUN_UUID={}'.format(str(uuid.uuid4())),
-                # Put commands to ${RUN_UUID}.sh, and run it.
-                # We need ${RUN_UUID}.sh, running `env .. command` doesn't work.
-                'if [[ $CURRENT_ENV != \'\' ]]; then',
-                '  echo "env ${CURRENT_ENV}' + run_command + '" > ${BUILD_PATH}/${RUN_UUID}.sh',
-                'else',
-                '  echo "${CURRENT_ENV}' + run_command + '" > ${BUILD_PATH}/${RUN_UUID}.sh',
-                'fi',
-                '',
-                'chmod u+x ${BUILD_PATH}/${RUN_UUID}.sh',
+                # Put commands into filepath, and run it.
+                # We need a separate file to put commands in, running `env .. command` doesn't work.
+                'echo ' + s.run_cmd + ' > ' + filepath,
+                'chmod u+x ' + filepath,
                 '',
                 # Change directory to working-directory
-                '' if not working_dir else 'pushd {} > /dev/null'.format(working_dir),
+                '' if not s.working_dir else 'pushd {} > /dev/null'.format(s.working_dir),
                 'EXIT_CODE=0',
                 'set -e',
-                '${BUILD_PATH}/${RUN_UUID}.sh || EXIT_CODE=$?',
+                'env ' + s.envs + ' ${CURRENT_ENV} ' + s.exec_template.format(filepath) + ' || EXIT_CODE=$?',
                 'set +e',
                 # Check previous command exit code
-                '' if not working_dir else 'popd > /dev/null',
+                '' if not s.working_dir else 'popd > /dev/null',
                 '',
                 'if [[ $EXIT_CODE != 0 ]]; then',
-                '	echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
-                '	{}'.format('' if continue_on_error else 'PREVIOUS_STEP_FAILED=true'),
+                '  echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
+                '  {}'.format('' if continue_on_error else 'PREVIOUS_STEP_FAILED=true'),
                 'fi',
                 ''
             ]

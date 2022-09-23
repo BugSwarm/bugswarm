@@ -1,20 +1,29 @@
 import os
-import yaml
+import re
 import shlex
+
+import git
+import yaml
 from bugswarm.common import log
-from reproducer.model.job import Job
 from bugswarm.common.credentials import GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
+from reproducer.model.context.root_context import RootContext
+from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError
+from reproducer.utils import Utils
 
 
 class GitHubBuilder:
 
-    def __init__(self, job: Job, location: str, utils):
+    def __init__(self, job: Job, location: str, utils: Utils):
         self.job = job
         self.location = location
         self.build_path = '/home/github/build/{}'.format(self.job.repo)
         self.utils = utils
+
+        self.contexts = RootContext(job)
+        self.action_name_counts = {}
+
         self.JOB_NAME = 'build'  # Set this to the correct value.
         self.WORKFLOW_NAME = ''
         self.WORKFLOW_PATH = None
@@ -23,6 +32,11 @@ class GitHubBuilder:
         self.WORKING_DIR = None  # Workflow's default working-directory
         self.GITHUB_BASE_REF = ''
         self.GITHUB_HEAD_REF = ''
+        self.ACTOR = ''
+        self.TRIGGERING_ACTOR = ''
+        self.REPOSITORY = {}
+        self.HEAD_COMMIT = {}
+        self.PR = False
 
         # Not used. PR num always = -1
         pr_num = self.job.build.buildpair.pr_num
@@ -30,6 +44,11 @@ class GitHubBuilder:
         self.GITHUB_REF_NAME = 'refs/pull/{}/merge'.format(pr_num) if pr_num > 0 else self.job.branch
 
         self.get_workflow_data()
+
+        from . import event_builder
+        self.event_builder = event_builder.EventBuilder(self)
+
+        self.init_contexts()
 
         # predefined actions directory
         os.makedirs(os.path.join(location, 'actions'), exist_ok=True)
@@ -43,9 +62,7 @@ class GitHubBuilder:
 
     def build(self):
         # Defer import to prevent circular dependencies
-        from . import custom_action
-        from . import predefined_action
-        from . import generate_build_script
+        from . import custom_action, generate_build_script, predefined_action
 
         log.debug('Building build script with {}'.format(self))
 
@@ -53,11 +70,6 @@ class GitHubBuilder:
         if 'steps' not in self.job.config or not isinstance(self.job.config['steps'], list):
             GitHubBuilder.raise_error(
                 'Encountered an error while generating the build script: steps attribute is missing from config.', 1)
-
-        # Merge job envs to workflow envs
-        if 'env' in self.job.config and isinstance(self.job.config['env'], dict):
-            job_envs = self.job.config['env']
-            self.ENVS = {**self.ENVS, **job_envs}
 
         # Set job's shell and working directory based on job['defaults']['run']
         if 'defaults' in self.job.config and 'run' in self.job.config['defaults']:
@@ -70,6 +82,7 @@ class GitHubBuilder:
         # Command to run: str, Step environment variables: str, Step workflow data: dict)
         steps = []
         for step_number, step in enumerate(self.job.config['steps']):
+            self.update_contexts(step_number, step)
             if 'uses' in step:
                 steps.append(predefined_action.parse(self, str(step_number), step, self.ENVS))
             elif 'run' in step:
@@ -77,6 +90,9 @@ class GitHubBuilder:
 
         log.debug('Generating build script... ({} steps)'.format(len(steps)))
         generate_build_script.generate(self, steps, output_path=os.path.join(self.location, 'run.sh'))
+
+        log.debug('Generating event.json')
+        self.event_builder.generate_json(os.path.join(self.location, 'event.json'))
 
     # TODO: Update PairFinder & get workflow file from BugSwarm's database.
     def get_workflow_data(self):
@@ -90,8 +106,21 @@ class GitHubBuilder:
         status, json_data = github_wrapper.get(run_url)
 
         try:
+            if 'actor' in json_data and 'login' in json_data['actor']:
+                self.ACTOR = json_data['actor']['login']
+
+            if 'triggering_actor' in json_data and 'login' in json_data['triggering_actor']:
+                self.TRIGGERING_ACTOR = json_data['triggering_actor']['login']
+
             if 'event' in json_data and json_data['event'] == 'pull_request':
                 self.GITHUB_HEAD_REF = json_data['head_branch']
+                self.PR = True
+
+            if 'repository' in json_data:
+                self.REPOSITORY = json_data['repository']
+
+            if 'head_commit' in json_data:
+                self.HEAD_COMMIT = json_data['head_commit']
 
                 try:
                     # pull_request is empty if base repo != head repo. Use the first one for now.
@@ -125,6 +154,66 @@ class GitHubBuilder:
             log.error('Failed to get job info from GitHub API due to invalid response.')
         except Exception as e:
             log.error('Failed to get job info from GitHub API due to {}'.format(repr(e)))
+
+    def init_contexts(self):
+        # Init github_context
+        self.contexts.github.actor = self.ACTOR
+        self.contexts.github.ref = self.GITHUB_REF
+        self.contexts.github.triggering_actor = self.TRIGGERING_ACTOR
+        self.contexts.github.workflow = self.WORKFLOW_NAME  # Workflow name = workflow path if we don't give it a name.
+        self.contexts.github.head_ref = self.GITHUB_HEAD_REF
+        self.contexts.github.base_ref = self.GITHUB_BASE_REF
+        self.contexts.github.event_name = 'pull_request' if self.PR else 'push'
+        self.contexts.github.event = self.event_builder.event
+
+    def update_contexts(self, step_number, step, parent_step=None, update_composite=True, reset_input=True):
+        # We set update_composite to False when we call update_contexts in composite action parser.
+        # Update github.action
+        if 'id' in step:
+            self.contexts.github.action = step['id']
+        elif 'uses' in step:
+            name = re.sub(r'\W+', '', step['uses'])
+            if name in self.action_name_counts:
+                self.action_name_counts[name] += 1
+                self.contexts.github.action = '{}{}'.format(name, self.action_name_counts[name])
+            else:
+                self.contexts.github.action = name
+                self.action_name_counts[name] = 1
+        else:
+            name = '__run'
+            if name in self.action_name_counts:
+                self.action_name_counts[name] += 1
+                self.contexts.github.action = '{}_{}'.format(name, self.action_name_counts[name])
+            else:
+                self.contexts.github.action = name
+                self.action_name_counts[name] = 1
+
+        self.contexts.github.action_repository = ''
+        self.contexts.github.action_ref = ''
+        if update_composite:
+            self.contexts.github.action_path = ''
+
+        if 'uses' in step:
+            from . import predefined_action
+            action_repo, action_ref, _, action_path_abs, _ = predefined_action.get_action_data(self, step)
+
+            if action_repo is not None:
+                self.contexts.github.action_repository = action_repo
+                self.contexts.github.action_ref = action_ref
+                if update_composite:
+                    # action_path only supported in composite actions. However, we don't know if a predefined action is
+                    # a composite action unless we run parse first. So we set this context to all predefined action.
+                    self.contexts.github.action_path = action_path_abs
+
+        # Update remaining github contexts
+        self.contexts.github.action_status = ''  # TODO status of composite action (Dynamic)
+
+        if reset_input:
+            # Reset input when we are not in composite action
+            self.contexts.inputs.update_inputs({})
+
+        # Update env context
+        self.contexts.env.update_env(self.ENVS, self.job, step, parent_step, self.contexts)
 
     @staticmethod
     def raise_error(message, return_code):

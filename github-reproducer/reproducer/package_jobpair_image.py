@@ -54,9 +54,11 @@ def _modify_script(utils: Utils, jobpair: JobPair):
         with open(script_path) as f:
             found_build_path = False
             for line in f:
-                if not found_build_path and line.startswith('export BUILD_PATH='):
+                if not found_build_path and line.startswith('export GITHUB_WORKSPACE='):
                     # Usually is the second line.
-                    lines.append('export BUILD_PATH={}\n'.format('/home/github/build/{}/{}'.format(j.is_failed, j.repo)))
+                    lines.append('export GITHUB_WORKSPACE={}\n'.format(
+                        '/home/github/build/{}/{}'.format(j.is_failed, j.repo))
+                    )
                     found_build_path = True
                 else:
                     lines.append(line)
@@ -132,15 +134,18 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         'ADD {}-orig.log /home/github/build/'.format(passed_job_id),
 
         # Add the build scripts and predefined action.
+        # TODO: Add event.json here
         'ADD --chown=github:github {}/run.sh /usr/local/bin/run_failed.sh'.format(failed_job_id),
         'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(failed_job_id, failed_job_id),
         'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(failed_job_id, failed_job_id),
+        'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(failed_job_id, failed_job_id),
         'RUN chmod 777 /usr/local/bin/run_failed.sh',
         'RUN chmod -R 777 /home/github/{}'.format(failed_job_id),
 
         'ADD --chown=github:github {}/run.sh /usr/local/bin/run_passed.sh'.format(passed_job_id),
         'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(passed_job_id, passed_job_id),
         'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(passed_job_id, passed_job_id),
+        'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(passed_job_id, passed_job_id),
         'RUN chmod 777 /usr/local/bin/run_passed.sh',
         'RUN chmod -R 777 /home/github/{}'.format(passed_job_id),
 

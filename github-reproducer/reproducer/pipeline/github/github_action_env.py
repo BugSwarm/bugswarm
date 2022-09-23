@@ -6,6 +6,9 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
     return {
         # Always set to true.
         'CI': True,
+        # A token to authenticate on behalf of the GitHub App installed on your repository.
+        # TODO: add option to input a read only token (set in bugswarm/common/credentials.py).
+        'GITHUB_TOKEN': 'DUMMY',
         # The name of the action currently running, or the id of a step. Ex: actionscheckout, __run
         'GITHUB_ACTION': step_number,  # TODO: Fix this
         # The path where an action is located. (composite actions)
@@ -15,7 +18,7 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         # Always set to true when GitHub Actions is running the workflow.
         'GITHUB_ACTIONS': True,
         # The name of the person or app that initiated the workflow.
-        'GITHUB_ACTOR': 'bugswarm/bugswarm',
+        'GITHUB_ACTOR': github_builder.ACTOR,
         'GITHUB_API_URL': 'https://api.github.com',
         # The name of the base ref or target branch of the pull request in a workflow run. (PR only)
         'GITHUB_BASE_REF': github_builder.GITHUB_BASE_REF,  # TODO: Still need to fix this.
@@ -56,9 +59,7 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         'GITHUB_STEP_SUMMARY': '',  # TODO: Fix this
         # The name of the workflow.
         'GITHUB_WORKFLOW': github_builder.WORKFLOW_NAME,
-        # The default working directory on the runner for steps,
-        # and the default location of your repository when using the checkout action.
-        'GITHUB_WORKSPACE': github_builder.build_path,
+        # GITHUB_WORKSPACE: Set in generate_build_script
         'RUNNER_ARCH': 'X64',
         'RUNNER_NAME': 'Bugswarm GitHub Actions Runner',  # Don't know which name to use.
         'RUNNER_OS': 'Linux',

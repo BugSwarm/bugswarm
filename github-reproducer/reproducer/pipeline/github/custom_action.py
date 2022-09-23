@@ -1,6 +1,11 @@
-import os
 import copy
+import os
+import shlex
+
 from bugswarm.common import log
+from reproducer.model.step import Step
+from reproducer.utils import Utils
+
 from . import github_action_env
 from .github_builder import GitHubBuilder
 
@@ -31,46 +36,36 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
 
     log.debug('Setting up build code for custom commands action #{}'.format(step_number))
 
-    if 'env' in step and isinstance(step['env'], dict):
-        step_envs = step['env']
-        envs = {**envs, **step_envs}
-
-    # Convert envs dictionary into a string
-    env_str = GitHubBuilder.get_env_str(github_envs, envs)
+    env_str = ''.join('{}={} '.format(k, shlex.quote(str(v))) for k, v in github_envs.items())
+    env_str += ''.join('{}={} '.format(k, shlex.quote(v)) for k, v in envs.items())
+    env_str += github_builder.contexts.env.to_env_str()
 
     shell = step['shell'] if 'shell' in step else github_builder.SHELL
     working_dir = step['working-directory'] if 'working-directory' in step else working_dir
 
     if shell is None:
         filename = 'bugswarm_{}.sh'.format(step_number)
-        run_command = 'bash -e {}'.format(filename)
+        exec_template = 'bash -e {}'
     elif shell == 'bash':
         filename = 'bugswarm_{}.sh'.format(step_number)
-        run_command = 'bash --noprofile --norc -eo pipefail {}'.format(filename)
+        exec_template = 'bash --noprofile --norc -eo pipefail {}'
     elif shell == 'python':
         filename = 'bugswarm_{}.py'.format(step_number)
-        run_command = 'python {}'.format(filename)
+        exec_template = 'python {}'
     elif shell == 'sh':
         filename = 'bugswarm_{}.sh'.format(step_number)
-        run_command = 'sh -e {}'.format(filename)
+        exec_template = 'sh -e {}'
     elif shell == 'pwsh':
         filename = 'bugswarm_{}.ps1'.format(step_number)
-        run_command = 'pwsh -command ". \'{}\'"'.format(filename)
+        exec_template = 'pwsh -command ". \'{}\'"'
     else:
         # Default, custom shell
         filename = 'bugswarm_{}.script'.format(step_number)
-        run_command = step['shell'].replace('{0}', filename)
-
-    if working_dir is not None:
-        # TODO: if working_dir starts with / then use absolute path. Skip if working_dir is '.'
-        working_dir_path = '${{BUILD_PATH}}/{}'.format(working_dir)
-        setup_command = 'chmod u+x {} && cp {} {}'.format(filename, filename, working_dir_path)
-    else:
-        setup_command = 'chmod u+x {}'.format(filename)
+        exec_template = step['shell']
 
     step_name = 'Run {}'.format(step['run'].partition('\n')[0])
 
-    with open(os.path.join(github_builder.location, 'steps', filename), 'w') as f:
-        f.write(step['run'])
+    run_command = Utils.substitute_expressions(github_builder.contexts, step['run'])
 
-    return step_number, step_name, True, setup_command, run_command, env_str, working_dir, step
+    return Step(step_name, step_number, True, None, run_command, env_str, step,
+                working_dir=working_dir, filename=filename, exec_template=exec_template)

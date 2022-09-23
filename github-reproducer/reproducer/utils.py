@@ -1,5 +1,6 @@
 import collections
 import os
+import shlex
 import shutil
 import subprocess
 import time
@@ -483,6 +484,44 @@ class Utils(object):
             except json.JSONDecodeError:
                 log.error('Cannot replace matrix values.')
         return config
+
+    @staticmethod
+    def substitute_expressions(root_context, s: str, shell_quote=True) -> str:
+        """
+        Given a string, substitutes ${{ expressions }} with their corresponding values.
+
+        If `shell_quote` is `True`, appropriately shell-quotes the output: everything
+        except dynamic variables that cannot be resolved at build time (e.g. job.status
+        but not github.action or github.workspace) is quoted. Dynamic variables are
+        resolved when the string is used in a shell script. If `False`, leaves everything
+        unquoted.
+        """
+        # TODO: More complicated expressions can't be evaluated with simple regex.
+        EXPRESSION_REGEX = re.compile(r'\${{\s*([\w\-.]+)\s*}}')
+
+        # We don't just use re.sub because we have to make sure that everything *except* dynamic variables
+        # is shell-quoted.
+        parts = ['']
+        idx = 0
+        for match in re.finditer(EXPRESSION_REGEX, s):
+            parts[-1] += s[idx:match.start()]
+            idx = match.end()
+            resolved_expr, is_dynamic = root_context.get(match[1], make_string=True)
+
+            if shell_quote and is_dynamic:
+                # Shell-quote the static part (if it's not an empty string), then move on to the dynamic part.
+                if parts[-1] != '':
+                    parts[-1] = shlex.quote(parts[-1])
+                parts.append(resolved_expr)
+                parts.append('')
+            else:
+                parts[-1] += resolved_expr
+
+        parts[-1] += s[idx:]
+        if shell_quote and parts[-1] != '':
+            parts[-1] = shlex.quote(parts[-1])
+
+        return ''.join(parts)
 
     @staticmethod
     def get_image_tag(config: dict) -> str:

@@ -32,7 +32,7 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
     # TODO: CentOS, RHEL base image
     lines = [
         'FROM {}'.format(base_image),
-        ]
+    ]
 
     if not job_runner:
         # If we are running in container image, then we need to install the following tools:
@@ -73,6 +73,7 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
         'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),
         'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(job_id, job_id),
         'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(job_id, job_id),
+        'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(job_id, job_id),
         'RUN chmod 777 /usr/local/bin/run.sh',
         'RUN chmod -R 777 /home/github/{}'.format(job_id),
 
