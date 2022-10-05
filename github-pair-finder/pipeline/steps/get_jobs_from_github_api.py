@@ -189,9 +189,9 @@ class GetJobsFromGitHubAPI:
 
         # If no jobs were found, exit early
         if not jobs:
-            api = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
-            api.set_latest_build_info_metric(
-                repo, 'github', latest_run_number, latest_run_id)
+            if latest_run_number and latest_run_id:
+                api = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
+                api.set_latest_build_info_metric(repo, 'github', latest_run_number, latest_run_id)
             raise StepException('No new jobs found for repo {}.'.format(repo))
 
         # Update context

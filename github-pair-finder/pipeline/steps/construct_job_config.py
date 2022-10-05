@@ -226,6 +226,8 @@ def expand_job_matrixes(workflow: dict):
             for combination in build_combinations(job_matrix):
                 if default_keys_are_dynamic:
                     default_keys = list(combination.keys())
+                else:
+                    default_keys = [key.lower() for key in default_keys]
 
                 config = deepcopy(job)
                 config['strategy']['matrix'] = combination
@@ -252,6 +254,8 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     # So, decrement the target index by 1.
     index = failed_step_index - 1
 
+    api_step_names = [step['name'] for step in api_steps]
+
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
     if 'container' in job_config or 'services' in job_config:
@@ -265,10 +269,22 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
 
     # Some predefined actions run in a container; if that's the case, then an API step is added to the start called
     # "Build <action name>". No workflow file equivalent, so decrement.
-    api_step_names = [step['name'] for step in api_steps]
     build_steps = set(step['uses'] for step in steps
                       if 'uses' in step and 'Build {}'.format(step['uses']) in api_step_names)
     index -= len(build_steps)
+
+    if steps and steps[0].get('name', '').startswith('Pre '):
+        log.warning('Unable to check for pre steps (First step\'s name starts with \'Pre\')')
+    else:
+        first_step_index = failed_step_index - index
+        if index >= 0 and len(api_step_names) > first_step_index:
+            for api_step_name in api_step_names[first_step_index:]:
+                if api_step_name.startswith('Pre '):
+                    index -= 1
+                else:
+                    break
+        else:
+            log.warning('Unable to check for pre steps (index: {}, first index: {})'.format(index, first_step_index))
 
     try:
         failed_step = steps[index]
@@ -287,6 +303,9 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
 
     if api_steps[failed_step_index]['name'] != failed_step_name and '${{' not in failed_step_name:
         # The calculated step is different from the actual step, and it's not an interpolation issue.
+        if index < 0 or api_steps[failed_step_index]['name'] == 'Set up job':
+            raise RecoverableException('Cannot find failed step, maybe set up job step failed?')
+
         raise RecoverableException(
             'Error finding step index: names differ ("{}" != "{}")'.format(
                 api_steps[failed_step_index]['name'],
