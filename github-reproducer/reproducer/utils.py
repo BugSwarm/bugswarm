@@ -127,6 +127,9 @@ class Utils(object):
     def get_stored_repo_path(self, job):
         return os.path.join(self.config.stored_repos_dir, job.repo)
 
+    def get_stored_repo_archives_path(self, job):
+        return os.path.join(self.config.stored_repos_dir, 'archives', job.repo)
+
     def get_repo_owner_dir(self, owner):
         return os.path.join(self.config.stored_repos_dir, owner)
 
@@ -158,7 +161,7 @@ class Utils(object):
         return os.path.join(self.get_stored_repo_path(job), 'repo.tar')
 
     def get_project_storage_repo_zip_path(self, job):
-        return os.path.join(self.get_stored_repo_path(job), 'repo-' + job.sha + '.zip')
+        return os.path.join(self.get_stored_repo_archives_path(job), 'repo-' + job.sha + '.zip')
 
     def get_repo_tar_path(self, job):
         return os.path.join(self.get_reproduce_tmp_dir(job), self.config.tarfile_name)

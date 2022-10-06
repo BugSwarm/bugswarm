@@ -67,7 +67,7 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
         # Add the repository.
         'ADD repo-to-docker.tar /home/github/build/',
-        'RUN chown -R github:github /home/github/build',
+        'RUN chmod -R 777 /home/github/build',
 
         # Add the build script and predefined actions.
         'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),

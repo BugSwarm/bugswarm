@@ -127,7 +127,7 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # Add the repositories.
         'ADD failed.tar /home/github/build/failed/',
         'ADD passed.tar /home/github/build/passed/',
-        'RUN chown -R github:github /home/github/build/',
+        'RUN chmod -R 777 /home/github/build',
 
         # Add the original logs.
         'ADD {}-orig.log /home/github/build/'.format(failed_job_id),

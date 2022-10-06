@@ -105,17 +105,32 @@ def clone_project_repo_if_not_exists(utils, job):
             cw.set('user', 'email', 'dev.bugswarm@gmail.com')
         utils.fetch_pr_data(job)
 
+    with tarfile.open(utils.get_project_storage_repo_tar_path(job), 'w') as tar:
+        tar.add(utils.get_repo_storage_dir(job), arcname=job.repo)
+
 
 def copy_and_reset_repo(job, utils):
     log.info('Copying and resetting the repository.')
+    retry_count = 0
+    max_retries = 3
 
-    # Copy repository from stored project repositories to the workspace repository directory by untar-ing the storage
-    # repository tar file into the workspace directory.
-    with tarfile.open(utils.get_project_storage_repo_tar_path(job), 'w') as tar:
-        tar.add(utils.get_repo_storage_dir(job), arcname=job.repo)
-    repo_tar_obj = tarfile.TarFile(name=utils.get_project_storage_repo_tar_path(job))
-    utils.clean_workspace_job_dir(job)
-    repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))  # TODO: This line causes missing or bad subsequent header
+    while True:
+        if retry_count > max_retries:
+            raise ReproduceError('copy_and_reset_repo cannot retry anymore.')
+
+        try:
+            # Copy repository from stored project repositories to the workspace repository directory by untar-ing the storage
+            # repository tar file into the workspace directory.
+            repo_tar_obj = tarfile.TarFile(name=utils.get_project_storage_repo_tar_path(job))
+            utils.clean_workspace_job_dir(job)
+            repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))  # TODO: This line causes missing or bad subsequent header
+            break
+        except Exception as e:
+            log.info('Failed to extract the repository due to {}'.format(repr(e)))
+            retry_count += 1
+            time.sleep(5)
+            continue
+
     # git reset the workspace repository.
     repo = git.Repo(utils.get_reproducing_repo_dir(job))
     # GitHub pipeline doesn't need to reset and merge PR jobs.
@@ -124,21 +139,40 @@ def copy_and_reset_repo(job, utils):
 
 def download_repo(job, utils):
     # Make the workspace repository directory.
-    os.makedirs(utils.get_stored_repo_path(job), exist_ok=True)
-
-    # Download the repository.
+    job_archive_dir = utils.get_stored_repo_archives_path(job)
     repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
-    if not os.path.exists(utils.get_project_storage_repo_zip_path(job)):
-        src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
-        log.info('Downloading the repository from the GitHub archive at {}.'.format(src))
-        urllib.request.urlretrieve(src, utils.get_project_storage_repo_zip_path(job))
+    repo_zip_path = utils.get_project_storage_repo_zip_path(job)
 
-    # Copy repository from stored project repositories to the workspace repository directory by untar-ing the storage
-    # repository tar file into the workspace directory.
-    repo_zip_obj = zipfile.ZipFile(utils.get_project_storage_repo_zip_path(job))
-    repo_zip_obj.extractall(utils.get_stored_repo_path(job))
+    os.makedirs(job_archive_dir, exist_ok=True)
+    retry_count = 0
+    max_retries = 3
 
-    distutils.dir_util.copy_tree(os.path.join(utils.get_stored_repo_path(job), repo_unzip_name),
+    while True:
+        if retry_count > max_retries:
+            raise ReproduceError('download_repo cannot retry anymore.')
+
+        try:
+            # Download the repository.
+            if not os.path.exists(repo_zip_path):
+                src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
+                log.debug('Downloading the repository from the GitHub archive at {}.'.format(src))
+                urllib.request.urlretrieve(src, repo_zip_path)
+
+            # Copy repository from stored project repositories to the workspace repository directory by
+            # untar-ing the storage repository tar file into the workspace directory.
+            repo_zip_obj = zipfile.ZipFile(repo_zip_path)
+            repo_zip_obj.extractall(job_archive_dir)
+            break
+        except Exception as e:
+            log.info('Failed to download the repository due to {}'.format(repr(e)))
+            retry_count += 1
+
+            if os.path.exists(repo_zip_path):
+                os.remove(repo_zip_path)
+            time.sleep(5)
+            continue
+
+    distutils.dir_util.copy_tree(os.path.join(job_archive_dir, repo_unzip_name),
                                  utils.get_reproducing_repo_dir(job))
     distutils.dir_util.copy_tree(os.path.join(utils.get_repo_storage_dir(job), '.git'),
                                  os.path.join(utils.get_reproducing_repo_dir(job), '.git'))
