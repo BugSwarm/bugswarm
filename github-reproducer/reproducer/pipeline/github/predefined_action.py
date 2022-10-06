@@ -1,5 +1,6 @@
 import copy
 import os
+import re
 import shlex
 
 import git
@@ -8,7 +9,7 @@ from bugswarm.common import log
 from reproducer.model.step import Step
 from reproducer.utils import Utils
 
-from . import github_action_env
+from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
 
 IGNORE_ACTIONS = {'codecov/codecov-action', 'actions/checkout', 'actions/upload-artifact', 'actions/download-artifact',
@@ -81,6 +82,8 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
         step (dict): step from input
     """
     name = step['uses']
+    job_id = github_builder.job.job_id
+    contexts = github_builder.contexts
     action_repo_path, _, tag = name.partition('@')
 
     # Throw error if we have:
@@ -114,7 +117,27 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
 
     env_str = ''.join('{}={} '.format(k, shlex.quote(str(v))) for k, v in github_envs.items())
     env_str += ''.join('{}={} '.format(k, shlex.quote(v)) for k, v in envs.items())
-    env_str += github_builder.contexts.env.to_env_str()
+    env_str += contexts.env.to_env_str()
+
+    # Substitute expressions for every step key that supports them
+    # (see https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)
+    continue_on_error = 'false'
+    if 'continue-on-error' in step:
+        continue_on_error = expressions.substitute_expressions(step['continue-on-error'], job_id, contexts)
+
+    step_if = '$(test "$_GITHUB_JOB_STATUS" = "success" && echo true || echo false)'
+    if 'if' in step:
+        step_if = step['if']
+        if not re.search(r'\b(success|failure|cancelled|always)\s*\(\s*\)', str(step['if'])):
+            step_if = re.sub(r'^\s*\${{|}}\s*$', '', str(step['if']))
+            step_if = 'success() && ({})'.format(expressions.to_str(step_if))
+        step_if, _ = expressions.parse_expression(step['if'], job_id, contexts)
+
+    step_name = 'Run {}'.format(name)
+
+    timeout_minutes = 360
+    if 'timeout-minutes' in step:
+        timeout_minutes = expressions.substitute_expressions(step['timeout-minutes'], job_id, contexts)
 
     setup_command = None
     filename = 'bugswarm_cmd.sh'
@@ -183,13 +206,14 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
     except Exception as e:
         GitHubBuilder.raise_error(repr(e), 1)
 
-    step_name = 'Run {}'.format(name)
-
-    return Step(step_name, step_number, False, setup_command, run_command, env_str, step, filename=filename)
+    return Step(step_name, step_number, False, setup_command, run_command, env_str, step, filename=filename,
+                continue_on_error=continue_on_error, timeout_minutes=timeout_minutes, step_if=step_if)
 
 
 def process_input_env(github_builder, is_setup, step, action_file, env_str):
     action_inputs = {}
+    job_id = github_builder.job.job_id
+    contexts = github_builder.contexts
     # Turn workflow step's 'with' into environment variable string
     if 'with' in step:
         for key, value in step['with'].items():
@@ -197,7 +221,7 @@ def process_input_env(github_builder, is_setup, step, action_file, env_str):
                 # TODO: Need to ignore cache key, find out why.
                 continue
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
-            subbed_value = Utils.substitute_expressions(github_builder.contexts, str(value))
+            subbed_value = expressions.substitute_expressions(str(value), job_id, contexts)
             action_inputs[var_key] = subbed_value
             env_str += '{}={} '.format(var_key, subbed_value)
 
@@ -206,7 +230,7 @@ def process_input_env(github_builder, is_setup, step, action_file, env_str):
         for key, value in action_file['inputs'].items():
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
             if var_key not in action_inputs and 'default' in value:
-                subbed_value = Utils.substitute_expressions(github_builder.contexts, str(value['default']))
+                subbed_value = expressions.substitute_expressions(str(value['default']), job_id, contexts)
                 action_inputs[var_key] = subbed_value
                 env_str += '{}={} '.format(var_key, subbed_value)
 

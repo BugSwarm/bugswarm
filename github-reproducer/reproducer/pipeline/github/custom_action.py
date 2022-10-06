@@ -1,12 +1,11 @@
 import copy
-import os
+import re
 import shlex
 
 from bugswarm.common import log
 from reproducer.model.step import Step
-from reproducer.utils import Utils
 
-from . import github_action_env
+from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
 
 
@@ -30,6 +29,9 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
             working_dir (str/None): working directory
             step (dict): step from input
     """
+    job_id = github_builder.job.job_id
+    contexts = github_builder.contexts
+
     github_envs = github_action_env.get_all(github_builder, step_number, '')
     log.debug('Got GitHub {} envs.'.format(len(github_envs)))
     envs = copy.deepcopy(envs)
@@ -40,9 +42,33 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
     env_str += ''.join('{}={} '.format(k, shlex.quote(v)) for k, v in envs.items())
     env_str += github_builder.contexts.env.to_env_str()
 
-    shell = step['shell'] if 'shell' in step else github_builder.SHELL
-    working_dir = step['working-directory'] if 'working-directory' in step else working_dir
+    run_command = expressions.substitute_expressions(step['run'], job_id, contexts)
+    first_line = expressions.substitute_expressions(step['run'].split('\n')[0], job_id, contexts)
+    step_name = 'Run {}'.format(first_line)
 
+    # Substitute expressions for every step key that supports them
+    # (see https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)
+    continue_on_error = 'false'
+    if 'continue-on-error' in step:
+        continue_on_error = expressions.substitute_expressions(step['continue-on-error'], job_id, contexts)
+
+    step_if = '$(test "$_GITHUB_JOB_STATUS" = "success" && echo true || echo false)'
+    if 'if' in step:
+        step_if = step['if']
+        if not re.search(r'\b(success|failure|cancelled|always)\s*\(\s*\)', str(step['if'])):
+            step_if = re.sub(r'^\s*\${{|}}\s*$', '', str(step['if']))
+            step_if = 'success() && ({})'.format(expressions.to_str(step_if))
+        step_if, _ = expressions.parse_expression(step['if'], job_id, contexts)
+
+    timeout_minutes = 360
+    if 'timeout-minutes' in step:
+        timeout_minutes = expressions.substitute_expressions(step['timeout-minutes'], job_id, contexts)
+
+    if 'working-directory' in step:
+        working_dir = expressions.substitute_expressions(step['working-directory'], job_id, contexts)
+
+    # Set the shell command
+    shell = step['shell'] if 'shell' in step else github_builder.SHELL
     if shell is None:
         filename = 'bugswarm_{}.sh'.format(step_number)
         exec_template = 'bash -e {}'
@@ -63,9 +89,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
         filename = 'bugswarm_{}.script'.format(step_number)
         exec_template = step['shell']
 
-    step_name = 'Run {}'.format(step['run'].partition('\n')[0])
-
-    run_command = Utils.substitute_expressions(github_builder.contexts, step['run'])
-
-    return Step(step_name, step_number, True, None, run_command, env_str, step,
-                working_dir=working_dir, filename=filename, exec_template=exec_template)
+    return Step(step_name, step_number, True, None, run_command, env_str, step, working_dir=working_dir, filename=filename,
+                exec_template=exec_template, continue_on_error=continue_on_error, step_if=step_if,
+                timeout_minutes=timeout_minutes)

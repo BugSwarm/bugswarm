@@ -36,9 +36,9 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
     if not job_runner:
         # If we are running in container image, then we need to install the following tools:
-        # cat (for build script), node (for custom actions)
+        # cat (for build script), node (for custom actions), python3.8 (for expression handling)
         lines += [
-            'RUN apt-get update && apt-get -y install sudo curl coreutils',
+            'RUN apt-get update && apt-get -y install sudo curl coreutils python3.8',
             'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
             'RUN apt-get install -y nodejs'
         ]
@@ -60,6 +60,10 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
         # Otherwise: docker: Error response from daemon: unable to find user github: no matching entries in passwd file.
         'RUN useradd -ms /bin/bash github',
 
+        # Enable passwordless sudo; see
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#administrative-privileges
+        'RUN echo "ALL ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers',
+
         # TODO: Do we need linuxbrew (it is huge)?
         # Let user own the entire /home directory to avoid permission issue.
         # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
@@ -73,6 +77,7 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
         'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),
         'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(job_id, job_id),
         'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(job_id, job_id),
+        'ADD --chown=github:github {}/helpers /home/github/{}/helpers'.format(job_id, job_id),
         'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(job_id, job_id),
         'RUN chmod 777 /usr/local/bin/run.sh',
         'RUN chmod -R 777 /home/github/{}'.format(job_id),

@@ -53,6 +53,7 @@ class GitHubBuilder:
         # predefined actions directory
         os.makedirs(os.path.join(location, 'actions'), exist_ok=True)
         os.makedirs(os.path.join(location, 'steps'), exist_ok=True)
+        os.makedirs(os.path.join(location, 'helpers'), exist_ok=True)
 
     def __str__(self):
         return 'GitHubBuilder({} @ {})'.format(self.job.job_id, self.location)
@@ -62,7 +63,8 @@ class GitHubBuilder:
 
     def build(self):
         # Defer import to prevent circular dependencies
-        from . import custom_action, generate_build_script, predefined_action
+        from . import (custom_action, generate_build_script,
+                       generate_helper_scripts, predefined_action)
 
         log.debug('Building build script with {}'.format(self))
 
@@ -90,6 +92,9 @@ class GitHubBuilder:
 
         log.debug('Generating build script... ({} steps)'.format(len(steps)))
         generate_build_script.generate(self, steps, output_path=os.path.join(self.location, 'run.sh'))
+
+        log.debug('Generating helper scripts...')
+        generate_helper_scripts.generate(os.path.join(self.location, 'helpers'))
 
         log.debug('Generating event.json')
         self.event_builder.generate_json(os.path.join(self.location, 'event.json'))
@@ -213,7 +218,7 @@ class GitHubBuilder:
             self.contexts.inputs.update_inputs({})
 
         # Update env context
-        self.contexts.env.update_env(self.ENVS, self.job, step, parent_step, self.contexts)
+        self.contexts.env.update_env(self.ENVS, self.job, parent_step, step, self.contexts)
 
     @staticmethod
     def raise_error(message, return_code):
