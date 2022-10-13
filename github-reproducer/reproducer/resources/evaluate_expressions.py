@@ -1,4 +1,4 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python3
 
 import hashlib
 import json
@@ -18,7 +18,7 @@ class Token:
         self.val = val
 
     def __repr__(self):
-        return f'{self.kind}:{self.val}'
+        return '{}:{}'.format(self.kind, self.val)
 
 
 def to_str(x):
@@ -57,11 +57,11 @@ def endsWith(search, val):
 
 def format(fstr, *args):
     def repl(m):
-        if m[0] == '{{':
+        if m.group(0) == '{{':
             return '{'
-        if m[0] == '}}':
+        if m.group(0) == '}}':
             return '}'
-        return to_str(args[int(m[1])])
+        return to_str(args[int(m.group(1))])
 
     fstr = to_str(fstr)
     return re.sub(r'{{|{(\d+)}|}}', repl, fstr)
@@ -96,7 +96,7 @@ def hashFiles(*paths):
 
     result = hashlib.sha256()
     for filepath in files:
-        with open(filepath, 'rb') as f:
+        with open(str(filepath), 'rb') as f:
             hash = hashlib.sha256(f.read())
         result.update(hash.digest())
     return result.hexdigest()
@@ -215,7 +215,7 @@ def evaluate(group):
     while True:
         try:
             prev_token = result
-            result: Token = next(group)
+            result = next(group)
         except StopIteration:
             break
 
@@ -223,7 +223,7 @@ def evaluate(group):
             result = evaluate(result.val)
 
         if result.kind == 'fun':
-            args: Token = next(group)
+            args = next(group)
             if args.kind != 'group':
                 raise Exception('Group not found after function')
             args = [evaluate(arg.val) if arg.kind == 'group' else arg.val for arg in args.val]
@@ -232,7 +232,7 @@ def evaluate(group):
             if result.val != '!' and (prev_token is None or prev_token.kind != 'val'):
                 raise Exception('Binary operator has no LHS')
 
-            next_token: Token = next(group)
+            next_token = next(group)
             if next_token.kind == 'group':
                 next_token = evaluate(next_token.val)
             if result.val == '!':

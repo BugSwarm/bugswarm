@@ -36,9 +36,9 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str):
 
     if not job_runner:
         # If we are running in container image, then we need to install the following tools:
-        # cat (for build script), node (for custom actions), python3.8 (for expression handling)
+        # cat (for build script), node (for custom actions), python3 (for expression handling)
         lines += [
-            'RUN apt-get update && apt-get -y install sudo curl coreutils python3.8',
+            'RUN apt-get update && apt-get -y install sudo curl coreutils python3',
             'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
             'RUN apt-get install -y nodejs'
         ]
