@@ -14,8 +14,8 @@ def gen_script(utils, job, dependence_solver):
     """
     Invoke GitHub builder to generate the build script.
     """
-    reproducing_dir = utils.get_reproducing_repo_dir(job)
-    builder = GitHubBuilder(job, os.path.join(reproducing_dir, 'reproduce_tmp', job.job_id), utils)
+    reproduce_tmp_dir = utils.get_reproduce_tmp_dir(job)
+    builder = GitHubBuilder(job, os.path.join(reproduce_tmp_dir, job.job_id), utils)
     builder.build()
 
     # TODO: Add dependence_solver

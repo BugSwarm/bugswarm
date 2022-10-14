@@ -39,7 +39,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
     log.debug('Setting up build code for custom commands action #{}'.format(step_number))
 
     env_str = ''.join('{}={} '.format(k, shlex.quote(str(v))) for k, v in github_envs.items())
-    env_str += ''.join('{}={} '.format(k, shlex.quote(v)) for k, v in envs.items())
     env_str += github_builder.contexts.env.to_env_str()
 
     run_command = expressions.substitute_expressions(step['run'], job_id, contexts)

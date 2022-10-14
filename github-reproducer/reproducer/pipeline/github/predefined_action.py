@@ -116,7 +116,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
     is_setup = 'actions/setup-' in action_repo
 
     env_str = ''.join('{}={} '.format(k, shlex.quote(str(v))) for k, v in github_envs.items())
-    env_str += ''.join('{}={} '.format(k, shlex.quote(v)) for k, v in envs.items())
     env_str += contexts.env.to_env_str()
 
     # Substitute expressions for every step key that supports them
@@ -131,7 +130,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
         if not re.search(r'\b(success|failure|cancelled|always)\s*\(\s*\)', str(step['if'])):
             step_if = re.sub(r'^\s*\${{|}}\s*$', '', str(step['if']))
             step_if = 'success() && ({})'.format(expressions.to_str(step_if))
-        step_if, _ = expressions.parse_expression(step['if'], job_id, contexts)
+        step_if, _ = expressions.parse_expression(step['if'], job_id, contexts, quote_result=True)
 
     step_name = 'Run {}'.format(name)
 
@@ -221,7 +220,7 @@ def process_input_env(github_builder, is_setup, step, action_file, env_str):
                 # TODO: Need to ignore cache key, find out why.
                 continue
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
-            subbed_value = expressions.substitute_expressions(str(value), job_id, contexts)
+            subbed_value = expressions.substitute_expressions(value, job_id, contexts)
             action_inputs[var_key] = subbed_value
             env_str += '{}={} '.format(var_key, subbed_value)
 
@@ -230,7 +229,7 @@ def process_input_env(github_builder, is_setup, step, action_file, env_str):
         for key, value in action_file['inputs'].items():
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
             if var_key not in action_inputs and 'default' in value:
-                subbed_value = expressions.substitute_expressions(str(value['default']), job_id, contexts)
+                subbed_value = expressions.substitute_expressions(value['default'], job_id, contexts)
                 action_inputs[var_key] = subbed_value
                 env_str += '{}={} '.format(var_key, subbed_value)
 

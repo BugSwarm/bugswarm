@@ -18,7 +18,7 @@ class Token:
         self.kind = kind
         self.val = val
 
-    def shellquote(self, root_context) -> 'tuple[str, bool]':
+    def stringify(self, root_context) -> 'tuple[str, bool]':
         """
         Resolves the token into a string that can be interpolated into the build script.
 
@@ -26,17 +26,15 @@ class Token:
             and `is_dynamic` is whether or not the value is dynamic (`True` --> string should NOT be shell-quoted).
         """
         if self.kind == 'context':
-            return root_context.get(self.val)
-        elif self.kind == 'literal' and self.val == 'null':
-            return '', False
-        return shlex.quote(str(self.val)), True
+            val, dyn = root_context.get(self.val)
+            return to_str(val), dyn
+        return to_str(self.val), False
 
     def to_eval_argument(self, root_context) -> str:
         if self.kind == 'context':
-            # TODO: handle contexts that are not strings
-            return 's:{}'.format(self.shellquote(root_context)[0])
-
-        if self.kind == 'string':
+            val, _ = root_context.get(self.val)
+            prefix = 's' if isinstance(val, str) else 'l'
+        elif self.kind == 'string':
             prefix = 's'
         elif self.kind == 'number':
             prefix = 'n'
@@ -50,13 +48,17 @@ class Token:
             prefix = 'p'
         else:
             raise Exception('Unsupported token type "{}"'.format(self.kind))
-        return '{}:{}'.format(prefix, self.shellquote(root_context)[0])
+
+        val, dyn = self.stringify(root_context)
+        if not dyn:
+            val = shlex.quote(val)
+        return '{}:{}'.format(prefix, val)
 
     def __repr__(self) -> str:
         return f'{self.kind}:{self.val}'
 
 
-def parse_expression(expression_string: str, job_id, root_context) -> 'tuple[str, bool]':
+def parse_expression(expression_string: str, job_id, root_context, quote_result=False) -> 'tuple[str, bool]':
     try:
         parsed = EXPRESSION_GRAMMAR.parse_string(expression_string, True).as_list()
     except pp.ParseException as e:
@@ -64,11 +66,14 @@ def parse_expression(expression_string: str, job_id, root_context) -> 'tuple[str
     flattened = _flatten_token_list(parsed)
 
     if len(flattened) == 1 and flattened[0].kind in ['string', 'number', 'literal', 'context']:
-        return flattened[0].shellquote(root_context)
+        val, is_dynamic = flattened[0].stringify(root_context)
+        if quote_result and not is_dynamic:
+            return shlex.quote(val), True
+        return val, is_dynamic
     else:
         eval_script = '/home/github/{}/helpers/eval_expression'.format(job_id)
         args = [tok.to_eval_argument(root_context) for tok in flattened]
-        return '$({} {})'.format(eval_script, ' '.join(args)), True
+        return '"$({} {})"'.format(eval_script, ' '.join(args)), True
 
 
 def substitute_expressions(string, job_id, root_context):

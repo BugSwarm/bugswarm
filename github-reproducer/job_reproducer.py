@@ -64,7 +64,7 @@ class JobReproducer(JobDispatcher):
         4. Copy files after the job is reproduced.
 
         :param job: Job object
-        :param tid: Thread ID of the thread from which this funcrion is being called
+        :param tid: Thread ID of the thread from which this function is being called
         """
         start_time = time.time()
         log.info('[THREAD {}] Running {}'.format(tid, job))
@@ -72,6 +72,14 @@ class JobReproducer(JobDispatcher):
         gen_files_for_job(self, job, self.keep, self.dependency_solver)
         self.docker.build_and_run(job)
         copy_log(self, job)
+
+        # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's safe
+        # to remove the workspace job dir.
+        log.info('[THREAD {}] Cleaning workspace.'.format(tid, job))
+        self.utils.clean_workspace_job_dir(job)
+        if not self.keep:
+            log.info('[THREAD {}] Removing reproduction image.'.format(tid))
+            self.docker.remove_image('job_id:{}'.format(job.job_id))
 
         elapsed = time.time() - start_time
         self.job_time_acc += elapsed

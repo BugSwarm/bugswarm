@@ -140,7 +140,7 @@ class Utils(object):
         return os.path.join(self.config.workspace_dir, job.job_id, job.sha, job.repo)
 
     def get_reproduce_tmp_dir(self, job):
-        return os.path.join(self.get_reproducing_repo_dir(job), self.config.reproduce_tmp_dir)
+        return os.path.join(self.get_workspace_sha_dir(job), self.config.reproduce_tmp_dir)
 
     @staticmethod
     def construct_log_name(job):
