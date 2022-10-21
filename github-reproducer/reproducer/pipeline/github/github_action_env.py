@@ -18,7 +18,7 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         # Always set to true when GitHub Actions is running the workflow.
         'GITHUB_ACTIONS': True,
         # The name of the person or app that initiated the workflow.
-        'GITHUB_ACTOR': github_builder.ACTOR,
+        'GITHUB_ACTOR': github_builder.ACTOR.get('login', ''),
         'GITHUB_API_URL': 'https://api.github.com',
         # The name of the base ref or target branch of the pull request in a workflow run. (PR only)
         'GITHUB_BASE_REF': github_builder.GITHUB_BASE_REF,  # TODO: Still need to fix this.

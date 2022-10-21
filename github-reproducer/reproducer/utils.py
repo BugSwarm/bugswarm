@@ -6,6 +6,7 @@ import subprocess
 import time
 import json
 import re
+from typing import Optional
 
 from bugswarm.common import log
 from bugswarm.common import utils as bugswarmutils
@@ -551,3 +552,18 @@ class Utils(object):
                 return bugswarm_image_tags[runs_on]
 
         return bugswarm_image_tags['ubuntu-latest']
+
+    def get_pr_from_original_log(self, job) -> Optional[str]:
+        if os.path.isfile(self.get_orig_log_path(job.job_id)):
+            try:
+                with open(self.get_orig_log_path(job.job_id), 'r') as file:
+                    for i, line in enumerate(file):
+                        match = re.search(r'Job defined at: .*@.*/(\d+)/merge', line, re.M)
+                        if match:
+                            return match.group(1)
+                        if i >= 4:
+                            # Only check the first 5 lines.
+                            break
+            except FileNotFoundError:
+                pass
+        return None

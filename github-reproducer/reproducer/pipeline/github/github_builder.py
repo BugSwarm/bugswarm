@@ -32,21 +32,24 @@ class GitHubBuilder:
         self.WORKING_DIR = None  # Workflow's default working-directory
         self.GITHUB_BASE_REF = ''
         self.GITHUB_HEAD_REF = ''
-        self.ACTOR = ''
-        self.TRIGGERING_ACTOR = ''
+        self.ACTOR = {}
+        self.TRIGGERING_ACTOR = {}
         self.REPOSITORY = {}
+        self.HEAD_REPOSITORY = {}
         self.HEAD_COMMIT = {}
-        self.PR = False
-
+        self.PR_DATA = {}
         # Not used. PR num always = -1
-        pr_num = self.job.build.buildpair.pr_num
-        self.GITHUB_REF = 'refs/pull/{}/merge'.format(pr_num) if pr_num > 0 else 'refs/heads/{}'.format(self.job.branch)
-        self.GITHUB_REF_NAME = 'refs/pull/{}/merge'.format(pr_num) if pr_num > 0 else self.job.branch
+        pr_num = self.utils.get_pr_from_original_log(job)
+        self.PR = int(pr_num) if pr_num else -1
+
+        self.GITHUB_REF = 'refs/pull/{}/merge'.format(self.PR) if self.PR else 'refs/heads/{}'.format(self.job.branch)
+        self.GITHUB_REF_NAME = 'refs/pull/{}/merge'.format(self.PR) if self.PR else self.job.branch
 
         self.get_workflow_data()
+        self.get_pr_data()
 
         from . import event_builder
-        self.event_builder = event_builder.EventBuilder(self)
+        self.event_builder = event_builder.EventBuilder(self, self.PR > 0)
 
         self.init_contexts()
 
@@ -111,18 +114,24 @@ class GitHubBuilder:
         status, json_data = github_wrapper.get(run_url)
 
         try:
-            if 'actor' in json_data and 'login' in json_data['actor']:
-                self.ACTOR = json_data['actor']['login']
+            if json_data is None:
+                log.error('Failed to get job info from GitHub API invalid response.')
+                return
 
-            if 'triggering_actor' in json_data and 'login' in json_data['triggering_actor']:
-                self.TRIGGERING_ACTOR = json_data['triggering_actor']['login']
+            if 'actor' in json_data and 'login' in json_data['actor']:
+                self.ACTOR = json_data['actor']
+
+            if 'triggering_actor' in json_data:
+                self.TRIGGERING_ACTOR = json_data['triggering_actor']
 
             if 'event' in json_data and json_data['event'] == 'pull_request':
                 self.GITHUB_HEAD_REF = json_data['head_branch']
-                self.PR = True
 
             if 'repository' in json_data:
                 self.REPOSITORY = json_data['repository']
+
+            if 'head_repository' in json_data:
+                self.HEAD_REPOSITORY = json_data['head_repository']
 
             if 'head_commit' in json_data:
                 self.HEAD_COMMIT = json_data['head_commit']
@@ -160,15 +169,28 @@ class GitHubBuilder:
         except Exception as e:
             log.error('Failed to get job info from GitHub API due to {}'.format(repr(e)))
 
+
+    def get_pr_data(self):
+        if self.PR > 0:
+            github_wrapper = GitHubWrapper(GITHUB_TOKENS)
+            pr_url = 'https://api.github.com/repos/{}/pulls/{}'.format(
+                self.job.repo, self.PR
+            )
+            status, json_data = github_wrapper.get(pr_url)
+            if json_data is not None and 'number' in json_data:
+                self.PR_DATA = json_data
+            else:
+                log.error('Failed to get PR info from GitHub API due to invalid response.')
+
     def init_contexts(self):
         # Init github_context
-        self.contexts.github.actor = self.ACTOR
+        self.contexts.github.actor = self.ACTOR.get('login', '')
         self.contexts.github.ref = self.GITHUB_REF
-        self.contexts.github.triggering_actor = self.TRIGGERING_ACTOR
+        self.contexts.github.triggering_actor = self.TRIGGERING_ACTOR.get('login', '')
         self.contexts.github.workflow = self.WORKFLOW_NAME  # Workflow name = workflow path if we don't give it a name.
         self.contexts.github.head_ref = self.GITHUB_HEAD_REF
         self.contexts.github.base_ref = self.GITHUB_BASE_REF
-        self.contexts.github.event_name = 'pull_request' if self.PR else 'push'
+        self.contexts.github.event_name = 'pull_request' if self.PR > 0 else 'push'
         self.contexts.github.event = self.event_builder.event
 
     def update_contexts(self, step_number, step, parent_step=None, update_composite=True, reset_input=True):
