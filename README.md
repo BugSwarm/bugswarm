@@ -120,7 +120,7 @@ If you want to use BugSwarm artifact dataset, follow the [client](https://github
 
 1. Mongo should now be up and running, test the connection by opening a new Terminal and use:
     ```
-    $ mongo
+    $ mongosh
     ```
 
 1. Step into initial BugSwarm directory and configure necessary credentials:

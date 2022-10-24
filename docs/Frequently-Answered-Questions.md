@@ -86,7 +86,7 @@ $ docker run -it -p 27020:27017 -p 5000:5000 bugswarm-db (Note the change in the
 ```
 So now when connecting to this instance of Mongo, the command would be:
 ```
-$ mongo --port 27020
+$ mongosh --port 27020
 ```
 In the case where the second `-p` argument for port `5000` is used, our BugSwarm pipeline API port, we can also map to a
 different port as follows:
@@ -114,7 +114,7 @@ satisfying the BugSwarm needs.
 
 1. Connect to the database
     ```sh
-    $ mongo
+    $ mongosh
     ```
 
 1. Execute the following commands in Mongo Shell

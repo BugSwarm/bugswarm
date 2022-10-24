@@ -20,22 +20,21 @@ RUN \
 		gnupg \
 		wget
 
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add
 
 RUN \   
-	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list && \
+	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
 	apt-get update && \
 	apt-get install \
-		-y mongodb-org=5.0.0 mongodb-org-database=5.0.0 mongodb-org-server=5.0.0 mongodb-org-shell=5.0.0 mongodb-org-mongos=5.0.0 mongodb-org-tools=5.0.0
+		-y mongodb-org mongodb-org-server mongodb-mongosh mongodb-org-mongos mongodb-org-tools
 
 RUN \
-	add-apt-repository ppa:deadsnakes/ppa && \
 	apt-get update && \
 	apt-get install \
-		build-essential python3.6 python3.6-dev python3-pip python3.6-venv -y
+		build-essential python3.8 python3.8-dev python3-pip python3.8-venv -y
 
 RUN \ 
-	update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 && \
+	update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
 	cd ~/ && \
 	git clone https://github.com/BugSwarm/bugswarm.git
 
@@ -50,8 +49,8 @@ RUN \
 	chmod 000 ~/bugswarm/database/database/config.py
 
 RUN \
-	python3.6 -m pip install pip --upgrade && \
-	python3.6 -m pip install wheel
+	python3.8 -m pip install pip --upgrade && \
+	python3.8 -m pip install wheel
 
 COPY \
 	./mongo_entrypoint.sh /root/bugswarm/database

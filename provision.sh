@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Provision the environment for the BugSwarm reproducing pipeline.
-# Tested on Ubuntu 16.04 & 18.04.
+# Tested on Ubuntu 18.04 & 20.04.
 
 # Assumptions:
 # 1. The user running this script has sudo privileges.
@@ -99,6 +99,8 @@ exit_if_failed 'Adding user to docker group failed.'
 
 # Install Travis.
 print_green 'Install Travis'
+# Pin public_suffix to 4.0.7, otherwise install travis will throw error because public_suffix requires Ruby version >= 2.6
+gem install public_suffix -v 4.0.7 --no-document
 gem install travis -v 1.8.8 --no-document
 exit_if_failed 'Installing Travis failed.'
 

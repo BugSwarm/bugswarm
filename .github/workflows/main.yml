@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         container:
-          - bugswarm/images:ubuntu-16.04
           - bugswarm/images:ubuntu-18.04
           - bugswarm/images:ubuntu-20.04
 
@@ -26,9 +25,15 @@ jobs:
           sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~GITHUB_TOKENS = \[\]~GITHUB_TOKENS = \['${gh_token}'\]~g" bugswarm/common/credentials.py
           sed -i "s~TRAVIS_TOKENS = \[\]~TRAVIS_TOKENS = \['${travis_com_token}'\]~g" bugswarm/common/credentials.py
+      - name: Installing Python 3.8
+        if: matrix.container == 'bugswarm/images:ubuntu-18.04'
+        run: |
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          apt-get update
+          apt-get install -y python3.8
       - name: Installing Dependencies
         run: |
-          python3 -m pip install --upgrade pip==21.3.1
+          python3.8 -m pip install --upgrade pip==21.3.1
           pip3 install .
       - name: Lint with flake8
         run: |
@@ -37,19 +42,19 @@ jobs:
       - name: Test Analyzer
         working-directory: ./tests/analyzer
         run: |
-          python3 -m unittest discover
+          python3.8 -m unittest discover
       - name: Test Classifier
         working-directory: ./pair-classifier/tests
         run: |
-          python3 -m unittest discover
+          python3.8 -m unittest discover
       - name: Test PairFilter
         working-directory: ./pair-filter/tests
         run: |
-          python3 -m unittest discover
+          python3.8 -m unittest discover
       - name: Test Reproducer - PairChooser
         working-directory: ./reproducer/tests
         run: |
-          python3 -m unittest discover
+          python3.8 -m unittest discover
 
   bugswarm:
     name: Test in public repo
@@ -57,14 +62,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
+        os: [ubuntu-20.04]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.6
+      - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: 3.6
+          python-version: 3.8
       - name: Add Credentials
         env:
           gh_token: ${{ secrets.GH_TOKEN }}

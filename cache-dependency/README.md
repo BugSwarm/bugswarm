@@ -9,7 +9,7 @@ In following this README, we will run the tool to generate results and then eval
 1. Docker Client
 1. BugSwarm credential configured
 1. Disk Space > 30 GB
-1. Python >= 3.6
+1. Python >= 3.8
 
 
 ## Usage
