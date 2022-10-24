@@ -13,6 +13,8 @@ class Build(object):
         self.trigger_commit = ''
         # The base commit at the time of the build.
         self.base_commit = ''
+        # Whether the repo used submodlues at the time of the build.
+        self.has_submodules = False
 
         self.committed_at = committed_at
 

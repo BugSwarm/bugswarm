@@ -109,6 +109,7 @@ def output_json(repo, data, output_path):
                               'config': j.config or {},
                               'language': j.language}
                              for j in failed_build.jobs],
+                    'has_submodules': failed_build.has_submodules
                 },
                 'passed_build': {
                     'build_id': passed_build.build_id,
@@ -124,6 +125,7 @@ def output_json(repo, data, output_path):
                               'config': j.config or {},
                               'language': j.language}
                              for j in passed_build.jobs],
+                    'has_submodules': passed_build.has_submodules
                 },
                 'jobpairs': jobpairs,
             }
