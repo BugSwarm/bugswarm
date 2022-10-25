@@ -47,7 +47,7 @@ class TestPipeline(unittest.TestCase):
                     'failed_pr_jobs': 0,
                 },
             },
-            'use_cutoff_date': False,
+            'cutoff_days': 0,
         }
 
         step = GetJobsFromGitHubAPI()
@@ -84,7 +84,7 @@ class TestPipeline(unittest.TestCase):
                     'failed_pr_jobs': 0,
                 },
             },
-            'use_cutoff_date': False,
+            'cutoff_days': 0,
         }
 
         step = GetJobsFromGitHubAPI()
