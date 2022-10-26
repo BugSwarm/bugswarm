@@ -260,14 +260,14 @@ def _validate_input(argv):
     for opt, arg in optlist:
         if opt in ('-i', '--input-file'):
             input_file = arg
-        if opt in ('-n', '--runs'):
+        elif opt in ('-n', '--runs'):
             try:
                 runs = int(arg)
             except (ValueError, TypeError):
                 log.error('The runs argument must be an integer.')
                 _print_usage()
                 sys.exit(2)
-        if opt in '--task-name':
+        elif opt == '--task-name':
             task_name = arg
 
     if not input_file:
