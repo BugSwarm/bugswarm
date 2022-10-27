@@ -2,18 +2,21 @@ import copy
 import os
 import re
 import shlex
+import importlib.resources
 
 import git
 import yaml
 from bugswarm.common import log
 from reproducer.model.step import Step
 from reproducer.utils import Utils
+import reproducer.resources as resources
 
 from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
 
-IGNORE_ACTIONS = {'codecov/codecov-action', 'actions/checkout', 'actions/upload-artifact', 'actions/download-artifact',
+IGNORE_ACTIONS = {'codecov/codecov-action', 'actions/upload-artifact', 'actions/download-artifact',
                   'actions/cache', 'gradle/wrapper-validation-action', 'styfle/cancel-workflow-action'}
+SPECIAL_ACTIONS = {'actions/checkout'}
 
 
 def get_action_data(github_builder: GitHubBuilder, step):
@@ -98,6 +101,14 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
     if action_repo_path.lower() in IGNORE_ACTIONS:
         return
 
+    if action_repo_path == 'actions/checkout' and github_builder.first_checkout:
+        if 'with' in step and ('repository' in step['with'] or 'path' in step['with']):
+            GitHubBuilder.raise_error('First checkout action uses unsupported parameters repository/path', 1)
+
+        # Ignore the first checkout action (we will set up repo ourselves).
+        github_builder.first_checkout = False
+        return
+
     log.debug('Setting up build code for predefined_action {}(#{})'.format(name, step_number))
 
     action_repo, action_ref, action_path, action_path_abs, action_dir = get_action_data(github_builder, step)
@@ -113,7 +124,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
 
     envs = copy.deepcopy(envs)
     run_command = None
-    is_setup = 'actions/setup-' in action_repo
 
     env_str = ''.join('{}={} '.format(k, shlex.quote(str(v))) for k, v in github_envs.items())
     env_str += contexts.env.to_env_str()
@@ -154,7 +164,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
             action_file = yaml.safe_load(f)
             runs_using = action_file['runs']['using']
 
-            env_str = process_input_env(github_builder, is_setup, step, action_file, env_str)
+            env_str = process_input_env(github_builder, action_repo, step, action_file, env_str)
 
             if runs_using == 'node12' or runs_using == 'node16':
                 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions
@@ -209,20 +219,33 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                 continue_on_error=continue_on_error, timeout_minutes=timeout_minutes, step_if=step_if)
 
 
-def process_input_env(github_builder, is_setup, step, action_file, env_str):
+def process_input_env(github_builder, action_repo, step, action_file, env_str):
     action_inputs = {}
     job_id = github_builder.job.job_id
     contexts = github_builder.contexts
     # Turn workflow step's 'with' into environment variable string
     if 'with' in step:
         for key, value in step['with'].items():
-            if is_setup and key == 'cache':
-                # TODO: Need to ignore cache key, find out why.
+            # actions/setup-<lang> needs to ignore cache key to avoid @actions/cache.
+            if 'actions/setup-' in action_repo and key == 'cache':
                 continue
+            # actions/checkout needs to ignore the ref key to avoid incorrect commit reset
+            if key == 'ref' and action_repo == 'actions/checkout':
+                continue
+
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
             subbed_value = expressions.substitute_expressions(value, job_id, contexts)
             action_inputs[var_key] = subbed_value
             env_str += '{}={} '.format(var_key, subbed_value)
+
+    # If the action is actions/checkout, add the ref key based on our checkout_sha array.
+    if action_repo == 'actions/checkout':
+        if github_builder.checkout_sha:
+            sha = github_builder.checkout_sha.pop(0)
+            log.debug('Use sha {} for actions/checkout\'s ref'.format(sha))
+
+            action_inputs['INPUT_REF'] = sha
+            env_str += '{}={} '.format('INPUT_REF', sha)
 
     # Set default env.
     if 'inputs' in action_file:
@@ -248,6 +271,14 @@ def clone_action_repo_if_not_exists(github_builder: GitHubBuilder, action_name, 
                 github_builder.utils.copy_reproducing_repo_dir(
                     github_builder.job, os.path.join(github_builder.location, 'actions', action_name)
                 )
+            elif repo in SPECIAL_ACTIONS:
+                log.info('Getting {} action from resource directory.'.format(repo))
+                os.makedirs(os.path.join(github_builder.location, 'actions', action_name), exist_ok=True)
+
+                # Get the action from resources directory
+                file = importlib.resources.read_text(resources, repo.replace('/', '-') + '.yml')
+                with open(os.path.join(github_builder.location, 'actions', action_name, 'action.yml'), 'w') as f:
+                    f.write(file)
             else:
                 os.makedirs(os.path.join(github_builder.location, 'actions', action_name), exist_ok=True)
                 if len(branch) == 40:

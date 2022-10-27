@@ -37,6 +37,9 @@ class GitHubBuilder:
         self.REPOSITORY = {}
         self.HEAD_REPOSITORY = {}
         self.HEAD_COMMIT = {}
+        self.PR = False
+        self.first_checkout = True
+        self.checkout_sha = utils.get_sha_from_original_log(job)  # List of SHA from actions/checkout action.
         self.PR_DATA = {}
         # Not used. PR num always = -1
         pr_num = self.utils.get_pr_from_original_log(job)

@@ -135,10 +135,13 @@ def copy_and_reset_repo(job, utils):
     repo = git.Repo(utils.get_reproducing_repo_dir(job))
     # GitHub pipeline doesn't need to reset and merge PR jobs.
     repo.git.reset('--hard', job.sha)
+    # Check out all the submodules.
+    repo.git.submodule('update', '--init')
 
 
 def download_repo(job, utils):
     # Make the workspace repository directory.
+    # Note: We have no way to check out the correct version of submodule!
     job_archive_dir = utils.get_stored_repo_archives_path(job)
     repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
     repo_zip_path = utils.get_project_storage_repo_zip_path(job)

@@ -553,6 +553,39 @@ class Utils(object):
 
         return bugswarm_image_tags['ubuntu-latest']
 
+    def get_sha_from_original_log(self, job):
+        # Get all the actions/checkout SHA (except the first one)
+        all_checkout_sha = []
+
+        if os.path.isfile(self.get_orig_log_path(job.job_id)):
+            try:
+                with open(self.get_orig_log_path(job.job_id), 'r') as file:
+                    next_line_is_sha = False
+                    is_checking_out = False
+
+                    for i, line in enumerate(file):
+                        if len(line) <= 29:
+                            # Timestamp
+                            continue
+
+                        if next_line_is_sha:
+                            next_line_is_sha = False
+                            is_checking_out = False
+                            sha = line[29:].rstrip('\n').strip('\'')
+                            if len(sha) == 40:
+                                all_checkout_sha.append(sha)
+                        elif is_checking_out and line[29:].startswith('[command]/usr/bin/git log -1 --format=\'%H\''):
+                            next_line_is_sha = True
+                        elif line[29:].startswith('##[group]Run actions/checkout'):
+                            is_checking_out = True
+            except FileNotFoundError:
+                pass
+
+        if len(all_checkout_sha) > 0:
+            if all_checkout_sha.pop(0) != job.sha:
+                log.warning('Job\'s SHA is not the first checkout sha (This is normal for PR job pair).')
+        return all_checkout_sha
+
     def get_pr_from_original_log(self, job) -> Optional[str]:
         if os.path.isfile(self.get_orig_log_path(job.job_id)):
             try:
