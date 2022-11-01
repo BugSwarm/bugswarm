@@ -149,7 +149,7 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         'ADD --chown=github:github {}/run.sh /usr/local/bin/run_passed.sh'.format(passed_job_id),
         'ADD --chown=github:github {}/actions /home/github/{}/actions'.format(passed_job_id, passed_job_id),
         'ADD --chown=github:github {}/steps /home/github/{}/steps'.format(passed_job_id, passed_job_id),
-        'ADD --chown=github:github {}/helpers /home/github/{}/helpers'.format(passed_job_id, failed_job_id),
+        'ADD --chown=github:github {}/helpers /home/github/{}/helpers'.format(passed_job_id, passed_job_id),
         'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(passed_job_id, passed_job_id),
         'RUN chmod 777 /usr/local/bin/run_passed.sh',
         'RUN chmod -R 777 /home/github/{}'.format(passed_job_id),

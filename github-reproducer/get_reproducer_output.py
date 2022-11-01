@@ -38,7 +38,7 @@ def main(argv):
         prefix = bp['repo'].replace('/', '-') + '-'
         for jp in bp['jobpairs']:
             should_be_cached = (not jp['is_filtered'] and
-                                jp['build_system'] == 'Maven' and
+                                jp['build_system'] in {'Maven', 'Gradle'} and
                                 jp['failed_job']['job_id'] in java_jobs and
                                 jp['passed_job']['job_id'] in java_jobs)
             if should_be_cached:

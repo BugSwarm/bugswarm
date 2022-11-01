@@ -159,8 +159,10 @@ class DockerWrapper(object):
 
     def remove_image(self, image_name):
         self.client.images.remove(image=image_name, force=True, noprune=True)
-        filters = {'dangling': True}
-        self.client.images.prune(filters)
+        # NOTE: We cannot run prune at this step. It will cause race condition.
+        # Perhaps run this after we finished running all jobs?
+        # filters = {'dangling': True}
+        # self.client.images.prune(filters)
 
     def setup_docker_storage_path(self):
         try:

@@ -53,7 +53,8 @@ class MatchChecker(object):
     def is_buildpair_match_type_1(buildpair):
         for b in buildpair.builds:
             for j in b.jobs:
-                if not j.match.value:
+                # Only if job_name is not an empty string.
+                if j.job_name and not j.match.value:
                     return False
         return True
 
@@ -62,17 +63,17 @@ class MatchChecker(object):
     @staticmethod
     def is_buildpair_match_type_2(buildpair):
         for b in buildpair.builds:
-            if [1 for j in b.jobs if not j.reproduced_result]:
+            if [1 for j in b.jobs if (not j.reproduced_result and j.job_name)]:
                 return False
         # Check if the build failed.
         failed_build_failed = False
         for j in buildpair.builds[0].jobs:
-            if j.reproduced_result:
+            if j.reproduced_result and j.job_name:
                 if j.reproduced_result["tr_log_status"] != "ok":
                     failed_build_failed = True
         passed_build_passed = True
         for j in buildpair.builds[1].jobs:
-            if j.reproduced_result:
+            if j.reproduced_result and j.job_name:
                 if j.reproduced_result["tr_log_status"] != "ok":
                     passed_build_passed = False
         return failed_build_failed and passed_build_passed
@@ -82,12 +83,12 @@ class MatchChecker(object):
     @staticmethod
     def is_buildpair_match_type_3(buildpair):
         for b in buildpair.builds:
-            if [1 for j in b.jobs if not j.reproduced_result]:
+            if [1 for j in b.jobs if (not j.reproduced_result and j.job_name)]:
                 return False
         # Check if the build failed.
         failed_build_has_failed_tests = False
         for j in buildpair.builds[0].jobs:
-            if j.reproduced_result:
+            if j.reproduced_result and j.job_name:
                 failed_build_num_tests_failed = j.reproduced_result["tr_log_num_tests_failed"]
                 if failed_build_num_tests_failed != "NA" and failed_build_num_tests_failed > 0:
                     failed_build_has_failed_tests = True
@@ -95,7 +96,7 @@ class MatchChecker(object):
         # Use a try-except block becuase values might be 'NA', which would raise error when comparing.
         passed_build_has_no_failed_tests = True
         for j in buildpair.builds[1].jobs:
-            if j.reproduced_result:
+            if j.reproduced_result and j.job_name:
                 try:
                     passed_build_num_tests_run = j.reproduced_result["tr_log_num_tests_run"]
                     passed_build_num_tests_failed = j.reproduced_result["tr_log_num_tests_failed"]

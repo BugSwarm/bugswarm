@@ -187,6 +187,8 @@ class Utils(object):
         return os.path.join(self.get_jobpair_dir(job), Utils.construct_dockerfile_name(job))
 
     def copy_dockerfile_from_task_into_workspace(self, job):
+        if not self.check_if_dockerfile_exist(job):
+            os.makedirs(self.get_dockerfile_path(job))
         shutil.copy(self.get_dockerfile_in_task_path(job), self.get_dockerfile_path(job))
 
     @staticmethod
@@ -205,6 +207,8 @@ class Utils(object):
         return os.path.join(self.get_jobpair_dir(job), job.job_id, Utils.construct_build_sh_name(job))
 
     def copy_build_sh_from_task_into_workspace(self, job):
+        if not self.check_if_build_sh_exist(job):
+            os.makedirs(self.get_build_sh_path(job))
         shutil.copy(self.get_build_sh_path_in_task(job), self.get_build_sh_path(job))
 
     def get_abs_jobpair_dockerfile_path(self, jobpair):
