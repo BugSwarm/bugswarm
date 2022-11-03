@@ -38,7 +38,7 @@ def _copy_repo_tar(utils: Utils, jobpair: JobPair):
 def _copy_original_log(utils: Utils, jobpair: JobPair):
     for j in jobpair.jobs:
         original_log_path = utils.get_orig_log_path(j.job_id)
-        if not download_log(j.job_id, original_log_path, repo=j.repo):
+        if not isfile(original_log_path) and not download_log(j.job_id, original_log_path, repo=j.repo):
             raise ReproduceError('Error while copying the original log for {}.'.format(j.job_id))
         utils.copy_orig_log_into_jobpair_dir(j)
 
@@ -73,7 +73,9 @@ def _modify_script(utils: Utils, jobpair: JobPair):
 
 def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
     failed_job_id = jobpair.jobs[0].job_id
+    failed_resettable = jobpair.jobs[0].resettable
     passed_job_id = jobpair.jobs[1].job_id
+    passed_resettable = jobpair.jobs[1].resettable
 
     failed_dockerfile_path = join(utils.get_jobpair_dir(jobpair.jobs[0]), failed_job_id + '-Dockerfile')
     passed_dockerfile_path = join(utils.get_jobpair_dir(jobpair.jobs[1]), passed_job_id + '-Dockerfile')
@@ -131,7 +133,9 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # Add the repositories.
         'ADD failed.tar /home/github/build/failed/',
         'ADD passed.tar /home/github/build/passed/',
-        'RUN chmod -R 777 /home/github/build',
+        'RUN {} /home/github/build/failed/'.format('chown -R github:github' if failed_resettable else 'chmod -R 777'),
+        'RUN {} /home/github/build/passed/'.format('chown -R github:github' if passed_resettable else 'chmod -R 777'),
+        'RUN chown github:github /home/github/build',
 
         # Add the original logs.
         'ADD {}-orig.log /home/github/build/'.format(failed_job_id),
