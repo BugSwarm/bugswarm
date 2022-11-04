@@ -233,7 +233,7 @@ def expand_job_matrixes(workflow: dict):
                 config['strategy']['matrix'] = combination
                 job_api_name = get_job_api_name(job_base_api_name, combination, default_keys)
 
-                names_and_configs[-1].append((job_api_name, job_base_api_name, config))
+                names_and_configs[-1].append((job_api_name, job_base_api_name, job_workflow_name, config))
         else:
             # Detect duplicates that we can't disambiguate
             if job_base_api_name in disambiguated:
@@ -241,7 +241,7 @@ def expand_job_matrixes(workflow: dict):
             disambiguated.append(job_base_api_name)
 
             job_api_name = get_job_api_name(job_base_api_name, {}, [])
-            names_and_configs.append([(job_api_name, job_base_api_name, job)])
+            names_and_configs.append([(job_api_name, job_base_api_name, job_workflow_name, job)])
 
     # Sort by length in descending order.
     return sorted(names_and_configs, key=lambda l: len(l), reverse=True)
@@ -401,7 +401,8 @@ class ConstructJobConfig:
                     # Sequence found; set job object's config.
                     for seq_idx, job_idx in enumerate(range(start, end)):
                         target_job = build.jobs[job_idx]
-                        job_config = job_sequence[seq_idx][2]
+                        job_config = job_sequence[seq_idx][3]
+                        job_workflow_id = job_sequence[seq_idx][2]
                         unmatched_job_names[job_idx] = None
 
                         if target_job.failed_step_index is not None:
@@ -416,6 +417,7 @@ class ConstructJobConfig:
                             target_job.failed_step_command = command
 
                         target_job.config = job_config
+                        target_job.config['id-in-workflow'] = job_workflow_id
                         num_jobs_processed += 1
 
                 # Sanity check: if any jobs are unmatched, then it's possible the mapping
