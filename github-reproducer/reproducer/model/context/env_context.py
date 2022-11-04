@@ -10,8 +10,8 @@ class EnvContext(Context):
 
     def __init__(self):
         super().__init__()
-        self.env = {} # Environment variables that get overrided by $GITHUB_ENV.
-        self.step_env = {} # Environment variables that override $GITHUB_ENV.
+        self.env = {}  # Environment variables that get overrided by $GITHUB_ENV.
+        self.step_env = {}  # Environment variables that override $GITHUB_ENV.
         self.updating = False
 
     def update_env(self, workflow_env, job, parent_step, step, root_context):
@@ -55,7 +55,7 @@ class EnvContext(Context):
         # workflow file.
         # CURRENT_ENV_MAP is a Bash associative array, where the keys are the variable names. If varname is in the array,
         # use the corresponding value; otherwise use the static value
-        return ('$(test -v "CURRENT_ENV_MAP[{0}]" && echo "${{CURRENT_ENV_MAP[{0}]}}" || echo {1})'.format(
+        return ('"$(test -v "CURRENT_ENV_MAP[{0}]" && echo "${{CURRENT_ENV_MAP[{0}]}}" || echo {1})"'.format(
                 varname, default_value), True)
 
     def as_dict(self) -> dict:

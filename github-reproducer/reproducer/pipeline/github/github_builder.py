@@ -24,7 +24,7 @@ class GitHubBuilder:
         self.contexts = RootContext(job)
         self.action_name_counts = {}
 
-        self.JOB_NAME = 'build'  # Set this to the correct value.
+        self.JOB_NAME = job.config.get('id-in-workflow', '')
         self.WORKFLOW_NAME = ''
         self.WORKFLOW_PATH = None
         self.ENVS = {}  # Workflow's ENV
@@ -171,7 +171,6 @@ class GitHubBuilder:
             log.error('Failed to get job info from GitHub API due to invalid response.')
         except Exception as e:
             log.error('Failed to get job info from GitHub API due to {}'.format(repr(e)))
-
 
     def get_pr_data(self):
         if self.PR > 0:

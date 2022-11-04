@@ -26,6 +26,8 @@ def to_str(x):
     #     return '[Array]'
     # if isinstance(x, dict):
     #     return '[Object]'
+    if x is None:
+        return ''
     if isinstance(x, str):
         return x
     return json.dumps(x)
@@ -44,14 +46,14 @@ def contains(search, item):
 
 
 def startsWith(search, val):
-    search = to_str(search)
-    val = to_str(val)
+    search = to_str(search).lower()
+    val = to_str(val).lower()
     return search.startswith(val)
 
 
 def endsWith(search, val):
-    search = to_str(search)
-    val = to_str(val)
+    search = to_str(search).lower()
+    val = to_str(val).lower()
     return search.endswith(val)
 
 
@@ -156,18 +158,21 @@ def to_num(x):
 
 
 def apply_operator(op, lhs, rhs):
+    try:
+        op_fn = OPERATORS[op]
+    except KeyError as e:
+        raise ValueError('Unsupported operator: {}'.format(op)) from e
+
     if isinstance(lhs, str):
         lhs = lhs.lower()
     if isinstance(rhs, str):
         rhs = rhs.lower()
 
-    try:
-        try:
-            return OPERATORS[op](lhs, rhs)
-        except TypeError:
-            return OPERATORS[op](to_num(lhs), to_num(rhs))
-    except KeyError as e:
-        raise ValueError('Unsupported operator: {}'.format(op)) from e
+    if op != '!' and type(lhs) is not type(rhs):
+        lhs = to_num(lhs)
+        rhs = to_num(rhs)
+
+    return op_fn(lhs, rhs)
 
 
 OPERATORS = {
@@ -226,7 +231,7 @@ def evaluate(group):
             args = next(group)
             if args.kind != 'group':
                 raise Exception('Group not found after function')
-            args = [evaluate(arg.val) if arg.kind == 'group' else arg.val for arg in args.val]
+            args = [evaluate(arg.val).val if arg.kind == 'group' else arg.val for arg in args.val]
             result = Token('val', EXPRESSION_FUNCTIONS[result.val](*args))
         elif result.kind == 'op':
             if result.val != '!' and (prev_token is None or prev_token.kind != 'val'):
@@ -267,14 +272,7 @@ def main(args: 'list[str]'):
     groups = group_paren(tokens)
     result = evaluate(groups)
 
-    if result.val is True:
-        print('true')
-    elif result.val is False:
-        print('false')
-    elif result.val is None:
-        print('')
-    else:
-        print(result.val)
+    print(to_str(result.val))
 
 
 if __name__ == '__main__':

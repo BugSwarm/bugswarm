@@ -140,7 +140,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
         if not re.search(r'\b(success|failure|cancelled|always)\s*\(\s*\)', str(step['if'])):
             step_if = re.sub(r'^\s*\${{|}}\s*$', '', str(step['if']))
             step_if = 'success() && ({})'.format(expressions.to_str(step_if))
-        step_if, _ = expressions.parse_expression(step['if'], job_id, contexts, quote_result=True)
+        step_if, _ = expressions.parse_expression(step_if, job_id, contexts, quote_result=True)
 
     step_name = 'Run {}'.format(name)
 

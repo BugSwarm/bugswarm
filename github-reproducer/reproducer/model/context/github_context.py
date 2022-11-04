@@ -11,8 +11,8 @@ class GitHubContext(Context):
         # A token to authenticate on behalf of the GitHub App installed on your repository.
         # TODO: add option to input a read only token (set in bugswarm/common/credentials.py).
         self.token = 'DUMMY'
-        # (Dynamic) The job_id of the current job.
-        self.job = job_object.job_id
+        # The job_id of the current job.
+        self.job = job_object.config.get('id-in-workflow', '')
         # For push, this is the branch or tag ref that was pushed. For pull_request, this is the PR merge branch.
         self.ref = ''
         # The commit SHA that triggered the workflow run.

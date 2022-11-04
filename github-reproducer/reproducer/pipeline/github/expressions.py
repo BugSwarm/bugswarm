@@ -110,6 +110,8 @@ def substitute_expressions(string, job_id, root_context):
 
 
 def to_str(val) -> str:
+    if val is None:
+        return ''
     if isinstance(val, str):
         return val
     return json.dumps(val)
@@ -120,7 +122,7 @@ def _create_grammar() -> pp.ParserElement:
     # ws = pp.Opt(pp.White()).suppress()
 
     kw_literal = pp.one_of(['true', 'false', 'null'], as_keyword=True)
-    kw_literal.set_parse_action(lambda tokens: Token('literal', tokens[0]))
+    kw_literal.set_parse_action(lambda tokens: Token('literal', json.loads(tokens[0])))
     hex_literal = pp.Regex('[+-]?0x[0-9A-Fa-f]+').set_parse_action(pp.token_map(int, 16))
     num_literal = hex_literal | ppc.number
     num_literal.set_parse_action(lambda tokens: Token('number', tokens[0]))
@@ -165,12 +167,21 @@ def _create_grammar() -> pp.ParserElement:
 EXPRESSION_GRAMMAR = _create_grammar()
 
 
+def _should_unwrap(expr: pp.ParseResults):
+    # Only unwrap nested lists
+    if not isinstance(expr, list) or len(expr) != 1 or not isinstance(expr[0], list):
+        return False
+
+    # Do not unwrap functions in argument lists.
+    if len(expr[0]) > 0 and isinstance(expr[0][0], Token) and expr[0][0].kind == 'function':
+        return False
+    return True
+
+
 def _flatten_token_list(parsed_expression: pp.ParseResults) -> 'list[Token]':
     result = []
 
-    while (isinstance(parsed_expression, list) and
-           len(parsed_expression) == 1 and
-           isinstance(parsed_expression[0], list)):
+    while _should_unwrap(parsed_expression):
         parsed_expression = parsed_expression[0]
     for group in parsed_expression:
         if isinstance(group, list):
