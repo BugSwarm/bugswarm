@@ -552,8 +552,11 @@ class Utils(object):
             if isinstance(container, dict) and 'image' in container:
                 return container['image']
 
-            if runs_on in bugswarm_image_tags:
+            if isinstance(runs_on, str) and runs_on in bugswarm_image_tags:
                 return bugswarm_image_tags[runs_on]
+            for label in runs_on:
+                if label in bugswarm_image_tags:
+                    return bugswarm_image_tags[label]
 
         return bugswarm_image_tags['ubuntu-latest']
 
