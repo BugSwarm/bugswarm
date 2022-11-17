@@ -259,7 +259,9 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
     if 'container' in job_config or 'services' in job_config:
-        index -= 1
+        if 'Initialize containers' in api_step_names:
+            # container can be empty, need to double check using api steps.
+            index -= 1
 
     # For each unique docker image used by a `uses` step, an API step is added to the start called "Pull <image>".
     # No workflow file equivalent, so decrement.
