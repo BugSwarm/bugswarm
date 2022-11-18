@@ -4,9 +4,10 @@ Dockerfile and then run the job.
 """
 from bugswarm.common import log
 from reproducer.model.job import Job
+from reproducer.utils import Utils
 
 
-def gen_dockerfile(image_tag: str, job: Job, destination: str = None):
+def gen_dockerfile(image_tag: str, job: Job, utils: Utils, destination: str = None):
     """
     Generates a Dockerfile for reproducing a job.
 
@@ -14,16 +15,20 @@ def gen_dockerfile(image_tag: str, job: Job, destination: str = None):
 
     :param image_tag: The image tag that the original build used. This image tag will be used as the base image.
     :param job_id: The job ID identifying the original Travis job.
+    :param utils: Utils object
     :param destination: Path where the generated Dockerfile should be written.
     """
     log.info('Use Docker image {} for job runner.'.format(image_tag))
 
     destination = destination or job.job_id + '-Dockerfile'
-    _write_dockerfile(destination, image_tag, job.job_id, job.resettable)
+    _write_dockerfile(destination, image_tag, job.job_id, job.resettable, utils)
     log.debug('Wrote Dockerfile to {}'.format(destination))
 
 
-def _write_dockerfile(destination: str, base_image: str, job_id: str, resettable: bool):
+def _write_dockerfile(destination: str, base_image: str, job_id: str, resettable: bool, utils: Utils):
+    if base_image == '':
+        base_image = utils.get_latest_image_tag(job_id)
+
     job_runner = base_image.startswith('bugswarm/githubactionsjobrunners')
 
     # TODO: CentOS, RHEL base image

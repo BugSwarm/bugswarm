@@ -83,7 +83,7 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
     # STEP 4: Generate the Dockerfile.
     dockerfile_path = job_dispatcher.utils.get_dockerfile_path(job)
     if not isfile(dockerfile_path):
-        gen_dockerfile(job.image_tag, job, dockerfile_path)
+        gen_dockerfile(job.image_tag, job, job_dispatcher.utils, dockerfile_path)
 
     # Post-job step.
     if copy_files:

@@ -532,33 +532,47 @@ class Utils(object):
         return ''.join(parts)
 
     @staticmethod
-    def get_image_tag(config: dict) -> str:
-        # Given job's config
-        # Get job runner's image tag, and return BugSwarm's Ubuntu 20.04 image if failed.
+    def get_bugswarm_image_tag(image_tag: str, use_default: bool) -> str:
         bugswarm_image_tags = {
-            'ubuntu-latest': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
             'ubuntu-22.04': 'bugswarm/githubactionsjobrunners:ubuntu-22.04-aug2022',
             'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
             'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04',
         }
+        image_tag = image_tag.lower()
 
+        if image_tag in bugswarm_image_tags:
+            return bugswarm_image_tags[image_tag]
+
+        if use_default:
+            return bugswarm_image_tags['ubuntu-20.04']
+        else:
+            return ''
+
+    @staticmethod
+    def get_image_tag(config: Optional[dict]) -> str:
         runs_on = config.get('runs-on', None)
         container = config.get('container', None)
         if runs_on:
             # This will only handle very basic container image
             # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
-            if isinstance(container, str):
+            if isinstance(container, str) and container != '':
                 return container
-            if isinstance(container, dict) and 'image' in container:
+            if isinstance(container, dict) and 'image' in container and container['image'] != '':
                 return container['image']
 
-            if isinstance(runs_on, str) and runs_on in bugswarm_image_tags:
-                return bugswarm_image_tags[runs_on]
+            if isinstance(runs_on, str):
+                return Utils.get_bugswarm_image_tag(runs_on, use_default=False)
             for label in runs_on:
-                if label in bugswarm_image_tags:
-                    return bugswarm_image_tags[label]
+                bugswarm_image_tag = Utils.get_bugswarm_image_tag(label, use_default=False)
+                if bugswarm_image_tag != '':
+                    return bugswarm_image_tag
 
-        return bugswarm_image_tags['ubuntu-latest']
+        return ''
+
+    def get_latest_image_tag(self, job_id) -> str:
+        # We will get the image tag from the original log.
+        actual_image_tag = self.get_job_image_from_original_log(job_id)
+        return Utils.get_bugswarm_image_tag(actual_image_tag, use_default=True)
 
     def get_sha_from_original_log(self, job):
         # Get all the actions/checkout SHA (except the first one)
@@ -604,6 +618,30 @@ class Utils(object):
                         if i >= 4:
                             # Only check the first 5 lines.
                             break
+            except FileNotFoundError:
+                pass
+        return None
+
+    def get_job_image_from_original_log(self, job_id: int) -> Optional[str]:
+        if os.path.isfile(self.get_orig_log_path(job_id)):
+            try:
+                with open(self.get_orig_log_path(job_id), 'r') as file:
+                    is_runner_image_group = False
+
+                    for i, line in enumerate(file):
+                        if len(line) <= 29:
+                            # Timestamp
+                            continue
+
+                        if is_runner_image_group:
+                            match = re.search(r'Image: (\S+)', line, re.M)
+                            if match:
+                                return match.group(1)
+                            else:
+                                return None
+                        elif line[29:].startswith('##[group]Runner Image'):
+                            is_runner_image_group = True
+
             except FileNotFoundError:
                 pass
         return None
