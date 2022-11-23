@@ -573,7 +573,7 @@ class Utils(object):
     def get_latest_image_tag(self, job_id) -> str:
         # We will get the image tag from the original log.
         actual_image_tag = self.get_job_image_from_original_log(job_id)
-        if isinstance(actual_image_tag, str):
+        if not isinstance(actual_image_tag, str):
             # Cannot find runner version from original log, use default instead.
             actual_image_tag = ''
         return Utils.get_bugswarm_image_tag(actual_image_tag, use_default=True)
