@@ -226,8 +226,8 @@ def process_input_env(github_builder, action_repo, step, action_file, env_str):
     # Turn workflow step's 'with' into environment variable string
     if 'with' in step:
         for key, value in step['with'].items():
-            # actions/setup-<lang> needs to ignore cache key to avoid @actions/cache.
-            if 'actions/setup-' in action_repo and key == 'cache':
+            # actions/setup-<lang> needs to ignore cache key to avoid @actions/cache. Also need to ignore token key.
+            if 'actions/setup-' in action_repo and key in {'cache', 'token'}:
                 continue
             # actions/checkout needs to ignore the ref key to avoid incorrect commit reset
             if key == 'ref' and action_repo == 'actions/checkout':
@@ -246,6 +246,11 @@ def process_input_env(github_builder, action_repo, step, action_file, env_str):
 
             action_inputs['INPUT_REF'] = sha
             env_str += '{}={} '.format('INPUT_REF', sha)
+
+    # If the action is actions/setup-<lang>, add empty string to token key (Issue #39)
+    if 'actions/setup-' in action_repo:
+        action_inputs['INPUT_TOKEN'] = ''
+        env_str += '{}={} '.format('INPUT_TOKEN', '')
 
     # Set default env.
     if 'inputs' in action_file:

@@ -562,16 +562,20 @@ class Utils(object):
 
             if isinstance(runs_on, str):
                 return Utils.get_bugswarm_image_tag(runs_on, use_default=False)
-            for label in runs_on:
-                bugswarm_image_tag = Utils.get_bugswarm_image_tag(label, use_default=False)
-                if bugswarm_image_tag != '':
-                    return bugswarm_image_tag
+            if isinstance(runs_on, list):
+                for label in runs_on:
+                    bugswarm_image_tag = Utils.get_bugswarm_image_tag(label, use_default=False)
+                    if bugswarm_image_tag != '':
+                        return bugswarm_image_tag
 
         return ''
 
     def get_latest_image_tag(self, job_id) -> str:
         # We will get the image tag from the original log.
         actual_image_tag = self.get_job_image_from_original_log(job_id)
+        if isinstance(actual_image_tag, str):
+            # Cannot find runner version from original log, use default instead.
+            actual_image_tag = ''
         return Utils.get_bugswarm_image_tag(actual_image_tag, use_default=True)
 
     def get_sha_from_original_log(self, job):
@@ -633,13 +637,18 @@ class Utils(object):
                             # Timestamp
                             continue
 
+                        log_line = line[29:]
                         if is_runner_image_group:
-                            match = re.search(r'Image: (\S+)', line, re.M)
+                            match = re.search(r'(Image|Environment): (\S+)', log_line, re.M)
                             if match:
-                                return match.group(1)
+                                return match.group(2)
                             else:
                                 return None
-                        elif line[29:].startswith('##[group]Runner Image'):
+                        elif log_line.startswith('##[group]Runner Image'):
+                            # New group name
+                            is_runner_image_group = True
+                        elif log_line.startswith('##[group]Virtual Environment'):
+                            # Old group name
                             is_runner_image_group = True
 
             except FileNotFoundError:

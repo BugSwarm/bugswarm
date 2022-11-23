@@ -5,7 +5,7 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
     # https://docs.github.com/en/actions/learn-github-actions/environment-variables
     return {
         # Always set to true.
-        'CI': True,
+        'CI': 'true',
         # A token to authenticate on behalf of the GitHub App installed on your repository.
         # TODO: add option to input a read only token (set in bugswarm/common/credentials.py).
         'GITHUB_TOKEN': 'DUMMY',
@@ -16,7 +16,7 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         # For a step executing an action, this is the owner and repository name of the action.
         'GITHUB_ACTION_REPOSITORY': action_repo,
         # Always set to true when GitHub Actions is running the workflow.
-        'GITHUB_ACTIONS': True,
+        'GITHUB_ACTIONS': 'true',
         # The name of the person or app that initiated the workflow.
         'GITHUB_ACTOR': github_builder.ACTOR.get('login', ''),
         'GITHUB_API_URL': 'https://api.github.com',
