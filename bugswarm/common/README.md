@@ -1,5 +1,5 @@
 # Common Library
-Library of modules used throughout the BugSwarm toolset
+Library of modules used throughout the BugSwarm toolset.
 
 
 ## REST API Usage:
