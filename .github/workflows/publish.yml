@@ -1,0 +1,60 @@
+name: Publish to PyPI
+
+on:
+  schedule:
+    # Run every day at midnight UTC (4 or 5 PM Pacific, depending on daylight savings)
+    - cron: '0 0 * * *'
+
+jobs:
+  bugswarm-common:
+    name: Publish bugswarm.common to PyPI
+    runs-on: ubuntu-latest
+
+    steps:
+      # Because actions/download-artifact can only download artifacts from the same workflow run,
+      # we have to get it ourselves from the API
+      - name: Get artifact download URL
+        uses: actions/github-script@v6
+        id: get-download-url
+        # We don't want to fail the entire job if there aren't any new artifacts.
+        # Make sure that all later steps check that steps.get-download-url.outcome == 'success'.
+        continue-on-error: true
+        with:
+          result-encoding: string
+          script: |
+            const mostRecentArtifact = (await github.rest.actions.listArtifactsForRepo({
+              ...context.repo,
+              name: "bugswarm-common-build",
+            })).data.artifacts[0];
+
+            const creationTime = new Date(mostRecentArtifact.created_at);
+            const currentTime = new Date();
+            if (currentTime - creationTime > 86400000) throw "No new artifacts to push";
+
+            return mostRecentArtifact.archive_download_url;
+
+      - name: Download and extract artifact
+        if: steps.get-download-url.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOWNLOAD_URL: ${{ steps.get-download-url.outputs.result }}
+        run: |
+          wget --header "Authorization: token $GITHUB_TOKEN" -O artifact.zip "$DOWNLOAD_URL"
+          unzip -d dist artifact.zip
+
+      - name: Upload to TestPyPI
+        if: github.repository == 'BugSwarm/bugswarm-dev' && steps.get-download-url.outcome == 'success'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: bugswarm
+          password: ${{ secrets.PYPI_TEST_PASSWD }}
+          repository_url:  https://test.pypi.org/legacy/
+
+      - name: Upload to PyPI
+        if: github.repository == 'BugSwarm/bugswarm' && steps.get-download-url.outcome == 'success'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: bugswarm
+          password: ${{ secrets.PYPI_LIVE_PASSWD }}
+
+

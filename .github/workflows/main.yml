@@ -56,6 +56,12 @@ jobs:
         run: |
           python3.8 -m unittest discover
 
+  bugswarm_dev_build:
+    name: Build artifacts
+    if: github.event_name == 'pull_request'
+    needs: bugswarm_dev
+    uses: ./.github/workflows/build-artifacts.yml
+
   bugswarm:
     name: Test in public repo
     if: github.repository == 'BugSwarm/bugswarm'
@@ -103,3 +109,9 @@ jobs:
         working-directory: ./reproducer/tests
         run: |
           python3 -m unittest discover
+
+  bugswarm_build:
+    name: Build artifacts
+    if: github.event_name == 'push' && github.ref == 'master'
+    needs: bugswarm
+    uses: ./.github/workflows/build-artifacts.yml

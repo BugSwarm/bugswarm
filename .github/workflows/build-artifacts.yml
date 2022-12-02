@@ -1,0 +1,45 @@
+name: Build artifacts
+
+on: workflow_call
+
+jobs:
+  bugswarm-common:
+    name: Package bugswarm.common
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - name: Get changed files list
+        uses: tj-actions/changed-files@v34
+        id: changed-files
+        with:
+          files: |
+            bugswarm/common/**
+            setup.common.py
+
+      - name: Prepare repo for packaging
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          pushd bugswarm/common
+          mv credentials.sample.py credentials.py
+          sed -i "s/COMMON_HOSTNAME = ''/COMMON_HOSTNAME = 'www.api.bugswarm.org'/g" credentials.py
+          sed -i "s/\(.*\) = \(''\|\[\]\)/\1 = '#'/g" credentials.py
+          popd
+          mv bugswarm/common/README.md README.md
+          mv setup.common.py setup.py
+      - name: Build wheel and source
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          python3 -m pip install build
+          python3 -m build --sdist --wheel --outdir dist
+      - name: Upload dists
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: bugswarm-common-build
+          path: ./dist
