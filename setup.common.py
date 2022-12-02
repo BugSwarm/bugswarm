@@ -3,7 +3,7 @@ to generate the bugswarm-common package on PyPI."""
 
 from datetime import datetime
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 today = datetime.utcnow()
@@ -23,7 +23,7 @@ setup(
         'License :: OSI Approved :: BSD License',
     ],
     zip_safe=False,
-    packages=['bugswarm.common'],
+    packages=find_packages('bugswarm', exclude=['analyzer*']),
     install_requires=[
         'requests>=2.20.0',
         'CacheControl==0.12.3',
