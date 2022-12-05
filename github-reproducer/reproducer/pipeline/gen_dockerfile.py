@@ -66,14 +66,9 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str, resettable
         # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#administrative-privileges
         'RUN echo "ALL ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers',
 
-        # TODO: Do we need linuxbrew (it is huge)?
-        # Let user own the entire /home directory to avoid permission issue.
-        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
-        'RUN chown github:github /home /home/github' if job_runner else 'RUN chown -R github:github /home',
-
         # Add the repository.
         'ADD repo-to-docker.tar /home/github/build/',
-        'RUN {} /home/github/build/'.format('chown -R github:github' if resettable else 'chmod -R 777'),
+        'RUN chmod -R 777 /home/github/build' if not resettable else '',
 
         # Add the build script and predefined actions.
         'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),
@@ -83,6 +78,11 @@ def _write_dockerfile(destination: str, base_image: str, job_id: str, resettable
         'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(job_id, job_id),
         'RUN chmod 777 /usr/local/bin/run.sh',
         'RUN chmod -R 777 /home/github/{}'.format(job_id),
+
+        # TODO: Do we need linuxbrew (it is huge)?
+        # Let user own the entire /home directory to avoid permission issue.
+        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
+        'RUN chown -R github:github /home /home/github' if job_runner else 'RUN chown -R github:github /home',
 
         # TODO: Find this doc
         # Set the user to use when running the image. Our Google Drive contains a file that explains why we do this.

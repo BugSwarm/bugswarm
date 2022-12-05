@@ -1,16 +1,18 @@
 import collections
+import json
 import os
+import pathlib
+import re
 import shlex
 import shutil
 import subprocess
 import time
-import json
-import re
 from typing import Optional
 
 from bugswarm.common import log
 from bugswarm.common import utils as bugswarmutils
 from bugswarm.common.shell_wrapper import ShellWrapper
+from reproducer.reproduce_exception import ReproduceError
 
 
 class Utils(object):
@@ -407,8 +409,20 @@ class Utils(object):
     def check_docker_disk_space_available(self, docker_storage_path):
         if self.config.skip_check_disk:
             return True
-        # TODO: Fix this
-        total_b, used_b, free_b = shutil.disk_usage('.')
+
+        # Start with the full storage path, and iterate up a directory if shutil.disk_usage raises a PermissionError
+        docker_storage_path = pathlib.Path(docker_storage_path)
+        for path in (docker_storage_path, *docker_storage_path.parents):
+            try:
+                total_b, used_b, free_b = shutil.disk_usage(str(path))
+                break
+            except PermissionError:
+                pass
+        else:
+            message = 'Could not get disk space for Docker storage path: {}'.format(docker_storage_path)
+            log.error(message)
+            raise ReproduceError(message)
+
         if free_b < self.config.docker_disk_space_requirement:
             amount = str(round(free_b / 1024**3, 2))
             log.warning('Inadequate disk space available for storing Docker Images: {} GiB.'.format(amount))
@@ -534,7 +548,7 @@ class Utils(object):
     @staticmethod
     def get_bugswarm_image_tag(image_tag: str, use_default: bool) -> str:
         bugswarm_image_tags = {
-            'ubuntu-22.04': 'bugswarm/githubactionsjobrunners:ubuntu-22.04-aug2022',
+            'ubuntu-22.04': 'bugswarm/githubactionsjobrunners:ubuntu-22.04',
             'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
             'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04',
         }

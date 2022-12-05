@@ -133,9 +133,9 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # Add the repositories.
         'ADD failed.tar /home/github/build/failed/',
         'ADD passed.tar /home/github/build/passed/',
-        'RUN {} /home/github/build/failed/'.format('chown -R github:github' if failed_resettable else 'chmod -R 777'),
-        'RUN {} /home/github/build/passed/'.format('chown -R github:github' if passed_resettable else 'chmod -R 777'),
-        'RUN chown github:github /home/github/build',
+        'RUN chmod -R 777 /home/github/build/failed/' if not failed_resettable else '',
+        'RUN chmod -R 777 /home/github/build/passed/' if not passed_resettable else '',
+        'RUN chown -R github:github /home/github/build',
 
         # Add the original logs.
         'ADD {}-orig.log /home/github/build/'.format(failed_job_id),

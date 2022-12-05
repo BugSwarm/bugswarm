@@ -34,7 +34,6 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             # Predefined actions need this directory.
             'mkdir -p /home/github/workflow/',
             '',
-            'cp -a /home/github/{}/steps/. ${{GITHUB_WORKSPACE}}/'.format(github_builder.job.job_id),
             'cp /home/github/{}/event.json /home/github/workflow/event.json'.format(github_builder.job.job_id),
             'echo -n > /home/github/workflow/envs.txt',
             'echo -n > /home/github/workflow/paths.txt',
@@ -139,7 +138,7 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
                 ''
             ]
 
-            filepath = '${GITHUB_WORKSPACE}/' + s.filename
+            filepath = '{}/{}'.format(github_builder.steps_dir, s.filename)
 
             # Need indirection so that environment variables are taken into account
             lines += [

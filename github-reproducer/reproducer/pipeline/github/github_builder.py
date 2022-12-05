@@ -48,6 +48,8 @@ class GitHubBuilder:
         self.GITHUB_REF = 'refs/pull/{}/merge'.format(self.PR) if self.PR else 'refs/heads/{}'.format(self.job.branch)
         self.GITHUB_REF_NAME = 'refs/pull/{}/merge'.format(self.PR) if self.PR else self.job.branch
 
+        self.steps_dir = '/home/github/{}/steps'.format(job.job_id)
+
         self.get_workflow_data()
         self.get_pr_data()
 

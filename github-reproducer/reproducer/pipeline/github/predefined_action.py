@@ -15,7 +15,8 @@ from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
 
 IGNORE_ACTIONS = {'codecov/codecov-action', 'actions/upload-artifact', 'actions/download-artifact',
-                  'actions/cache', 'gradle/wrapper-validation-action', 'styfle/cancel-workflow-action'}
+                  'actions/cache', 'gradle/wrapper-validation-action', 'styfle/cancel-workflow-action',
+                  'github/codeql-action/init', 'peaceiris/actions-gh-pages', 's0/git-publish-subdir-action'}
 SPECIAL_ACTIONS = {'actions/checkout'}
 
 
@@ -205,7 +206,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                     github_builder.location, 'steps', 'bugswarm_{}_composite.sh'.format(step_number)
                 )
                 generate_build_script.generate(github_builder, sub_steps, output_path=output_path, setup=False)
-                run_command = 'bugswarm_{}_composite.sh'.format(step_number)
+                run_command = '{}/bugswarm_{}_composite.sh'.format(github_builder.steps_dir, step_number)
                 filename = 'bugswarm_{}.sh'.format(step_number)
             else:
                 log.error('The \'using\' attribute has invalid value: {}'.format(runs_using))
