@@ -228,16 +228,23 @@ def process_input_env(github_builder, action_repo, step, action_file, env_str):
     if 'with' in step:
         for key, value in step['with'].items():
             # actions/setup-<lang> needs to ignore cache key to avoid @actions/cache. Also need to ignore token key.
-            if 'actions/setup-' in action_repo and key in {'cache', 'token'}:
+            if 'actions/setup-' in action_repo and key in {'cache', 'token', 'overwrite-settings'}:
                 continue
             # actions/checkout needs to ignore the ref key to avoid incorrect commit reset
-            if key == 'ref' and action_repo == 'actions/checkout':
+            if action_repo == 'actions/checkout' and key == 'ref':
                 continue
 
             var_key = 'INPUT_{}'.format(key.upper().replace(' ', '_'))
             subbed_value = expressions.substitute_expressions(value, job_id, contexts)
             action_inputs[var_key] = subbed_value
             env_str += '{}={} '.format(var_key, subbed_value)
+
+    # Tell actions/setup-java not to override settings.xml
+    if action_repo == 'actions/setup-java':
+        var_key = 'INPUT_OVERWRITE-SETTINGS'
+        value = False
+        action_inputs[var_key] = value
+        env_str += '{}={} '.format(var_key, value)
 
     # If the action is actions/checkout, add the ref key based on our checkout_sha array.
     if action_repo == 'actions/checkout':

@@ -70,14 +70,11 @@ class CleanPairs:
         log.debug('same-commit pairs:', same_commit_pairs)
         log.debug('excluded pairs:', excluded_pairs)
 
-        # latest_commit = Utils.get_latest_commit_for_repo(repo)
-        gh = context['github_api']
-        latest_commit = gh.get('https://api.github.com/repos/{}/commits'.format(repo))[1][0]['sha']
         for _, branch_obj in branches.items():
             if not branch_obj.pairs:
                 continue
             for pair in branch_obj.pairs:
-                pair.repo_mined_version = latest_commit
+                pair.repo_mined_version = context['head_commit']
 
         # Sanity check for invariants:
         # 1. The failed build ID is less than the passed build ID.

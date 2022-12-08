@@ -96,76 +96,95 @@ class GetJobsFromGitHubAPI:
             if i % 50 == 0 and i != 0:
                 log.info('Got jobs for', i, 'runs...')
 
-            # We're only looking for jobs triggered by pushes and pull requests.
-            # Other event kinds can cause problems futher down the pipeline.
-            if run['event'] not in ['push', 'pull_request']:
-                continue
-            # Runs can also have conclusions like "cancelled", "neutral", "timed_out", etc.
-            # We don't want to consider them.
-            if run['conclusion'] not in ['success', 'failure']:
-                continue
-            filtered_runs.append(run)
-
-            if latest_run_id is None:
-                latest_run_id = run['id']
-                latest_run_number = run['run_number']
-
-            # Get all jobs for a workflow run
-            jobs_for_run = get_pages_with_key(gh, run['jobs_url'], 'jobs')
-
-            for j, job in enumerate(jobs_for_run):
-                # Some jobs don't actually have an equivalent entry in the workflow file.
-                # For example, in https://github.com/Adobe-Consulting-Services/acs-aem-commons/actions/runs/2545222818,
-                # none of the "Test report ..." jobs have an entry in their workflow file, even though
-                # they appear in the API. To detect this, check if the job has a label (e.g. ubuntu-latest,
-                # self-hosted)
-                if job['labels'] == '':
+            try:
+                # We're only looking for jobs triggered by pushes and pull requests.
+                # Other event kinds can cause problems futher down the pipeline.
+                if run['event'] not in ['push', 'pull_request']:
+                    continue
+                # Runs can also have conclusions like "cancelled", "neutral", "timed_out", etc.
+                # We don't want to consider them.
+                if run['conclusion'] not in ['success', 'failure']:
                     continue
 
-                # Get name and index of the step that failed in this job, if any.
-                # Assumes that only one step can fail (and the rest are skipped).
-                # (Note that in the API, steps that fail but have `continue-on-error` set to true are recorded as having
-                # passed.)
-                failed_step_number = None
-                for s, step in enumerate(job['steps']):
-                    if step['conclusion'] == 'failure':
-                        failed_step_number = s
-                        break
+                if latest_run_id is None:
+                    latest_run_id = run['id']
+                    latest_run_number = run['run_number']
 
-                job_info = {
-                    'job_id': job['id'],
-                    'job_number': j + 1,
-                    'job_name': job['name'],
-                    'build_id': run['id'],
-                    'number': run['run_number'],
-                    'workflow_id': run['workflow_id'],
-                    'workflow_path': run['path'],
+                # Get all jobs for a workflow run
+                jobs_for_run = get_pages_with_key(gh, run['jobs_url'], 'jobs')
 
-                    'event_type': run['event'],
-                    'result': job['conclusion'],
-                    'finished_at': job['completed_at'],
+                for j, job in enumerate(jobs_for_run):
+                    try:
+                        # Some jobs don't actually have an equivalent entry in the workflow file.
+                        # For example, in https://github.com/Adobe-Consulting-Services/acs-aem-commons/actions/runs/2545222818,
+                        # none of the "Test report ..." jobs have an entry in their workflow file, even though
+                        # they appear in the API. To detect this, check if the job has a label (e.g. ubuntu-latest,
+                        # self-hosted)
+                        if job['labels'] == '':
+                            continue
 
-                    'commit': run['head_sha'],
-                    'message': run['head_commit']['message'],
-                    'branch': run['head_branch'],
-                    'committed_at': run['head_commit']['timestamp'],
-                    'committer_name': run['head_commit']['committer']['name'],
+                        # Get name and index of the first step that failed in this job, if any.
+                        # Assumes that only one step can fail, and the rest are skipped. This is not always true!
+                        # Note that steps that fail but have `continue-on-error` set to True are considered passing in
+                        # the API, and thus in PairFinder as well.
+                        failed_step_number = None
+                        for s, step in enumerate(job['steps']):
+                            if step['conclusion'] == 'failure':
+                                failed_step_number = s
+                                break
 
-                    'failed_step_number': failed_step_number,
+                        job_info = {
+                            'job_id': job['id'],
+                            'job_number': j + 1,
+                            'job_name': job['name'],
+                            'build_id': run['id'],
+                            'number': run['run_number'],
+                            'workflow_id': run['workflow_id'],
+                            'workflow_path': run['path'],
 
-                    'language': main_language,  # How necessary is this for reproducing?
-                }
+                            'event_type': run['event'],
+                            'result': job['conclusion'],
+                            'finished_at': job['completed_at'],
 
-                # run['head_repository'] is sometimes null; if it is, assume the branch is in the main repo.
-                # see https://api.github.com/repos/svg/svgo/actions/runs/1607135127
-                if run['head_repository'] is not None:
-                    job_info['branch_owner'] = run['head_repository']['owner']['login']
-                else:
-                    job_info['branch_owner'] = repo.split('/')[0]
+                            'commit': run['head_sha'],
+                            'message': run['head_commit']['message'],
+                            'branch': run['head_branch'],
+                            'committed_at': run['head_commit']['timestamp'],
+                            'committer_name': run['head_commit']['committer']['name'],
 
-                jobs.append(job_info)
+                            'failed_step_number': failed_step_number,
+                            'steps': job['steps'],
 
-        log.info('Got', len(jobs), 'jobs total for repo', repo, 'in',
+                            'language': main_language,  # How necessary is this for reproducing?
+                        }
+
+                        # run['head_repository'] is sometimes null; if it is, assume the branch is in the main repo.
+                        # see https://api.github.com/repos/svg/svgo/actions/runs/1607135127
+                        if run['head_repository'] is not None:
+                            job_info['branch_owner'] = run['head_repository']['owner']['login']
+                        else:
+                            job_info['branch_owner'] = repo.split('/')[0]
+
+                        for k, v in job_info.items():
+                            if k != 'failed_step_number' and v is None:
+                                log.warning('job_info["{}"] is None. Skipping the job.'.format(k))
+                                continue
+
+                        if run not in filtered_runs:
+                            filtered_runs.append(run)
+
+                        jobs.append(job_info)
+                    except (KeyError, TypeError) as e:
+                        job_id = job.get('id') if isinstance(job, dict) else None
+                        log.warning(e)
+                        log.warning('Error while mining job {}. Skipping that job.'.format(job_id))
+
+            except (KeyError, TypeError) as e:
+                run_id = run.get('id') if isinstance(run, dict) else None
+                log.warning(e)
+                log.warning('Error while mining run {}. Skipping that run.'.format(run_id))
+
+        log.info('Got', len(jobs), 'jobs total from', len(filtered_runs), 'runs for repo', repo, 'in',
                  time.time() - start_time, 'seconds')
 
         # If no jobs were found, exit early

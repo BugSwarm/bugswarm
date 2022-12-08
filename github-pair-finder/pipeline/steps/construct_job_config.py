@@ -19,6 +19,19 @@ class RecoverableException(Exception):
     pass
 
 
+def flatten_dict_keys(d, prefix=None):
+    """
+    Given a nested dict {'a': {'b': {'c': 1}, {'d': 2}}, 'e'}, yields the
+    key of each leaf node in dot notation ('a.b.c', 'a.b.d', 'a.e').
+    """
+    if isinstance(d, dict):
+        for k, v in d.items():
+            next_prefix = k if prefix is None else '{}.{}'.format(prefix, k)
+            yield from flatten_dict_keys(v, next_prefix)
+    else:
+        yield prefix
+
+
 def get_job_api_name(base_name: str, matrix_combination, default_keys):
     """
     Finds the job's API name by interpolating the appropriate matrix variables.
@@ -29,7 +42,9 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
     interpolations = []
     for key in default_keys:
         if key in matrix_combination and matrix_combination[key] != '':
-            interpolations.append('${{{{ matrix.{} }}}}'.format(key))
+            # Handle nested dicts, e.g. https://github.com/Robert-Furth/actions-test/actions/runs/2835879042
+            for flattened_key in flatten_dict_keys(matrix_combination[key], key):
+                interpolations.append('${{{{ matrix.{} }}}}'.format(flattened_key))
 
     intermediate_name = base_name
     if interpolations and not re.search(MATRIX_INTERPOLATE_REGEX, intermediate_name):
@@ -38,23 +53,54 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
     # Find the start/end indexes of all interpolated matrix variables.
     indexes = []
     for match in re.finditer(MATRIX_INTERPOLATE_REGEX, intermediate_name):
-        key = match.group(1)
-        value = str(matrix_combination[key]) if key in matrix_combination else ''
-        indexes.append((match.start(), match.end(), value))
+        # Handle dot-indexing of nested dicts.
+        # e.g. ${{ matrix.foo.bar }} -> matrix_combination['foo']['bar']
+        keys = [key.lower() for key in match.group(1).split('.')]
+        value = matrix_combination
+        for key in keys:
+            value = value[key] if isinstance(value, dict) and key in value else ''
+        indexes.append((match.start(), match.end(), str(value)))
 
     # Interpolate
     job_name = intermediate_name
     for start, end, value in reversed(indexes):
         job_name = job_name[:start] + value + job_name[end:]
 
-    return job_name.strip()
+    job_name = job_name.strip()
+
+    # Job names over 100 characters are truncated, *even in the API*
+    # https://api.github.com/repos/apache/zookeeper/actions/runs/1189465687/jobs
+    if len(job_name) > 100:
+        job_name = job_name[:97] + '...'
+
+    return job_name
 
 
 def partial_match(d1, d2):
+    if not isinstance(d1, dict) or not isinstance(d2, dict):
+        return d1 == d2
+
     for key, val in d1.items():
-        if key in d2 and d2[key] != val:
+        if key in d2 and not partial_match(val, d2[key]):
             return False
     return True
+
+
+def lowercase_dict_keys(d):
+    """
+    Recursively convert all string keys in `d` to lowercase.
+    """
+    if isinstance(d, dict):
+        lowercased = {}
+        for k, v in d.items():
+            if isinstance(k, str):
+                k = k.lower()
+            lowercased[k] = lowercase_dict_keys(v)
+        return lowercased
+    elif isinstance(d, list):
+        return [lowercase_dict_keys(x) for x in d]
+    else:
+        return d
 
 
 def build_combinations(job_matrix):
@@ -64,7 +110,7 @@ def build_combinations(job_matrix):
     """
 
     # Separate matrix includes and excludes
-    job_matrix = deepcopy(job_matrix)
+    job_matrix = lowercase_dict_keys(job_matrix)
     includes = excludes = []
     if 'include' in job_matrix:
         includes = job_matrix['include']
@@ -170,11 +216,17 @@ def expand_job_matrixes(workflow: dict):
 
             # All keys not added by include rules. Used to generate job_api_name.
             default_keys = [key for key in job_matrix if key not in ['include', 'exclude']]
+            # If a matrix only contains 'include' rules, then Actions uses those includes to generate
+            # the API name.
+            default_keys_are_dynamic = default_keys == [] and 'include' in job_matrix
 
             # For each possible combination of matrix values, generate the corresponding API name.
             # (Note: reliant on the specific order itertools.product generates. In practice it works fine.)
             names_and_configs.append([])
             for combination in build_combinations(job_matrix):
+                if default_keys_are_dynamic:
+                    default_keys = list(combination.keys())
+
                 config = deepcopy(job)
                 config['strategy']['matrix'] = combination
                 job_api_name = get_job_api_name(job_base_api_name, combination, default_keys)
@@ -186,13 +238,14 @@ def expand_job_matrixes(workflow: dict):
                 raise RecoverableException()
             disambiguated.append(job_base_api_name)
 
-            names_and_configs.append([(job_base_api_name, job_base_api_name, job)])
+            job_api_name = get_job_api_name(job_base_api_name, {}, [])
+            names_and_configs.append([(job_api_name, job_base_api_name, job)])
 
     # Sort by length in descending order.
     return sorted(names_and_configs, key=lambda l: len(l), reverse=True)
 
 
-def get_failed_step(failed_step_index: int, job_config: dict):
+def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     steps = job_config['steps']
 
     # The first step in the API is always "Set up job", which has no equivalent in the workflow file.
@@ -201,16 +254,44 @@ def get_failed_step(failed_step_index: int, job_config: dict):
 
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
-    if 'container' in job_config:
+    if 'container' in job_config or 'services' in job_config:
         index -= 1
 
     # For each unique docker image used by a `uses` step, an API step is added to the start called "Pull <image>".
     # No workflow file equivalent, so decrement.
-    dockerhub_steps = set((step['uses'] for step in job_config['steps']
-                           if 'uses' in step and step['uses'].startswith('docker://')))
+    dockerhub_steps = set(step['uses'] for step in steps
+                          if 'uses' in step and step['uses'].startswith('docker://'))
     index -= len(dockerhub_steps)
 
-    failed_step = steps[index]
+    # Some predefined actions run in a container; if that's the case, then an API step is added to the start called
+    # "Build <action name>". No workflow file equivalent, so decrement.
+    api_step_names = [step['name'] for step in api_steps]
+    build_steps = set(step['uses'] for step in steps
+                      if 'uses' in step and 'Build {}'.format(step['uses']) in api_step_names)
+    index -= len(build_steps)
+
+    try:
+        failed_step = steps[index]
+    except IndexError:
+        raise RecoverableException('Step index out of bounds (Unknown API step or wrong workflow file?)')
+
+    failed_step_name = None
+    if 'name' in failed_step:
+        matrix = job_config.get('strategy', {}).get('matrix', {})
+        # Interpolate matrix variables into the step's name.
+        failed_step_name = get_job_api_name(failed_step['name'], matrix, {})
+    elif 'uses' in failed_step:
+        failed_step_name = 'Run {}'.format(failed_step['uses'])
+    elif 'run' in failed_step:
+        failed_step_name = 'Run {}'.format(failed_step['run'].splitlines()[0])
+
+    if api_steps[failed_step_index]['name'] != failed_step_name and '${{' not in failed_step_name:
+        # The calculated step is different from the actual step, and it's not an interpolation issue.
+        raise RecoverableException(
+            'Error finding step index: names differ ("{}" != "{}")'.format(
+                api_steps[failed_step_index]['name'],
+                failed_step_name))
+
     if 'uses' in failed_step:
         return 'uses', failed_step['uses']
     elif 'run' in failed_step:
@@ -306,8 +387,10 @@ class ConstructJobConfig:
 
                         if target_job.failed_step_index is not None:
                             try:
-                                kind, command = get_failed_step(target_job.failed_step_index, job_config)
+                                kind, command = get_failed_step(
+                                    target_job.failed_step_index, job_config, target_job.steps)
                             except RecoverableException as e:
+                                log.warning('Error getting failed step for job {}:'.format(target_job.job_id))
                                 log.warning(e)
                                 continue
                             target_job.failed_step_kind = kind

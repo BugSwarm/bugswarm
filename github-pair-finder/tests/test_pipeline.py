@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from os.path import join
 
@@ -189,8 +190,8 @@ class TestPipeline(unittest.TestCase):
                 actual_failed_build = output[group_id]['pairs'][i]['failed_build']
                 expected_passed_build = expected_output[group_id]['pairs'][i]['passed_build']
                 actual_passed_build = output[group_id]['pairs'][i]['passed_build']
-                self.assertEqual(expected_failed_build['jobs'], actual_failed_build['jobs'])
-                self.assertEqual(expected_passed_build['jobs'], actual_passed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_failed_build['jobs'], actual_failed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_passed_build['jobs'], actual_passed_build['jobs'])
 
     def test_expand_config_matrix_with_includes_1(self):
         input_job = {
@@ -382,6 +383,35 @@ class TestPipeline(unittest.TestCase):
         actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
         self.assertEqual(expected_matrixes, actual_matrixes)
 
+    @requests_mock.Mocker()
+    def test_step_name_interpolation(self, mock: requests_mock.Mocker):
+        repo = 'exadel-inc/etoolbox-authoring-kit'
+        datadir = join(DATA_DIR, repo.replace('/', '-'))
+
+        with open(join(datadir, 'workflow.yml')) as f:
+            workflow_text = f.read()
+
+        workflow_url = re.compile(
+            r'^https://raw\.githubusercontent\.com/{}/.*/\.github/workflows/tests\.yml'.format(repo))
+        mock.get(workflow_url, text=workflow_text)
+
+        input_path = join(datadir, 'extract-build-pairs-output.json')
+        output_path = join(datadir, 'construct-job-config-output.json')
+        input = pipeline_data_from_dict(read_json(input_path))
+        expected_output = read_json(output_path)
+
+        step = ConstructJobConfig()
+        output = to_dict(step.process(input, {'repo': repo}))
+
+        for group_id in output:
+            for i in range(len(output[group_id]['pairs'])):
+                expected_failed_build = expected_output[group_id]['pairs'][i]['failed_build']
+                actual_failed_build = output[group_id]['pairs'][i]['failed_build']
+                expected_passed_build = expected_output[group_id]['pairs'][i]['passed_build']
+                actual_passed_build = output[group_id]['pairs'][i]['passed_build']
+                self.assertRecursiveDictSubset(expected_failed_build['jobs'], actual_failed_build['jobs'])
+                self.assertRecursiveDictSubset(expected_passed_build['jobs'], actual_passed_build['jobs'])
+
     ## AlignJobPairs ##
 
     def test_align_job_pairs(self):
@@ -440,26 +470,26 @@ class TestPipeline(unittest.TestCase):
 
     ## CleanPairs ##
 
-    @requests_mock.Mocker()
-    def test_clean_pairs_sets_repo_mined_version(self, mock):
+    # @requests_mock.Mocker()
+    def test_clean_pairs_sets_repo_mined_version(self):
         repo = 'raphw/byte-buddy'
         datadir = join(DATA_DIR, repo.replace('/', '-'))
-
-        with open(join(datadir, 'commits-response.json')) as f:
-            resp = json.load(f)
-            lastest_commit = resp[0]['sha']
-            mock.get('https://api.github.com/repos/{}/commits'.format(repo), json=resp)
+        latest_commit = '0308dfed5be3beebe9ca777fc891b78b6ecf058b'
+        # with open(join(datadir, 'commits-response.json')) as f:
+        #     resp = json.load(f)
+        #     latest_commit = resp[0]['sha']
+        #     mock.get('https://api.github.com/repos/{}/commits'.format(repo), json=resp)
 
         with open(join(datadir, 'step5-output.json')) as f:
             input = pipeline_data_from_dict(json.load(f))
 
         step = CleanPairs()
         gh = GitHubWrapper(GITHUB_TOKENS)
-        output = step.process(input, {'repo': repo, 'github_api': gh, 'utils': None})
+        output = step.process(input, {'repo': repo, 'head_commit': latest_commit, 'utils': None})
 
         for group in output.values():
             for pair in group.pairs:
-                self.assertEqual(pair.repo_mined_version, lastest_commit)
+                self.assertEqual(pair.repo_mined_version, latest_commit)
 
     ## Helpers ##
 

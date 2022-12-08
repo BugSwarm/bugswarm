@@ -1,0 +1,199 @@
+Using worker: worker-linux-docker-60a71d89.prod.travis-ci.org:travis-linux-4
+
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: python
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:059663df[0K$ git clone --depth=50 --branch=cleanup/soumya/tests git://github.com/Cal-CS-61A-Staff/ok.git Cal-CS-61A-Staff/ok
+Cloning into 'Cal-CS-61A-Staff/ok'...
+remote: Counting objects: 2167, done.[K
+remote: Compressing objects:   0% (1/870)   [Kremote: Compressing objects:   1% (9/870)   [Kremote: Compressing objects:   2% (18/870)   [Kremote: Compressing objects:   3% (27/870)   [Kremote: Compressing objects:   4% (35/870)   [Kremote: Compressing objects:   5% (44/870)   [Kremote: Compressing objects:   6% (53/870)   [Kremote: Compressing objects:   7% (61/870)   [Kremote: Compressing objects:   8% (70/870)   [Kremote: Compressing objects:   9% (79/870)   [Kremote: Compressing objects:  10% (87/870)   [Kremote: Compressing objects:  11% (96/870)   [Kremote: Compressing objects:  12% (105/870)   [Kremote: Compressing objects:  13% (114/870)   [Kremote: Compressing objects:  14% (122/870)   [Kremote: Compressing objects:  15% (131/870)   [Kremote: Compressing objects:  16% (140/870)   [Kremote: Compressing objects:  17% (148/870)   [Kremote: Compressing objects:  18% (157/870)   [Kremote: Compressing objects:  19% (166/870)   [Kremote: Compressing objects:  20% (174/870)   [Kremote: Compressing objects:  21% (183/870)   [Kremote: Compressing objects:  22% (192/870)   [Kremote: Compressing objects:  23% (201/870)   [Kremote: Compressing objects:  24% (209/870)   [Kremote: Compressing objects:  25% (218/870)   [Kremote: Compressing objects:  26% (227/870)   [Kremote: Compressing objects:  27% (235/870)   [Kremote: Compressing objects:  28% (244/870)   [Kremote: Compressing objects:  29% (253/870)   [Kremote: Compressing objects:  30% (261/870)   [Kremote: Compressing objects:  31% (270/870)   [Kremote: Compressing objects:  32% (279/870)   [Kremote: Compressing objects:  33% (288/870)   [Kremote: Compressing objects:  34% (296/870)   [Kremote: Compressing objects:  35% (305/870)   [Kremote: Compressing objects:  36% (314/870)   [Kremote: Compressing objects:  37% (322/870)   [Kremote: Compressing objects:  38% (331/870)   [Kremote: Compressing objects:  39% (340/870)   [Kremote: Compressing objects:  40% (348/870)   [Kremote: Compressing objects:  41% (357/870)   [Kremote: Compressing objects:  42% (366/870)   [Kremote: Compressing objects:  43% (375/870)   [Kremote: Compressing objects:  44% (383/870)   [Kremote: Compressing objects:  45% (392/870)   [Kremote: Compressing objects:  46% (401/870)   [Kremote: Compressing objects:  47% (409/870)   [Kremote: Compressing objects:  48% (418/870)   [Kremote: Compressing objects:  49% (427/870)   [Kremote: Compressing objects:  50% (435/870)   [Kremote: Compressing objects:  51% (444/870)   [Kremote: Compressing objects:  52% (453/870)   [Kremote: Compressing objects:  53% (462/870)   [Kremote: Compressing objects:  54% (470/870)   [Kremote: Compressing objects:  55% (479/870)   [Kremote: Compressing objects:  56% (488/870)   [Kremote: Compressing objects:  57% (496/870)   [Kremote: Compressing objects:  58% (505/870)   [Kremote: Compressing objects:  59% (514/870)   [Kremote: Compressing objects:  60% (522/870)   [Kremote: Compressing objects:  61% (531/870)   [Kremote: Compressing objects:  62% (540/870)   [Kremote: Compressing objects:  63% (549/870)   [Kremote: Compressing objects:  64% (557/870)   [Kremote: Compressing objects:  65% (566/870)   [Kremote: Compressing objects:  66% (575/870)   [Kremote: Compressing objects:  67% (583/870)   [Kremote: Compressing objects:  68% (592/870)   [Kremote: Compressing objects:  69% (601/870)   [Kremote: Compressing objects:  70% (609/870)   [Kremote: Compressing objects:  71% (618/870)   [Kremote: Compressing objects:  72% (627/870)   [Kremote: Compressing objects:  73% (636/870)   [Kremote: Compressing objects:  74% (644/870)   [Kremote: Compressing objects:  75% (653/870)   [Kremote: Compressing objects:  76% (662/870)   [Kremote: Compressing objects:  77% (670/870)   [Kremote: Compressing objects:  78% (679/870)   [Kremote: Compressing objects:  79% (688/870)   [Kremote: Compressing objects:  80% (696/870)   [Kremote: Compressing objects:  81% (705/870)   [Kremote: Compressing objects:  82% (714/870)   [Kremote: Compressing objects:  83% (723/870)   [Kremote: Compressing objects:  84% (731/870)   [Kremote: Compressing objects:  85% (740/870)   [Kremote: Compressing objects:  86% (749/870)   [Kremote: Compressing objects:  87% (757/870)   [Kremote: Compressing objects:  88% (766/870)   [Kremote: Compressing objects:  89% (775/870)   [Kremote: Compressing objects:  90% (783/870)   [Kremote: Compressing objects:  91% (792/870)   [Kremote: Compressing objects:  92% (801/870)   [Kremote: Compressing objects:  93% (810/870)   [Kremote: Compressing objects:  94% (818/870)   [Kremote: Compressing objects:  95% (827/870)   [Kremote: Compressing objects:  96% (836/870)   [Kremote: Compressing objects:  97% (844/870)   [Kremote: Compressing objects:  98% (853/870)   [Kremote: Compressing objects:  99% (862/870)   [Kremote: Compressing objects: 100% (870/870)   [Kremote: Compressing objects: 100% (870/870), done.[K
+Receiving objects:   0% (1/2167)   Receiving objects:   1% (22/2167)   Receiving objects:   2% (44/2167)   Receiving objects:   3% (66/2167)   Receiving objects:   4% (87/2167)   Receiving objects:   5% (109/2167)   Receiving objects:   6% (131/2167)   Receiving objects:   7% (152/2167)   Receiving objects:   8% (174/2167)   Receiving objects:   9% (196/2167)   Receiving objects:  10% (217/2167)   Receiving objects:  11% (239/2167)   Receiving objects:  12% (261/2167)   Receiving objects:  13% (282/2167)   Receiving objects:  14% (304/2167)   Receiving objects:  15% (326/2167)   Receiving objects:  16% (347/2167)   Receiving objects:  17% (369/2167)   Receiving objects:  18% (391/2167)   Receiving objects:  19% (412/2167)   Receiving objects:  20% (434/2167)   Receiving objects:  21% (456/2167)   Receiving objects:  22% (477/2167)   Receiving objects:  23% (499/2167)   Receiving objects:  24% (521/2167)   Receiving objects:  25% (542/2167)   Receiving objects:  26% (564/2167)   Receiving objects:  27% (586/2167)   Receiving objects:  28% (607/2167)   Receiving objects:  29% (629/2167)   Receiving objects:  30% (651/2167)   Receiving objects:  31% (672/2167)   Receiving objects:  32% (694/2167)   Receiving objects:  33% (716/2167)   Receiving objects:  34% (737/2167)   Receiving objects:  35% (759/2167)   Receiving objects:  36% (781/2167)   Receiving objects:  37% (802/2167)   Receiving objects:  38% (824/2167)   Receiving objects:  39% (846/2167)   Receiving objects:  40% (867/2167)   Receiving objects:  41% (889/2167)   Receiving objects:  42% (911/2167)   Receiving objects:  43% (932/2167)   Receiving objects:  44% (954/2167)   Receiving objects:  45% (976/2167)   Receiving objects:  46% (997/2167)   Receiving objects:  47% (1019/2167)   Receiving objects:  48% (1041/2167)   Receiving objects:  49% (1062/2167)   Receiving objects:  50% (1084/2167)   Receiving objects:  51% (1106/2167)   Receiving objects:  52% (1127/2167)   Receiving objects:  53% (1149/2167)   Receiving objects:  54% (1171/2167)   Receiving objects:  55% (1192/2167)   Receiving objects:  56% (1214/2167)   Receiving objects:  57% (1236/2167)   Receiving objects:  58% (1257/2167)   Receiving objects:  59% (1279/2167)   Receiving objects:  60% (1301/2167)   remote: Total 2167 (delta 1509), reused 1822 (delta 1256), pack-reused 0[K
+Receiving objects:  61% (1322/2167)   Receiving objects:  62% (1344/2167)   Receiving objects:  63% (1366/2167)   Receiving objects:  64% (1387/2167)   Receiving objects:  65% (1409/2167)   Receiving objects:  66% (1431/2167)   Receiving objects:  67% (1452/2167)   Receiving objects:  68% (1474/2167)   Receiving objects:  69% (1496/2167)   Receiving objects:  70% (1517/2167)   Receiving objects:  71% (1539/2167)   Receiving objects:  72% (1561/2167)   Receiving objects:  73% (1582/2167)   Receiving objects:  74% (1604/2167)   Receiving objects:  75% (1626/2167)   Receiving objects:  76% (1647/2167)   Receiving objects:  77% (1669/2167)   Receiving objects:  78% (1691/2167)   Receiving objects:  79% (1712/2167)   Receiving objects:  80% (1734/2167)   Receiving objects:  81% (1756/2167)   Receiving objects:  82% (1777/2167)   Receiving objects:  83% (1799/2167)   Receiving objects:  84% (1821/2167)   Receiving objects:  85% (1842/2167)   Receiving objects:  86% (1864/2167)   Receiving objects:  87% (1886/2167)   Receiving objects:  88% (1907/2167)   Receiving objects:  89% (1929/2167)   Receiving objects:  90% (1951/2167)   Receiving objects:  91% (1972/2167)   Receiving objects:  92% (1994/2167)   Receiving objects:  93% (2016/2167)   Receiving objects:  94% (2037/2167)   Receiving objects:  95% (2059/2167)   Receiving objects:  96% (2081/2167)   Receiving objects:  97% (2102/2167)   Receiving objects:  98% (2124/2167)   Receiving objects:  99% (2146/2167)   Receiving objects: 100% (2167/2167)   Receiving objects: 100% (2167/2167), 1.26 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/1509)   Resolving deltas:  16% (251/1509)   Resolving deltas:  17% (262/1509)   Resolving deltas:  32% (493/1509)   Resolving deltas:  41% (632/1509)   Resolving deltas:  46% (696/1509)   Resolving deltas:  48% (736/1509)   Resolving deltas:  49% (745/1509)   Resolving deltas:  50% (755/1509)   Resolving deltas:  51% (780/1509)   Resolving deltas:  52% (786/1509)   Resolving deltas:  53% (807/1509)   Resolving deltas:  57% (873/1509)   Resolving deltas:  58% (876/1509)   Resolving deltas:  59% (902/1509)   Resolving deltas:  63% (953/1509)   Resolving deltas:  65% (986/1509)   Resolving deltas:  67% (1016/1509)   Resolving deltas:  70% (1066/1509)   Resolving deltas:  71% (1078/1509)   Resolving deltas:  72% (1093/1509)   Resolving deltas:  73% (1106/1509)   Resolving deltas:  74% (1118/1509)   Resolving deltas:  75% (1141/1509)   Resolving deltas:  76% (1156/1509)   Resolving deltas:  77% (1166/1509)   Resolving deltas:  78% (1181/1509)   Resolving deltas:  79% (1194/1509)   Resolving deltas:  81% (1227/1509)   Resolving deltas:  82% (1243/1509)   Resolving deltas:  83% (1254/1509)   Resolving deltas:  84% (1268/1509)   Resolving deltas:  85% (1289/1509)   Resolving deltas:  88% (1339/1509)   Resolving deltas:  89% (1345/1509)   Resolving deltas:  90% (1370/1509)   Resolving deltas:  91% (1385/1509)   Resolving deltas:  92% (1394/1509)   Resolving deltas:  95% (1441/1509)   Resolving deltas:  96% (1453/1509)   Resolving deltas:  97% (1466/1509)   Resolving deltas:  98% (1482/1509)   Resolving deltas: 100% (1509/1509)   Resolving deltas: 100% (1509/1509), done.
+Checking connectivity... done.
+travis_time:end:059663df:start=1436986733117579087,finish=1436986734644005137,duration=1526426050[0K$ cd Cal-CS-61A-Staff/ok
+$ git checkout -qf 2af1525da9d7c1509bfbd0fef5646fed8916fcc3
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export CMD=server/apptest.py
+$ export GAE_VERSION=1.9.23
+
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:0191bd80[0K$ Installing caching utilities
+travis_time:end:0191bd80:start=1436986738791980337,finish=1436986738872339988,duration=80359651[0Ktravis_time:start:338f8bfc[0Kattempting to download cache archive
+fetching cleanupsoumyatests/cache--python-2.7.tgz
+found cache
+travis_time:end:338f8bfc:start=1436986738876701568,finish=1436986739729850030,duration=853148462[0Ktravis_time:start:3977e008[0Kadding /home/travis/virtualenv/python2.7.9 to cache
+travis_time:end:3977e008:start=1436986739733411294,finish=1436986742073752845,duration=2340341551[0Ktravis_fold:end:cache.1[0Ktravis_time:start:07913da4[0K$ source ~/virtualenv/python2.7/bin/activate
+travis_time:end:07913da4:start=1436986742077471992,finish=1436986742080875444,duration=3403452[0K$ python --version
+Python 2.7.9
+$ pip --version
+pip 6.0.7 from /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (python 2.7)
+travis_fold:start:install[0Ktravis_time:start:09ca945e[0K$ pip install -r server_requirements.txt
+[33mYou are using pip version 6.0.7, however version 7.1.0 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.[0m
+Requirement already satisfied (use --upgrade to upgrade): Flask==0.10.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 1))
+Requirement already satisfied (use --upgrade to upgrade): Flask-Cache==0.13.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 2))
+Requirement already satisfied (use --upgrade to upgrade): Jinja2==2.7.3 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 3))
+Requirement already satisfied (use --upgrade to upgrade): MarkupSafe==0.23 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 4))
+Requirement already satisfied (use --upgrade to upgrade): PyYAML==3.11 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 5))
+Requirement already satisfied (use --upgrade to upgrade): Pygments==1.6 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 6))
+Requirement already satisfied (use --upgrade to upgrade): Sphinx==1.2.2 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 7))
+Requirement already satisfied (use --upgrade to upgrade): Werkzeug==0.9.6 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 8))
+Requirement already satisfied (use --upgrade to upgrade): argparse==1.2.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 9))
+Requirement already satisfied (use --upgrade to upgrade): astroid==1.1.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 10))
+Requirement already satisfied (use --upgrade to upgrade): docutils==0.11 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 11))
+Requirement already satisfied (use --upgrade to upgrade): git-pylint-commit-hook==2.0.5 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 12))
+Requirement already satisfied (use --upgrade to upgrade): itsdangerous==0.24 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 13))
+Obtaining linkenv-master from git+git://github.com/ze-phyr-us/linkenv.git@ae463b3211cb8dcc8868e88176a1101733c83b6d#egg=linkenv-master (from -r server_requirements.txt (line 14))
+  Updating /home/travis/virtualenv/python2.7.9/src/linkenv-master clone (to ae463b3211cb8dcc8868e88176a1101733c83b6d)
+[33m  Could not find a tag or branch 'ae463b3211cb8dcc8868e88176a1101733c83b6d', assuming commit.[0m
+Requirement already satisfied (use --upgrade to upgrade): logilab-common==0.61.0 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 15))
+Requirement already satisfied (use --upgrade to upgrade): mimerender==0.5.4 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 16))
+Collecting nose==1.3.3 (from -r server_requirements.txt (line 17))
+  Downloading nose-1.3.3.tar.gz (274kB)
+[?25l[K    1% |                                | 4.1kB 23.4MB/s eta 0:00:01[K    2% |                                | 8.2kB 18.3MB/s eta 0:00:01[K    4% |#                               | 12kB 18.4MB/s eta 0:00:01[K    5% |#                               | 16kB 17.1MB/s eta 0:00:01[K    7% |##                              | 20kB 17.4MB/s eta 0:00:01[K    8% |##                              | 24kB 17.9MB/s eta 0:00:01[K    10% |###                             | 28kB 17.7MB/s eta 0:00:01[K    11% |###                             | 32kB 2.7MB/s eta 0:00:01[K    13% |####                            | 36kB 3.0MB/s eta 0:00:01[K    14% |####                            | 40kB 3.3MB/s eta 0:00:01[K    16% |#####                           | 45kB 3.2MB/s eta 0:00:01[K    17% |#####                           | 49kB 1.6MB/s eta 0:00:01[K    19% |######                          | 53kB 1.6MB/s eta 0:00:01[K    20% |######                          | 57kB 1.6MB/s eta 0:00:01[K    22% |#######                         | 61kB 1.6MB/s eta 0:00:01[K    23% |#######                         | 65kB 1.6MB/s eta 0:00:01[K    25% |########                        | 69kB 1.6MB/s eta 0:00:01[K    26% |########                        | 73kB 2.8MB/s eta 0:00:01[K    28% |#########                       | 77kB 2.8MB/s eta 0:00:01[K    29% |#########                       | 81kB 2.1MB/s eta 0:00:01[K    31% |##########                      | 86kB 2.1MB/s eta 0:00:01[K    32% |##########                      | 90kB 6.2MB/s eta 0:00:01[K    34% |##########                      | 94kB 6.4MB/s eta 0:00:01[K    35% |###########                     | 98kB 2.9MB/s eta 0:00:01[K    37% |###########                     | 102kB 2.8MB/s eta 0:00:01[K    38% |############                    | 106kB 2.8MB/s eta 0:00:01[K    40% |############                    | 110kB 2.8MB/s eta 0:00:01[K    41% |#############                   | 114kB 2.8MB/s eta 0:00:01[K    43% |#############                   | 118kB 2.8MB/s eta 0:00:01[K    44% |##############                  | 122kB 4.1MB/s eta 0:00:01[K    46% |##############                  | 126kB 4.2MB/s eta 0:00:01[K    47% |###############                 | 131kB 3.0MB/s eta 0:00:01[K    49% |###############                 | 135kB 3.0MB/s eta 0:00:01[K    50% |################                | 139kB 6.8MB/s eta 0:00:01[K    52% |################                | 143kB 6.9MB/s eta 0:00:01[K    53% |#################               | 147kB 3.2MB/s eta 0:00:01[K    55% |#################               | 151kB 3.2MB/s eta 0:00:01[K    56% |##################              | 155kB 3.2MB/s eta 0:00:01[K    58% |##################              | 159kB 3.2MB/s eta 0:00:01[K    59% |###################             | 163kB 3.1MB/s eta 0:00:01[K    61% |###################             | 167kB 3.1MB/s eta 0:00:01[K    62% |####################            | 172kB 4.4MB/s eta 0:00:01[K    64% |####################            | 176kB 4.4MB/s eta 0:00:01[K    65% |####################            | 180kB 4.4MB/s eta 0:00:01[K    67% |#####################           | 184kB 4.4MB/s eta 0:00:01[K    68% |#####################           | 188kB 17.0MB/s eta 0:00:01[K    70% |######################          | 192kB 18.1MB/s eta 0:00:01[K    71% |######################          | 196kB 7.1MB/s eta 0:00:01[K    72% |#######################         | 200kB 7.1MB/s eta 0:00:01[K    74% |#######################         | 204kB 7.5MB/s eta 0:00:01[K    75% |########################        | 208kB 7.5MB/s eta 0:00:01[K    77% |########################        | 212kB 7.3MB/s eta 0:00:01[K    78% |#########################       | 217kB 7.3MB/s eta 0:00:01[K    80% |#########################       | 221kB 7.4MB/s eta 0:00:01[K    81% |##########################      | 225kB 7.3MB/s eta 0:00:01[K    83% |##########################      | 229kB 2.2MB/s eta 0:00:01[K    84% |###########################     | 233kB 2.2MB/s eta 0:00:01[K    86% |###########################     | 237kB 2.7MB/s eta 0:00:01[K    87% |############################    | 241kB 2.7MB/s eta 0:00:01[K    89% |############################    | 245kB 2.0MB/s eta 0:00:01[K    90% |#############################   | 249kB 2.0MB/s eta 0:00:01[K    92% |#############################   | 253kB 2.0MB/s eta 0:00:01[K    93% |##############################  | 258kB 2.0MB/s eta 0:00:01[K    95% |##############################  | 262kB 1.6MB/s eta 0:00:01[K    96% |##############################  | 266kB 1.6MB/s eta 0:00:01[K    98% |############################### | 270kB 3.4MB/s eta 0:00:01[K    99% |############################### | 274kB 3.4MB/s eta 0:00:01[K    100% |################################| 278kB 960kB/s 
+[?25hRequirement already satisfied (use --upgrade to upgrade): pylint==1.2.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 18))
+Requirement already satisfied (use --upgrade to upgrade): python-dateutil==2.2 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 19))
+Requirement already satisfied (use --upgrade to upgrade): python-mimeparse==0.1.4 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 20))
+Requirement already satisfied (use --upgrade to upgrade): requests==2.3.0 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 21))
+Requirement already satisfied (use --upgrade to upgrade): six==1.6.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 22))
+Requirement already satisfied (use --upgrade to upgrade): sphinxcontrib-httpdomain==1.2.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 23))
+Requirement already satisfied (use --upgrade to upgrade): unittest2==0.5.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 24))
+Requirement already satisfied (use --upgrade to upgrade): wsgiref==0.1.2 in /opt/python/2.7.9/lib/python2.7 (from -r server_requirements.txt (line 25))
+Requirement already satisfied (use --upgrade to upgrade): ddt==0.8.0 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 26))
+Requirement already satisfied (use --upgrade to upgrade): webargs==0.5.0 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 27))
+Requirement already satisfied (use --upgrade to upgrade): webob==1.1.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 28))
+Requirement already satisfied (use --upgrade to upgrade): pytz==2014.10 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 29))
+Requirement already satisfied (use --upgrade to upgrade): coverage==3.7.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 30))
+Requirement already satisfied (use --upgrade to upgrade): coveralls==0.5 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from -r server_requirements.txt (line 31))
+Requirement already satisfied (use --upgrade to upgrade): docopt>=0.6.1 in /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (from coveralls==0.5->-r server_requirements.txt (line 31))
+Installing collected packages: nose, linkenv-master
+  Found existing installation: nose 1.3.4
+    Uninstalling nose-1.3.4:
+      Successfully uninstalled nose-1.3.4
+  Running setup.py install for nose
+    Installing nosetests script to /home/travis/virtualenv/python2.7.9/bin
+    Installing nosetests-2.7 script to /home/travis/virtualenv/python2.7.9/bin
+  Running setup.py develop for linkenv-master
+    Creating /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/linkenv.egg-link (link to .)
+    linkenv 0.1.0 is already the active version in easy-install.pth
+    Installing linkenv script to /home/travis/virtualenv/python2.7.9/bin
+    Installed /home/travis/virtualenv/python2.7.9/src/linkenv-master
+Successfully installed linkenv-master nose-1.3.3
+travis_time:end:09ca945e:start=1436986742355978285,finish=1436986744297601231,duration=1941622946[0Ktravis_fold:end:install[0Ktravis_fold:start:before_script.1[0Ktravis_time:start:0f3fb290[0K$ wget https://storage.googleapis.com/appengine-sdks/featured/google_appengine_$GAE_VERSION.zip -o gae_sdk.zip
+travis_time:end:0f3fb290:start=1436986744301842462,finish=1436986744997548953,duration=695706491[0Ktravis_fold:end:before_script.1[0Ktravis_fold:start:before_script.2[0Ktravis_time:start:11f28b61[0K$ unzip -q google_appengine_$GAE_VERSION.zip
+travis_time:end:11f28b61:start=1436986745001394980,finish=1436986747614176530,duration=2612781550[0Ktravis_fold:end:before_script.2[0Ktravis_fold:start:before_script.3[0Ktravis_time:start:0bb00008[0K$ mv google_appengine gae_sdk
+travis_time:end:0bb00008:start=1436986747618620425,finish=1436986747639353874,duration=20733449[0Ktravis_fold:end:before_script.3[0Ktravis_fold:start:before_script.4[0Ktravis_time:start:32866a8c[0K$ export GAE_SDK=$PWD/gae_sdk
+travis_time:end:32866a8c:start=1436986747643358133,finish=1436986747646759554,duration=3401421[0Ktravis_fold:end:before_script.4[0Ktravis_fold:start:before_script.5[0Ktravis_time:start:091a81c4[0K$ export PATH=$PATH:$GAE_SDK
+travis_time:end:091a81c4:start=1436986747651276899,finish=1436986747654550389,duration=3273490[0Ktravis_fold:end:before_script.5[0Ktravis_fold:start:before_script.6[0Ktravis_time:start:0c11e980[0K$ export PYTHONPATH=$PYTHONPATH:$GAE_SDK
+travis_time:end:0c11e980:start=1436986747659423828,finish=1436986747662545029,duration=3121201[0Ktravis_fold:end:before_script.6[0Ktravis_fold:start:before_script.7[0Ktravis_time:start:14300880[0K$ python server/app/generate_keys.py
+travis_time:end:14300880:start=1436986747667621254,finish=1436986747695696825,duration=28075571[0Ktravis_fold:end:before_script.7[0Ktravis_time:start:0a4a4468[0K$ FLASK_CONF=TEST coverage run $CMD --sdk_location $GAE_SDK --quiet
+============================================================
+Doing integration testing
+============================================================
+......................................................................................................................
+----------------------------------------------------------------------
+Ran 118 tests in 19.067s
+
+OK
+============================================================
+Doing unittests testing
+============================================================
+..................................................................................................................................................
+----------------------------------------------------------------------
+Ran 146 tests in 34.969s
+
+OK
+ALL TESTS PASSED
+travis_time:end:0a4a4468:start=1436986747699989601,finish=1436986804760863655,duration=57060874054[0K
+[32;1mThe command "FLASK_CONF=TEST coverage run $CMD --sdk_location $GAE_SDK --quiet" exited with 0.[0m
+travis_fold:start:cache.2[0Kstore build cache
+travis_time:start:0ab81fe4[0Kchange detected:
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/DESCRIPTION.rst
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/entry_points.txt
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/METADATA
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/metadata.json
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/RECORD
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/top_level.txt
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose-1.3.4.dist-info/WHEEL
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose/case.pyc
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose/case.pyc
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose/commands.pyc
+/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/nose/commands.pyc
+/ho
+...
+changes detected, packing new archive
+uploading archive
+travis_time:end:0ab81fe4:start=1436986804765324138,finish=1436986810471446271,duration=5706122133[0Ktravis_fold:end:cache.2[0Ktravis_fold:start:after_success[0Ktravis_time:start:20e0572f[0K$ coveralls
+Submitting coverage to coveralls.io...
+Coverage submitted!
+Job #3230.1
+https://coveralls.io/jobs/7119437
+travis_time:end:20e0572f:start=1436986810477627697,finish=1436986833552908005,duration=23075280308[0Ktravis_fold:end:after_success[0K
+Done. Your build exited with 0.
