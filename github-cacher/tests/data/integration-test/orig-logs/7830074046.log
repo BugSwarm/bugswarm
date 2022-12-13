@@ -1,0 +1,1105 @@
+2022-08-14T23:49:46.8840428Z Requested labels: ubuntu-latest
+2022-08-14T23:49:46.8840483Z Job defined at: QuickCarpet/QuickCarpet/.github/workflows/build-on-push.yml@refs/heads/1.19-scicraft
+2022-08-14T23:49:46.8840505Z Waiting for a runner to pick up this job...
+2022-08-14T23:49:47.1713942Z Job is waiting for a hosted runner to come online.
+2022-08-14T23:49:51.6175860Z Job is about to start running on the hosted runner: Hosted Agent (hosted)
+2022-08-14T23:49:53.9732404Z Current runner version: '2.294.0'
+2022-08-14T23:49:53.9762630Z ##[group]Operating System
+2022-08-14T23:49:53.9763264Z Ubuntu
+2022-08-14T23:49:53.9763610Z 20.04.4
+2022-08-14T23:49:53.9763948Z LTS
+2022-08-14T23:49:53.9764246Z ##[endgroup]
+2022-08-14T23:49:53.9764706Z ##[group]Virtual Environment
+2022-08-14T23:49:53.9765154Z Environment: ubuntu-20.04
+2022-08-14T23:49:53.9765501Z Version: 20220807.1
+2022-08-14T23:49:53.9766127Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220807.1/images/linux/Ubuntu2004-Readme.md
+2022-08-14T23:49:53.9766945Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220807.1
+2022-08-14T23:49:53.9767535Z ##[endgroup]
+2022-08-14T23:49:53.9767910Z ##[group]Virtual Environment Provisioner
+2022-08-14T23:49:53.9768348Z 1.0.0.0-main-20220805-2
+2022-08-14T23:49:53.9768738Z ##[endgroup]
+2022-08-14T23:49:53.9769884Z ##[group]GITHUB_TOKEN Permissions
+2022-08-14T23:49:53.9770572Z Actions: write
+2022-08-14T23:49:53.9771157Z Checks: write
+2022-08-14T23:49:53.9771525Z Contents: write
+2022-08-14T23:49:53.9771986Z Deployments: write
+2022-08-14T23:49:53.9772386Z Discussions: write
+2022-08-14T23:49:53.9772779Z Issues: write
+2022-08-14T23:49:53.9773091Z Metadata: read
+2022-08-14T23:49:53.9773568Z Packages: write
+2022-08-14T23:49:53.9773944Z Pages: write
+2022-08-14T23:49:53.9774277Z PullRequests: write
+2022-08-14T23:49:53.9774714Z RepositoryProjects: write
+2022-08-14T23:49:53.9775144Z SecurityEvents: write
+2022-08-14T23:49:53.9775514Z Statuses: write
+2022-08-14T23:49:53.9775894Z ##[endgroup]
+2022-08-14T23:49:53.9780365Z Secret source: Actions
+2022-08-14T23:49:53.9780903Z Prepare workflow directory
+2022-08-14T23:49:54.1419661Z Prepare all required actions
+2022-08-14T23:49:54.1637459Z Getting action download info
+2022-08-14T23:49:54.5636606Z Download action repository 'actions/checkout@v3' (SHA:2541b1294d2704b0964813337f33b291d3f8596b)
+2022-08-14T23:49:55.7684339Z Download action repository 'actions/cache@v2' (SHA:937d24475381cd9c75ae6db12cb4e79714b926ed)
+2022-08-14T23:49:57.0292375Z Download action repository 'actions/upload-artifact@v2.2.0' (SHA:27bce4eee761b5bc643f46a8dfb41b430c8d05f6)
+2022-08-14T23:49:58.3243543Z ##[group]Checking docker version
+2022-08-14T23:49:58.3263005Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2022-08-14T23:49:58.5862478Z '1.41'
+2022-08-14T23:49:58.5878533Z Docker daemon API version: '1.41'
+2022-08-14T23:49:58.5878991Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2022-08-14T23:49:58.6319221Z '1.41'
+2022-08-14T23:49:58.6348561Z Docker client API version: '1.41'
+2022-08-14T23:49:58.6355377Z ##[endgroup]
+2022-08-14T23:49:58.6358961Z ##[group]Clean up resources from previous jobs
+2022-08-14T23:49:58.6365635Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=4cd98f"
+2022-08-14T23:49:58.6701914Z ##[command]/usr/bin/docker network prune --force --filter "label=4cd98f"
+2022-08-14T23:49:58.7032344Z ##[endgroup]
+2022-08-14T23:49:58.7032725Z ##[group]Create local container network
+2022-08-14T23:49:58.7045519Z ##[command]/usr/bin/docker network create --label 4cd98f github_network_d9ed4c974b4540cfa33efcbddeb64a72
+2022-08-14T23:49:58.8108374Z 69447ed3405e027fbe537953b848a2d3bd1eee70e7fdd4a08ad5cd97c1f61b81
+2022-08-14T23:49:58.8130410Z ##[endgroup]
+2022-08-14T23:49:58.8235617Z ##[group]Starting job container
+2022-08-14T23:49:58.8259547Z ##[command]/usr/bin/docker pull gradle:7.4-jdk17
+2022-08-14T23:50:00.2576020Z 7.4-jdk17: Pulling from library/gradle
+2022-08-14T23:50:00.6204283Z 405f018f9d1d: Pulling fs layer
+2022-08-14T23:50:00.6204645Z 160c99d3182b: Pulling fs layer
+2022-08-14T23:50:00.6204923Z e07a736be37f: Pulling fs layer
+2022-08-14T23:50:00.6205205Z eb991d49ce62: Pulling fs layer
+2022-08-14T23:50:00.6205463Z 5c51e5ac4888: Pulling fs layer
+2022-08-14T23:50:00.6205737Z 9eaadd5423c3: Pulling fs layer
+2022-08-14T23:50:00.6206004Z 358733492b02: Pulling fs layer
+2022-08-14T23:50:00.6206277Z 5c51e5ac4888: Waiting
+2022-08-14T23:50:00.6206560Z 9eaadd5423c3: Waiting
+2022-08-14T23:50:00.6207099Z 358733492b02: Waiting
+2022-08-14T23:50:00.6207319Z eb991d49ce62: Waiting
+2022-08-14T23:50:01.5164695Z 405f018f9d1d: Verifying Checksum
+2022-08-14T23:50:01.5165767Z 405f018f9d1d: Download complete
+2022-08-14T23:50:01.7221687Z 160c99d3182b: Verifying Checksum
+2022-08-14T23:50:01.9942259Z 160c99d3182b: Download complete
+2022-08-14T23:50:01.9942610Z eb991d49ce62: Verifying Checksum
+2022-08-14T23:50:01.9943107Z eb991d49ce62: Download complete
+2022-08-14T23:50:02.2092196Z 5c51e5ac4888: Verifying Checksum
+2022-08-14T23:50:02.2094025Z 5c51e5ac4888: Download complete
+2022-08-14T23:50:03.0773759Z 405f018f9d1d: Pull complete
+2022-08-14T23:50:04.0196900Z 9eaadd5423c3: Verifying Checksum
+2022-08-14T23:50:04.0197249Z 9eaadd5423c3: Download complete
+2022-08-14T23:50:04.5319601Z e07a736be37f: Verifying Checksum
+2022-08-14T23:50:04.5320004Z e07a736be37f: Download complete
+2022-08-14T23:50:06.1865390Z 358733492b02: Verifying Checksum
+2022-08-14T23:50:06.1869040Z 358733492b02: Download complete
+2022-08-14T23:50:06.8213207Z 160c99d3182b: Pull complete
+2022-08-14T23:50:11.1029965Z e07a736be37f: Pull complete
+2022-08-14T23:50:11.1749884Z eb991d49ce62: Pull complete
+2022-08-14T23:50:11.2484225Z 5c51e5ac4888: Pull complete
+2022-08-14T23:50:14.9047750Z 9eaadd5423c3: Pull complete
+2022-08-14T23:50:16.4012926Z 358733492b02: Pull complete
+2022-08-14T23:50:16.4074723Z Digest: sha256:ce56c8bbe223806848aee26c58d05d3d797049a67b22d8a80fbb5af93e958e18
+2022-08-14T23:50:16.4097234Z Status: Downloaded newer image for gradle:7.4-jdk17
+2022-08-14T23:50:16.4111480Z docker.io/library/gradle:7.4-jdk17
+2022-08-14T23:50:16.4254065Z ##[command]/usr/bin/docker create --name 419d76367a0d4301b3ef5046d0eb743e_gradle74jdk17_8a4674 --label 4cd98f --workdir /__w/QuickCarpet/QuickCarpet --network github_network_d9ed4c974b4540cfa33efcbddeb64a72  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/runners/2.294.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" gradle:7.4-jdk17 "-f" "/dev/null"
+2022-08-14T23:50:16.4854570Z f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:50:16.4889711Z ##[command]/usr/bin/docker start f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:50:16.9196922Z f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:50:16.9221048Z ##[command]/usr/bin/docker ps --all --filter id=f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2022-08-14T23:50:16.9589507Z f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 Up Less than a second
+2022-08-14T23:50:16.9619003Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:50:16.9986765Z HOME=/github/home
+2022-08-14T23:50:16.9987505Z GITHUB_ACTIONS=true
+2022-08-14T23:50:16.9988244Z CI=true
+2022-08-14T23:50:16.9988650Z PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2022-08-14T23:50:16.9989007Z LANG=en_US.UTF-8
+2022-08-14T23:50:16.9989235Z LANGUAGE=en_US:en
+2022-08-14T23:50:16.9989479Z LC_ALL=en_US.UTF-8
+2022-08-14T23:50:16.9989732Z JAVA_VERSION=jdk-17.0.3+7
+2022-08-14T23:50:16.9989991Z JAVA_HOME=/opt/java/openjdk
+2022-08-14T23:50:16.9990255Z GRADLE_HOME=/opt/gradle
+2022-08-14T23:50:16.9990504Z GRADLE_VERSION=7.4.2
+2022-08-14T23:50:17.0027859Z ##[endgroup]
+2022-08-14T23:50:17.0028222Z ##[group]Waiting for all services to be ready
+2022-08-14T23:50:17.0030739Z ##[endgroup]
+2022-08-14T23:50:17.0447737Z ##[group]Run actions/checkout@v3
+2022-08-14T23:50:17.0448057Z with:
+2022-08-14T23:50:17.0448309Z   fetch-depth: 0
+2022-08-14T23:50:17.0448758Z   repository: QuickCarpet/QuickCarpet
+2022-08-14T23:50:17.0449328Z   token: ***
+2022-08-14T23:50:17.0449579Z   ssh-strict: true
+2022-08-14T23:50:17.0449842Z   persist-credentials: true
+2022-08-14T23:50:17.0450116Z   clean: true
+2022-08-14T23:50:17.0450346Z   lfs: false
+2022-08-14T23:50:17.0450571Z   submodules: false
+2022-08-14T23:50:17.0450841Z   set-safe-directory: true
+2022-08-14T23:50:17.0451112Z ##[endgroup]
+2022-08-14T23:50:17.0615205Z ##[command]/usr/bin/docker exec  f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 sh -c "cat /etc/*release | grep ^ID"
+2022-08-14T23:50:17.6454946Z Syncing repository: QuickCarpet/QuickCarpet
+2022-08-14T23:50:17.6457153Z ##[group]Getting Git version info
+2022-08-14T23:50:17.6457967Z Working directory is '/__w/QuickCarpet/QuickCarpet'
+2022-08-14T23:50:17.6459559Z [command]/usr/bin/git version
+2022-08-14T23:50:17.6552497Z git version 2.34.1
+2022-08-14T23:50:17.6553818Z ##[endgroup]
+2022-08-14T23:50:17.6574694Z Temporarily overriding HOME='/__w/_temp/5a0d90b3-5b7d-4d64-b8aa-1c3b502e4523' before making global git config changes
+2022-08-14T23:50:17.6579088Z Adding repository directory to the temporary git global config as a safe directory
+2022-08-14T23:50:17.6587672Z [command]/usr/bin/git config --global --add safe.directory /__w/QuickCarpet/QuickCarpet
+2022-08-14T23:50:17.6647721Z Deleting the contents of '/__w/QuickCarpet/QuickCarpet'
+2022-08-14T23:50:17.6657945Z ##[group]Initializing the repository
+2022-08-14T23:50:17.6664226Z [command]/usr/bin/git init /__w/QuickCarpet/QuickCarpet
+2022-08-14T23:50:17.6710812Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-08-14T23:50:17.6711294Z hint: is subject to change. To configure the initial branch name to use in all
+2022-08-14T23:50:17.6711739Z hint: of your new repositories, which will suppress this warning, call:
+2022-08-14T23:50:17.6712070Z hint: 
+2022-08-14T23:50:17.6712476Z hint: 	git config --global init.defaultBranch <name>
+2022-08-14T23:50:17.6712765Z hint: 
+2022-08-14T23:50:17.6713198Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-08-14T23:50:17.6713743Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-08-14T23:50:17.6714072Z hint: 
+2022-08-14T23:50:17.6714350Z hint: 	git branch -m <name>
+2022-08-14T23:50:17.6724044Z Initialized empty Git repository in /__w/QuickCarpet/QuickCarpet/.git/
+2022-08-14T23:50:17.6735912Z [command]/usr/bin/git remote add origin https://github.com/QuickCarpet/QuickCarpet
+2022-08-14T23:50:17.6784488Z ##[endgroup]
+2022-08-14T23:50:17.6785045Z ##[group]Disabling automatic garbage collection
+2022-08-14T23:50:17.6790982Z [command]/usr/bin/git config --local gc.auto 0
+2022-08-14T23:50:17.6832199Z ##[endgroup]
+2022-08-14T23:50:17.6832681Z ##[group]Setting up auth
+2022-08-14T23:50:17.6841414Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-08-14T23:50:17.6886093Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-08-14T23:50:17.7196870Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-08-14T23:50:17.7241070Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-08-14T23:50:17.7544303Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2022-08-14T23:50:17.7589783Z ##[endgroup]
+2022-08-14T23:50:17.7590531Z ##[group]Fetching the repository
+2022-08-14T23:50:17.7602576Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --progress --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2022-08-14T23:50:18.5732668Z remote: Enumerating objects: 12156, done.        
+2022-08-14T23:50:18.5733288Z remote: Counting objects:   0% (1/1399)        
+2022-08-14T23:50:18.5734480Z remote: Counting objects:   1% (14/1399)        
+2022-08-14T23:50:18.5734988Z remote: Counting objects:   2% (28/1399)        
+2022-08-14T23:50:18.5735450Z remote: Counting objects:   3% (42/1399)        
+2022-08-14T23:50:18.5735936Z remote: Counting objects:   4% (56/1399)        
+2022-08-14T23:50:18.5736405Z remote: Counting objects:   5% (70/1399)        
+2022-08-14T23:50:18.5736853Z remote: Counting objects:   6% (84/1399)        
+2022-08-14T23:50:18.5737319Z remote: Counting objects:   7% (98/1399)        
+2022-08-14T23:50:18.5737807Z remote: Counting objects:   8% (112/1399)        
+2022-08-14T23:50:18.5738281Z remote: Counting objects:   9% (126/1399)        
+2022-08-14T23:50:18.5738739Z remote: Counting objects:  10% (140/1399)        
+2022-08-14T23:50:18.5739217Z remote: Counting objects:  11% (154/1399)        
+2022-08-14T23:50:18.5739684Z remote: Counting objects:  12% (168/1399)        
+2022-08-14T23:50:18.5740320Z remote: Counting objects:  13% (182/1399)        
+2022-08-14T23:50:18.5749642Z remote: Counting objects:  14% (196/1399)        
+2022-08-14T23:50:18.5750005Z remote: Counting objects:  15% (210/1399)        
+2022-08-14T23:50:18.5750327Z remote: Counting objects:  16% (224/1399)        
+2022-08-14T23:50:18.5750643Z remote: Counting objects:  17% (238/1399)        
+2022-08-14T23:50:18.5750937Z remote: Counting objects:  18% (252/1399)        
+2022-08-14T23:50:18.5751246Z remote: Counting objects:  19% (266/1399)        
+2022-08-14T23:50:18.5751557Z remote: Counting objects:  20% (280/1399)        
+2022-08-14T23:50:18.5751851Z remote: Counting objects:  21% (294/1399)        
+2022-08-14T23:50:18.5754046Z remote: Counting objects:  22% (308/1399)        
+2022-08-14T23:50:18.5754514Z remote: Counting objects:  23% (322/1399)        
+2022-08-14T23:50:18.5754972Z remote: Counting objects:  24% (336/1399)        
+2022-08-14T23:50:18.5755914Z remote: Counting objects:  25% (350/1399)        
+2022-08-14T23:50:18.5756241Z remote: Counting objects:  26% (364/1399)        
+2022-08-14T23:50:18.5756678Z remote: Counting objects:  27% (378/1399)        
+2022-08-14T23:50:18.5756975Z remote: Counting objects:  28% (392/1399)        
+2022-08-14T23:50:18.5757279Z remote: Counting objects:  29% (406/1399)        
+2022-08-14T23:50:18.5757587Z remote: Counting objects:  30% (420/1399)        
+2022-08-14T23:50:18.5757879Z remote: Counting objects:  31% (434/1399)        
+2022-08-14T23:50:18.5758183Z remote: Counting objects:  32% (448/1399)        
+2022-08-14T23:50:18.5758488Z remote: Counting objects:  33% (462/1399)        
+2022-08-14T23:50:18.5758778Z remote: Counting objects:  34% (476/1399)        
+2022-08-14T23:50:18.5759076Z remote: Counting objects:  35% (490/1399)        
+2022-08-14T23:50:18.5759378Z remote: Counting objects:  36% (504/1399)        
+2022-08-14T23:50:18.5759668Z remote: Counting objects:  37% (518/1399)        
+2022-08-14T23:50:18.5760272Z remote: Counting objects:  38% (532/1399)        
+2022-08-14T23:50:18.5760605Z remote: Counting objects:  39% (546/1399)        
+2022-08-14T23:50:18.5760999Z remote: Counting objects:  40% (560/1399)        
+2022-08-14T23:50:18.5761405Z remote: Counting objects:  41% (574/1399)        
+2022-08-14T23:50:18.5761735Z remote: Counting objects:  42% (588/1399)        
+2022-08-14T23:50:18.5762160Z remote: Counting objects:  43% (602/1399)        
+2022-08-14T23:50:18.5762546Z remote: Counting objects:  44% (616/1399)        
+2022-08-14T23:50:18.5763090Z remote: Counting objects:  45% (630/1399)        
+2022-08-14T23:50:18.5764073Z remote: Counting objects:  46% (644/1399)        
+2022-08-14T23:50:18.5764568Z remote: Counting objects:  47% (658/1399)        
+2022-08-14T23:50:18.5764959Z remote: Counting objects:  48% (672/1399)        
+2022-08-14T23:50:18.5765294Z remote: Counting objects:  49% (686/1399)        
+2022-08-14T23:50:18.5765923Z remote: Counting objects:  50% (700/1399)        
+2022-08-14T23:50:18.5766318Z remote: Counting objects:  51% (714/1399)        
+2022-08-14T23:50:18.5766687Z remote: Counting objects:  52% (728/1399)        
+2022-08-14T23:50:18.5767504Z remote: Counting objects:  53% (742/1399)        
+2022-08-14T23:50:18.5767910Z remote: Counting objects:  54% (756/1399)        
+2022-08-14T23:50:18.5768441Z remote: Counting objects:  55% (770/1399)        
+2022-08-14T23:50:18.5768867Z remote: Counting objects:  56% (784/1399)        
+2022-08-14T23:50:18.5769408Z remote: Counting objects:  57% (798/1399)        
+2022-08-14T23:50:18.5769893Z remote: Counting objects:  58% (812/1399)        
+2022-08-14T23:50:18.5770371Z remote: Counting objects:  59% (826/1399)        
+2022-08-14T23:50:18.5770788Z remote: Counting objects:  60% (840/1399)        
+2022-08-14T23:50:18.5771296Z remote: Counting objects:  61% (854/1399)        
+2022-08-14T23:50:18.5771774Z remote: Counting objects:  62% (868/1399)        
+2022-08-14T23:50:18.5772269Z remote: Counting objects:  63% (882/1399)        
+2022-08-14T23:50:18.5772764Z remote: Counting objects:  64% (896/1399)        
+2022-08-14T23:50:18.5773184Z remote: Counting objects:  65% (910/1399)        
+2022-08-14T23:50:18.5773771Z remote: Counting objects:  66% (924/1399)        
+2022-08-14T23:50:18.5774171Z remote: Counting objects:  67% (938/1399)        
+2022-08-14T23:50:18.5774652Z remote: Counting objects:  68% (952/1399)        
+2022-08-14T23:50:18.5775069Z remote: Counting objects:  69% (966/1399)        
+2022-08-14T23:50:18.5775737Z remote: Counting objects:  70% (980/1399)        
+2022-08-14T23:50:18.5776231Z remote: Counting objects:  71% (994/1399)        
+2022-08-14T23:50:18.5776714Z remote: Counting objects:  72% (1008/1399)        
+2022-08-14T23:50:18.5777170Z remote: Counting objects:  73% (1022/1399)        
+2022-08-14T23:50:18.5777794Z remote: Counting objects:  74% (1036/1399)        
+2022-08-14T23:50:18.5778298Z remote: Counting objects:  75% (1050/1399)        
+2022-08-14T23:50:18.5778667Z remote: Counting objects:  76% (1064/1399)        
+2022-08-14T23:50:18.5779150Z remote: Counting objects:  77% (1078/1399)        
+2022-08-14T23:50:18.5779629Z remote: Counting objects:  78% (1092/1399)        
+2022-08-14T23:50:18.5780170Z remote: Counting objects:  79% (1106/1399)        
+2022-08-14T23:50:18.5780601Z remote: Counting objects:  80% (1120/1399)        
+2022-08-14T23:50:18.5781088Z remote: Counting objects:  81% (1134/1399)        
+2022-08-14T23:50:18.5781569Z remote: Counting objects:  82% (1148/1399)        
+2022-08-14T23:50:18.5782083Z remote: Counting objects:  83% (1162/1399)        
+2022-08-14T23:50:18.5782526Z remote: Counting objects:  84% (1176/1399)        
+2022-08-14T23:50:18.5783006Z remote: Counting objects:  85% (1190/1399)        
+2022-08-14T23:50:18.5783848Z remote: Counting objects:  86% (1204/1399)        
+2022-08-14T23:50:18.5784352Z remote: Counting objects:  87% (1218/1399)        
+2022-08-14T23:50:18.5784841Z remote: Counting objects:  88% (1232/1399)        
+2022-08-14T23:50:18.5785327Z remote: Counting objects:  89% (1246/1399)        
+2022-08-14T23:50:18.5785815Z remote: Counting objects:  90% (1260/1399)        
+2022-08-14T23:50:18.5786323Z remote: Counting objects:  91% (1274/1399)        
+2022-08-14T23:50:18.5786750Z remote: Counting objects:  92% (1288/1399)        
+2022-08-14T23:50:18.5787285Z remote: Counting objects:  93% (1302/1399)        
+2022-08-14T23:50:18.5787768Z remote: Counting objects:  94% (1316/1399)        
+2022-08-14T23:50:18.5788245Z remote: Counting objects:  95% (1330/1399)        
+2022-08-14T23:50:18.5788666Z remote: Counting objects:  96% (1344/1399)        
+2022-08-14T23:50:18.5789189Z remote: Counting objects:  97% (1358/1399)        
+2022-08-14T23:50:18.5789652Z remote: Counting objects:  98% (1372/1399)        
+2022-08-14T23:50:18.5790040Z remote: Counting objects:  99% (1386/1399)        
+2022-08-14T23:50:18.5790373Z remote: Counting objects: 100% (1399/1399)        
+2022-08-14T23:50:18.5790936Z remote: Counting objects: 100% (1399/1399), done.        
+2022-08-14T23:50:18.5792690Z remote: Compressing objects:   0% (1/511)        
+2022-08-14T23:50:18.5793078Z remote: Compressing objects:   1% (6/511)        
+2022-08-14T23:50:18.5793719Z remote: Compressing objects:   2% (11/511)        
+2022-08-14T23:50:18.5794244Z remote: Compressing objects:   3% (16/511)        
+2022-08-14T23:50:18.5794813Z remote: Compressing objects:   4% (21/511)        
+2022-08-14T23:50:18.6417298Z remote: Compressing objects:   5% (26/511)        
+2022-08-14T23:50:18.6419715Z remote: Compressing objects:   6% (31/511)        
+2022-08-14T23:50:18.6420266Z remote: Compressing objects:   7% (36/511)        
+2022-08-14T23:50:18.6420698Z remote: Compressing objects:   8% (41/511)        
+2022-08-14T23:50:18.6422886Z remote: Compressing objects:   9% (46/511)        
+2022-08-14T23:50:18.6423605Z remote: Compressing objects:  10% (52/511)        
+2022-08-14T23:50:18.6424030Z remote: Compressing objects:  11% (57/511)        
+2022-08-14T23:50:18.6424530Z remote: Compressing objects:  12% (62/511)        
+2022-08-14T23:50:18.6425669Z remote: Compressing objects:  13% (67/511)        
+2022-08-14T23:50:18.6431171Z remote: Compressing objects:  14% (72/511)        
+2022-08-14T23:50:18.6431693Z remote: Compressing objects:  15% (77/511)        
+2022-08-14T23:50:18.6432187Z remote: Compressing objects:  16% (82/511)        
+2022-08-14T23:50:18.6432694Z remote: Compressing objects:  17% (87/511)        
+2022-08-14T23:50:18.6433235Z remote: Compressing objects:  18% (92/511)        
+2022-08-14T23:50:18.6433730Z remote: Compressing objects:  19% (98/511)        
+2022-08-14T23:50:18.6434215Z remote: Compressing objects:  20% (103/511)        
+2022-08-14T23:50:18.6434639Z remote: Compressing objects:  21% (108/511)        
+2022-08-14T23:50:18.6435119Z remote: Compressing objects:  22% (113/511)        
+2022-08-14T23:50:18.6435737Z remote: Compressing objects:  23% (118/511)        
+2022-08-14T23:50:18.6436746Z remote: Compressing objects:  24% (123/511)        
+2022-08-14T23:50:18.6437242Z remote: Compressing objects:  25% (128/511)        
+2022-08-14T23:50:18.6438121Z remote: Compressing objects:  26% (133/511)        
+2022-08-14T23:50:18.6438693Z remote: Compressing objects:  27% (138/511)        
+2022-08-14T23:50:18.6439117Z remote: Compressing objects:  28% (144/511)        
+2022-08-14T23:50:18.6439592Z remote: Compressing objects:  29% (149/511)        
+2022-08-14T23:50:18.6440070Z remote: Compressing objects:  30% (154/511)        
+2022-08-14T23:50:18.6440483Z remote: Compressing objects:  31% (159/511)        
+2022-08-14T23:50:18.6441012Z remote: Compressing objects:  32% (164/511)        
+2022-08-14T23:50:18.6441488Z remote: Compressing objects:  33% (169/511)        
+2022-08-14T23:50:18.6441904Z remote: Compressing objects:  34% (174/511)        
+2022-08-14T23:50:18.6442398Z remote: Compressing objects:  35% (179/511)        
+2022-08-14T23:50:18.6442887Z remote: Compressing objects:  36% (184/511)        
+2022-08-14T23:50:18.6443397Z remote: Compressing objects:  37% (190/511)        
+2022-08-14T23:50:18.6443808Z remote: Compressing objects:  38% (195/511)        
+2022-08-14T23:50:18.6444282Z remote: Compressing objects:  39% (200/511)        
+2022-08-14T23:50:18.6444757Z remote: Compressing objects:  40% (205/511)        
+2022-08-14T23:50:18.6472954Z remote: Compressing objects:  41% (210/511)        
+2022-08-14T23:50:18.6473859Z remote: Compressing objects:  42% (215/511)        
+2022-08-14T23:50:18.6474240Z remote: Compressing objects:  43% (220/511)        
+2022-08-14T23:50:18.6474740Z remote: Compressing objects:  44% (225/511)        
+2022-08-14T23:50:18.6475202Z remote: Compressing objects:  45% (230/511)        
+2022-08-14T23:50:18.6475558Z remote: Compressing objects:  46% (236/511)        
+2022-08-14T23:50:18.6475963Z remote: Compressing objects:  47% (241/511)        
+2022-08-14T23:50:18.6476366Z remote: Compressing objects:  48% (246/511)        
+2022-08-14T23:50:18.6476822Z remote: Compressing objects:  49% (251/511)        
+2022-08-14T23:50:18.6477383Z remote: Compressing objects:  50% (256/511)        
+2022-08-14T23:50:18.6477792Z remote: Compressing objects:  51% (261/511)        
+2022-08-14T23:50:18.6478196Z remote: Compressing objects:  52% (266/511)        
+2022-08-14T23:50:18.6478671Z remote: Compressing objects:  53% (271/511)        
+2022-08-14T23:50:18.6479528Z remote: Compressing objects:  54% (276/511)        
+2022-08-14T23:50:18.6479955Z remote: Compressing objects:  55% (282/511)        
+2022-08-14T23:50:18.6480629Z remote: Compressing objects:  56% (287/511)        
+2022-08-14T23:50:18.6481051Z remote: Compressing objects:  57% (292/511)        
+2022-08-14T23:50:18.6481515Z remote: Compressing objects:  58% (297/511)        
+2022-08-14T23:50:18.6481918Z remote: Compressing objects:  59% (302/511)        
+2022-08-14T23:50:18.6482263Z remote: Compressing objects:  60% (307/511)        
+2022-08-14T23:50:18.6482665Z remote: Compressing objects:  61% (312/511)        
+2022-08-14T23:50:18.6483078Z remote: Compressing objects:  62% (317/511)        
+2022-08-14T23:50:18.6483457Z remote: Compressing objects:  63% (322/511)        
+2022-08-14T23:50:18.6483858Z remote: Compressing objects:  64% (328/511)        
+2022-08-14T23:50:18.6484257Z remote: Compressing objects:  65% (333/511)        
+2022-08-14T23:50:18.6484619Z remote: Compressing objects:  66% (338/511)        
+2022-08-14T23:50:18.6485019Z remote: Compressing objects:  67% (343/511)        
+2022-08-14T23:50:18.6485447Z remote: Compressing objects:  68% (348/511)        
+2022-08-14T23:50:18.6485791Z remote: Compressing objects:  69% (353/511)        
+2022-08-14T23:50:18.6486190Z remote: Compressing objects:  70% (358/511)        
+2022-08-14T23:50:18.6486619Z remote: Compressing objects:  71% (363/511)        
+2022-08-14T23:50:18.6487049Z remote: Compressing objects:  72% (368/511)        
+2022-08-14T23:50:18.6487398Z remote: Compressing objects:  73% (374/511)        
+2022-08-14T23:50:18.6488376Z remote: Compressing objects:  74% (379/511)        
+2022-08-14T23:50:18.6488790Z remote: Compressing objects:  75% (384/511)        
+2022-08-14T23:50:18.6489141Z remote: Compressing objects:  76% (389/511)        
+2022-08-14T23:50:18.6489647Z remote: Compressing objects:  77% (394/511)        
+2022-08-14T23:50:18.6490487Z remote: Compressing objects:  78% (399/511)        
+2022-08-14T23:50:18.6491127Z remote: Compressing objects:  79% (404/511)        
+2022-08-14T23:50:18.6491558Z remote: Compressing objects:  80% (409/511)        
+2022-08-14T23:50:18.6491961Z remote: Compressing objects:  81% (414/511)        
+2022-08-14T23:50:18.6492424Z remote: Compressing objects:  82% (420/511)        
+2022-08-14T23:50:18.6492767Z remote: Compressing objects:  83% (425/511)        
+2022-08-14T23:50:18.6493184Z remote: Compressing objects:  84% (430/511)        
+2022-08-14T23:50:18.6493585Z remote: Compressing objects:  85% (435/511)        
+2022-08-14T23:50:18.6493936Z remote: Compressing objects:  86% (440/511)        
+2022-08-14T23:50:18.6494367Z remote: Compressing objects:  87% (445/511)        
+2022-08-14T23:50:18.6494786Z remote: Compressing objects:  88% (450/511)        
+2022-08-14T23:50:18.6495131Z remote: Compressing objects:  89% (455/511)        
+2022-08-14T23:50:18.6495641Z remote: Compressing objects:  90% (460/511)        
+2022-08-14T23:50:18.6496050Z remote: Compressing objects:  91% (466/511)        
+2022-08-14T23:50:18.6496465Z remote: Compressing objects:  92% (471/511)        
+2022-08-14T23:50:18.6496872Z remote: Compressing objects:  93% (476/511)        
+2022-08-14T23:50:18.6497218Z remote: Compressing objects:  94% (481/511)        
+2022-08-14T23:50:18.6497617Z remote: Compressing objects:  95% (486/511)        
+2022-08-14T23:50:18.6498045Z remote: Compressing objects:  96% (491/511)        
+2022-08-14T23:50:18.6498458Z remote: Compressing objects:  97% (496/511)        
+2022-08-14T23:50:18.6498802Z remote: Compressing objects:  98% (501/511)        
+2022-08-14T23:50:18.6499201Z remote: Compressing objects:  99% (506/511)        
+2022-08-14T23:50:18.6499626Z remote: Compressing objects: 100% (511/511)        
+2022-08-14T23:50:18.6500167Z remote: Compressing objects: 100% (511/511), done.        
+2022-08-14T23:50:18.7262040Z Receiving objects:   0% (1/12156)
+2022-08-14T23:50:18.8058255Z Receiving objects:   1% (122/12156)
+2022-08-14T23:50:18.8058976Z Receiving objects:   2% (244/12156)
+2022-08-14T23:50:18.8068766Z Receiving objects:   3% (365/12156)
+2022-08-14T23:50:18.8087269Z Receiving objects:   4% (487/12156)
+2022-08-14T23:50:18.8809899Z Receiving objects:   5% (608/12156)
+2022-08-14T23:50:18.8824788Z Receiving objects:   6% (730/12156)
+2022-08-14T23:50:18.8845092Z Receiving objects:   7% (851/12156)
+2022-08-14T23:50:18.8855334Z Receiving objects:   8% (973/12156)
+2022-08-14T23:50:18.8860966Z Receiving objects:   9% (1095/12156)
+2022-08-14T23:50:18.8872728Z Receiving objects:  10% (1216/12156)
+2022-08-14T23:50:18.8879313Z Receiving objects:  11% (1338/12156)
+2022-08-14T23:50:18.8886951Z Receiving objects:  12% (1459/12156)
+2022-08-14T23:50:18.8894760Z Receiving objects:  13% (1581/12156)
+2022-08-14T23:50:18.8902687Z Receiving objects:  14% (1702/12156)
+2022-08-14T23:50:18.9481051Z Receiving objects:  15% (1824/12156)
+2022-08-14T23:50:18.9488237Z Receiving objects:  16% (1945/12156)
+2022-08-14T23:50:18.9560136Z Receiving objects:  17% (2067/12156)
+2022-08-14T23:50:18.9575469Z Receiving objects:  18% (2189/12156)
+2022-08-14T23:50:18.9582646Z Receiving objects:  19% (2310/12156)
+2022-08-14T23:50:18.9589829Z Receiving objects:  20% (2432/12156)
+2022-08-14T23:50:18.9600780Z Receiving objects:  21% (2553/12156)
+2022-08-14T23:50:18.9612310Z Receiving objects:  22% (2675/12156)
+2022-08-14T23:50:18.9620635Z Receiving objects:  23% (2796/12156)
+2022-08-14T23:50:18.9627420Z Receiving objects:  24% (2918/12156)
+2022-08-14T23:50:18.9644593Z Receiving objects:  25% (3039/12156)
+2022-08-14T23:50:18.9654665Z Receiving objects:  26% (3161/12156)
+2022-08-14T23:50:18.9655026Z Receiving objects:  27% (3283/12156)
+2022-08-14T23:50:18.9681375Z Receiving objects:  28% (3404/12156)
+2022-08-14T23:50:18.9692159Z Receiving objects:  29% (3526/12156)
+2022-08-14T23:50:18.9720236Z Receiving objects:  30% (3647/12156)
+2022-08-14T23:50:18.9720694Z Receiving objects:  31% (3769/12156)
+2022-08-14T23:50:18.9730166Z Receiving objects:  32% (3890/12156)
+2022-08-14T23:50:18.9752036Z Receiving objects:  33% (4012/12156)
+2022-08-14T23:50:18.9762547Z Receiving objects:  34% (4134/12156)
+2022-08-14T23:50:18.9770821Z Receiving objects:  35% (4255/12156)
+2022-08-14T23:50:19.0242272Z Receiving objects:  36% (4377/12156)
+2022-08-14T23:50:19.0254753Z Receiving objects:  37% (4498/12156)
+2022-08-14T23:50:19.0265340Z Receiving objects:  38% (4620/12156)
+2022-08-14T23:50:19.0322935Z Receiving objects:  39% (4741/12156)
+2022-08-14T23:50:19.0323661Z Receiving objects:  40% (4863/12156)
+2022-08-14T23:50:19.0352873Z Receiving objects:  41% (4984/12156)
+2022-08-14T23:50:19.0353591Z Receiving objects:  42% (5106/12156)
+2022-08-14T23:50:19.0354089Z Receiving objects:  43% (5228/12156)
+2022-08-14T23:50:19.0354604Z Receiving objects:  44% (5349/12156)
+2022-08-14T23:50:19.0385804Z Receiving objects:  45% (5471/12156)
+2022-08-14T23:50:19.0386480Z Receiving objects:  46% (5592/12156)
+2022-08-14T23:50:19.0386999Z Receiving objects:  47% (5714/12156)
+2022-08-14T23:50:19.0387953Z Receiving objects:  48% (5835/12156)
+2022-08-14T23:50:19.0388437Z Receiving objects:  49% (5957/12156)
+2022-08-14T23:50:19.0389532Z Receiving objects:  50% (6078/12156)
+2022-08-14T23:50:19.0436827Z Receiving objects:  51% (6200/12156)
+2022-08-14T23:50:19.0437219Z Receiving objects:  52% (6322/12156)
+2022-08-14T23:50:19.0437558Z Receiving objects:  53% (6443/12156)
+2022-08-14T23:50:19.0438030Z Receiving objects:  54% (6565/12156)
+2022-08-14T23:50:19.0438395Z Receiving objects:  55% (6686/12156)
+2022-08-14T23:50:19.0438701Z Receiving objects:  56% (6808/12156)
+2022-08-14T23:50:19.0439064Z Receiving objects:  57% (6929/12156)
+2022-08-14T23:50:19.0439472Z Receiving objects:  58% (7051/12156)
+2022-08-14T23:50:19.0447495Z Receiving objects:  59% (7173/12156)
+2022-08-14T23:50:19.0447983Z Receiving objects:  60% (7294/12156)
+2022-08-14T23:50:19.0448566Z Receiving objects:  61% (7416/12156)
+2022-08-14T23:50:19.0448935Z Receiving objects:  62% (7537/12156)
+2022-08-14T23:50:19.0456794Z Receiving objects:  63% (7659/12156)
+2022-08-14T23:50:19.0459087Z Receiving objects:  64% (7780/12156)
+2022-08-14T23:50:19.0471186Z Receiving objects:  65% (7902/12156)
+2022-08-14T23:50:19.0480786Z Receiving objects:  66% (8023/12156)
+2022-08-14T23:50:19.0487198Z Receiving objects:  67% (8145/12156)
+2022-08-14T23:50:19.0496779Z Receiving objects:  68% (8267/12156)
+2022-08-14T23:50:19.0510625Z Receiving objects:  69% (8388/12156)
+2022-08-14T23:50:19.0517335Z Receiving objects:  70% (8510/12156)
+2022-08-14T23:50:19.0524305Z Receiving objects:  71% (8631/12156)
+2022-08-14T23:50:19.0532471Z Receiving objects:  72% (8753/12156)
+2022-08-14T23:50:19.0535787Z Receiving objects:  73% (8874/12156)
+2022-08-14T23:50:19.0542372Z Receiving objects:  74% (8996/12156)
+2022-08-14T23:50:19.0547888Z Receiving objects:  75% (9117/12156)
+2022-08-14T23:50:19.0551977Z Receiving objects:  76% (9239/12156)
+2022-08-14T23:50:19.0555902Z Receiving objects:  77% (9361/12156)
+2022-08-14T23:50:19.0559125Z Receiving objects:  78% (9482/12156)
+2022-08-14T23:50:19.0562334Z Receiving objects:  79% (9604/12156)
+2022-08-14T23:50:19.0565780Z Receiving objects:  80% (9725/12156)
+2022-08-14T23:50:19.0568867Z Receiving objects:  81% (9847/12156)
+2022-08-14T23:50:19.0574062Z Receiving objects:  82% (9968/12156)
+2022-08-14T23:50:19.0578128Z Receiving objects:  83% (10090/12156)
+2022-08-14T23:50:19.0585764Z Receiving objects:  84% (10212/12156)
+2022-08-14T23:50:19.0586189Z Receiving objects:  85% (10333/12156)
+2022-08-14T23:50:19.0593752Z Receiving objects:  86% (10455/12156)
+2022-08-14T23:50:19.0598909Z Receiving objects:  87% (10576/12156)
+2022-08-14T23:50:19.0617102Z Receiving objects:  88% (10698/12156)
+2022-08-14T23:50:19.0621574Z Receiving objects:  89% (10819/12156)
+2022-08-14T23:50:19.0625562Z Receiving objects:  90% (10941/12156)
+2022-08-14T23:50:19.0633407Z Receiving objects:  91% (11062/12156)
+2022-08-14T23:50:19.0636139Z Receiving objects:  92% (11184/12156)
+2022-08-14T23:50:19.0830945Z Receiving objects:  93% (11306/12156)
+2022-08-14T23:50:19.0831266Z Receiving objects:  94% (11427/12156)
+2022-08-14T23:50:19.0831548Z Receiving objects:  95% (11549/12156)
+2022-08-14T23:50:19.0831827Z Receiving objects:  96% (11670/12156)
+2022-08-14T23:50:19.0832114Z Receiving objects:  97% (11792/12156)
+2022-08-14T23:50:19.0832390Z Receiving objects:  98% (11913/12156)
+2022-08-14T23:50:19.0833105Z remote: Total 12156 (delta 836), reused 1311 (delta 792), pack-reused 10757        
+2022-08-14T23:50:19.0833459Z Receiving objects:  99% (12035/12156)
+2022-08-14T23:50:19.0833743Z Receiving objects: 100% (12156/12156)
+2022-08-14T23:50:19.0835987Z Receiving objects: 100% (12156/12156), 2.23 MiB | 5.27 MiB/s, done.
+2022-08-14T23:50:19.0836308Z Resolving deltas:   0% (0/7069)
+2022-08-14T23:50:19.0836588Z Resolving deltas:   1% (71/7069)
+2022-08-14T23:50:19.0836855Z Resolving deltas:   2% (142/7069)
+2022-08-14T23:50:19.0837517Z Resolving deltas:   3% (213/7069)
+2022-08-14T23:50:19.0860442Z Resolving deltas:   4% (283/7069)
+2022-08-14T23:50:19.0889567Z Resolving deltas:   5% (354/7069)
+2022-08-14T23:50:19.0889875Z Resolving deltas:   6% (425/7069)
+2022-08-14T23:50:19.0909889Z Resolving deltas:   7% (495/7069)
+2022-08-14T23:50:19.0924826Z Resolving deltas:   8% (566/7069)
+2022-08-14T23:50:19.0945964Z Resolving deltas:   9% (637/7069)
+2022-08-14T23:50:19.0961490Z Resolving deltas:  10% (707/7069)
+2022-08-14T23:50:19.0982877Z Resolving deltas:  11% (778/7069)
+2022-08-14T23:50:19.0996166Z Resolving deltas:  12% (849/7069)
+2022-08-14T23:50:19.1023833Z Resolving deltas:  13% (919/7069)
+2022-08-14T23:50:19.1044815Z Resolving deltas:  14% (990/7069)
+2022-08-14T23:50:19.1083777Z Resolving deltas:  15% (1061/7069)
+2022-08-14T23:50:19.1094991Z Resolving deltas:  16% (1132/7069)
+2022-08-14T23:50:19.1107222Z Resolving deltas:  17% (1202/7069)
+2022-08-14T23:50:19.1114534Z Resolving deltas:  18% (1273/7069)
+2022-08-14T23:50:19.1123887Z Resolving deltas:  19% (1344/7069)
+2022-08-14T23:50:19.1136669Z Resolving deltas:  20% (1414/7069)
+2022-08-14T23:50:19.1144996Z Resolving deltas:  21% (1485/7069)
+2022-08-14T23:50:19.1154559Z Resolving deltas:  22% (1556/7069)
+2022-08-14T23:50:19.1163592Z Resolving deltas:  23% (1626/7069)
+2022-08-14T23:50:19.1173294Z Resolving deltas:  24% (1697/7069)
+2022-08-14T23:50:19.1180985Z Resolving deltas:  25% (1768/7069)
+2022-08-14T23:50:19.1190483Z Resolving deltas:  26% (1838/7069)
+2022-08-14T23:50:19.1199448Z Resolving deltas:  27% (1909/7069)
+2022-08-14T23:50:19.1207944Z Resolving deltas:  28% (1980/7069)
+2022-08-14T23:50:19.1222833Z Resolving deltas:  29% (2051/7069)
+2022-08-14T23:50:19.1234497Z Resolving deltas:  30% (2121/7069)
+2022-08-14T23:50:19.1242298Z Resolving deltas:  31% (2192/7069)
+2022-08-14T23:50:19.1253122Z Resolving deltas:  32% (2263/7069)
+2022-08-14T23:50:19.1263841Z Resolving deltas:  33% (2333/7069)
+2022-08-14T23:50:19.1272395Z Resolving deltas:  34% (2404/7069)
+2022-08-14T23:50:19.1278465Z Resolving deltas:  35% (2475/7069)
+2022-08-14T23:50:19.1285737Z Resolving deltas:  36% (2545/7069)
+2022-08-14T23:50:19.1291472Z Resolving deltas:  37% (2616/7069)
+2022-08-14T23:50:19.1296967Z Resolving deltas:  38% (2687/7069)
+2022-08-14T23:50:19.1301886Z Resolving deltas:  39% (2757/7069)
+2022-08-14T23:50:19.1310438Z Resolving deltas:  40% (2828/7069)
+2022-08-14T23:50:19.1315100Z Resolving deltas:  41% (2899/7069)
+2022-08-14T23:50:19.1320086Z Resolving deltas:  42% (2969/7069)
+2022-08-14T23:50:19.1328064Z Resolving deltas:  43% (3040/7069)
+2022-08-14T23:50:19.1338023Z Resolving deltas:  44% (3111/7069)
+2022-08-14T23:50:19.1357364Z Resolving deltas:  45% (3182/7069)
+2022-08-14T23:50:19.1366528Z Resolving deltas:  46% (3252/7069)
+2022-08-14T23:50:19.1372585Z Resolving deltas:  47% (3323/7069)
+2022-08-14T23:50:19.1379881Z Resolving deltas:  48% (3394/7069)
+2022-08-14T23:50:19.1391770Z Resolving deltas:  49% (3464/7069)
+2022-08-14T23:50:19.1400093Z Resolving deltas:  50% (3535/7069)
+2022-08-14T23:50:19.1413205Z Resolving deltas:  51% (3606/7069)
+2022-08-14T23:50:19.1432327Z Resolving deltas:  52% (3676/7069)
+2022-08-14T23:50:19.1439844Z Resolving deltas:  53% (3747/7069)
+2022-08-14T23:50:19.1450542Z Resolving deltas:  54% (3818/7069)
+2022-08-14T23:50:19.1455517Z Resolving deltas:  55% (3888/7069)
+2022-08-14T23:50:19.1461558Z Resolving deltas:  56% (3959/7069)
+2022-08-14T23:50:19.1466185Z Resolving deltas:  57% (4030/7069)
+2022-08-14T23:50:19.1470244Z Resolving deltas:  58% (4101/7069)
+2022-08-14T23:50:19.1476729Z Resolving deltas:  59% (4171/7069)
+2022-08-14T23:50:19.1481363Z Resolving deltas:  60% (4242/7069)
+2022-08-14T23:50:19.1486704Z Resolving deltas:  61% (4313/7069)
+2022-08-14T23:50:19.1495291Z Resolving deltas:  62% (4383/7069)
+2022-08-14T23:50:19.1505933Z Resolving deltas:  63% (4454/7069)
+2022-08-14T23:50:19.1510267Z Resolving deltas:  64% (4525/7069)
+2022-08-14T23:50:19.1518149Z Resolving deltas:  65% (4595/7069)
+2022-08-14T23:50:19.1522692Z Resolving deltas:  66% (4666/7069)
+2022-08-14T23:50:19.1530151Z Resolving deltas:  67% (4737/7069)
+2022-08-14T23:50:19.1536782Z Resolving deltas:  68% (4807/7069)
+2022-08-14T23:50:19.1541279Z Resolving deltas:  69% (4878/7069)
+2022-08-14T23:50:19.1555484Z Resolving deltas:  70% (4949/7069)
+2022-08-14T23:50:19.1560392Z Resolving deltas:  71% (5019/7069)
+2022-08-14T23:50:19.1566869Z Resolving deltas:  72% (5090/7069)
+2022-08-14T23:50:19.1574655Z Resolving deltas:  73% (5161/7069)
+2022-08-14T23:50:19.1587178Z Resolving deltas:  74% (5232/7069)
+2022-08-14T23:50:19.1604754Z Resolving deltas:  75% (5302/7069)
+2022-08-14T23:50:19.1608692Z Resolving deltas:  76% (5373/7069)
+2022-08-14T23:50:19.1612645Z Resolving deltas:  77% (5444/7069)
+2022-08-14T23:50:19.1617839Z Resolving deltas:  78% (5514/7069)
+2022-08-14T23:50:19.1622997Z Resolving deltas:  79% (5585/7069)
+2022-08-14T23:50:19.1629621Z Resolving deltas:  80% (5656/7069)
+2022-08-14T23:50:19.1636968Z Resolving deltas:  81% (5726/7069)
+2022-08-14T23:50:19.1642295Z Resolving deltas:  82% (5797/7069)
+2022-08-14T23:50:19.1646900Z Resolving deltas:  83% (5868/7069)
+2022-08-14T23:50:19.1666167Z Resolving deltas:  84% (5938/7069)
+2022-08-14T23:50:19.1675523Z Resolving deltas:  85% (6009/7069)
+2022-08-14T23:50:19.1683567Z Resolving deltas:  86% (6080/7069)
+2022-08-14T23:50:19.1688063Z Resolving deltas:  87% (6151/7069)
+2022-08-14T23:50:19.1695266Z Resolving deltas:  88% (6221/7069)
+2022-08-14T23:50:19.1699684Z Resolving deltas:  89% (6292/7069)
+2022-08-14T23:50:19.1704240Z Resolving deltas:  90% (6363/7069)
+2022-08-14T23:50:19.1708732Z Resolving deltas:  91% (6433/7069)
+2022-08-14T23:50:19.1713721Z Resolving deltas:  92% (6504/7069)
+2022-08-14T23:50:19.1720441Z Resolving deltas:  93% (6575/7069)
+2022-08-14T23:50:19.1726653Z Resolving deltas:  94% (6645/7069)
+2022-08-14T23:50:19.1764452Z Resolving deltas:  95% (6716/7069)
+2022-08-14T23:50:19.1780899Z Resolving deltas:  96% (6787/7069)
+2022-08-14T23:50:19.1797361Z Resolving deltas:  97% (6857/7069)
+2022-08-14T23:50:19.1814550Z Resolving deltas:  98% (6928/7069)
+2022-08-14T23:50:19.1829922Z Resolving deltas:  99% (6999/7069)
+2022-08-14T23:50:19.1830376Z Resolving deltas: 100% (7069/7069)
+2022-08-14T23:50:19.1830673Z Resolving deltas: 100% (7069/7069), done.
+2022-08-14T23:50:19.2248198Z From https://github.com/QuickCarpet/QuickCarpet
+2022-08-14T23:50:19.2249031Z  * [new branch]      1.15.2                      -> origin/1.15.2
+2022-08-14T23:50:19.2254378Z  * [new branch]      1.16.5                      -> origin/1.16.5
+2022-08-14T23:50:19.2259425Z  * [new branch]      1.17                        -> origin/1.17
+2022-08-14T23:50:19.2264380Z  * [new branch]      1.18                        -> origin/1.18
+2022-08-14T23:50:19.2270144Z  * [new branch]      1.19                        -> origin/1.19
+2022-08-14T23:50:19.2274640Z  * [new branch]      1.19-scicraft               -> origin/1.19-scicraft
+2022-08-14T23:50:19.2279427Z  * [new branch]      21w18a                      -> origin/21w18a
+2022-08-14T23:50:19.2281676Z  * [new branch]      actions-test                -> origin/actions-test
+2022-08-14T23:50:19.2286396Z  * [new branch]      debris                      -> origin/debris
+2022-08-14T23:50:19.2289855Z  * [new branch]      main                        -> origin/main
+2022-08-14T23:50:19.2293730Z  * [new branch]      master                      -> origin/master
+2022-08-14T23:50:19.2297246Z  * [new branch]      quilt                       -> origin/quilt
+2022-08-14T23:50:19.2300890Z  * [new tag]         1.10.0                      -> 1.10.0
+2022-08-14T23:50:19.2303144Z  * [new tag]         1.10.0+skyblock.7           -> 1.10.0+skyblock.7
+2022-08-14T23:50:19.2307592Z  * [new tag]         1.10.0+skyblock.8           -> 1.10.0+skyblock.8
+2022-08-14T23:50:19.2309723Z  * [new tag]         1.10.1                      -> 1.10.1
+2022-08-14T23:50:19.2313701Z  * [new tag]         1.10.1+skyblock.8           -> 1.10.1+skyblock.8
+2022-08-14T23:50:19.2315894Z  * [new tag]         1.11.0                      -> 1.11.0
+2022-08-14T23:50:19.2320053Z  * [new tag]         1.11.0+skyblock.9           -> 1.11.0+skyblock.9
+2022-08-14T23:50:19.2322249Z  * [new tag]         1.11.1                      -> 1.11.1
+2022-08-14T23:50:19.2326320Z  * [new tag]         1.11.1+skyblock.9           -> 1.11.1+skyblock.9
+2022-08-14T23:50:19.2328495Z  * [new tag]         1.12.0                      -> 1.12.0
+2022-08-14T23:50:19.2332558Z  * [new tag]         1.12.0+skyblock.1.0.9       -> 1.12.0+skyblock.1.0.9
+2022-08-14T23:50:19.2334314Z  * [new tag]         1.12.1                      -> 1.12.1
+2022-08-14T23:50:19.2338795Z  * [new tag]         1.12.1+build.2              -> 1.12.1+build.2
+2022-08-14T23:50:19.2341051Z  * [new tag]         1.12.1+build.2+skyblock.1.1.0 -> 1.12.1+build.2+skyblock.1.1.0
+2022-08-14T23:50:19.2345431Z  * [new tag]         1.12.1+skyblock.1.1.0       -> 1.12.1+skyblock.1.1.0
+2022-08-14T23:50:19.2347665Z  * [new tag]         1.12.1-pre.1                -> 1.12.1-pre.1
+2022-08-14T23:50:19.2351479Z  * [new tag]         1.12.1-pre.1+skyblock.1.1.0 -> 1.12.1-pre.1+skyblock.1.1.0
+2022-08-14T23:50:19.2357412Z  * [new tag]         1.13.0                      -> 1.13.0
+2022-08-14T23:50:19.2360782Z  * [new tag]         1.7.1+skyblock.4            -> 1.7.1+skyblock.4
+2022-08-14T23:50:19.2364551Z  * [new tag]         1.7.1+skyblock.5            -> 1.7.1+skyblock.5
+2022-08-14T23:50:19.2367863Z  * [new tag]         1.8.0                       -> 1.8.0
+2022-08-14T23:50:19.2371843Z  * [new tag]         1.8.0+skyblock.5            -> 1.8.0+skyblock.5
+2022-08-14T23:50:19.2373935Z  * [new tag]         1.8.0+skyblock.6            -> 1.8.0+skyblock.6
+2022-08-14T23:50:19.2378080Z  * [new tag]         1.8.1                       -> 1.8.1
+2022-08-14T23:50:19.2380267Z  * [new tag]         1.9.0                       -> 1.9.0
+2022-08-14T23:50:19.2384921Z  * [new tag]         1.9.0+skyblock.6            -> 1.9.0+skyblock.6
+2022-08-14T23:50:19.2387155Z  * [new tag]         1.9.1                       -> 1.9.1
+2022-08-14T23:50:19.2391086Z  * [new tag]         1.9.1+skyblock.6            -> 1.9.1+skyblock.6
+2022-08-14T23:50:19.2393277Z  * [new tag]         1.9.2                       -> 1.9.2
+2022-08-14T23:50:19.2400308Z  * [new tag]         19w37a                      -> 19w37a
+2022-08-14T23:50:19.2402792Z  * [new tag]         19w38b                      -> 19w38b
+2022-08-14T23:50:19.2407122Z  * [new tag]         19w39a                      -> 19w39a
+2022-08-14T23:50:19.2408905Z  * [new tag]         19w41a                      -> 19w41a
+2022-08-14T23:50:19.2413086Z  * [new tag]         19w42a                      -> 19w42a
+2022-08-14T23:50:19.2415232Z  * [new tag]         19w45a                      -> 19w45a
+2022-08-14T23:50:19.2417520Z  * [new tag]         2.0.0                       -> 2.0.0
+2022-08-14T23:50:19.2420883Z  * [new tag]         2.0.0-dev                   -> 2.0.0-dev
+2022-08-14T23:50:19.2423168Z  * [new tag]         2.0.0-dev-1.14.4            -> 2.0.0-dev-1.14.4
+2022-08-14T23:50:19.2426928Z  * [new tag]         2.0.1                       -> 2.0.1
+2022-08-14T23:50:19.2429118Z  * [new tag]         2.0.2                       -> 2.0.2
+2022-08-14T23:50:19.2431322Z  * [new tag]         2.1.0                       -> 2.1.0
+2022-08-14T23:50:19.2464280Z  * [new tag]         2.4.0                       -> 2.4.0
+2022-08-14T23:50:19.2465123Z  * [new tag]         api-1.0.0                   -> api-1.0.0
+2022-08-14T23:50:19.2465554Z  * [new tag]         api-1.1.0                   -> api-1.1.0
+2022-08-14T23:50:19.2466005Z  * [new tag]         v1.0.0                      -> v1.0.0
+2022-08-14T23:50:19.2466407Z  * [new tag]         v1.1.0                      -> v1.1.0
+2022-08-14T23:50:19.2466833Z  * [new tag]         v1.2.0                      -> v1.2.0
+2022-08-14T23:50:19.2467226Z  * [new tag]         v1.2.1                      -> v1.2.1
+2022-08-14T23:50:19.2467614Z  * [new tag]         v1.3.0                      -> v1.3.0
+2022-08-14T23:50:19.2467981Z  * [new tag]         v1.3.1                      -> v1.3.1
+2022-08-14T23:50:19.2468367Z  * [new tag]         v1.3.2                      -> v1.3.2
+2022-08-14T23:50:19.2468757Z  * [new tag]         v1.4.0                      -> v1.4.0
+2022-08-14T23:50:19.2469175Z  * [new tag]         v1.4.1                      -> v1.4.1
+2022-08-14T23:50:19.2469545Z  * [new tag]         v1.5.0                      -> v1.5.0
+2022-08-14T23:50:19.2469938Z  * [new tag]         v1.5.1                      -> v1.5.1
+2022-08-14T23:50:19.2470324Z  * [new tag]         v1.6.0                      -> v1.6.0
+2022-08-14T23:50:19.2470689Z  * [new tag]         v1.6.1                      -> v1.6.1
+2022-08-14T23:50:19.2471071Z  * [new tag]         v1.6.2                      -> v1.6.2
+2022-08-14T23:50:19.2471452Z  * [new tag]         v1.6.3                      -> v1.6.3
+2022-08-14T23:50:19.2471816Z  * [new tag]         v1.6.4                      -> v1.6.4
+2022-08-14T23:50:19.2472200Z  * [new tag]         v1.6.5                      -> v1.6.5
+2022-08-14T23:50:19.2472769Z  * [new tag]         v1.7.0                      -> v1.7.0
+2022-08-14T23:50:19.2473250Z  * [new tag]         v1.7.1                      -> v1.7.1
+2022-08-14T23:50:19.2473939Z  * [new tag]         v2.2.0                      -> v2.2.0
+2022-08-14T23:50:19.2474450Z  * [new tag]         v2.3.0                      -> v2.3.0
+2022-08-14T23:50:19.2474928Z  * [new tag]         v3.0.0                      -> v3.0.0
+2022-08-14T23:50:19.2475550Z  * [new tag]         v3.0.0-dev-1.16             -> v3.0.0-dev-1.16
+2022-08-14T23:50:19.2476092Z  * [new tag]         v3.0.0-dev-20w45a           -> v3.0.0-dev-20w45a
+2022-08-14T23:50:19.2476669Z  * [new tag]         v3.0.0-dev-20w48a           -> v3.0.0-dev-20w48a
+2022-08-14T23:50:19.2477222Z  * [new tag]         v3.0.0-dev-20w49a           -> v3.0.0-dev-20w49a
+2022-08-14T23:50:19.2477767Z  * [new tag]         v3.0.0-dev-20w51a           -> v3.0.0-dev-20w51a
+2022-08-14T23:50:19.2478305Z  * [new tag]         v3.0.0-dev-21w03a           -> v3.0.0-dev-21w03a
+2022-08-14T23:50:19.2478812Z  * [new tag]         v3.1.0                      -> v3.1.0
+2022-08-14T23:50:19.2479312Z  * [new tag]         v3.1.0+1.17                 -> v3.1.0+1.17
+2022-08-14T23:50:19.2483854Z  * [new tag]         v3.1.1                      -> v3.1.1
+2022-08-14T23:50:19.2486097Z  * [new tag]         v3.1.1+1.16.5               -> v3.1.1+1.16.5
+2022-08-14T23:50:19.2488321Z  * [new tag]         v3.2.0                      -> v3.2.0
+2022-08-14T23:50:19.2493541Z  * [new tag]         v3.2.1                      -> v3.2.1
+2022-08-14T23:50:19.2493959Z  * [new tag]         v3.3.0                      -> v3.3.0
+2022-08-14T23:50:19.2495574Z  * [new tag]         v3.3.0+1.18                 -> v3.3.0+1.18
+2022-08-14T23:50:19.2499436Z  * [new tag]         v3.4.0                      -> v3.4.0
+2022-08-14T23:50:19.2501534Z  * [new tag]         v3.5.0                      -> v3.5.0
+2022-08-14T23:50:19.2504135Z  * [new tag]         v3.5.0+1.19                 -> v3.5.0+1.19
+2022-08-14T23:50:19.2555037Z [command]/usr/bin/git branch --list --remote origin/1.19-scicraft
+2022-08-14T23:50:19.2594730Z   origin/1.19-scicraft
+2022-08-14T23:50:19.2603860Z [command]/usr/bin/git rev-parse refs/remotes/origin/1.19-scicraft
+2022-08-14T23:50:19.2637131Z 56a3f4b5ba1aa8e260de8daed61ca0f473d88a17
+2022-08-14T23:50:19.2642798Z ##[endgroup]
+2022-08-14T23:50:19.2643433Z ##[group]Determining the checkout info
+2022-08-14T23:50:19.2646001Z ##[endgroup]
+2022-08-14T23:50:19.2647094Z ##[group]Checking out the ref
+2022-08-14T23:50:19.2652505Z [command]/usr/bin/git checkout --progress --force -B 1.19-scicraft refs/remotes/origin/1.19-scicraft
+2022-08-14T23:50:19.3027134Z Switched to a new branch '1.19-scicraft'
+2022-08-14T23:50:19.3027864Z Branch '1.19-scicraft' set up to track remote branch '1.19-scicraft' from 'origin'.
+2022-08-14T23:50:19.3028710Z ##[endgroup]
+2022-08-14T23:50:19.3070445Z [command]/usr/bin/git log -1 --format='%H'
+2022-08-14T23:50:19.3106199Z '56a3f4b5ba1aa8e260de8daed61ca0f473d88a17'
+2022-08-14T23:50:19.3584954Z ##[group]Run git config --global --add safe.directory "$GITHUB_WORKSPACE"
+2022-08-14T23:50:19.3585468Z [36;1mgit config --global --add safe.directory "$GITHUB_WORKSPACE"[0m
+2022-08-14T23:50:19.3589724Z shell: sh -e {0}
+2022-08-14T23:50:19.3589987Z ##[endgroup]
+2022-08-14T23:50:19.6235455Z ##[group]Run actions/cache@v2
+2022-08-14T23:50:19.6235732Z with:
+2022-08-14T23:50:19.6236020Z   path: ~/.gradle/caches
+/home/gradle/.gradle/caches
+
+2022-08-14T23:50:19.6236536Z   key: Linux-gradle-7.4-jdk17-e61a55bc69d24a6442efe93e55af52d39434f2df360b0f2f0831045a439aa095
+2022-08-14T23:50:19.6237011Z   restore-keys: Linux-gradle-7.4-jdk17-
+
+2022-08-14T23:50:19.6237297Z ##[endgroup]
+2022-08-14T23:50:19.6240080Z ##[command]/usr/bin/docker exec  f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 sh -c "cat /etc/*release | grep ^ID"
+2022-08-14T23:50:22.0138101Z Received 0 of 459473946 (0.0%), 0.0 MBs/sec
+2022-08-14T23:50:23.0136774Z Received 75497472 of 459473946 (16.4%), 36.0 MBs/sec
+2022-08-14T23:50:24.0140759Z Received 180355072 of 459473946 (39.3%), 57.3 MBs/sec
+2022-08-14T23:50:25.0154690Z Received 276824064 of 459473946 (60.2%), 66.0 MBs/sec
+2022-08-14T23:50:26.0142825Z Received 377487360 of 459473946 (82.2%), 72.0 MBs/sec
+2022-08-14T23:50:27.2388140Z Received 459473946 of 459473946 (100.0%), 70.4 MBs/sec
+2022-08-14T23:50:27.2391146Z Cache Size: ~438 MB (459473946 B)
+2022-08-14T23:50:27.2545455Z [command]/usr/bin/tar -z -xf /__w/_temp/22491ce6-80aa-4c27-bfed-82c8663ed113/cache.tgz -P -C /__w/QuickCarpet/QuickCarpet
+2022-08-14T23:50:36.1484363Z Cache restored successfully
+2022-08-14T23:50:36.2162715Z 
+2022-08-14T23:50:36.2177669Z Cache restored from key: Linux-gradle-7.4-jdk17-e61a55bc69d24a6442efe93e55af52d39434f2df360b0f2f0831045a439aa095
+2022-08-14T23:50:36.3331140Z ##[group]Run actions/cache@v2
+2022-08-14T23:50:36.3331429Z with:
+2022-08-14T23:50:36.3331720Z   path: build/loom-cache
+.gradle/loom-cache
+
+2022-08-14T23:50:36.3332176Z   key: Linux-loom-e61a55bc69d24a6442efe93e55af52d39434f2df360b0f2f0831045a439aa095
+2022-08-14T23:50:36.3332611Z   restore-keys: Linux-loom-
+
+2022-08-14T23:50:36.3332886Z ##[endgroup]
+2022-08-14T23:50:36.3335425Z ##[command]/usr/bin/docker exec  f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 sh -c "cat /etc/*release | grep ^ID"
+2022-08-14T23:50:38.4532634Z Received 0 of 23227233 (0.0%), 0.0 MBs/sec
+2022-08-14T23:50:39.0024207Z Received 23227233 of 23227233 (100.0%), 14.3 MBs/sec
+2022-08-14T23:50:39.0027969Z Cache Size: ~22 MB (23227233 B)
+2022-08-14T23:50:39.0054118Z [command]/usr/bin/tar -z -xf /__w/_temp/c1c237d2-48b5-490f-825e-0dac52cb3f85/cache.tgz -P -C /__w/QuickCarpet/QuickCarpet
+2022-08-14T23:50:39.2764918Z Cache restored successfully
+2022-08-14T23:50:39.2814771Z 
+2022-08-14T23:50:39.2821486Z Cache restored from key: Linux-loom-e61a55bc69d24a6442efe93e55af52d39434f2df360b0f2f0831045a439aa095
+2022-08-14T23:50:39.3027707Z ##[group]Run gradle clean build -x check --stacktrace --no-daemon --profile
+2022-08-14T23:50:39.3028240Z [36;1mgradle clean build -x check --stacktrace --no-daemon --profile[0m
+2022-08-14T23:50:39.3028681Z shell: sh -e {0}
+2022-08-14T23:50:39.3028956Z ##[endgroup]
+2022-08-14T23:50:39.9742166Z 
+2022-08-14T23:50:39.9749919Z Welcome to Gradle 7.4.2!
+2022-08-14T23:50:39.9753577Z 
+2022-08-14T23:50:39.9759640Z Here are the highlights of this release:
+2022-08-14T23:50:39.9765990Z  - Aggregated test and JaCoCo reports
+2022-08-14T23:50:39.9773182Z  - Marking additional test source directories as tests in IntelliJ
+2022-08-14T23:50:39.9779230Z  - Support for Adoptium JDKs in Java toolchains
+2022-08-14T23:50:39.9782910Z 
+2022-08-14T23:50:39.9789535Z For more details see https://docs.gradle.org/7.4.2/release-notes.html
+2022-08-14T23:50:39.9793217Z 
+2022-08-14T23:50:40.0732501Z To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.4.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+2022-08-14T23:50:41.1731892Z Daemon will be stopped at the end of the build 
+2022-08-14T23:50:47.4754412Z > Task :buildSrc:generateExternalPluginSpecBuilders
+2022-08-14T23:50:47.4771080Z > Task :buildSrc:extractPrecompiledScriptPluginPlugins
+2022-08-14T23:50:52.2729431Z > Task :buildSrc:compilePluginsBlocks
+2022-08-14T23:50:53.6732720Z 
+2022-08-14T23:50:53.6733782Z > Task :buildSrc:generatePrecompiledScriptPluginAccessors
+2022-08-14T23:50:53.6734327Z Fabric Loom: 0.12.56
+2022-08-14T23:50:53.6734708Z Fabric Loom: 0.12.56
+2022-08-14T23:50:53.6735055Z Fabric Loom: 0.12.56
+2022-08-14T23:50:53.6735299Z 
+2022-08-14T23:50:53.6735560Z > Task :buildSrc:generateScriptPluginAdapters
+2022-08-14T23:50:55.6729145Z 
+2022-08-14T23:50:55.6729606Z > Task :buildSrc:compileKotlin
+2022-08-14T23:50:55.6730635Z 'compileJava' task (current target is 17) and 'compileKotlin' task (current target is 1.8) jvm target compatibility should be set to the same Java version.
+2022-08-14T23:51:18.4730764Z w: Some JAR files in the classpath have the Kotlin Runtime library bundled into them. This may cause difficult to debug problems if there's a different version of the Kotlin Runtime library in the classpath. Consider removing these libraries from the classpath
+2022-08-14T23:51:18.4732103Z w: /home/gradle/.gradle/caches/modules-2/files-2.1/com.atlauncher/ATLauncher/3.4.12.2/aef08d09a3a6abdd55d3173a418ab32515e54adb/ATLauncher-3.4.12.2.jar: Library has Kotlin runtime bundled into it
+2022-08-14T23:51:18.6728130Z 
+2022-08-14T23:51:18.6741752Z > Task :buildSrc:compileJava NO-SOURCE
+2022-08-14T23:51:18.6752937Z > Task :buildSrc:compileGroovy NO-SOURCE
+2022-08-14T23:51:18.6758871Z > Task :buildSrc:pluginDescriptors
+2022-08-14T23:51:18.6766959Z > Task :buildSrc:processResources
+2022-08-14T23:51:18.6772756Z > Task :buildSrc:classes
+2022-08-14T23:51:18.6778510Z > Task :buildSrc:inspectClassesForKotlinIC
+2022-08-14T23:51:18.8729990Z > Task :buildSrc:jar
+2022-08-14T23:51:18.8736807Z > Task :buildSrc:assemble
+2022-08-14T23:51:18.8759513Z > Task :buildSrc:compileTestKotlin NO-SOURCE
+2022-08-14T23:51:18.8770556Z > Task :buildSrc:pluginUnderTestMetadata
+2022-08-14T23:51:18.8781238Z > Task :buildSrc:compileTestJava NO-SOURCE
+2022-08-14T23:51:18.8789162Z > Task :buildSrc:compileTestGroovy NO-SOURCE
+2022-08-14T23:51:18.8797234Z > Task :buildSrc:processTestResources NO-SOURCE
+2022-08-14T23:51:18.8808203Z > Task :buildSrc:testClasses UP-TO-DATE
+2022-08-14T23:51:18.8815863Z > Task :buildSrc:test NO-SOURCE
+2022-08-14T23:51:19.0731115Z > Task :buildSrc:validatePlugins
+2022-08-14T23:51:19.0755324Z > Task :buildSrc:check
+2022-08-14T23:51:19.0766946Z > Task :buildSrc:build
+2022-08-14T23:51:20.6731697Z 
+2022-08-14T23:51:20.6732114Z > Configure project :
+2022-08-14T23:51:20.6732447Z Fabric Loom: 0.12.56
+2022-08-14T23:51:20.6733059Z 3.6.0-1.19_scicraft.dev.18+g56a3f4b
+2022-08-14T23:51:20.6733479Z Not publishing sources jar as it was not found. Use java.withSourcesJar() to fix.
+2022-08-14T23:51:20.8728882Z 
+2022-08-14T23:51:20.8737111Z > Configure project :quickcarpet-api
+2022-08-14T23:51:20.8743844Z Fabric Loom: 0.12.56
+2022-08-14T23:51:20.8750200Z Not publishing sources jar as it was not found. Use java.withSourcesJar() to fix.
+2022-08-14T23:51:20.9728558Z 
+2022-08-14T23:51:20.9735764Z > Task :clean
+2022-08-14T23:51:20.9742882Z > Task :quickcarpet-api:clean
+2022-08-14T23:51:21.5729446Z > Task :generateJava
+2022-08-14T23:51:23.5730129Z > Task :quickcarpet-api:compileJava
+2022-08-14T23:51:23.5744590Z > Task :quickcarpet-api:processResources
+2022-08-14T23:51:23.5752272Z > Task :quickcarpet-api:classes
+2022-08-14T23:51:23.5766517Z > Task :quickcarpet-api:jar
+2022-08-14T23:51:28.2728006Z 
+2022-08-14T23:51:28.2739035Z > Task :compileJava
+2022-08-14T23:51:28.2748208Z /__w/QuickCarpet/QuickCarpet/src/main/java/quickcarpet/mixin/stackableShulkerBoxesInHoppers/compat/lithium/HopperHelperMixin.java:10: error: Mixin target me.jellysquid.mods.lithium.common.hopper.HopperHelper could not be found
+2022-08-14T23:51:28.2757698Z @Mixin(targets = "me.jellysquid.mods.lithium.common.hopper.HopperHelper")
+2022-08-14T23:51:28.2764749Z ^
+2022-08-14T23:51:28.4742331Z 1 error
+2022-08-14T23:51:28.4742540Z 
+2022-08-14T23:51:28.4750356Z > Task :compileJava FAILED
+2022-08-14T23:51:28.7754337Z 
+2022-08-14T23:51:28.7757726Z FAILURE: Build failed with an exception.
+2022-08-14T23:51:28.7758689Z 
+2022-08-14T23:51:28.7759154Z * What went wrong:
+2022-08-14T23:51:28.7786728Z Execution failed for task ':compileJava'.
+2022-08-14T23:51:28.7796836Z > Compilation failed; see the compiler error output for details.
+2022-08-14T23:51:28.7797804Z 
+2022-08-14T23:51:28.7798080Z * Try:
+2022-08-14T23:51:28.7799329Z > Run with --info or --debug option to get more log output.
+2022-08-14T23:51:28.7799983Z > Run with --scan to get full insights.
+2022-08-14T23:51:28.7803815Z 
+2022-08-14T23:51:28.7804318Z * Exception is:
+2022-08-14T23:51:28.7805617Z org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
+2022-08-14T23:51:28.7806712Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:147)
+2022-08-14T23:51:28.7809218Z 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:282)
+2022-08-14T23:51:28.7809969Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:145)
+2022-08-14T23:51:28.7810911Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:133)
+2022-08-14T23:51:28.7811820Z 	at org.gradle.api.internal.tasks.execution.CleanupStaleOutputsExecuter.execute(CleanupStaleOutputsExecuter.java:77)
+2022-08-14T23:51:28.7827689Z 	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+2022-08-14T23:51:28.7831551Z 	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+2022-08-14T23:51:28.7834950Z 	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+2022-08-14T23:51:28.7837786Z 	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:56)
+2022-08-14T23:51:28.7850560Z 	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+2022-08-14T23:51:28.7853694Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+2022-08-14T23:51:28.7856560Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+2022-08-14T23:51:28.7884783Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+2022-08-14T23:51:28.7885739Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.7886932Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.7887810Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.7888593Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7889410Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.7890252Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7891079Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.7891905Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.7892754Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+2022-08-14T23:51:28.7893526Z 	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:74)
+2022-08-14T23:51:28.7894322Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:333)
+2022-08-14T23:51:28.7895235Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:320)
+2022-08-14T23:51:28.7896162Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:313)
+2022-08-14T23:51:28.7897118Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:299)
+2022-08-14T23:51:28.7897934Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:143)
+2022-08-14T23:51:28.7898633Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:227)
+2022-08-14T23:51:28.7899353Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:218)
+2022-08-14T23:51:28.7900068Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:140)
+2022-08-14T23:51:28.7900739Z 	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:72)
+2022-08-14T23:51:28.7901541Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:144)
+2022-08-14T23:51:28.7902516Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:129)
+2022-08-14T23:51:28.7903275Z 	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:42)
+2022-08-14T23:51:28.7905792Z 	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
+2022-08-14T23:51:28.7906648Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+2022-08-14T23:51:28.7907599Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+2022-08-14T23:51:28.7908564Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.7909507Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.7910369Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.7911149Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7911962Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.7912922Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7913746Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.7914667Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.7915566Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+2022-08-14T23:51:28.7916489Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$7(DefaultBuildLifecycleController.java:165)
+2022-08-14T23:51:28.7917336Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:238)
+2022-08-14T23:51:28.7918139Z 	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:174)
+2022-08-14T23:51:28.7918869Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:44)
+2022-08-14T23:51:28.7919610Z 	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:174)
+2022-08-14T23:51:28.7920471Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:165)
+2022-08-14T23:51:28.7921400Z 	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:142)
+2022-08-14T23:51:28.7922229Z 	at org.gradle.composite.internal.DefaultBuildController.doBuild(DefaultBuildController.java:231)
+2022-08-14T23:51:28.7922834Z 	at org.gradle.internal.Factories$1.create(Factories.java:31)
+2022-08-14T23:51:28.7923442Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:270)
+2022-08-14T23:51:28.7924249Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:119)
+2022-08-14T23:51:28.7925090Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:124)
+2022-08-14T23:51:28.7925865Z 	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:204)
+2022-08-14T23:51:28.7926614Z 	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:51)
+2022-08-14T23:51:28.7927355Z 	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:264)
+2022-08-14T23:51:28.7928097Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+2022-08-14T23:51:28.7928876Z 	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+2022-08-14T23:51:28.7929632Z Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler error output for details.
+2022-08-14T23:51:28.7930408Z 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:56)
+2022-08-14T23:51:28.7931108Z 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:39)
+2022-08-14T23:51:28.7931956Z 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:97)
+2022-08-14T23:51:28.7932872Z 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:51)
+2022-08-14T23:51:28.7933687Z 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:37)
+2022-08-14T23:51:28.7934649Z 	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:51)
+2022-08-14T23:51:28.7935758Z 	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:37)
+2022-08-14T23:51:28.7936897Z 	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
+2022-08-14T23:51:28.7937966Z 	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
+2022-08-14T23:51:28.7938933Z 	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
+2022-08-14T23:51:28.7939704Z 	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$1(JavaCompile.java:232)
+2022-08-14T23:51:28.7940430Z 	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
+2022-08-14T23:51:28.7941385Z 	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:52)
+2022-08-14T23:51:28.7942356Z 	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:67)
+2022-08-14T23:51:28.7943202Z 	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:41)
+2022-08-14T23:51:28.7944327Z 	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
+2022-08-14T23:51:28.7945447Z 	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
+2022-08-14T23:51:28.7946562Z 	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$2.call(CompileJavaBuildOperationReportingCompiler.java:59)
+2022-08-14T23:51:28.7947669Z 	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$2.call(CompileJavaBuildOperationReportingCompiler.java:51)
+2022-08-14T23:51:28.7948699Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.7949640Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.7950500Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.7951281Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7952089Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.7952923Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7953806Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.7954640Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.7955661Z 	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:51)
+2022-08-14T23:51:28.7956589Z 	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:279)
+2022-08-14T23:51:28.7957320Z 	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
+2022-08-14T23:51:28.7957989Z 	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:146)
+2022-08-14T23:51:28.7958586Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2022-08-14T23:51:28.7959256Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+2022-08-14T23:51:28.7960014Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2022-08-14T23:51:28.7960671Z 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:104)
+2022-08-14T23:51:28.7961444Z 	at org.gradle.api.internal.project.taskfactory.IncrementalInputsTaskAction.doExecute(IncrementalInputsTaskAction.java:32)
+2022-08-14T23:51:28.7962400Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+2022-08-14T23:51:28.7963341Z 	at org.gradle.api.internal.project.taskfactory.AbstractIncrementalTaskAction.execute(AbstractIncrementalTaskAction.java:25)
+2022-08-14T23:51:28.7964241Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+2022-08-14T23:51:28.7964958Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:242)
+2022-08-14T23:51:28.7965696Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+2022-08-14T23:51:28.7966486Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+2022-08-14T23:51:28.7967269Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.7968048Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7968857Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.7969686Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7970493Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+2022-08-14T23:51:28.7971287Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:68)
+2022-08-14T23:51:28.7972107Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:227)
+2022-08-14T23:51:28.7972900Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:210)
+2022-08-14T23:51:28.7973751Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:193)
+2022-08-14T23:51:28.7974556Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:171)
+2022-08-14T23:51:28.7975255Z 	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:89)
+2022-08-14T23:51:28.7975914Z 	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:40)
+2022-08-14T23:51:28.7976517Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:53)
+2022-08-14T23:51:28.7977088Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:50)
+2022-08-14T23:51:28.7977857Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.7978863Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.7979728Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.7980515Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7981322Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.7982157Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.7982965Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.8000499Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.8001278Z 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:50)
+2022-08-14T23:51:28.8001914Z 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:40)
+2022-08-14T23:51:28.8002660Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+2022-08-14T23:51:28.8003737Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+2022-08-14T23:51:28.8004575Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:48)
+2022-08-14T23:51:28.8005392Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:36)
+2022-08-14T23:51:28.8006170Z 	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:41)
+2022-08-14T23:51:28.8006922Z 	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:74)
+2022-08-14T23:51:28.8007619Z 	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+2022-08-14T23:51:28.8008294Z 	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:51)
+2022-08-14T23:51:28.8009009Z 	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:29)
+2022-08-14T23:51:28.8009840Z 	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:61)
+2022-08-14T23:51:28.8010783Z 	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:42)
+2022-08-14T23:51:28.8011702Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:60)
+2022-08-14T23:51:28.8012698Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:27)
+2022-08-14T23:51:28.8013545Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:180)
+2022-08-14T23:51:28.8014287Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
+2022-08-14T23:51:28.8014847Z 	at org.gradle.internal.Either$Right.fold(Either.java:175)
+2022-08-14T23:51:28.8015379Z 	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:59)
+2022-08-14T23:51:28.8016037Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+2022-08-14T23:51:28.8016706Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+2022-08-14T23:51:28.8017448Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:36)
+2022-08-14T23:51:28.8018254Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:25)
+2022-08-14T23:51:28.8019019Z 	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:36)
+2022-08-14T23:51:28.8019824Z 	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:22)
+2022-08-14T23:51:28.8020566Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:110)
+2022-08-14T23:51:28.8021313Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:56)
+2022-08-14T23:51:28.8022025Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:56)
+2022-08-14T23:51:28.8022726Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:38)
+2022-08-14T23:51:28.8023654Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:73)
+2022-08-14T23:51:28.8024380Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:44)
+2022-08-14T23:51:28.8025296Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+2022-08-14T23:51:28.8026390Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+2022-08-14T23:51:28.8027331Z 	at org.gradle.internal.execution.steps.ResolveCachingStateStep.execute(ResolveCachingStateStep.java:89)
+2022-08-14T23:51:28.8028216Z 	at org.gradle.internal.execution.steps.ResolveCachingStateStep.execute(ResolveCachingStateStep.java:50)
+2022-08-14T23:51:28.8028950Z 	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:114)
+2022-08-14T23:51:28.8029597Z 	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:57)
+2022-08-14T23:51:28.8030401Z 	at org.gradle.internal.execution.steps.CaptureStateBeforeExecutionStep.execute(CaptureStateBeforeExecutionStep.java:76)
+2022-08-14T23:51:28.8031350Z 	at org.gradle.internal.execution.steps.CaptureStateBeforeExecutionStep.execute(CaptureStateBeforeExecutionStep.java:50)
+2022-08-14T23:51:28.8032284Z 	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.executeWithNoEmptySources(SkipEmptyWorkStep.java:249)
+2022-08-14T23:51:28.8033191Z 	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.executeWithNoEmptySources(SkipEmptyWorkStep.java:204)
+2022-08-14T23:51:28.8034002Z 	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.execute(SkipEmptyWorkStep.java:83)
+2022-08-14T23:51:28.8034718Z 	at org.gradle.internal.execution.steps.SkipEmptyWorkStep.execute(SkipEmptyWorkStep.java:54)
+2022-08-14T23:51:28.8035564Z 	at org.gradle.internal.execution.steps.RemoveUntrackedExecutionStateStep.execute(RemoveUntrackedExecutionStateStep.java:32)
+2022-08-14T23:51:28.8036551Z 	at org.gradle.internal.execution.steps.RemoveUntrackedExecutionStateStep.execute(RemoveUntrackedExecutionStateStep.java:21)
+2022-08-14T23:51:28.8037570Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+2022-08-14T23:51:28.8038565Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:43)
+2022-08-14T23:51:28.8039502Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:31)
+2022-08-14T23:51:28.8040359Z 	at org.gradle.internal.execution.steps.AssignWorkspaceStep.lambda$execute$0(AssignWorkspaceStep.java:40)
+2022-08-14T23:51:28.8041079Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:287)
+2022-08-14T23:51:28.8041778Z 	at org.gradle.internal.execution.steps.AssignWorkspaceStep.execute(AssignWorkspaceStep.java:40)
+2022-08-14T23:51:28.8042520Z 	at org.gradle.internal.execution.steps.AssignWorkspaceStep.execute(AssignWorkspaceStep.java:30)
+2022-08-14T23:51:28.8043270Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:37)
+2022-08-14T23:51:28.8043983Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:27)
+2022-08-14T23:51:28.8044738Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+2022-08-14T23:51:28.8045380Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:33)
+2022-08-14T23:51:28.8046075Z 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:76)
+2022-08-14T23:51:28.8046937Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:144)
+2022-08-14T23:51:28.8047878Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:133)
+2022-08-14T23:51:28.8048780Z 	at org.gradle.api.internal.tasks.execution.CleanupStaleOutputsExecuter.execute(CleanupStaleOutputsExecuter.java:77)
+2022-08-14T23:51:28.8049726Z 	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+2022-08-14T23:51:28.8050707Z 	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+2022-08-14T23:51:28.8051699Z 	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+2022-08-14T23:51:28.8052588Z 	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:56)
+2022-08-14T23:51:28.8053503Z 	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+2022-08-14T23:51:28.8054359Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+2022-08-14T23:51:28.8055160Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+2022-08-14T23:51:28.8055933Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+2022-08-14T23:51:28.8056796Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.8057747Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.8058611Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.8059395Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.8060205Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.8061034Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.8061849Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.8062674Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.8064345Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+2022-08-14T23:51:28.8115278Z 	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:74)
+2022-08-14T23:51:28.8116124Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:333)
+2022-08-14T23:51:28.8117038Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:320)
+2022-08-14T23:51:28.8117971Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:313)
+2022-08-14T23:51:28.8118930Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:299)
+2022-08-14T23:51:28.8119754Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:143)
+2022-08-14T23:51:28.8120673Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:227)
+2022-08-14T23:51:28.8121395Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:218)
+2022-08-14T23:51:28.8122136Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:140)
+2022-08-14T23:51:28.8122939Z 	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:72)
+2022-08-14T23:51:28.8123744Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:144)
+2022-08-14T23:51:28.8124614Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:129)
+2022-08-14T23:51:28.8125379Z 	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:42)
+2022-08-14T23:51:28.8126129Z 	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
+2022-08-14T23:51:28.8126973Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+2022-08-14T23:51:28.8127916Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+2022-08-14T23:51:28.8128948Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+2022-08-14T23:51:28.8129896Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+2022-08-14T23:51:28.8130766Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+2022-08-14T23:51:28.8131548Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.8132366Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+2022-08-14T23:51:28.8133201Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+2022-08-14T23:51:28.8134013Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+2022-08-14T23:51:28.8134900Z 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+2022-08-14T23:51:28.8135805Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+2022-08-14T23:51:28.8136726Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$7(DefaultBuildLifecycleController.java:165)
+2022-08-14T23:51:28.8137570Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:238)
+2022-08-14T23:51:28.8138373Z 	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:174)
+2022-08-14T23:51:28.8139102Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:44)
+2022-08-14T23:51:28.8139834Z 	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:174)
+2022-08-14T23:51:28.8140696Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:165)
+2022-08-14T23:51:28.8141609Z 	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:142)
+2022-08-14T23:51:28.8142437Z 	at org.gradle.composite.internal.DefaultBuildController.doBuild(DefaultBuildController.java:231)
+2022-08-14T23:51:28.8143031Z 	at org.gradle.internal.Factories$1.create(Factories.java:31)
+2022-08-14T23:51:28.8143736Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:270)
+2022-08-14T23:51:28.8144547Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:119)
+2022-08-14T23:51:28.8145463Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:124)
+2022-08-14T23:51:28.8146242Z 	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:204)
+2022-08-14T23:51:28.8146974Z 	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:51)
+2022-08-14T23:51:28.8147716Z 	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:264)
+2022-08-14T23:51:28.8148461Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+2022-08-14T23:51:28.8149146Z 	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+2022-08-14T23:51:28.8149494Z 
+2022-08-14T23:51:28.8149502Z 
+2022-08-14T23:51:28.8149685Z * Get more help at https://help.gradle.org
+2022-08-14T23:51:28.8149903Z 
+2022-08-14T23:51:28.8150014Z BUILD FAILED in 49s
+2022-08-14T23:51:28.8150182Z 
+2022-08-14T23:51:28.8150431Z Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.
+2022-08-14T23:51:28.8150715Z 
+2022-08-14T23:51:28.8151386Z You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+2022-08-14T23:51:28.8151733Z 
+2022-08-14T23:51:28.8152067Z See https://docs.gradle.org/7.4.2/userguide/command_line_interface.html#sec:command_line_warnings
+2022-08-14T23:51:28.8152490Z 19 actionable tasks: 19 executed
+2022-08-14T23:51:28.8152672Z 
+2022-08-14T23:51:28.8153149Z See the profiling report at: file:///__w/QuickCarpet/QuickCarpet/build/reports/profile/profile-2022-08-14-23-50-42.html
+2022-08-14T23:51:28.8153785Z A fine-grained performance profile is available: use the --scan option.
+2022-08-14T23:51:28.8728619Z 
+2022-08-14T23:51:28.8729669Z See the profiling report at: file:///__w/QuickCarpet/QuickCarpet/buildSrc/build/reports/profile/profile-2022-08-14-23-50-44.html
+2022-08-14T23:51:28.8730399Z A fine-grained performance profile is available: use the --scan option.
+2022-08-14T23:51:29.2992927Z ##[error]Process completed with exit code 1.
+2022-08-14T23:51:29.3118175Z Post job cleanup.
+2022-08-14T23:51:29.3121976Z ##[command]/usr/bin/docker exec  f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638 sh -c "cat /etc/*release | grep ^ID"
+2022-08-14T23:51:29.6815368Z [command]/usr/bin/git version
+2022-08-14T23:51:29.6875597Z git version 2.34.1
+2022-08-14T23:51:29.6929994Z Copying '/github/home/.gitconfig' to '/__w/_temp/a6e9d5a6-5e15-4fbb-9c1b-394d05c8de3f/.gitconfig'
+2022-08-14T23:51:29.6947235Z Temporarily overriding HOME='/__w/_temp/a6e9d5a6-5e15-4fbb-9c1b-394d05c8de3f' before making global git config changes
+2022-08-14T23:51:29.6950054Z Adding repository directory to the temporary git global config as a safe directory
+2022-08-14T23:51:29.6958469Z [command]/usr/bin/git config --global --add safe.directory /__w/QuickCarpet/QuickCarpet
+2022-08-14T23:51:29.7013651Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-08-14T23:51:29.7056154Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-08-14T23:51:29.7350170Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-08-14T23:51:29.7385528Z http.https://github.com/.extraheader
+2022-08-14T23:51:29.7397086Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2022-08-14T23:51:29.7440772Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-08-14T23:51:29.7942262Z Stop and remove container: 419d76367a0d4301b3ef5046d0eb743e_gradle74jdk17_8a4674
+2022-08-14T23:51:29.7950183Z ##[command]/usr/bin/docker rm --force f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:51:30.0499855Z f096962bf1f903daf2a9baaea8f565dbe0bc15ecd10fceeb4b56bab39d0bd638
+2022-08-14T23:51:30.0578695Z Remove container network: github_network_d9ed4c974b4540cfa33efcbddeb64a72
+2022-08-14T23:51:30.0585946Z ##[command]/usr/bin/docker network rm github_network_d9ed4c974b4540cfa33efcbddeb64a72
+2022-08-14T23:51:30.1686338Z github_network_d9ed4c974b4540cfa33efcbddeb64a72
+2022-08-14T23:51:30.1847968Z Cleaning up orphan processes

@@ -51,29 +51,6 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         }
         repo = artifact['repo']
 
-        if self.repr_metadata:
-            job_orig_log = {}
-            for f_or_p in ['failed', 'passed']:
-                location = '../reproducer/intermediates/orig_logs/{}-orig.log'.format(job_id[f_or_p])
-                if not os.path.isfile(location):
-                    location = '../pair-filter/original-logs/{}-orig.log'.format(job_id[f_or_p])
-                if not os.path.isfile(location) and not download_log(job_id[f_or_p], location, repo=repo):
-                    raise CachingScriptError('Error getting log for {} job {}'.format(f_or_p, job_id[f_or_p]))
-                job_orig_log[f_or_p] = location
-        else:
-            job_orig_log = {
-                'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
-                'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
-            }
-            for f_or_p in ['failed', 'passed']:
-                try:
-                    content = bugswarmapi.get_build_log(str(job_id[f_or_p]))
-                    with open(job_orig_log[f_or_p], 'w') as f:
-                        f.write(content)
-                except Exception:
-                    raise CachingScriptError(
-                        'Error getting log for {} job {}'.format(f_or_p, job_id[f_or_p]))
-
         docker_image_tag = '{}:{}'.format(self.args.src_repo, self.image_tag)
         original_size = self.pull_image(docker_image_tag)
 
@@ -81,6 +58,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         self.build_system = build_system
         self.docker_image_tag = docker_image_tag
         self.job_id = job_id
+        job_orig_log = self._get_orig_logs()
         self.job_orig_log = job_orig_log
 
         # Start a failed build and a passed build to collect cached files
@@ -147,6 +125,33 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         latest_layer_size = self.get_last_layer_size(cached_tag)
         self.tag_and_push_cached_image(self.image_tag, cached_tag)
         self.write_output(self.image_tag, 'succeed, {}, {}'.format(original_size, latest_layer_size))
+
+    def _get_orig_logs(self):
+        if self.repr_metadata:
+            job_orig_log = {}
+            for f_or_p in ['failed', 'passed']:
+                job_id = self.job_id[f_or_p]
+                location = '../reproducer/intermediates/orig_logs/{}-orig.log'.format(job_id)
+                if not os.path.isfile(location):
+                    location = '../pair-filter/original-logs/{}-orig.log'.format(job_id)
+                if not os.path.isfile(location) and not download_log(job_id, location, repo=self.repo):
+                    raise CachingScriptError('Error getting log for {} job {}'.format(f_or_p, job_id))
+                job_orig_log[f_or_p] = location
+            return job_orig_log
+
+        job_orig_log = {
+            'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
+            'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
+        }
+        for f_or_p in ['failed', 'passed']:
+            job_id = str(self.job_id[f_or_p])
+            try:
+                content = bugswarmapi.get_build_log(job_id)
+                with open(job_orig_log[f_or_p], 'w') as f:
+                    f.write(content)
+            except Exception:
+                raise CachingScriptError('Error getting log for {} job {}'.format(f_or_p, job_id))
+        return job_orig_log
 
     def _cache_and_copy_files(self, container_id, fail_or_pass):
         cached_files = []

@@ -1,0 +1,3199 @@
+[
+  {
+    "_created": "Thu, 08 Sep 2022 22:49:37 GMT",
+    "_deleted": false,
+    "_etag": "1dde6cb73682022e0f83e881c4779d14202d9564",
+    "_id": "631a7181aaa0e29c83849d18",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/631a7181aaa0e29c83849d18",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Thu, 08 Sep 2022 22:49:37 GMT",
+    "base_branch": "",
+    "branch": "blossom",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 2855125553,
+      "committed_at": "2022-08-14T08:46:41Z",
+      "github_archived": true,
+      "head_sha": "b0cbce4c3c0e4269ef01d5653e91bea8d42b348b",
+      "jobs": [
+        {
+          "build_job": "1762.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Setup Java",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "17"
+                }
+              },
+              {
+                "name": "Cache gradle files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}",
+                  "path": "~/.gradle/caches\n~/.gradle/wrapper\n./.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-gradle-\n"
+                }
+              },
+              {
+                "name": "Run Gradle",
+                "run": "./gradlew && ./gradlew jar"
+              },
+              {
+                "name": "Upload build",
+                "uses": "actions/upload-artifact@v3",
+                "with": {
+                  "name": "Grasscutter",
+                  "path": "grasscutter-*.jar"
+                }
+              }
+            ]
+          },
+          "job_id": 7825239642,
+          "language": "java"
+        }
+      ],
+      "message": "remove leyline 2",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Gradle",
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7825239642,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7825239642",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 7.3,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 77,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "./gradlew && ./gradlew jar",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7825248848,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7825248848",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 7.25,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 91,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "metrics": {
+          "num_of_changed_files": 0,
+          "changes": 0,
+          "additions": 0,
+          "deletions": 0
+        },
+        "classification": {
+          "code": "No",
+          "test": "No",
+          "build": "No",
+          "exceptions": [],
+          "tr_log_num_tests_failed": 0
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 2855130681,
+      "committed_at": "2022-08-14T08:48:18Z",
+      "github_archived": true,
+      "head_sha": "3b25bdcb9512f46267f954b58a5452add340b622",
+      "jobs": [
+        {
+          "build_job": "1763.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Setup Java",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "17"
+                }
+              },
+              {
+                "name": "Cache gradle files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}",
+                  "path": "~/.gradle/caches\n~/.gradle/wrapper\n./.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-gradle-\n"
+                }
+              },
+              {
+                "name": "Run Gradle",
+                "run": "./gradlew && ./gradlew jar"
+              },
+              {
+                "name": "Upload build",
+                "uses": "actions/upload-artifact@v3",
+                "with": {
+                  "name": "Grasscutter",
+                  "path": "grasscutter-*.jar"
+                }
+              }
+            ]
+          },
+          "job_id": 7825248848,
+          "language": "java"
+        }
+      ],
+      "message": "Update BlossomManager.java",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "Grasscutters/Grasscutter",
+    "repo_mined_version": "d3bf5b585f29958f53a55df1732f003e8b859555",
+    "match": 1
+  },
+  {
+    "_created": "Fri, 02 Sep 2022 18:53:26 GMT",
+    "_deleted": false,
+    "_etag": "5bca4056d9807d10568e09d26c15056acd21382a",
+    "_id": "63125126da9ce675fa5aa180",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/63125126da9ce675fa5aa180",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Fri, 02 Sep 2022 18:53:26 GMT",
+    "base_branch": "",
+    "branch": "blossom",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 2845023195,
+      "committed_at": "2022-08-12T06:56:22Z",
+      "github_archived": true,
+      "head_sha": "0cd7ac7b1240f54d33dec7c84aa8ed3b5d481eba",
+      "jobs": [
+        {
+          "build_job": "1757.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Setup Java",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "17"
+                }
+              },
+              {
+                "name": "Cache gradle files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}",
+                  "path": "~/.gradle/caches\n~/.gradle/wrapper\n./.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-gradle-\n"
+                }
+              },
+              {
+                "name": "Run Gradle",
+                "run": "./gradlew && ./gradlew jar"
+              },
+              {
+                "name": "Upload build",
+                "uses": "actions/upload-artifact@v3",
+                "with": {
+                  "name": "Grasscutter",
+                  "path": "grasscutter-*.jar"
+                }
+              }
+            ]
+          },
+          "job_id": 7801445827,
+          "language": "java"
+        }
+      ],
+      "message": "Lombokify Scene.java",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Gradle",
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7801445827,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7801445827",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 10.76,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 97,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "./gradlew && ./gradlew jar",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7801497683,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7801497683",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 6.71,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 101,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "metrics": {
+          "num_of_changed_files": 0,
+          "changes": 0,
+          "additions": 0,
+          "deletions": 0
+        },
+        "classification": {
+          "code": "No",
+          "test": "No",
+          "build": "No",
+          "exceptions": [],
+          "tr_log_num_tests_failed": 0
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 2845043586,
+      "committed_at": "2022-08-12T07:00:51Z",
+      "github_archived": true,
+      "head_sha": "18c288fe2a9bf4c6046001b4e7093726e95670b1",
+      "jobs": [
+        {
+          "build_job": "1758.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Setup Java",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "17"
+                }
+              },
+              {
+                "name": "Cache gradle files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}",
+                  "path": "~/.gradle/caches\n~/.gradle/wrapper\n./.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-gradle-\n"
+                }
+              },
+              {
+                "name": "Run Gradle",
+                "run": "./gradlew && ./gradlew jar"
+              },
+              {
+                "name": "Upload build",
+                "uses": "actions/upload-artifact@v3",
+                "with": {
+                  "name": "Grasscutter",
+                  "path": "grasscutter-*.jar"
+                }
+              }
+            ]
+          },
+          "job_id": 7801497683,
+          "language": "java"
+        }
+      ],
+      "message": "Missed an odd getter name",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "Grasscutters/Grasscutter",
+    "repo_mined_version": "735b48edcaa6b249281fb08da69c08eca05a340c",
+    "match": 1
+  },
+  {
+    "_created": "Thu, 01 Sep 2022 23:58:52 GMT",
+    "_deleted": false,
+    "_etag": "45e8bb7e02f7d2f448d2ae2e2bf4efd5753e4f12",
+    "_id": "6311473cb3274e078a598f6f",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/6311473cb3274e078a598f6f",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Thu, 01 Sep 2022 23:58:52 GMT",
+    "base_branch": "",
+    "branch": "1.19-scicraft",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 2857610754,
+      "committed_at": "2022-08-14T23:49:39Z",
+      "github_archived": true,
+      "head_sha": "56a3f4b5ba1aa8e260de8daed61ca0f473d88a17",
+      "jobs": [
+        {
+          "build_job": "279.1",
+          "config": {
+            "container": {
+              "image": "gradle:${{ matrix.gradle }}-jdk${{ matrix.java }}"
+            },
+            "if": "!contains(github.event.head_commit.message, 'no-ci')",
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout sources",
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Set repository as a safe directory",
+                "run": "git config --global --add safe.directory \"$GITHUB_WORKSPACE\""
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Gradle packages",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml') }}",
+                  "path": "~/.gradle/caches\n/home/gradle/.gradle/caches\n",
+                  "restore-keys": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-\n"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Loom Files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-loom-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml', 'src/main/resource/quickcarpet.accesswidener') }}",
+                  "path": "build/loom-cache\n.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-loom-\n"
+                }
+              },
+              {
+                "name": "Build with Gradle",
+                "run": "gradle clean build -x check --stacktrace --no-daemon --profile"
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Upload Main JARs",
+                "uses": "actions/upload-artifact@v2.2.0",
+                "with": {
+                  "name": "quickcarpet-jars",
+                  "path": "build/libs/*.jar"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Upload API JARs",
+                "uses": "actions/upload-artifact@v2.2.0",
+                "with": {
+                  "name": "quickcarpet-api-jars",
+                  "path": "api/build/libs/*.jar"
+                }
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "gradle": 7.4,
+                "java": 17
+              }
+            }
+          },
+          "job_id": 7830074046,
+          "language": "java"
+        },
+        {
+          "build_job": "279.2",
+          "config": {},
+          "job_id": 7830082617,
+          "language": "java"
+        },
+        {
+          "build_job": "279.3",
+          "config": {},
+          "job_id": 7830082637,
+          "language": "java"
+        },
+        {
+          "build_job": "279.4",
+          "config": {
+            "if": "success() || failure()",
+            "needs": [
+              "unit-test",
+              "game-test"
+            ],
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Download Artifacts",
+                "uses": "actions/download-artifact@v2",
+                "with": {
+                  "path": "artifacts"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Publish Test Results",
+                "uses": "EnricoMi/publish-unit-test-result-action@v1.19",
+                "with": {
+                  "check_name": "Test Results",
+                  "files": "artifacts/**/*.xml"
+                }
+              }
+            ]
+          },
+          "job_id": 7830082662,
+          "language": "java"
+        },
+        {
+          "build_job": "279.5",
+          "config": {},
+          "job_id": 7830083662,
+          "language": "java"
+        }
+      ],
+      "message": "stackableShulkerBoxesInHoppers: Support lithium",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Gradle",
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7830074046,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7830074046",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 25.38,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 49,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "gradle clean build -x check --stacktrace --no-daemon --profile",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 7830099396,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "7830099396",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 20.0,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 52,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "Finished uploading artifact quickcarpet-jars. Reported size is 1079400 bytes. There were 0 items that failed to upload#Finished uploading artifact quickcarpet-api-jars. Reported size is 45006 bytes. There were 0 items that failed to upload",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "metrics": {
+          "num_of_changed_files": 0,
+          "changes": 0,
+          "additions": 0,
+          "deletions": 0
+        },
+        "classification": {
+          "code": "No",
+          "test": "No",
+          "build": "No",
+          "exceptions": [],
+          "tr_log_num_tests_failed": 0
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 2857624768,
+      "committed_at": "2022-08-14T23:55:00Z",
+      "github_archived": true,
+      "head_sha": "347741c76cf0dc091c76f8e3b2254a23190e1475",
+      "jobs": [
+        {
+          "build_job": "280.1",
+          "config": {
+            "container": {
+              "image": "gradle:${{ matrix.gradle }}-jdk${{ matrix.java }}"
+            },
+            "if": "!contains(github.event.head_commit.message, 'no-ci')",
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout sources",
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Set repository as a safe directory",
+                "run": "git config --global --add safe.directory \"$GITHUB_WORKSPACE\""
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Gradle packages",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml') }}",
+                  "path": "~/.gradle/caches\n/home/gradle/.gradle/caches\n",
+                  "restore-keys": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-\n"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Loom Files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-loom-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml', 'src/main/resource/quickcarpet.accesswidener') }}",
+                  "path": "build/loom-cache\n.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-loom-\n"
+                }
+              },
+              {
+                "name": "Build with Gradle",
+                "run": "gradle clean build -x check --stacktrace --no-daemon --profile"
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Upload Main JARs",
+                "uses": "actions/upload-artifact@v2.2.0",
+                "with": {
+                  "name": "quickcarpet-jars",
+                  "path": "build/libs/*.jar"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Upload API JARs",
+                "uses": "actions/upload-artifact@v2.2.0",
+                "with": {
+                  "name": "quickcarpet-api-jars",
+                  "path": "api/build/libs/*.jar"
+                }
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "gradle": 7.4,
+                "java": 17
+              }
+            }
+          },
+          "job_id": 7830099396,
+          "language": "java"
+        },
+        {
+          "build_job": "280.2",
+          "config": {
+            "container": {
+              "image": "gradle:${{ matrix.gradle }}-jdk${{ matrix.java }}"
+            },
+            "needs": "build",
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout sources",
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Set repository as a safe directory",
+                "run": "git config --global --add safe.directory \"$GITHUB_WORKSPACE\""
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Gradle packages",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml') }}",
+                  "path": "~/.gradle/caches\n/home/gradle/.gradle/caches\n",
+                  "restore-keys": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-\n"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Loom Files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-loom-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml', 'src/main/resource/quickcarpet.accesswidener') }}",
+                  "path": "build/loom-cache\n.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-loom-\n"
+                }
+              },
+              {
+                "name": "Download LazyDFU",
+                "run": "mkdir -p run/mods/\ncd run/mods/\nwget https://github.com/astei/lazydfu/releases/download/0.1.2/lazydfu-0.1.2.jar\n"
+              },
+              {
+                "name": "Run Game Tests",
+                "run": "gradle runTestServer --stacktrace --no-daemon"
+              },
+              {
+                "if": "always() && !env.ACT",
+                "name": "Publish Test World",
+                "uses": "actions/upload-artifact@v2.2.0",
+                "with": {
+                  "name": "gametestworld",
+                  "path": "run/gametestworld/*"
+                }
+              },
+              {
+                "if": "always() && !env.ACT",
+                "name": "Upload Test Results",
+                "uses": "actions/upload-artifact@v2",
+                "with": {
+                  "name": "Game Test Results (Java ${{ matrix.java }}, Gradle ${{ matrix.gradle }})",
+                  "path": "build/test-results/**/*.xml"
+                }
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "gradle": 7.4,
+                "java": 17
+              }
+            }
+          },
+          "job_id": 7830105954,
+          "language": "java"
+        },
+        {
+          "build_job": "280.3",
+          "config": {
+            "container": {
+              "image": "gradle:${{ matrix.gradle }}-jdk${{ matrix.java }}"
+            },
+            "needs": "build",
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout sources",
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Set repository as a safe directory",
+                "run": "git config --global --add safe.directory \"$GITHUB_WORKSPACE\""
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Gradle packages",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml') }}",
+                  "path": "~/.gradle/caches\n/home/gradle/.gradle/caches\n",
+                  "restore-keys": "${{ runner.os }}-gradle-${{ matrix.gradle }}-jdk${{ matrix.java }}-\n"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Cache Loom Files",
+                "uses": "actions/cache@v2",
+                "with": {
+                  "key": "${{ runner.os }}-loom-${{ hashFiles('*gradle.*', '*/*gradle.kts', 'buildSrc/src/**', '*.versions.toml', 'src/main/resource/quickcarpet.accesswidener') }}",
+                  "path": "build/loom-cache\n.gradle/loom-cache\n",
+                  "restore-keys": "${{ runner.os }}-loom-\n"
+                }
+              },
+              {
+                "name": "Run Unit Tests",
+                "run": "gradle test --stacktrace --no-daemon"
+              },
+              {
+                "if": "always() && !env.ACT",
+                "name": "Upload Test Results",
+                "uses": "actions/upload-artifact@v2",
+                "with": {
+                  "name": "Unit Test Results (Java ${{ matrix.java }}, Gradle ${{ matrix.gradle }})",
+                  "path": "build/test-results/**/*.xml"
+                }
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "gradle": 7.4,
+                "java": 17
+              }
+            }
+          },
+          "job_id": 7830105982,
+          "language": "java"
+        },
+        {
+          "build_job": "280.4",
+          "config": {
+            "if": "success() || failure()",
+            "needs": [
+              "unit-test",
+              "game-test"
+            ],
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Download Artifacts",
+                "uses": "actions/download-artifact@v2",
+                "with": {
+                  "path": "artifacts"
+                }
+              },
+              {
+                "if": "${{ !env.ACT }}",
+                "name": "Publish Test Results",
+                "uses": "EnricoMi/publish-unit-test-result-action@v1.19",
+                "with": {
+                  "check_name": "Test Results",
+                  "files": "artifacts/**/*.xml"
+                }
+              }
+            ]
+          },
+          "job_id": 7830114911,
+          "language": "java"
+        },
+        {
+          "build_job": "280.5",
+          "config": {},
+          "job_id": 7830116019,
+          "language": "java"
+        }
+      ],
+      "message": "stackableShulkerBoxesInHoppers: Support lithium",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "QuickCarpet/QuickCarpet",
+    "repo_mined_version": "990f917f83c0ae884db8e9aeba1541e13c962f9b",
+    "match": 1
+  },
+  {
+    "_created": "Wed, 14 Sep 2022 22:41:33 GMT",
+    "_deleted": false,
+    "_etag": "3ca5ee32ff4c57cd2d5ba1c15554b9b5c723400b",
+    "_id": "6322589d9ea61287915f8f62",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/6322589d9ea61287915f8f62",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Wed, 14 Sep 2022 23:00:05 GMT",
+    "base_branch": "",
+    "branch": "wip-v3",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 3021444947,
+      "committed_at": "2022-09-09T09:37:40Z",
+      "github_archived": true,
+      "head_sha": "73295e5fd8020ab3e5fda708cf7b2f1b5982cc69",
+      "jobs": [
+        {
+          "build_job": "280.1",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 8,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267344544,
+          "language": "java"
+        },
+        {
+          "build_job": "280.2",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 11,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267344708,
+          "language": "java"
+        },
+        {
+          "build_job": "280.3",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 16,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267344856,
+          "language": "java"
+        },
+        {
+          "build_job": "280.4",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 17,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267344957,
+          "language": "java"
+        },
+        {
+          "build_job": "280.5",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 18,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345055,
+          "language": "java"
+        },
+        {
+          "build_job": "280.6",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": "19-ea",
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345177,
+          "language": "java"
+        },
+        {
+          "build_job": "280.7",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 8,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345289,
+          "language": "java"
+        },
+        {
+          "build_job": "280.8",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 11,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345404,
+          "language": "java"
+        },
+        {
+          "build_job": "280.9",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 16,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345507,
+          "language": "java"
+        },
+        {
+          "build_job": "280.10",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 17,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345680,
+          "language": "java"
+        },
+        {
+          "build_job": "280.11",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 18,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345779,
+          "language": "java"
+        },
+        {
+          "build_job": "280.12",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": "19-ea",
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267345960,
+          "language": "java"
+        }
+      ],
+      "message": "add `ttl-kotlin` maven module",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Maven",
+        "classification": {
+          "build": "No",
+          "code": "No",
+          "exceptions": [
+            "AssertionError"
+          ],
+          "test": "Yes",
+          "tr_log_num_tests_failed": 1
+        },
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8267344544,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8267344544",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 6.44,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": true,
+            "tr_log_num_tests_ok": 40,
+            "tr_log_num_tests_failed": 1,
+            "tr_log_num_tests_run": 41,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "(com.alibaba.ttl3.kotlin.TtlExtensionsTests)",
+            "tr_log_testduration": 2.7199999999999998,
+            "tr_log_buildduration": 28.76,
+            "tr_err_msg": "Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.215 s <<< FAILURE! - in com.alibaba.ttl3.kotlin.TtlExtensionsTests#com.alibaba.ttl3.kotlin.TtlExtensionsTests  Time elapsed: 0.026 s  <<< FAILURE!#Failures: #com.alibaba.ttl3.kotlin.TtlExtensionsTests.null#  Run 7: TtlExtensionsTests java.util.concurrent.ThreadPoolExecutor@643b5e4e[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0] should be the same reference as java.util.concurrent.ThreadPoolExecutor@d0358f1[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]#Tests run: 1, Failures: 1, Errors: 0, Skipped: 0#Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7:test (default-test) on project ttl-kotlin: There are test failures.#Please refer to /home/runner/work/transmittable-thread-local/transmittable-thread-local/ttl-kotlin/target/surefire-reports for the individual test results.#Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "./mvnw -V --no-transfer-progress clean package",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "metrics": {
+          "additions": 40,
+          "changes": 42,
+          "deletions": 2,
+          "num_of_changed_files": 1
+        },
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8267661880,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8267661880",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 9.38,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": 554,
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 554,
+            "tr_log_num_tests_skipped": 10,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 21.149999999999995,
+            "tr_log_buildduration": 58.44,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "match_history": {
+          "1": 1
+        }
+      },
+      {
+        "build_system": "Maven",
+        "classification": {
+          "build": "No",
+          "code": "No",
+          "exceptions": [
+            "AssertionError"
+          ],
+          "test": "Yes",
+          "tr_log_num_tests_failed": 1
+        },
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8267344708,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8267344708",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 8.93,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": true,
+            "tr_log_num_tests_ok": 40,
+            "tr_log_num_tests_failed": 1,
+            "tr_log_num_tests_run": 41,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "(com.alibaba.ttl3.kotlin.TtlExtensionsTests)",
+            "tr_log_testduration": 3.09,
+            "tr_log_buildduration": 30.92,
+            "tr_err_msg": "Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.197 s <<< FAILURE! - in com.alibaba.ttl3.kotlin.TtlExtensionsTests#com.alibaba.ttl3.kotlin.TtlExtensionsTests  Time elapsed: 0.017 s  <<< FAILURE!#Failures: #com.alibaba.ttl3.kotlin.TtlExtensionsTests.null#  Run 7: TtlExtensionsTests java.util.concurrent.ThreadPoolExecutor@20f817bf[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0] should be the same reference as java.util.concurrent.ThreadPoolExecutor@73ebe104[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]#Tests run: 1, Failures: 1, Errors: 0, Skipped: 0#Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7:test (default-test) on project ttl-kotlin: There are test failures.#Please refer to /home/runner/work/transmittable-thread-local/transmittable-thread-local/ttl-kotlin/target/surefire-reports for the individual test results.#Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "./mvnw -V --no-transfer-progress clean package",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "metrics": {
+          "additions": 40,
+          "changes": 42,
+          "deletions": 2,
+          "num_of_changed_files": 1
+        },
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8267661985,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8267661985",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 11.75,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": 551,
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 551,
+            "tr_log_num_tests_skipped": 13,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 15.23999999999998,
+            "tr_log_buildduration": 59.45,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 3021559989,
+      "committed_at": "2022-09-09T09:57:34Z",
+      "github_archived": true,
+      "head_sha": "cf6f0594a2382cb50cedc706411d52fd37346389",
+      "jobs": [
+        {
+          "build_job": "281.1",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 8,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267661880,
+          "language": "java"
+        },
+        {
+          "build_job": "281.2",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 11,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267661985,
+          "language": "java"
+        },
+        {
+          "build_job": "281.3",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 16,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662091,
+          "language": "java"
+        },
+        {
+          "build_job": "281.4",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 17,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662207,
+          "language": "java"
+        },
+        {
+          "build_job": "281.5",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 18,
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662299,
+          "language": "java"
+        },
+        {
+          "build_job": "281.6",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": "19-ea",
+                "os": "ubuntu-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662399,
+          "language": "java"
+        },
+        {
+          "build_job": "281.7",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 8,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662499,
+          "language": "java"
+        },
+        {
+          "build_job": "281.8",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 11,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662628,
+          "language": "java"
+        },
+        {
+          "build_job": "281.9",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 16,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662735,
+          "language": "java"
+        },
+        {
+          "build_job": "281.10",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 17,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662837,
+          "language": "java"
+        },
+        {
+          "build_job": "281.11",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": 18,
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267662942,
+          "language": "java"
+        },
+        {
+          "build_job": "281.12",
+          "config": {
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "runs-on": "${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v2"
+              },
+              {
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -V --no-transfer-progress clean package"
+              },
+              {
+                "name": "Run unit test under ttl agent, include check for ExecutorService, ForkJoinPool, Timer/TimerTask",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run unit test under ttl agent, and turn on the disable inheritable for thread pool enhancement",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.disable.inheritable.for.thread.pool:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-disable-inheritable=true'\n",
+                "working-directory": "ttl2-compatible"
+              },
+              {
+                "name": "Run agent check for Timer/TimerTask, explicit \"ttl.agent.enable.timer.task\"",
+                "run": "../mvnw -V --no-transfer-progress -Penable-ttl-agent-for-test surefire:test '-Dttl.agent.extra.args=ttl.agent.enable.timer.task:true' '-Dttl.agent.extra.d.options=-Drun-ttl-test-under-agent-with-enable-timer-task=true'\n",
+                "working-directory": "ttl2-compatible"
+              }
+            ],
+            "strategy": {
+              "fail-fast": false,
+              "matrix": {
+                "java": "19-ea",
+                "os": "windows-latest"
+              },
+              "max-parallel": 64
+            },
+            "timeout-minutes": 10
+          },
+          "job_id": 8267663037,
+          "language": "java"
+        }
+      ],
+      "message": "add `ttl-kotlin` maven module",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "alibaba/transmittable-thread-local",
+    "repo_mined_version": "9c0b31b44c53edcc408b2671ea761d3e5b43aacd",
+    "match": 1
+  },
+  {
+    "_created": "Thu, 15 Sep 2022 01:39:35 GMT",
+    "_deleted": false,
+    "_etag": "36e8512dc0cb9c46135610a754372ef40e71d286",
+    "_id": "63228257aaa0e29c83849dd0",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/63228257aaa0e29c83849dd0",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Thu, 15 Sep 2022 01:39:35 GMT",
+    "base_branch": "",
+    "branch": "array-tag-set-spliterator",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 3033364201,
+      "committed_at": "2022-09-11T21:13:02Z",
+      "github_archived": true,
+      "head_sha": "cabb5dc343a00252d7ac11d5d5b69a538e602cea",
+      "jobs": [
+        {
+          "build_job": "379.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Gradle wrapper validation",
+                "uses": "gradle/wrapper-validation-action@v1"
+              },
+              {
+                "name": "Set up JDK 8",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 8
+                }
+              },
+              {
+                "run": "echo \"JDK8=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Set up JDK 11",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 11
+                }
+              },
+              {
+                "run": "echo \"JDK11=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Set up JDK 17",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 17
+                }
+              },
+              {
+                "run": "echo \"JDK17=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Build",
+                "run": "./gradlew build"
+              }
+            ]
+          },
+          "job_id": 8295325184,
+          "language": "java"
+        }
+      ],
+      "message": "Override ArrayTagSet::spliterator to return Spliterator with exact size\n\nOverride ArrayTagSet::spliterator to return a Spliterator which reports an exact size\nas well as other important characteristics such as IMMUTABLE and SORTED.",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Gradle",
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8295325184,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8295325184",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 24.79,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 95,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "./gradlew build",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8295400838,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8295400838",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 18.89,
+            "tr_log_analyzer": "java-gradle",
+            "tr_log_frameworks": "",
+            "tr_log_bool_tests_ran": false,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": "NA",
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 0,
+            "tr_log_num_tests_skipped": "NA",
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": "NA",
+            "tr_log_buildduration": 315,
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Gradle"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "metrics": {
+          "num_of_changed_files": 0,
+          "changes": 0,
+          "additions": 0,
+          "deletions": 0
+        },
+        "classification": {
+          "code": "No",
+          "test": "No",
+          "build": "No",
+          "exceptions": [],
+          "tr_log_num_tests_failed": 0
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 3033403293,
+      "committed_at": "2022-09-11T21:28:30Z",
+      "github_archived": true,
+      "head_sha": "b8a11d6d5b1d9f8cc9c7624d4c1d0873b953c139",
+      "jobs": [
+        {
+          "build_job": "381.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3",
+                "with": {
+                  "fetch-depth": 0
+                }
+              },
+              {
+                "name": "Gradle wrapper validation",
+                "uses": "gradle/wrapper-validation-action@v1"
+              },
+              {
+                "name": "Set up JDK 8",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 8
+                }
+              },
+              {
+                "run": "echo \"JDK8=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Set up JDK 11",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 11
+                }
+              },
+              {
+                "run": "echo \"JDK11=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Set up JDK 17",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "cache": "gradle",
+                  "distribution": "zulu",
+                  "java-version": 17
+                }
+              },
+              {
+                "run": "echo \"JDK17=$JAVA_HOME\" >> $GITHUB_ENV"
+              },
+              {
+                "name": "Build",
+                "run": "./gradlew build"
+              }
+            ]
+          },
+          "job_id": 8295400838,
+          "language": "java"
+        }
+      ],
+      "message": "Override ArrayTagSet::spliterator to return Spliterator with exact size\n\nOverride ArrayTagSet::spliterator to return a Spliterator which reports an exact size\nas well as other important characteristics such as IMMUTABLE and SORTED.",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "Netflix/spectator",
+    "repo_mined_version": "dda0e8426e920a0fab57e3da5aaadceff2b0624a",
+    "match": 1
+  },
+  {
+    "_created": "Wed, 19 Oct 2022 02:35:11 GMT",
+    "_deleted": false,
+    "_etag": "1adfb1b90d6d769a4dfd67cf8c79ddc3ccda1828",
+    "_id": "634f625fef591ba9ca71c65e",
+    "_links": {
+      "self": {
+        "href": "minedBuildPairs/634f625fef591ba9ca71c65e",
+        "title": "Minedbuildpair"
+      }
+    },
+    "_updated": "Wed, 19 Oct 2022 03:15:17 GMT",
+    "base_branch": "",
+    "branch": "dependabot/maven/com.opengamma.strata-strata-basics-2.12.14",
+    "ci_service": "github",
+    "failed_build": {
+      "base_sha": "",
+      "build_id": 3203371741,
+      "committed_at": "2022-10-07T08:33:45Z",
+      "github_archived": true,
+      "head_sha": "4da6d5f9e4f0099286f9cdae68624342c3f7731e",
+      "jobs": [
+        {
+          "build_job": "417.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "8"
+              }
+            }
+          },
+          "job_id": 8761138440,
+          "language": "java"
+        },
+        {
+          "build_job": "417.2",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "11"
+              }
+            }
+          },
+          "job_id": 8761138559,
+          "language": "java"
+        },
+        {
+          "build_job": "417.3",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "17"
+              }
+            }
+          },
+          "job_id": 8761138786,
+          "language": "java"
+        },
+        {
+          "build_job": "417.4",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "18"
+              }
+            }
+          },
+          "job_id": 8761138892,
+          "language": "java"
+        }
+      ],
+      "message": "Bump strata-basics from 2.12.9 to 2.12.14\n\nBumps strata-basics from 2.12.9 to 2.12.14.\n\n---\nupdated-dependencies:\n- dependency-name: com.opengamma.strata:strata-basics\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+      "resettable": false,
+      "travis_merge_sha": null
+    },
+    "is_error_pass": false,
+    "jobpairs": [
+      {
+        "build_system": "Maven",
+        "classification": {
+          "build": "No",
+          "code": "Partial",
+          "exceptions": [
+            "AssertionFailedError"
+          ],
+          "test": "No",
+          "tr_log_num_tests_failed": 2
+        },
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8761138559,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8761138559",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 4.8,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": true,
+            "tr_log_num_tests_ok": 1391,
+            "tr_log_num_tests_failed": 2,
+            "tr_log_num_tests_run": 1393,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 3.57,
+            "tr_log_buildduration": "NA",
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "mvn -B formatter:validate verify javadoc:jar",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "metrics": {
+          "additions": 9,
+          "changes": 12,
+          "deletions": 3,
+          "num_of_changed_files": 2
+        },
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8766621846,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8766621846",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 2.85,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": 1393,
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 1393,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 3.3399999999999994,
+            "tr_log_buildduration": "NA",
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "match_history": {
+          "1": 1
+        }
+      },
+      {
+        "build_system": "Maven",
+        "classification": {
+          "build": "No",
+          "code": "Partial",
+          "exceptions": [
+            "AssertionFailedError"
+          ],
+          "test": "No",
+          "tr_log_num_tests_failed": 2
+        },
+        "failed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8761138892,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8761138892",
+            "tr_log_lan": "java",
+            "tr_log_status": "broken",
+            "tr_log_setup_time": 1.91,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": true,
+            "tr_log_num_tests_ok": 1391,
+            "tr_log_num_tests_failed": 2,
+            "tr_log_num_tests_run": 1393,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 2.17,
+            "tr_log_buildduration": "NA",
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "failed_step_command": "mvn -B formatter:validate verify javadoc:jar",
+        "failed_step_kind": "run",
+        "filtered_reason": null,
+        "is_filtered": false,
+        "metrics": {
+          "additions": 9,
+          "changes": 12,
+          "deletions": 3,
+          "num_of_changed_files": 2
+        },
+        "passed_job": {
+          "heuristically_parsed_image_tag": null,
+          "job_id": 8766622102,
+          "match_history": {
+            "1": 1
+          },
+          "orig_result": {
+            "tr_build_id": "NA",
+            "tr_job_id": "8766622102",
+            "tr_log_lan": "java",
+            "tr_log_status": "ok",
+            "tr_log_setup_time": 1.72,
+            "tr_log_analyzer": "java-maven",
+            "tr_log_frameworks": "JUnit",
+            "tr_log_bool_tests_ran": true,
+            "tr_log_bool_tests_failed": false,
+            "tr_log_num_tests_ok": 1393,
+            "tr_log_num_tests_failed": 0,
+            "tr_log_num_tests_run": 1393,
+            "tr_log_num_tests_skipped": 0,
+            "tr_log_tests_failed": "",
+            "tr_log_testduration": 2.1999999999999997,
+            "tr_log_buildduration": "NA",
+            "tr_err_msg": "",
+            "tr_build_image": "NA",
+            "tr_worker_instance": "NA",
+            "tr_using_worker": "NA",
+            "tr_os": "focal",
+            "tr_connection_lines": "",
+            "tr_could_not_resolve_dep": "NA",
+            "tr_cookbook": "NA",
+            "tr_invalid_log": "NA",
+            "tr_build_system": "Maven"
+          },
+          "mismatch_attrs": [],
+          "pip_patch": false
+        },
+        "match_history": {
+          "1": 1
+        }
+      }
+    ],
+    "merged_at": null,
+    "passed_build": {
+      "base_sha": "",
+      "build_id": 3205225021,
+      "committed_at": "2022-10-07T13:47:00Z",
+      "github_archived": true,
+      "head_sha": "d11c76517f33a3fd6270b667fe6536da0290f15e",
+      "jobs": [
+        {
+          "build_job": "418.1",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "8"
+              }
+            }
+          },
+          "job_id": 8766621687,
+          "language": "java"
+        },
+        {
+          "build_job": "418.2",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "11"
+              }
+            }
+          },
+          "job_id": 8766621846,
+          "language": "java"
+        },
+        {
+          "build_job": "418.3",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "17"
+              }
+            }
+          },
+          "job_id": 8766621979,
+          "language": "java"
+        },
+        {
+          "build_job": "418.4",
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "steps": [
+              {
+                "name": "Checkout repository",
+                "uses": "actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8"
+              },
+              {
+                "name": "Set up Java ${{ matrix.java }}",
+                "uses": "actions/setup-java@a18c333f3f14249953dab3e186e5e21bf3390f1d",
+                "with": {
+                  "cache": "maven",
+                  "distribution": "temurin",
+                  "java-version": "${{ matrix.java }}"
+                }
+              },
+              {
+                "name": "Build",
+                "run": "mvn -B formatter:validate verify javadoc:jar"
+              }
+            ],
+            "strategy": {
+              "matrix": {
+                "java": "18"
+              }
+            }
+          },
+          "job_id": 8766622102,
+          "language": "java"
+        }
+      ],
+      "message": "Bump strata-basics from 2.12.9 to 2.12.14\n\nBumps strata-basics from 2.12.9 to 2.12.14 and add new holidays to London and Sydney calendars.\n\n---\nupdated-dependencies:\n- dependency-name: com.opengamma.strata:strata-basics\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+      "resettable": true,
+      "travis_merge_sha": null
+    },
+    "pr_num": -1,
+    "repo": "marcwrobel/jbanking",
+    "repo_mined_version": "9e0394eb7fe798ee54e3262ded752f9a2a2ace1b",
+    "match": 1
+  }
+]

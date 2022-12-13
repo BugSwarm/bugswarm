@@ -10,7 +10,12 @@ output_tar="$4"
 # I don't just output all files & directories because tar will happily archive the same file/folder
 # multiple times, making the archive much bigger than necessary.
 # Assumes the setup-* scripts only add or touch files and directories (no removal, no symlinks).
-find "$target_directory" \( -type f -o -type d -empty \) -printf "%p %T@\n" | sort > "$output_file"
+if [ -d "$target_directory" ]; then
+  find "$target_directory" \( -type f -o -type d -empty \) -printf "%p %T@\n" | sort > "$output_file"
+else
+  # If the target dir doesn't exist (e.g. in non-github base images), just create an empty file
+  touch "$output_file"
+fi
 
 # If we don't have an output tar, exit.
 [ -z "$output_tar"] && exit 0
