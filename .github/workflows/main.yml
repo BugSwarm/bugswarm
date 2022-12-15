@@ -20,11 +20,14 @@ jobs:
         env:
           gh_token: ${{ secrets.GH_TOKEN }}
           travis_com_token: ${{ secrets.TRAVIS_COM_TOKEN }}
+          bugswarm_api_token: ${{ secrets.BUGSWARM_API_TOKEN }}
         run: |
           cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
-          sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~GITHUB_TOKENS = \[\]~GITHUB_TOKENS = \['${gh_token}'\]~g" bugswarm/common/credentials.py
           sed -i "s~TRAVIS_TOKENS = \[\]~TRAVIS_TOKENS = \['${travis_com_token}'\]~g" bugswarm/common/credentials.py
+          sed -i "s~COMMON_HOSTNAME = ''~COMMON_HOSTNAME = 'www.api.bugswarm.org'~g" bugswarm/common/credentials.py
+          sed -i "s~DATABASE_PIPELINE_TOKEN = ''~DATABASE_PIPELINE_TOKEN = '${bugswarm_api_token}'~g" bugswarm/common/credentials.py
+          sed -i "s~''~'#'~g" bugswarm/common/credentials.py
       - name: Installing Python 3.8
         if: matrix.container == 'bugswarm/images:ubuntu-18.04'
         run: |
@@ -41,6 +44,10 @@ jobs:
           flake8 . --count --max-line-length=120 --statistics
       - name: Test Analyzer
         working-directory: ./tests/analyzer
+        run: |
+          python3.8 -m unittest discover
+      - name: Test Common
+        working-directory: ./tests/common
         run: |
           python3.8 -m unittest discover
       - name: Test Classifier
@@ -80,11 +87,14 @@ jobs:
         env:
           gh_token: ${{ secrets.GH_TOKEN }}
           travis_com_token: ${{ secrets.TRAVIS_COM_TOKEN }}
+          bugswarm_api_token: ${{ secrets.BUGSWARM_API_TOKEN }}
         run: |
           cp bugswarm/common/credentials.sample.py bugswarm/common/credentials.py
-          sed -i "s~''~'#'~g" bugswarm/common/credentials.py
           sed -i "s~GITHUB_TOKENS = \[\]~GITHUB_TOKENS = \['${gh_token}'\]~g" bugswarm/common/credentials.py
           sed -i "s~TRAVIS_TOKENS = \[\]~TRAVIS_TOKENS = \['${travis_com_token}'\]~g" bugswarm/common/credentials.py
+          sed -i "s~COMMON_HOSTNAME = ''~COMMON_HOSTNAME = 'www.api.bugswarm.org'~g" bugswarm/common/credentials.py
+          sed -i "s~DATABASE_PIPELINE_TOKEN = ''~DATABASE_PIPELINE_TOKEN = '${bugswarm_api_token}'~g" bugswarm/common/credentials.py
+          sed -i "s~''~'#'~g" bugswarm/common/credentials.py
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -97,6 +107,9 @@ jobs:
         working-directory: ./tests/analyzer
         run: |
           python -m unittest discover
+      - name: Test Common
+        working-directory: ./tests/common
+        run: python -m unittest discover
       - name: Test Classifier
         working-directory: ./pair-classifier/tests
         run: |
