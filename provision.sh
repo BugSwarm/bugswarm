@@ -114,7 +114,10 @@ fi
 
 # Install puppeteer and its dependencies via npm, for web scraping functionality used by pair-classifier.
 print_green 'Install npm'
-sudo apt-get install -y npm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install node
 exit_if_failed 'Installing npm failed.'
 print_green 'Install puppeteer'
 npm i puppeteer
