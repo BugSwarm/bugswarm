@@ -114,11 +114,10 @@ fi
 
 # Install puppeteer and its dependencies via npm, for web scraping functionality used by pair-classifier.
 print_green 'Install npm'
-curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &&\
-sudo apt-get install -y nodejs
+sudo apt-get install -y npm
 exit_if_failed 'Installing npm failed.'
 print_green 'Install puppeteer'
-npm i puppeteer@19.4.0
+npm i puppeteer
 exit_if_failed 'Installing puppeteer failed.'
 print_green 'Install puppeteer dependencies'
 sudo apt update
