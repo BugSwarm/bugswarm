@@ -52,7 +52,7 @@ class GitHubContext(Context):
         # The URL of the GitHub GraphQL API.
         self.graphql_url = 'https://api.github.com/graphql'
         # The branch or tag name that triggered the workflow run.
-        self.ref_name = job_object.branch
+        self.ref_name = ''
         # true if branch protections are configured for the ref that triggered the workflow run.
         self.ref_protected = 'false'
         # The type of ref that triggered the workflow run. Valid values are branch or tag.

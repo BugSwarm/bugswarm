@@ -453,6 +453,11 @@ class Utils(object):
         docker.remove_all_images()
 
     @staticmethod
+    def remove_predefined_action_dir(builder_location, action_dir):
+        if os.path.exists(os.path.join(builder_location, 'actions', action_dir)):
+            shutil.rmtree(os.path.join(builder_location, 'actions', action_dir))
+
+    @staticmethod
     def deep_copy(tags):
         new_tags = {}
         for k, v in tags.items():
@@ -545,53 +550,6 @@ class Utils(object):
 
         return ''.join(parts)
 
-    @staticmethod
-    def get_bugswarm_image_tag(image_tag: str, use_default: bool) -> str:
-        bugswarm_image_tags = {
-            'ubuntu-22.04': 'bugswarm/githubactionsjobrunners:ubuntu-22.04',
-            'ubuntu-20.04': 'bugswarm/githubactionsjobrunners:ubuntu-20.04',
-            'ubuntu-18.04': 'bugswarm/githubactionsjobrunners:ubuntu-18.04',
-        }
-        image_tag = image_tag.lower()
-
-        if image_tag in bugswarm_image_tags:
-            return bugswarm_image_tags[image_tag]
-
-        if use_default:
-            return bugswarm_image_tags['ubuntu-20.04']
-        else:
-            return ''
-
-    @staticmethod
-    def get_image_tag(config: Optional[dict]) -> str:
-        runs_on = config.get('runs-on', None)
-        container = config.get('container', None)
-        if runs_on:
-            # This will only handle very basic container image
-            # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
-            if isinstance(container, str) and container != '':
-                return container
-            if isinstance(container, dict) and 'image' in container and container['image'] != '':
-                return container['image']
-
-            if isinstance(runs_on, str):
-                return Utils.get_bugswarm_image_tag(runs_on, use_default=False)
-            if isinstance(runs_on, list):
-                for label in runs_on:
-                    bugswarm_image_tag = Utils.get_bugswarm_image_tag(label, use_default=False)
-                    if bugswarm_image_tag != '':
-                        return bugswarm_image_tag
-
-        return ''
-
-    def get_latest_image_tag(self, job_id) -> str:
-        # We will get the image tag from the original log.
-        actual_image_tag = self.get_job_image_from_original_log(job_id)
-        if not isinstance(actual_image_tag, str):
-            # Cannot find runner version from original log, use default instead.
-            actual_image_tag = ''
-        return Utils.get_bugswarm_image_tag(actual_image_tag, use_default=True)
-
     def get_sha_from_original_log(self, job):
         # Get all the actions/checkout SHA (except the first one)
         all_checkout_sha = []
@@ -668,3 +626,28 @@ class Utils(object):
             except FileNotFoundError:
                 pass
         return None
+
+    def get_predefined_actions_from_original_log(self, job) -> dict:
+        versions = {}
+        if os.path.isfile(self.get_orig_log_path(job.job_id)):
+            try:
+                with open(self.get_orig_log_path(job.job_id), 'r') as file:
+                    for i, line in enumerate(file):
+                        if len(line) <= 29:
+                            # Timestamp
+                            continue
+
+                        log_line = line[29:]
+                        match = re.search(r'^Download action repository \'(\S+)\' \(SHA:(\w+)\)', log_line, re.M)
+                        if match:
+                            repo_tag = match.group(1)
+                            sha = match.group(2)
+                            if repo_tag in versions:
+                                # Same repo and tag, should have the same SHA
+                                if versions.get(repo_tag, None) != sha:
+                                    log.error('Unable to retrieve the correct SHA for {}'.format(repo_tag))
+                                    continue
+                            versions[repo_tag] = sha
+            except FileNotFoundError:
+                pass
+        return versions

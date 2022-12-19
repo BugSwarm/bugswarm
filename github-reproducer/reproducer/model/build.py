@@ -22,11 +22,10 @@ class Build(object):
                 j['build_job'] = '.'.join([components[0], components[2]])
 
             config = Utils.replace_matrix(j['config'])
-            image_tag = Utils.get_image_tag(config)
 
             # Create the Job object. If the reproduced result and analyzed result are already in the JSON file, which
             # means this job has been reproduced before, add those results to the Job object.
-            job_obj = Job(self, j['build_job'], j['job_id'], j['language'], config, image_tag)
+            job_obj = Job(self, j['build_job'], j['job_id'], j['language'], config)
             job_obj.reproduced_result = j.get('reproduced_result')
             job_obj.orig_result = j.get('orig_result')
             self.jobs.append(job_obj)

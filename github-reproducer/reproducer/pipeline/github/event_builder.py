@@ -21,8 +21,8 @@ class EventBuilder:
             'action': 'synchronize',
             'after': '',
             'before': '',
-            'number': self.github_builder.PR_DATA.get('number', 0),
-            'pull_request': self.github_builder.PR_DATA,
+            'number': self.github_builder.pr_data.get('number', 0),
+            'pull_request': self.github_builder.pr_data,
             'repository': self._get_repository(),
             'sender': self._get_sender()
         }

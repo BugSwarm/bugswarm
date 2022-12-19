@@ -11,6 +11,7 @@ from reproducer.model.context.root_context import RootContext
 from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError
 from reproducer.utils import Utils
+from .job_image_utils import JobImageUtils
 
 
 class GitHubBuilder:
@@ -37,26 +38,32 @@ class GitHubBuilder:
         self.REPOSITORY = {}
         self.HEAD_REPOSITORY = {}
         self.HEAD_COMMIT = {}
-        self.PR = False
         self.first_checkout = True
         self.checkout_sha = utils.get_sha_from_original_log(job)  # List of SHA from actions/checkout action.
-        self.PR_DATA = {}
-        # Not used. PR num always = -1
+
+        # Get PR related data
         pr_num = self.utils.get_pr_from_original_log(job)
         self.PR = int(pr_num) if pr_num else -1
+        self.is_pr = self.PR > 0
+        self.pr_data = {}
 
-        self.GITHUB_REF = 'refs/pull/{}/merge'.format(self.PR) if self.PR else 'refs/heads/{}'.format(self.job.branch)
-        self.GITHUB_REF_NAME = 'refs/pull/{}/merge'.format(self.PR) if self.PR else self.job.branch
+        self.GITHUB_REF = 'refs/pull/{}/merge'.format(self.PR) if self.is_pr else 'refs/heads/{}'.format(
+            self.job.branch)
+        self.GITHUB_REF_NAME = '{}/merge'.format(self.PR) if self.is_pr else self.job.branch
 
         self.steps_dir = '/home/github/{}/steps'.format(job.job_id)
 
-        self.get_workflow_data()
         self.get_pr_data()
+        self.get_workflow_data()
 
         from . import event_builder
-        self.event_builder = event_builder.EventBuilder(self, self.PR > 0)
+        self.event_builder = event_builder.EventBuilder(self, self.is_pr)
 
         self.init_contexts()
+        self.predefined_actions_sha = utils.get_predefined_actions_from_original_log(job)
+
+        # Get Docker related data
+        JobImageUtils.update_job_image_tag(self.job, utils)
 
         # predefined actions directory
         os.makedirs(os.path.join(location, 'actions'), exist_ok=True)
@@ -141,14 +148,6 @@ class GitHubBuilder:
             if 'head_commit' in json_data:
                 self.HEAD_COMMIT = json_data['head_commit']
 
-                try:
-                    # pull_request is empty if base repo != head repo. Use the first one for now.
-                    self.GITHUB_BASE_REF = json_data['pull_request'][0]['base']['ref']
-                except TypeError:
-                    pass
-                except KeyError:
-                    pass
-
             workflow_url = json_data['workflow_url']
             status, json_data = github_wrapper.get(workflow_url)
 
@@ -175,14 +174,15 @@ class GitHubBuilder:
             log.error('Failed to get job info from GitHub API due to {}'.format(repr(e)))
 
     def get_pr_data(self):
-        if self.PR > 0:
+        if self.is_pr:
             github_wrapper = GitHubWrapper(GITHUB_TOKENS)
             pr_url = 'https://api.github.com/repos/{}/pulls/{}'.format(
                 self.job.repo, self.PR
             )
             status, json_data = github_wrapper.get(pr_url)
             if json_data is not None and 'number' in json_data:
-                self.PR_DATA = json_data
+                self.pr_data = json_data
+                self.GITHUB_BASE_REF = json_data.get('base', {}).get('ref')
             else:
                 log.error('Failed to get PR info from GitHub API due to invalid response.')
 
@@ -194,7 +194,8 @@ class GitHubBuilder:
         self.contexts.github.workflow = self.WORKFLOW_NAME  # Workflow name = workflow path if we don't give it a name.
         self.contexts.github.head_ref = self.GITHUB_HEAD_REF
         self.contexts.github.base_ref = self.GITHUB_BASE_REF
-        self.contexts.github.event_name = 'pull_request' if self.PR > 0 else 'push'
+        self.contexts.github.ref_name = self.GITHUB_REF_NAME
+        self.contexts.github.event_name = 'pull_request' if self.is_pr else 'push'
         self.contexts.github.event = self.event_builder.event
 
     def update_contexts(self, step_number, step, parent_step=None, update_composite=True, reset_input=True):
@@ -226,7 +227,7 @@ class GitHubBuilder:
 
         if 'uses' in step:
             from . import predefined_action
-            action_repo, action_ref, _, action_path_abs, _ = predefined_action.get_action_data(self, step)
+            action_repo, action_ref, _, action_path_abs, _, _ = predefined_action.get_action_data(self, step)
 
             if action_repo is not None:
                 self.contexts.github.action_repository = action_repo

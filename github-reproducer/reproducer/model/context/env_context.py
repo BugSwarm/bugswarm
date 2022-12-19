@@ -44,7 +44,7 @@ class EnvContext(Context):
             self.updating = False
 
     def get(self, path: str, err_if_not_present=False, make_string=False) -> Tuple[Any, bool]:
-        varname = path.upper().replace(' ', '_')
+        varname = path.replace(' ', '_')
         default_value, default_dyn = super().get(path, err_if_not_present, make_string)
 
         # Step envs override $GITHUB_ENV. See https://github.com/Robert-Furth/actions-test/actions/runs/3114758307.

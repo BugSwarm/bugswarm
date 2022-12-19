@@ -26,8 +26,8 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             '',
             # Analyzer needs this header to get OS.
             'echo "##[group]Operating System"',
-            'cat /etc/lsb-release | grep -oP \'(?<=DISTRIB_ID=).*\'',
-            'cat /etc/lsb-release | grep -oP \'(?<=DISTRIB_RELEASE=).*\'',
+            'echo "Ubuntu"',  # We only support Ubuntu runs-on
+            'echo "{}"'.format('Unknown' if not github_builder.job.runs_on else github_builder.job.runs_on[7:]),
             'echo "LTS"',
             'echo "##[endgroup]"',
             '',

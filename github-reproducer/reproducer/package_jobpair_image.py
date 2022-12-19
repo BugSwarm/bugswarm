@@ -125,17 +125,11 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#administrative-privileges
         'RUN echo "ALL ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers',
 
-        # TODO: Do we need linuxbrew (it is huge)?
-        # Let user own the entire /home directory to avoid permission issue.
-        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
-        'RUN chown github:github /home /home/github' if job_runner else 'RUN chown -R github:github /home',
-
         # Add the repositories.
         'ADD failed.tar /home/github/build/failed/',
         'ADD passed.tar /home/github/build/passed/',
         'RUN chmod -R 777 /home/github/build/failed/' if not failed_resettable else '',
         'RUN chmod -R 777 /home/github/build/passed/' if not passed_resettable else '',
-        'RUN chown -R github:github /home/github/build',
 
         # Add the original logs.
         'ADD {}-orig.log /home/github/build/'.format(failed_job_id),
@@ -157,6 +151,11 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         'ADD --chown=github:github {}/event.json /home/github/{}/event.json'.format(passed_job_id, passed_job_id),
         'RUN chmod 777 /usr/local/bin/run_passed.sh',
         'RUN chmod -R 777 /home/github/{}'.format(passed_job_id),
+
+        # Let user own the entire /home directory to avoid permission issue.
+        # If we are running using our job image, then don't chmod /home/linuxbrew because it is huge.
+        # Need to manually remove linuxbrew for now. Next time we update our base images we should remove it directly.
+        'RUN rm -rf /home/linuxbrew && chown -R github:github /home',
 
         # Set the user to use when running the image.
         'USER github',

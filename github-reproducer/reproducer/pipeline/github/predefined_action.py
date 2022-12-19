@@ -32,7 +32,8 @@ def get_action_data(github_builder: GitHubBuilder, step):
             action_ref (str): Repo ref
             action_path (str): action.yml location (Relative path), empty if path is action directory path
             action_path_abs (str): action.yml location (Absolute path in job runner container)
-            action_dir (str): Name of the action directory
+            action_dir (str): Name of the action directory (Replaced / with -)
+            name (str): Name of the action (defined in the workflow file)
     """
     name = step['uses']
     action_repo_path, _, tag = name.partition('@')
@@ -63,7 +64,7 @@ def get_action_data(github_builder: GitHubBuilder, step):
     else:
         action_path_abs = os.path.join(os.sep, 'home', 'github', github_builder.job.job_id, 'actions', action_dir)
 
-    return action_repo, tag, action_path, action_path_abs, action_dir
+    return action_repo, tag, action_path, action_path_abs, action_dir, name
 
 
 def parse(github_builder: GitHubBuilder, step_number, step, envs):
@@ -112,13 +113,14 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
 
     log.debug('Setting up build code for predefined_action {}(#{})'.format(name, step_number))
 
-    action_repo, action_ref, action_path, action_path_abs, action_dir = get_action_data(github_builder, step)
+    action_repo, action_ref, action_path, action_path_abs, action_dir, action_name = get_action_data(github_builder,
+                                                                                                     step)
     if action_repo is None:
         GitHubBuilder.raise_error('Workflow file contains unsupported action in step {}'.format(step_number), 1)
         return
 
     # Download action source code
-    clone_action_repo_if_not_exists(github_builder, action_dir, action_repo, tag)
+    clone_action_repo_if_not_exists(github_builder, action_dir, action_repo, tag, action_name)
 
     github_envs = github_action_env.get_all(github_builder, step_number, action_repo)
     log.debug('Got GitHub {} envs.'.format(len(github_envs)))
@@ -273,39 +275,66 @@ def process_input_env(github_builder, action_repo, step, action_file, env_str):
     return env_str
 
 
-def clone_action_repo_if_not_exists(github_builder: GitHubBuilder, action_name, repo, branch):
+def clone_action_repo_if_not_exists(github_builder: GitHubBuilder, action_dir, repo, tag, action_name):
+    """
+        Download predefined action
+
+        Parameters:
+            github_builder (GitHubBuilder): The GitHubBuilder object
+            action_dir (str): Name of the action directory (Replaced / with -)
+            repo (str): Repo name
+            tag (str): Repo tag/sha/branch
+            action_name (str): Name of the action (defined in the workflow file)
+    """
     # TODO: Clone the entire repo, then checkout based on branch, so we don't need to clone multiple time.
     # Example: https://github.com/guan-kevin/hunting-ground/runs/7925245589?check_suite_focus=true
-    log.debug('Download action to {} '.format(os.path.join(github_builder.location, 'actions', action_name)))
+    log.debug('Download action to {} '.format(os.path.join(github_builder.location, 'actions', action_dir)))
 
     try:
-        if not os.path.isdir(os.path.join(github_builder.location, 'actions', action_name)):
+        if not os.path.isdir(os.path.join(github_builder.location, 'actions', action_dir)):
             if repo == github_builder.job.repo:
                 github_builder.utils.copy_reproducing_repo_dir(
-                    github_builder.job, os.path.join(github_builder.location, 'actions', action_name)
+                    github_builder.job, os.path.join(github_builder.location, 'actions', action_dir)
                 )
             elif repo in SPECIAL_ACTIONS:
                 log.info('Getting {} action from resource directory.'.format(repo))
-                os.makedirs(os.path.join(github_builder.location, 'actions', action_name), exist_ok=True)
+                os.makedirs(os.path.join(github_builder.location, 'actions', action_dir), exist_ok=True)
 
                 # Get the action from resources directory
                 file = importlib.resources.read_text(resources, repo.replace('/', '-') + '.yml')
-                with open(os.path.join(github_builder.location, 'actions', action_name, 'action.yml'), 'w') as f:
+                with open(os.path.join(github_builder.location, 'actions', action_dir, 'action.yml'), 'w') as f:
                     f.write(file)
             else:
-                os.makedirs(os.path.join(github_builder.location, 'actions', action_name), exist_ok=True)
-                if len(branch) == 40:
-                    # input is SHA, not branch/tag
-                    repo = git.Repo.clone_from(
-                        github_builder.utils.construct_github_repo_url(repo),
-                        os.path.join(github_builder.location, 'actions', action_name)
-                    )
-                    repo.git.checkout(branch)
-                else:
-                    git.Repo.clone_from(
-                        github_builder.utils.construct_github_repo_url(repo),
-                        os.path.join(github_builder.location, 'actions', action_name),
-                        branch=branch
-                    )
+                os.makedirs(os.path.join(github_builder.location, 'actions', action_dir), exist_ok=True)
+                action_repo_sha = None if len(tag) != 40 else tag
+                if not action_repo_sha:
+                    action_repo_sha = github_builder.predefined_actions_sha.get(repo + '@' + tag, None)
+                    log.debug('Reset predefined action {} to {}.'.format(action_name, action_repo_sha))
+
+                if action_repo_sha:
+                    # If we have action repo sha, use the sha to reset predefined action to original commit
+                    try:
+                        r = git.Repo.clone_from(
+                            github_builder.utils.construct_github_repo_url(repo),
+                            os.path.join(github_builder.location, 'actions', action_dir)
+                        )
+                        r.git.checkout(action_repo_sha)
+                        return
+                    except git.GitCommandError:
+                        log.warning('Failed to reset predefined action {} to {}.'.format(action_name, action_repo_sha))
+                        Utils.remove_predefined_action_dir(github_builder.location, action_dir)
+                        pass
+
+                if len(tag) == 40:
+                    GitHubBuilder.raise_error('Failed to download predefined action {}'.format(action_name), 1)
+                    return
+
+                # Otherwise, use the latest branch/tag
+                log.warning('Using latest branch/tag {} for {}'.format(tag, action_name))
+                git.Repo.clone_from(
+                    github_builder.utils.construct_github_repo_url(repo),
+                    os.path.join(github_builder.location, 'actions', action_dir),
+                    branch=tag
+                )
     except Exception as e:
         GitHubBuilder.raise_error(repr(e), 1)

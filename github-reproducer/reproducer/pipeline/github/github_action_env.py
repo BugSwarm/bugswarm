@@ -21,11 +21,11 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         'GITHUB_ACTOR': github_builder.ACTOR.get('login', ''),
         'GITHUB_API_URL': 'https://api.github.com',
         # The name of the base ref or target branch of the pull request in a workflow run. (PR only)
-        'GITHUB_BASE_REF': github_builder.GITHUB_BASE_REF,  # TODO: Still need to fix this.
+        'GITHUB_BASE_REF': github_builder.GITHUB_BASE_REF,
         # The path on the runner to the file that sets environment variables from workflow commands.
         'GITHUB_ENV': '/home/github/workflow/envs.txt',
         # The name of the event that triggered the workflow.
-        'GITHUB_EVENT_NAME': 'pull_request' if github_builder.job.is_pr else 'push',
+        'GITHUB_EVENT_NAME': 'pull_request' if github_builder.is_pr else 'push',
         # The path to the file on the runner that contains the full event webhook payload.
         'GITHUB_EVENT_PATH': '/home/github/workflow/event.json',
         # https://api.github.com/graphql
@@ -42,6 +42,8 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         # The branch or tag name that triggered the workflow run.
         # Push: <branch>, PR: <pr_number>/merge
         'GITHUB_REF_NAME': github_builder.GITHUB_REF_NAME,
+        # true if branch protections are configured for the ref that triggered the workflow run.
+        'GITHUB_REF_PROTECTED': 'false',
         # The type of ref that triggered the workflow run.
         'GITHUB_REF_TYPE': 'branch',
         # The owner and repository name.

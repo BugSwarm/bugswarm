@@ -2,14 +2,16 @@ from multiprocessing import Value
 
 
 class Job(object):
-    def __init__(self, build, build_job, job_id, language, config, image_tag):
+    def __init__(self, build, build_job, job_id, language, config):
         self.build = build
         self.build_job = build_job
         self.job_id = str(job_id)
-        self.image_tag = image_tag
         self.language = language
         self.config = config
-        self.image_tag = image_tag
+
+        self.image_tag = None  # Docker image
+        self.runs_on = None  # Ubuntu version
+        self.container = None  # Container Docker image
 
         self.repo = build.buildpair.repo
         self.branch = build.buildpair.branch
