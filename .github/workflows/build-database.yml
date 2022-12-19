@@ -1,0 +1,25 @@
+name: Build database image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'database/**'
+
+jobs:
+  bugswarm-database:
+    name: Build database
+    if: github.repository == 'BugSwarm/bugswarm'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup credential
+        run: docker login -u="bugswarm" -p="${{ secrets.DOCKER_HUB_PASSWD }}"
+      - name: Build and push
+        working-directory: database
+        run: |
+          docker build . -t bugswarm-db
+          docker image tag bugswarm-db:latest bugswarm/containers:bugswarm-db
+          docker push bugswarm/containers:bugswarm-db
