@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     packages=find_packages(),
     install_requires=[
-        'wheel==0.33.6',
+        'wheel==0.38.1',
         'requests>=2.20.0',
         'CacheControl==0.12.3',
         'requests-cache==0.4.13',
