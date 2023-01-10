@@ -32,6 +32,19 @@ def flatten_dict_keys(d, prefix=None):
         yield prefix
 
 
+def flatten_elements(item, result):
+    if isinstance(item, list):
+        for i in item:
+            flatten_elements(i, result)
+    elif isinstance(item, dict):
+        for i in item.values():
+            flatten_elements(i, result)
+    elif isinstance(item, bool):
+        result.append(str(item).lower())
+    else:
+        result.append(str(item))
+
+
 def get_job_api_name(base_name: str, matrix_combination, default_keys):
     """
     Finds the job's API name by interpolating the appropriate matrix variables.
@@ -59,6 +72,10 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
         value = matrix_combination
         for key in keys:
             value = value[key] if isinstance(value, dict) and key in value else ''
+
+        value_list = []
+        flatten_elements(value, value_list)
+        value = ', '.join(value_list)
         indexes.append((match.start(), match.end(), str(value)))
 
     # Interpolate
