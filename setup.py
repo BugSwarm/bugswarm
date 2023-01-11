@@ -30,7 +30,7 @@ setup(
         'python-dateutil==2.8.1',
         'PyYAML==5.4',
         'beautifulsoup4==4.8.2',
-        'lxml==4.6.5',
+        'lxml==4.9.1',
         'packaging==20.7',
         'urllib3==1.26.5',
 
