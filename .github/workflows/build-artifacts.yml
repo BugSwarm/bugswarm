@@ -1,45 +1,101 @@
-name: Build artifacts
+name: Build Python artifacts
 
-on: [workflow_call, workflow_dispatch]
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        required: true
+        type: string
+      source-path:
+        required: true
+        type: string
+      setup-file:
+        required: true
+        type: string
+      watched-paths:
+        required: true
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      artifact-name:
+        required: true
+        type: string
+      source-path:
+        required: true
+        type: string
+      setup-file:
+        required: true
+        type: string
 
 jobs:
-  bugswarm-common:
-    name: Package bugswarm.common
-    runs-on: ubuntu-latest
-
+  check-changed-files:
+    name: Check for changed files
+    runs-on: ${{ (github.repository == 'BugSwarm/bugswarm-dev' && 'self-hosted') || 'ubuntu-latest' }}
+    container: bugswarm/images:ubuntu-20.04
+    outputs:
+      any-changed: ${{ github.event_name == 'workflow_dispatch' || steps.changed-files.outputs.any_changed == 'true'}}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
       - name: Get changed files list
         uses: tj-actions/changed-files@v34
         id: changed-files
         with:
-          files: |
-            bugswarm/common/**
-            setup.common.py
+          files: ${{ inputs.watched-paths }}
 
-      - name: Prepare repo for packaging
-        if: steps.changed-files.outputs.any_changed == 'true'
+  build-artifacts:
+    name: Package ${{ inputs.artifact-name }}
+    runs-on: ${{ (github.repository == 'BugSwarm/bugswarm-dev' && 'self-hosted') || 'ubuntu-latest' }}
+    container: bugswarm/images:ubuntu-20.04
+    needs: check-changed-files
+    if: needs.check-changed-files.outputs.any-changed == 'true'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.8'
+
+      # Make sure that the python build package works (only needed if we're in the container)
+      - run: sudo apt update; sudo apt install -y python3.8-venv
+
+      # If we're building bugswarm-common, modify credentials.py
+      - name: Modify credentials (bugswarm-common only)
+        if: inputs.artifact-name == 'bugswarm-common-build'
+        working-directory: bugswarm/common
         run: |
-          pushd bugswarm/common
           mv credentials.sample.py credentials.py
           sed -i "s/COMMON_HOSTNAME = ''/COMMON_HOSTNAME = 'www.api.bugswarm.org'/g" credentials.py
           sed -i "s/\(.*\) = \(''\|\[\]\)/\1 = '#'/g" credentials.py
-          popd
-          mv bugswarm/common/README.md README.md
-          mv setup.common.py setup.py
-      - name: Build wheel and source
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          python3 -m pip install build
-          python3 -m build --sdist --wheel --outdir dist
-      - name: Upload dists
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: actions/upload-artifact@v3
+
+      # If we're building bugswarm-client, check for a new version of bugswarm-common.
+      - name: Check for bugswarm-common artifact (bugswarm-client only)
+        id: bugswarm-common-artifact
+        if: inputs.artifact-name == 'bugswarm-client-build'
+        uses: actions/download-artifact@v3
         with:
           name: bugswarm-common-build
+          path: tmp
+        continue-on-error: true
+
+      - name: Prepare repo for packaging
+        env:
+          SOURCE_PATH: ${{ inputs.source-path }}
+          SETUP_FILE: ${{ inputs.setup-file }}
+        run: |
+          mv "${SOURCE_PATH}/README.md" README.md
+          mv "$SETUP_FILE" setup.py
+      - name: Build wheel and source
+        env:
+          BSC_UPDATED: ${{ steps.bugswarm-common-artifact.outcome == 'success' || '' }}
+        run: |
+          python3.8 -m pip install build requests
+          python3.8 -m build --sdist --wheel --outdir dist
+      - name: Upload dists
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
           path: ./dist

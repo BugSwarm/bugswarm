@@ -33,5 +33,7 @@ setup(
         'lxml==4.6.5',
         'packaging==20.7',
         'urllib3==1.26.5',
+
+        'click==6.7',  # For bugswarm.client
     ],
 )

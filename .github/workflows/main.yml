@@ -63,11 +63,33 @@ jobs:
         run: |
           python3.8 -m unittest discover
 
-  bugswarm_dev_build:
-    name: Build artifacts
+  bugswarm_dev_build_common:
+    name: Build bugswarm/common
     if: github.event_name == 'pull_request'
     needs: bugswarm_dev
     uses: ./.github/workflows/build-artifacts.yml
+    with:
+      artifact-name: bugswarm-common-build
+      source-path: bugswarm/common
+      setup-file: setup.common.py
+      watched-paths: |
+        bugswarm/common/**
+        setup.common.py
+  
+  bugswarm_dev_build_client:
+    name: Build bugswarm/client
+    if: github.event_name == 'pull_request'
+    needs: bugswarm_dev_build_common
+    uses: ./.github/workflows/build-artifacts.yml
+    with:
+      artifact-name: bugswarm-client-build
+      source-path: bugswarm/client
+      setup-file: setup.client.py
+      watched-paths: |
+        bugswarm/common/**
+        bugswarm/client/**
+        setup.common.py
+        setup.client.py
 
   bugswarm:
     name: Test in public repo
@@ -123,8 +145,30 @@ jobs:
         run: |
           python3 -m unittest discover
 
-  bugswarm_build:
-    name: Build artifacts
+  bugswarm_build_common:
+    name: Build bugswarm/common
     if: github.event_name == 'push' && github.ref_name == 'master'
     needs: bugswarm
     uses: ./.github/workflows/build-artifacts.yml
+    with:
+      artifact-name: bugswarm-common-build
+      source-path: bugswarm/common
+      setup-file: setup.common.py
+      watched-paths: |
+        bugswarm/common/**
+        setup.common.py
+
+  bugswarm_build_client:
+    name: Build bugswarm/client
+    if: github.event_name == 'push' && github.ref_name == 'master'
+    needs: bugswarm_build_common
+    uses: ./.github/workflows/build-artifacts.yml
+    with:
+      artifact-name: bugswarm-client-build
+      source-path: bugswarm/client
+      setup-file: setup.client.py
+      watched-paths: |
+        bugswarm/common/**
+        bugswarm/client/**
+        setup.common.py
+        setup.client.py

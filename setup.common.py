@@ -23,7 +23,7 @@ setup(
         'License :: OSI Approved :: BSD License',
     ],
     zip_safe=False,
-    packages=find_packages(exclude=['pair*', 'tests*', 'bugswarm.analyzer*']),
+    packages=find_packages(include=['bugswarm.common*']),
     install_requires=[
         'requests>=2.20.0',
         'CacheControl==0.12.3',

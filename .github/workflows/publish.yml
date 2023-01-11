@@ -8,8 +8,12 @@ on:
 
 jobs:
   bugswarm-common:
-    name: Publish bugswarm.common to PyPI
+    name: Publish ${{ matrix.artifact-name }} to PyPI
     runs-on: ubuntu-latest
+    matrix:
+      artifact-name:
+        - bugswarm-common-build
+        - bugswarm-client-build
 
     steps:
       # Because actions/download-artifact can only download artifacts from the same workflow run,
@@ -20,12 +24,15 @@ jobs:
         # We don't want to fail the entire job if there aren't any new artifacts.
         # Make sure that all later steps check that steps.get-download-url.outcome == 'success'.
         continue-on-error: true
+        env:
+          ARTIFACT_NAME: ${{ matrix.artifact-name }}
         with:
           result-encoding: string
           script: |
+            const { ARTIFACT_NAME } = process.env;
             const mostRecentArtifact = (await github.rest.actions.listArtifactsForRepo({
               ...context.repo,
-              name: "bugswarm-common-build",
+              name: ARTIFACT_NAME,
             })).data.artifacts[0];
 
             const creationTime = new Date(mostRecentArtifact.created_at);
