@@ -148,18 +148,19 @@ def thread_main(repo, task_name, args):
         log.info('Output file for', repo, 'already exists. Skipping.')
         return
 
-    pipeline = Pipeline([
-        Preflight(),
-        GetJobsFromGitHubAPI(),
-        GroupJobs(),
-        ExtractAllBuildPairs(),
-        ConstructJobConfig(),
-        AlignJobPairs(),
-        CheckBuildIsResettable(),
-        GetBuildSystemInfo(),
-        CleanPairs(),
-        Postflight(),
-    ])
+    pipeline = Pipeline(
+        [
+            Preflight(),
+            GetJobsFromGitHubAPI(),
+            GroupJobs(),
+            ExtractAllBuildPairs(),
+            ConstructJobConfig(),
+            AlignJobPairs(),
+            CheckBuildIsResettable(),
+            GetBuildSystemInfo(),
+            CleanPairs(),
+        ],
+        cleanup_step=Postflight())
     in_context = {
         'repo': repo,
         'keep_clone': args['keep_clone'],
