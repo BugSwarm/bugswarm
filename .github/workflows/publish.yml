@@ -10,10 +10,11 @@ jobs:
   bugswarm-common:
     name: Publish ${{ matrix.artifact-name }} to PyPI
     runs-on: ubuntu-latest
-    matrix:
-      artifact-name:
-        - bugswarm-common-build
-        - bugswarm-client-build
+    strategy:
+      matrix:
+        artifact-name:
+          - bugswarm-common-build
+          - bugswarm-client-build
 
     steps:
       # Because actions/download-artifact can only download artifacts from the same workflow run,
