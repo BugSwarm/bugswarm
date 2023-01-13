@@ -46,20 +46,17 @@ class DatabaseAPI(object):
     _ACCOUNTS_RESOURCE = 'accounts'
     _LOGS_RESOURCE = 'logs'
 
-    def __init__(self, token: str):
+    def __init__(self, token=None):
         """
-        Provide a valid authentication token in order to use the endpoints accessible by the account that is associated
-        with the token. If an invalid authentication token is provided, the initializer will raise an exception.
-
+        Provide a optional authentication token in order to use the endpoints accessible by the account that is
+        associated with the token.
         :param token: An authentication token.
-        :raises InvalidToken: When an invalid authentication token is provided.
+        :raises TypeError: When input token isn't a string or None.
         """
-        if not isinstance(token, str):
+        if token is not None and not isinstance(token, str):
             raise TypeError
-        if not token:
-            raise ValueError
         self.token = token
-        self.auth = requests.auth.HTTPBasicAuth(username=self.token, password='')
+        self.auth = requests.auth.HTTPBasicAuth(username=self.token, password='') if token else None
 
     ###################################
     # Class properties
@@ -601,8 +598,12 @@ class DatabaseAPI(object):
         resp = requests.get(endpoint, auth=self.auth)
         # Do not print an error message if the entity was not expected to be found and we got a 404 status code.
         not_found = resp.status_code == 404
+        rate_limited = resp.status_code == 429
         if not_found and not error_if_not_found:
             return resp
+        elif rate_limited:
+            log.error('You are being rate limited. You can request a API token to remove this limit.')
+            log.error('http://www.bugswarm.org/contact/')
         elif not resp.ok:
             log.error(resp.url)
             log.error(resp.content)
