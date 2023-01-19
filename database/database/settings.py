@@ -1,6 +1,9 @@
 from database import schema
+
 from database.config import MY_MONGO_DBNAME
 from database.config import MY_MONGO_HOST
+from database.config import MY_MONGO_PASSWORD
+from database.config import MY_MONGO_USERNAME
 
 # The resulting API endpoints are in the form http://<domain name>/v1/<endpoint>
 API_VERSION = 'v1'
@@ -11,7 +14,12 @@ MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 MONGO_DBNAME = 'bugswarm'
 
-MONGO_URI = 'mongodb://{}/{}'.format(MY_MONGO_HOST, MY_MONGO_DBNAME)
+if MY_MONGO_USERNAME == '<username>' or MY_MONGO_PASSWORD == '<password>':
+    # The database has no auth.
+    MONGO_URI = 'mongodb://{}/{}'.format(MY_MONGO_HOST, MY_MONGO_DBNAME)
+else:
+    MONGO_URI = 'mongodb://{}:{}@{}/{}'.format(MY_MONGO_USERNAME, MY_MONGO_PASSWORD, MY_MONGO_HOST, MY_MONGO_DBNAME)
+
 # Disabling XML responses is a workaround needed because the Flask-CORS tool seems to force XML responses.
 # But the JavaScript on the BugSwarm website expects the response to be in JSON. If we can figure out how a client
 # (like the JavaScript) can request a JSON response, then we can consider disabling this workaround.
