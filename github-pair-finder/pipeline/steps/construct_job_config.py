@@ -273,6 +273,9 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
 
     api_step_names = [step['name'] for step in api_steps]
 
+    if len(api_step_names) > 1 and api_step_names[1] == 'Set up runner':
+        index -= 1
+
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
     if 'container' in job_config or 'services' in job_config:
