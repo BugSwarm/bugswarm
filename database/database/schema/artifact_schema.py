@@ -42,6 +42,11 @@ _ClassificationSchema = {
     }
 }
 
+_ArtifactStatus = {
+    'type': 'string',
+    'required': True,
+    'allowed': ['candidate', 'active', 'deprecated'],
+}
 
 ArtifactSchema = {
     'base_branch': NonEmptyStr,
@@ -87,11 +92,18 @@ ArtifactSchema = {
     # The time the artifact was pushed into the DB. This time may or may not be an exact match as the _created field.
     # It might differ by atmost a minute.
     'creation_time': RequiredInt,
-    'current_status': {
+    'reproducibility_status': {
         'type': 'dict',
         'schema': {
             'status': RequiredStatus,
             'time_stamp': RequiredDatetime,
         },
     },
+
+    'cached': RequiredBool,
+
+    # Versioning
+    'status': _ArtifactStatus,
+    'added_version': NullableStr,
+    'deprecated_version': NullableStr,
 }

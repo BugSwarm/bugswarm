@@ -23,7 +23,7 @@ Each artifact is associated with a subset of the following attributes. The attri
     'reproducer_error_reason': string       #   e.g. 'this is the error reason'
     'trigger_sha':             string       #   e.g. '1234xyz'
 },                                          #
-'filtered_reason': string               # e.g. 'no head sha'
+'filtered_reason':     string               # e.g. 'no head sha'
 'image_tag':           string               # e.g. '74924751'
 'is_error_pass':       bool                 # e.g. True or False
 'lang':                string               # e.g. 'Java'
@@ -46,7 +46,6 @@ Each artifact is associated with a subset of the following attributes. The attri
 'pr_num':               integer             # e.g. 379
 'repo':                 string              # e.g. 'gwtbootstrap3/gwtbootstrap3'
 'reproduced':           bool                # e.g. True or False
-'stable':               bool                # e.g. True or False
 'tag':                  string              # e.g. 'gwtbootstrap3-gwtbootstrap3-92837490'
 'build_system':         string              # e.g. 'Maven'
 'reproduce_attempts':   integer             # e.g. '5'
@@ -58,14 +57,18 @@ Each artifact is associated with a subset of the following attributes. The attri
     'build':      string                    # e.g  'No'
     'test':       string                    # e.g. 'Partial'
     'exceptions': [string]                  # e.g. ['NullPointerException', ...]
-}                                           #
+},
+'cached':             bool                  # e.g. True or False
+'status':             string                # e.g. 'active'
+'added_version':      string                # e.g. '1.1.2'
+'deprecated_version': string                # e.g. '1.2.0'
 ```
  
 | Attribute                                      | Type        | Description                    |
 | ---------------------------------------------- | ----------- | ------------------------------ |
 | `base_branch`                                  | `string`    | The branch into which pull request changes are merged. Only valid on pairs from pull requests. |
 | `branch`                                       | `string`    | The branch from which pull request changes are merged. Only valid on pairs from pull requests. |
-| `filtered_reason`                          | `string`    | If the pair was marked as not suitable for reproducing by `pair-filter`, then this attribute contains a human-readable reason for `pair-filter`'s decision. |
+| `filtered_reason`                              | `string`    | If the pair was marked as not suitable for reproducing by `pair-filter`, then this attribute contains a human-readable reason for `pair-filter`'s decision. |
 | `image_tag`                                    | `string`    | The tag identifying the Docker image associated with this artifact. |
 | `is_error_pass`                                | `bool`      | Whether the artifact contains an error-pass pair (rather than a fail-pass pair). |
 | `lang`                                         | `string`    | The language of the build, as indicated by a project's travis.yml file. |
@@ -74,7 +77,6 @@ Each artifact is associated with a subset of the following attributes. The attri
 | `pr_num`                                       | `integer`   | The number uniquely identifying the pull request within this project. Only valid on pairs from pull requests. The default value is `-1` if pairs are not from pull requests. |
 | `repo`                                         | `string`    | The repository slug that identifies a project on GitHub. |
 | `reproduced`                                   | `bool`      | Whether `reproducer` attempted to build the pair. This attribute will be `false` if a pair was marked as not suitable for reproducing by `pair-filter`. |
-| `stable`                                       | `bool`      | Only valid if `reproduced` is `true`. |
 | `tag`                                          | `string`    | This attribute is the same as the `image_tag` attribute. |
 | `[failed\|passed]_job.base_sha`                | `string`    | The SHA of the commit that was merged with `trigger_sha` to create the Travis virtual commit used for the Travis build. |
 | `[failed\|passed]_job.build_id`                | `integer`   | The number uniquely identifying the build on Travis. |
@@ -88,14 +90,20 @@ Each artifact is associated with a subset of the following attributes. The attri
 | `[failed\|passed]_job.num_tests_run`           | `integer`   | The number of tests executed during the Travis build. |
 | `[failed\|passed]_job.reproducer_error_reason` | `string`    | If `reproducer` encounters an error, this attribute contains a human-readable reason for the error. |
 | `[failed\|passed]_job.trigger_sha`             | `string`    | The SHA of the commit that, after being pushed to GitHub, triggered the Travis build. |
-| `test_framework`                               | `string`             | The test framework for both jobs. Empty string if the `analyzer` failed to find the framework. |
-| `reproduce_attempts`                           | `integer` | The number of times the reproducer ran. |
-| `reproduce_successes`                           | `integer` | The number of times the job was completed as expected. |
-| `stability`                           | `string` | The proportion of times the job completed as expected. The format is `reproduce_successes`/`reproduce_attempts` |
+| `test_framework`                               | `string`    | The test framework for both jobs. Empty string if the `analyzer` failed to find the framework. |
+| `reproduce_attempts`                           | `integer`   | The number of times the reproducer ran. |
+| `reproduce_successes`                          | `integer`   | The number of times the job was completed as expected. |
+| `stability`                                    | `string`    | The proportion of times the job completed as expected. The format is `reproduce_successes`/`reproduce_attempts` |
+| `reproducibility_status.time_stamp`            | `timestamp` | The date at which `reproducibility_status.status` was last calculated.
+| `reproducibility_status.status`                | `string`    | The artifact's reproducibility: `Unreproducible`, `Flaky`, or `Reproducible`.
 | `classification.code`                          | `string`    | The patch classification for code related files.
 | `classification.build`                         | `string`    | The patch classification for build related files.
 | `classification.test`                          | `string`    | The patch classification for test related files.
-| `classification.exceptions`                    | `[string]`    | The list of exceptions thrown during the failed Travis CI Job.
+| `classification.exceptions`                    | `[string]`  | The list of exceptions thrown during the failed Travis CI Job.
+| `cached`                                       | `bool`      | Whether the artifact has been cached. If true, the artifact is present in the `bugswarm/cached-images` Docker repository.
+| `status`                                       | `string`    | The artifact's status in the dataset. One of `active` (an official artifact), `candidate` (not officially added to the dataset), or `deprecated` (removed from the dataset).
+| `added_version`                                | `string`    | The version of the dataset that this artifact was officially added in. Null if `status` == `candidate`.
+| `deprecated_version`                           | `string`    | The version of the dataset that this artifact was deprecated in, or null if the artifact has not been deprecated.
 
 ## Updating metadata schema
 To add, remove, or change a field in the artifact schema, one must update code in multiple places:

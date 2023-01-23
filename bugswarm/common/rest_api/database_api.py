@@ -273,9 +273,9 @@ class DatabaseAPI(object):
         updates = {'stability': stability}
         return self._patch(DatabaseAPI._artifact_image_tag_endpoint(image_tag), updates)
 
-    def set_artifact_current_status(self, image_tag: str, status: str, date: str) -> Response:
+    def set_artifact_reproducibility_status(self, image_tag: str, status: str, date: str) -> Response:
         """
-        Update the current status of an artifact.
+        Update the reproducibility status of an artifact.
 
         :param image_tag: The image tag identifying the artifact to update.
         :param status: Unreproducible/Reproducible/Broken/Flaky.
@@ -292,7 +292,7 @@ class DatabaseAPI(object):
             datetime.datetime.strptime(date, '%Y-%m-%d')
         except ValueError:
             raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-        updates = {'current_status': {'status': status, 'time_stamp': date}}
+        updates = {'reproducibility_status': {'status': status, 'time_stamp': date}}
         return self._patch(DatabaseAPI._artifact_image_tag_endpoint(image_tag), updates)
 
     def update_artifact_repo_name(self, image_tag: str, new_repo: str) -> Response:
