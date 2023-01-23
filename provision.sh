@@ -132,7 +132,7 @@ print_green 'Reset travis-build'
 travis_build_sha=bf094c42837ceb4e02e68c79e1355b786a4d1333
 cd ~/.travis/travis-build && git reset --hard ${travis_build_sha}
 exit_if_failed 'Resetting travis-build failed.'
-yes | gem install bundler
+yes | gem install bundler -v 2.3.26
 exit_if_failed 'Installing bundler failed.'
 yes | bundle install --gemfile ~/.travis/travis-build/Gemfile
 exit_if_failed 'Installing travis-build failed.'
