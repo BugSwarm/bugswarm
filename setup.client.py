@@ -52,7 +52,6 @@ setup(
         'requests>=2.20.0',
         'bugswarm-common' + bs_common_version(),
     ],
-
     entry_points={
         'console_scripts': [
             'bugswarm = bugswarm.client.bugswarm:cli',

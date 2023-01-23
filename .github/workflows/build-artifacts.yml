@@ -92,8 +92,8 @@ jobs:
         env:
           BSC_UPDATED: ${{ steps.bugswarm-common-artifact.outcome == 'success' || '' }}
         run: |
-          python3.8 -m pip install build requests
-          python3.8 -m build --sdist --wheel --outdir dist
+          sudo python3.8 -m pip install build requests
+          sudo python3.8 -m build --sdist --wheel --outdir dist
       - name: Upload dists
         uses: actions/upload-artifact@v3
         with:

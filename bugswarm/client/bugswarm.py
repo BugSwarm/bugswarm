@@ -45,10 +45,10 @@ def run(image_tag, use_sandbox, pipe_stdin, rm):
 @click.option('--image-tag', required=True,
               type=str,
               help='The artifact image tag.')
-@click.option('--token', required=True,
+@click.option('--token', required=False,
               type=str,
-              help='An authentication token for the BugSwarm database. '
-                   'Please visit www.bugswarm.org/get-full-access for more information.')
+              help='An optional authentication token for the BugSwarm database. '
+                   'Please visit www.bugswarm.org/contact/ to request a token.')
 def show(image_tag, token):
     """Display artifact metadata."""
     token = token or ''
