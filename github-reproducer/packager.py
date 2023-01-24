@@ -101,6 +101,11 @@ class Packager(object):
 
             # Metrics.
             'metrics',
+
+            'cached',
+            'status',
+            'added_version',
+            'deprecated_version',
         ]
         for prefix in ['failed_job_', 'passed_job_']:
             keys.append(prefix + 'build_id')
@@ -180,7 +185,7 @@ class Packager(object):
             status = 'Reproducible'
         elif 0 < reproduce_successes < 5:
             status = 'Flaky'
-        current_status = {
+        reproducibility_status = {
             'time_stamp': today,
             'status': status
         }
@@ -220,8 +225,17 @@ class Packager(object):
             'filtered_reason': jp.get('filtered_reason', ''),
 
             'metrics': metrics,
-            'current_status': current_status,
-            'classification': classification
+            'reproducibility_status': reproducibility_status,
+            'classification': classification,
+
+            # Since _structure_artifact_data() is only called on image tags in cached_image_tags, 'cached' is always
+            # True.
+            'cached': True,
+
+            # Default values, which should be updated whenever we do a new release.
+            'status': 'candidate',
+            'added_version': None,
+            'deprecated_version': None,
         }
 
         for i in range(2):
