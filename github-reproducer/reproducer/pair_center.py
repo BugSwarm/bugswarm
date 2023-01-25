@@ -137,7 +137,9 @@ class PairCenter(JobCenter):
         for r in self.repos:
             for bp in self.repos[r].buildpairs:
                 for jp in bp.jobpairs:
-                    self.total_jobs += len(jp.jobs)
+                    for j in jp.jobs:
+                        if j.job_id != '0':
+                            self.total_jobs += 1
 
     def update_buildpair_done_status(self):
         for r in self.repos:
@@ -145,7 +147,7 @@ class PairCenter(JobCenter):
                 buildpair_done = True
                 for jp in bp.jobpairs:
                     for j in jp.jobs:
-                        if not j.reproduced.value and not j.skip:
+                        if not j.reproduced.value and not j.skip and j.job_id != '0':
                             buildpair_done = False
                 if buildpair_done:
                     bp.done.value = True
@@ -239,7 +241,7 @@ class PairCenter(JobCenter):
             for bp in self.repos[r].buildpairs:
                 for jp in bp.jobpairs:
                     for j in jp.jobs:
-                        if not j.skip.value and not j.reproduced.value:
+                        if not j.skip.value and not j.reproduced.value and j.job_id != '0':
                             remaining_jobs += 1
         return remaining_jobs
 
@@ -273,7 +275,7 @@ class PairCenter(JobCenter):
                 for bp in self.repos[r].buildpairs:
                     for jp in bp.jobpairs:
                         for j in jp.jobs:
-                            if not j.reproduced.value and not j.skip.value:
+                            if not j.reproduced.value and not j.skip.value and j.job_id != '0':
                                 q.put(j)
                                 if q.qsize() >= num_of_items_per_thread:
                                     self.thread_workloads.append(q)

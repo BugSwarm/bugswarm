@@ -67,7 +67,10 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
         working_dir = expressions.substitute_expressions(step['working-directory'], job_id, contexts)
 
     # Set the shell command
-    shell = step['shell'] if 'shell' in step else github_builder.SHELL
+    shell = github_builder.SHELL
+    if 'shell' in step:
+        shell = expressions.substitute_expressions(step['shell'], job_id, contexts)
+
     if shell is None:
         filename = 'bugswarm_{}.sh'.format(step_number)
         exec_template = 'bash -e {}'
@@ -86,7 +89,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
     else:
         # Default, custom shell
         filename = 'bugswarm_{}.script'.format(step_number)
-        exec_template = step['shell']
+        exec_template = shell
 
     return Step(step_name, step_number, True, None, run_command, env_str, step, working_dir=working_dir, filename=filename,
                 exec_template=exec_template, continue_on_error=continue_on_error, step_if=step_if,

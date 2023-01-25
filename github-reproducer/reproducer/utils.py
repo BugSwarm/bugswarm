@@ -499,20 +499,6 @@ class Utils(object):
         return stdout
 
     @staticmethod
-    def replace_matrix(config: dict) -> dict:
-        if 'strategy' in config and 'matrix' in config['strategy']:
-            # replace matrix values
-            try:
-                string = json.dumps(config, skipkeys=True)
-                matrix = config['strategy']['matrix']
-                for matrix_key, matrix_val in matrix.items():
-                    string = re.sub(r'\${{{{ matrix.{} }}}}'.format(matrix_key), str(matrix_val), string)
-                return json.loads(string)
-            except json.JSONDecodeError:
-                log.error('Cannot replace matrix values.')
-        return config
-
-    @staticmethod
     def substitute_expressions(root_context, s: str, shell_quote=True) -> str:
         """
         Given a string, substitutes ${{ expressions }} with their corresponding values.

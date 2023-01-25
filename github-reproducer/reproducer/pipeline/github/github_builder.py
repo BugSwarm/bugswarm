@@ -12,6 +12,7 @@ from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError
 from reproducer.utils import Utils
 from .job_image_utils import JobImageUtils
+from . import expressions
 
 
 class GitHubBuilder:
@@ -62,8 +63,12 @@ class GitHubBuilder:
         self.init_contexts()
         self.predefined_actions_sha = utils.get_predefined_actions_from_original_log(job)
 
+        # Remove github, needs, vars, inputs context
+        if 'strategy' in self.job.config and 'matrix' in self.job.config['strategy']:
+            self.job.config['strategy']['matrix'] = self.replace_matrix(self.job.config['strategy']['matrix'])
+
         # Get Docker related data
-        JobImageUtils.update_job_image_tag(self.job, utils)
+        JobImageUtils.update_job_image_tag(self.job, utils, self.contexts)
 
         # predefined actions directory
         os.makedirs(os.path.join(location, 'actions'), exist_ok=True)
@@ -91,9 +96,14 @@ class GitHubBuilder:
         # Set job's shell and working directory based on job['defaults']['run']
         if 'defaults' in self.job.config and 'run' in self.job.config['defaults']:
             if 'shell' in self.job.config['defaults']['run']:
-                self.SHELL = self.job.config['defaults']['run']['shell']
+                # Not supposed to use contexts/expressions but GitHub will still handle it so we will also handle it.
+                self.SHELL = expressions.substitute_expressions(
+                    self.job.config['defaults']['run']['shell'], '', self.contexts
+                )
             if 'working-directory' in self.job.config['defaults']['run']:
-                self.WORKING_DIR = self.job.config['defaults']['run']['working-directory']
+                self.WORKING_DIR = expressions.substitute_expressions(
+                    self.job.config['defaults']['run']['working-directory'], '', self.contexts
+                )
 
         # step is None or (Step number: str, Step name: str, Custom command: bool, Command to set up: str,
         # Command to run: str, Step environment variables: str, Step workflow data: dict)
@@ -263,3 +273,13 @@ class GitHubBuilder:
             if value != '':
                 env_str += '{}={} '.format(key, shlex.quote(str(value)))
         return env_str
+
+    def replace_matrix(self, config):
+        if isinstance(config, dict):
+            for key, val in config.items():
+                config[key] = self.replace_matrix(val)
+        elif isinstance(config, list):
+            config = [self.replace_matrix(i) for i in config]
+        elif isinstance(config, str):
+            return expressions.substitute_expressions(config, '', self.contexts)
+        return config

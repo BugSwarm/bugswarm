@@ -21,7 +21,8 @@ class Build(object):
             if len(components) == 3:
                 j['build_job'] = '.'.join([components[0], components[2]])
 
-            config = Utils.replace_matrix(j['config'])
+            config = j['config']
+
 
             # Create the Job object. If the reproduced result and analyzed result are already in the JSON file, which
             # means this job has been reproduced before, add those results to the Job object.
