@@ -64,7 +64,7 @@ class CacheMavenIntegrationTest(unittest.TestCase):
         shutil.rmtree(SANDBOX_DIR, ignore_errors=True)
         os.makedirs(SANDBOX_DIR)
         shutil.copytree(FROM_HOST, join(SANDBOX_DIR, 'from_host'))
-        logging.disable(logging.CRITICAL)
+#       logging.disable(logging.CRITICAL)
 
     def run_subtest(self, test_args):
         image_tag, test_targets, runner = test_args
