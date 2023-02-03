@@ -22,7 +22,7 @@ class ArtifactLogAdder(object):
         if os.path.isfile('../cache-dependency/output/{}.csv'.format(self.task)) is False:
             log.error(
                 'cache-dependency output CSV does not exist for task {}'.format(self.task))
-            sys.exit()
+            sys.exit(1)
 
         cached_image_tags = set()
         with open('../cache-dependency/output/{}.csv'.format(self.task)) as f:
@@ -45,8 +45,8 @@ class ArtifactLogAdder(object):
             }
 
             job_orig_log = {
-                'failed': os.getcwd() + '/' + self.utils.get_orig_log_path(job_id['failed']),
-                'passed': os.getcwd() + '/' + self.utils.get_orig_log_path(job_id['passed']),
+                'failed': self.utils.get_orig_log_path(job_id['failed']),
+                'passed': self.utils.get_orig_log_path(job_id['passed']),
             }
 
             for f_or_p in ['failed', 'passed']:
