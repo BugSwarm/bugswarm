@@ -214,7 +214,8 @@ class PatchArtifactPythonTask(PatchArtifactTask):
                 if package.split('==')[0] == 'pip':  # switch to the corresponding pip version
                     pip_command = 'install {}'.format(package)
                     default_pip_version = package.split('==')[1]
-                elif default_pip_version and version.parse(default_pip_version) < version.parse('8.0.0'):
+                    self.run_docker_pip_command(container_id, pip_command, pip=pip)
+                if default_pip_version and version.parse(default_pip_version) < version.parse('8.0.0'):
                     pip_command = 'install {} --no-deps --download="{}"'.format(package, cache_dir_container)
                 else:
                     pip_command = 'download --no-deps {} -d {}'.format(package, cache_dir_container)
