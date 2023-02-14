@@ -85,7 +85,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         # Create a new container and place files into it
         container_id = self.create_container(docker_image_tag, 'pack')
         # Run patching script (add localRepository and offline)
-        self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven'])
+        self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven', 'offline-gradle'])
 
         # Copy files to the new container
         for fail_or_pass in ['failed', 'passed']:

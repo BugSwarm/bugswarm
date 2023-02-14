@@ -178,6 +178,20 @@ def offline_maven():
     fileinput.close()
 
 
+def offline_gradle():
+    """
+    Add --offline flag to all instances of "gradle". This is a very
+    coarse method, like offline_maven(); it may be worth it to look
+    into more fine-grained methods.
+    """
+
+    for f_or_p in ('failed', 'passed'):
+        for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
+            line = re.sub(r'\b(gradlew?)\b', r'\1 --offline', line)
+            print(line, end='')
+        fileinput.close()
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -192,6 +206,8 @@ def main(argv=None):
         offline_all_gradle()
     if 'offline-maven' in actions:
         offline_maven()
+    if 'offline-gradle' in actions:
+        offline_gradle()
 
 
 def _print_usage():
@@ -200,7 +216,8 @@ def _print_usage():
     print('    add-mvn-local-repo: add <localRepository> to Maven configurations')
     print('    offline-all-maven: Replace all occurrences of mvn binary to add the offline flag')
     print('    offline-all-gradle: Replace all occurrences of gradle binary to add the offline flag')
-    print('    offline-maven: Use the traditional way to add offline mode to Maven')
+    print('    offline-maven: Add the -o flag to all instances of mvn(w) in the build script')
+    print('    offline-gradle: Add the --offline flag to all instances of gradle(w) in the build script')
 
 
 def _validate_input(argv):
@@ -213,7 +230,7 @@ def _validate_input(argv):
 
     for action in actions:
         if action not in ['add-mvn-local-repo', 'offline-all-maven', 'offline-all-gradle',
-                          'offline-maven']:
+                          'offline-maven', 'offline-gradle']:
             _print_usage()
             raise Exception('Unknown action: {}'.format(action))
 
