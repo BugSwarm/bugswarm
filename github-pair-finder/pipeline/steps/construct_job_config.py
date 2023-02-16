@@ -261,7 +261,7 @@ def expand_job_matrixes(workflow: dict):
             names_and_configs.append([(job_api_name, job_base_api_name, job_workflow_name, job)])
 
     # Sort by length in descending order.
-    return sorted(names_and_configs, key=lambda l: len(l), reverse=True)
+    return sorted(names_and_configs, key=lambda lst: len(lst), reverse=True)
 
 
 def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):

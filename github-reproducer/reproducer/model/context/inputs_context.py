@@ -1,4 +1,3 @@
-import re
 from typing import Any, Tuple
 from .context import Context
 

@@ -1,4 +1,3 @@
-import logging
 import os
 import shutil
 import sys
@@ -94,12 +93,12 @@ class CacheMavenIntegrationTest(unittest.TestCase):
             # (image tag, what it tests)
             ('alibaba-transmittable-thread-local-8267344544', ['maven', 'toolcache']),
             ('alibaba-transmittable-thread-local-8267344708', ['maven', 'toolcache']),
-            ('Grasscutters-Grasscutter-7801445827',           ['gradle']),
-            ('Grasscutters-Grasscutter-7825239642',           ['gradle']),
-            ('marcwrobel-jbanking-8761138559',                ['maven']),
-            ('marcwrobel-jbanking-8761138892',                ['maven', 'toolcache']),
-            ('Netflix-spectator-8295325184',                  ['gradle', 'toolcache']),
-            ('QuickCarpet-QuickCarpet-7830074046',            ['gradle']),
+            ('Grasscutters-Grasscutter-7801445827', ['gradle']),
+            ('Grasscutters-Grasscutter-7825239642', ['gradle']),
+            ('marcwrobel-jbanking-8761138559', ['maven']),
+            ('marcwrobel-jbanking-8761138892', ['maven', 'toolcache']),
+            ('Netflix-spectator-8295325184', ['gradle', 'toolcache']),
+            ('QuickCarpet-QuickCarpet-7830074046', ['gradle']),
         ]
 
         with ThreadPool(processes=4) as pool:

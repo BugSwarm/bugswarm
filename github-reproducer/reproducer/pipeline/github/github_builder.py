@@ -2,7 +2,6 @@ import os
 import re
 import shlex
 
-import git
 import yaml
 from bugswarm.common import log
 from bugswarm.common.credentials import GITHUB_TOKENS

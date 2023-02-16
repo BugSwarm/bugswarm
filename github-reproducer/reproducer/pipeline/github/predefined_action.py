@@ -173,7 +173,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions
                 runs_main = action_file['runs']['main']
                 runs_pre = action_file['runs'].get('pre', None)
-                runs_pre_if = action_file['runs'].get('pre-if', None)
 
                 # TODO: evaluate runs_pre_if using contexts and expression
                 if runs_pre:

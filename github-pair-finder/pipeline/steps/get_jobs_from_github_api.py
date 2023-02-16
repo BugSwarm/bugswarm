@@ -9,8 +9,6 @@ from model.mined_project_builder import MinedProjectBuilder
 
 from .step_exception import StepException
 
-from .step_exception import StepException
-
 
 def get_pages_with_key(gh: GitHubWrapper, url: str, key: str):
     response, result = gh.get(url)
@@ -115,8 +113,8 @@ class GetJobsFromGitHubAPI:
 
                 for j, job in enumerate(jobs_for_run):
                     try:
-                        # Some jobs don't actually have an equivalent entry in the workflow file.
-                        # For example, in https://github.com/Adobe-Consulting-Services/acs-aem-commons/actions/runs/2545222818,
+                        # Some jobs don't actually have an equivalent entry in the workflow file. For example, in
+                        # https://github.com/Adobe-Consulting-Services/acs-aem-commons/actions/runs/2545222818,
                         # none of the "Test report ..." jobs have an entry in their workflow file, even though
                         # they appear in the API. To detect this, check if the job has a label (e.g. ubuntu-latest,
                         # self-hosted)

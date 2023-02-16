@@ -1,5 +1,4 @@
 import re
-import shlex
 
 from bugswarm.common import log
 from reproducer.model.step import Step

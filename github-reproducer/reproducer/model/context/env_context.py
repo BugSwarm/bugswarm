@@ -53,8 +53,8 @@ class EnvContext(Context):
 
         # If the variable is in the ENVS dict set by parsing $GITHUB_ENV, use it. Otherwise, use the value from the
         # workflow file.
-        # CURRENT_ENV_MAP is a Bash associative array, where the keys are the variable names. If varname is in the array,
-        # use the corresponding value; otherwise use the static value
+        # CURRENT_ENV_MAP is a Bash associative array, where the keys are the variable names. If varname is in the
+        # array, use the corresponding value; otherwise use the static value
         return ('"$(test -v "CURRENT_ENV_MAP[{0}]" && echo "${{CURRENT_ENV_MAP[{0}]}}" || echo {1})"'.format(
                 varname, default_value), True)
 

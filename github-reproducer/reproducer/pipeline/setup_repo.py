@@ -119,11 +119,12 @@ def copy_and_reset_repo(job, utils):
             raise ReproduceError('copy_and_reset_repo cannot retry anymore.')
 
         try:
-            # Copy repository from stored project repositories to the workspace repository directory by untar-ing the storage
-            # repository tar file into the workspace directory.
+            # Copy repository from stored project repositories to the workspace repository directory by untar-ing the
+            # storage repository tar file into the workspace directory.
             repo_tar_obj = tarfile.TarFile(name=utils.get_project_storage_repo_tar_path(job))
             utils.clean_workspace_job_dir(job)
-            repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))  # TODO: This line causes missing or bad subsequent header
+            # TODO: This line causes missing or bad subsequent header
+            repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))
             break
         except Exception as e:
             log.info('Failed to extract the repository due to {}'.format(repr(e)))

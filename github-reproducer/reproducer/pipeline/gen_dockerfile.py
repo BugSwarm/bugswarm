@@ -4,7 +4,6 @@ Dockerfile and then run the job.
 """
 from bugswarm.common import log
 from reproducer.model.job import Job
-from reproducer.utils import Utils
 from reproducer.pipeline.github.job_image_utils import JobImageUtils
 from reproducer.reproduce_exception import ReproduceError
 

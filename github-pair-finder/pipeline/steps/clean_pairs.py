@@ -3,15 +3,10 @@
 import os
 import signal
 import time
-
 from typing import Any
 from typing import Optional
 
 from bugswarm.common import log
-from bugswarm.common.credentials import GITHUB_TOKENS
-from bugswarm.common.github_wrapper import GitHubWrapper
-
-# from utils import Utils
 
 
 class CleanPairs:
@@ -50,7 +45,6 @@ class CleanPairs:
         This pipeline step also attaches the following properties to the pairs:
           - repo_mined_version
         """
-        repo = context['repo']
         branches = data
         excluded_pairs = 0
 

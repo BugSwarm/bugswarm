@@ -136,9 +136,9 @@ EXPRESSION_FUNCTIONS = {
 }
 
 
-###############
-## OPERATORS ##
-###############
+#############
+# OPERATORS #
+#############
 
 
 def to_num(x):
@@ -168,7 +168,7 @@ def apply_operator(op, lhs, rhs):
     if isinstance(rhs, str):
         rhs = rhs.lower()
 
-    if op != '!' and type(lhs) is not type(rhs):
+    if op != '!' and not isinstance(lhs, type(rhs)):
         lhs = to_num(lhs)
         rhs = to_num(rhs)
 
@@ -188,9 +188,9 @@ OPERATORS = {
 }
 
 
-############################
-## PARSING AND EVALUATION ##
-############################
+##########################
+# PARSING AND EVALUATION #
+##########################
 
 
 def group_paren(tokens: 'list[Token]'):

@@ -3,7 +3,6 @@ import re
 from os.path import isfile
 
 from bugswarm.common import log
-from reproducer.utils import Utils
 
 
 # TODO: Update this function

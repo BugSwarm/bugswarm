@@ -1,5 +1,4 @@
 from .job import Job
-from reproducer.utils import Utils
 
 
 class Build(object):
@@ -22,7 +21,6 @@ class Build(object):
                 j['build_job'] = '.'.join([components[0], components[2]])
 
             config = j['config']
-
 
             # Create the Job object. If the reproduced result and analyzed result are already in the JSON file, which
             # means this job has been reproduced before, add those results to the Job object.
