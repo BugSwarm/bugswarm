@@ -47,7 +47,7 @@ class TestPipeline(unittest.TestCase):
                     'failed_pr_jobs': 0,
                 },
             },
-            'use_cutoff_date': False,
+            'cutoff_days': 0,
         }
 
         step = GetJobsFromGitHubAPI()
@@ -84,7 +84,7 @@ class TestPipeline(unittest.TestCase):
                     'failed_pr_jobs': 0,
                 },
             },
-            'use_cutoff_date': False,
+            'cutoff_days': 0,
         }
 
         step = GetJobsFromGitHubAPI()
@@ -220,7 +220,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         actual_names = [tup[0] for group in output for tup in group]
 
         self.assertEqual(expected_matrixes, actual_matrixes)
@@ -253,7 +253,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         actual_names = [tup[0] for group in output for tup in group]
 
         self.assertEqual(expected_matrixes, actual_matrixes)
@@ -296,7 +296,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         actual_names = [tup[0] for group in output for tup in group]
 
         self.assertEqual(expected_matrixes, actual_matrixes)
@@ -328,7 +328,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         actual_names = [tup[0] for group in output for tup in group]
 
         self.assertEqual(expected_matrixes, actual_matrixes)
@@ -355,7 +355,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         self.assertEqual(expected_matrixes, actual_matrixes)
 
     def test_expand_config_matrix_includes_and_excludes_2(self):
@@ -380,7 +380,7 @@ class TestPipeline(unittest.TestCase):
         ]
 
         output = expand_job_matrixes(input_job)
-        actual_matrixes = [tup[2]['strategy']['matrix'] for group in output for tup in group]
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
         self.assertEqual(expected_matrixes, actual_matrixes)
 
     @requests_mock.Mocker()

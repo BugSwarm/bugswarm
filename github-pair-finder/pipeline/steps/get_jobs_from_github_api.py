@@ -64,10 +64,10 @@ class GetJobsFromGitHubAPI:
         except KeyError:
             last_mined_build_id = 0
 
-        if context['use_cutoff_date']:
+        if context['cutoff_days']:
             # Maximum log retention period is 400 days for private repos, 90 for public repos.
-            # We use 400 days for situations like a private repo going public.
-            cutoff_date = datetime.now() - timedelta(days=400)
+            # Most repos don't change from private to public very often, so we default to 90 days.
+            cutoff_date = datetime.now() - timedelta(days=context['cutoff_days'])
             log.info('Getting workflow runs for repo', repo, 'with ID >', last_mined_build_id,
                      'after cutoff date', cutoff_date.isoformat())
             runs = get_runs_after_cutoffs(gh, repo, int(last_mined_build_id), cutoff_date)
@@ -189,9 +189,9 @@ class GetJobsFromGitHubAPI:
 
         # If no jobs were found, exit early
         if not jobs:
-            api = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
-            api.set_latest_build_info_metric(
-                repo, 'github', latest_run_number, latest_run_id)
+            if latest_run_number and latest_run_id:
+                api = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
+                api.set_latest_build_info_metric(repo, 'github', latest_run_number, latest_run_id)
             raise StepException('No new jobs found for repo {}.'.format(repo))
 
         # Update context

@@ -32,6 +32,19 @@ def flatten_dict_keys(d, prefix=None):
         yield prefix
 
 
+def flatten_elements(item, result):
+    if isinstance(item, list):
+        for i in item:
+            flatten_elements(i, result)
+    elif isinstance(item, dict):
+        for i in item.values():
+            flatten_elements(i, result)
+    elif isinstance(item, bool):
+        result.append(str(item).lower())
+    else:
+        result.append(str(item))
+
+
 def get_job_api_name(base_name: str, matrix_combination, default_keys):
     """
     Finds the job's API name by interpolating the appropriate matrix variables.
@@ -59,6 +72,10 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
         value = matrix_combination
         for key in keys:
             value = value[key] if isinstance(value, dict) and key in value else ''
+
+        value_list = []
+        flatten_elements(value, value_list)
+        value = ', '.join(value_list)
         indexes.append((match.start(), match.end(), str(value)))
 
     # Interpolate
@@ -226,12 +243,14 @@ def expand_job_matrixes(workflow: dict):
             for combination in build_combinations(job_matrix):
                 if default_keys_are_dynamic:
                     default_keys = list(combination.keys())
+                else:
+                    default_keys = [key.lower() for key in default_keys]
 
                 config = deepcopy(job)
                 config['strategy']['matrix'] = combination
                 job_api_name = get_job_api_name(job_base_api_name, combination, default_keys)
 
-                names_and_configs[-1].append((job_api_name, job_base_api_name, config))
+                names_and_configs[-1].append((job_api_name, job_base_api_name, job_workflow_name, config))
         else:
             # Detect duplicates that we can't disambiguate
             if job_base_api_name in disambiguated:
@@ -239,7 +258,7 @@ def expand_job_matrixes(workflow: dict):
             disambiguated.append(job_base_api_name)
 
             job_api_name = get_job_api_name(job_base_api_name, {}, [])
-            names_and_configs.append([(job_api_name, job_base_api_name, job)])
+            names_and_configs.append([(job_api_name, job_base_api_name, job_workflow_name, job)])
 
     # Sort by length in descending order.
     return sorted(names_and_configs, key=lambda l: len(l), reverse=True)
@@ -252,10 +271,17 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     # So, decrement the target index by 1.
     index = failed_step_index - 1
 
+    api_step_names = [step['name'] for step in api_steps]
+
+    if len(api_step_names) > 1 and api_step_names[1] == 'Set up runner':
+        index -= 1
+
     # If a job runs in a container, one of the first API steps is always "Initialize containers".
     # No workflow file equivalent, so decrement.
     if 'container' in job_config or 'services' in job_config:
-        index -= 1
+        if 'Initialize containers' in api_step_names:
+            # container can be empty, need to double check using api steps.
+            index -= 1
 
     # For each unique docker image used by a `uses` step, an API step is added to the start called "Pull <image>".
     # No workflow file equivalent, so decrement.
@@ -265,10 +291,22 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
 
     # Some predefined actions run in a container; if that's the case, then an API step is added to the start called
     # "Build <action name>". No workflow file equivalent, so decrement.
-    api_step_names = [step['name'] for step in api_steps]
     build_steps = set(step['uses'] for step in steps
                       if 'uses' in step and 'Build {}'.format(step['uses']) in api_step_names)
     index -= len(build_steps)
+
+    if steps and steps[0].get('name', '').startswith('Pre '):
+        log.warning('Unable to check for pre steps (First step\'s name starts with \'Pre\')')
+    else:
+        first_step_index = failed_step_index - index
+        if index >= 0 and len(api_step_names) > first_step_index:
+            for api_step_name in api_step_names[first_step_index:]:
+                if api_step_name.startswith('Pre '):
+                    index -= 1
+                else:
+                    break
+        else:
+            log.warning('Unable to check for pre steps (index: {}, first index: {})'.format(index, first_step_index))
 
     try:
         failed_step = steps[index]
@@ -287,6 +325,9 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
 
     if api_steps[failed_step_index]['name'] != failed_step_name and '${{' not in failed_step_name:
         # The calculated step is different from the actual step, and it's not an interpolation issue.
+        if index < 0 or api_steps[failed_step_index]['name'] == 'Set up job':
+            raise RecoverableException('Cannot find failed step, maybe set up job step failed?')
+
         raise RecoverableException(
             'Error finding step index: names differ ("{}" != "{}")'.format(
                 api_steps[failed_step_index]['name'],
@@ -382,7 +423,8 @@ class ConstructJobConfig:
                     # Sequence found; set job object's config.
                     for seq_idx, job_idx in enumerate(range(start, end)):
                         target_job = build.jobs[job_idx]
-                        job_config = job_sequence[seq_idx][2]
+                        job_config = job_sequence[seq_idx][3]
+                        job_workflow_id = job_sequence[seq_idx][2]
                         unmatched_job_names[job_idx] = None
 
                         if target_job.failed_step_index is not None:
@@ -397,6 +439,7 @@ class ConstructJobConfig:
                             target_job.failed_step_command = command
 
                         target_job.config = job_config
+                        target_job.config['id-in-workflow'] = job_workflow_id
                         num_jobs_processed += 1
 
                 # Sanity check: if any jobs are unmatched, then it's possible the mapping

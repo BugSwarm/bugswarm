@@ -8,7 +8,7 @@ from bugswarm.common import github_wrapper
 
 class GetBuildSystemInfo:
     """
-    This step will get the build system info (Maven, Gradle, Ant).
+    This step will get the build system info (Maven, Gradle, Ant). It also gets whether a build uses submodles.
     Ref: https://stackoverflow.com/questions/25022016/get-all-file-names-from-a-github-repo-through-the-github-api
     """
 
@@ -25,8 +25,10 @@ class GetBuildSystemInfo:
                 failed_build_commit_sha = pair.failed_build.commit
                 passed_build_commit_sha = pair.passed_build.commit
 
-                failed_build_info = self.get_build_info_from_github_api(repo, failed_build_commit_sha)
-                passed_build_info = self.get_build_info_from_github_api(repo, passed_build_commit_sha)
+                failed_build_info, failed_uses_submodules = self.get_build_info_from_github_api(
+                    repo, failed_build_commit_sha)
+                passed_build_info, passed_uses_submodules = self.get_build_info_from_github_api(
+                    repo, passed_build_commit_sha)
                 if failed_build_info == -1 or passed_build_info == -1:
                     continue
 
@@ -35,6 +37,9 @@ class GetBuildSystemInfo:
                 jobpairs = pair.jobpairs
                 for jp in jobpairs:
                     jp.build_system = failed_build_info
+
+                pair.failed_build.has_submodules = failed_uses_submodules
+                pair.passed_build.has_submodules = passed_uses_submodules
         return data
 
     def get_build_info_from_github_api(self, repo, build_commit_sha):
@@ -45,25 +50,26 @@ class GetBuildSystemInfo:
         try:
             if status is None or not status.ok:
                 log.info('commit: {} not available on github. Skipping'.format(build_commit_sha))
-                return -1
+                return -1, -1
 
             # e.g. https://api.github.com/repos/python/mypy/git/trees/3f1695237056998f132e27a3750c9e84f48d7840
             url = json_data['tree']['url']
             status, json_data = self.git_wrapper.get(url)
             if status is None or not status.ok:
                 log.info('Unable to fetch tree: {}. Skipping'.format(status))
-                return -1
+                return -1, -1
             tree = json_data['tree']
         except AttributeError:
             # no commit
             log.info('Unable to fetch commit {}. Skipping.'.format(build_commit_sha))
-            return -1
+            return -1, -1
         except KeyError:
             # no tree
             log.info('Git tree not found, commit {}. Skipping'.format(build_commit_sha))
-            return -1
+            return -1, -1
 
         build_system = 'NA'
+        uses_submodles = False
         for file in tree:
             # assume the build file always in root, otherwise need to do this recursively (very expensive)
             # 'blob' stands for normal file
@@ -75,4 +81,6 @@ class GetBuildSystemInfo:
                     build_system = 'Gradle'
                 elif file['path'] == 'build.xml':
                     build_system = 'Ant'
-        return build_system
+                elif file['path'] == '.gitmodules':
+                    uses_submodles = True
+        return build_system, uses_submodles

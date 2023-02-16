@@ -33,8 +33,9 @@ def parse_argv():
     p.add_argument('--keep-clone', action='store_true',
                    help='Prevent the default cleanup of the cloned repo after running.')
     p.add_argument('--fast', action='store_true', help='Skips repos that already have an output file.')
-    p.add_argument('--no-cutoff-date', action='store_true',
-                   help='Disable the 400-day mining limit (workflow runs older than 400 days *can* be mined).')
+    p.add_argument('--cutoff-days', type=int, default=90,
+                   help='Workflow runs older than <%(dest)s> days will not be mined. Set to 0 to disable the limit. '
+                        'Defaults to %(default)s days.')
     p.add_argument('--last-run-override', type=int,
                    help='Override the run ID of the last run that was mined for a repo. The miner will mine all runs '
                         'after the run with the given ID.')
@@ -43,6 +44,10 @@ def parse_argv():
 
     if args['threads'] < 1:
         p.error('-t/--threads cannot be less than 1')
+
+    if args['cutoff_days'] < 0:
+        p.error('--cutoff-days must be a positive integer.')
+
     return args
 
 
@@ -109,6 +114,7 @@ def output_json(repo, data, output_path):
                               'config': j.config or {},
                               'language': j.language}
                              for j in failed_build.jobs],
+                    'has_submodules': failed_build.has_submodules
                 },
                 'passed_build': {
                     'build_id': passed_build.build_id,
@@ -124,6 +130,7 @@ def output_json(repo, data, output_path):
                               'config': j.config or {},
                               'language': j.language}
                              for j in passed_build.jobs],
+                    'has_submodules': passed_build.has_submodules
                 },
                 'jobpairs': jobpairs,
             }
@@ -141,18 +148,19 @@ def thread_main(repo, task_name, args):
         log.info('Output file for', repo, 'already exists. Skipping.')
         return
 
-    pipeline = Pipeline([
-        Preflight(),
-        GetJobsFromGitHubAPI(),
-        GroupJobs(),
-        ExtractAllBuildPairs(),
-        ConstructJobConfig(),
-        AlignJobPairs(),
-        CheckBuildIsResettable(),
-        GetBuildSystemInfo(),
-        CleanPairs(),
-        Postflight(),
-    ])
+    pipeline = Pipeline(
+        [
+            Preflight(),
+            GetJobsFromGitHubAPI(),
+            GroupJobs(),
+            ExtractAllBuildPairs(),
+            ConstructJobConfig(),
+            AlignJobPairs(),
+            CheckBuildIsResettable(),
+            GetBuildSystemInfo(),
+            CleanPairs(),
+        ],
+        cleanup_step=Postflight())
     in_context = {
         'repo': repo,
         'keep_clone': args['keep_clone'],
@@ -160,7 +168,7 @@ def thread_main(repo, task_name, args):
         'mined_project_builder': MinedProjectBuilder(),
         'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo, ci_service),
         'utils': None,
-        'use_cutoff_date': not args['no_cutoff_date'],
+        'cutoff_days': args['cutoff_days']
     }
 
     if args['last_run_override'] is not None:
