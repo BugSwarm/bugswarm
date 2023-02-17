@@ -1,9 +1,7 @@
 from typing import Any
 from typing import Optional
 
-from bugswarm.common import credentials
 from bugswarm.common import log
-from bugswarm.common import github_wrapper
 
 
 class GetBuildSystemInfo:

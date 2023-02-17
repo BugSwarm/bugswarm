@@ -12,7 +12,10 @@ from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 from model.mined_project_builder import MinedProjectBuilder
 from pipeline.pipeline import Pipeline
-from pipeline.steps import *
+from pipeline.steps import (AlignJobPairs, CheckBuildIsResettable, CleanPairs,
+                            ConstructJobConfig, ExtractAllBuildPairs,
+                            GetBuildSystemInfo, GetJobsFromGitHubAPI,
+                            GroupJobs, Postflight, Preflight)
 
 
 def parse_argv():

@@ -1,0 +1,44 @@
+name: 'Checkout'
+description: 'Checkout a Git repository at a particular version'
+inputs:
+  repository:
+    description: 'Repository name with owner. For example, actions/checkout'
+    default: ${{ github.repository }}
+  ref:
+    description: >
+      The branch, tag or SHA to checkout. When checking out the repository that
+      triggered a workflow, this defaults to the reference or SHA for that
+      event.  Otherwise, uses the default branch.
+    default: ''
+  path:
+    description: 'Relative path under $GITHUB_WORKSPACE to place the repository'
+  submodules:
+    description: >
+      Whether to checkout submodules: `true` to checkout submodules or `recursive` to
+      recursively checkout submodules.
+
+
+      When the `ssh-key` input is not provided, SSH URLs beginning with `git@github.com:` are
+      converted to HTTPS.
+    default: false
+  set-safe-directory:
+    description: Add repository path as safe.directory for Git global config by running `git config --global --add safe.directory <path>`
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - run: /usr/bin/git config --global --add safe.directory ${{ github.workspace }}/${{ inputs.path }}
+      if: ${{ inputs.set-safe-directory == true }}
+      shell: bash
+    - run: /usr/bin/git clone https://github.com/${{ inputs.repository }} ${{ github.workspace }}/${{ inputs.path }}
+      shell: bash
+    - run: /usr/bin/git -C "${{ github.workspace }}/${{ inputs.path }}" reset --hard ${{ inputs.ref }}
+      if: ${{ inputs.ref != '' }}
+      shell: bash
+    - run: |
+        if [[ ${{ inputs.submodules }} == true ]]; then
+          /usr/bin/git -C "${{ github.workspace }}/${{ inputs.path }}" submodule update --init
+        elif [[ ${{ inputs.submodules }} == recursive ]]; then
+          /usr/bin/git -C "${{ github.workspace }}/${{ inputs.path }}" submodule update --init --recursive
+        fi
+      shell: bash

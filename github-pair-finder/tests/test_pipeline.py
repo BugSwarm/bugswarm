@@ -19,7 +19,7 @@ from tests.utils import DATA_DIR, pipeline_data_from_dict, to_dict
 
 class TestPipeline(unittest.TestCase):
 
-    ## GetJobsFromGitHubAPI ##
+    # GetJobsFromGitHubAPI #
 
     @requests_mock.Mocker()
     def test_get_jobs_from_api(self, mock: requests_mock.Mocker):
@@ -115,7 +115,7 @@ class TestPipeline(unittest.TestCase):
 
         mock.get('https://api.github.com/repos/{}/languages'.format(repo), json={'Java': 1000})
 
-    ## GroupJobs ##
+    # GroupJobs #
 
     def test_group_jobs(self):
         datadir = join(DATA_DIR, 'orientechnologies-orientdb')
@@ -133,7 +133,7 @@ class TestPipeline(unittest.TestCase):
         # values in the real output)
         self.assertRecursiveDictSubset(expected_output, output)
 
-    ## ExtractAllBuildPairs ##
+    # ExtractAllBuildPairs #
 
     def test_extract_build_pairs(self):
         datadir = join(DATA_DIR, 'orientechnologies-orientdb')
@@ -161,7 +161,7 @@ class TestPipeline(unittest.TestCase):
         self.assertEqual(output.keys(), expected_output.keys())
         self.assertRecursiveDictSubset(expected_output, output)
 
-    ## ConstructJobConfig ##
+    # ConstructJobConfig #
 
     @requests_mock.Mocker()
     def test_construct_config(self, mock: requests_mock.Mocker):
@@ -412,7 +412,7 @@ class TestPipeline(unittest.TestCase):
                 self.assertRecursiveDictSubset(expected_failed_build['jobs'], actual_failed_build['jobs'])
                 self.assertRecursiveDictSubset(expected_passed_build['jobs'], actual_passed_build['jobs'])
 
-    ## AlignJobPairs ##
+    # AlignJobPairs #
 
     def test_align_job_pairs(self):
         repo = 'raphw/byte-buddy'
@@ -428,15 +428,27 @@ class TestPipeline(unittest.TestCase):
 
         self.assertRecursiveDictSubset(expected_output, output)
 
-    ## GetBuildSystemInfo ##
+    # GetBuildSystemInfo #
 
     @requests_mock.Mocker()
     def test_get_build_system_info(self, mock):
         params = {
-            'maven': {'repo': 'raphw/byte-buddy', 'inpath': 'step5-output.json', 'outpath': 'step7-output.json'},
-            'gradle': {'repo': 'spring-projects/spring-kafka', 'inpath': 'step6-output.json', 'outpath': 'step7-output.json'},
-            'ant': {'repo': 'apache/tomcat', 'inpath': 'step6-output.json', 'outpath': 'step7-output.json'},
-            'na': {'repo': 'django/django', 'inpath': 'step6-output.json', 'outpath': 'step7-output.json'},
+            'maven': {
+                'repo': 'raphw/byte-buddy', 'inpath':
+                'step5-output.json', 'outpath':
+                'step7-output.json'},
+            'gradle': {
+                'repo': 'spring-projects/spring-kafka',
+                'inpath': 'step6-output.json',
+                'outpath': 'step7-output.json'},
+            'ant': {
+                'repo': 'apache/tomcat',
+                'inpath': 'step6-output.json',
+                'outpath': 'step7-output.json'},
+            'na': {
+                'repo': 'django/django',
+                'inpath': 'step6-output.json',
+                'outpath': 'step7-output.json'},
         }
 
         for title, params in params.items():
@@ -468,7 +480,7 @@ class TestPipeline(unittest.TestCase):
 
         self.assertRecursiveDictSubset(expected_output, output, 'expected', 'actual')
 
-    ## CleanPairs ##
+    # CleanPairs #
 
     # @requests_mock.Mocker()
     def test_clean_pairs_sets_repo_mined_version(self):
@@ -484,14 +496,13 @@ class TestPipeline(unittest.TestCase):
             input = pipeline_data_from_dict(json.load(f))
 
         step = CleanPairs()
-        gh = GitHubWrapper(GITHUB_TOKENS)
         output = step.process(input, {'repo': repo, 'head_commit': latest_commit, 'utils': None})
 
         for group in output.values():
             for pair in group.pairs:
                 self.assertEqual(pair.repo_mined_version, latest_commit)
 
-    ## Helpers ##
+    # Helpers #
 
     def assertRecursiveDictSubset(self, subset, superset, sub_name='subset', sup_name='superset'):
         """Asserts that all non-dict elements of `subset` are in `superset`, and
