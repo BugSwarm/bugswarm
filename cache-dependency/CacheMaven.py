@@ -112,7 +112,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)
         des = os.path.join(_TRAVIS_DIR, _PROCESS_SCRIPT)
         self.copy_file_to_container(container_id, src, des)
-        self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven'])
+        self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven', 'offline-gradle'])
         self.remove_file_from_container(container_id, des)
         # Copy files to the new container
         for fail_or_pass in ['failed', 'passed']:

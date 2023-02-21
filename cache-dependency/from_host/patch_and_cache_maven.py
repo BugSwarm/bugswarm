@@ -1,5 +1,6 @@
 import fileinput
 import os.path
+import re
 import subprocess
 import sys
 from xml.dom.minidom import parse
@@ -157,6 +158,16 @@ def offline_maven():
     fileinput.close()
 
 
+def offline_gradle():
+    for f_or_p in ('failed', 'passed'):
+        for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
+            line = line.strip()
+            if re.match(r'travis_cmd .*(\./)?gradlew?', line):
+                line = re.sub(r'(\./)?gradlew?', r'\g<0>\ --offline', line)
+            print(line)
+    fileinput.close()
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -171,6 +182,8 @@ def main(argv=None):
         offline_all_gradle()
     if 'offline-maven' in actions:
         offline_maven()
+    if 'offline-gradle' in actions:
+        offline_gradle()
 
 
 def _print_usage():
@@ -180,6 +193,7 @@ def _print_usage():
     print('    offline-all-maven: Replace all occurrences of mvn binary to add the offline flag')
     print('    offline-all-gradle: Replace all occurrences of gradle binary to add the offline flag')
     print('    offline-maven: Use the traditional way to add offline mode to Maven')
+    print('    offline-gradle: Add the --offline flag to all instances of the gradle command in the build script')
 
 
 def _validate_input(argv):
@@ -192,7 +206,7 @@ def _validate_input(argv):
 
     for action in actions:
         if action not in ['add-mvn-local-repo', 'offline-all-maven', 'offline-all-gradle',
-                          'offline-maven']:
+                          'offline-maven', 'offline-gradle']:
             _print_usage()
             raise Exception('Unknown action: {}'.format(action))
 
