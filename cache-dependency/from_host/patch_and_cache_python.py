@@ -41,11 +41,7 @@ def _get_dependency_list(pip_argument_list):
     return pip_version, package_list
 
 
-def main(argv=None):
-    if argv is None:
-        argv = sys.argv
-
-    repo, f_or_p, build_script_fp = _validate_input(argv)
+def setup_for_install(repo, f_or_p, build_script_fp):
     package_cache_directory = '/home/travis/build/{}/{}'.format(f_or_p, 'requirements')
     for line in fileinput.input(build_script_fp, inplace=True):
         line = line.strip()
@@ -69,25 +65,52 @@ def main(argv=None):
     print('Done')
 
 
+def setup_for_download(repo, f_or_p, build_script_fp):
+    for line in fileinput.input(build_script_fp, inplace=True):
+        line = line.strip()
+        if 'pip\\ install\\' in line:
+            index = line.find('pip\\ install\\')
+            line = line[:index] + '/usr/local/bin/pip_install_wrapper.sh\\ ' + line[index:]
+            print(line)
+        else:
+            print(line)
+    fileinput.close()
+
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+
+    repo, f_or_p, build_script_fp, d_or_i = _validate_input(argv)
+
+    if d_or_i == 'install':
+        setup_for_install(repo, f_or_p, build_script_fp)
+    else:
+        setup_for_download(repo, f_or_p, build_script_fp)
+
+
 def _print_usage():
-    print('Usage: python patch_and_cache_maven.py <repo> <f_or_p>')
+    print('Usage: python patch_and_cache_python.py <repo> <f_or_p> <d_or_i>')
 
 
 def _validate_input(argv):
-    if len(argv) != 3:
+    if len(argv) != 4:
         _print_usage()
         sys.exit(1)
 
     repo = argv[1]
     f_or_p = argv[2]
+    d_or_i = argv[3]
     build_script_fp = '/usr/local/bin/run_{}.sh'.format(f_or_p)
 
     if f_or_p not in ['failed', 'passed']:
         print('The f_or_p argument must be either "failed" or "passed". Exiting.')
         _print_usage()
         sys.exit(1)
+    if d_or_i not in ['download', 'install']:
+        print('The d_or_i argument must be either "download" or "install". Existing.')
 
-    return repo, f_or_p, build_script_fp
+    return repo, f_or_p, build_script_fp, d_or_i
 
 
 if __name__ == '__main__':

@@ -2,7 +2,13 @@
 # Show all commands
 set -o xtrace
 DEP_FOLDER=$HOME/pypkg
+DOWNLOAD_LOG=$HOME/dependencies.log
 mkdir -p $DEP_FOLDER
+
+if [[ -f "$DOWNLOAD_LOG" ]]; then
+    cat $DOWNLOAD_LOG
+    echo "Log from the final pip freeze:"
+fi
 
 function find_and_download_deps () {
     # Print current environment
@@ -23,6 +29,21 @@ function find_and_download_deps () {
         FREEZE_OPTIONS='--all'
     fi
     pip freeze $FREEZE_OPTIONS $DISABLE_CHECK | grep "==" > $DEP_LIST_FILE
+    cat $DEP_LIST_FILE
+
+    # pip freeze --all won't work for pip version < 8.0.3
+    pip list |
+    while read -r line
+    do
+        regex="(\S+) \((\S+)\)"
+        if [[ "$line" =~ $regex ]]; then
+            if [[ ${BASH_REMATCH[1]} = "pip" || ${BASH_REMATCH[1]} = "setuptools" || ${BASH_REMATCH[1]} = "distribute" || ${BASH_REMATCH[1]} = "wheel" ]]; then
+                if [[ -z $(grep "${BASH_REMATCH[1]}==" $DEP_LIST_FILE) ]]; then
+                    echo "${BASH_REMATCH[1]}==${BASH_REMATCH[2]}" >> $DEP_LIST_FILE
+                fi
+            fi
+        fi
+    done
     cat $DEP_LIST_FILE
 
     # Download the dependencies 

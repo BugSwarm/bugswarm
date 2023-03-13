@@ -33,19 +33,20 @@ def extract_python_from_pip_version(line):
         pip 6.0.7 from /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (python 3.4)
         pip 9.0.1 from /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages (python 3.6)
     """
-    python_regex = r'(python[0-9\.]*)/site-packages'
+    python_regex = r'(python[0-9\.]*)?/site-packages( \(python ([0-9\.]*)\))?'
     searched = re.search(python_regex, line)
+    python_version = ''
     if searched:
-        python_version = searched.groups()[0]
-    else:
-        python_version = ''
+        if searched.group(1):
+            python_version = searched.group(1)
+        elif searched.group(3):
+            python_version = 'python' + searched.group(3)
 
     pip_regex = r'pip ([0-9\.]+) from'
     searched = re.search(pip_regex, line)
+    pip_version = ''
     if searched:
         pip_version = 'pip=={}'.format(searched.groups()[0])
-    else:
-        pip_version = ''
 
     return python_version, pip_version
 
