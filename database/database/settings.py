@@ -34,6 +34,7 @@ ALLOWED_READ_ROLES = list(map(str, schema.Role.read_roles()))
 ALLOWED_WRITE_ROLES = list(map(str, schema.Role.write_roles()))
 
 OPTIMIZE_PAGINATION_FOR_SPEED = True
+PAGINATION_LIMIT = 500
 PAGINATION_DEFAULT = 250
 
 SOFT_DELETE = True
