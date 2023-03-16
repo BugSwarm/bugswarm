@@ -555,9 +555,13 @@ class DatabaseAPI(object):
 
     def get_latest_reproducibility_test(self) -> Dict:
         querystring = '?max_results=1'
-        result = self._list(DatabaseAPI._reproducibility_tests_endpoint() + querystring)
-        if result:
-            return result[0]
+        result = self._get(DatabaseAPI._reproducibility_tests_endpoint() + querystring)
+        if result.ok:
+            try:
+                return result.json()['_items'][0]
+            except IndexError:
+                # No reproducibility tests; return None
+                pass
         return None
 
     def filter_reproducibility_tests(self, api_filter: str) -> List:
