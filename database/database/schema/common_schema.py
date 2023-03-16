@@ -21,3 +21,5 @@ RequiredEmail = {
     **NonEmptyStr,
     'regex': r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
 }
+
+RequiredObjectId = {'type': 'objectid', 'required': True}

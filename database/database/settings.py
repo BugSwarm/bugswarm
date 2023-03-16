@@ -39,6 +39,10 @@ PAGINATION_DEFAULT = 250
 
 SOFT_DELETE = True
 
+# Match the datetime format (ISO 8601) used in the artifact's "committed_at" and "merged_at" fields.
+# (Eve defaults to RFC 1123, which is (a) inconsistent with the rest of the db, and (b) a pretty bad format.)
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
 artifacts = {
     # 'schema': schema.ArtifactSchema,
     'schema': {
@@ -184,6 +188,27 @@ logs = {
     'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
 }
 
+reproducibilitySummary = {
+    'schema': schema.ReproducibilityTestSchema,
+
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+
+    # DELETE: Allow deleting reproducibility test results.
+    'item_methods': ITEM_METHODS + ['DELETE'],
+    'datasource': {'default_sort': [('time_stamp', -1)]}
+}
+
+reproducibilityEntries = {
+    'schema': schema.ReproducibilityTestEntrySchema,
+
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+
+    # DELETE: Allow deleting reproducibility test results.
+    'item_methods': ITEM_METHODS + ['DELETE']
+}
+
 DOMAIN = {
     'artifacts': artifacts,
     'minedBuildPairs': minedBuildPairs,
@@ -192,5 +217,7 @@ DOMAIN = {
     '_minedProjectsGithub': minedProjectsGithub,
     'emailSubscribers': emailSubscribers,
     'accounts': accounts,
+    'reproducibilityTests': reproducibilitySummary,
+    'reproducibilityTestEntries': reproducibilityEntries,
     'logs': logs,
 }

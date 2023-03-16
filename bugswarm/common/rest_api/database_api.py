@@ -11,6 +11,7 @@ from datetime import date
 from typing import Dict
 from typing import Generator
 from typing import List
+from typing import Union
 from urllib.parse import urljoin
 from requests import Response
 
@@ -45,6 +46,8 @@ class DatabaseAPI(object):
     _EMAIL_SUBSCRIBERS_RESOURCE = 'emailSubscribers'
     _ACCOUNTS_RESOURCE = 'accounts'
     _LOGS_RESOURCE = 'logs'
+    _REPRODUCIBILITY_TESTS_RESOURCE = 'reproducibilityTests'
+    _REPRODUCIBILITY_ENTRIES_RESOURCE = 'reproducibilityTestEntries'
 
     def __init__(self, token=None):
         """
@@ -520,6 +523,171 @@ class DatabaseAPI(object):
             raise ValueError
         return self._delete(DatabaseAPI._mined_project_repo_endpoint(repo, ci_service))
 
+    ########################################
+    # Reproducibility Tests REST methods
+    ########################################
+
+    def find_reproducibility_test(self, object_id: str) -> Response:
+        return self._get(DatabaseAPI._reproducibility_tests_object_id_endpoint(object_id))
+
+    def list_reproducibility_tests(self) -> List:
+        return self._list(DatabaseAPI._reproducibility_tests_endpoint())
+
+    def list_reproducibility_tests_since(self, timestamp: Union[int, float, datetime.datetime]) -> List:
+        """
+        List reproducibility tests on or after a given timestamp.
+
+        :param timestamp: The timestamp to start the list at. Either a Unix timestamp or a `datetime` object.
+        :return: A list of reproducibility tests dated on or after the given timestamp.
+        """
+        if isinstance(timestamp, (int, float)):
+            timestamp = datetime.datetime.fromtimestamp(timestamp, tz=datetime.timezone.utc)
+        elif not isinstance(timestamp, datetime.datetime):
+            raise TypeError('`timestamp` must be a datetime.datetime object or a numeric timestamp.')
+
+        # Normalize all timestamps to UTC.
+        timestamp = timestamp.astimezone(datetime.timezone.utc)
+
+        datetime_str = timestamp.strftime('%Y-%m-%dT%H:%M:%SZ')
+        api_filter = json.dumps({'time_stamp': {'$gte': datetime_str}})
+
+        return self.filter_reproducibility_tests(api_filter)
+
+    def get_latest_reproducibility_test(self) -> Dict:
+        querystring = '?max_results=1'
+        result = self._list(DatabaseAPI._reproducibility_tests_endpoint() + querystring)
+        if result:
+            return result[0]
+        return None
+
+    def filter_reproducibility_tests(self, api_filter: str) -> List:
+        return self._filter(DatabaseAPI._reproducibility_tests_endpoint(), api_filter)
+
+    def insert_reproducibility_test(self, test: dict) -> Response:
+        """
+        Insert a reproducibility test summary. The test should have the following format:
+        ```
+        {
+            'time_stamp': str  # The time the test was run at. Must be an ISO 8601 timestamp in UTC with
+                               # the 'Z' suffix.
+            'ok': int      # Number of reproducible artifacts in the test.
+            'flaky': int   # Number of flaky artifacts in the test.
+            'broken': int  # Number of broken artifacts in the test.
+            'total': int   # Total number of artifacts tested (ok + flaky + broken).
+            'per_lang': {  # The same counts as above, separated by language.
+                '<language>': {'ok': int, 'flaky': int, 'broken': int, 'total': int}
+            }
+        }
+        ```
+
+        :param test: The test summary in the above format.
+        :return: The HTTP response from the API.
+        """
+        return self._insert(DatabaseAPI._reproducibility_tests_endpoint(), test, 'reproducibility test')
+
+    def list_reproducibility_entries_for_test(self, test_id: str) -> List:
+        if not isinstance(test_id, str):
+            raise TypeError
+
+        api_filter = json.dumps({'test_id': test_id})
+        return self.filter_reproducibility_entries(api_filter)
+
+    def filter_reproducibility_entries(self, api_filter: str) -> List:
+        return self._filter(DatabaseAPI._reproducibility_test_entries_endpoint(), api_filter)
+
+    def insert_reproducibility_entry(self, entry: dict) -> Response:
+        """
+        Insert a single reproducibility entry. Reproducibility entries contain information
+        about a specific artifact in a specific reproducibility test. They are formatted
+        like follows:
+
+        ```
+        {
+            'image_tag': str   # The image tag of the artifact.
+            'test_id': str     # The object ID of the test this entry is a part of.
+            'lang': str        # The artifact's language.
+            'time_stamp': str  # The time the test was run at. Must be an ISO 8601 timestamp in UTC with
+                               # the 'Z' suffix.
+            'reproduce_attempts': int      # The number of times the test tried to reproduce the artifact.
+            'reproduce_successes': int     # The number of times the artifact was successfully reproduced.
+            'reproducibility_status': str  # One of 'Reproducible', 'Flaky', or 'Broken'.
+        }
+        ```
+
+        :param entry: A test entry in the above format.
+        :return: The HTTP response from the API.
+        """
+        return self._insert(DatabaseAPI._reproducibility_test_entries_endpoint(), entry)
+
+    def bulk_insert_reproducibility_entries(self, entries: list) -> List[Response]:
+        """
+        Insert multiple reproducibility entries. Reproducibility entries contain information
+        about a specific artifact in a specific reproducibility test. They are formatted
+        like follows:
+
+        ```
+        {
+            'image_tag': str   # The image tag of the artifact.
+            'test_id': str     # The object ID of the test this entry is a part of.
+            'lang': str        # The artifact's language.
+            'time_stamp': str  # The time the test was run at. Must be a ISO 8601 timestamp in UTC with
+                               # the 'Z' suffix.
+            'reproduce_attempts': int      # The number of times the test tried to reproduce the artifact.
+            'reproduce_successes': int     # The number of times the artifact was successfully reproduced.
+            'reproducibility_status': str  # One of 'Reproducible', 'Flaky', or 'Broken'.
+        }
+        ```
+
+        Internally, this method splits the given list of entries into chunks of 100 entries and
+        inserts them one at a time.
+
+        :param entries: A list of reproducibility entries in the above format.
+        :return: A list of HTTP responses from the API, one for each batch of 100 entries.
+        """
+        # self._bulk_insert is specific to mined build pairs.
+        if not isinstance(entries, list):
+            raise TypeError
+        if not entries:
+            raise ValueError
+
+        responses = []
+        for chunk in DatabaseAPI._chunks(entries, 100):
+            response = self._insert(DatabaseAPI._reproducibility_test_entries_endpoint(), chunk)
+            responses.append(response)
+
+        return responses
+
+    def remove_reproducibility_test_and_entries(self, test_id: str) -> bool:
+        """
+        Removes the reproducibility test with the given ID, along with all test entries associted
+        with that test.
+
+        :param test_id: The object ID of the test to delete.
+        :return: True if the test and its entries were all deleted successfully, False otherwise.
+        """
+        if not isinstance(test_id, str):
+            raise TypeError
+        if not self.find_reproducibility_test(test_id):
+            raise ValueError
+
+        entries = self.list_reproducibility_entries_for_test(test_id)
+
+        response = self._delete(DatabaseAPI._reproducibility_tests_object_id_endpoint(test_id))
+        if not response.ok:
+            log.error('Error removing test with ID {}'.format(test_id))
+            log.error(response.content)
+            return False
+
+        for entry in entries:
+            response = self._delete(DatabaseAPI._reproducibility_test_entries_object_id_endpoint(entry['_id']))
+            if not response.ok:
+                log.error('Error removing test with ID {}'.format(test_id))
+                log.error(response.url)
+                log.error(response.content)
+                return False
+
+        return True
+
     ###################################
     # Email Subscriber REST methods
     ###################################
@@ -924,3 +1092,23 @@ class DatabaseAPI(object):
         if not job_id:
             raise ValueError
         return '/'.join([DatabaseAPI._logs_endpoint(), job_id])
+
+    @staticmethod
+    def _reproducibility_tests_endpoint() -> Endpoint:
+        return DatabaseAPI._endpoint(DatabaseAPI._REPRODUCIBILITY_TESTS_RESOURCE)
+
+    @staticmethod
+    def _reproducibility_tests_object_id_endpoint(object_id) -> Endpoint:
+        if not isinstance(object_id, str):
+            raise TypeError
+        if not object_id:
+            raise ValueError
+        return '/'.join([DatabaseAPI._reproducibility_tests_endpoint(), object_id])
+
+    @staticmethod
+    def _reproducibility_test_entries_endpoint() -> Endpoint:
+        return DatabaseAPI._endpoint(DatabaseAPI._REPRODUCIBILITY_ENTRIES_RESOURCE)
+
+    @staticmethod
+    def _reproducibility_test_entries_object_id_endpoint(object_id) -> Endpoint:
+        return '/'.join([DatabaseAPI._reproducibility_test_entries_endpoint(), object_id])
