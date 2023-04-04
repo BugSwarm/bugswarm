@@ -2,7 +2,7 @@
 
 ![The BugSwarm Mascot](https://cloud.githubusercontent.com/assets/8139148/24324903/1101b9a2-114c-11e7-9340-316022ef57d5.png)
 
-The official command line client for the [BugSwarm](https://bugswarm.org) artifact dataset
+The official command line client for the [BugSwarm](http://bugswarm.org) artifact dataset
 
 ## Installation
 > Requires Python 3.
@@ -47,8 +47,8 @@ Please note that artifacts are first attempted to be pulled from `bugswarm/cache
 ## Example
 
 ```shell
-$ bugswarm run --image-tag nutzam-nutz-140438299
-$ bugswarm show --image-tag nutzam-nutz-140438299 [--token <token>]
+$ bugswarm run --image-tag square-okio-140452393
+$ bugswarm show --image-tag square-okio-140452393 [--token <token>]
 ```
 
 > You can use BugSwarm Client without a token. However, unauthenticated requests are subject to rate limits (6 requests/minute). [You can request a token here.](http://www.bugswarm.org/contact/)
