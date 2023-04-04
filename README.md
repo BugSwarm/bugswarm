@@ -35,6 +35,7 @@ If you use our infrastructure or dataset, please cite our paper as follows:
 **You only have to follow the steps below if you want to produce your own artifacts.
 If you want to use BugSwarm artifact dataset, follow the [client](https://github.com/BugSwarm/client) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.**
 1. System requirements:
+    * A machine with x86-64 architecture. (BugSwarm does not support ARM architecture such as Apple silicon.)
     * A Unix-based operating system. (BugSwarm does not support Windows.)
     * The `sudo` command is installed on the system.
     * You have `sudo` privileges on the system.
