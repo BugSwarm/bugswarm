@@ -106,6 +106,7 @@ class Packager(object):
             'status',
             'added_version',
             'deprecated_version',
+            'ci_service',
         ]
         for prefix in ['failed_job_', 'passed_job_']:
             keys.append(prefix + 'build_id')
@@ -236,6 +237,8 @@ class Packager(object):
             'status': 'candidate',
             'added_version': None,
             'deprecated_version': None,
+
+            'ci_service': bp['ci_service'],
         }
 
         for i in range(2):
