@@ -1,5 +1,5 @@
-from .common_schema import RequiredInt, RequiredStr, RequiredEnum, RequiredDatetime, RequiredBool, RequiredStatus,\
-    NonEmptyStr, NullableStr
+from .common_schema import RequiredCIService, RequiredInt, RequiredStr, RequiredEnum, RequiredDatetime, RequiredBool, \
+    RequiredStatus, NonEmptyStr, NullableStr
 from .mined_build_pair_schema import JobConfig
 
 _JobSchema = {
@@ -106,4 +106,5 @@ ArtifactSchema = {
     'status': _ArtifactStatus,
     'added_version': NullableStr,
     'deprecated_version': NullableStr,
+    'ci_service': RequiredCIService,
 }
