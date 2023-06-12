@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import traceback
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from bugswarm.common import log
@@ -146,6 +147,8 @@ def thread_main(repo, task_name, args):
     hyphenated_repo = repo.replace('/', '-')
     ci_service = 'github'
 
+    threading.current_thread().name = '({})'.format(repo)
+
     output_json_path = os.path.join('output', task_name, f'{hyphenated_repo}.json')
     if args['fast'] and os.path.exists(output_json_path) and os.path.getsize(output_json_path) > 0:
         log.info('Output file for', repo, 'already exists. Skipping.')
@@ -233,9 +236,9 @@ def main():
     args = parse_argv()
 
     try:
-        log.config_logging(args['log'].upper())
+        log.config_logging(args['log'].upper(), show_thread_name=True)
     except ValueError:
-        log.config_logging('INFO')
+        log.config_logging('INFO', show_thread_name=True)
         log.warning('Unknown/invalid log level "{}". Defaulting to "INFO".'.format(args['log']))
 
     if args['repo_file']:
@@ -279,4 +282,5 @@ def main():
 
 
 if __name__ == '__main__':
+    threading.current_thread().name = ''
     sys.exit(main())
