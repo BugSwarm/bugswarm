@@ -302,6 +302,135 @@ class TestPipeline(unittest.TestCase):
         self.assertEqual(expected_matrixes, actual_matrixes)
         self.assertEqual(expected_names, actual_names)
 
+    def test_expand_config_matrix_with_includes_4(self):
+        input_job = {
+            'job1': {
+                'strategy': {
+                    'matrix': {
+                        'foo': [1, 2, 3, 4],
+                        'include': [{'foo': 4, 'bar': 4}, {'foo': 5, 'bar': 5}]
+                    }
+                }
+            }
+        }
+        expected_matrixes = [
+            {'foo': 1},
+            {'foo': 2},
+            {'foo': 3},
+            {'foo': 4, 'bar': 4},
+            {'foo': 5, 'bar': 5}
+        ]
+        expected_names = [
+            'job1 (1)',
+            'job1 (2)',
+            'job1 (3)',
+            'job1 (4)',
+            'job1 (5, 5)',
+        ]
+
+        output = expand_job_matrixes(input_job)
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
+        actual_names = [tup[0] for group in output for tup in group]
+
+        self.assertEqual(expected_matrixes, actual_matrixes)
+        self.assertEqual(expected_names, actual_names)
+
+    def test_expand_config_matrix_with_includes_5(self):
+        input_job = {
+            'job1': {
+                'strategy': {
+                    'matrix': {
+                        'foo': [
+                            {'a': 'A1', 'b': {'x': 1, 'y': 2}},
+                            {'a': 'A2', 'b': 'B2'}
+                        ],
+                        'include': [
+                            {'foo': {'a': 'A3', 'c': 'C'}, 'd': 'D'},
+                            {'e': 'E'}
+                        ]
+                    }
+                }
+            }
+        }
+        expected_matrixes = [
+            {
+                'foo': {'a': 'A1', 'b': {'x': 1, 'y': 2}},
+                'e': 'E'
+            },
+            {
+                'foo': {'a': 'A2', 'b': 'B2'},
+                'e': 'E'
+            },
+            {
+                'foo': {'a': 'A3', 'c': 'C'},
+                'd': 'D'
+            }
+        ]
+        expected_names = [
+            'job1 (A1, 1, 2)',
+            'job1 (A2, B2)',
+            'job1 (A3, C, D)'
+        ]
+
+        output = expand_job_matrixes(input_job)
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
+        actual_names = [tup[0] for group in output for tup in group]
+        self.assertEqual(expected_matrixes, actual_matrixes)
+        self.assertEqual(expected_names, actual_names)
+
+    def test_expand_config_matrix_with_includes_6(self):
+        input_job = {
+            'job1': {
+                'strategy': {
+                    'matrix': {
+                        'foo': [1, 2],
+                        'bar': [3, 4],
+                        'include': [
+                            {'foo': 1, 'bar': 5},
+                            {'foo': 6, 'bar': 7},
+                            {'foo': 1, 'baz': 8},
+                            {'foo': 9, 'baz': 10},
+                            {'foo': 1, 'bar': 3, 'baz': 11},
+                            {'foo': 1, 'bar': 12, 'baz': 13},
+                            {'foo': 14, 'bar': 3, 'baz': 15},
+                            {'foo': 16, 'bar': 17, 'baz': 18}
+                        ]
+                    }
+                }
+            }
+        }
+        expected_matrixes = [
+            {'foo': 1, 'bar': 3, 'baz': 11},
+            {'foo': 1, 'bar': 4, 'baz': 8},
+            {'foo': 2, 'bar': 3},
+            {'foo': 2, 'bar': 4},
+            {'foo': 1, 'bar': 5},
+            {'foo': 6, 'bar': 7},
+            {'foo': 9, 'baz': 10},
+            {'foo': 1, 'bar': 12, 'baz': 13},
+            {'foo': 14, 'bar': 3, 'baz': 15},
+            {'foo': 16, 'bar': 17, 'baz': 18},
+        ]
+        expected_names = [
+            'job1 (1, 3)',
+            'job1 (1, 4)',
+            'job1 (2, 3)',
+            'job1 (2, 4)',
+            'job1 (1, 5)',
+            'job1 (6, 7)',
+            'job1 (9, 10)',
+            'job1 (1, 12, 13)',
+            'job1 (14, 3, 15)',
+            'job1 (16, 17, 18)',
+        ]
+
+        output = expand_job_matrixes(input_job)
+        actual_matrixes = [tup[3]['strategy']['matrix'] for group in output for tup in group]
+        actual_names = [tup[0] for group in output for tup in group]
+
+        self.assertEqual(expected_matrixes, actual_matrixes)
+        self.assertEqual(expected_names, actual_names)
+
     def test_expand_config_matrix_with_excludes(self):
         input_job = {
             'job1': {

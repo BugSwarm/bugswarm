@@ -45,7 +45,7 @@ def flatten_elements(item, result):
         result.append(str(item))
 
 
-def get_job_api_name(base_name: str, matrix_combination, default_keys):
+def get_job_api_name(base_name: str, matrix_combination, default_keys, job_matrix):
     """
     Finds the job's API name by interpolating the appropriate matrix variables.
     """
@@ -58,6 +58,17 @@ def get_job_api_name(base_name: str, matrix_combination, default_keys):
             # Handle nested dicts, e.g. https://github.com/Robert-Furth/actions-test/actions/runs/2835879042
             for flattened_key in flatten_dict_keys(matrix_combination[key], key):
                 interpolations.append('${{{{ matrix.{} }}}}'.format(flattened_key))
+
+    # Fix test_expand_config_matrix_with_includes_4,5,6
+    add_non_defaults_key = False
+    for key, val in matrix_combination.items():
+        if key in default_keys:
+            if val not in job_matrix.get(key, {}):
+                add_non_defaults_key = True
+        elif add_non_defaults_key:
+            if val != '':
+                for flattened_key in flatten_dict_keys(matrix_combination[key], key):
+                    interpolations.append('${{{{ matrix.{} }}}}'.format(flattened_key))
 
     intermediate_name = base_name
     if interpolations and not re.search(MATRIX_INTERPOLATE_REGEX, intermediate_name):
@@ -248,7 +259,7 @@ def expand_job_matrixes(workflow: dict):
 
                 config = deepcopy(job)
                 config['strategy']['matrix'] = combination
-                job_api_name = get_job_api_name(job_base_api_name, combination, default_keys)
+                job_api_name = get_job_api_name(job_base_api_name, combination, default_keys, job_matrix)
 
                 names_and_configs[-1].append((job_api_name, job_base_api_name, job_workflow_name, config))
         else:
@@ -257,7 +268,7 @@ def expand_job_matrixes(workflow: dict):
                 raise RecoverableException()
             disambiguated.append(job_base_api_name)
 
-            job_api_name = get_job_api_name(job_base_api_name, {}, [])
+            job_api_name = get_job_api_name(job_base_api_name, {}, [], {})
             names_and_configs.append([(job_api_name, job_base_api_name, job_workflow_name, job)])
 
     # Sort by length in descending order.
@@ -317,7 +328,7 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     if 'name' in failed_step:
         matrix = job_config.get('strategy', {}).get('matrix', {})
         # Interpolate matrix variables into the step's name.
-        failed_step_name = get_job_api_name(failed_step['name'], matrix, {})
+        failed_step_name = get_job_api_name(failed_step['name'], matrix, {}, matrix)
     elif 'uses' in failed_step:
         failed_step_name = 'Run {}'.format(failed_step['uses'])
     elif 'run' in failed_step:
