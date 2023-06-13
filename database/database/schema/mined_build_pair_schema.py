@@ -1,6 +1,5 @@
-from .common_schema import (NonEmptyStr, NullableStr, RequiredBool,
-                            RequiredCIService, RequiredEnum, RequiredInt,
-                            RequiredStr)
+from .common_schema import (NonEmptyStr, OptionalInt, NullableStr, RequiredBool, RequiredCIService,
+                            RequiredEnum, RequiredInt, RequiredStr)
 
 # Schema for jobs within mined job pairs.
 _MinedJobPairJobSchema = {
@@ -56,6 +55,7 @@ _MinedBuildJobSchema = {
         'config': JobConfig,
         'job_id': RequiredInt,
         'language': NonEmptyStr,
+        'run_time_seconds': OptionalInt,
     },
 }
 

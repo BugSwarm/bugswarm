@@ -6,6 +6,7 @@ NonEmptyStr = {'type': 'string', 'required': True, 'empty': False}
 NullableStr = {'type': 'string', 'nullable': True}
 
 RequiredInt = {'type': 'integer', 'required': True}
+OptionalInt = {'type': 'integer', 'required': False}
 
 RequiredBool = {'type': 'boolean', 'required': True}
 
