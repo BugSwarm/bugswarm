@@ -288,13 +288,17 @@ def validate_input(argv, artifact_type):
                         help='When testing, disconnect the docker container from the network.')
     if artifact_type == 'maven':
         parser.add_argument('--no-copy-home-m2', action='store_true',
-                            help='Do not copy /home/travis/.m2/ directory.')
+                            help='Do not copy /home/github/.m2/ directory.')
         parser.add_argument('--no-copy-home-gradle', action='store_true',
-                            help='Do not copy /home/travis/.gradle/ directory.')
+                            help='Do not copy /home/github/.gradle/ directory.')
         parser.add_argument('--no-copy-home-ivy2', action='store_true',
-                            help='Do not copy /home/travis/.ivy2/ directory.')
+                            help='Do not copy /home/github/.ivy2/ directory.')
         parser.add_argument('--no-copy-proj-gradle', action='store_true',
-                            help='Do not copy /home/travis/build/*/*/*/.gradle/ directory.')
+                            help='Do not copy /home/github/build/*/*/*/.gradle/ directory.')
+        parser.add_argument('--no-copy-proj-gradle-wrapper', action='store_true',
+                            help='Do not copy /home/github/build/*/*/gradle/wrapper directory.')
+        parser.add_argument('--no-copy-proj-maven', action='store_true',
+                            help='Do not copy /home/github/build/*/*/.mvn directory.')
         parser.add_argument('--no-copy-actions-toolcache', action='store_true',
                             help='Do not copy /opt/hostedtoolcache/ directory.')
         parser.add_argument('--no-remove-maven-repositories', action='store_true',

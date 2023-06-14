@@ -28,6 +28,8 @@ CACHE_DIRECTORIES = {
     'home-gradle': lambda f_or_p, repo: '/home/github/.gradle/',
     'home-ivy2': lambda f_or_p, repo: '/home/github/.ivy2/',
     'proj-gradle': lambda f_or_p, repo: '/home/github/build/{}/{}/.gradle/'.format(f_or_p, repo),
+    'proj-gradle-wrapper': lambda f_or_p, repo: '/home/github/build/{}/{}/gradle/wrapper/'.format(f_or_p, repo),
+    'proj-maven': lambda f_or_p, repo: '/home/github/build/{}/{}/.mvn/'.format(f_or_p, repo)
     # /opt/hostedtoolcache is handled separately
     # 'actions-toolcache': lambda *_: '/opt/hostedtoolcache',
 }
@@ -208,7 +210,11 @@ class PatchArtifactMavenTask(PatchArtifactTask):
 
     def _test_cached_image(self, image_tag, fail_or_pass, repr_log_path, orig_log_path, job_id):
         if self.args.disconnect_network_during_test:
-            container_id = self.create_container(image_tag, 'test', fail_or_pass, docker_args='--network none')
+            container_id = self.create_container(
+                image_tag,
+                'test',
+                fail_or_pass,
+                docker_args='--network none --hostname bugswarmdummy --add-host bugswarmdummy:127.0.0.1')
         else:
             container_id = self.create_container(image_tag, 'test', fail_or_pass)
 
