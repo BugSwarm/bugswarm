@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from model.build import Build
 from model.build_group import BuildGroup
 from model.job import Job
@@ -19,6 +21,10 @@ class GroupJobs:
             branch_owner = job['branch_owner']
             build_id = job['build_id']
             job_id = job['job_id']
+
+            started_at = datetime.strptime(job['started_at'], '%Y-%m-%dT%H:%M:%SZ')
+            finished_at = datetime.strptime(job['finished_at'], '%Y-%m-%dT%H:%M:%SZ')
+            duration = finished_at - started_at
 
             group_id = '{}~{}~{}'.format(workflow_id, branch_owner, branch_id)
 
@@ -45,7 +51,8 @@ class GroupJobs:
                     job['result'],
                     job['job_name'],
                     job['failed_step_number'],
-                    job['steps'])
+                    job['steps'],
+                    int(duration.total_seconds()))
                 build.jobs.append(j)
 
         for group in groups.values():

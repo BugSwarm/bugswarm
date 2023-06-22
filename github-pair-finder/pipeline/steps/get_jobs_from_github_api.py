@@ -142,6 +142,7 @@ class GetJobsFromGitHubAPI:
 
                             'event_type': run['event'],
                             'result': job['conclusion'],
+                            'started_at': job['started_at'],
                             'finished_at': job['completed_at'],
 
                             'commit': run['head_sha'],
