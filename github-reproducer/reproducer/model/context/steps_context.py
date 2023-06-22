@@ -21,4 +21,7 @@ class StepsContext(Context):
 
     def get(self, path: str, err_if_not_present=False, make_string=False) -> Tuple[Any, bool]:
         path = re.sub(r'\W+', '_', path.upper())
+        if re.match(r'(.*)_OUTPUTS_(.*)', path):
+            # steps.<id>.outputs.<key>
+            return '${{STEP_OUTPUTS_ENV_MAP[_CONTEXT_STEPS_{}]}}'.format(path), True
         return '${{_CONTEXT_STEPS_{}}}'.format(path), True

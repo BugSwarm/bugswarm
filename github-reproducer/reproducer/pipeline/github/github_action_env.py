@@ -62,6 +62,8 @@ def get_all(github_builder: GitHubBuilder, step_number, action_repo):
         # The name of the workflow.
         'GITHUB_WORKFLOW': github_builder.WORKFLOW_NAME,
         # GITHUB_WORKSPACE: Set in generate_build_script
+        'GITHUB_OUTPUT': '/home/github/workflow/output.txt',
+        'GITHUB_STATE': '/home/github/workflow/state.txt',
         'RUNNER_ARCH': 'X64',
         'RUNNER_NAME': 'Bugswarm GitHub Actions Runner',  # Don't know which name to use.
         'RUNNER_OS': 'Linux',

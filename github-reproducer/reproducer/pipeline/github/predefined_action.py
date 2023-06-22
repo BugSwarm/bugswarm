@@ -201,12 +201,22 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                             github_builder, '{}.{}'.format(step_number, sub_step_number), sub_step, envs, None
                         ))
 
+                outputs = {}  # outputs dict
+                if 'outputs' in action_file and isinstance(action_file['outputs'], dict):
+                    log.debug('Checking composite action outputs:')
+                    for key, content in action_file['outputs'].items():
+                        if 'value' in content:
+                            outputs[key] = expressions.substitute_expressions(
+                                content['value'], job_id, contexts).strip('\'')
+                            log.debug('Key {}: {}'.format(key, outputs[key]))
+
                 log.debug('Generating build script for composite action... ({} steps)'.format(len(sub_steps)))
 
                 output_path = os.path.join(
                     github_builder.location, 'steps', 'bugswarm_{}_composite.sh'.format(step_number)
                 )
-                generate_build_script.generate(github_builder, sub_steps, output_path=output_path, setup=False)
+                generate_build_script.generate(github_builder, sub_steps, output_path=output_path, setup=False,
+                                               outputs=outputs)
                 run_command = '{}/bugswarm_{}_composite.sh'.format(github_builder.steps_dir, step_number)
                 filename = 'bugswarm_{}.sh'.format(step_number)
             else:

@@ -96,9 +96,10 @@ class GitHubBuilder:
         if 'defaults' in self.job.config and 'run' in self.job.config['defaults']:
             if 'shell' in self.job.config['defaults']['run']:
                 # Not supposed to use contexts/expressions but GitHub will still handle it so we will also handle it.
+                # Need to remove the quote.
                 self.SHELL = expressions.substitute_expressions(
                     self.job.config['defaults']['run']['shell'], '', self.contexts
-                )
+                ).strip('\'')
             if 'working-directory' in self.job.config['defaults']['run']:
                 self.WORKING_DIR = expressions.substitute_expressions(
                     self.job.config['defaults']['run']['working-directory'], '', self.contexts
@@ -233,6 +234,8 @@ class GitHubBuilder:
         self.contexts.github.action_ref = ''
         if update_composite:
             self.contexts.github.action_path = ''
+            if 'GITHUB_ACTION_PATH' in self.ENVS:
+                del self.ENVS['GITHUB_ACTION_PATH']
 
         if 'uses' in step:
             from . import predefined_action
@@ -245,6 +248,7 @@ class GitHubBuilder:
                     # action_path only supported in composite actions. However, we don't know if a predefined action is
                     # a composite action unless we run parse first. So we set this context to all predefined action.
                     self.contexts.github.action_path = action_path_abs
+                    self.ENVS['GITHUB_ACTION_PATH'] = action_path_abs
 
         # Update remaining github contexts
         self.contexts.github.action_status = ''  # TODO status of composite action (Dynamic)

@@ -6,8 +6,9 @@ from reproducer.model.step import Step
 from .github_builder import GitHubBuilder
 
 
-def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, setup=True):
-    # path to the source code
+def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, setup=True, outputs=None):
+    # setup is True if we call this function in GitHubBuilder, False if we call this function in predefined_action
+    # We call this function in predefined_action when we have a composite action
     if setup:
         lines = [
             '#!/usr/bin/env bash',
@@ -36,8 +37,11 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             'cp /home/github/{}/event.json /home/github/workflow/event.json'.format(github_builder.job.job_id),
             'echo -n > /home/github/workflow/envs.txt',
             'echo -n > /home/github/workflow/paths.txt',
+            'echo -n > /home/github/workflow/output.txt',
             '',
             'CURRENT_ENV=()',
+            'LAST_JOB_NAME=UNKNOWN',
+            'declare -gA STEP_OUTPUTS_ENV_MAP',
         ]
     else:
         lines = [
@@ -49,10 +53,13 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             '',
             'cd ${GITHUB_WORKSPACE}',
             'CURRENT_ENV=()',
+            'LAST_JOB_NAME=UNKNOWN',
+            'declare -gA STEP_OUTPUTS_ENV_MAP',
         ]
 
     lines += [
         'update_current_env() {',
+        '  LAST_JOB_NAME=$1',
         '  CURRENT_ENV=()',
         '  unset CURRENT_ENV_MAP',
         '  declare -gA CURRENT_ENV_MAP',
@@ -94,20 +101,70 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
         '      elif [[ "$line" =~ $regex2 ]]; then',
         '        CURRENT_ENV_MAP["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"',
         '      fi',
-
         '    done < /home/github/workflow/envs.txt',
         '',
-
-        # Set CURRENT_ENV from ENV array
-        '    for key in "${!CURRENT_ENV_MAP[@]}"; do',
-        '        val="${CURRENT_ENV_MAP["$key"]}"',
-        '        CURRENT_ENV+=("${key}=${val}")',
-        '    done',
-
         '  else',
         # We don't have envs.txt file, create one
         '    echo -n "" > /home/github/workflow/envs.txt',
         '  fi',
+        '',
+        '  if [ -f /home/github/workflow/output.txt ]; then',
+        # Use bash to convert DELIMITER list to env list
+        '    local KEY=""',
+        '    local VALUE=""',
+        '    local DELIMITER=""',
+        # Define regex
+        '    local regex="(.*)<<(.*)"',
+        '    local regex2="(.*)=(.*)"',
+        '',
+        '    while read line; do',
+
+        # If the line is var_name<<DELIMITER
+        '      if [[ "$KEY" = "" && "$line" =~ $regex ]]; then',
+        # Save var_name to KEY
+        '        KEY="${BASH_REMATCH[1]^^}"',
+        '        KEY=${KEY//-/_}',  # Replace - with _
+        '        DELIMITER="${BASH_REMATCH[2]}"',
+
+        # If the line is DELIMITER
+        '      elif [[ "$KEY" != "" && "$line" = "$DELIMITER" ]]; then',
+        # Add KEY VALUE pairs to CURRENT_ENV
+        '        STEP_OUTPUTS_ENV_MAP["_CONTEXT_STEPS_"$LAST_JOB_NAME"_OUTPUTS_$KEY"]="${VALUE}"',
+        # Reset KEY and VALUE
+        '        KEY=""',
+        '        VALUE=""',
+        '        DELIMITER=""',
+
+        '      elif [[ "$KEY" != "" ]]; then',
+        # If VALUE is empty, set it to current line. Otherwise, append \n + line to VALUE
+        '        if [[ $VALUE = "" ]]; then',
+        '          VALUE="$line"',
+        '        else',
+        '          VALUE="$VALUE\n$line"',
+        '        fi',
+
+        # The line is "var_name=value"; set the corresponding variable
+        '      elif [[ "$line" =~ $regex2 ]]; then',
+        '        KEY="${BASH_REMATCH[1]^^}"',
+        '        KEY=${KEY//-/_}',  # Replace - with _
+        '        VALUE="${BASH_REMATCH[2]}"',
+        '        STEP_OUTPUTS_ENV_MAP["_CONTEXT_STEPS_"$LAST_JOB_NAME"_OUTPUTS_$KEY"]="${VALUE}"',
+        '        KEY=""',
+        '        VALUE=""',
+        '      fi',
+        '    done < /home/github/workflow/output.txt',
+        '    echo -n "" > /home/github/workflow/output.txt',
+        '',
+        '  else',
+        # We don't have envs.txt file, create one
+        '    echo -n "" > /home/github/workflow/output.txt',
+        '  fi',
+        '',
+        # Set CURRENT_ENV from ENV array
+        '  for key in "${!CURRENT_ENV_MAP[@]}"; do',
+        '    val="${CURRENT_ENV_MAP["$key"]}"',
+        '    CURRENT_ENV+=("${key}=${val}")',
+        '  done',
         '}',
     ]
 
@@ -119,7 +176,8 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             # TODO: Fix spacing
             lines += [
                 '',
-                'update_current_env',
+                'update_current_env "$LAST_JOB_NAME"',
+                'LAST_JOB_NAME="{}"'.format(re.sub(r'\W', '_', str(s.step.get('id', 'unknown')).upper())),
                 'if [ -f /home/github/workflow/paths.txt ]; then',
                 # Convert lines in paths.txt into $PATH
                 '   while read NEW_PATH ',
@@ -203,6 +261,15 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             lines += [
                 'fi',  # if [[ $EXIT_CODE != 0 ]]
                 'fi',  # if [[ "$STEP_CONDITION" = "true" ]]
+            ]
+
+    # Handle composite actions' output
+    if isinstance(outputs, dict):
+        for key, value in outputs.items():
+            lines += [
+                'echo "{}<<delimiter" >> /home/github/workflow/output.txt'.format(key),
+                'echo "{}" >> /home/github/workflow/output.txt'.format(value),
+                'echo "delimiter" >> /home/github/workflow/output.txt'
             ]
 
     lines += [
