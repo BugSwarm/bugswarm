@@ -19,13 +19,13 @@ class ArtifactLogAdder(object):
     def run(self):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
 
-        if os.path.isfile('../cache-dependency/output/{}.csv'.format(self.task)) is False:
+        if os.path.isfile('../github-cacher/output/{}.csv'.format(self.task)) is False:
             log.error(
                 'cache-dependency output CSV does not exist for task {}'.format(self.task))
             sys.exit(1)
 
         cached_image_tags = set()
-        with open('../cache-dependency/output/{}.csv'.format(self.task)) as f:
+        with open('../github-cacher/output/{}.csv'.format(self.task)) as f:
             for row in f:
                 # This assumes format '<image tag>, <succeed/error>, <size>, <size increase>'
                 row_list = row.split(', ')

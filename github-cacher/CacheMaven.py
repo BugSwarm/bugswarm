@@ -133,7 +133,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             job_orig_log = {}
             for f_or_p in ['failed', 'passed']:
                 job_id = self.job_id[f_or_p]
-                location = '../reproducer/intermediates/orig_logs/{}-orig.log'.format(job_id)
+                location = '../github-reproducer/intermediates/orig_logs/{}-orig.log'.format(job_id)
                 if not os.path.isfile(location):
                     location = '../pair-filter/original-logs/{}-orig.log'.format(job_id)
                 if not os.path.isfile(location) and not download_log(job_id, location, repo=self.repo):

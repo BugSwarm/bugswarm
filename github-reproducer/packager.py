@@ -32,7 +32,7 @@ class Packager(object):
         buildpairs = read_json(self.input_file)
         # Only check for skipping if CSV mode is disabled.
         cached_image_tags = []
-        with open('../cache-dependency/output/{}.csv'.format(self.task)) as f:
+        with open('../github-cacher/output/{}.csv'.format(self.task)) as f:
             for row in f:
                 # This assumes format  '<image tag>, <succeed/error>, <size>, <size increase>'
                 row_list = row.split(', ')
