@@ -64,7 +64,8 @@ def _get_original_result(analyzer, utils, job_id, trigger_sha, repo):
             log.info('Could not download original log.')
             return None, original_log_path
 
-    original_result = analyzer.analyze_single_log(original_log_path, job_id, trigger_sha=trigger_sha, repo=repo)
+    original_result = analyzer.analyze_single_log(
+        original_log_path, job_id, 'github', trigger_sha=trigger_sha, repo=repo)
     if original_result.get('not_in_supported_language') is True:
         raise ReproduceError('Original log was not generated from a job in a supported programming language. '
                              'The primary language was "{}."'.format(original_result['primary_language']))
@@ -72,7 +73,8 @@ def _get_original_result(analyzer, utils, job_id, trigger_sha, repo):
 
 
 def _get_reproduced_result(analyzer, reproduced_log_path, job_id, trigger_sha, repo):
-    reproduced_result = analyzer.analyze_single_log(reproduced_log_path, job_id, trigger_sha=trigger_sha, repo=repo)
+    reproduced_result = analyzer.analyze_single_log(
+        reproduced_log_path, job_id, 'github', trigger_sha=trigger_sha, repo=repo)
     if reproduced_result.get('not_in_supported_language') is True:
         raise ReproduceError('Reproduced log was not generated from a job in a supported programming language. '
                              'The primary language was "{}."'.format(reproduced_result['primary_language']))
