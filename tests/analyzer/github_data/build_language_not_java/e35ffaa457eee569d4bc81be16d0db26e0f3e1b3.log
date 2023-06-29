@@ -1,0 +1,934 @@
+2022-06-21T18:58:04.7792788Z Requested labels: self-hosted
+2022-06-21T18:58:04.7792893Z Job defined at: apache/airflow/.github/workflows/ci.yml@refs/heads/main
+2022-06-21T18:58:04.7792915Z Waiting for a runner to pick up this job...
+2022-06-21T18:58:05.3980521Z Job is about to start running on the runner: Airflow Runner 60 (organization)
+2022-06-21T18:58:10.6676475Z Current runner version: '2.293.0-airflow1'
+2022-06-21T18:58:10.6682075Z Runner name: 'Airflow Runner 60'
+2022-06-21T18:58:10.6682529Z Runner group name: 'Airflow'
+2022-06-21T18:58:10.6683046Z Machine name: 'ip-172-31-2-162'
+2022-06-21T18:58:10.6684530Z ##[group]GITHUB_TOKEN Permissions
+2022-06-21T18:58:10.6684942Z Contents: read
+2022-06-21T18:58:10.6685211Z Metadata: read
+2022-06-21T18:58:10.6685495Z Packages: read
+2022-06-21T18:58:10.6685758Z ##[endgroup]
+2022-06-21T18:58:10.6687789Z Secret source: Actions
+2022-06-21T18:58:10.6688216Z Prepare workflow directory
+2022-06-21T18:58:10.9097841Z Prepare all required actions
+2022-06-21T18:58:10.9272715Z Getting action download info
+2022-06-21T18:58:11.1569182Z Download action repository 'actions/checkout@v2' (SHA:7884fcad6b5d53d10323aee724dc68d8b9096a2e)
+2022-06-21T18:58:11.9221206Z Download action repository 'actions/setup-python@v2' (SHA:7f80679172b057fc5e90d70d197929d454754a5a)
+2022-06-21T18:58:12.4171235Z ##[group]Run docker run -v "${GITHUB_WORKSPACE}:/workspace" -u 0:0 bash -c "rm -rf /workspace/*"
+2022-06-21T18:58:12.4171780Z [36;1mdocker run -v "${GITHUB_WORKSPACE}:/workspace" -u 0:0 bash -c "rm -rf /workspace/*"[0m
+2022-06-21T18:58:12.4196049Z shell: /usr/bin/bash -e {0}
+2022-06-21T18:58:12.4196271Z env:
+2022-06-21T18:58:12.4196486Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:12.4196715Z   ANSWER: yes
+2022-06-21T18:58:12.4196911Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:12.4197142Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:12.4197363Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:12.4197556Z   DB_RESET: true
+2022-06-21T18:58:12.4197745Z   VERBOSE: true
+2022-06-21T18:58:12.4197963Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:12.4198186Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:12.4198444Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:12.4198954Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:12.4199200Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:12.4199483Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:12.4199745Z ##[endgroup]
+2022-06-21T18:58:12.4953818Z Unable to find image 'bash:latest' locally
+2022-06-21T18:58:12.9357048Z latest: Pulling from library/bash
+2022-06-21T18:58:13.0279780Z df9b9388f04a: Pulling fs layer
+2022-06-21T18:58:13.0280338Z f7c34bd876c2: Pulling fs layer
+2022-06-21T18:58:13.0280640Z 1094b2cc625c: Pulling fs layer
+2022-06-21T18:58:13.1542031Z 1094b2cc625c: Download complete
+2022-06-21T18:58:13.2273964Z f7c34bd876c2: Verifying Checksum
+2022-06-21T18:58:13.2274346Z f7c34bd876c2: Download complete
+2022-06-21T18:58:13.3682697Z df9b9388f04a: Pull complete
+2022-06-21T18:58:13.5296227Z f7c34bd876c2: Pull complete
+2022-06-21T18:58:13.5705783Z 1094b2cc625c: Pull complete
+2022-06-21T18:58:13.5769672Z Digest: sha256:b3abe4255706618c550e8db5ec0875328333a14dbf663e6f1e2b6875f45521e5
+2022-06-21T18:58:13.5770320Z Status: Downloaded newer image for bash:latest
+2022-06-21T18:58:15.2596276Z ##[group]Run actions/checkout@v2
+2022-06-21T18:58:15.2596536Z with:
+2022-06-21T18:58:15.2596751Z   persist-credentials: false
+2022-06-21T18:58:15.2596996Z   repository: apache/airflow
+2022-06-21T18:58:15.2597341Z   token: ***
+2022-06-21T18:58:15.2597535Z   ssh-strict: true
+2022-06-21T18:58:15.2597715Z   clean: true
+2022-06-21T18:58:15.2597905Z   fetch-depth: 1
+2022-06-21T18:58:15.2598097Z   lfs: false
+2022-06-21T18:58:15.2598270Z   submodules: false
+2022-06-21T18:58:15.2598485Z   set-safe-directory: true
+2022-06-21T18:58:15.2598687Z env:
+2022-06-21T18:58:15.2598875Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:15.2599088Z   ANSWER: yes
+2022-06-21T18:58:15.2599289Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:15.2599501Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:15.2599715Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:15.2599917Z   DB_RESET: true
+2022-06-21T18:58:15.2600090Z   VERBOSE: true
+2022-06-21T18:58:15.2600303Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:15.2600571Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:15.2600804Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:15.2601284Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:15.2601494Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:15.2601773Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:15.2602024Z ##[endgroup]
+2022-06-21T18:58:19.9322535Z Syncing repository: apache/airflow
+2022-06-21T18:58:19.9978671Z ##[group]Getting Git version info
+2022-06-21T18:58:19.9979278Z Working directory is '/home/runner/actions-runner/_work/airflow/airflow'
+2022-06-21T18:58:20.0005029Z [command]/usr/bin/git version
+2022-06-21T18:58:20.4645405Z git version 2.36.1
+2022-06-21T18:58:20.4667357Z ##[endgroup]
+2022-06-21T18:58:20.4687471Z Temporarily overriding HOME='/home/runner/actions-runner/_work/_temp/f72a2271-f3ca-4155-931d-da30e65d2d2f' before making global git config changes
+2022-06-21T18:58:20.4688250Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-21T18:58:20.4689420Z [command]/usr/bin/git config --global --add safe.directory /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:20.4724536Z Deleting the contents of '/home/runner/actions-runner/_work/airflow/airflow'
+2022-06-21T18:58:20.4727948Z ##[group]Initializing the repository
+2022-06-21T18:58:20.4731224Z [command]/usr/bin/git init /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:20.5299041Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-06-21T18:58:20.5299448Z hint: is subject to change. To configure the initial branch name to use in all
+2022-06-21T18:58:20.5299813Z hint: of your new repositories, which will suppress this warning, call:
+2022-06-21T18:58:20.5300057Z hint: 
+2022-06-21T18:58:20.5300397Z hint: 	git config --global init.defaultBranch <name>
+2022-06-21T18:58:20.5300634Z hint: 
+2022-06-21T18:58:20.5300955Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-06-21T18:58:20.5301407Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-06-21T18:58:20.5301867Z hint: 
+2022-06-21T18:58:20.5302371Z hint: 	git branch -m <name>
+2022-06-21T18:58:20.5303012Z Initialized empty Git repository in /home/runner/actions-runner/_work/airflow/airflow/.git/
+2022-06-21T18:58:20.5307078Z [command]/usr/bin/git remote add origin https://github.com/apache/airflow
+2022-06-21T18:58:20.5343734Z ##[endgroup]
+2022-06-21T18:58:20.5344445Z ##[group]Disabling automatic garbage collection
+2022-06-21T18:58:20.5347385Z [command]/usr/bin/git config --local gc.auto 0
+2022-06-21T18:58:20.5375728Z ##[endgroup]
+2022-06-21T18:58:20.5376115Z ##[group]Setting up auth
+2022-06-21T18:58:20.5405858Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-21T18:58:20.5437408Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-21T18:58:21.1060078Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-21T18:58:21.1091716Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-21T18:58:21.1289335Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2022-06-21T18:58:21.1324014Z ##[endgroup]
+2022-06-21T18:58:21.1324575Z ##[group]Fetching the repository
+2022-06-21T18:58:21.1331499Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +e35ffaa457eee569d4bc81be16d0db26e0f3e1b3:refs/remotes/origin/main
+2022-06-21T18:58:21.7261417Z remote: Enumerating objects: 5961, done.        
+2022-06-21T18:58:21.7261773Z remote: Counting objects:   0% (1/5961)        
+2022-06-21T18:58:21.7263884Z remote: Counting objects:   1% (60/5961)        
+2022-06-21T18:58:21.7264340Z remote: Counting objects:   2% (120/5961)        
+2022-06-21T18:58:21.7265232Z remote: Counting objects:   3% (179/5961)        
+2022-06-21T18:58:21.7265538Z remote: Counting objects:   4% (239/5961)        
+2022-06-21T18:58:21.7265800Z remote: Counting objects:   5% (299/5961)        
+2022-06-21T18:58:21.7266124Z remote: Counting objects:   6% (358/5961)        
+2022-06-21T18:58:21.7266378Z remote: Counting objects:   7% (418/5961)        
+2022-06-21T18:58:21.7266618Z remote: Counting objects:   8% (477/5961)        
+2022-06-21T18:58:21.7268094Z remote: Counting objects:   9% (537/5961)        
+2022-06-21T18:58:21.7268473Z remote: Counting objects:  10% (597/5961)        
+2022-06-21T18:58:21.7268857Z remote: Counting objects:  11% (656/5961)        
+2022-06-21T18:58:21.7269152Z remote: Counting objects:  12% (716/5961)        
+2022-06-21T18:58:21.7272393Z remote: Counting objects:  13% (775/5961)        
+2022-06-21T18:58:21.7273082Z remote: Counting objects:  14% (835/5961)        
+2022-06-21T18:58:21.7273512Z remote: Counting objects:  15% (895/5961)        
+2022-06-21T18:58:21.7273798Z remote: Counting objects:  16% (954/5961)        
+2022-06-21T18:58:21.7274052Z remote: Counting objects:  17% (1014/5961)        
+2022-06-21T18:58:21.7274426Z remote: Counting objects:  18% (1073/5961)        
+2022-06-21T18:58:21.7278666Z remote: Counting objects:  19% (1133/5961)        
+2022-06-21T18:58:21.7278985Z remote: Counting objects:  20% (1193/5961)        
+2022-06-21T18:58:21.7279510Z remote: Counting objects:  21% (1252/5961)        
+2022-06-21T18:58:21.7279771Z remote: Counting objects:  22% (1312/5961)        
+2022-06-21T18:58:21.7282767Z remote: Counting objects:  23% (1372/5961)        
+2022-06-21T18:58:21.7369779Z remote: Counting objects:  24% (1431/5961)        
+2022-06-21T18:58:21.7370303Z remote: Counting objects:  25% (1491/5961)        
+2022-06-21T18:58:21.7370821Z remote: Counting objects:  26% (1550/5961)        
+2022-06-21T18:58:21.7371124Z remote: Counting objects:  27% (1610/5961)        
+2022-06-21T18:58:21.7371511Z remote: Counting objects:  28% (1670/5961)        
+2022-06-21T18:58:21.7371887Z remote: Counting objects:  29% (1729/5961)        
+2022-06-21T18:58:21.7372137Z remote: Counting objects:  30% (1789/5961)        
+2022-06-21T18:58:21.7372465Z remote: Counting objects:  31% (1848/5961)        
+2022-06-21T18:58:21.7373266Z remote: Counting objects:  32% (1908/5961)        
+2022-06-21T18:58:21.7373687Z remote: Counting objects:  33% (1968/5961)        
+2022-06-21T18:58:21.7374105Z remote: Counting objects:  34% (2027/5961)        
+2022-06-21T18:58:21.7374527Z remote: Counting objects:  35% (2087/5961)        
+2022-06-21T18:58:21.7374962Z remote: Counting objects:  36% (2146/5961)        
+2022-06-21T18:58:21.7375328Z remote: Counting objects:  37% (2206/5961)        
+2022-06-21T18:58:21.7375566Z remote: Counting objects:  38% (2266/5961)        
+2022-06-21T18:58:21.7376041Z remote: Counting objects:  39% (2325/5961)        
+2022-06-21T18:58:21.7376842Z remote: Counting objects:  40% (2385/5961)        
+2022-06-21T18:58:21.7377304Z remote: Counting objects:  41% (2445/5961)        
+2022-06-21T18:58:21.7377778Z remote: Counting objects:  42% (2504/5961)        
+2022-06-21T18:58:21.7378122Z remote: Counting objects:  43% (2564/5961)        
+2022-06-21T18:58:21.7378369Z remote: Counting objects:  44% (2623/5961)        
+2022-06-21T18:58:21.7378602Z remote: Counting objects:  45% (2683/5961)        
+2022-06-21T18:58:21.7378850Z remote: Counting objects:  46% (2743/5961)        
+2022-06-21T18:58:21.7379101Z remote: Counting objects:  47% (2802/5961)        
+2022-06-21T18:58:21.7379336Z remote: Counting objects:  48% (2862/5961)        
+2022-06-21T18:58:21.7379585Z remote: Counting objects:  49% (2921/5961)        
+2022-06-21T18:58:21.7379832Z remote: Counting objects:  50% (2981/5961)        
+2022-06-21T18:58:21.7380713Z remote: Counting objects:  51% (3041/5961)        
+2022-06-21T18:58:21.7381111Z remote: Counting objects:  52% (3100/5961)        
+2022-06-21T18:58:21.7381419Z remote: Counting objects:  53% (3160/5961)        
+2022-06-21T18:58:21.7381755Z remote: Counting objects:  54% (3219/5961)        
+2022-06-21T18:58:21.7382289Z remote: Counting objects:  55% (3279/5961)        
+2022-06-21T18:58:21.7382546Z remote: Counting objects:  56% (3339/5961)        
+2022-06-21T18:58:21.7382802Z remote: Counting objects:  57% (3398/5961)        
+2022-06-21T18:58:21.7383187Z remote: Counting objects:  58% (3458/5961)        
+2022-06-21T18:58:21.7383623Z remote: Counting objects:  59% (3517/5961)        
+2022-06-21T18:58:21.7384103Z remote: Counting objects:  60% (3577/5961)        
+2022-06-21T18:58:21.7384577Z remote: Counting objects:  61% (3637/5961)        
+2022-06-21T18:58:21.7384841Z remote: Counting objects:  62% (3696/5961)        
+2022-06-21T18:58:21.7385096Z remote: Counting objects:  63% (3756/5961)        
+2022-06-21T18:58:21.7385368Z remote: Counting objects:  64% (3816/5961)        
+2022-06-21T18:58:21.7385626Z remote: Counting objects:  65% (3875/5961)        
+2022-06-21T18:58:21.7385866Z remote: Counting objects:  66% (3935/5961)        
+2022-06-21T18:58:21.7386123Z remote: Counting objects:  67% (3994/5961)        
+2022-06-21T18:58:21.7386377Z remote: Counting objects:  68% (4054/5961)        
+2022-06-21T18:58:21.7386617Z remote: Counting objects:  69% (4114/5961)        
+2022-06-21T18:58:21.7386871Z remote: Counting objects:  70% (4173/5961)        
+2022-06-21T18:58:21.7387122Z remote: Counting objects:  71% (4233/5961)        
+2022-06-21T18:58:21.7387362Z remote: Counting objects:  72% (4292/5961)        
+2022-06-21T18:58:21.7387616Z remote: Counting objects:  73% (4352/5961)        
+2022-06-21T18:58:21.7387867Z remote: Counting objects:  74% (4412/5961)        
+2022-06-21T18:58:21.7388110Z remote: Counting objects:  75% (4471/5961)        
+2022-06-21T18:58:21.7388363Z remote: Counting objects:  76% (4531/5961)        
+2022-06-21T18:58:21.7388615Z remote: Counting objects:  77% (4590/5961)        
+2022-06-21T18:58:21.7388871Z remote: Counting objects:  78% (4650/5961)        
+2022-06-21T18:58:21.7389109Z remote: Counting objects:  79% (4710/5961)        
+2022-06-21T18:58:21.7389366Z remote: Counting objects:  80% (4769/5961)        
+2022-06-21T18:58:21.7389620Z remote: Counting objects:  81% (4829/5961)        
+2022-06-21T18:58:21.7389857Z remote: Counting objects:  82% (4889/5961)        
+2022-06-21T18:58:21.7390112Z remote: Counting objects:  83% (4948/5961)        
+2022-06-21T18:58:21.7390362Z remote: Counting objects:  84% (5008/5961)        
+2022-06-21T18:58:21.7390601Z remote: Counting objects:  85% (5067/5961)        
+2022-06-21T18:58:21.7390852Z remote: Counting objects:  86% (5127/5961)        
+2022-06-21T18:58:21.7391105Z remote: Counting objects:  87% (5187/5961)        
+2022-06-21T18:58:21.7391358Z remote: Counting objects:  88% (5246/5961)        
+2022-06-21T18:58:21.7391597Z remote: Counting objects:  89% (5306/5961)        
+2022-06-21T18:58:21.7391850Z remote: Counting objects:  90% (5365/5961)        
+2022-06-21T18:58:21.7392175Z remote: Counting objects:  91% (5425/5961)        
+2022-06-21T18:58:21.7392424Z remote: Counting objects:  92% (5485/5961)        
+2022-06-21T18:58:21.7392679Z remote: Counting objects:  93% (5544/5961)        
+2022-06-21T18:58:21.7392932Z remote: Counting objects:  94% (5604/5961)        
+2022-06-21T18:58:21.7393478Z remote: Counting objects:  95% (5663/5961)        
+2022-06-21T18:58:21.7393761Z remote: Counting objects:  96% (5723/5961)        
+2022-06-21T18:58:21.7400019Z remote: Counting objects:  97% (5783/5961)        
+2022-06-21T18:58:21.7400357Z remote: Counting objects:  98% (5842/5961)        
+2022-06-21T18:58:21.7400611Z remote: Counting objects:  99% (5902/5961)        
+2022-06-21T18:58:21.7400846Z remote: Counting objects: 100% (5961/5961)        
+2022-06-21T18:58:21.7401110Z remote: Counting objects: 100% (5961/5961), done.        
+2022-06-21T18:58:21.7484821Z remote: Compressing objects:   0% (1/4692)        
+2022-06-21T18:58:21.7567246Z remote: Compressing objects:   1% (47/4692)        
+2022-06-21T18:58:21.7671547Z remote: Compressing objects:   2% (94/4692)        
+2022-06-21T18:58:21.7914408Z remote: Compressing objects:   3% (141/4692)        
+2022-06-21T18:58:21.8042346Z remote: Compressing objects:   4% (188/4692)        
+2022-06-21T18:58:21.8109653Z remote: Compressing objects:   5% (235/4692)        
+2022-06-21T18:58:21.8278132Z remote: Compressing objects:   6% (282/4692)        
+2022-06-21T18:58:21.8417865Z remote: Compressing objects:   7% (329/4692)        
+2022-06-21T18:58:21.8731682Z remote: Compressing objects:   8% (376/4692)        
+2022-06-21T18:58:21.8874883Z remote: Compressing objects:   9% (423/4692)        
+2022-06-21T18:58:21.9051273Z remote: Compressing objects:  10% (470/4692)        
+2022-06-21T18:58:21.9262019Z remote: Compressing objects:  11% (517/4692)        
+2022-06-21T18:58:21.9390102Z remote: Compressing objects:  12% (564/4692)        
+2022-06-21T18:58:21.9557562Z remote: Compressing objects:  13% (610/4692)        
+2022-06-21T18:58:21.9733227Z remote: Compressing objects:  14% (657/4692)        
+2022-06-21T18:58:21.9918402Z remote: Compressing objects:  15% (704/4692)        
+2022-06-21T18:58:22.0143973Z remote: Compressing objects:  16% (751/4692)        
+2022-06-21T18:58:22.0314265Z remote: Compressing objects:  17% (798/4692)        
+2022-06-21T18:58:22.0498870Z remote: Compressing objects:  18% (845/4692)        
+2022-06-21T18:58:22.0771119Z remote: Compressing objects:  19% (892/4692)        
+2022-06-21T18:58:22.0946663Z remote: Compressing objects:  20% (939/4692)        
+2022-06-21T18:58:22.1149425Z remote: Compressing objects:  21% (986/4692)        
+2022-06-21T18:58:22.1343897Z remote: Compressing objects:  22% (1033/4692)        
+2022-06-21T18:58:22.1537594Z remote: Compressing objects:  23% (1080/4692)        
+2022-06-21T18:58:22.1783341Z remote: Compressing objects:  24% (1127/4692)        
+2022-06-21T18:58:22.2140372Z remote: Compressing objects:  25% (1173/4692)        
+2022-06-21T18:58:22.2337358Z remote: Compressing objects:  26% (1220/4692)        
+2022-06-21T18:58:22.2550883Z remote: Compressing objects:  27% (1267/4692)        
+2022-06-21T18:58:22.2684516Z remote: Compressing objects:  28% (1314/4692)        
+2022-06-21T18:58:22.2877380Z remote: Compressing objects:  29% (1361/4692)        
+2022-06-21T18:58:22.3084321Z remote: Compressing objects:  30% (1408/4692)        
+2022-06-21T18:58:22.3155074Z remote: Compressing objects:  31% (1455/4692)        
+2022-06-21T18:58:22.3220813Z remote: Compressing objects:  32% (1502/4692)        
+2022-06-21T18:58:22.3395686Z remote: Compressing objects:  33% (1549/4692)        
+2022-06-21T18:58:22.3562308Z remote: Compressing objects:  34% (1596/4692)        
+2022-06-21T18:58:22.3810262Z remote: Compressing objects:  35% (1643/4692)        
+2022-06-21T18:58:22.4069289Z remote: Compressing objects:  36% (1690/4692)        
+2022-06-21T18:58:22.4169688Z remote: Compressing objects:  37% (1737/4692)        
+2022-06-21T18:58:22.4330580Z remote: Compressing objects:  38% (1783/4692)        
+2022-06-21T18:58:22.4666717Z remote: Compressing objects:  39% (1830/4692)        
+2022-06-21T18:58:22.4819167Z remote: Compressing objects:  40% (1877/4692)        
+2022-06-21T18:58:22.5031535Z remote: Compressing objects:  41% (1924/4692)        
+2022-06-21T18:58:22.5231527Z remote: Compressing objects:  42% (1971/4692)        
+2022-06-21T18:58:22.5355170Z remote: Compressing objects:  43% (2018/4692)        
+2022-06-21T18:58:22.5597308Z remote: Compressing objects:  44% (2065/4692)        
+2022-06-21T18:58:22.6027738Z remote: Compressing objects:  45% (2112/4692)        
+2022-06-21T18:58:22.6180069Z remote: Compressing objects:  46% (2159/4692)        
+2022-06-21T18:58:22.6317245Z remote: Compressing objects:  47% (2206/4692)        
+2022-06-21T18:58:22.6410390Z remote: Compressing objects:  48% (2253/4692)        
+2022-06-21T18:58:22.6479620Z remote: Compressing objects:  49% (2300/4692)        
+2022-06-21T18:58:22.8705123Z remote: Compressing objects:  50% (2346/4692)        
+2022-06-21T18:58:22.8705648Z remote: Compressing objects:  51% (2393/4692)        
+2022-06-21T18:58:22.8706188Z remote: Compressing objects:  52% (2440/4692)        
+2022-06-21T18:58:22.8707034Z remote: Compressing objects:  53% (2487/4692)        
+2022-06-21T18:58:22.8707433Z remote: Compressing objects:  54% (2534/4692)        
+2022-06-21T18:58:22.8707686Z remote: Compressing objects:  55% (2581/4692)        
+2022-06-21T18:58:22.8707959Z remote: Compressing objects:  56% (2628/4692)        
+2022-06-21T18:58:22.8708227Z remote: Compressing objects:  56% (2657/4692)        
+2022-06-21T18:58:22.8708479Z remote: Compressing objects:  57% (2675/4692)        
+2022-06-21T18:58:22.8708755Z remote: Compressing objects:  58% (2722/4692)        
+2022-06-21T18:58:22.8709027Z remote: Compressing objects:  59% (2769/4692)        
+2022-06-21T18:58:22.8709280Z remote: Compressing objects:  60% (2816/4692)        
+2022-06-21T18:58:22.8709553Z remote: Compressing objects:  61% (2863/4692)        
+2022-06-21T18:58:22.8709821Z remote: Compressing objects:  62% (2910/4692)        
+2022-06-21T18:58:22.8710097Z remote: Compressing objects:  63% (2956/4692)        
+2022-06-21T18:58:22.8710356Z remote: Compressing objects:  64% (3003/4692)        
+2022-06-21T18:58:22.8710622Z remote: Compressing objects:  65% (3050/4692)        
+2022-06-21T18:58:22.8710885Z remote: Compressing objects:  66% (3097/4692)        
+2022-06-21T18:58:22.8711135Z remote: Compressing objects:  67% (3144/4692)        
+2022-06-21T18:58:22.8711408Z remote: Compressing objects:  68% (3191/4692)        
+2022-06-21T18:58:22.8711675Z remote: Compressing objects:  69% (3238/4692)        
+2022-06-21T18:58:22.8711927Z remote: Compressing objects:  70% (3285/4692)        
+2022-06-21T18:58:22.8712197Z remote: Compressing objects:  71% (3332/4692)        
+2022-06-21T18:58:22.8735509Z remote: Compressing objects:  72% (3379/4692)        
+2022-06-21T18:58:22.8832596Z remote: Compressing objects:  73% (3426/4692)        
+2022-06-21T18:58:22.8895539Z remote: Compressing objects:  74% (3473/4692)        
+2022-06-21T18:58:22.9130594Z remote: Compressing objects:  75% (3519/4692)        
+2022-06-21T18:58:22.9231057Z remote: Compressing objects:  76% (3566/4692)        
+2022-06-21T18:58:22.9260938Z remote: Compressing objects:  77% (3613/4692)        
+2022-06-21T18:58:22.9263668Z remote: Compressing objects:  78% (3660/4692)        
+2022-06-21T18:58:22.9264220Z remote: Compressing objects:  79% (3707/4692)        
+2022-06-21T18:58:22.9270977Z remote: Compressing objects:  80% (3754/4692)        
+2022-06-21T18:58:22.9274819Z remote: Compressing objects:  81% (3801/4692)        
+2022-06-21T18:58:22.9275334Z remote: Compressing objects:  82% (3848/4692)        
+2022-06-21T18:58:22.9275750Z remote: Compressing objects:  83% (3895/4692)        
+2022-06-21T18:58:22.9280079Z remote: Compressing objects:  84% (3942/4692)        
+2022-06-21T18:58:22.9288600Z remote: Compressing objects:  85% (3989/4692)        
+2022-06-21T18:58:22.9289287Z remote: Compressing objects:  86% (4036/4692)        
+2022-06-21T18:58:22.9289951Z remote: Compressing objects:  87% (4083/4692)        
+2022-06-21T18:58:22.9290210Z remote: Compressing objects:  88% (4129/4692)        
+2022-06-21T18:58:22.9291754Z remote: Compressing objects:  89% (4176/4692)        
+2022-06-21T18:58:22.9294463Z remote: Compressing objects:  90% (4223/4692)        
+2022-06-21T18:58:22.9306060Z remote: Compressing objects:  91% (4270/4692)        
+2022-06-21T18:58:22.9306599Z remote: Compressing objects:  92% (4317/4692)        
+2022-06-21T18:58:22.9311277Z remote: Compressing objects:  93% (4364/4692)        
+2022-06-21T18:58:22.9311815Z remote: Compressing objects:  94% (4411/4692)        
+2022-06-21T18:58:22.9313815Z remote: Compressing objects:  95% (4458/4692)        
+2022-06-21T18:58:22.9316456Z remote: Compressing objects:  96% (4505/4692)        
+2022-06-21T18:58:22.9323315Z remote: Compressing objects:  97% (4552/4692)        
+2022-06-21T18:58:22.9330246Z remote: Compressing objects:  98% (4599/4692)        
+2022-06-21T18:58:22.9332354Z remote: Compressing objects:  99% (4646/4692)        
+2022-06-21T18:58:22.9332712Z remote: Compressing objects: 100% (4692/4692)        
+2022-06-21T18:58:22.9332998Z remote: Compressing objects: 100% (4692/4692), done.        
+2022-06-21T18:58:22.9632903Z Receiving objects:   0% (1/5961)
+2022-06-21T18:58:23.0129350Z Receiving objects:   1% (60/5961)
+2022-06-21T18:58:23.0238247Z Receiving objects:   2% (120/5961)
+2022-06-21T18:58:23.0355547Z Receiving objects:   3% (179/5961)
+2022-06-21T18:58:23.0370326Z Receiving objects:   4% (239/5961)
+2022-06-21T18:58:23.0377025Z Receiving objects:   5% (299/5961)
+2022-06-21T18:58:23.0462553Z Receiving objects:   6% (358/5961)
+2022-06-21T18:58:23.0469861Z Receiving objects:   7% (418/5961)
+2022-06-21T18:58:23.0484611Z Receiving objects:   8% (477/5961)
+2022-06-21T18:58:23.0590483Z Receiving objects:   9% (537/5961)
+2022-06-21T18:58:23.0693705Z Receiving objects:  10% (597/5961)
+2022-06-21T18:58:23.0711208Z Receiving objects:  11% (656/5961)
+2022-06-21T18:58:23.0802705Z Receiving objects:  12% (716/5961)
+2022-06-21T18:58:23.0933732Z Receiving objects:  13% (775/5961)
+2022-06-21T18:58:23.0952896Z Receiving objects:  14% (835/5961)
+2022-06-21T18:58:23.1045254Z Receiving objects:  15% (895/5961)
+2022-06-21T18:58:23.1073875Z Receiving objects:  16% (954/5961)
+2022-06-21T18:58:23.1171084Z Receiving objects:  17% (1014/5961)
+2022-06-21T18:58:23.1190809Z Receiving objects:  18% (1073/5961)
+2022-06-21T18:58:23.1280873Z Receiving objects:  19% (1133/5961)
+2022-06-21T18:58:23.1303860Z Receiving objects:  20% (1193/5961)
+2022-06-21T18:58:23.1345217Z Receiving objects:  21% (1252/5961)
+2022-06-21T18:58:23.1432007Z Receiving objects:  22% (1312/5961)
+2022-06-21T18:58:23.1544448Z Receiving objects:  23% (1372/5961)
+2022-06-21T18:58:23.1617105Z Receiving objects:  24% (1431/5961)
+2022-06-21T18:58:23.1960728Z Receiving objects:  25% (1491/5961)
+2022-06-21T18:58:23.2247309Z Receiving objects:  26% (1550/5961)
+2022-06-21T18:58:23.2345297Z Receiving objects:  27% (1610/5961)
+2022-06-21T18:58:23.2408312Z Receiving objects:  28% (1670/5961)
+2022-06-21T18:58:23.2435961Z Receiving objects:  29% (1729/5961)
+2022-06-21T18:58:23.2534980Z Receiving objects:  30% (1789/5961)
+2022-06-21T18:58:23.2562858Z Receiving objects:  31% (1848/5961)
+2022-06-21T18:58:23.2615124Z Receiving objects:  32% (1908/5961)
+2022-06-21T18:58:23.2658711Z Receiving objects:  33% (1968/5961)
+2022-06-21T18:58:23.2695213Z Receiving objects:  34% (2027/5961)
+2022-06-21T18:58:23.2792624Z Receiving objects:  35% (2087/5961)
+2022-06-21T18:58:23.2834675Z Receiving objects:  36% (2146/5961)
+2022-06-21T18:58:23.3031235Z Receiving objects:  37% (2206/5961)
+2022-06-21T18:58:23.3356133Z Receiving objects:  38% (2266/5961)
+2022-06-21T18:58:23.3431896Z Receiving objects:  39% (2325/5961)
+2022-06-21T18:58:23.3896426Z Receiving objects:  40% (2385/5961)
+2022-06-21T18:58:23.3929900Z Receiving objects:  41% (2445/5961)
+2022-06-21T18:58:23.3949871Z Receiving objects:  42% (2504/5961)
+2022-06-21T18:58:23.4053165Z Receiving objects:  43% (2564/5961)
+2022-06-21T18:58:23.4058707Z Receiving objects:  44% (2623/5961)
+2022-06-21T18:58:23.4141645Z Receiving objects:  45% (2683/5961)
+2022-06-21T18:58:23.4185737Z Receiving objects:  46% (2743/5961)
+2022-06-21T18:58:23.4291902Z Receiving objects:  47% (2802/5961)
+2022-06-21T18:58:23.4351532Z Receiving objects:  48% (2862/5961)
+2022-06-21T18:58:23.4383050Z Receiving objects:  49% (2921/5961)
+2022-06-21T18:58:23.4405653Z Receiving objects:  50% (2981/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4419336Z Receiving objects:  51% (3041/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4457536Z Receiving objects:  52% (3100/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4480441Z Receiving objects:  53% (3160/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4502202Z Receiving objects:  54% (3219/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4510726Z Receiving objects:  55% (3279/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4526031Z Receiving objects:  56% (3339/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4539791Z Receiving objects:  57% (3398/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.4609193Z Receiving objects:  58% (3458/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.5841777Z Receiving objects:  59% (3517/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.6784092Z Receiving objects:  60% (3577/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.6818281Z Receiving objects:  61% (3637/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.6853069Z Receiving objects:  62% (3696/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.6965091Z Receiving objects:  63% (3756/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.7052669Z Receiving objects:  64% (3816/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.7160559Z Receiving objects:  65% (3875/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.7227823Z Receiving objects:  66% (3935/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.7399253Z Receiving objects:  67% (3994/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.7847714Z Receiving objects:  68% (4054/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8213633Z Receiving objects:  69% (4114/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8218597Z Receiving objects:  70% (4173/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8236439Z Receiving objects:  71% (4233/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8255356Z Receiving objects:  72% (4292/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8274655Z Receiving objects:  73% (4352/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8315038Z Receiving objects:  74% (4412/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8343077Z Receiving objects:  75% (4471/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8380305Z Receiving objects:  76% (4531/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8396893Z Receiving objects:  77% (4590/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8468643Z Receiving objects:  78% (4650/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8500890Z Receiving objects:  79% (4710/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8527133Z Receiving objects:  80% (4769/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8543695Z Receiving objects:  81% (4829/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8565578Z Receiving objects:  82% (4889/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8585143Z Receiving objects:  83% (4948/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8604614Z Receiving objects:  84% (5008/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8651849Z Receiving objects:  85% (5067/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8695987Z Receiving objects:  86% (5127/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8727347Z Receiving objects:  87% (5187/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8751470Z Receiving objects:  88% (5246/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8768100Z Receiving objects:  89% (5306/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8785145Z Receiving objects:  90% (5365/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8798909Z Receiving objects:  91% (5425/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8813251Z Receiving objects:  92% (5485/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8842021Z Receiving objects:  93% (5544/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8853572Z Receiving objects:  94% (5604/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8868878Z Receiving objects:  95% (5663/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8880695Z Receiving objects:  96% (5723/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8894416Z Receiving objects:  97% (5783/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8916771Z Receiving objects:  98% (5842/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8924393Z Receiving objects:  99% (5902/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8925197Z remote: Total 5961 (delta 2067), reused 2631 (delta 1090), pack-reused 0        
+2022-06-21T18:58:23.8948722Z Receiving objects: 100% (5961/5961), 5.13 MiB | 10.25 MiB/s
+2022-06-21T18:58:23.8949022Z Receiving objects: 100% (5961/5961), 24.86 MiB | 26.00 MiB/s, done.
+2022-06-21T18:58:23.8960368Z Resolving deltas:   0% (0/2067)
+2022-06-21T18:58:23.8965544Z Resolving deltas:   1% (21/2067)
+2022-06-21T18:58:23.8972191Z Resolving deltas:   2% (43/2067)
+2022-06-21T18:58:23.8976554Z Resolving deltas:   3% (63/2067)
+2022-06-21T18:58:23.8983675Z Resolving deltas:   4% (83/2067)
+2022-06-21T18:58:23.8988138Z Resolving deltas:   5% (104/2067)
+2022-06-21T18:58:23.8994145Z Resolving deltas:   6% (125/2067)
+2022-06-21T18:58:23.8995191Z Resolving deltas:   7% (145/2067)
+2022-06-21T18:58:23.8999048Z Resolving deltas:   8% (166/2067)
+2022-06-21T18:58:23.8999660Z Resolving deltas:   9% (187/2067)
+2022-06-21T18:58:23.9001631Z Resolving deltas:  10% (207/2067)
+2022-06-21T18:58:23.9002595Z Resolving deltas:  11% (229/2067)
+2022-06-21T18:58:23.9003380Z Resolving deltas:  12% (251/2067)
+2022-06-21T18:58:23.9005533Z Resolving deltas:  13% (269/2067)
+2022-06-21T18:58:23.9006663Z Resolving deltas:  14% (290/2067)
+2022-06-21T18:58:23.9007855Z Resolving deltas:  15% (311/2067)
+2022-06-21T18:58:23.9009221Z Resolving deltas:  16% (331/2067)
+2022-06-21T18:58:23.9010615Z Resolving deltas:  17% (352/2067)
+2022-06-21T18:58:23.9011288Z Resolving deltas:  18% (373/2067)
+2022-06-21T18:58:23.9014963Z Resolving deltas:  19% (393/2067)
+2022-06-21T18:58:23.9015808Z Resolving deltas:  20% (414/2067)
+2022-06-21T18:58:23.9021193Z Resolving deltas:  21% (435/2067)
+2022-06-21T18:58:23.9028345Z Resolving deltas:  22% (456/2067)
+2022-06-21T18:58:23.9034606Z Resolving deltas:  23% (476/2067)
+2022-06-21T18:58:23.9041143Z Resolving deltas:  24% (498/2067)
+2022-06-21T18:58:23.9045884Z Resolving deltas:  25% (518/2067)
+2022-06-21T18:58:23.9051529Z Resolving deltas:  26% (538/2067)
+2022-06-21T18:58:23.9055719Z Resolving deltas:  27% (559/2067)
+2022-06-21T18:58:23.9061028Z Resolving deltas:  28% (579/2067)
+2022-06-21T18:58:23.9071004Z Resolving deltas:  29% (600/2067)
+2022-06-21T18:58:23.9073692Z Resolving deltas:  30% (621/2067)
+2022-06-21T18:58:23.9075687Z Resolving deltas:  31% (641/2067)
+2022-06-21T18:58:23.9078516Z Resolving deltas:  32% (662/2067)
+2022-06-21T18:58:23.9080675Z Resolving deltas:  33% (684/2067)
+2022-06-21T18:58:23.9081872Z Resolving deltas:  34% (703/2067)
+2022-06-21T18:58:23.9086072Z Resolving deltas:  35% (724/2067)
+2022-06-21T18:58:23.9090218Z Resolving deltas:  36% (745/2067)
+2022-06-21T18:58:23.9097884Z Resolving deltas:  37% (765/2067)
+2022-06-21T18:58:23.9100887Z Resolving deltas:  38% (786/2067)
+2022-06-21T18:58:23.9105877Z Resolving deltas:  39% (807/2067)
+2022-06-21T18:58:23.9113208Z Resolving deltas:  40% (829/2067)
+2022-06-21T18:58:23.9121271Z Resolving deltas:  41% (848/2067)
+2022-06-21T18:58:23.9124718Z Resolving deltas:  42% (869/2067)
+2022-06-21T18:58:23.9131143Z Resolving deltas:  43% (889/2067)
+2022-06-21T18:58:23.9149061Z Resolving deltas:  44% (910/2067)
+2022-06-21T18:58:23.9163173Z Resolving deltas:  45% (931/2067)
+2022-06-21T18:58:23.9182395Z Resolving deltas:  46% (952/2067)
+2022-06-21T18:58:23.9195109Z Resolving deltas:  47% (972/2067)
+2022-06-21T18:58:23.9209381Z Resolving deltas:  48% (993/2067)
+2022-06-21T18:58:23.9214340Z Resolving deltas:  49% (1013/2067)
+2022-06-21T18:58:23.9218761Z Resolving deltas:  50% (1035/2067)
+2022-06-21T18:58:23.9220556Z Resolving deltas:  51% (1055/2067)
+2022-06-21T18:58:23.9224514Z Resolving deltas:  52% (1076/2067)
+2022-06-21T18:58:23.9231572Z Resolving deltas:  53% (1096/2067)
+2022-06-21T18:58:23.9236177Z Resolving deltas:  54% (1117/2067)
+2022-06-21T18:58:23.9240905Z Resolving deltas:  55% (1137/2067)
+2022-06-21T18:58:23.9261773Z Resolving deltas:  56% (1158/2067)
+2022-06-21T18:58:23.9268075Z Resolving deltas:  57% (1179/2067)
+2022-06-21T18:58:23.9272422Z Resolving deltas:  58% (1199/2067)
+2022-06-21T18:58:23.9274860Z Resolving deltas:  59% (1220/2067)
+2022-06-21T18:58:23.9277881Z Resolving deltas:  60% (1241/2067)
+2022-06-21T18:58:23.9288013Z Resolving deltas:  61% (1261/2067)
+2022-06-21T18:58:23.9290901Z Resolving deltas:  62% (1282/2067)
+2022-06-21T18:58:23.9295704Z Resolving deltas:  63% (1303/2067)
+2022-06-21T18:58:23.9298932Z Resolving deltas:  64% (1323/2067)
+2022-06-21T18:58:23.9305695Z Resolving deltas:  65% (1344/2067)
+2022-06-21T18:58:23.9314021Z Resolving deltas:  66% (1365/2067)
+2022-06-21T18:58:23.9321375Z Resolving deltas:  67% (1385/2067)
+2022-06-21T18:58:23.9323933Z Resolving deltas:  68% (1406/2067)
+2022-06-21T18:58:23.9326684Z Resolving deltas:  69% (1428/2067)
+2022-06-21T18:58:23.9332263Z Resolving deltas:  70% (1447/2067)
+2022-06-21T18:58:23.9334945Z Resolving deltas:  71% (1468/2067)
+2022-06-21T18:58:23.9342899Z Resolving deltas:  72% (1489/2067)
+2022-06-21T18:58:23.9354104Z Resolving deltas:  73% (1511/2067)
+2022-06-21T18:58:23.9357988Z Resolving deltas:  74% (1530/2067)
+2022-06-21T18:58:23.9363995Z Resolving deltas:  75% (1553/2067)
+2022-06-21T18:58:23.9370530Z Resolving deltas:  76% (1571/2067)
+2022-06-21T18:58:23.9377014Z Resolving deltas:  77% (1592/2067)
+2022-06-21T18:58:23.9385114Z Resolving deltas:  78% (1613/2067)
+2022-06-21T18:58:23.9399664Z Resolving deltas:  79% (1633/2067)
+2022-06-21T18:58:23.9408009Z Resolving deltas:  80% (1654/2067)
+2022-06-21T18:58:23.9417621Z Resolving deltas:  81% (1675/2067)
+2022-06-21T18:58:23.9428687Z Resolving deltas:  82% (1695/2067)
+2022-06-21T18:58:23.9434494Z Resolving deltas:  83% (1716/2067)
+2022-06-21T18:58:23.9439147Z Resolving deltas:  84% (1737/2067)
+2022-06-21T18:58:23.9448202Z Resolving deltas:  85% (1757/2067)
+2022-06-21T18:58:23.9456889Z Resolving deltas:  86% (1778/2067)
+2022-06-21T18:58:23.9466523Z Resolving deltas:  87% (1799/2067)
+2022-06-21T18:58:23.9473420Z Resolving deltas:  88% (1819/2067)
+2022-06-21T18:58:23.9480458Z Resolving deltas:  89% (1840/2067)
+2022-06-21T18:58:23.9483228Z Resolving deltas:  90% (1861/2067)
+2022-06-21T18:58:23.9488810Z Resolving deltas:  91% (1881/2067)
+2022-06-21T18:58:23.9496591Z Resolving deltas:  92% (1902/2067)
+2022-06-21T18:58:23.9504642Z Resolving deltas:  93% (1924/2067)
+2022-06-21T18:58:23.9519035Z Resolving deltas:  94% (1943/2067)
+2022-06-21T18:58:23.9527476Z Resolving deltas:  95% (1964/2067)
+2022-06-21T18:58:23.9535939Z Resolving deltas:  96% (1985/2067)
+2022-06-21T18:58:23.9539494Z Resolving deltas:  97% (2007/2067)
+2022-06-21T18:58:23.9543279Z Resolving deltas:  98% (2026/2067)
+2022-06-21T18:58:23.9549544Z Resolving deltas:  99% (2047/2067)
+2022-06-21T18:58:23.9550015Z Resolving deltas: 100% (2067/2067)
+2022-06-21T18:58:23.9550462Z Resolving deltas: 100% (2067/2067), done.
+2022-06-21T18:58:24.0315478Z From https://github.com/apache/airflow
+2022-06-21T18:58:24.0316230Z  * [new ref]         e35ffaa457eee569d4bc81be16d0db26e0f3e1b3 -> origin/main
+2022-06-21T18:58:24.0336584Z ##[endgroup]
+2022-06-21T18:58:24.0337190Z ##[group]Determining the checkout info
+2022-06-21T18:58:24.0339031Z ##[endgroup]
+2022-06-21T18:58:24.0339515Z ##[group]Checking out the ref
+2022-06-21T18:58:24.0343630Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2022-06-21T18:58:24.3629573Z Switched to a new branch 'main'
+2022-06-21T18:58:24.3629946Z branch 'main' set up to track 'origin/main'.
+2022-06-21T18:58:24.3642788Z ##[endgroup]
+2022-06-21T18:58:24.3687084Z [command]/usr/bin/git log -1 --format='%H'
+2022-06-21T18:58:24.3714952Z 'e35ffaa457eee569d4bc81be16d0db26e0f3e1b3'
+2022-06-21T18:58:24.3722762Z ##[group]Removing auth
+2022-06-21T18:58:24.3725627Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-21T18:58:24.3755928Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-21T18:58:24.3963350Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-21T18:58:24.3987245Z http.https://github.com/.extraheader
+2022-06-21T18:58:24.3993517Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2022-06-21T18:58:24.4023420Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-21T18:58:24.4225011Z ##[endgroup]
+2022-06-21T18:58:24.4345449Z ##[group]Run actions/setup-python@v2
+2022-06-21T18:58:24.4345848Z with:
+2022-06-21T18:58:24.4346122Z   python-version: 3.7
+2022-06-21T18:58:24.4346385Z   cache: pip
+2022-06-21T18:58:24.4346697Z   cache-dependency-path: ./dev/breeze/setup*
+2022-06-21T18:58:24.4347140Z   token: ***
+2022-06-21T18:58:24.4347339Z env:
+2022-06-21T18:58:24.4347612Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:24.4347929Z   ANSWER: yes
+2022-06-21T18:58:24.4348161Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:24.4348475Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:24.4348767Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:24.4348996Z   DB_RESET: true
+2022-06-21T18:58:24.4349278Z   VERBOSE: true
+2022-06-21T18:58:24.4349576Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:24.4349828Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:24.4350154Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:24.4350583Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:24.4350956Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:24.4351268Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:24.4351607Z ##[endgroup]
+2022-06-21T18:58:24.5711501Z Version 3.7 was not found in the local cache
+2022-06-21T18:58:24.9018817Z Version 3.7 is available for downloading
+2022-06-21T18:58:24.9019820Z Download from "https://github.com/actions/python-versions/releases/download/3.7.13-2268493565/python-3.7.13-linux-20.04-x64.tar.gz"
+2022-06-21T18:58:25.7662334Z Extract downloaded archive
+2022-06-21T18:58:25.7757205Z [command]/usr/bin/tar xz --warning=no-unknown-keyword -C /home/runner/actions-runner/_work/_temp/f7433efb-6b8f-47b2-9e67-6d547db0a5ad -f /home/runner/actions-runner/_work/_temp/79a73f5d-d5bb-4552-bd19-94d69fe38562
+2022-06-21T18:58:27.2746663Z Execute installation script
+2022-06-21T18:58:27.2846403Z Check if Python hostedtoolcache folder exist...
+2022-06-21T18:58:27.2847034Z Creating Python hostedtoolcache folder...
+2022-06-21T18:58:27.2857733Z Create Python 3.7.13 folder
+2022-06-21T18:58:27.2869508Z Copy Python binaries to hostedtoolcache folder
+2022-06-21T18:58:27.5185061Z Create additional symlinks (Required for the UsePythonVersion Azure Pipelines task and the setup-python GitHub Action)
+2022-06-21T18:58:27.5220131Z Upgrading pip...
+2022-06-21T18:58:29.4000499Z Looking in links: /tmp/tmpz9n_fi9n
+2022-06-21T18:58:29.4004613Z Requirement already satisfied: setuptools in /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib/python3.7/site-packages (47.1.0)
+2022-06-21T18:58:29.4008881Z Requirement already satisfied: pip in /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib/python3.7/site-packages (22.0.4)
+2022-06-21T18:58:30.6103047Z Collecting pip
+2022-06-21T18:58:30.6819470Z Downloading pip-22.1.2-py3-none-any.whl (2.1 MB)
+2022-06-21T18:58:30.9277414Z ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 8.8 MB/s eta 0:00:00
+2022-06-21T18:58:30.9277888Z 
+2022-06-21T18:58:30.9689433Z Installing collected packages: pip
+2022-06-21T18:58:31.9700732Z Successfully installed pip-22.1.2
+2022-06-21T18:58:32.0303732Z Create complete file
+2022-06-21T18:58:32.0339991Z Successfully setup CPython (3.7.13)
+2022-06-21T18:58:32.0427988Z [command]/home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/bin/pip cache dir
+2022-06-21T18:58:32.2902688Z /home/runner/.cache/pip
+2022-06-21T18:58:32.8558186Z Received 22876040 of 22876040 (100.0%), 75.8 MBs/sec
+2022-06-21T18:58:32.8558844Z Cache Size: ~22 MB (22876040 B)
+2022-06-21T18:58:32.8574875Z [command]/usr/bin/tar -z -xf /home/runner/actions-runner/_work/_temp/f127bf21-7b53-446a-bbc1-f313bc241c46/cache.tgz -P -C /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:33.0214162Z Cache restored successfully
+2022-06-21T18:58:33.0236623Z Cache restored from key: setup-python-Linux-python-3.7.13-pip-b62278f15d5fbebcdb6fadbc4d6290e3f998ab95526b4d7c4316df52a4bccda5
+2022-06-21T18:58:33.0482846Z ##[group]Run python -m pip install --editable ./dev/breeze/
+2022-06-21T18:58:33.0483193Z [36;1mpython -m pip install --editable ./dev/breeze/[0m
+2022-06-21T18:58:33.0506767Z shell: /usr/bin/bash -e {0}
+2022-06-21T18:58:33.0506987Z env:
+2022-06-21T18:58:33.0507311Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:33.0507543Z   ANSWER: yes
+2022-06-21T18:58:33.0507761Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:33.0507992Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:33.0508222Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:33.0508434Z   DB_RESET: true
+2022-06-21T18:58:33.0508632Z   VERBOSE: true
+2022-06-21T18:58:33.0508856Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:33.0509085Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:33.0509349Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:33.0509768Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:33.0509993Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:33.0510318Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:33.0510734Z   pythonLocation: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64
+2022-06-21T18:58:33.0511120Z   LD_LIBRARY_PATH: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib
+2022-06-21T18:58:33.0511412Z ##[endgroup]
+2022-06-21T18:58:33.4368570Z Obtaining file:///home/runner/actions-runner/_work/airflow/airflow/dev/breeze
+2022-06-21T18:58:33.5835281Z   Installing build dependencies: started
+2022-06-21T18:58:36.4826143Z   Installing build dependencies: finished with status 'done'
+2022-06-21T18:58:36.4855189Z   Checking if build backend supports build_editable: started
+2022-06-21T18:58:36.7131063Z   Checking if build backend supports build_editable: finished with status 'done'
+2022-06-21T18:58:36.7143060Z   Getting requirements to build wheel: started
+2022-06-21T18:58:38.1212287Z   Getting requirements to build wheel: finished with status 'done'
+2022-06-21T18:58:38.1239878Z   Preparing metadata (pyproject.toml): started
+2022-06-21T18:58:39.6190255Z   Preparing metadata (pyproject.toml): finished with status 'done'
+2022-06-21T18:58:39.7238088Z Collecting click
+2022-06-21T18:58:39.7263044Z   Using cached click-8.1.3-py3-none-any.whl (96 kB)
+2022-06-21T18:58:39.7994115Z Collecting requests
+2022-06-21T18:58:39.8611349Z   Downloading requests-2.28.0-py3-none-any.whl (62 kB)
+2022-06-21T18:58:39.8810938Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 3.2 MB/s eta 0:00:00
+2022-06-21T18:58:39.9183775Z Collecting rich-click
+2022-06-21T18:58:39.9202828Z   Using cached rich_click-1.4-py3-none-any.whl (19 kB)
+2022-06-21T18:58:40.0359432Z Collecting rich>=12.4.4
+2022-06-21T18:58:40.0386096Z   Using cached rich-12.4.4-py3-none-any.whl (232 kB)
+2022-06-21T18:58:40.1286925Z Collecting importlib-metadata>=4.4
+2022-06-21T18:58:40.1307978Z   Using cached importlib_metadata-4.11.4-py3-none-any.whl (18 kB)
+2022-06-21T18:58:40.2244226Z Collecting pre-commit
+2022-06-21T18:58:40.2270307Z   Using cached pre_commit-2.19.0-py2.py3-none-any.whl (199 kB)
+2022-06-21T18:58:40.3217883Z Collecting pendulum
+2022-06-21T18:58:40.3240417Z   Using cached pendulum-2.1.2-cp37-cp37m-manylinux1_x86_64.whl (155 kB)
+2022-06-21T18:58:40.3797328Z Collecting pytest-xdist
+2022-06-21T18:58:40.3818047Z   Using cached pytest_xdist-2.5.0-py3-none-any.whl (41 kB)
+2022-06-21T18:58:40.4091688Z Collecting inputimeout
+2022-06-21T18:58:40.4111305Z   Using cached inputimeout-1.0.4-py3-none-any.whl (4.6 kB)
+2022-06-21T18:58:40.5426670Z Collecting pyyaml
+2022-06-21T18:58:40.5465542Z   Using cached PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+2022-06-21T18:58:40.7825756Z Collecting psutil
+2022-06-21T18:58:40.7852981Z   Using cached psutil-5.9.1-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (281 kB)
+2022-06-21T18:58:40.9436245Z Collecting pytest
+2022-06-21T18:58:40.9465940Z   Using cached pytest-7.1.2-py3-none-any.whl (297 kB)
+2022-06-21T18:58:41.0169908Z Collecting zipp>=0.5
+2022-06-21T18:58:41.0190285Z   Using cached zipp-3.8.0-py3-none-any.whl (5.4 kB)
+2022-06-21T18:58:41.0552108Z Collecting typing-extensions>=3.6.4
+2022-06-21T18:58:41.0571064Z   Using cached typing_extensions-4.2.0-py3-none-any.whl (24 kB)
+2022-06-21T18:58:41.1092492Z Collecting commonmark<0.10.0,>=0.9.0
+2022-06-21T18:58:41.1113030Z   Using cached commonmark-0.9.1-py2.py3-none-any.whl (51 kB)
+2022-06-21T18:58:41.1626867Z Collecting pygments<3.0.0,>=2.6.0
+2022-06-21T18:58:41.1680168Z   Using cached Pygments-2.12.0-py3-none-any.whl (1.1 MB)
+2022-06-21T18:58:41.2214420Z Collecting pytzdata>=2020.1
+2022-06-21T18:58:41.2247287Z   Using cached pytzdata-2020.1-py2.py3-none-any.whl (489 kB)
+2022-06-21T18:58:41.2689722Z Collecting python-dateutil<3.0,>=2.6
+2022-06-21T18:58:41.2715770Z   Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+2022-06-21T18:58:41.3909189Z Collecting identify>=1.0.0
+2022-06-21T18:58:41.3930726Z   Using cached identify-2.5.1-py2.py3-none-any.whl (98 kB)
+2022-06-21T18:58:41.4307089Z Collecting cfgv>=2.0.0
+2022-06-21T18:58:41.4325819Z   Using cached cfgv-3.3.1-py2.py3-none-any.whl (7.3 kB)
+2022-06-21T18:58:41.4715172Z Collecting nodeenv>=0.11.1
+2022-06-21T18:58:41.4734537Z   Using cached nodeenv-1.6.0-py2.py3-none-any.whl (21 kB)
+2022-06-21T18:58:41.5016210Z Collecting toml
+2022-06-21T18:58:41.5035371Z   Using cached toml-0.10.2-py2.py3-none-any.whl (16 kB)
+2022-06-21T18:58:41.6354725Z Collecting virtualenv>=20.0.8
+2022-06-21T18:58:41.6683431Z   Using cached virtualenv-20.14.1-py2.py3-none-any.whl (8.8 MB)
+2022-06-21T18:58:41.7878885Z Collecting attrs>=19.2.0
+2022-06-21T18:58:41.7899150Z   Using cached attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+2022-06-21T18:58:41.8378801Z Collecting packaging
+2022-06-21T18:58:41.8399918Z   Using cached packaging-21.3-py3-none-any.whl (40 kB)
+2022-06-21T18:58:41.8770160Z Collecting pluggy<2.0,>=0.12
+2022-06-21T18:58:41.8790237Z   Using cached pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+2022-06-21T18:58:41.9041985Z Collecting iniconfig
+2022-06-21T18:58:41.9062424Z   Using cached iniconfig-1.1.1-py2.py3-none-any.whl (5.0 kB)
+2022-06-21T18:58:41.9496537Z Collecting py>=1.8.2
+2022-06-21T18:58:41.9517341Z   Using cached py-1.11.0-py2.py3-none-any.whl (98 kB)
+2022-06-21T18:58:41.9895860Z Collecting tomli>=1.0.0
+2022-06-21T18:58:41.9915952Z   Using cached tomli-2.0.1-py3-none-any.whl (12 kB)
+2022-06-21T18:58:42.0739075Z Collecting execnet>=1.1
+2022-06-21T18:58:42.0760737Z   Using cached execnet-1.9.0-py2.py3-none-any.whl (39 kB)
+2022-06-21T18:58:42.1418901Z Collecting pytest-forked
+2022-06-21T18:58:42.1438793Z   Using cached pytest_forked-1.4.0-py3-none-any.whl (4.9 kB)
+2022-06-21T18:58:42.1955577Z Collecting charset-normalizer~=2.0.0
+2022-06-21T18:58:42.1975088Z   Using cached charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+2022-06-21T18:58:42.2314084Z Collecting idna<4,>=2.5
+2022-06-21T18:58:42.2333086Z   Using cached idna-3.3-py3-none-any.whl (61 kB)
+2022-06-21T18:58:42.2983180Z Collecting urllib3<1.27,>=1.21.1
+2022-06-21T18:58:42.3004873Z   Using cached urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+2022-06-21T18:58:42.3462437Z Collecting certifi>=2017.4.17
+2022-06-21T18:58:42.3611618Z   Downloading certifi-2022.6.15-py3-none-any.whl (160 kB)
+2022-06-21T18:58:42.3934513Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 160.2/160.2 kB 5.1 MB/s eta 0:00:00
+2022-06-21T18:58:42.5618765Z Collecting six>=1.5
+2022-06-21T18:58:42.5639222Z   Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+2022-06-21T18:58:42.6687402Z Collecting distlib<1,>=0.3.1
+2022-06-21T18:58:42.6720768Z   Using cached distlib-0.3.4-py2.py3-none-any.whl (461 kB)
+2022-06-21T18:58:42.7265109Z Collecting filelock<4,>=3.2
+2022-06-21T18:58:42.7285022Z   Using cached filelock-3.7.1-py3-none-any.whl (10 kB)
+2022-06-21T18:58:42.7669600Z Collecting platformdirs<3,>=2
+2022-06-21T18:58:42.7689217Z   Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)
+2022-06-21T18:58:42.9201375Z Collecting pyparsing!=3.0.5,>=2.0.2
+2022-06-21T18:58:42.9224842Z   Using cached pyparsing-3.0.9-py3-none-any.whl (98 kB)
+2022-06-21T18:58:43.2821314Z Installing collected packages: nodeenv, iniconfig, distlib, commonmark, zipp, urllib3, typing-extensions, tomli, toml, six, pyyaml, pytzdata, pyparsing, pygments, py, psutil, platformdirs, inputimeout, idna, identify, filelock, execnet, charset-normalizer, cfgv, certifi, attrs, rich, requests, python-dateutil, packaging, importlib-metadata, virtualenv, pluggy, pendulum, click, rich-click, pytest, pre-commit, pytest-forked, pytest-xdist, apache-airflow-breeze
+2022-06-21T18:58:45.3761282Z   Running setup.py develop for apache-airflow-breeze
+2022-06-21T18:58:47.5236188Z Successfully installed apache-airflow-breeze-0.0.1 attrs-21.4.0 certifi-2022.6.15 cfgv-3.3.1 charset-normalizer-2.0.12 click-8.1.3 commonmark-0.9.1 distlib-0.3.4 execnet-1.9.0 filelock-3.7.1 identify-2.5.1 idna-3.3 importlib-metadata-4.11.4 iniconfig-1.1.1 inputimeout-1.0.4 nodeenv-1.6.0 packaging-21.3 pendulum-2.1.2 platformdirs-2.5.2 pluggy-1.0.0 pre-commit-2.19.0 psutil-5.9.1 py-1.11.0 pygments-2.12.0 pyparsing-3.0.9 pytest-7.1.2 pytest-forked-1.4.0 pytest-xdist-2.5.0 python-dateutil-2.8.2 pytzdata-2020.1 pyyaml-6.0 requests-2.28.0 rich-12.4.4 rich-click-1.4 six-1.16.0 toml-0.10.2 tomli-2.0.1 typing-extensions-4.2.0 urllib3-1.26.9 virtualenv-20.14.1 zipp-3.8.0
+2022-06-21T18:58:47.6377547Z ##[group]Run python -m pytest ./dev/breeze/ -n auto --color=yes
+2022-06-21T18:58:47.6377916Z [36;1mpython -m pytest ./dev/breeze/ -n auto --color=yes[0m
+2022-06-21T18:58:47.6399215Z shell: /usr/bin/bash -e {0}
+2022-06-21T18:58:47.6399433Z env:
+2022-06-21T18:58:47.6399651Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:47.6399869Z   ANSWER: yes
+2022-06-21T18:58:47.6400082Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:47.6400322Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:47.6400553Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:47.6400765Z   DB_RESET: true
+2022-06-21T18:58:47.6400948Z   VERBOSE: true
+2022-06-21T18:58:47.6401171Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:47.6401415Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:47.6401674Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:47.6402085Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:47.6402300Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:47.6402612Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:47.6402975Z   pythonLocation: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64
+2022-06-21T18:58:47.6403340Z   LD_LIBRARY_PATH: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib
+2022-06-21T18:58:47.6403604Z ##[endgroup]
+2022-06-21T18:58:48.3332764Z [1m============================= test session starts ==============================[0m
+2022-06-21T18:58:48.3333870Z platform linux -- Python 3.7.13, pytest-7.1.2, pluggy-1.0.0 -- /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/bin/python
+2022-06-21T18:58:48.3334415Z cachedir: .pytest_cache
+2022-06-21T18:58:48.3335120Z rootdir: /home/runner/actions-runner/_work/airflow/airflow, configfile: pytest.ini
+2022-06-21T18:58:48.3335760Z plugins: xdist-2.5.0, forked-1.4.0
+2022-06-21T18:58:48.3345402Z gw0 I / gw1 I / gw2 I / gw3 I
+2022-06-21T18:58:48.3346452Z [1m
+2022-06-21T18:58:48.3347663Z [gw0] linux Python 3.7.13 cwd: /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:48.3348677Z [0m[1m
+2022-06-21T18:58:48.3352386Z [gw1] linux Python 3.7.13 cwd: /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:48.3352945Z [0m[1m
+2022-06-21T18:58:48.3353595Z [gw2] linux Python 3.7.13 cwd: /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:48.3354118Z [0m[1m
+2022-06-21T18:58:48.3354768Z [gw3] linux Python 3.7.13 cwd: /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:48.3355299Z [0m[1m
+2022-06-21T18:58:48.3355871Z [gw0] Python 3.7.13 (default, May  4 2022, 08:45:32)  -- [GCC 9.4.0]
+2022-06-21T18:58:48.3359573Z [0m[1m
+2022-06-21T18:58:48.3360225Z [gw1] Python 3.7.13 (default, May  4 2022, 08:45:32)  -- [GCC 9.4.0]
+2022-06-21T18:58:48.3360690Z [0m[1m
+2022-06-21T18:58:48.3361273Z [gw2] Python 3.7.13 (default, May  4 2022, 08:45:32)  -- [GCC 9.4.0]
+2022-06-21T18:58:48.3361723Z [0m[1m
+2022-06-21T18:58:48.3362251Z [gw3] Python 3.7.13 (default, May  4 2022, 08:45:32)  -- [GCC 9.4.0]
+2022-06-21T18:58:48.3362826Z [0mgw0 [32] / gw1 [32] / gw2 [32] / gw3 [32]
+2022-06-21T18:58:48.3363248Z 
+2022-06-21T18:58:48.3363369Z scheduling tests via LoadScheduling
+2022-06-21T18:58:48.3367285Z 
+2022-06-21T18:58:48.3368089Z dev/breeze/tests/test_cache.py::test_allowed_values[backend-xxx-result1-None] 
+2022-06-21T18:58:48.3369147Z dev/breeze/tests/test_cache.py::test_allowed_values[backend-mysql-result0-None] 
+2022-06-21T18:58:48.3370072Z dev/breeze/tests/test_cache.py::test_allowed_values[python_major_minor_version-3.5-result3-None] 
+2022-06-21T18:58:48.3371016Z dev/breeze/tests/test_cache.py::test_allowed_values[python_major_minor_version-3.8-result2-None] 
+2022-06-21T18:58:48.3380313Z [gw3][36m [  3%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_allowed_values[python_major_minor_version-3.5-result3-None] 
+2022-06-21T18:58:48.3386869Z [gw1][36m [  6%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_allowed_values[backend-xxx-result1-None] 
+2022-06-21T18:58:48.3388452Z [gw2][36m [  9%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_allowed_values[python_major_minor_version-3.8-result2-None] 
+2022-06-21T18:58:48.3391927Z [gw0][36m [ 12%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_allowed_values[backend-mysql-result0-None] 
+2022-06-21T18:58:48.3393783Z dev/breeze/tests/test_cache.py::test_check_if_cache_exists 
+2022-06-21T18:58:48.3398572Z dev/breeze/tests/test_cache.py::test_read_from_cache_file[mysql_version] 
+2022-06-21T18:58:48.3403873Z dev/breeze/tests/test_cache.py::test_read_from_cache_file[test_param] 
+2022-06-21T18:58:48.3427173Z dev/breeze/tests/test_cache.py::test_allowed_values[missing-value-None-AttributeError] 
+2022-06-21T18:58:48.3435708Z [gw2][36m [ 15%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_read_from_cache_file[test_param] 
+2022-06-21T18:58:48.3436344Z [gw0][36m [ 18%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_allowed_values[missing-value-None-AttributeError] 
+2022-06-21T18:58:48.3437964Z [gw3][36m [ 21%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_read_from_cache_file[mysql_version] 
+2022-06-21T18:58:48.3438680Z [gw1][36m [ 25%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_check_if_cache_exists 
+2022-06-21T18:58:48.3441377Z dev/breeze/tests/test_cache.py::test_read_from_cache_file[executor] 
+2022-06-21T18:58:48.3444259Z [gw1][36m [ 28%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_read_from_cache_file[executor] 
+2022-06-21T18:58:48.3455125Z dev/breeze/tests/test_cache.py::test_delete_cache_not_exists 
+2022-06-21T18:58:48.3472886Z dev/breeze/tests/test_commands.py::test_visuals 
+2022-06-21T18:58:48.3480025Z dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_all 
+2022-06-21T18:58:48.3481611Z [gw2][36m [ 31%] [0m[32mPASSED[0m dev/breeze/tests/test_commands.py::test_visuals 
+2022-06-21T18:58:48.3482385Z dev/breeze/tests/test_cache.py::test_delete_cache_exists 
+2022-06-21T18:58:48.3484489Z [gw0][36m [ 34%] [0m[32mPASSED[0m dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_all 
+2022-06-21T18:58:48.3485457Z [gw3][36m [ 37%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_delete_cache_not_exists 
+2022-06-21T18:58:48.3489722Z [gw1][36m [ 40%] [0m[32mPASSED[0m dev/breeze/tests/test_cache.py::test_delete_cache_exists 
+2022-06-21T18:58:48.3490919Z dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_skip 
+2022-06-21T18:58:48.3492677Z dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_remove 
+2022-06-21T18:58:48.3510320Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_unknown 
+2022-06-21T18:58:48.3517723Z dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_selected 
+2022-06-21T18:58:48.3526610Z [gw2][36m [ 43%] [0m[32mPASSED[0m dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_skip 
+2022-06-21T18:58:48.3531269Z [gw0][36m [ 46%] [0m[32mPASSED[0m dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_remove 
+2022-06-21T18:58:48.3532270Z [gw3][36m [ 50%] [0m[32mPASSED[0m dev/breeze/tests/test_commands.py::test_get_extra_docker_flags_selected 
+2022-06-21T18:58:48.3535929Z [gw1][36m [ 53%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_unknown 
+2022-06-21T18:58:48.3538886Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_too_low 
+2022-06-21T18:58:48.3540551Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_higher 
+2022-06-21T18:58:48.3542606Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_ok 
+2022-06-21T18:58:48.3566802Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_unknown 
+2022-06-21T18:58:48.3571345Z [gw0][36m [ 56%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_ok 
+2022-06-21T18:58:48.3579748Z [gw2][36m [ 59%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_too_low 
+2022-06-21T18:58:48.3588882Z [gw1][36m [ 62%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_version_higher 
+2022-06-21T18:58:48.3594374Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_low 
+2022-06-21T18:58:48.3599772Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_higher 
+2022-06-21T18:58:48.3607852Z [gw3][36m [ 65%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_unknown 
+2022-06-21T18:58:48.3608821Z dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_ok 
+2022-06-21T18:58:48.3617832Z [gw2][36m [ 68%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_low 
+2022-06-21T18:58:48.3622292Z [gw0][36m [ 71%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_higher 
+2022-06-21T18:58:48.3628636Z dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_upwards_from_cwd 
+2022-06-21T18:58:48.3637800Z [gw1][36m [ 75%] [0m[32mPASSED[0m dev/breeze/tests/test_docker_command_utils.py::test_check_docker_compose_version_ok 
+2022-06-21T18:58:48.3639951Z dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_upwards_from_file 
+2022-06-21T18:58:48.3640998Z [gw3][36m [ 78%] [0m[32mPASSED[0m dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_upwards_from_cwd 
+2022-06-21T18:58:48.3648295Z dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_from_installation_dir 
+2022-06-21T18:58:48.3650046Z dev/breeze/tests/test_global_constants.py::test_get_available_packages 
+2022-06-21T18:58:48.3654444Z [gw2][36m [ 81%] [0m[32mPASSED[0m dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_upwards_from_file 
+2022-06-21T18:58:48.3663473Z dev/breeze/tests/test_host_info_utils.py::test_get_host_os 
+2022-06-21T18:58:48.3671883Z [gw0][36m [ 84%] [0m[32mPASSED[0m dev/breeze/tests/test_find_airflow_directory.py::test_find_airflow_root_from_installation_dir 
+2022-06-21T18:58:48.3672504Z [gw3][36m [ 87%] [0m[32mPASSED[0m dev/breeze/tests/test_host_info_utils.py::test_get_host_os 
+2022-06-21T18:58:48.3678523Z dev/breeze/tests/test_run_utils.py::test_change_file_permission 
+2022-06-21T18:58:48.3680164Z dev/breeze/tests/test_run_utils.py::test_change_directory_permission 
+2022-06-21T18:58:48.3688463Z [gw1][36m [ 90%] [0m[32mPASSED[0m dev/breeze/tests/test_global_constants.py::test_get_available_packages 
+2022-06-21T18:58:48.3701912Z [gw2][36m [ 93%] [0m[32mPASSED[0m dev/breeze/tests/test_run_utils.py::test_change_file_permission 
+2022-06-21T18:58:48.3712453Z dev/breeze/tests/test_run_utils.py::test_filter_out_none 
+2022-06-21T18:58:48.3713951Z [gw0][36m [ 96%] [0m[32mPASSED[0m dev/breeze/tests/test_run_utils.py::test_change_directory_permission 
+2022-06-21T18:58:48.4133665Z [gw1][36m [100%] [0m[32mPASSED[0m dev/breeze/tests/test_run_utils.py::test_filter_out_none 
+2022-06-21T18:58:48.4133924Z 
+2022-06-21T18:58:48.4134197Z [33m=============================== warnings summary ===============================[0m
+2022-06-21T18:58:48.4134889Z ../../_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252
+2022-06-21T18:58:48.4135359Z ../../_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252
+2022-06-21T18:58:48.4135807Z ../../_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252
+2022-06-21T18:58:48.4136269Z ../../_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252
+2022-06-21T18:58:48.4136723Z ../../_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252
+2022-06-21T18:58:48.4137375Z   /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib/python3.7/site-packages/_pytest/config/__init__.py:1252: PytestConfigWarning: Unknown config option: asyncio_mode
+2022-06-21T18:58:48.4137750Z   
+2022-06-21T18:58:48.4138003Z     self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+2022-06-21T18:58:48.4138187Z 
+2022-06-21T18:58:48.4138547Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2022-06-21T18:58:48.4139045Z [33m======================== [32m32 passed[0m, [33m[1m5 warnings[0m[33m in 0.51s[0m[33m ========================[0m
+2022-06-21T18:58:48.4433631Z ##[group]Run breeze version
+2022-06-21T18:58:48.4433895Z [36;1mbreeze version[0m
+2022-06-21T18:58:48.4454805Z shell: /usr/bin/bash -e {0}
+2022-06-21T18:58:48.4455008Z env:
+2022-06-21T18:58:48.4455223Z   MOUNT_SELECTED_LOCAL_SOURCES: false
+2022-06-21T18:58:48.4455450Z   ANSWER: yes
+2022-06-21T18:58:48.4455659Z   CHECK_IMAGE_FOR_REBUILD: true
+2022-06-21T18:58:48.4455894Z   SKIP_CHECK_REMOTE_IMAGE: true
+2022-06-21T18:58:48.4456106Z   DEBIAN_VERSION: bullseye
+2022-06-21T18:58:48.4456312Z   DB_RESET: true
+2022-06-21T18:58:48.4456504Z   VERBOSE: true
+2022-06-21T18:58:48.4456722Z   GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:48.4456959Z   GITHUB_USERNAME: dstandish
+2022-06-21T18:58:48.4457203Z   CONSTRAINTS_GITHUB_REPOSITORY: apache/airflow
+2022-06-21T18:58:48.4457608Z   GITHUB_TOKEN: ***
+2022-06-21T18:58:48.4457831Z   ENABLE_TEST_COVERAGE: true
+2022-06-21T18:58:48.4458113Z   IMAGE_TAG_FOR_THE_BUILD: e35ffaa457eee569d4bc81be16d0db26e0f3e1b3
+2022-06-21T18:58:48.4458502Z   pythonLocation: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64
+2022-06-21T18:58:48.4458866Z   LD_LIBRARY_PATH: /home/runner/actions-runner/_work/_tool/Python/3.7.13/x64/lib
+2022-06-21T18:58:48.4459128Z ##[endgroup]
+2022-06-21T18:58:48.6976946Z Error: No such object: mypy-cache-volume
+2022-06-21T18:58:48.7277208Z mypy-cache-volume
+2022-06-21T18:58:48.7358635Z 
+2022-06-21T18:58:48.7359519Z [94mDefault value of python parameter [0m[1;94m3.7[0m[94m used.[0m
+2022-06-21T18:58:48.7359760Z 
+2022-06-21T18:58:48.7365724Z 
+2022-06-21T18:58:48.7366164Z [94mDefault value of backend parameter sqlite used.[0m
+2022-06-21T18:58:48.7366515Z 
+2022-06-21T18:58:48.7372766Z 
+2022-06-21T18:58:48.7373304Z [94mDefault value of postgres_version parameter [0m[1;94m10[0m[94m used.[0m
+2022-06-21T18:58:48.7373696Z 
+2022-06-21T18:58:48.7379274Z 
+2022-06-21T18:58:48.7379963Z [94mDefault value of mysql_version parameter [0m[1;94m5.7[0m[94m used.[0m
+2022-06-21T18:58:48.7380420Z 
+2022-06-21T18:58:48.7386429Z 
+2022-06-21T18:58:48.7387003Z [94mDefault value of mssql_version parameter [0m[1;94m2017[0m[94m-latest used.[0m
+2022-06-21T18:58:48.7387389Z 
+2022-06-21T18:58:48.7432192Z 
+2022-06-21T18:58:48.7432201Z 
+2022-06-21T18:58:48.7432443Z 
+2022-06-21T18:58:48.7432457Z 
+2022-06-21T18:58:48.7432466Z 
+2022-06-21T18:58:48.7433218Z [37m                                  @&&&&&&@[0m
+2022-06-21T18:58:48.7433826Z [37m                                 @&&&&&&&&&&&@[0m
+2022-06-21T18:58:48.7434390Z [37m                                &&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7434987Z [37m                                        &&&&&&&&&&[0m
+2022-06-21T18:58:48.7435565Z [37m                                            &&&&&&&[0m
+2022-06-21T18:58:48.7435948Z [37m                                             &&&&&&&[0m
+2022-06-21T18:58:48.7436505Z [37m                           @@@@@@@@@@@@@@@@   &&&&&&[0m
+2022-06-21T18:58:48.7436823Z [37m                          @&&&&&&&&&&&&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7437129Z [37m                         &&&&&&&&&&&&&&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7437472Z [37m                                         &&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7438019Z [37m                                             &&&&&&&&&[0m
+2022-06-21T18:58:48.7438591Z [37m                                           &&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7438918Z [37m                                      @@&&&&&&&&&&&&&&&@[0m
+2022-06-21T18:58:48.7439229Z [37m                   @&&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&&&&&[0m
+2022-06-21T18:58:48.7439528Z [37m                  &&&&&&&&&&&&&&&&&&&&&&&&&&&&    &&&&&&[0m
+2022-06-21T18:58:48.7439850Z [37m                 &&&&&&&&&&&&&&&&&&&&&&&&         &&&&&&[0m
+2022-06-21T18:58:48.7440159Z [37m                                                 &&&&&&[0m
+2022-06-21T18:58:48.7440473Z [37m                                               &&&&&&&[0m
+2022-06-21T18:58:48.7440962Z [37m                                            @&&&&&&&&[0m
+2022-06-21T18:58:48.7441676Z [37m            @&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7442224Z [37m           &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7442800Z [37m          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&[0m
+2022-06-21T18:58:48.7443056Z 
+2022-06-21T18:58:48.7443066Z 
+2022-06-21T18:58:48.7443075Z 
+2022-06-21T18:58:48.7443505Z [37m     @&&&@       &&  @&&&&&&&&&&&   &&&&&&&&&&&&  &&            &&&&&&&&&&  &&&     &&&     &&&[0m
+2022-06-21T18:58:48.7444214Z [37m    &&& &&&      &&  @&&       &&&  &&            &&          &&&       &&&@ &&&   &&&&&   &&&[0m
+2022-06-21T18:58:48.7444713Z [37m   &&&   &&&     &&  @&&&&&&&&&&&&  &&&&&&&&&&&   &&          &&         &&&  &&& &&& &&@ &&&[0m
+2022-06-21T18:58:48.7445089Z [37m  &&&&&&&&&&&    &&  @&&&&&&&&&     &&            &&          &&@        &&&   &&@&&   &&@&&[0m
+2022-06-21T18:58:48.7445465Z [37m &&&       &&&   &&  @&&     &&&@   &&            &&&&&&&&&&&  &&&&&&&&&&&&     &&&&   &&&&[0m
+2022-06-21T18:58:48.7445622Z 
+2022-06-21T18:58:48.7445845Z [37m&&&&&&&&&&&&   &&&&&&&&&&&&   &&&&&&&&&&&@  &&&&&&&&&&&&   &&&&&&&&&&&   &&&&&&&&&&&[0m
+2022-06-21T18:58:48.7446204Z [37m&&&       &&&  &&        &&&  &&            &&&                  &&&&    &&[0m
+2022-06-21T18:58:48.7446546Z [37m&&&&&&&&&&&&@  &&&&&&&&&&&&   &&&&&&&&&&&   &&&&&&&&&&&       &&&&       &&&&&&&&&&[0m
+2022-06-21T18:58:48.7446894Z [37m&&&        &&  &&   &&&&      &&            &&&             &&&&         &&[0m
+2022-06-21T18:58:48.7447247Z [37m&&&&&&&&&&&&&  &&     &&&&@   &&&&&&&&&&&@  &&&&&&&&&&&&  @&&&&&&&&&&&   &&&&&&&&&&&[0m
+2022-06-21T18:58:48.7447396Z 
+2022-06-21T18:58:48.7447401Z 
+2022-06-21T18:58:48.7447407Z 
+2022-06-21T18:58:48.7447613Z [94mBreeze version: [0m[1;94m0.9[0m[94m.[0m[1;94m0[0m
+2022-06-21T18:58:48.7448778Z [94mBreeze installed from: [0m[94m/home/runner/actions-runner/_work/airflow/[0m[94mairflow[0m
+2022-06-21T18:58:48.7454254Z [94mUsed Airflow sources : [0m[94m/home/runner/actions-runner/_work/airflow/[0m[94mairflow[0m
+2022-06-21T18:58:48.7454634Z 
+2022-06-21T18:58:48.7467842Z [94mInstallation sources config hash : 40b9b6908905e94c93809cca70c68c632731242798dba9cbe62473e965cb4e5d44eaaa817c5ce9334397f3794a350bc00e3cf319631a25c461a935a389191e7b[0m
+2022-06-21T18:58:48.7478096Z [94mUsed sources config hash         : 40b9b6908905e94c93809cca70c68c632731242798dba9cbe62473e965cb4e5d44eaaa817c5ce9334397f3794a350bc00e3cf319631a25c461a935a389191e7b[0m
+2022-06-21T18:58:48.7519300Z [94mPackage config hash              : 40b9b6908905e94c93809cca70c68c632731242798dba9cbe62473e965cb4e5d44eaaa817c5ce9334397f3794a350bc00e3cf319631a25c461a935a389191e7b[0m
+2022-06-21T18:58:48.7519648Z 
+2022-06-21T18:58:48.7795915Z Post job cleanup.
+2022-06-21T18:58:48.9079206Z Cache hit occurred on the primary key setup-python-Linux-python-3.7.13-pip-b62278f15d5fbebcdb6fadbc4d6290e3f998ab95526b4d7c4316df52a4bccda5, not saving cache.
+2022-06-21T18:58:48.9160490Z Post job cleanup.
+2022-06-21T18:58:49.0230962Z [command]/usr/bin/git version
+2022-06-21T18:58:49.0276573Z git version 2.36.1
+2022-06-21T18:58:49.0311480Z Temporarily overriding HOME='/home/runner/actions-runner/_work/_temp/696cac8f-4ae9-4fcd-97c6-c49e06cf0e35' before making global git config changes
+2022-06-21T18:58:49.0312109Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-21T18:58:49.0315342Z [command]/usr/bin/git config --global --add safe.directory /home/runner/actions-runner/_work/airflow/airflow
+2022-06-21T18:58:49.0353793Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-21T18:58:49.0386581Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-21T18:58:49.0607348Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-21T18:58:49.0658843Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-21T18:58:49.1086613Z Cleaning up orphan processes

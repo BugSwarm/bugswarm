@@ -1,0 +1,1140 @@
+2022-06-22T16:36:01.0992397Z Requested labels: ubuntu-latest
+2022-06-22T16:36:01.0992455Z Job defined at: llvm/llvm-project/.github/workflows/libclang-abi-tests.yml@refs/heads/release/14.x
+2022-06-22T16:36:01.0992474Z Waiting for a runner to pick up this job...
+2022-06-22T16:36:02.4020171Z Job is waiting for a hosted runner to come online.
+2022-06-22T16:36:05.3532344Z Job is about to start running on the hosted runner: GitHub Actions 24 (hosted)
+2022-06-22T16:36:09.0704918Z Current runner version: '2.293.0'
+2022-06-22T16:36:09.0736543Z ##[group]Operating System
+2022-06-22T16:36:09.0737174Z Ubuntu
+2022-06-22T16:36:09.0737405Z 20.04.4
+2022-06-22T16:36:09.0737675Z LTS
+2022-06-22T16:36:09.0738047Z ##[endgroup]
+2022-06-22T16:36:09.0738362Z ##[group]Virtual Environment
+2022-06-22T16:36:09.0738732Z Environment: ubuntu-20.04
+2022-06-22T16:36:09.0739066Z Version: 20220619.1
+2022-06-22T16:36:09.0739536Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220619.1/images/linux/Ubuntu2004-Readme.md
+2022-06-22T16:36:09.0740227Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220619.1
+2022-06-22T16:36:09.0740687Z ##[endgroup]
+2022-06-22T16:36:09.0740992Z ##[group]Virtual Environment Provisioner
+2022-06-22T16:36:09.0741375Z 1.0.0.0-main-20220531-1
+2022-06-22T16:36:09.0741679Z ##[endgroup]
+2022-06-22T16:36:09.0742623Z ##[group]GITHUB_TOKEN Permissions
+2022-06-22T16:36:09.0743299Z Actions: write
+2022-06-22T16:36:09.0743785Z Checks: write
+2022-06-22T16:36:09.0744176Z Contents: write
+2022-06-22T16:36:09.0744439Z Deployments: write
+2022-06-22T16:36:09.0744761Z Discussions: write
+2022-06-22T16:36:09.0745063Z Issues: write
+2022-06-22T16:36:09.0745323Z Metadata: read
+2022-06-22T16:36:09.0745654Z Packages: write
+2022-06-22T16:36:09.0745955Z Pages: write
+2022-06-22T16:36:09.0746220Z PullRequests: write
+2022-06-22T16:36:09.0746576Z RepositoryProjects: write
+2022-06-22T16:36:09.0746956Z SecurityEvents: write
+2022-06-22T16:36:09.0747230Z Statuses: write
+2022-06-22T16:36:09.0747541Z ##[endgroup]
+2022-06-22T16:36:09.0751959Z Secret source: Actions
+2022-06-22T16:36:09.0752436Z Prepare workflow directory
+2022-06-22T16:36:09.1689694Z Prepare all required actions
+2022-06-22T16:36:09.1891015Z Getting action download info
+2022-06-22T16:36:09.4883063Z Download action repository 'actions/checkout@v1' (SHA:50fbc622fc4ef5163becd7fab6573eac35f8462e)
+2022-06-22T16:36:10.0750292Z Download action repository 'llvm/actions@main' (SHA:94577ddd7890c474f5304e8e9a58202c24c7a37b)
+2022-06-22T16:36:10.8832688Z ##[group]Run actions/checkout@v1
+2022-06-22T16:36:10.8833231Z with:
+2022-06-22T16:36:10.8833486Z   fetch-depth: 250
+2022-06-22T16:36:10.8833780Z   clean: true
+2022-06-22T16:36:10.8834086Z ##[endgroup]
+2022-06-22T16:36:11.2634753Z Syncing repository: llvm/llvm-project
+2022-06-22T16:36:11.2720620Z ##[command]git version
+2022-06-22T16:36:11.3269358Z git version 2.36.1
+2022-06-22T16:36:11.3299982Z ##[command]git lfs version
+2022-06-22T16:36:11.3859335Z git-lfs/3.2.0 (GitHub; linux amd64; go 1.18.2)
+2022-06-22T16:36:11.4020063Z ##[command]git init "/home/runner/work/llvm-project/llvm-project"
+2022-06-22T16:36:11.4069541Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-06-22T16:36:11.4070089Z hint: is subject to change. To configure the initial branch name to use in all
+2022-06-22T16:36:11.4070571Z hint: of your new repositories, which will suppress this warning, call:
+2022-06-22T16:36:11.4071490Z hint: 
+2022-06-22T16:36:11.4072633Z hint: 	git config --global init.defaultBranch <name>
+2022-06-22T16:36:11.4073057Z hint: 
+2022-06-22T16:36:11.4073510Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-06-22T16:36:11.4073994Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-06-22T16:36:11.4074365Z hint: 
+2022-06-22T16:36:11.4074776Z hint: 	git branch -m <name>
+2022-06-22T16:36:11.4091668Z Initialized empty Git repository in /home/runner/work/llvm-project/llvm-project/.git/
+2022-06-22T16:36:11.4097819Z ##[command]git remote add origin https://github.com/llvm/llvm-project
+2022-06-22T16:36:11.4138477Z ##[command]git config gc.auto 0
+2022-06-22T16:36:11.4169159Z ##[command]git config --get-all http.https://github.com/llvm/llvm-project.extraheader
+2022-06-22T16:36:11.4282652Z ##[command]git -c http.extraheader="AUTHORIZATION: basic ***" fetch --tags --prune --progress --no-recurse-submodules --depth=250 origin +refs/heads/*:refs/remotes/origin/*
+2022-06-22T16:36:14.1147885Z remote: Enumerating objects: 191658        
+2022-06-22T16:36:15.1240131Z remote: Enumerating objects: 304723        
+2022-06-22T16:36:16.1150491Z remote: Enumerating objects: 421254        
+2022-06-22T16:36:17.1151569Z remote: Enumerating objects: 552687        
+2022-06-22T16:36:17.6666284Z remote: Enumerating objects: 714673        
+2022-06-22T16:36:17.6666678Z remote: Enumerating objects: 810453, done.        
+2022-06-22T16:36:17.8181787Z remote: Counting objects:   0% (1/810453)        
+2022-06-22T16:36:17.8202393Z remote: Counting objects:   1% (8105/810453)        
+2022-06-22T16:36:17.8275502Z remote: Counting objects:   2% (16210/810453)        
+2022-06-22T16:36:17.8367863Z remote: Counting objects:   3% (24314/810453)        
+2022-06-22T16:36:17.8499780Z remote: Counting objects:   4% (32419/810453)        
+2022-06-22T16:36:17.8585163Z remote: Counting objects:   5% (40523/810453)        
+2022-06-22T16:36:17.8649332Z remote: Counting objects:   6% (48628/810453)        
+2022-06-22T16:36:17.8703729Z remote: Counting objects:   7% (56732/810453)        
+2022-06-22T16:36:17.8770420Z remote: Counting objects:   8% (64837/810453)        
+2022-06-22T16:36:17.8869184Z remote: Counting objects:   9% (72941/810453)        
+2022-06-22T16:36:17.8942425Z remote: Counting objects:  10% (81046/810453)        
+2022-06-22T16:36:17.9021982Z remote: Counting objects:  11% (89150/810453)        
+2022-06-22T16:36:17.9093700Z remote: Counting objects:  12% (97255/810453)        
+2022-06-22T16:36:17.9179818Z remote: Counting objects:  13% (105359/810453)        
+2022-06-22T16:36:17.9249855Z remote: Counting objects:  14% (113464/810453)        
+2022-06-22T16:36:17.9330812Z remote: Counting objects:  15% (121568/810453)        
+2022-06-22T16:36:17.9471734Z remote: Counting objects:  16% (129673/810453)        
+2022-06-22T16:36:17.9507769Z remote: Counting objects:  17% (137778/810453)        
+2022-06-22T16:36:17.9613911Z remote: Counting objects:  18% (145882/810453)        
+2022-06-22T16:36:17.9718632Z remote: Counting objects:  19% (153987/810453)        
+2022-06-22T16:36:17.9847357Z remote: Counting objects:  20% (162091/810453)        
+2022-06-22T16:36:17.9979239Z remote: Counting objects:  21% (170196/810453)        
+2022-06-22T16:36:18.0084302Z remote: Counting objects:  22% (178300/810453)        
+2022-06-22T16:36:18.0175949Z remote: Counting objects:  23% (186405/810453)        
+2022-06-22T16:36:18.0237366Z remote: Counting objects:  24% (194509/810453)        
+2022-06-22T16:36:18.0347008Z remote: Counting objects:  25% (202614/810453)        
+2022-06-22T16:36:18.0430925Z remote: Counting objects:  26% (210718/810453)        
+2022-06-22T16:36:18.0526449Z remote: Counting objects:  27% (218823/810453)        
+2022-06-22T16:36:18.0611754Z remote: Counting objects:  28% (226927/810453)        
+2022-06-22T16:36:18.0664994Z remote: Counting objects:  29% (235032/810453)        
+2022-06-22T16:36:18.0777905Z remote: Counting objects:  30% (243136/810453)        
+2022-06-22T16:36:18.0888518Z remote: Counting objects:  31% (251241/810453)        
+2022-06-22T16:36:18.0967532Z remote: Counting objects:  32% (259345/810453)        
+2022-06-22T16:36:18.1096220Z remote: Counting objects:  33% (267450/810453)        
+2022-06-22T16:36:18.1186181Z remote: Counting objects:  34% (275555/810453)        
+2022-06-22T16:36:18.1314687Z remote: Counting objects:  35% (283659/810453)        
+2022-06-22T16:36:18.3449604Z remote: Counting objects:  36% (291764/810453)        
+2022-06-22T16:36:18.3450154Z remote: Counting objects:  37% (299868/810453)        
+2022-06-22T16:36:18.3450456Z remote: Counting objects:  38% (307973/810453)        
+2022-06-22T16:36:18.3450831Z remote: Counting objects:  39% (316077/810453)        
+2022-06-22T16:36:18.3451178Z remote: Counting objects:  40% (324182/810453)        
+2022-06-22T16:36:18.3451545Z remote: Counting objects:  41% (332286/810453)        
+2022-06-22T16:36:18.3451832Z remote: Counting objects:  42% (340391/810453)        
+2022-06-22T16:36:18.3452180Z remote: Counting objects:  43% (348495/810453)        
+2022-06-22T16:36:18.3452824Z remote: Counting objects:  44% (356600/810453)        
+2022-06-22T16:36:18.3453104Z remote: Counting objects:  45% (364704/810453)        
+2022-06-22T16:36:18.3453617Z remote: Counting objects:  46% (372809/810453)        
+2022-06-22T16:36:18.3453955Z remote: Counting objects:  47% (380913/810453)        
+2022-06-22T16:36:18.3454421Z remote: Counting objects:  48% (389018/810453)        
+2022-06-22T16:36:18.3454759Z remote: Counting objects:  49% (397122/810453)        
+2022-06-22T16:36:18.3455078Z remote: Counting objects:  50% (405227/810453)        
+2022-06-22T16:36:18.3455449Z remote: Counting objects:  51% (413332/810453)        
+2022-06-22T16:36:18.3455727Z remote: Counting objects:  52% (421436/810453)        
+2022-06-22T16:36:18.3773332Z remote: Counting objects:  53% (429541/810453)        
+2022-06-22T16:36:18.3775767Z remote: Counting objects:  54% (437645/810453)        
+2022-06-22T16:36:18.3776032Z remote: Counting objects:  55% (445750/810453)        
+2022-06-22T16:36:18.3776327Z remote: Counting objects:  56% (453854/810453)        
+2022-06-22T16:36:18.3776583Z remote: Counting objects:  57% (461959/810453)        
+2022-06-22T16:36:18.3776834Z remote: Counting objects:  58% (470063/810453)        
+2022-06-22T16:36:18.3777074Z remote: Counting objects:  59% (478168/810453)        
+2022-06-22T16:36:18.3852149Z remote: Counting objects:  60% (486272/810453)        
+2022-06-22T16:36:18.3972942Z remote: Counting objects:  61% (494377/810453)        
+2022-06-22T16:36:18.4080101Z remote: Counting objects:  62% (502481/810453)        
+2022-06-22T16:36:18.4169950Z remote: Counting objects:  63% (510586/810453)        
+2022-06-22T16:36:18.4271707Z remote: Counting objects:  64% (518690/810453)        
+2022-06-22T16:36:18.4376623Z remote: Counting objects:  65% (526795/810453)        
+2022-06-22T16:36:18.4495579Z remote: Counting objects:  66% (534899/810453)        
+2022-06-22T16:36:18.4598164Z remote: Counting objects:  67% (543004/810453)        
+2022-06-22T16:36:18.4719996Z remote: Counting objects:  68% (551109/810453)        
+2022-06-22T16:36:18.4808822Z remote: Counting objects:  69% (559213/810453)        
+2022-06-22T16:36:18.4923447Z remote: Counting objects:  70% (567318/810453)        
+2022-06-22T16:36:18.5014443Z remote: Counting objects:  71% (575422/810453)        
+2022-06-22T16:36:18.5129938Z remote: Counting objects:  72% (583527/810453)        
+2022-06-22T16:36:18.5232535Z remote: Counting objects:  73% (591631/810453)        
+2022-06-22T16:36:18.5332292Z remote: Counting objects:  74% (599736/810453)        
+2022-06-22T16:36:18.5413460Z remote: Counting objects:  75% (607840/810453)        
+2022-06-22T16:36:18.5520727Z remote: Counting objects:  76% (615945/810453)        
+2022-06-22T16:36:18.5584592Z remote: Counting objects:  77% (624049/810453)        
+2022-06-22T16:36:18.5696852Z remote: Counting objects:  78% (632154/810453)        
+2022-06-22T16:36:18.5779334Z remote: Counting objects:  79% (640258/810453)        
+2022-06-22T16:36:18.5873179Z remote: Counting objects:  80% (648363/810453)        
+2022-06-22T16:36:18.5989702Z remote: Counting objects:  81% (656467/810453)        
+2022-06-22T16:36:18.6088236Z remote: Counting objects:  82% (664572/810453)        
+2022-06-22T16:36:18.6172334Z remote: Counting objects:  83% (672676/810453)        
+2022-06-22T16:36:18.6250127Z remote: Counting objects:  84% (680781/810453)        
+2022-06-22T16:36:18.6317778Z remote: Counting objects:  85% (688886/810453)        
+2022-06-22T16:36:18.6400348Z remote: Counting objects:  86% (696990/810453)        
+2022-06-22T16:36:18.6497304Z remote: Counting objects:  87% (705095/810453)        
+2022-06-22T16:36:18.6568347Z remote: Counting objects:  88% (713199/810453)        
+2022-06-22T16:36:18.6661877Z remote: Counting objects:  89% (721304/810453)        
+2022-06-22T16:36:18.6662324Z remote: Counting objects:  89% (729221/810453)        
+2022-06-22T16:36:18.6759423Z remote: Counting objects:  90% (729408/810453)        
+2022-06-22T16:36:18.6878381Z remote: Counting objects:  91% (737513/810453)        
+2022-06-22T16:36:18.6961436Z remote: Counting objects:  92% (745617/810453)        
+2022-06-22T16:36:18.7071875Z remote: Counting objects:  93% (753722/810453)        
+2022-06-22T16:36:18.7091855Z remote: Counting objects:  94% (761826/810453)        
+2022-06-22T16:36:18.7147919Z remote: Counting objects:  95% (769931/810453)        
+2022-06-22T16:36:18.7198198Z remote: Counting objects:  96% (778035/810453)        
+2022-06-22T16:36:18.7238125Z remote: Counting objects:  97% (786140/810453)        
+2022-06-22T16:36:18.7345810Z remote: Counting objects:  98% (794244/810453)        
+2022-06-22T16:36:18.7465152Z remote: Counting objects:  99% (802349/810453)        
+2022-06-22T16:36:18.7465440Z remote: Counting objects: 100% (810453/810453)        
+2022-06-22T16:36:18.7465728Z remote: Counting objects: 100% (810453/810453), done.        
+2022-06-22T16:36:19.4576583Z remote: Compressing objects:   0% (1/399649)        
+2022-06-22T16:36:19.7817643Z remote: Compressing objects:   1% (3997/399649)        
+2022-06-22T16:36:19.9107334Z remote: Compressing objects:   1% (5175/399649)        
+2022-06-22T16:36:20.7810498Z remote: Compressing objects:   2% (7993/399649)        
+2022-06-22T16:36:20.8283612Z remote: Compressing objects:   2% (11661/399649)        
+2022-06-22T16:36:21.3909661Z remote: Compressing objects:   3% (11990/399649)        
+2022-06-22T16:36:21.7905176Z remote: Compressing objects:   4% (15986/399649)        
+2022-06-22T16:36:22.0821335Z remote: Compressing objects:   4% (17552/399649)        
+2022-06-22T16:36:22.5109089Z remote: Compressing objects:   5% (19983/399649)        
+2022-06-22T16:36:22.8132040Z remote: Compressing objects:   6% (23979/399649)        
+2022-06-22T16:36:23.7842167Z remote: Compressing objects:   6% (25147/399649)        
+2022-06-22T16:36:24.2445868Z remote: Compressing objects:   6% (26342/399649)        
+2022-06-22T16:36:24.7819170Z remote: Compressing objects:   7% (27976/399649)        
+2022-06-22T16:36:25.4526635Z remote: Compressing objects:   7% (30154/399649)        
+2022-06-22T16:36:25.8007041Z remote: Compressing objects:   8% (31972/399649)        
+2022-06-22T16:36:26.7825965Z remote: Compressing objects:   8% (33185/399649)        
+2022-06-22T16:36:26.8382660Z remote: Compressing objects:   8% (35759/399649)        
+2022-06-22T16:36:27.7804145Z remote: Compressing objects:   9% (35969/399649)        
+2022-06-22T16:36:28.7802132Z remote: Compressing objects:   9% (37961/399649)        
+2022-06-22T16:36:29.0694424Z remote: Compressing objects:   9% (39317/399649)        
+2022-06-22T16:36:29.7811924Z remote: Compressing objects:  10% (39965/399649)        
+2022-06-22T16:36:30.7524633Z remote: Compressing objects:  10% (42115/399649)        
+2022-06-22T16:36:30.7807619Z remote: Compressing objects:  11% (43962/399649)        
+2022-06-22T16:36:31.7829662Z remote: Compressing objects:  11% (44107/399649)        
+2022-06-22T16:36:32.7841716Z remote: Compressing objects:  11% (46759/399649)        
+2022-06-22T16:36:32.8197336Z remote: Compressing objects:  11% (47894/399649)        
+2022-06-22T16:36:33.7808187Z remote: Compressing objects:  12% (47958/399649)        
+2022-06-22T16:36:33.8056782Z remote: Compressing objects:  12% (51668/399649)        
+2022-06-22T16:36:34.2536010Z remote: Compressing objects:  13% (51955/399649)        
+2022-06-22T16:36:34.7815145Z remote: Compressing objects:  14% (55951/399649)        
+2022-06-22T16:36:34.9874750Z remote: Compressing objects:  14% (58137/399649)        
+2022-06-22T16:36:35.7838910Z remote: Compressing objects:  15% (59948/399649)        
+2022-06-22T16:36:35.8438204Z remote: Compressing objects:  15% (63775/399649)        
+2022-06-22T16:36:36.7818210Z remote: Compressing objects:  16% (63944/399649)        
+2022-06-22T16:36:37.7937521Z remote: Compressing objects:  16% (66031/399649)        
+2022-06-22T16:36:38.5958794Z remote: Compressing objects:  16% (67030/399649)        
+2022-06-22T16:36:38.7836355Z remote: Compressing objects:  17% (67941/399649)        
+2022-06-22T16:36:39.7825425Z remote: Compressing objects:  17% (68384/399649)        
+2022-06-22T16:36:40.7837858Z remote: Compressing objects:  17% (69589/399649)        
+2022-06-22T16:36:41.4378403Z remote: Compressing objects:  17% (70996/399649)        
+2022-06-22T16:36:41.7826750Z remote: Compressing objects:  18% (71937/399649)        
+2022-06-22T16:36:42.7809887Z remote: Compressing objects:  18% (72241/399649)        
+2022-06-22T16:36:43.7884429Z remote: Compressing objects:  18% (73849/399649)        
+2022-06-22T16:36:44.4642354Z remote: Compressing objects:  18% (75223/399649)        
+2022-06-22T16:36:44.7807957Z remote: Compressing objects:  19% (75934/399649)        
+2022-06-22T16:36:45.7818562Z remote: Compressing objects:  19% (76621/399649)        
+2022-06-22T16:36:46.7884242Z remote: Compressing objects:  19% (77669/399649)        
+2022-06-22T16:36:47.0279142Z remote: Compressing objects:  19% (79539/399649)        
+2022-06-22T16:36:47.7802480Z remote: Compressing objects:  20% (79930/399649)        
+2022-06-22T16:36:48.7820222Z remote: Compressing objects:  20% (80975/399649)        
+2022-06-22T16:36:49.7826124Z remote: Compressing objects:  20% (81802/399649)        
+2022-06-22T16:36:50.5400462Z remote: Compressing objects:  20% (82819/399649)        
+2022-06-22T16:36:50.7830535Z remote: Compressing objects:  21% (83927/399649)        
+2022-06-22T16:36:51.7879621Z remote: Compressing objects:  21% (84206/399649)        
+2022-06-22T16:36:52.7817568Z remote: Compressing objects:  21% (84972/399649)        
+2022-06-22T16:36:53.6292813Z remote: Compressing objects:  21% (86406/399649)        
+2022-06-22T16:36:53.7922868Z remote: Compressing objects:  22% (87923/399649)        
+2022-06-22T16:36:54.7835852Z remote: Compressing objects:  22% (88254/399649)        
+2022-06-22T16:36:55.7830716Z remote: Compressing objects:  22% (89571/399649)        
+2022-06-22T16:36:56.7130673Z remote: Compressing objects:  22% (90425/399649)        
+2022-06-22T16:36:56.7823019Z remote: Compressing objects:  23% (91920/399649)        
+2022-06-22T16:36:57.7855359Z remote: Compressing objects:  23% (92163/399649)        
+2022-06-22T16:36:58.7805180Z remote: Compressing objects:  23% (93630/399649)        
+2022-06-22T16:36:59.7826521Z remote: Compressing objects:  23% (95074/399649)        
+2022-06-22T16:36:59.8463185Z remote: Compressing objects:  23% (95813/399649)        
+2022-06-22T16:37:00.7815037Z remote: Compressing objects:  24% (95916/399649)        
+2022-06-22T16:37:01.7811522Z remote: Compressing objects:  24% (96863/399649)        
+2022-06-22T16:37:02.1530184Z remote: Compressing objects:  24% (98219/399649)        
+2022-06-22T16:37:02.8190126Z remote: Compressing objects:  25% (99913/399649)        
+2022-06-22T16:37:03.7853071Z remote: Compressing objects:  25% (100112/399649)        
+2022-06-22T16:37:04.8351166Z remote: Compressing objects:  25% (100308/399649)        
+2022-06-22T16:37:05.8798083Z remote: Compressing objects:  25% (100784/399649)        
+2022-06-22T16:37:06.8193446Z remote: Compressing objects:  25% (100808/399649)        
+2022-06-22T16:37:07.7817225Z remote: Compressing objects:  25% (100818/399649)        
+2022-06-22T16:37:08.0377499Z remote: Compressing objects:  25% (102986/399649)        
+2022-06-22T16:37:08.7839498Z remote: Compressing objects:  26% (103909/399649)        
+2022-06-22T16:37:09.7830674Z remote: Compressing objects:  26% (104556/399649)        
+2022-06-22T16:37:10.7800650Z remote: Compressing objects:  26% (105125/399649)        
+2022-06-22T16:37:11.7950179Z remote: Compressing objects:  26% (106983/399649)        
+2022-06-22T16:37:12.3562634Z remote: Compressing objects:  26% (107820/399649)        
+2022-06-22T16:37:12.7929201Z remote: Compressing objects:  27% (107906/399649)        
+2022-06-22T16:37:13.7883149Z remote: Compressing objects:  27% (108119/399649)        
+2022-06-22T16:37:14.7871497Z remote: Compressing objects:  27% (108175/399649)        
+2022-06-22T16:37:15.8407682Z remote: Compressing objects:  27% (108243/399649)        
+2022-06-22T16:37:16.8056513Z remote: Compressing objects:  27% (108356/399649)        
+2022-06-22T16:37:17.7897591Z remote: Compressing objects:  27% (108494/399649)        
+2022-06-22T16:37:18.7813573Z remote: Compressing objects:  27% (108624/399649)        
+2022-06-22T16:37:19.7839000Z remote: Compressing objects:  27% (108971/399649)        
+2022-06-22T16:37:20.7872568Z remote: Compressing objects:  27% (110030/399649)        
+2022-06-22T16:37:21.6528971Z remote: Compressing objects:  27% (110742/399649)        
+2022-06-22T16:37:21.7828343Z remote: Compressing objects:  28% (111902/399649)        
+2022-06-22T16:37:22.7828134Z remote: Compressing objects:  28% (112100/399649)        
+2022-06-22T16:37:23.7816529Z remote: Compressing objects:  28% (113379/399649)        
+2022-06-22T16:37:24.4852948Z remote: Compressing objects:  28% (115076/399649)        
+2022-06-22T16:37:24.7818803Z remote: Compressing objects:  29% (115899/399649)        
+2022-06-22T16:37:25.7819424Z remote: Compressing objects:  29% (116226/399649)        
+2022-06-22T16:37:26.4736499Z remote: Compressing objects:  29% (118192/399649)        
+2022-06-22T16:37:26.7805955Z remote: Compressing objects:  30% (119895/399649)        
+2022-06-22T16:37:27.7903573Z remote: Compressing objects:  30% (120326/399649)        
+2022-06-22T16:37:28.5217027Z remote: Compressing objects:  30% (122768/399649)        
+2022-06-22T16:37:28.7813408Z remote: Compressing objects:  31% (123892/399649)        
+2022-06-22T16:37:29.7830251Z remote: Compressing objects:  31% (124114/399649)        
+2022-06-22T16:37:30.7822266Z remote: Compressing objects:  31% (124620/399649)        
+2022-06-22T16:37:31.7832673Z remote: Compressing objects:  31% (125540/399649)        
+2022-06-22T16:37:32.7898178Z remote: Compressing objects:  31% (126240/399649)        
+2022-06-22T16:37:33.5995394Z remote: Compressing objects:  31% (127017/399649)        
+2022-06-22T16:37:33.7877213Z remote: Compressing objects:  32% (127888/399649)        
+2022-06-22T16:37:34.7904560Z remote: Compressing objects:  32% (127925/399649)        
+2022-06-22T16:37:35.7878828Z remote: Compressing objects:  32% (128315/399649)        
+2022-06-22T16:37:36.3725473Z remote: Compressing objects:  32% (129610/399649)        
+2022-06-22T16:37:36.8094321Z remote: Compressing objects:  33% (131885/399649)        
+2022-06-22T16:37:37.7813458Z remote: Compressing objects:  33% (133313/399649)        
+2022-06-22T16:37:38.0347339Z remote: Compressing objects:  33% (134294/399649)        
+2022-06-22T16:37:38.7810180Z remote: Compressing objects:  34% (135881/399649)        
+2022-06-22T16:37:38.9358329Z remote: Compressing objects:  34% (138906/399649)        
+2022-06-22T16:37:39.6929906Z remote: Compressing objects:  35% (139878/399649)        
+2022-06-22T16:37:39.7805823Z remote: Compressing objects:  36% (143874/399649)        
+2022-06-22T16:37:40.7815908Z remote: Compressing objects:  36% (144041/399649)        
+2022-06-22T16:37:40.9270219Z remote: Compressing objects:  36% (146920/399649)        
+2022-06-22T16:37:41.7857618Z remote: Compressing objects:  37% (147871/399649)        
+2022-06-22T16:37:41.9137272Z remote: Compressing objects:  37% (151361/399649)        
+2022-06-22T16:37:42.7805283Z remote: Compressing objects:  38% (151867/399649)        
+2022-06-22T16:37:43.1827010Z remote: Compressing objects:  38% (154584/399649)        
+2022-06-22T16:37:43.7836414Z remote: Compressing objects:  39% (155864/399649)        
+2022-06-22T16:37:44.7838412Z remote: Compressing objects:  39% (158317/399649)        
+2022-06-22T16:37:45.1669036Z remote: Compressing objects:  39% (159100/399649)        
+2022-06-22T16:37:45.7866366Z remote: Compressing objects:  40% (159860/399649)        
+2022-06-22T16:37:46.0770259Z remote: Compressing objects:  40% (162697/399649)        
+2022-06-22T16:37:46.8038707Z remote: Compressing objects:  41% (163857/399649)        
+2022-06-22T16:37:47.1208287Z remote: Compressing objects:  41% (166773/399649)        
+2022-06-22T16:37:47.7818568Z remote: Compressing objects:  42% (167853/399649)        
+2022-06-22T16:37:48.6061053Z remote: Compressing objects:  42% (169283/399649)        
+2022-06-22T16:37:48.7815533Z remote: Compressing objects:  43% (171850/399649)        
+2022-06-22T16:37:49.1343044Z remote: Compressing objects:  43% (172356/399649)        
+2022-06-22T16:37:49.7815701Z remote: Compressing objects:  44% (175846/399649)        
+2022-06-22T16:37:49.8923578Z remote: Compressing objects:  44% (179027/399649)        
+2022-06-22T16:37:50.6164756Z remote: Compressing objects:  45% (179843/399649)        
+2022-06-22T16:37:50.7814708Z remote: Compressing objects:  46% (183839/399649)        
+2022-06-22T16:37:51.2777344Z remote: Compressing objects:  46% (185039/399649)        
+2022-06-22T16:37:51.7864748Z remote: Compressing objects:  47% (187836/399649)        
+2022-06-22T16:37:52.6350842Z remote: Compressing objects:  47% (189673/399649)        
+2022-06-22T16:37:52.7811096Z remote: Compressing objects:  48% (191832/399649)        
+2022-06-22T16:37:53.4394978Z remote: Compressing objects:  48% (192264/399649)        
+2022-06-22T16:37:53.7809652Z remote: Compressing objects:  49% (195829/399649)        
+2022-06-22T16:37:54.7810410Z remote: Compressing objects:  49% (197760/399649)        
+2022-06-22T16:37:55.7917023Z remote: Compressing objects:  49% (198402/399649)        
+2022-06-22T16:37:55.8148480Z remote: Compressing objects:  49% (199824/399649)        
+2022-06-22T16:37:56.7827891Z remote: Compressing objects:  50% (199825/399649)        
+2022-06-22T16:37:57.7820910Z remote: Compressing objects:  50% (201225/399649)        
+2022-06-22T16:37:58.7507373Z remote: Compressing objects:  50% (201459/399649)        
+2022-06-22T16:37:58.7820833Z remote: Compressing objects:  51% (203821/399649)        
+2022-06-22T16:37:59.7817354Z remote: Compressing objects:  51% (203953/399649)        
+2022-06-22T16:38:00.2318883Z remote: Compressing objects:  51% (205113/399649)        
+2022-06-22T16:38:00.5640369Z remote: Compressing objects:  52% (207818/399649)        
+2022-06-22T16:38:00.7806036Z remote: Compressing objects:  53% (211814/399649)        
+2022-06-22T16:38:01.1619060Z remote: Compressing objects:  53% (213457/399649)        
+2022-06-22T16:38:01.8430354Z remote: Compressing objects:  54% (215811/399649)        
+2022-06-22T16:38:02.7851180Z remote: Compressing objects:  54% (217855/399649)        
+2022-06-22T16:38:02.7851514Z remote: Compressing objects:  54% (219742/399649)        
+2022-06-22T16:38:03.7774707Z remote: Compressing objects:  55% (219807/399649)        
+2022-06-22T16:38:03.7803941Z remote: Compressing objects:  56% (223804/399649)        
+2022-06-22T16:38:04.7817327Z remote: Compressing objects:  56% (223810/399649)        
+2022-06-22T16:38:05.7806336Z remote: Compressing objects:  56% (224863/399649)        
+2022-06-22T16:38:06.7814664Z remote: Compressing objects:  56% (226392/399649)        
+2022-06-22T16:38:07.4660188Z remote: Compressing objects:  56% (227025/399649)        
+2022-06-22T16:38:07.7801846Z remote: Compressing objects:  57% (227800/399649)        
+2022-06-22T16:38:08.7839489Z remote: Compressing objects:  57% (228514/399649)        
+2022-06-22T16:38:09.7824788Z remote: Compressing objects:  57% (228947/399649)        
+2022-06-22T16:38:10.5756932Z remote: Compressing objects:  57% (229722/399649)        
+2022-06-22T16:38:10.7828025Z remote: Compressing objects:  58% (231797/399649)        
+2022-06-22T16:38:11.0885218Z remote: Compressing objects:  58% (233553/399649)        
+2022-06-22T16:38:11.7699362Z remote: Compressing objects:  59% (235793/399649)        
+2022-06-22T16:38:11.7813442Z remote: Compressing objects:  60% (239790/399649)        
+2022-06-22T16:38:12.7807389Z remote: Compressing objects:  60% (239840/399649)        
+2022-06-22T16:38:12.9848747Z remote: Compressing objects:  60% (243280/399649)        
+2022-06-22T16:38:13.7810022Z remote: Compressing objects:  61% (243786/399649)        
+2022-06-22T16:38:13.9967491Z remote: Compressing objects:  61% (246572/399649)        
+2022-06-22T16:38:14.7443578Z remote: Compressing objects:  62% (247783/399649)        
+2022-06-22T16:38:14.7803346Z remote: Compressing objects:  63% (251779/399649)        
+2022-06-22T16:38:15.7147792Z remote: Compressing objects:  63% (252050/399649)        
+2022-06-22T16:38:15.7818901Z remote: Compressing objects:  64% (255776/399649)        
+2022-06-22T16:38:16.7994982Z remote: Compressing objects:  64% (255912/399649)        
+2022-06-22T16:38:17.4388337Z remote: Compressing objects:  64% (258314/399649)        
+2022-06-22T16:38:17.7804945Z remote: Compressing objects:  65% (259772/399649)        
+2022-06-22T16:38:18.5785869Z remote: Compressing objects:  65% (260672/399649)        
+2022-06-22T16:38:18.7803416Z remote: Compressing objects:  66% (263769/399649)        
+2022-06-22T16:38:19.7815599Z remote: Compressing objects:  66% (264327/399649)        
+2022-06-22T16:38:19.8892578Z remote: Compressing objects:  66% (267537/399649)        
+2022-06-22T16:38:20.7817518Z remote: Compressing objects:  67% (267765/399649)        
+2022-06-22T16:38:21.0175093Z remote: Compressing objects:  67% (270530/399649)        
+2022-06-22T16:38:21.7859892Z remote: Compressing objects:  68% (271762/399649)        
+2022-06-22T16:38:22.6930305Z remote: Compressing objects:  68% (273968/399649)        
+2022-06-22T16:38:22.7808097Z remote: Compressing objects:  69% (275758/399649)        
+2022-06-22T16:38:23.3705250Z remote: Compressing objects:  69% (276015/399649)        
+2022-06-22T16:38:23.7810319Z remote: Compressing objects:  70% (279755/399649)        
+2022-06-22T16:38:24.5536002Z remote: Compressing objects:  70% (280803/399649)        
+2022-06-22T16:38:24.9917425Z remote: Compressing objects:  71% (283751/399649)        
+2022-06-22T16:38:25.5557467Z remote: Compressing objects:  71% (284691/399649)        
+2022-06-22T16:38:25.7854932Z remote: Compressing objects:  72% (287748/399649)        
+2022-06-22T16:38:26.6677548Z remote: Compressing objects:  72% (288297/399649)        
+2022-06-22T16:38:26.7801085Z remote: Compressing objects:  73% (291744/399649)        
+2022-06-22T16:38:26.9172982Z remote: Compressing objects:  73% (293476/399649)        
+2022-06-22T16:38:27.0700471Z remote: Compressing objects:  74% (295741/399649)        
+2022-06-22T16:38:27.2030094Z remote: Compressing objects:  75% (299737/399649)        
+2022-06-22T16:38:27.3019649Z remote: Compressing objects:  76% (303734/399649)        
+2022-06-22T16:38:27.3964460Z remote: Compressing objects:  77% (307730/399649)        
+2022-06-22T16:38:27.5334746Z remote: Compressing objects:  78% (311727/399649)        
+2022-06-22T16:38:27.6845560Z remote: Compressing objects:  79% (315723/399649)        
+2022-06-22T16:38:27.7893296Z remote: Compressing objects:  80% (319720/399649)        
+2022-06-22T16:38:27.8078471Z remote: Compressing objects:  80% (322787/399649)        
+2022-06-22T16:38:27.9900494Z remote: Compressing objects:  81% (323716/399649)        
+2022-06-22T16:38:28.0940882Z remote: Compressing objects:  82% (327713/399649)        
+2022-06-22T16:38:28.2320684Z remote: Compressing objects:  83% (331709/399649)        
+2022-06-22T16:38:28.3262666Z remote: Compressing objects:  84% (335706/399649)        
+2022-06-22T16:38:28.6810897Z remote: Compressing objects:  85% (339702/399649)        
+2022-06-22T16:38:28.7818358Z remote: Compressing objects:  86% (343699/399649)        
+2022-06-22T16:38:28.7823804Z remote: Compressing objects:  86% (347646/399649)        
+2022-06-22T16:38:28.9646619Z remote: Compressing objects:  87% (347695/399649)        
+2022-06-22T16:38:29.0676459Z remote: Compressing objects:  88% (351692/399649)        
+2022-06-22T16:38:29.1089218Z remote: Compressing objects:  89% (355688/399649)        
+2022-06-22T16:38:29.2139587Z remote: Compressing objects:  90% (359685/399649)        
+2022-06-22T16:38:29.6179759Z remote: Compressing objects:  91% (363681/399649)        
+2022-06-22T16:38:29.7827048Z remote: Compressing objects:  92% (367678/399649)        
+2022-06-22T16:38:29.9788686Z remote: Compressing objects:  92% (369625/399649)        
+2022-06-22T16:38:30.3000520Z remote: Compressing objects:  93% (371674/399649)        
+2022-06-22T16:38:30.7747728Z remote: Compressing objects:  94% (375671/399649)        
+2022-06-22T16:38:30.7804822Z remote: Compressing objects:  95% (379667/399649)        
+2022-06-22T16:38:30.7806827Z remote: Compressing objects:  95% (381891/399649)        
+2022-06-22T16:38:30.7883816Z remote: Compressing objects:  96% (383664/399649)        
+2022-06-22T16:38:30.7937481Z remote: Compressing objects:  97% (387660/399649)        
+2022-06-22T16:38:30.7944591Z remote: Compressing objects:  98% (391657/399649)        
+2022-06-22T16:38:30.7959322Z remote: Compressing objects:  99% (395653/399649)        
+2022-06-22T16:38:30.7965615Z remote: Compressing objects: 100% (399649/399649)        
+2022-06-22T16:38:30.7967060Z remote: Compressing objects: 100% (399649/399649), done.        
+2022-06-22T16:38:31.2176930Z Receiving objects:   0% (1/810453)
+2022-06-22T16:38:31.3185341Z Receiving objects:   1% (8105/810453)
+2022-06-22T16:38:31.3795359Z Receiving objects:   2% (16210/810453)
+2022-06-22T16:38:31.4552577Z Receiving objects:   3% (24314/810453)
+2022-06-22T16:38:31.6940385Z Receiving objects:   4% (32419/810453), 7.43 MiB | 14.85 MiB/s
+2022-06-22T16:38:31.8864499Z Receiving objects:   5% (40523/810453), 7.43 MiB | 14.85 MiB/s
+2022-06-22T16:38:31.9791091Z Receiving objects:   5% (46135/810453), 16.36 MiB | 16.33 MiB/s
+2022-06-22T16:38:32.1565422Z Receiving objects:   6% (48628/810453), 16.36 MiB | 16.33 MiB/s
+2022-06-22T16:38:32.3569631Z Receiving objects:   7% (56732/810453), 16.36 MiB | 16.33 MiB/s
+2022-06-22T16:38:32.5563566Z Receiving objects:   8% (64837/810453), 16.36 MiB | 16.33 MiB/s
+2022-06-22T16:38:32.6936313Z Receiving objects:   9% (72941/810453), 24.86 MiB | 16.55 MiB/s
+2022-06-22T16:38:32.8258469Z Receiving objects:  10% (81046/810453), 24.86 MiB | 16.55 MiB/s
+2022-06-22T16:38:32.8851197Z Receiving objects:  11% (89150/810453), 24.86 MiB | 16.55 MiB/s
+2022-06-22T16:38:33.0132573Z Receiving objects:  11% (92030/810453), 24.86 MiB | 16.55 MiB/s
+2022-06-22T16:38:33.2098758Z Receiving objects:  12% (97255/810453), 40.12 MiB | 20.04 MiB/s
+2022-06-22T16:38:33.3206469Z Receiving objects:  13% (105359/810453), 40.12 MiB | 20.04 MiB/s
+2022-06-22T16:38:33.5937394Z Receiving objects:  14% (113464/810453), 40.12 MiB | 20.04 MiB/s
+2022-06-22T16:38:34.1416699Z Receiving objects:  15% (121568/810453), 46.13 MiB | 18.44 MiB/s
+2022-06-22T16:38:34.7055159Z Receiving objects:  15% (122740/810453), 49.24 MiB | 15.12 MiB/s
+2022-06-22T16:38:34.8849000Z Receiving objects:  16% (129673/810453), 54.43 MiB | 14.49 MiB/s
+2022-06-22T16:38:35.8868385Z Receiving objects:  16% (130847/810453), 54.43 MiB | 14.49 MiB/s
+2022-06-22T16:38:36.1815777Z Receiving objects:  16% (137162/810453), 59.13 MiB | 12.42 MiB/s
+2022-06-22T16:38:36.8919713Z Receiving objects:  17% (137778/810453), 61.25 MiB | 11.30 MiB/s
+2022-06-22T16:38:37.8858279Z Receiving objects:  17% (140739/810453), 63.24 MiB | 9.84 MiB/s 
+2022-06-22T16:38:38.6403799Z Receiving objects:  17% (143111/810453), 66.96 MiB | 5.63 MiB/s
+2022-06-22T16:38:38.8850324Z Receiving objects:  18% (145882/810453), 68.68 MiB | 4.72 MiB/s
+2022-06-22T16:38:39.0930361Z Receiving objects:  18% (147460/810453), 71.16 MiB | 4.84 MiB/s
+2022-06-22T16:38:39.8851328Z Receiving objects:  19% (153987/810453), 71.16 MiB | 4.84 MiB/s
+2022-06-22T16:38:40.5970027Z Receiving objects:  19% (155971/810453), 75.27 MiB | 4.07 MiB/s
+2022-06-22T16:38:40.7527343Z Receiving objects:  20% (162091/810453), 77.26 MiB | 4.01 MiB/s
+2022-06-22T16:38:40.8841800Z Receiving objects:  21% (170196/810453), 80.22 MiB | 4.20 MiB/s
+2022-06-22T16:38:40.8899911Z Receiving objects:  21% (177090/810453), 80.22 MiB | 4.20 MiB/s
+2022-06-22T16:38:41.9359671Z Receiving objects:  22% (178300/810453), 80.22 MiB | 4.20 MiB/s
+2022-06-22T16:38:42.8874641Z Receiving objects:  22% (180561/810453), 87.26 MiB | 4.82 MiB/s
+2022-06-22T16:38:42.9864659Z Receiving objects:  22% (183510/810453), 91.91 MiB | 5.08 MiB/s
+2022-06-22T16:38:43.1191744Z Receiving objects:  23% (186405/810453), 91.91 MiB | 5.08 MiB/s
+2022-06-22T16:38:43.6698519Z Receiving objects:  24% (194509/810453), 91.91 MiB | 5.08 MiB/s
+2022-06-22T16:38:43.8842442Z Receiving objects:  25% (202614/810453), 96.60 MiB | 5.55 MiB/s
+2022-06-22T16:38:44.1537136Z Receiving objects:  25% (205347/810453), 100.52 MiB | 5.72 MiB/s
+2022-06-22T16:38:44.4780309Z Receiving objects:  26% (210718/810453), 100.52 MiB | 5.72 MiB/s
+2022-06-22T16:38:44.8882407Z Receiving objects:  27% (218823/810453), 106.69 MiB | 6.86 MiB/s
+2022-06-22T16:38:45.0175177Z Receiving objects:  27% (224964/810453), 111.61 MiB | 7.49 MiB/s
+2022-06-22T16:38:45.2258758Z Receiving objects:  28% (226927/810453), 111.61 MiB | 7.49 MiB/s
+2022-06-22T16:38:45.5093027Z Receiving objects:  29% (235032/810453), 111.61 MiB | 7.49 MiB/s
+2022-06-22T16:38:45.7718219Z Receiving objects:  30% (243136/810453), 114.53 MiB | 7.48 MiB/s
+2022-06-22T16:38:45.8843821Z Receiving objects:  31% (251241/810453), 119.09 MiB | 7.64 MiB/s
+2022-06-22T16:38:46.1920520Z Receiving objects:  31% (252447/810453), 119.09 MiB | 7.64 MiB/s
+2022-06-22T16:38:46.4790033Z Receiving objects:  32% (259345/810453), 119.09 MiB | 7.64 MiB/s
+2022-06-22T16:38:46.8842048Z Receiving objects:  33% (267450/810453), 124.24 MiB | 8.18 MiB/s
+2022-06-22T16:38:47.3728095Z Receiving objects:  33% (272062/810453), 127.72 MiB | 8.29 MiB/s
+2022-06-22T16:38:47.8842083Z Receiving objects:  34% (275555/810453), 130.12 MiB | 8.46 MiB/s
+2022-06-22T16:38:48.5318535Z Receiving objects:  34% (279460/810453), 132.58 MiB | 7.98 MiB/s
+2022-06-22T16:38:48.9171485Z Receiving objects:  35% (283659/810453), 135.31 MiB | 7.72 MiB/s
+2022-06-22T16:38:48.9281480Z Receiving objects:  35% (290175/810453), 138.49 MiB | 7.05 MiB/s
+2022-06-22T16:38:49.0906440Z Receiving objects:  36% (291764/810453), 138.49 MiB | 7.05 MiB/s
+2022-06-22T16:38:49.8858515Z Receiving objects:  37% (299868/810453), 138.49 MiB | 7.05 MiB/s
+2022-06-22T16:38:49.8983164Z Receiving objects:  37% (307695/810453), 153.79 MiB | 8.71 MiB/s
+2022-06-22T16:38:50.6061730Z Receiving objects:  38% (307973/810453), 153.79 MiB | 8.71 MiB/s
+2022-06-22T16:38:50.8853871Z Receiving objects:  39% (316077/810453), 156.74 MiB | 8.35 MiB/s
+2022-06-22T16:38:51.8897812Z Receiving objects:  39% (319198/810453), 159.84 MiB | 7.89 MiB/s
+2022-06-22T16:38:52.0150990Z Receiving objects:  39% (323924/810453), 164.45 MiB | 7.61 MiB/s
+2022-06-22T16:38:52.8857990Z Receiving objects:  40% (324182/810453), 164.45 MiB | 7.61 MiB/s
+2022-06-22T16:38:53.1679319Z Receiving objects:  40% (329672/810453), 169.00 MiB | 7.46 MiB/s
+2022-06-22T16:38:53.8854726Z Receiving objects:  41% (332286/810453), 169.00 MiB | 7.46 MiB/s
+2022-06-22T16:38:54.3736798Z Receiving objects:  41% (336767/810453), 174.82 MiB | 5.73 MiB/s
+2022-06-22T16:38:54.8910420Z Receiving objects:  42% (340391/810453), 177.51 MiB | 5.24 MiB/s
+2022-06-22T16:38:55.8648684Z Receiving objects:  42% (344573/810453), 180.57 MiB | 5.27 MiB/s
+2022-06-22T16:38:55.8980495Z Receiving objects:  43% (348495/810453), 185.49 MiB | 5.18 MiB/s
+2022-06-22T16:38:56.8870284Z Receiving objects:  43% (348661/810453), 185.49 MiB | 5.18 MiB/s
+2022-06-22T16:38:57.7821284Z Receiving objects:  43% (352299/810453), 189.66 MiB | 5.17 MiB/s
+2022-06-22T16:38:57.8843463Z Receiving objects:  44% (356600/810453), 191.78 MiB | 5.02 MiB/s
+2022-06-22T16:38:58.0709631Z Receiving objects:  44% (361341/810453), 194.24 MiB | 4.90 MiB/s
+2022-06-22T16:38:58.8847653Z Receiving objects:  45% (364704/810453), 194.24 MiB | 4.90 MiB/s
+2022-06-22T16:38:59.7129577Z Receiving objects:  45% (370440/810453), 200.40 MiB | 5.05 MiB/s
+2022-06-22T16:38:59.8856188Z Receiving objects:  46% (372809/810453), 202.02 MiB | 4.73 MiB/s
+2022-06-22T16:39:00.5307617Z Receiving objects:  46% (374867/810453), 204.32 MiB | 4.53 MiB/s
+2022-06-22T16:39:00.7389207Z Receiving objects:  47% (380913/810453), 206.04 MiB | 4.53 MiB/s
+2022-06-22T16:39:00.8842871Z Receiving objects:  48% (389018/810453), 206.04 MiB | 4.53 MiB/s
+2022-06-22T16:39:00.9250214Z Receiving objects:  48% (395970/810453), 212.41 MiB | 5.47 MiB/s
+2022-06-22T16:39:01.8862898Z Receiving objects:  49% (397122/810453), 212.41 MiB | 5.47 MiB/s
+2022-06-22T16:39:02.7703801Z Receiving objects:  49% (401839/810453), 217.15 MiB | 5.62 MiB/s
+2022-06-22T16:39:02.8850951Z Receiving objects:  50% (405227/810453), 218.94 MiB | 5.47 MiB/s
+2022-06-22T16:39:03.2182453Z Receiving objects:  50% (407034/810453), 222.92 MiB | 5.43 MiB/s
+2022-06-22T16:39:03.8854698Z Receiving objects:  51% (413332/810453), 222.92 MiB | 5.43 MiB/s
+2022-06-22T16:39:04.1018451Z Receiving objects:  51% (419071/810453), 230.13 MiB | 6.22 MiB/s
+2022-06-22T16:39:04.8841991Z Receiving objects:  52% (421436/810453), 230.13 MiB | 6.22 MiB/s
+2022-06-22T16:39:05.1244563Z Receiving objects:  52% (426257/810453), 235.66 MiB | 6.56 MiB/s
+2022-06-22T16:39:05.3364078Z Receiving objects:  53% (429541/810453), 235.66 MiB | 6.56 MiB/s
+2022-06-22T16:39:05.8900474Z Receiving objects:  54% (437645/810453), 235.66 MiB | 6.56 MiB/s
+2022-06-22T16:39:06.1274399Z Receiving objects:  54% (444651/810453), 244.20 MiB | 6.41 MiB/s
+2022-06-22T16:39:06.3576610Z Receiving objects:  55% (445750/810453), 244.20 MiB | 6.41 MiB/s
+2022-06-22T16:39:06.6568821Z Receiving objects:  56% (453854/810453), 244.20 MiB | 6.41 MiB/s
+2022-06-22T16:39:06.8842507Z Receiving objects:  57% (461959/810453), 256.19 MiB | 8.65 MiB/s
+2022-06-22T16:39:07.1604621Z Receiving objects:  57% (465677/810453), 260.43 MiB | 9.19 MiB/s
+2022-06-22T16:39:07.5633426Z Receiving objects:  58% (470063/810453), 260.43 MiB | 9.19 MiB/s
+2022-06-22T16:39:07.8841588Z Receiving objects:  59% (478168/810453), 264.41 MiB | 9.19 MiB/s
+2022-06-22T16:39:08.0339217Z Receiving objects:  59% (483068/810453), 268.96 MiB | 9.34 MiB/s
+2022-06-22T16:39:08.7846127Z Receiving objects:  60% (486272/810453), 268.96 MiB | 9.34 MiB/s
+2022-06-22T16:39:08.8843651Z Receiving objects:  61% (494377/810453), 277.80 MiB | 10.58 MiB/s
+2022-06-22T16:39:09.4552437Z Receiving objects:  61% (496751/810453), 281.21 MiB | 10.54 MiB/s
+2022-06-22T16:39:09.8852097Z Receiving objects:  62% (502481/810453), 285.04 MiB | 10.94 MiB/s
+2022-06-22T16:39:10.5921073Z Receiving objects:  62% (504217/810453), 287.68 MiB | 10.47 MiB/s
+2022-06-22T16:39:10.8844843Z Receiving objects:  63% (510586/810453), 290.62 MiB | 10.28 MiB/s
+2022-06-22T16:39:11.2247010Z Receiving objects:  63% (512864/810453), 295.61 MiB | 8.73 MiB/s 
+2022-06-22T16:39:11.7585035Z Receiving objects:  64% (518690/810453), 295.61 MiB | 8.73 MiB/s
+2022-06-22T16:39:11.8844050Z Receiving objects:  65% (526795/810453), 305.35 MiB | 9.95 MiB/s
+2022-06-22T16:39:12.8861882Z Receiving objects:  65% (527525/810453), 309.24 MiB | 9.93 MiB/s
+2022-06-22T16:39:13.0592075Z Receiving objects:  65% (533170/810453), 315.61 MiB | 8.38 MiB/s
+2022-06-22T16:39:13.4163493Z Receiving objects:  66% (534899/810453), 315.61 MiB | 8.38 MiB/s
+2022-06-22T16:39:13.8631716Z Receiving objects:  67% (543004/810453), 322.63 MiB | 9.18 MiB/s
+2022-06-22T16:39:13.8846647Z Receiving objects:  68% (551109/810453), 322.63 MiB | 9.18 MiB/s
+2022-06-22T16:39:14.3447681Z Receiving objects:  68% (551835/810453), 322.63 MiB | 9.18 MiB/s
+2022-06-22T16:39:14.6215484Z Receiving objects:  69% (559213/810453), 330.21 MiB | 10.03 MiB/s
+2022-06-22T16:39:14.9387257Z Receiving objects:  70% (567318/810453), 336.48 MiB | 10.83 MiB/s
+2022-06-22T16:39:15.4690545Z Receiving objects:  70% (572106/810453), 344.44 MiB | 11.81 MiB/s
+2022-06-22T16:39:15.7045423Z Receiving objects:  71% (575422/810453), 347.55 MiB | 11.40 MiB/s
+2022-06-22T16:39:15.8844443Z Receiving objects:  72% (583527/810453), 347.55 MiB | 11.40 MiB/s
+2022-06-22T16:39:16.3235852Z Receiving objects:  72% (586027/810453), 347.55 MiB | 11.40 MiB/s
+2022-06-22T16:39:16.7575714Z Receiving objects:  73% (591631/810453), 360.11 MiB | 12.02 MiB/s
+2022-06-22T16:39:16.8855900Z Receiving objects:  74% (599736/810453), 368.05 MiB | 12.92 MiB/s
+2022-06-22T16:39:17.1912757Z Receiving objects:  74% (602609/810453), 368.05 MiB | 12.92 MiB/s
+2022-06-22T16:39:17.3898176Z Receiving objects:  75% (607840/810453), 377.75 MiB | 14.16 MiB/s
+2022-06-22T16:39:17.7908751Z Receiving objects:  76% (615945/810453), 377.75 MiB | 14.16 MiB/s
+2022-06-22T16:39:17.8832783Z Receiving objects:  77% (624049/810453), 389.01 MiB | 16.13 MiB/s
+2022-06-22T16:39:17.8840673Z Receiving objects:  78% (632154/810453), 389.01 MiB | 16.13 MiB/s
+2022-06-22T16:39:17.9420297Z Receiving objects:  78% (632326/810453), 389.01 MiB | 16.13 MiB/s
+2022-06-22T16:39:18.3757150Z Receiving objects:  79% (640258/810453), 400.03 MiB | 17.00 MiB/s
+2022-06-22T16:39:18.8344583Z Receiving objects:  80% (648363/810453), 400.03 MiB | 17.00 MiB/s
+2022-06-22T16:39:18.8868472Z Receiving objects:  81% (656467/810453), 416.36 MiB | 18.93 MiB/s
+2022-06-22T16:39:19.5489907Z Receiving objects:  81% (657800/810453), 416.36 MiB | 18.93 MiB/s
+2022-06-22T16:39:19.8891101Z Receiving objects:  82% (664572/810453), 432.20 MiB | 19.50 MiB/s
+2022-06-22T16:39:20.1238937Z Receiving objects:  82% (670482/810453), 432.20 MiB | 19.50 MiB/s
+2022-06-22T16:39:20.8850130Z Receiving objects:  83% (672676/810453), 439.13 MiB | 20.35 MiB/s
+2022-06-22T16:39:21.1611283Z Receiving objects:  83% (678837/810453), 447.47 MiB | 19.41 MiB/s
+2022-06-22T16:39:21.8841720Z Receiving objects:  84% (680781/810453), 451.07 MiB | 18.43 MiB/s
+2022-06-22T16:39:22.2788475Z Receiving objects:  84% (685292/810453), 455.06 MiB | 17.16 MiB/s
+2022-06-22T16:39:22.8859079Z Receiving objects:  85% (688886/810453), 459.39 MiB | 15.62 MiB/s
+2022-06-22T16:39:23.2256049Z Receiving objects:  85% (693518/810453), 465.87 MiB | 14.62 MiB/s
+2022-06-22T16:39:23.8844349Z Receiving objects:  86% (696990/810453), 472.19 MiB | 12.39 MiB/s
+2022-06-22T16:39:24.1056025Z Receiving objects:  86% (703475/810453), 479.50 MiB | 11.82 MiB/s
+2022-06-22T16:39:24.6441162Z Receiving objects:  87% (705095/810453), 484.04 MiB | 11.51 MiB/s
+2022-06-22T16:39:24.8900844Z Receiving objects:  88% (713199/810453), 493.63 MiB | 12.07 MiB/s
+2022-06-22T16:39:24.9835932Z Receiving objects:  88% (719849/810453), 493.63 MiB | 12.07 MiB/s
+2022-06-22T16:39:25.5695743Z Receiving objects:  89% (721304/810453), 498.57 MiB | 11.31 MiB/s
+2022-06-22T16:39:25.8899031Z Receiving objects:  90% (729408/810453), 503.72 MiB | 11.66 MiB/s
+2022-06-22T16:39:26.1952940Z Receiving objects:  90% (734585/810453), 503.72 MiB | 11.66 MiB/s
+2022-06-22T16:39:26.4703489Z Receiving objects:  91% (737513/810453), 507.55 MiB | 11.61 MiB/s
+2022-06-22T16:39:26.8863676Z Receiving objects:  92% (745617/810453), 514.01 MiB | 12.08 MiB/s
+2022-06-22T16:39:26.8956730Z Receiving objects:  92% (753542/810453), 514.01 MiB | 12.08 MiB/s
+2022-06-22T16:39:27.6409727Z Receiving objects:  93% (753722/810453), 514.01 MiB | 12.08 MiB/s
+2022-06-22T16:39:27.8938949Z Receiving objects:  94% (761826/810453), 522.34 MiB | 11.09 MiB/s
+2022-06-22T16:39:28.1605082Z Receiving objects:  94% (765745/810453), 522.34 MiB | 11.09 MiB/s
+2022-06-22T16:39:28.8034538Z Receiving objects:  95% (769931/810453), 526.19 MiB | 10.33 MiB/s
+2022-06-22T16:39:28.8856371Z Receiving objects:  96% (778035/810453), 528.18 MiB | 9.76 MiB/s 
+2022-06-22T16:39:29.4537477Z Receiving objects:  96% (779503/810453), 528.18 MiB | 9.76 MiB/s
+2022-06-22T16:39:29.8719646Z Receiving objects:  97% (786140/810453), 534.00 MiB | 8.94 MiB/s
+2022-06-22T16:39:29.8863287Z Receiving objects:  98% (794244/810453), 537.50 MiB | 8.63 MiB/s
+2022-06-22T16:39:30.3130883Z Receiving objects:  98% (794966/810453), 537.50 MiB | 8.63 MiB/s
+2022-06-22T16:39:30.5926014Z Receiving objects:  99% (802349/810453), 541.89 MiB | 8.46 MiB/s
+2022-06-22T16:39:30.5926717Z remote: Total 810453 (delta 577448), reused 571457 (delta 395931), pack-reused 0        
+2022-06-22T16:39:30.5933814Z Receiving objects: 100% (810453/810453), 546.77 MiB | 8.71 MiB/s
+2022-06-22T16:39:30.5934414Z Receiving objects: 100% (810453/810453), 548.50 MiB | 9.19 MiB/s, done.
+2022-06-22T16:39:30.8377326Z Resolving deltas:   0% (0/577448)
+2022-06-22T16:39:30.9232980Z Resolving deltas:   1% (5775/577448)
+2022-06-22T16:39:31.0438932Z Resolving deltas:   2% (11549/577448)
+2022-06-22T16:39:31.1007110Z Resolving deltas:   3% (17324/577448)
+2022-06-22T16:39:31.2096666Z Resolving deltas:   4% (23098/577448)
+2022-06-22T16:39:31.3279037Z Resolving deltas:   5% (28873/577448)
+2022-06-22T16:39:31.3806782Z Resolving deltas:   6% (34647/577448)
+2022-06-22T16:39:31.4316297Z Resolving deltas:   7% (40422/577448)
+2022-06-22T16:39:31.5135387Z Resolving deltas:   8% (46196/577448)
+2022-06-22T16:39:31.6035810Z Resolving deltas:   9% (51971/577448)
+2022-06-22T16:39:31.6901656Z Resolving deltas:  10% (57745/577448)
+2022-06-22T16:39:31.7075029Z Resolving deltas:  11% (63520/577448)
+2022-06-22T16:39:31.7633062Z Resolving deltas:  11% (65232/577448)
+2022-06-22T16:39:31.8687345Z Resolving deltas:  12% (69294/577448)
+2022-06-22T16:39:31.9529279Z Resolving deltas:  13% (75069/577448)
+2022-06-22T16:39:32.0100369Z Resolving deltas:  14% (80843/577448)
+2022-06-22T16:39:32.0609603Z Resolving deltas:  15% (86618/577448)
+2022-06-22T16:39:32.1358515Z Resolving deltas:  16% (92392/577448)
+2022-06-22T16:39:32.1848833Z Resolving deltas:  17% (98167/577448)
+2022-06-22T16:39:32.2275198Z Resolving deltas:  18% (103941/577448)
+2022-06-22T16:39:32.2803900Z Resolving deltas:  19% (109716/577448)
+2022-06-22T16:39:32.3282803Z Resolving deltas:  20% (115490/577448)
+2022-06-22T16:39:32.3798356Z Resolving deltas:  21% (121265/577448)
+2022-06-22T16:39:32.4171814Z Resolving deltas:  22% (127040/577448)
+2022-06-22T16:39:32.4494661Z Resolving deltas:  23% (132814/577448)
+2022-06-22T16:39:32.6121264Z Resolving deltas:  24% (138588/577448)
+2022-06-22T16:39:32.7076674Z Resolving deltas:  25% (144362/577448)
+2022-06-22T16:39:33.0266940Z Resolving deltas:  25% (146599/577448)
+2022-06-22T16:39:33.5915764Z Resolving deltas:  26% (150137/577448)
+2022-06-22T16:39:33.7076236Z Resolving deltas:  27% (155911/577448)
+2022-06-22T16:39:34.7075564Z Resolving deltas:  27% (156351/577448)
+2022-06-22T16:39:34.8103694Z Resolving deltas:  27% (161539/577448)
+2022-06-22T16:39:35.3177500Z Resolving deltas:  28% (161686/577448)
+2022-06-22T16:39:35.7086114Z Resolving deltas:  29% (167460/577448)
+2022-06-22T16:39:35.8230430Z Resolving deltas:  29% (171369/577448)
+2022-06-22T16:39:35.9735313Z Resolving deltas:  30% (173235/577448)
+2022-06-22T16:39:36.1090533Z Resolving deltas:  31% (179009/577448)
+2022-06-22T16:39:36.7076765Z Resolving deltas:  32% (184784/577448)
+2022-06-22T16:39:36.8582488Z Resolving deltas:  32% (188960/577448)
+2022-06-22T16:39:37.0015147Z Resolving deltas:  33% (190558/577448)
+2022-06-22T16:39:37.3455120Z Resolving deltas:  34% (196333/577448)
+2022-06-22T16:39:37.5440889Z Resolving deltas:  35% (202107/577448)
+2022-06-22T16:39:37.7336364Z Resolving deltas:  36% (207882/577448)
+2022-06-22T16:39:38.1340612Z Resolving deltas:  36% (208156/577448)
+2022-06-22T16:39:38.4522376Z Resolving deltas:  37% (213656/577448)
+2022-06-22T16:39:38.5254467Z Resolving deltas:  38% (219431/577448)
+2022-06-22T16:39:38.6652321Z Resolving deltas:  39% (225205/577448)
+2022-06-22T16:39:38.7075702Z Resolving deltas:  40% (230980/577448)
+2022-06-22T16:39:38.7778444Z Resolving deltas:  40% (233841/577448)
+2022-06-22T16:39:39.2357778Z Resolving deltas:  41% (236754/577448)
+2022-06-22T16:39:39.3368104Z Resolving deltas:  42% (242529/577448)
+2022-06-22T16:39:39.5452108Z Resolving deltas:  43% (248303/577448)
+2022-06-22T16:39:39.7075293Z Resolving deltas:  44% (254078/577448)
+2022-06-22T16:39:39.9725436Z Resolving deltas:  44% (256166/577448)
+2022-06-22T16:39:40.3873971Z Resolving deltas:  45% (259852/577448)
+2022-06-22T16:39:40.5811647Z Resolving deltas:  46% (265627/577448)
+2022-06-22T16:39:40.7075223Z Resolving deltas:  47% (271401/577448)
+2022-06-22T16:39:40.7711347Z Resolving deltas:  47% (276207/577448)
+2022-06-22T16:39:41.1104635Z Resolving deltas:  48% (277176/577448)
+2022-06-22T16:39:41.4631186Z Resolving deltas:  49% (282950/577448)
+2022-06-22T16:39:41.7078127Z Resolving deltas:  50% (288724/577448)
+2022-06-22T16:39:41.7269948Z Resolving deltas:  50% (294356/577448)
+2022-06-22T16:39:42.4666870Z Resolving deltas:  51% (294499/577448)
+2022-06-22T16:39:42.7075027Z Resolving deltas:  52% (300273/577448)
+2022-06-22T16:39:42.8625938Z Resolving deltas:  52% (303624/577448)
+2022-06-22T16:39:43.3409455Z Resolving deltas:  53% (306048/577448)
+2022-06-22T16:39:43.7075214Z Resolving deltas:  54% (311822/577448)
+2022-06-22T16:39:43.7510699Z Resolving deltas:  54% (317171/577448)
+2022-06-22T16:39:44.7076348Z Resolving deltas:  55% (317597/577448)
+2022-06-22T16:39:44.8978291Z Resolving deltas:  55% (322037/577448)
+2022-06-22T16:39:45.3745434Z Resolving deltas:  56% (323371/577448)
+2022-06-22T16:39:45.5821809Z Resolving deltas:  57% (329146/577448)
+2022-06-22T16:39:45.7075767Z Resolving deltas:  58% (334920/577448)
+2022-06-22T16:39:46.1153735Z Resolving deltas:  58% (336834/577448)
+2022-06-22T16:39:46.3893649Z Resolving deltas:  59% (340695/577448)
+2022-06-22T16:39:46.5314154Z Resolving deltas:  60% (346469/577448)
+2022-06-22T16:39:46.7087246Z Resolving deltas:  61% (352244/577448)
+2022-06-22T16:39:46.7363010Z Resolving deltas:  61% (357654/577448)
+2022-06-22T16:39:47.3996867Z Resolving deltas:  62% (358018/577448)
+2022-06-22T16:39:47.7075259Z Resolving deltas:  63% (363793/577448)
+2022-06-22T16:39:47.7195443Z Resolving deltas:  63% (369132/577448)
+2022-06-22T16:39:48.0174433Z Resolving deltas:  64% (369567/577448)
+2022-06-22T16:39:48.4292531Z Resolving deltas:  65% (375342/577448)
+2022-06-22T16:39:48.5445884Z Resolving deltas:  66% (381116/577448)
+2022-06-22T16:39:48.7076673Z Resolving deltas:  67% (386891/577448)
+2022-06-22T16:39:49.1999357Z Resolving deltas:  67% (391926/577448)
+2022-06-22T16:39:49.4209164Z Resolving deltas:  68% (392665/577448)
+2022-06-22T16:39:49.6080725Z Resolving deltas:  69% (398440/577448)
+2022-06-22T16:39:49.7075485Z Resolving deltas:  70% (404214/577448)
+2022-06-22T16:39:49.8402237Z Resolving deltas:  70% (406810/577448)
+2022-06-22T16:39:50.0483454Z Resolving deltas:  71% (409989/577448)
+2022-06-22T16:39:50.3239432Z Resolving deltas:  72% (415763/577448)
+2022-06-22T16:39:50.6705363Z Resolving deltas:  73% (421538/577448)
+2022-06-22T16:39:50.7075563Z Resolving deltas:  74% (427312/577448)
+2022-06-22T16:39:51.0557226Z Resolving deltas:  74% (428136/577448)
+2022-06-22T16:39:51.4426855Z Resolving deltas:  75% (433086/577448)
+2022-06-22T16:39:51.7076503Z Resolving deltas:  76% (438861/577448)
+2022-06-22T16:39:51.7214918Z Resolving deltas:  76% (444465/577448)
+2022-06-22T16:39:52.1959253Z Resolving deltas:  77% (444635/577448)
+2022-06-22T16:39:52.5419254Z Resolving deltas:  78% (450410/577448)
+2022-06-22T16:39:52.7084701Z Resolving deltas:  79% (456184/577448)
+2022-06-22T16:39:52.9712323Z Resolving deltas:  79% (458926/577448)
+2022-06-22T16:39:53.2916969Z Resolving deltas:  80% (461959/577448)
+2022-06-22T16:39:53.7095134Z Resolving deltas:  81% (467733/577448)
+2022-06-22T16:39:53.9612053Z Resolving deltas:  81% (470705/577448)
+2022-06-22T16:39:54.4649879Z Resolving deltas:  82% (473508/577448)
+2022-06-22T16:39:54.7091139Z Resolving deltas:  83% (479282/577448)
+2022-06-22T16:39:54.9473873Z Resolving deltas:  83% (480537/577448)
+2022-06-22T16:39:55.3895612Z Resolving deltas:  84% (485057/577448)
+2022-06-22T16:39:55.5378806Z Resolving deltas:  85% (490831/577448)
+2022-06-22T16:39:55.6347111Z Resolving deltas:  86% (496606/577448)
+2022-06-22T16:39:55.7075016Z Resolving deltas:  87% (502380/577448)
+2022-06-22T16:39:55.8819145Z Resolving deltas:  87% (505848/577448)
+2022-06-22T16:39:56.3488904Z Resolving deltas:  88% (508155/577448)
+2022-06-22T16:39:56.7075839Z Resolving deltas:  89% (513929/577448)
+2022-06-22T16:39:57.0124401Z Resolving deltas:  89% (517015/577448)
+2022-06-22T16:39:57.7078608Z Resolving deltas:  90% (519704/577448)
+2022-06-22T16:39:57.8272210Z Resolving deltas:  90% (524911/577448)
+2022-06-22T16:39:58.6467736Z Resolving deltas:  91% (525478/577448)
+2022-06-22T16:39:58.7077659Z Resolving deltas:  92% (531253/577448)
+2022-06-22T16:39:59.7082790Z Resolving deltas:  92% (531461/577448)
+2022-06-22T16:39:59.7928332Z Resolving deltas:  92% (536081/577448)
+2022-06-22T16:40:00.4120937Z Resolving deltas:  93% (537027/577448)
+2022-06-22T16:40:00.7080591Z Resolving deltas:  94% (542802/577448)
+2022-06-22T16:40:00.9138111Z Resolving deltas:  94% (545957/577448)
+2022-06-22T16:40:01.5848031Z Resolving deltas:  95% (548576/577448)
+2022-06-22T16:40:01.7076282Z Resolving deltas:  96% (554351/577448)
+2022-06-22T16:40:02.1770442Z Resolving deltas:  96% (554946/577448)
+2022-06-22T16:40:02.6328833Z Resolving deltas:  97% (560125/577448)
+2022-06-22T16:40:02.7075519Z Resolving deltas:  98% (565900/577448)
+2022-06-22T16:40:03.1839566Z Resolving deltas:  98% (567090/577448)
+2022-06-22T16:40:03.5698254Z Resolving deltas:  99% (571674/577448)
+2022-06-22T16:40:03.5735781Z Resolving deltas: 100% (577448/577448)
+2022-06-22T16:40:03.5736975Z Resolving deltas: 100% (577448/577448), done.
+2022-06-22T16:40:07.1510230Z From https://github.com/llvm/llvm-project
+2022-06-22T16:40:07.1510793Z  * [new branch]            main               -> origin/main
+2022-06-22T16:40:07.1511156Z  * [new branch]            master             -> origin/master
+2022-06-22T16:40:07.1516381Z  * [new branch]            mgehre.clang_experimental_bitint_size -> origin/mgehre.clang_experimental_bitint_size
+2022-06-22T16:40:07.1523750Z  * [new branch]            release/1.0.x      -> origin/release/1.0.x
+2022-06-22T16:40:07.1528716Z  * [new branch]            release/1.1.x      -> origin/release/1.1.x
+2022-06-22T16:40:07.1534160Z  * [new branch]            release/1.2.x      -> origin/release/1.2.x
+2022-06-22T16:40:07.1539540Z  * [new branch]            release/1.3.x      -> origin/release/1.3.x
+2022-06-22T16:40:07.1544539Z  * [new branch]            release/1.4.x      -> origin/release/1.4.x
+2022-06-22T16:40:07.1549678Z  * [new branch]            release/1.5.x      -> origin/release/1.5.x
+2022-06-22T16:40:07.1554331Z  * [new branch]            release/1.6.x      -> origin/release/1.6.x
+2022-06-22T16:40:07.1559400Z  * [new branch]            release/1.7.x      -> origin/release/1.7.x
+2022-06-22T16:40:07.1564411Z  * [new branch]            release/1.8.x      -> origin/release/1.8.x
+2022-06-22T16:40:07.1569306Z  * [new branch]            release/1.9.x      -> origin/release/1.9.x
+2022-06-22T16:40:07.1574368Z  * [new branch]            release/10.x       -> origin/release/10.x
+2022-06-22T16:40:07.1580086Z  * [new branch]            release/11.x       -> origin/release/11.x
+2022-06-22T16:40:07.1586067Z  * [new branch]            release/12.x       -> origin/release/12.x
+2022-06-22T16:40:07.1592256Z  * [new branch]            release/13.x       -> origin/release/13.x
+2022-06-22T16:40:07.1598200Z  * [new branch]            release/14.x       -> origin/release/14.x
+2022-06-22T16:40:07.1604046Z  * [new branch]            release/2.0.x      -> origin/release/2.0.x
+2022-06-22T16:40:07.1610018Z  * [new branch]            release/2.1.x      -> origin/release/2.1.x
+2022-06-22T16:40:07.1616021Z  * [new branch]            release/2.2.x      -> origin/release/2.2.x
+2022-06-22T16:40:07.1622030Z  * [new branch]            release/2.3.x      -> origin/release/2.3.x
+2022-06-22T16:40:07.1627930Z  * [new branch]            release/2.4.x      -> origin/release/2.4.x
+2022-06-22T16:40:07.1633998Z  * [new branch]            release/2.5.x      -> origin/release/2.5.x
+2022-06-22T16:40:07.1639843Z  * [new branch]            release/2.6.x      -> origin/release/2.6.x
+2022-06-22T16:40:07.1645680Z  * [new branch]            release/2.7.x      -> origin/release/2.7.x
+2022-06-22T16:40:07.1651486Z  * [new branch]            release/2.8.x      -> origin/release/2.8.x
+2022-06-22T16:40:07.1658918Z  * [new branch]            release/2.9.x      -> origin/release/2.9.x
+2022-06-22T16:40:07.1663502Z  * [new branch]            release/3.0.x      -> origin/release/3.0.x
+2022-06-22T16:40:07.1669450Z  * [new branch]            release/3.1.x      -> origin/release/3.1.x
+2022-06-22T16:40:07.1675351Z  * [new branch]            release/3.2.x      -> origin/release/3.2.x
+2022-06-22T16:40:07.1681480Z  * [new branch]            release/3.3.x      -> origin/release/3.3.x
+2022-06-22T16:40:07.1687347Z  * [new branch]            release/3.4.x      -> origin/release/3.4.x
+2022-06-22T16:40:07.1693404Z  * [new branch]            release/3.5.x      -> origin/release/3.5.x
+2022-06-22T16:40:07.1699457Z  * [new branch]            release/3.6.x      -> origin/release/3.6.x
+2022-06-22T16:40:07.1706608Z  * [new branch]            release/3.7.x      -> origin/release/3.7.x
+2022-06-22T16:40:07.1712187Z  * [new branch]            release/3.8.x      -> origin/release/3.8.x
+2022-06-22T16:40:07.1718350Z  * [new branch]            release/3.9.x      -> origin/release/3.9.x
+2022-06-22T16:40:07.1724170Z  * [new branch]            release/4.x        -> origin/release/4.x
+2022-06-22T16:40:07.1730192Z  * [new branch]            release/5.x        -> origin/release/5.x
+2022-06-22T16:40:07.1738098Z  * [new branch]            release/6.x        -> origin/release/6.x
+2022-06-22T16:40:07.1744158Z  * [new branch]            release/7.x        -> origin/release/7.x
+2022-06-22T16:40:07.1750073Z  * [new branch]            release/8.x        -> origin/release/8.x
+2022-06-22T16:40:07.1755813Z  * [new branch]            release/9.x        -> origin/release/9.x
+2022-06-22T16:40:07.1804973Z  * [new tag]               2020.06-alpha      -> 2020.06-alpha
+2022-06-22T16:40:07.1809344Z  * [new tag]               htc-11.0.1-alpha   -> htc-11.0.1-alpha
+2022-06-22T16:40:07.1814074Z  * [new tag]               llvmorg-1.0.0      -> llvmorg-1.0.0
+2022-06-22T16:40:07.1819716Z  * [new tag]               llvmorg-1.1.0      -> llvmorg-1.1.0
+2022-06-22T16:40:07.1824253Z  * [new tag]               llvmorg-1.2.0      -> llvmorg-1.2.0
+2022-06-22T16:40:07.1828764Z  * [new tag]               llvmorg-1.3.0      -> llvmorg-1.3.0
+2022-06-22T16:40:07.1833220Z  * [new tag]               llvmorg-1.4.0      -> llvmorg-1.4.0
+2022-06-22T16:40:07.1837784Z  * [new tag]               llvmorg-1.5.0      -> llvmorg-1.5.0
+2022-06-22T16:40:07.1842263Z  * [new tag]               llvmorg-1.6.0      -> llvmorg-1.6.0
+2022-06-22T16:40:07.1846768Z  * [new tag]               llvmorg-1.9.0      -> llvmorg-1.9.0
+2022-06-22T16:40:07.1851299Z  * [new tag]               llvmorg-10-init    -> llvmorg-10-init
+2022-06-22T16:40:07.1856363Z  * [new tag]               llvmorg-10.0.0     -> llvmorg-10.0.0
+2022-06-22T16:40:07.1860992Z  * [new tag]               llvmorg-10.0.0-rc1 -> llvmorg-10.0.0-rc1
+2022-06-22T16:40:07.1865575Z  * [new tag]               llvmorg-10.0.0-rc2 -> llvmorg-10.0.0-rc2
+2022-06-22T16:40:07.1870517Z  * [new tag]               llvmorg-10.0.0-rc3 -> llvmorg-10.0.0-rc3
+2022-06-22T16:40:07.1875236Z  * [new tag]               llvmorg-10.0.0-rc4 -> llvmorg-10.0.0-rc4
+2022-06-22T16:40:07.1879614Z  * [new tag]               llvmorg-10.0.0-rc5 -> llvmorg-10.0.0-rc5
+2022-06-22T16:40:07.1884162Z  * [new tag]               llvmorg-10.0.0-rc6 -> llvmorg-10.0.0-rc6
+2022-06-22T16:40:07.1888869Z  * [new tag]               llvmorg-10.0.1     -> llvmorg-10.0.1
+2022-06-22T16:40:07.1893551Z  * [new tag]               llvmorg-10.0.1-rc1 -> llvmorg-10.0.1-rc1
+2022-06-22T16:40:07.1898624Z  * [new tag]               llvmorg-10.0.1-rc2 -> llvmorg-10.0.1-rc2
+2022-06-22T16:40:07.1903243Z  * [new tag]               llvmorg-10.0.1-rc3 -> llvmorg-10.0.1-rc3
+2022-06-22T16:40:07.1908090Z  * [new tag]               llvmorg-10.0.1-rc4 -> llvmorg-10.0.1-rc4
+2022-06-22T16:40:07.1912657Z  * [new tag]               llvmorg-11-init    -> llvmorg-11-init
+2022-06-22T16:40:07.1917252Z  * [new tag]               llvmorg-11.0.0     -> llvmorg-11.0.0
+2022-06-22T16:40:07.1921987Z  * [new tag]               llvmorg-11.0.0-rc1 -> llvmorg-11.0.0-rc1
+2022-06-22T16:40:07.1926497Z  * [new tag]               llvmorg-11.0.0-rc2 -> llvmorg-11.0.0-rc2
+2022-06-22T16:40:07.1931310Z  * [new tag]               llvmorg-11.0.0-rc3 -> llvmorg-11.0.0-rc3
+2022-06-22T16:40:07.1936186Z  * [new tag]               llvmorg-11.0.0-rc4 -> llvmorg-11.0.0-rc4
+2022-06-22T16:40:07.1941078Z  * [new tag]               llvmorg-11.0.0-rc5 -> llvmorg-11.0.0-rc5
+2022-06-22T16:40:07.1946068Z  * [new tag]               llvmorg-11.0.0-rc6 -> llvmorg-11.0.0-rc6
+2022-06-22T16:40:07.1950725Z  * [new tag]               llvmorg-11.0.1     -> llvmorg-11.0.1
+2022-06-22T16:40:07.1955338Z  * [new tag]               llvmorg-11.0.1-rc1 -> llvmorg-11.0.1-rc1
+2022-06-22T16:40:07.1960194Z  * [new tag]               llvmorg-11.0.1-rc2 -> llvmorg-11.0.1-rc2
+2022-06-22T16:40:07.1964815Z  * [new tag]               llvmorg-11.1.0     -> llvmorg-11.1.0
+2022-06-22T16:40:07.1969691Z  * [new tag]               llvmorg-11.1.0-rc1 -> llvmorg-11.1.0-rc1
+2022-06-22T16:40:07.1975573Z  * [new tag]               llvmorg-11.1.0-rc2 -> llvmorg-11.1.0-rc2
+2022-06-22T16:40:07.1979664Z  * [new tag]               llvmorg-11.1.0-rc3 -> llvmorg-11.1.0-rc3
+2022-06-22T16:40:07.1988365Z  * [new tag]               llvmorg-12-init    -> llvmorg-12-init
+2022-06-22T16:40:07.1988818Z  * [new tag]               llvmorg-12.0.0     -> llvmorg-12.0.0
+2022-06-22T16:40:07.1993308Z  * [new tag]               llvmorg-12.0.0-rc1 -> llvmorg-12.0.0-rc1
+2022-06-22T16:40:07.1993736Z  * [new tag]               llvmorg-12.0.0-rc2 -> llvmorg-12.0.0-rc2
+2022-06-22T16:40:07.1998730Z  * [new tag]               llvmorg-12.0.0-rc3 -> llvmorg-12.0.0-rc3
+2022-06-22T16:40:07.1999123Z  * [new tag]               llvmorg-12.0.0-rc4 -> llvmorg-12.0.0-rc4
+2022-06-22T16:40:07.2006287Z  * [new tag]               llvmorg-12.0.0-rc5 -> llvmorg-12.0.0-rc5
+2022-06-22T16:40:07.2006696Z  * [new tag]               llvmorg-12.0.1     -> llvmorg-12.0.1
+2022-06-22T16:40:07.2018699Z  * [new tag]               llvmorg-12.0.1-rc1 -> llvmorg-12.0.1-rc1
+2022-06-22T16:40:07.2019109Z  * [new tag]               llvmorg-12.0.1-rc2 -> llvmorg-12.0.1-rc2
+2022-06-22T16:40:07.2097745Z  * [new tag]               llvmorg-12.0.1-rc3 -> llvmorg-12.0.1-rc3
+2022-06-22T16:40:07.2098174Z  * [new tag]               llvmorg-12.0.1-rc4 -> llvmorg-12.0.1-rc4
+2022-06-22T16:40:07.2100221Z  * [new tag]               llvmorg-13-init    -> llvmorg-13-init
+2022-06-22T16:40:07.2101093Z  * [new tag]               llvmorg-13.0.0     -> llvmorg-13.0.0
+2022-06-22T16:40:07.2101982Z  * [new tag]               llvmorg-13.0.0-rc1 -> llvmorg-13.0.0-rc1
+2022-06-22T16:40:07.2102863Z  * [new tag]               llvmorg-13.0.0-rc2 -> llvmorg-13.0.0-rc2
+2022-06-22T16:40:07.2103745Z  * [new tag]               llvmorg-13.0.0-rc3 -> llvmorg-13.0.0-rc3
+2022-06-22T16:40:07.2104609Z  * [new tag]               llvmorg-13.0.0-rc4 -> llvmorg-13.0.0-rc4
+2022-06-22T16:40:07.2105508Z  * [new tag]               llvmorg-13.0.1     -> llvmorg-13.0.1
+2022-06-22T16:40:07.2106556Z  * [new tag]               llvmorg-13.0.1-rc1 -> llvmorg-13.0.1-rc1
+2022-06-22T16:40:07.2107321Z  * [new tag]               llvmorg-13.0.1-rc2 -> llvmorg-13.0.1-rc2
+2022-06-22T16:40:07.2108209Z  * [new tag]               llvmorg-13.0.1-rc3 -> llvmorg-13.0.1-rc3
+2022-06-22T16:40:07.2109082Z  * [new tag]               llvmorg-14-init    -> llvmorg-14-init
+2022-06-22T16:40:07.2109976Z  * [new tag]               llvmorg-14.0.0     -> llvmorg-14.0.0
+2022-06-22T16:40:07.2110850Z  * [new tag]               llvmorg-14.0.0-rc1 -> llvmorg-14.0.0-rc1
+2022-06-22T16:40:07.2111726Z  * [new tag]               llvmorg-14.0.0-rc2 -> llvmorg-14.0.0-rc2
+2022-06-22T16:40:07.2112564Z  * [new tag]               llvmorg-14.0.0-rc3 -> llvmorg-14.0.0-rc3
+2022-06-22T16:40:07.2113435Z  * [new tag]               llvmorg-14.0.0-rc4 -> llvmorg-14.0.0-rc4
+2022-06-22T16:40:07.2114288Z  * [new tag]               llvmorg-14.0.1     -> llvmorg-14.0.1
+2022-06-22T16:40:07.2116352Z  * [new tag]               llvmorg-14.0.2     -> llvmorg-14.0.2
+2022-06-22T16:40:07.2117295Z  * [new tag]               llvmorg-14.0.3     -> llvmorg-14.0.3
+2022-06-22T16:40:07.2118026Z  * [new tag]               llvmorg-14.0.4     -> llvmorg-14.0.4
+2022-06-22T16:40:07.2119243Z  * [new tag]               llvmorg-14.0.5     -> llvmorg-14.0.5
+2022-06-22T16:40:07.2120402Z  * [new tag]               llvmorg-15-init    -> llvmorg-15-init
+2022-06-22T16:40:07.2121932Z  * [new tag]               llvmorg-2.0.0      -> llvmorg-2.0.0
+2022-06-22T16:40:07.2122983Z  * [new tag]               llvmorg-2.1.0      -> llvmorg-2.1.0
+2022-06-22T16:40:07.2124065Z  * [new tag]               llvmorg-2.2.0      -> llvmorg-2.2.0
+2022-06-22T16:40:07.2125130Z  * [new tag]               llvmorg-2.3.0      -> llvmorg-2.3.0
+2022-06-22T16:40:07.2126258Z  * [new tag]               llvmorg-2.4.0      -> llvmorg-2.4.0
+2022-06-22T16:40:07.2127370Z  * [new tag]               llvmorg-2.5.0      -> llvmorg-2.5.0
+2022-06-22T16:40:07.2128506Z  * [new tag]               llvmorg-2.6.0      -> llvmorg-2.6.0
+2022-06-22T16:40:07.2129994Z  * [new tag]               llvmorg-2.7.0      -> llvmorg-2.7.0
+2022-06-22T16:40:07.2131078Z  * [new tag]               llvmorg-2.8.0      -> llvmorg-2.8.0
+2022-06-22T16:40:07.2132165Z  * [new tag]               llvmorg-2.8.0-rc0  -> llvmorg-2.8.0-rc0
+2022-06-22T16:40:07.2133257Z  * [new tag]               llvmorg-2.8.0-rc1  -> llvmorg-2.8.0-rc1
+2022-06-22T16:40:07.2134534Z  * [new tag]               llvmorg-2.8.0-rc2  -> llvmorg-2.8.0-rc2
+2022-06-22T16:40:07.2135625Z  * [new tag]               llvmorg-2.8.0-rc3  -> llvmorg-2.8.0-rc3
+2022-06-22T16:40:07.2136622Z  * [new tag]               llvmorg-2.9.0      -> llvmorg-2.9.0
+2022-06-22T16:40:07.2137564Z  * [new tag]               llvmorg-2.9.0-rc1  -> llvmorg-2.9.0-rc1
+2022-06-22T16:40:07.2138621Z  * [new tag]               llvmorg-2.9.0-rc2  -> llvmorg-2.9.0-rc2
+2022-06-22T16:40:07.2139659Z  * [new tag]               llvmorg-2.9.0-rc3  -> llvmorg-2.9.0-rc3
+2022-06-22T16:40:07.2140329Z  * [new tag]               llvmorg-3.0.0      -> llvmorg-3.0.0
+2022-06-22T16:40:07.2140756Z  * [new tag]               llvmorg-3.0.0-rc1  -> llvmorg-3.0.0-rc1
+2022-06-22T16:40:07.2144096Z  * [new tag]               llvmorg-3.0.0-rc2  -> llvmorg-3.0.0-rc2
+2022-06-22T16:40:07.2147849Z  * [new tag]               llvmorg-3.0.0-rc3  -> llvmorg-3.0.0-rc3
+2022-06-22T16:40:07.2149806Z  * [new tag]               llvmorg-3.0.0-rc4  -> llvmorg-3.0.0-rc4
+2022-06-22T16:40:07.2151590Z  * [new tag]               llvmorg-3.1.0      -> llvmorg-3.1.0
+2022-06-22T16:40:07.2153338Z  * [new tag]               llvmorg-3.1.0-rc1  -> llvmorg-3.1.0-rc1
+2022-06-22T16:40:07.2155060Z  * [new tag]               llvmorg-3.1.0-rc2  -> llvmorg-3.1.0-rc2
+2022-06-22T16:40:07.2156786Z  * [new tag]               llvmorg-3.1.0-rc3  -> llvmorg-3.1.0-rc3
+2022-06-22T16:40:07.2158489Z  * [new tag]               llvmorg-3.2.0      -> llvmorg-3.2.0
+2022-06-22T16:40:07.2160200Z  * [new tag]               llvmorg-3.2.0-rc1  -> llvmorg-3.2.0-rc1
+2022-06-22T16:40:07.2162118Z  * [new tag]               llvmorg-3.2.0-rc2  -> llvmorg-3.2.0-rc2
+2022-06-22T16:40:07.2163859Z  * [new tag]               llvmorg-3.2.0-rc3  -> llvmorg-3.2.0-rc3
+2022-06-22T16:40:07.2165543Z  * [new tag]               llvmorg-3.3.0      -> llvmorg-3.3.0
+2022-06-22T16:40:07.2167212Z  * [new tag]               llvmorg-3.3.0-rc1  -> llvmorg-3.3.0-rc1
+2022-06-22T16:40:07.2168870Z  * [new tag]               llvmorg-3.3.0-rc2  -> llvmorg-3.3.0-rc2
+2022-06-22T16:40:07.2175066Z  * [new tag]               llvmorg-3.3.0-rc3  -> llvmorg-3.3.0-rc3
+2022-06-22T16:40:07.2175429Z  * [new tag]               llvmorg-3.3.1-rc1  -> llvmorg-3.3.1-rc1
+2022-06-22T16:40:07.2175836Z  * [new tag]               llvmorg-3.4.0      -> llvmorg-3.4.0
+2022-06-22T16:40:07.2176181Z  * [new tag]               llvmorg-3.4.0-rc1  -> llvmorg-3.4.0-rc1
+2022-06-22T16:40:07.2176545Z  * [new tag]               llvmorg-3.4.0-rc2  -> llvmorg-3.4.0-rc2
+2022-06-22T16:40:07.2176905Z  * [new tag]               llvmorg-3.4.0-rc3  -> llvmorg-3.4.0-rc3
+2022-06-22T16:40:07.2177282Z  * [new tag]               llvmorg-3.4.1      -> llvmorg-3.4.1
+2022-06-22T16:40:07.2177633Z  * [new tag]               llvmorg-3.4.1-rc1  -> llvmorg-3.4.1-rc1
+2022-06-22T16:40:07.2177992Z  * [new tag]               llvmorg-3.4.1-rc2  -> llvmorg-3.4.1-rc2
+2022-06-22T16:40:07.2178342Z  * [new tag]               llvmorg-3.4.2      -> llvmorg-3.4.2
+2022-06-22T16:40:07.2178690Z  * [new tag]               llvmorg-3.4.2-rc1  -> llvmorg-3.4.2-rc1
+2022-06-22T16:40:07.2179047Z  * [new tag]               llvmorg-3.5.0      -> llvmorg-3.5.0
+2022-06-22T16:40:07.2179409Z  * [new tag]               llvmorg-3.5.0-rc1  -> llvmorg-3.5.0-rc1
+2022-06-22T16:40:07.2179773Z  * [new tag]               llvmorg-3.5.0-rc2  -> llvmorg-3.5.0-rc2
+2022-06-22T16:40:07.2180120Z  * [new tag]               llvmorg-3.5.0-rc3  -> llvmorg-3.5.0-rc3
+2022-06-22T16:40:07.2180478Z  * [new tag]               llvmorg-3.5.0-rc4  -> llvmorg-3.5.0-rc4
+2022-06-22T16:40:07.2180825Z  * [new tag]               llvmorg-3.5.1      -> llvmorg-3.5.1
+2022-06-22T16:40:07.2181418Z  * [new tag]               llvmorg-3.5.1-rc1  -> llvmorg-3.5.1-rc1
+2022-06-22T16:40:07.2181775Z  * [new tag]               llvmorg-3.5.1-rc2  -> llvmorg-3.5.1-rc2
+2022-06-22T16:40:07.2182126Z  * [new tag]               llvmorg-3.5.2      -> llvmorg-3.5.2
+2022-06-22T16:40:07.2182468Z  * [new tag]               llvmorg-3.5.2-rc1  -> llvmorg-3.5.2-rc1
+2022-06-22T16:40:07.2182826Z  * [new tag]               llvmorg-3.6.0      -> llvmorg-3.6.0
+2022-06-22T16:40:07.2183193Z  * [new tag]               llvmorg-3.6.0-rc1  -> llvmorg-3.6.0-rc1
+2022-06-22T16:40:07.2183558Z  * [new tag]               llvmorg-3.6.0-rc2  -> llvmorg-3.6.0-rc2
+2022-06-22T16:40:07.2183910Z  * [new tag]               llvmorg-3.6.0-rc3  -> llvmorg-3.6.0-rc3
+2022-06-22T16:40:07.2184276Z  * [new tag]               llvmorg-3.6.0-rc4  -> llvmorg-3.6.0-rc4
+2022-06-22T16:40:07.2184640Z  * [new tag]               llvmorg-3.6.1      -> llvmorg-3.6.1
+2022-06-22T16:40:07.2184975Z  * [new tag]               llvmorg-3.6.1-rc1  -> llvmorg-3.6.1-rc1
+2022-06-22T16:40:07.2185345Z  * [new tag]               llvmorg-3.6.2      -> llvmorg-3.6.2
+2022-06-22T16:40:07.2185711Z  * [new tag]               llvmorg-3.6.2-rc1  -> llvmorg-3.6.2-rc1
+2022-06-22T16:40:07.2186065Z  * [new tag]               llvmorg-3.7.0      -> llvmorg-3.7.0
+2022-06-22T16:40:07.2186408Z  * [new tag]               llvmorg-3.7.0-rc1  -> llvmorg-3.7.0-rc1
+2022-06-22T16:40:07.2186776Z  * [new tag]               llvmorg-3.7.0-rc2  -> llvmorg-3.7.0-rc2
+2022-06-22T16:40:07.2187141Z  * [new tag]               llvmorg-3.7.0-rc3  -> llvmorg-3.7.0-rc3
+2022-06-22T16:40:07.2187485Z  * [new tag]               llvmorg-3.7.0-rc4  -> llvmorg-3.7.0-rc4
+2022-06-22T16:40:07.2187838Z  * [new tag]               llvmorg-3.7.1      -> llvmorg-3.7.1
+2022-06-22T16:40:07.2188199Z  * [new tag]               llvmorg-3.7.1-rc1  -> llvmorg-3.7.1-rc1
+2022-06-22T16:40:07.2188543Z  * [new tag]               llvmorg-3.7.1-rc2  -> llvmorg-3.7.1-rc2
+2022-06-22T16:40:07.2189036Z  * [new tag]               llvmorg-3.8.0      -> llvmorg-3.8.0
+2022-06-22T16:40:07.2189393Z  * [new tag]               llvmorg-3.8.0-rc1  -> llvmorg-3.8.0-rc1
+2022-06-22T16:40:07.2189743Z  * [new tag]               llvmorg-3.8.0-rc2  -> llvmorg-3.8.0-rc2
+2022-06-22T16:40:07.2190083Z  * [new tag]               llvmorg-3.8.0-rc3  -> llvmorg-3.8.0-rc3
+2022-06-22T16:40:07.2190434Z  * [new tag]               llvmorg-3.8.1      -> llvmorg-3.8.1
+2022-06-22T16:40:07.2190783Z  * [new tag]               llvmorg-3.8.1-rc1  -> llvmorg-3.8.1-rc1
+2022-06-22T16:40:07.2191118Z  * [new tag]               llvmorg-3.9.0      -> llvmorg-3.9.0
+2022-06-22T16:40:07.2191468Z  * [new tag]               llvmorg-3.9.0-rc1  -> llvmorg-3.9.0-rc1
+2022-06-22T16:40:07.2191830Z  * [new tag]               llvmorg-3.9.0-rc2  -> llvmorg-3.9.0-rc2
+2022-06-22T16:40:07.2192189Z  * [new tag]               llvmorg-3.9.0-rc3  -> llvmorg-3.9.0-rc3
+2022-06-22T16:40:07.2192514Z  * [new tag]               llvmorg-3.9.1      -> llvmorg-3.9.1
+2022-06-22T16:40:07.2192881Z  * [new tag]               llvmorg-3.9.1-rc1  -> llvmorg-3.9.1-rc1
+2022-06-22T16:40:07.2193242Z  * [new tag]               llvmorg-3.9.1-rc2  -> llvmorg-3.9.1-rc2
+2022-06-22T16:40:07.2193583Z  * [new tag]               llvmorg-3.9.1-rc3  -> llvmorg-3.9.1-rc3
+2022-06-22T16:40:07.2193938Z  * [new tag]               llvmorg-4.0.0      -> llvmorg-4.0.0
+2022-06-22T16:40:07.2194289Z  * [new tag]               llvmorg-4.0.0-rc1  -> llvmorg-4.0.0-rc1
+2022-06-22T16:40:07.2194646Z  * [new tag]               llvmorg-4.0.0-rc2  -> llvmorg-4.0.0-rc2
+2022-06-22T16:40:07.2194988Z  * [new tag]               llvmorg-4.0.0-rc3  -> llvmorg-4.0.0-rc3
+2022-06-22T16:40:07.2195352Z  * [new tag]               llvmorg-4.0.0-rc4  -> llvmorg-4.0.0-rc4
+2022-06-22T16:40:07.2195716Z  * [new tag]               llvmorg-4.0.1      -> llvmorg-4.0.1
+2022-06-22T16:40:07.2196051Z  * [new tag]               llvmorg-4.0.1-rc1  -> llvmorg-4.0.1-rc1
+2022-06-22T16:40:07.2196399Z  * [new tag]               llvmorg-4.0.1-rc2  -> llvmorg-4.0.1-rc2
+2022-06-22T16:40:07.2196908Z  * [new tag]               llvmorg-4.0.1-rc3  -> llvmorg-4.0.1-rc3
+2022-06-22T16:40:07.2197241Z  * [new tag]               llvmorg-5.0.0      -> llvmorg-5.0.0
+2022-06-22T16:40:07.2197595Z  * [new tag]               llvmorg-5.0.0-rc1  -> llvmorg-5.0.0-rc1
+2022-06-22T16:40:07.2197954Z  * [new tag]               llvmorg-5.0.0-rc2  -> llvmorg-5.0.0-rc2
+2022-06-22T16:40:07.2198304Z  * [new tag]               llvmorg-5.0.0-rc3  -> llvmorg-5.0.0-rc3
+2022-06-22T16:40:07.2215001Z  * [new tag]               llvmorg-5.0.0-rc4  -> llvmorg-5.0.0-rc4
+2022-06-22T16:40:07.2215394Z  * [new tag]               llvmorg-5.0.0-rc5  -> llvmorg-5.0.0-rc5
+2022-06-22T16:40:07.2215744Z  * [new tag]               llvmorg-5.0.1      -> llvmorg-5.0.1
+2022-06-22T16:40:07.2216092Z  * [new tag]               llvmorg-5.0.1-rc1  -> llvmorg-5.0.1-rc1
+2022-06-22T16:40:07.2216430Z  * [new tag]               llvmorg-5.0.1-rc2  -> llvmorg-5.0.1-rc2
+2022-06-22T16:40:07.2216789Z  * [new tag]               llvmorg-5.0.1-rc3  -> llvmorg-5.0.1-rc3
+2022-06-22T16:40:07.2217168Z  * [new tag]               llvmorg-5.0.2      -> llvmorg-5.0.2
+2022-06-22T16:40:07.2217553Z  * [new tag]               llvmorg-5.0.2-rc1  -> llvmorg-5.0.2-rc1
+2022-06-22T16:40:07.2217915Z  * [new tag]               llvmorg-5.0.2-rc2  -> llvmorg-5.0.2-rc2
+2022-06-22T16:40:07.2218256Z  * [new tag]               llvmorg-6.0.0      -> llvmorg-6.0.0
+2022-06-22T16:40:07.2218605Z  * [new tag]               llvmorg-6.0.0-rc1  -> llvmorg-6.0.0-rc1
+2022-06-22T16:40:07.2218962Z  * [new tag]               llvmorg-6.0.0-rc2  -> llvmorg-6.0.0-rc2
+2022-06-22T16:40:07.2219302Z  * [new tag]               llvmorg-6.0.0-rc3  -> llvmorg-6.0.0-rc3
+2022-06-22T16:40:07.2219649Z  * [new tag]               llvmorg-6.0.1      -> llvmorg-6.0.1
+2022-06-22T16:40:07.2219999Z  * [new tag]               llvmorg-6.0.1-rc1  -> llvmorg-6.0.1-rc1
+2022-06-22T16:40:07.2220350Z  * [new tag]               llvmorg-6.0.1-rc2  -> llvmorg-6.0.1-rc2
+2022-06-22T16:40:07.2220690Z  * [new tag]               llvmorg-6.0.1-rc3  -> llvmorg-6.0.1-rc3
+2022-06-22T16:40:07.2221272Z  * [new tag]               llvmorg-7.0.0      -> llvmorg-7.0.0
+2022-06-22T16:40:07.2221628Z  * [new tag]               llvmorg-7.0.0-rc1  -> llvmorg-7.0.0-rc1
+2022-06-22T16:40:07.2221965Z  * [new tag]               llvmorg-7.0.0-rc2  -> llvmorg-7.0.0-rc2
+2022-06-22T16:40:07.2222323Z  * [new tag]               llvmorg-7.0.0-rc3  -> llvmorg-7.0.0-rc3
+2022-06-22T16:40:07.2222678Z  * [new tag]               llvmorg-7.0.1      -> llvmorg-7.0.1
+2022-06-22T16:40:07.2223037Z  * [new tag]               llvmorg-7.0.1-rc1  -> llvmorg-7.0.1-rc1
+2022-06-22T16:40:07.2223377Z  * [new tag]               llvmorg-7.0.1-rc2  -> llvmorg-7.0.1-rc2
+2022-06-22T16:40:07.2223743Z  * [new tag]               llvmorg-7.0.1-rc3  -> llvmorg-7.0.1-rc3
+2022-06-22T16:40:07.2224091Z  * [new tag]               llvmorg-7.1.0      -> llvmorg-7.1.0
+2022-06-22T16:40:07.2224432Z  * [new tag]               llvmorg-7.1.0-rc1  -> llvmorg-7.1.0-rc1
+2022-06-22T16:40:07.2224787Z  * [new tag]               llvmorg-8.0.0      -> llvmorg-8.0.0
+2022-06-22T16:40:07.2240738Z  * [new tag]               llvmorg-8.0.0-rc1  -> llvmorg-8.0.0-rc1
+2022-06-22T16:40:07.2241168Z  * [new tag]               llvmorg-8.0.0-rc2  -> llvmorg-8.0.0-rc2
+2022-06-22T16:40:07.2241537Z  * [new tag]               llvmorg-8.0.0-rc3  -> llvmorg-8.0.0-rc3
+2022-06-22T16:40:07.2241910Z  * [new tag]               llvmorg-8.0.0-rc4  -> llvmorg-8.0.0-rc4
+2022-06-22T16:40:07.2242274Z  * [new tag]               llvmorg-8.0.0-rc5  -> llvmorg-8.0.0-rc5
+2022-06-22T16:40:07.2242620Z  * [new tag]               llvmorg-8.0.1      -> llvmorg-8.0.1
+2022-06-22T16:40:07.2242993Z  * [new tag]               llvmorg-8.0.1-rc1  -> llvmorg-8.0.1-rc1
+2022-06-22T16:40:07.2243361Z  * [new tag]               llvmorg-8.0.1-rc2  -> llvmorg-8.0.1-rc2
+2022-06-22T16:40:07.2243707Z  * [new tag]               llvmorg-8.0.1-rc3  -> llvmorg-8.0.1-rc3
+2022-06-22T16:40:07.2244057Z  * [new tag]               llvmorg-8.0.1-rc4  -> llvmorg-8.0.1-rc4
+2022-06-22T16:40:07.2244424Z  * [new tag]               llvmorg-9.0.0      -> llvmorg-9.0.0
+2022-06-22T16:40:07.2245084Z  * [new tag]               llvmorg-9.0.0-rc1  -> llvmorg-9.0.0-rc1
+2022-06-22T16:40:07.2245427Z  * [new tag]               llvmorg-9.0.0-rc2  -> llvmorg-9.0.0-rc2
+2022-06-22T16:40:07.2245792Z  * [new tag]               llvmorg-9.0.0-rc3  -> llvmorg-9.0.0-rc3
+2022-06-22T16:40:07.2246155Z  * [new tag]               llvmorg-9.0.0-rc4  -> llvmorg-9.0.0-rc4
+2022-06-22T16:40:07.2246491Z  * [new tag]               llvmorg-9.0.0-rc5  -> llvmorg-9.0.0-rc5
+2022-06-22T16:40:07.2246843Z  * [new tag]               llvmorg-9.0.0-rc6  -> llvmorg-9.0.0-rc6
+2022-06-22T16:40:07.2247200Z  * [new tag]               llvmorg-9.0.1      -> llvmorg-9.0.1
+2022-06-22T16:40:07.2247556Z  * [new tag]               llvmorg-9.0.1-rc1  -> llvmorg-9.0.1-rc1
+2022-06-22T16:40:07.2247899Z  * [new tag]               llvmorg-9.0.1-rc2  -> llvmorg-9.0.1-rc2
+2022-06-22T16:40:07.2248268Z  * [new tag]               llvmorg-9.0.1-rc3  -> llvmorg-9.0.1-rc3
+2022-06-22T16:40:07.2248637Z  * [new tag]               studio-1.4         -> studio-1.4
+2022-06-22T16:40:07.2249074Z ##[command]git checkout --progress --force aa586b6f5f555792424e51ba48d86b75e886c1d3
+2022-06-22T16:40:08.4000703Z Updating files:   8% (9509/112469)
+2022-06-22T16:40:08.4441586Z Updating files:   9% (10123/112469)
+2022-06-22T16:40:08.4928490Z Updating files:  10% (11247/112469)
+2022-06-22T16:40:08.5354672Z Updating files:  11% (12372/112469)
+2022-06-22T16:40:08.5809725Z Updating files:  12% (13497/112469)
+2022-06-22T16:40:08.6278861Z Updating files:  13% (14621/112469)
+2022-06-22T16:40:08.6690724Z Updating files:  14% (15746/112469)
+2022-06-22T16:40:08.7060214Z Updating files:  15% (16871/112469)
+2022-06-22T16:40:08.7460406Z Updating files:  16% (17996/112469)
+2022-06-22T16:40:09.0043801Z Updating files:  17% (19120/112469)
+2022-06-22T16:40:09.0466585Z Updating files:  18% (20245/112469)
+2022-06-22T16:40:09.0897810Z Updating files:  19% (21370/112469)
+2022-06-22T16:40:09.1426565Z Updating files:  20% (22494/112469)
+2022-06-22T16:40:09.1862909Z Updating files:  21% (23619/112469)
+2022-06-22T16:40:09.2813577Z Updating files:  22% (24744/112469)
+2022-06-22T16:40:09.3558910Z Updating files:  23% (25868/112469)
+2022-06-22T16:40:09.3643109Z Updating files:  24% (26993/112469)
+2022-06-22T16:40:09.4662179Z Updating files:  24% (27257/112469)
+2022-06-22T16:40:09.5030542Z Updating files:  25% (28118/112469)
+2022-06-22T16:40:09.5815540Z Updating files:  26% (29242/112469)
+2022-06-22T16:40:09.6333550Z Updating files:  27% (30367/112469)
+2022-06-22T16:40:09.6798982Z Updating files:  28% (31492/112469)
+2022-06-22T16:40:09.7251960Z Updating files:  29% (32617/112469)
+2022-06-22T16:40:09.7899514Z Updating files:  30% (33741/112469)
+2022-06-22T16:40:09.8490545Z Updating files:  31% (34866/112469)
+2022-06-22T16:40:09.8903564Z Updating files:  32% (35991/112469)
+2022-06-22T16:40:09.9397735Z Updating files:  33% (37115/112469)
+2022-06-22T16:40:09.9832177Z Updating files:  34% (38240/112469)
+2022-06-22T16:40:10.0374803Z Updating files:  35% (39365/112469)
+2022-06-22T16:40:10.1144960Z Updating files:  36% (40489/112469)
+2022-06-22T16:40:10.2080232Z Updating files:  37% (41614/112469)
+2022-06-22T16:40:10.2517810Z Updating files:  38% (42739/112469)
+2022-06-22T16:40:10.2925839Z Updating files:  39% (43863/112469)
+2022-06-22T16:40:10.3589756Z Updating files:  40% (44988/112469)
+2022-06-22T16:40:10.3643719Z Updating files:  41% (46113/112469)
+2022-06-22T16:40:10.4998651Z Updating files:  41% (46203/112469)
+2022-06-22T16:40:10.6002906Z Updating files:  42% (47237/112469)
+2022-06-22T16:40:10.6489402Z Updating files:  43% (48362/112469)
+2022-06-22T16:40:10.7888714Z Updating files:  44% (49487/112469)
+2022-06-22T16:40:10.8428760Z Updating files:  45% (50612/112469)
+2022-06-22T16:40:10.9852017Z Updating files:  46% (51736/112469)
+2022-06-22T16:40:11.1113525Z Updating files:  47% (52861/112469)
+2022-06-22T16:40:11.2235781Z Updating files:  48% (53986/112469)
+2022-06-22T16:40:11.3644914Z Updating files:  49% (55110/112469)
+2022-06-22T16:40:11.3914745Z Updating files:  49% (55937/112469)
+2022-06-22T16:40:11.5853229Z Updating files:  50% (56235/112469)
+2022-06-22T16:40:11.7361245Z Updating files:  51% (57360/112469)
+2022-06-22T16:40:11.9575129Z Updating files:  52% (58484/112469)
+2022-06-22T16:40:12.0262143Z Updating files:  53% (59609/112469)
+2022-06-22T16:40:12.0816958Z Updating files:  54% (60734/112469)
+2022-06-22T16:40:12.1525483Z Updating files:  55% (61858/112469)
+2022-06-22T16:40:12.2816042Z Updating files:  56% (62983/112469)
+2022-06-22T16:40:12.3645866Z Updating files:  57% (64108/112469)
+2022-06-22T16:40:12.3801457Z Updating files:  57% (65032/112469)
+2022-06-22T16:40:12.4757407Z Updating files:  58% (65233/112469)
+2022-06-22T16:40:12.5309017Z Updating files:  59% (66357/112469)
+2022-06-22T16:40:12.5912301Z Updating files:  60% (67482/112469)
+2022-06-22T16:40:12.6385642Z Updating files:  61% (68607/112469)
+2022-06-22T16:40:12.6908149Z Updating files:  62% (69731/112469)
+2022-06-22T16:40:12.7520835Z Updating files:  63% (70856/112469)
+2022-06-22T16:40:12.8415822Z Updating files:  64% (71981/112469)
+2022-06-22T16:40:13.0216545Z Updating files:  65% (73105/112469)
+2022-06-22T16:40:13.0832236Z Updating files:  66% (74230/112469)
+2022-06-22T16:40:13.1614084Z Updating files:  67% (75355/112469)
+2022-06-22T16:40:13.2753899Z Updating files:  68% (76479/112469)
+2022-06-22T16:40:13.3649069Z Updating files:  69% (77604/112469)
+2022-06-22T16:40:13.3725798Z Updating files:  69% (78664/112469)
+2022-06-22T16:40:13.4504772Z Updating files:  70% (78729/112469)
+2022-06-22T16:40:13.5980827Z Updating files:  71% (79853/112469)
+2022-06-22T16:40:13.6744490Z Updating files:  72% (80978/112469)
+2022-06-22T16:40:13.7149034Z Updating files:  73% (82103/112469)
+2022-06-22T16:40:13.7559835Z Updating files:  74% (83228/112469)
+2022-06-22T16:40:13.8576290Z Updating files:  75% (84352/112469)
+2022-06-22T16:40:13.9733795Z Updating files:  76% (85477/112469)
+2022-06-22T16:40:14.0186847Z Updating files:  77% (86602/112469)
+2022-06-22T16:40:14.1076236Z Updating files:  78% (87726/112469)
+2022-06-22T16:40:14.1504578Z Updating files:  79% (88851/112469)
+2022-06-22T16:40:14.2124990Z Updating files:  80% (89976/112469)
+2022-06-22T16:40:14.2622959Z Updating files:  81% (91100/112469)
+2022-06-22T16:40:14.3337460Z Updating files:  82% (92225/112469)
+2022-06-22T16:40:14.3649051Z Updating files:  83% (93350/112469)
+2022-06-22T16:40:14.4177658Z Updating files:  83% (93568/112469)
+2022-06-22T16:40:14.4902796Z Updating files:  84% (94474/112469)
+2022-06-22T16:40:14.5645144Z Updating files:  85% (95599/112469)
+2022-06-22T16:40:14.6145969Z Updating files:  86% (96724/112469)
+2022-06-22T16:40:14.6677788Z Updating files:  87% (97849/112469)
+2022-06-22T16:40:14.7428227Z Updating files:  88% (98973/112469)
+2022-06-22T16:40:14.8061126Z Updating files:  89% (100098/112469)
+2022-06-22T16:40:14.9065701Z Updating files:  90% (101223/112469)
+2022-06-22T16:40:15.0423881Z Updating files:  91% (102347/112469)
+2022-06-22T16:40:15.1322161Z Updating files:  92% (103472/112469)
+2022-06-22T16:40:15.2046396Z Updating files:  93% (104597/112469)
+2022-06-22T16:40:15.3367675Z Updating files:  94% (105721/112469)
+2022-06-22T16:40:15.3641564Z Updating files:  95% (106846/112469)
+2022-06-22T16:40:15.4183715Z Updating files:  95% (107165/112469)
+2022-06-22T16:40:15.5053574Z Updating files:  96% (107971/112469)
+2022-06-22T16:40:15.6093261Z Updating files:  97% (109095/112469)
+2022-06-22T16:40:15.6549810Z Updating files:  98% (110220/112469)
+2022-06-22T16:40:15.7444054Z Updating files:  99% (111345/112469)
+2022-06-22T16:40:15.7447701Z Updating files: 100% (112469/112469)
+2022-06-22T16:40:15.7449166Z Updating files: 100% (112469/112469), done.
+2022-06-22T16:40:15.9711685Z Note: switching to 'aa586b6f5f555792424e51ba48d86b75e886c1d3'.
+2022-06-22T16:40:15.9714529Z 
+2022-06-22T16:40:15.9715103Z You are in 'detached HEAD' state. You can look around, make experimental
+2022-06-22T16:40:15.9811141Z changes and commit them, and you can discard any commits you make in this
+2022-06-22T16:40:15.9811555Z state without impacting any branches by switching back to a branch.
+2022-06-22T16:40:15.9812055Z 
+2022-06-22T16:40:15.9812211Z If you want to create a new branch to retain commits you create, you may
+2022-06-22T16:40:15.9812761Z do so (now or later) by using -c with the switch command. Example:
+2022-06-22T16:40:15.9812943Z 
+2022-06-22T16:40:15.9813105Z   git switch -c <new-branch-name>
+2022-06-22T16:40:15.9813254Z 
+2022-06-22T16:40:15.9813353Z Or undo this operation with:
+2022-06-22T16:40:15.9813493Z 
+2022-06-22T16:40:15.9813572Z   git switch -
+2022-06-22T16:40:15.9813692Z 
+2022-06-22T16:40:15.9813856Z Turn off this advice by setting config variable advice.detachedHead to false
+2022-06-22T16:40:15.9828242Z 
+2022-06-22T16:40:15.9828632Z HEAD is now at aa586b6f5f [clang][AVR] Implement standard calling convention for AVR and AVRTiny
+2022-06-22T16:40:16.0029195Z ##[group]Run llvm/actions/get-llvm-version@main
+2022-06-22T16:40:16.0029440Z with:
+2022-06-22T16:40:16.0029630Z   srcdir: .
+2022-06-22T16:40:16.0029818Z ##[endgroup]
+2022-06-22T16:40:16.1456885Z grep -o 'LLVM_VERSION_\(MAJOR\|MINOR\|PATCH\) [0-9]\+' ./llvm/CMakeLists.txt
+2022-06-22T16:40:16.1539427Z stdout: LLVM_VERSION_MAJOR 14
+2022-06-22T16:40:16.1539975Z stderr: 
+2022-06-22T16:40:16.1540176Z LLVM_VERSION_MINOR 0
+2022-06-22T16:40:16.1540797Z LLVM_VERSION_PATCH 5
+2022-06-22T16:40:16.1540975Z 
+2022-06-22T16:40:16.1822798Z ##[group]Run minor_version=0
+2022-06-22T16:40:16.1823299Z [36;1mminor_version=0[0m
+2022-06-22T16:40:16.1823882Z [36;1mremote_repo='https://github.com/llvm/llvm-project'[0m
+2022-06-22T16:40:16.1824292Z [36;1mif [ 0 -ne 0 -o 5 -eq 0 ]; then[0m
+2022-06-22T16:40:16.1824567Z [36;1m  major_version=$(( 14 - 1))[0m
+2022-06-22T16:40:16.1824917Z [36;1m  baseline_ref="llvmorg-$major_version.0.0"[0m
+2022-06-22T16:40:16.1825248Z [36;1m[0m
+2022-06-22T16:40:16.1825580Z [36;1m  # If there is a minor release, we want to use that as the base line.[0m
+2022-06-22T16:40:16.1826085Z [36;1m  minor_ref=`git ls-remote --refs -t $remote_repo llvmorg-$major_version.[1-9].[0-9] | tail -n1 | grep -o 'llvmorg-.\+' || true`[0m
+2022-06-22T16:40:16.1826527Z [36;1m  if [ -n "$minor_ref" ]; then[0m
+2022-06-22T16:40:16.1826863Z [36;1m     baseline_ref=$minor_ref[0m
+2022-06-22T16:40:16.1827099Z [36;1m  else[0m
+2022-06-22T16:40:16.1827440Z [36;1m    # Check if we have a release candidate[0m
+2022-06-22T16:40:16.1828005Z [36;1m    rc_ref=`git ls-remote --refs -t $remote_repo llvmorg-$major_version.[1-9].[0-9]-rc* | tail -n1 | grep -o 'llvmorg-.\+' || true`[0m
+2022-06-22T16:40:16.1828394Z [36;1m    if [ -n "$rc_ref" ]; then[0m
+2022-06-22T16:40:16.1828693Z [36;1m      baseline_ref=$rc_ref[0m
+2022-06-22T16:40:16.1829000Z [36;1m    fi[0m
+2022-06-22T16:40:16.1829210Z [36;1m  fi[0m
+2022-06-22T16:40:16.1829563Z [36;1m  echo ::set-output name=BASELINE_VERSION_MAJOR::$major_version[0m
+2022-06-22T16:40:16.1829971Z [36;1m  echo ::set-output name=BASELINE_REF::$baseline_ref[0m
+2022-06-22T16:40:16.1830301Z [36;1m  echo ::set-output name=ABI_HEADERS::clang-c[0m
+2022-06-22T16:40:16.1830703Z [36;1m  echo ::set-output name=ABI_LIBS::libclang.so[0m
+2022-06-22T16:40:16.1831033Z [36;1melse[0m
+2022-06-22T16:40:16.1831377Z [36;1m  echo ::set-output name=BASELINE_VERSION_MAJOR::14[0m
+2022-06-22T16:40:16.1831710Z [36;1m  echo ::set-output name=BASELINE_REF::llvmorg-14.0.0[0m
+2022-06-22T16:40:16.1832101Z [36;1m  echo ::set-output name=ABI_HEADERS::.[0m
+2022-06-22T16:40:16.1832502Z [36;1m  echo ::set-output name=ABI_LIBS::libclang.so libclang-cpp.so[0m
+2022-06-22T16:40:16.1832805Z [36;1mfi[0m
+2022-06-22T16:40:16.1897533Z shell: /usr/bin/bash -e {0}
+2022-06-22T16:40:16.1897881Z ##[endgroup]
+2022-06-22T16:40:16.2263533Z Evaluate and set job outputs
+2022-06-22T16:40:16.2286017Z Set output 'BASELINE_REF'
+2022-06-22T16:40:16.2286934Z Set output 'ABI_HEADERS'
+2022-06-22T16:40:16.2287436Z Set output 'ABI_LIBS'
+2022-06-22T16:40:16.2287790Z Set output 'BASELINE_VERSION_MAJOR'
+2022-06-22T16:40:16.2288294Z Set output 'LLVM_VERSION_MAJOR'
+2022-06-22T16:40:16.2288656Z Set output 'LLVM_VERSION_MINOR'
+2022-06-22T16:40:16.2289402Z Set output 'LLVM_VERSION_PATCH'
+2022-06-22T16:40:16.2290222Z Cleaning up orphan processes

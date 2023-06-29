@@ -1,0 +1,158 @@
+2022-06-23T22:57:46.5365476Z Requested labels: ubuntu-latest
+2022-06-23T22:57:46.5365525Z Job defined at: aws/aws-sdk-js/.github/workflows/git-sync.yml@refs/heads/master
+2022-06-23T22:57:46.5365546Z Waiting for a runner to pick up this job...
+2022-06-23T22:57:47.0350570Z Job is waiting for a hosted runner to come online.
+2022-06-23T22:57:50.8997927Z Job is about to start running on the hosted runner: GitHub Actions 2 (hosted)
+2022-06-23T22:57:54.7183137Z Current runner version: '2.293.0'
+2022-06-23T22:57:54.7218234Z ##[group]Operating System
+2022-06-23T22:57:54.7219584Z Ubuntu
+2022-06-23T22:57:54.7220564Z 20.04.4
+2022-06-23T22:57:54.7221518Z LTS
+2022-06-23T22:57:54.7222489Z ##[endgroup]
+2022-06-23T22:57:54.7223510Z ##[group]Virtual Environment
+2022-06-23T22:57:54.7224600Z Environment: ubuntu-20.04
+2022-06-23T22:57:54.7225655Z Version: 20220619.1
+2022-06-23T22:57:54.7227193Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220619.1/images/linux/Ubuntu2004-Readme.md
+2022-06-23T22:57:54.7229157Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220619.1
+2022-06-23T22:57:54.7230949Z ##[endgroup]
+2022-06-23T22:57:54.7232083Z ##[group]Virtual Environment Provisioner
+2022-06-23T22:57:54.7233237Z 1.0.0.0-main-20220531-1
+2022-06-23T22:57:54.7234272Z ##[endgroup]
+2022-06-23T22:57:54.7236895Z ##[group]GITHUB_TOKEN Permissions
+2022-06-23T22:57:54.7238392Z Actions: write
+2022-06-23T22:57:54.7239557Z Checks: write
+2022-06-23T22:57:54.7240635Z Contents: write
+2022-06-23T22:57:54.7241650Z Deployments: write
+2022-06-23T22:57:54.7242701Z Discussions: write
+2022-06-23T22:57:54.7243705Z Issues: write
+2022-06-23T22:57:54.7244732Z Metadata: read
+2022-06-23T22:57:54.7245727Z Packages: write
+2022-06-23T22:57:54.7246719Z Pages: write
+2022-06-23T22:57:54.7247736Z PullRequests: write
+2022-06-23T22:57:54.7248781Z RepositoryProjects: write
+2022-06-23T22:57:54.7249856Z SecurityEvents: write
+2022-06-23T22:57:54.7250916Z Statuses: write
+2022-06-23T22:57:54.7251936Z ##[endgroup]
+2022-06-23T22:57:54.7257927Z Secret source: Actions
+2022-06-23T22:57:54.7259182Z Prepare workflow directory
+2022-06-23T22:57:54.8317597Z Prepare all required actions
+2022-06-23T22:57:54.8589762Z Getting action download info
+2022-06-23T22:57:55.1172943Z Download action repository 'wei/git-sync@v3' (SHA:55c6b63b4f21607da0e9877ca9b4d11a29fc6d83)
+2022-06-23T22:57:56.2713820Z ##[group]Build container for action use: '/home/runner/work/_actions/wei/git-sync/v3/Dockerfile'.
+2022-06-23T22:57:56.2806998Z ##[command]/usr/bin/docker build -t 72882e:47eb2df26cf44811bfdeb82945fb6741 -f "/home/runner/work/_actions/wei/git-sync/v3/Dockerfile" "/home/runner/work/_actions/wei/git-sync/v3"
+2022-06-23T22:57:56.5391299Z Sending build context to Docker daemon  11.78kB
+2022-06-23T22:57:56.5392136Z 
+2022-06-23T22:57:56.5941863Z Step 1/7 : FROM alpine
+2022-06-23T22:57:57.9996608Z latest: Pulling from library/alpine
+2022-06-23T22:57:58.3665315Z 2408cc74d12b: Already exists
+2022-06-23T22:57:58.7482712Z Digest: sha256:686d8c9dfa6f3ccfc8230bc3178d23f84eeaf7e457f36f271ab1acc53015037c
+2022-06-23T22:57:58.7518143Z Status: Downloaded newer image for alpine:latest
+2022-06-23T22:57:58.7525075Z  ---> e66264b98777
+2022-06-23T22:57:58.7526278Z Step 2/7 : LABEL "repository"="http://github.com/wei/git-sync"
+2022-06-23T22:57:58.8242965Z  ---> Running in 9e159bf8e08f
+2022-06-23T22:57:59.0699063Z Removing intermediate container 9e159bf8e08f
+2022-06-23T22:57:59.0700268Z  ---> e365024c56d7
+2022-06-23T22:57:59.0701396Z Step 3/7 : LABEL "homepage"="http://github.com/wei/git-sync"
+2022-06-23T22:57:59.1009101Z  ---> Running in ea5af18d8c29
+2022-06-23T22:58:00.0289648Z Removing intermediate container ea5af18d8c29
+2022-06-23T22:58:00.0290686Z  ---> 494028973221
+2022-06-23T22:58:00.0291624Z Step 4/7 : LABEL "maintainer"="Wei He <github@weispot.com>"
+2022-06-23T22:58:00.0495591Z  ---> Running in 74e3e7146d9e
+2022-06-23T22:58:01.0121531Z Removing intermediate container 74e3e7146d9e
+2022-06-23T22:58:01.0122568Z  ---> 19db26c00836
+2022-06-23T22:58:01.0123854Z Step 5/7 : RUN apk add --no-cache git openssh-client &&   echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+2022-06-23T22:58:01.0403457Z  ---> Running in 6484fd55ec73
+2022-06-23T22:58:01.7081466Z fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/main/x86_64/APKINDEX.tar.gz
+2022-06-23T22:58:01.8594631Z fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/community/x86_64/APKINDEX.tar.gz
+2022-06-23T22:58:02.1329044Z (1/13) Installing ca-certificates (20211220-r0)
+2022-06-23T22:58:02.1533405Z (2/13) Installing brotli-libs (1.0.9-r6)
+2022-06-23T22:58:02.1655264Z (3/13) Installing nghttp2-libs (1.47.0-r0)
+2022-06-23T22:58:02.1719448Z (4/13) Installing libcurl (7.83.1-r1)
+2022-06-23T22:58:02.1806637Z (5/13) Installing expat (2.4.8-r0)
+2022-06-23T22:58:02.1894327Z (6/13) Installing pcre2 (10.40-r0)
+2022-06-23T22:58:02.1979922Z (7/13) Installing git (2.36.1-r0)
+2022-06-23T22:58:02.3257215Z (8/13) Installing openssh-keygen (9.0_p1-r1)
+2022-06-23T22:58:02.3333744Z (9/13) Installing ncurses-terminfo-base (6.3_p20220521-r0)
+2022-06-23T22:58:02.3399514Z (10/13) Installing ncurses-libs (6.3_p20220521-r0)
+2022-06-23T22:58:02.3482441Z (11/13) Installing libedit (20210910.3.1-r0)
+2022-06-23T22:58:02.3531343Z (12/13) Installing openssh-client-common (9.0_p1-r1)
+2022-06-23T22:58:02.3768190Z (13/13) Installing openssh-client-default (9.0_p1-r1)
+2022-06-23T22:58:02.3885417Z Executing busybox-1.35.0-r13.trigger
+2022-06-23T22:58:02.3996999Z Executing ca-certificates-20211220-r0.trigger
+2022-06-23T22:58:02.4461486Z OK: 24 MiB in 27 packages
+2022-06-23T22:58:03.0282466Z Removing intermediate container 6484fd55ec73
+2022-06-23T22:58:03.0284376Z  ---> df5553c364dc
+2022-06-23T22:58:03.0285534Z Step 6/7 : ADD *.sh /
+2022-06-23T22:58:04.0151970Z  ---> 5c89ed024da8
+2022-06-23T22:58:04.0153205Z Step 7/7 : ENTRYPOINT ["/entrypoint.sh"]
+2022-06-23T22:58:04.0376074Z  ---> Running in 32329d5a39b1
+2022-06-23T22:58:05.0099364Z Removing intermediate container 32329d5a39b1
+2022-06-23T22:58:05.0100614Z  ---> 87de976e4fcd
+2022-06-23T22:58:05.0102356Z Successfully built 87de976e4fcd
+2022-06-23T22:58:05.0138100Z Successfully tagged 72882e:47eb2df26cf44811bfdeb82945fb6741
+2022-06-23T22:58:05.0172160Z ##[endgroup]
+2022-06-23T22:58:05.0836207Z ##[group]Run wei/git-sync@v3
+2022-06-23T22:58:05.0837111Z with:
+2022-06-23T22:58:05.0838107Z   source_repo: ***
+2022-06-23T22:58:05.0838938Z   source_branch: master
+2022-06-23T22:58:05.0839828Z   destination_repo: ***
+2022-06-23T22:58:05.0840672Z   destination_branch: master
+2022-06-23T22:58:05.0857918Z   source_ssh_private_key: ***
+2022-06-23T22:58:05.0875570Z   destination_ssh_private_key: ***
+2022-06-23T22:58:05.0876465Z env:
+2022-06-23T22:58:05.0877304Z   git_sync_source_repo: ***
+2022-06-23T22:58:05.0878242Z   git_sync_destination_repo: ***
+2022-06-23T22:58:05.0879077Z ##[endgroup]
+2022-06-23T22:58:05.1358724Z ##[command]/usr/bin/docker run --name e47eb2df26cf44811bfdeb82945fb6741_f7105c --label 72882e --workdir /github/workspace --rm -e git_sync_source_repo -e git_sync_destination_repo -e INPUT_SOURCE_REPO -e INPUT_SOURCE_BRANCH -e INPUT_DESTINATION_REPO -e INPUT_DESTINATION_BRANCH -e INPUT_SOURCE_SSH_PRIVATE_KEY -e INPUT_DESTINATION_SSH_PRIVATE_KEY -e INPUT_SSH_PRIVATE_KEY -e SSH_PRIVATE_KEY -e SOURCE_SSH_PRIVATE_KEY -e DESTINATION_SSH_PRIVATE_KEY -e HOME -e GITHUB_JOB -e GITHUB_REF -e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_RETENTION_DAYS -e GITHUB_RUN_ATTEMPT -e GITHUB_ACTOR -e GITHUB_WORKFLOW -e GITHUB_HEAD_REF -e GITHUB_BASE_REF -e GITHUB_EVENT_NAME -e GITHUB_SERVER_URL -e GITHUB_API_URL -e GITHUB_GRAPHQL_URL -e GITHUB_REF_NAME -e GITHUB_REF_PROTECTED -e GITHUB_REF_TYPE -e GITHUB_WORKSPACE -e GITHUB_ACTION -e GITHUB_EVENT_PATH -e GITHUB_ACTION_REPOSITORY -e GITHUB_ACTION_REF -e GITHUB_PATH -e GITHUB_ENV -e GITHUB_STEP_SUMMARY -e RUNNER_OS -e RUNNER_ARCH -e RUNNER_NAME -e RUNNER_TOOL_CACHE -e RUNNER_TEMP -e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL -e ACTIONS_RUNTIME_TOKEN -e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aws-sdk-js/aws-sdk-js":"/github/workspace" 72882e:47eb2df26cf44811bfdeb82945fb6741  "***" "master" "***" "master"
+2022-06-23T22:58:05.5044160Z SOURCE=git@github.com:***.git:master
+2022-06-23T22:58:05.5045732Z Cloning into '/root/source'...
+2022-06-23T22:58:05.5047656Z DESTINATION=git@github.com:***.git:master
+2022-06-23T22:58:05.9919980Z Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+2022-06-23T22:59:35.9538416Z Updating files:  70% (2717/3870)
+2022-06-23T22:59:35.9808379Z Updating files:  71% (2748/3870)
+2022-06-23T22:59:36.0038952Z Updating files:  72% (2787/3870)
+2022-06-23T22:59:36.0293181Z Updating files:  73% (2826/3870)
+2022-06-23T22:59:36.0438433Z Updating files:  74% (2864/3870)
+2022-06-23T22:59:36.0859611Z Updating files:  75% (2903/3870)
+2022-06-23T22:59:36.0860687Z Updating files:  76% (2942/3870)
+2022-06-23T22:59:36.1018406Z Updating files:  77% (2980/3870)
+2022-06-23T22:59:36.1215797Z Updating files:  78% (3019/3870)
+2022-06-23T22:59:36.1447882Z Updating files:  79% (3058/3870)
+2022-06-23T22:59:36.1630685Z Updating files:  80% (3096/3870)
+2022-06-23T22:59:36.1814332Z Updating files:  81% (3135/3870)
+2022-06-23T22:59:36.2766364Z Updating files:  82% (3174/3870)
+2022-06-23T22:59:36.3029358Z Updating files:  83% (3213/3870)
+2022-06-23T22:59:36.3071464Z Updating files:  84% (3251/3870)
+2022-06-23T22:59:36.3118474Z Updating files:  85% (3290/3870)
+2022-06-23T22:59:36.3169006Z Updating files:  86% (3329/3870)
+2022-06-23T22:59:36.3228649Z Updating files:  87% (3367/3870)
+2022-06-23T22:59:36.3283129Z Updating files:  88% (3406/3870)
+2022-06-23T22:59:36.3341165Z Updating files:  89% (3445/3870)
+2022-06-23T22:59:36.3417724Z Updating files:  90% (3483/3870)
+2022-06-23T22:59:36.3495028Z Updating files:  91% (3522/3870)
+2022-06-23T22:59:36.3566795Z Updating files:  92% (3561/3870)
+2022-06-23T22:59:36.3636726Z Updating files:  93% (3600/3870)
+2022-06-23T22:59:36.3714276Z Updating files:  94% (3638/3870)
+2022-06-23T22:59:36.3807082Z Updating files:  95% (3677/3870)
+2022-06-23T22:59:36.3874449Z Updating files:  96% (3716/3870)
+2022-06-23T22:59:36.3957902Z Updating files:  97% (3754/3870)
+2022-06-23T22:59:36.4040227Z Updating files:  98% (3793/3870)
+2022-06-23T22:59:36.4097101Z Updating files:  99% (3832/3870)
+2022-06-23T22:59:36.4098630Z Updating files: 100% (3870/3870)
+2022-06-23T22:59:36.4100078Z Updating files: 100% (3870/3870), done.
+2022-06-23T22:59:38.2134010Z From github.com:***
+2022-06-23T22:59:38.2135285Z  * [new branch]          client-side-monitoring   -> client-side-monitoring
+2022-06-23T22:59:38.2163673Z  * [new branch]          fips-region-config       -> fips-region-config
+2022-06-23T22:59:38.2165064Z  * [new branch]          kellertk/issue-templates -> kellertk/issue-templates
+2022-06-23T22:59:38.3601261Z   client-side-monitoring                  e27ad2117 sync with master
+2022-06-23T22:59:38.3602768Z   fips-region-config                      2cce7e619 chore: update release message
+2022-06-23T22:59:38.3604383Z   kellertk/issue-templates                138ea333a feat: Standardize issue templates for discussions
+2022-06-23T22:59:38.3605919Z * master                                  d089bd12b [source/master] remove redshiftserverless client (#4135)
+2022-06-23T22:59:38.3607245Z   remotes/source/HEAD                     -> source/master
+2022-06-23T22:59:38.3608418Z   remotes/source/client-side-monitoring   e27ad2117 sync with master
+2022-06-23T22:59:38.3609827Z   remotes/source/fips-region-config       2cce7e619 chore: update release message
+2022-06-23T22:59:38.3611433Z   remotes/source/kellertk/issue-templates 138ea333a feat: Standardize issue templates for discussions
+2022-06-23T22:59:38.3612920Z   remotes/source/master                   d089bd12b remove redshiftserverless client (#4135)
+2022-06-23T22:59:40.9756249Z To github.com:***.git
+2022-06-23T22:59:40.9757342Z    b2ce57ec5..d089bd12b  master -> master
+2022-06-23T22:59:41.7496356Z Cleaning up orphan processes

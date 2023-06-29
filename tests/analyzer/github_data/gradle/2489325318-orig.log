@@ -1,0 +1,1092 @@
+2022-06-13T15:14:45.7123540Z Requested labels: ubuntu-latest
+2022-06-13T15:14:45.7123593Z Job defined at: apache/iceberg/.github/workflows/spark-ci.yml@refs/tags/apache-iceberg-0.13.2-rc1
+2022-06-13T15:14:45.7123614Z Waiting for a runner to pick up this job...
+2022-06-13T15:37:17.6461183Z Job is waiting for a hosted runner to come online.
+2022-06-13T15:37:22.8417048Z Job is about to start running on the hosted runner: GitHub Actions 9 (hosted)
+2022-06-13T15:37:26.3773268Z Current runner version: '2.292.0'
+2022-06-13T15:37:26.3803543Z ##[group]Operating System
+2022-06-13T15:37:26.3804282Z Ubuntu
+2022-06-13T15:37:26.3804578Z 20.04.4
+2022-06-13T15:37:26.3804915Z LTS
+2022-06-13T15:37:26.3805281Z ##[endgroup]
+2022-06-13T15:37:26.3805622Z ##[group]Virtual Environment
+2022-06-13T15:37:26.3806105Z Environment: ubuntu-20.04
+2022-06-13T15:37:26.3806515Z Version: 20220605.1
+2022-06-13T15:37:26.3807159Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220605.1/images/linux/Ubuntu2004-Readme.md
+2022-06-13T15:37:26.3807914Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220605.1
+2022-06-13T15:37:26.3808464Z ##[endgroup]
+2022-06-13T15:37:26.3808928Z ##[group]Virtual Environment Provisioner
+2022-06-13T15:37:26.3809321Z 1.0.0.0-main-20220531-1
+2022-06-13T15:37:26.3809712Z ##[endgroup]
+2022-06-13T15:37:26.3810879Z ##[group]GITHUB_TOKEN Permissions
+2022-06-13T15:37:26.3811594Z Actions: write
+2022-06-13T15:37:26.3812084Z Checks: write
+2022-06-13T15:37:26.3812552Z Contents: write
+2022-06-13T15:37:26.3812955Z Deployments: write
+2022-06-13T15:37:26.3813297Z Discussions: write
+2022-06-13T15:37:26.3813688Z Issues: write
+2022-06-13T15:37:26.3814054Z Metadata: read
+2022-06-13T15:37:26.3814376Z Packages: write
+2022-06-13T15:37:26.3814776Z Pages: write
+2022-06-13T15:37:26.3815377Z PullRequests: write
+2022-06-13T15:37:26.3815725Z RepositoryProjects: write
+2022-06-13T15:37:26.3816326Z SecurityEvents: write
+2022-06-13T15:37:26.3816723Z Statuses: write
+2022-06-13T15:37:26.3817079Z ##[endgroup]
+2022-06-13T15:37:26.3821322Z Secret source: Actions
+2022-06-13T15:37:26.3821896Z Prepare workflow directory
+2022-06-13T15:37:26.4913548Z Prepare all required actions
+2022-06-13T15:37:26.5124815Z Getting action download info
+2022-06-13T15:37:26.7169491Z Download action repository 'actions/checkout@v2' (SHA:7884fcad6b5d53d10323aee724dc68d8b9096a2e)
+2022-06-13T15:37:27.0663310Z Download action repository 'actions/setup-java@v1' (SHA:d202f5dbf7256730fb690ec59f6381650114feb2)
+2022-06-13T15:37:27.2063932Z Download action repository 'actions/cache@v2' (SHA:937d24475381cd9c75ae6db12cb4e79714b926ed)
+2022-06-13T15:37:27.4449036Z Download action repository 'actions/upload-artifact@v2' (SHA:82c141cc518b40d92cc801eee768e7aafc9c2fa2)
+2022-06-13T15:37:27.8369098Z ##[group]Run actions/checkout@v2
+2022-06-13T15:37:27.8369533Z with:
+2022-06-13T15:37:27.8369901Z   repository: apache/iceberg
+2022-06-13T15:37:27.8370596Z   token: ***
+2022-06-13T15:37:27.8370916Z   ssh-strict: true
+2022-06-13T15:37:27.8371300Z   persist-credentials: true
+2022-06-13T15:37:27.8371671Z   clean: true
+2022-06-13T15:37:27.8371985Z   fetch-depth: 1
+2022-06-13T15:37:27.8372310Z   lfs: false
+2022-06-13T15:37:27.8372635Z   submodules: false
+2022-06-13T15:37:27.8372998Z   set-safe-directory: true
+2022-06-13T15:37:27.8373347Z env:
+2022-06-13T15:37:27.8373677Z   SPARK_LOCAL_IP: localhost
+2022-06-13T15:37:27.8374037Z ##[endgroup]
+2022-06-13T15:37:28.1773991Z Syncing repository: apache/iceberg
+2022-06-13T15:37:28.1776605Z ##[group]Getting Git version info
+2022-06-13T15:37:28.1777591Z Working directory is '/home/runner/work/iceberg/iceberg'
+2022-06-13T15:37:28.1778901Z [command]/usr/bin/git version
+2022-06-13T15:37:28.1900596Z git version 2.36.1
+2022-06-13T15:37:28.1914921Z ##[endgroup]
+2022-06-13T15:37:28.1934302Z Temporarily overriding HOME='/home/runner/work/_temp/9f8ea4bc-e51a-4f38-99d4-dcbec4740c12' before making global git config changes
+2022-06-13T15:37:28.1935035Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-13T15:37:28.1935793Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/iceberg/iceberg
+2022-06-13T15:37:28.1976927Z Deleting the contents of '/home/runner/work/iceberg/iceberg'
+2022-06-13T15:37:28.1982607Z ##[group]Initializing the repository
+2022-06-13T15:37:28.1986510Z [command]/usr/bin/git init /home/runner/work/iceberg/iceberg
+2022-06-13T15:37:28.2065017Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-06-13T15:37:28.2066164Z hint: is subject to change. To configure the initial branch name to use in all
+2022-06-13T15:37:28.2068108Z hint: of your new repositories, which will suppress this warning, call:
+2022-06-13T15:37:28.2069004Z hint: 
+2022-06-13T15:37:28.2070507Z hint: 	git config --global init.defaultBranch <name>
+2022-06-13T15:37:28.2071018Z hint: 
+2022-06-13T15:37:28.2072415Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-06-13T15:37:28.2073310Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-06-13T15:37:28.2073848Z hint: 
+2022-06-13T15:37:28.2074609Z hint: 	git branch -m <name>
+2022-06-13T15:37:28.2080682Z Initialized empty Git repository in /home/runner/work/iceberg/iceberg/.git/
+2022-06-13T15:37:28.2092407Z [command]/usr/bin/git remote add origin https://github.com/apache/iceberg
+2022-06-13T15:37:28.2185465Z ##[endgroup]
+2022-06-13T15:37:28.2186690Z ##[group]Disabling automatic garbage collection
+2022-06-13T15:37:28.2191725Z [command]/usr/bin/git config --local gc.auto 0
+2022-06-13T15:37:28.2225328Z ##[endgroup]
+2022-06-13T15:37:28.2226370Z ##[group]Setting up auth
+2022-06-13T15:37:28.2234467Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-13T15:37:28.2271214Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-13T15:37:28.2710291Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-13T15:37:28.2739460Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-13T15:37:28.3005747Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2022-06-13T15:37:28.3048888Z ##[endgroup]
+2022-06-13T15:37:28.3050000Z ##[group]Fetching the repository
+2022-06-13T15:37:28.3058579Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +0784d64a659abd4fdaa82cdb599a250a7514facf:refs/tags/apache-iceberg-0.13.2-rc1
+2022-06-13T15:37:28.5272476Z remote: Enumerating objects: 10127, done.        
+2022-06-13T15:37:28.5346162Z remote: Counting objects:   0% (1/10127)        
+2022-06-13T15:37:28.5346991Z remote: Counting objects:   1% (102/10127)        
+2022-06-13T15:37:28.5347520Z remote: Counting objects:   2% (203/10127)        
+2022-06-13T15:37:28.5352291Z remote: Counting objects:   3% (304/10127)        
+2022-06-13T15:37:28.5352749Z remote: Counting objects:   4% (406/10127)        
+2022-06-13T15:37:28.5353647Z remote: Counting objects:   5% (507/10127)        
+2022-06-13T15:37:28.5354372Z remote: Counting objects:   6% (608/10127)        
+2022-06-13T15:37:28.5355776Z remote: Counting objects:   7% (709/10127)        
+2022-06-13T15:37:28.5356346Z remote: Counting objects:   8% (811/10127)        
+2022-06-13T15:37:28.5356965Z remote: Counting objects:   9% (912/10127)        
+2022-06-13T15:37:28.5358102Z remote: Counting objects:  10% (1013/10127)        
+2022-06-13T15:37:28.5358565Z remote: Counting objects:  11% (1114/10127)        
+2022-06-13T15:37:28.5359231Z remote: Counting objects:  12% (1216/10127)        
+2022-06-13T15:37:28.5359885Z remote: Counting objects:  13% (1317/10127)        
+2022-06-13T15:37:28.5360547Z remote: Counting objects:  14% (1418/10127)        
+2022-06-13T15:37:28.5361173Z remote: Counting objects:  15% (1520/10127)        
+2022-06-13T15:37:28.5361846Z remote: Counting objects:  16% (1621/10127)        
+2022-06-13T15:37:28.5362550Z remote: Counting objects:  17% (1722/10127)        
+2022-06-13T15:37:28.5363192Z remote: Counting objects:  18% (1823/10127)        
+2022-06-13T15:37:28.5363808Z remote: Counting objects:  19% (1925/10127)        
+2022-06-13T15:37:28.5364473Z remote: Counting objects:  20% (2026/10127)        
+2022-06-13T15:37:28.5365182Z remote: Counting objects:  21% (2127/10127)        
+2022-06-13T15:37:28.5365789Z remote: Counting objects:  22% (2228/10127)        
+2022-06-13T15:37:28.5366444Z remote: Counting objects:  23% (2330/10127)        
+2022-06-13T15:37:28.5367144Z remote: Counting objects:  24% (2431/10127)        
+2022-06-13T15:37:28.5367703Z remote: Counting objects:  25% (2532/10127)        
+2022-06-13T15:37:28.5368411Z remote: Counting objects:  26% (2634/10127)        
+2022-06-13T15:37:28.5369212Z remote: Counting objects:  27% (2735/10127)        
+2022-06-13T15:37:28.5370886Z remote: Counting objects:  28% (2836/10127)        
+2022-06-13T15:37:28.5371802Z remote: Counting objects:  29% (2937/10127)        
+2022-06-13T15:37:28.5372379Z remote: Counting objects:  30% (3039/10127)        
+2022-06-13T15:37:28.5372833Z remote: Counting objects:  31% (3140/10127)        
+2022-06-13T15:37:28.5373176Z remote: Counting objects:  32% (3241/10127)        
+2022-06-13T15:37:28.5373504Z remote: Counting objects:  33% (3342/10127)        
+2022-06-13T15:37:28.5373826Z remote: Counting objects:  34% (3444/10127)        
+2022-06-13T15:37:28.5374148Z remote: Counting objects:  35% (3545/10127)        
+2022-06-13T15:37:28.5374470Z remote: Counting objects:  36% (3646/10127)        
+2022-06-13T15:37:28.5374783Z remote: Counting objects:  37% (3747/10127)        
+2022-06-13T15:37:28.5375109Z remote: Counting objects:  38% (3849/10127)        
+2022-06-13T15:37:28.5375434Z remote: Counting objects:  39% (3950/10127)        
+2022-06-13T15:37:28.5376151Z remote: Counting objects:  40% (4051/10127)        
+2022-06-13T15:37:28.5376480Z remote: Counting objects:  41% (4153/10127)        
+2022-06-13T15:37:28.5377008Z remote: Counting objects:  42% (4254/10127)        
+2022-06-13T15:37:28.5377368Z remote: Counting objects:  43% (4355/10127)        
+2022-06-13T15:37:28.5377679Z remote: Counting objects:  44% (4456/10127)        
+2022-06-13T15:37:28.5379812Z remote: Counting objects:  45% (4558/10127)        
+2022-06-13T15:37:28.5380620Z remote: Counting objects:  46% (4659/10127)        
+2022-06-13T15:37:28.5380935Z remote: Counting objects:  47% (4760/10127)        
+2022-06-13T15:37:28.5381256Z remote: Counting objects:  48% (4861/10127)        
+2022-06-13T15:37:28.5381855Z remote: Counting objects:  49% (4963/10127)        
+2022-06-13T15:37:28.5382192Z remote: Counting objects:  50% (5064/10127)        
+2022-06-13T15:37:28.5382494Z remote: Counting objects:  51% (5165/10127)        
+2022-06-13T15:37:28.5382827Z remote: Counting objects:  52% (5267/10127)        
+2022-06-13T15:37:28.5383146Z remote: Counting objects:  53% (5368/10127)        
+2022-06-13T15:37:28.5383451Z remote: Counting objects:  54% (5469/10127)        
+2022-06-13T15:37:28.5383771Z remote: Counting objects:  55% (5570/10127)        
+2022-06-13T15:37:28.5384092Z remote: Counting objects:  56% (5672/10127)        
+2022-06-13T15:37:28.5384399Z remote: Counting objects:  57% (5773/10127)        
+2022-06-13T15:37:28.5384726Z remote: Counting objects:  58% (5874/10127)        
+2022-06-13T15:37:28.5385049Z remote: Counting objects:  59% (5975/10127)        
+2022-06-13T15:37:28.5385371Z remote: Counting objects:  60% (6077/10127)        
+2022-06-13T15:37:28.5386829Z remote: Counting objects:  61% (6178/10127)        
+2022-06-13T15:37:28.5387187Z remote: Counting objects:  62% (6279/10127)        
+2022-06-13T15:37:28.5387507Z remote: Counting objects:  63% (6381/10127)        
+2022-06-13T15:37:28.5387812Z remote: Counting objects:  64% (6482/10127)        
+2022-06-13T15:37:28.5388136Z remote: Counting objects:  65% (6583/10127)        
+2022-06-13T15:37:28.5388468Z remote: Counting objects:  66% (6684/10127)        
+2022-06-13T15:37:28.5388790Z remote: Counting objects:  67% (6786/10127)        
+2022-06-13T15:37:28.5389248Z remote: Counting objects:  68% (6887/10127)        
+2022-06-13T15:37:28.5389574Z remote: Counting objects:  69% (6988/10127)        
+2022-06-13T15:37:28.5389907Z remote: Counting objects:  70% (7089/10127)        
+2022-06-13T15:37:28.5390229Z remote: Counting objects:  71% (7191/10127)        
+2022-06-13T15:37:28.5390692Z remote: Counting objects:  72% (7292/10127)        
+2022-06-13T15:37:28.5391017Z remote: Counting objects:  73% (7393/10127)        
+2022-06-13T15:37:28.5392252Z remote: Counting objects:  74% (7494/10127)        
+2022-06-13T15:37:28.5392962Z remote: Counting objects:  75% (7596/10127)        
+2022-06-13T15:37:28.5393300Z remote: Counting objects:  76% (7697/10127)        
+2022-06-13T15:37:28.5393617Z remote: Counting objects:  77% (7798/10127)        
+2022-06-13T15:37:28.5393936Z remote: Counting objects:  78% (7900/10127)        
+2022-06-13T15:37:28.5394244Z remote: Counting objects:  79% (8001/10127)        
+2022-06-13T15:37:28.5394983Z remote: Counting objects:  80% (8102/10127)        
+2022-06-13T15:37:28.5395762Z remote: Counting objects:  81% (8203/10127)        
+2022-06-13T15:37:28.5396076Z remote: Counting objects:  82% (8305/10127)        
+2022-06-13T15:37:28.5396398Z remote: Counting objects:  83% (8406/10127)        
+2022-06-13T15:37:28.5396736Z remote: Counting objects:  84% (8507/10127)        
+2022-06-13T15:37:28.5397189Z remote: Counting objects:  85% (8608/10127)        
+2022-06-13T15:37:28.5398612Z remote: Counting objects:  86% (8710/10127)        
+2022-06-13T15:37:28.5399151Z remote: Counting objects:  87% (8811/10127)        
+2022-06-13T15:37:28.5399668Z remote: Counting objects:  88% (8912/10127)        
+2022-06-13T15:37:28.5400364Z remote: Counting objects:  89% (9014/10127)        
+2022-06-13T15:37:28.5401037Z remote: Counting objects:  90% (9115/10127)        
+2022-06-13T15:37:28.5401763Z remote: Counting objects:  91% (9216/10127)        
+2022-06-13T15:37:28.5402416Z remote: Counting objects:  92% (9317/10127)        
+2022-06-13T15:37:28.5403086Z remote: Counting objects:  93% (9419/10127)        
+2022-06-13T15:37:28.5403776Z remote: Counting objects:  94% (9520/10127)        
+2022-06-13T15:37:28.5404440Z remote: Counting objects:  95% (9621/10127)        
+2022-06-13T15:37:28.5405116Z remote: Counting objects:  96% (9722/10127)        
+2022-06-13T15:37:28.5405791Z remote: Counting objects:  97% (9824/10127)        
+2022-06-13T15:37:28.5406697Z remote: Counting objects:  98% (9925/10127)        
+2022-06-13T15:37:28.5407352Z remote: Counting objects:  99% (10026/10127)        
+2022-06-13T15:37:28.5897476Z remote: Counting objects: 100% (10127/10127)        
+2022-06-13T15:37:28.5898120Z remote: Counting objects: 100% (10127/10127), done.        
+2022-06-13T15:37:28.5898617Z remote: Compressing objects:   0% (1/2638)        
+2022-06-13T15:37:28.5899405Z remote: Compressing objects:   1% (27/2638)        
+2022-06-13T15:37:28.5899767Z remote: Compressing objects:   2% (53/2638)        
+2022-06-13T15:37:28.5900625Z remote: Compressing objects:   3% (80/2638)        
+2022-06-13T15:37:28.5901146Z remote: Compressing objects:   4% (106/2638)        
+2022-06-13T15:37:28.5901822Z remote: Compressing objects:   5% (132/2638)        
+2022-06-13T15:37:28.5902162Z remote: Compressing objects:   6% (159/2638)        
+2022-06-13T15:37:28.5902741Z remote: Compressing objects:   7% (185/2638)        
+2022-06-13T15:37:28.5904305Z remote: Compressing objects:   8% (212/2638)        
+2022-06-13T15:37:28.6031468Z remote: Compressing objects:   9% (238/2638)        
+2022-06-13T15:37:28.6352488Z remote: Compressing objects:  10% (264/2638)        
+2022-06-13T15:37:28.6433720Z remote: Compressing objects:  11% (291/2638)        
+2022-06-13T15:37:28.6465716Z remote: Compressing objects:  12% (317/2638)        
+2022-06-13T15:37:28.6466452Z remote: Compressing objects:  13% (343/2638)        
+2022-06-13T15:37:28.6521366Z remote: Compressing objects:  14% (370/2638)        
+2022-06-13T15:37:28.6669238Z remote: Compressing objects:  15% (396/2638)        
+2022-06-13T15:37:28.6727346Z remote: Compressing objects:  16% (423/2638)        
+2022-06-13T15:37:28.6825256Z remote: Compressing objects:  17% (449/2638)        
+2022-06-13T15:37:28.6946135Z remote: Compressing objects:  18% (475/2638)        
+2022-06-13T15:37:28.7012157Z remote: Compressing objects:  19% (502/2638)        
+2022-06-13T15:37:28.7225523Z remote: Compressing objects:  20% (528/2638)        
+2022-06-13T15:37:28.7258653Z remote: Compressing objects:  21% (554/2638)        
+2022-06-13T15:37:28.7420206Z remote: Compressing objects:  22% (581/2638)        
+2022-06-13T15:37:28.7523568Z remote: Compressing objects:  23% (607/2638)        
+2022-06-13T15:37:28.7655138Z remote: Compressing objects:  24% (634/2638)        
+2022-06-13T15:37:28.7687155Z remote: Compressing objects:  25% (660/2638)        
+2022-06-13T15:37:28.7783635Z remote: Compressing objects:  26% (686/2638)        
+2022-06-13T15:37:28.7853649Z remote: Compressing objects:  27% (713/2638)        
+2022-06-13T15:37:28.7956233Z remote: Compressing objects:  28% (739/2638)        
+2022-06-13T15:37:28.8076942Z remote: Compressing objects:  29% (766/2638)        
+2022-06-13T15:37:28.8187078Z remote: Compressing objects:  30% (792/2638)        
+2022-06-13T15:37:28.8242125Z remote: Compressing objects:  31% (818/2638)        
+2022-06-13T15:37:28.8525431Z remote: Compressing objects:  32% (845/2638)        
+2022-06-13T15:37:28.8540005Z remote: Compressing objects:  33% (871/2638)        
+2022-06-13T15:37:28.8621780Z remote: Compressing objects:  34% (897/2638)        
+2022-06-13T15:37:28.8691925Z remote: Compressing objects:  35% (924/2638)        
+2022-06-13T15:37:28.8814593Z remote: Compressing objects:  36% (950/2638)        
+2022-06-13T15:37:28.8878601Z remote: Compressing objects:  37% (977/2638)        
+2022-06-13T15:37:28.8963122Z remote: Compressing objects:  38% (1003/2638)        
+2022-06-13T15:37:28.9081655Z remote: Compressing objects:  39% (1029/2638)        
+2022-06-13T15:37:28.9164894Z remote: Compressing objects:  40% (1056/2638)        
+2022-06-13T15:37:29.1293162Z remote: Compressing objects:  41% (1082/2638)        
+2022-06-13T15:37:29.1299331Z remote: Compressing objects:  42% (1108/2638)        
+2022-06-13T15:37:29.1299907Z remote: Compressing objects:  43% (1135/2638)        
+2022-06-13T15:37:29.1300409Z remote: Compressing objects:  44% (1161/2638)        
+2022-06-13T15:37:29.1300939Z remote: Compressing objects:  45% (1188/2638)        
+2022-06-13T15:37:29.1301449Z remote: Compressing objects:  46% (1214/2638)        
+2022-06-13T15:37:29.1301948Z remote: Compressing objects:  47% (1240/2638)        
+2022-06-13T15:37:29.1302980Z remote: Compressing objects:  48% (1267/2638)        
+2022-06-13T15:37:29.1303514Z remote: Compressing objects:  49% (1293/2638)        
+2022-06-13T15:37:29.1304399Z remote: Compressing objects:  50% (1319/2638)        
+2022-06-13T15:37:29.1305609Z remote: Compressing objects:  51% (1346/2638)        
+2022-06-13T15:37:29.1307249Z remote: Compressing objects:  52% (1372/2638)        
+2022-06-13T15:37:29.1307790Z remote: Compressing objects:  53% (1399/2638)        
+2022-06-13T15:37:29.1308840Z remote: Compressing objects:  54% (1425/2638)        
+2022-06-13T15:37:29.1309358Z remote: Compressing objects:  55% (1451/2638)        
+2022-06-13T15:37:29.1310040Z remote: Compressing objects:  56% (1478/2638)        
+2022-06-13T15:37:29.1310483Z remote: Compressing objects:  57% (1504/2638)        
+2022-06-13T15:37:29.1320621Z remote: Compressing objects:  58% (1531/2638)        
+2022-06-13T15:37:29.1462017Z remote: Compressing objects:  59% (1557/2638)        
+2022-06-13T15:37:29.1595146Z remote: Compressing objects:  60% (1583/2638)        
+2022-06-13T15:37:29.1598854Z remote: Compressing objects:  61% (1610/2638)        
+2022-06-13T15:37:29.2030546Z remote: Compressing objects:  62% (1636/2638)        
+2022-06-13T15:37:29.2227022Z remote: Compressing objects:  63% (1662/2638)        
+2022-06-13T15:37:29.2227688Z remote: Compressing objects:  64% (1689/2638)        
+2022-06-13T15:37:29.2474512Z remote: Compressing objects:  65% (1715/2638)        
+2022-06-13T15:37:29.2475417Z remote: Compressing objects:  66% (1742/2638)        
+2022-06-13T15:37:29.2476362Z remote: Compressing objects:  67% (1768/2638)        
+2022-06-13T15:37:29.2477035Z remote: Compressing objects:  68% (1794/2638)        
+2022-06-13T15:37:29.2478000Z remote: Compressing objects:  69% (1821/2638)        
+2022-06-13T15:37:29.2479063Z remote: Compressing objects:  70% (1847/2638)        
+2022-06-13T15:37:29.2480029Z remote: Compressing objects:  71% (1873/2638)        
+2022-06-13T15:37:29.2480716Z remote: Compressing objects:  72% (1900/2638)        
+2022-06-13T15:37:29.2481662Z remote: Compressing objects:  73% (1926/2638)        
+2022-06-13T15:37:29.2482319Z remote: Compressing objects:  74% (1953/2638)        
+2022-06-13T15:37:29.2483252Z remote: Compressing objects:  75% (1979/2638)        
+2022-06-13T15:37:29.2483916Z remote: Compressing objects:  76% (2005/2638)        
+2022-06-13T15:37:29.2484842Z remote: Compressing objects:  77% (2032/2638)        
+2022-06-13T15:37:29.2485492Z remote: Compressing objects:  78% (2058/2638)        
+2022-06-13T15:37:29.2486422Z remote: Compressing objects:  79% (2085/2638)        
+2022-06-13T15:37:29.2487085Z remote: Compressing objects:  80% (2111/2638)        
+2022-06-13T15:37:29.2488036Z remote: Compressing objects:  81% (2137/2638)        
+2022-06-13T15:37:29.2488697Z remote: Compressing objects:  82% (2164/2638)        
+2022-06-13T15:37:29.2489622Z remote: Compressing objects:  83% (2190/2638)        
+2022-06-13T15:37:29.2490280Z remote: Compressing objects:  84% (2216/2638)        
+2022-06-13T15:37:29.2491228Z remote: Compressing objects:  85% (2243/2638)        
+2022-06-13T15:37:29.2491875Z remote: Compressing objects:  86% (2269/2638)        
+2022-06-13T15:37:29.2492800Z remote: Compressing objects:  87% (2296/2638)        
+2022-06-13T15:37:29.2493471Z remote: Compressing objects:  88% (2322/2638)        
+2022-06-13T15:37:29.2494903Z remote: Compressing objects:  89% (2348/2638)        
+2022-06-13T15:37:29.2496486Z remote: Compressing objects:  90% (2375/2638)        
+2022-06-13T15:37:29.2497096Z remote: Compressing objects:  91% (2401/2638)        
+2022-06-13T15:37:29.2497916Z remote: Compressing objects:  92% (2427/2638)        
+2022-06-13T15:37:29.2498927Z remote: Compressing objects:  93% (2454/2638)        
+2022-06-13T15:37:29.2499956Z remote: Compressing objects:  94% (2480/2638)        
+2022-06-13T15:37:29.2500910Z remote: Compressing objects:  95% (2507/2638)        
+2022-06-13T15:37:29.2501977Z remote: Compressing objects:  96% (2533/2638)        
+2022-06-13T15:37:29.2502891Z remote: Compressing objects:  97% (2559/2638)        
+2022-06-13T15:37:29.2503935Z remote: Compressing objects:  98% (2586/2638)        
+2022-06-13T15:37:29.2504559Z remote: Compressing objects:  99% (2612/2638)        
+2022-06-13T15:37:29.2505983Z remote: Compressing objects: 100% (2638/2638)        
+2022-06-13T15:37:29.2506853Z remote: Compressing objects: 100% (2638/2638), done.        
+2022-06-13T15:37:29.2530622Z Receiving objects:   0% (1/10127)
+2022-06-13T15:37:29.2735734Z Receiving objects:   1% (102/10127)
+2022-06-13T15:37:29.2788899Z Receiving objects:   2% (203/10127)
+2022-06-13T15:37:29.2794666Z Receiving objects:   3% (304/10127)
+2022-06-13T15:37:29.2830073Z Receiving objects:   4% (406/10127)
+2022-06-13T15:37:29.2849444Z Receiving objects:   5% (507/10127)
+2022-06-13T15:37:29.2873115Z Receiving objects:   6% (608/10127)
+2022-06-13T15:37:29.2895453Z Receiving objects:   7% (709/10127)
+2022-06-13T15:37:29.2921748Z Receiving objects:   8% (811/10127)
+2022-06-13T15:37:29.2929535Z Receiving objects:   9% (912/10127)
+2022-06-13T15:37:29.2934474Z Receiving objects:  10% (1013/10127)
+2022-06-13T15:37:29.2950132Z Receiving objects:  11% (1114/10127)
+2022-06-13T15:37:29.3088996Z Receiving objects:  12% (1216/10127)
+2022-06-13T15:37:29.3141611Z Receiving objects:  13% (1317/10127)
+2022-06-13T15:37:29.3197236Z Receiving objects:  14% (1418/10127)
+2022-06-13T15:37:29.3278384Z Receiving objects:  15% (1520/10127)
+2022-06-13T15:37:29.3378317Z Receiving objects:  16% (1621/10127)
+2022-06-13T15:37:29.3446699Z Receiving objects:  17% (1722/10127)
+2022-06-13T15:37:29.3516993Z Receiving objects:  18% (1823/10127)
+2022-06-13T15:37:29.3641300Z Receiving objects:  19% (1925/10127)
+2022-06-13T15:37:29.3784338Z Receiving objects:  20% (2026/10127)
+2022-06-13T15:37:29.3927641Z Receiving objects:  21% (2127/10127)
+2022-06-13T15:37:29.4027923Z Receiving objects:  22% (2228/10127)
+2022-06-13T15:37:29.4394748Z Receiving objects:  23% (2330/10127)
+2022-06-13T15:37:29.4527238Z Receiving objects:  24% (2431/10127)
+2022-06-13T15:37:29.4654483Z Receiving objects:  25% (2532/10127)
+2022-06-13T15:37:29.6262144Z Receiving objects:  26% (2634/10127)
+2022-06-13T15:37:29.6270209Z Receiving objects:  27% (2735/10127)
+2022-06-13T15:37:29.6307695Z Receiving objects:  28% (2836/10127)
+2022-06-13T15:37:29.6332073Z Receiving objects:  29% (2937/10127)
+2022-06-13T15:37:29.6396982Z Receiving objects:  30% (3039/10127)
+2022-06-13T15:37:29.6473366Z Receiving objects:  31% (3140/10127)
+2022-06-13T15:37:29.6579236Z Receiving objects:  32% (3241/10127)
+2022-06-13T15:37:29.6755387Z Receiving objects:  33% (3342/10127)
+2022-06-13T15:37:29.6816489Z Receiving objects:  34% (3444/10127)
+2022-06-13T15:37:29.6925774Z Receiving objects:  35% (3545/10127)
+2022-06-13T15:37:29.7015509Z Receiving objects:  36% (3646/10127)
+2022-06-13T15:37:29.7098535Z Receiving objects:  37% (3747/10127)
+2022-06-13T15:37:29.7200920Z Receiving objects:  38% (3849/10127)
+2022-06-13T15:37:29.7279825Z Receiving objects:  39% (3950/10127)
+2022-06-13T15:37:29.7329278Z Receiving objects:  40% (4051/10127)
+2022-06-13T15:37:29.7406202Z Receiving objects:  41% (4153/10127)
+2022-06-13T15:37:29.7730818Z Receiving objects:  42% (4254/10127)
+2022-06-13T15:37:29.7856096Z Receiving objects:  43% (4355/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.7916834Z Receiving objects:  44% (4456/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8048565Z Receiving objects:  45% (4558/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8181135Z Receiving objects:  46% (4659/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8343093Z Receiving objects:  47% (4760/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8464395Z Receiving objects:  48% (4861/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8579502Z Receiving objects:  49% (4963/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8634083Z Receiving objects:  50% (5064/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8703882Z Receiving objects:  51% (5165/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8755050Z Receiving objects:  52% (5267/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8787220Z Receiving objects:  53% (5368/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8845290Z Receiving objects:  54% (5469/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.8983789Z Receiving objects:  55% (5570/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9048146Z Receiving objects:  56% (5672/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9127606Z Receiving objects:  57% (5773/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9221410Z Receiving objects:  58% (5874/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9282179Z Receiving objects:  59% (5975/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9403232Z Receiving objects:  60% (6077/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9568294Z Receiving objects:  61% (6178/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9687378Z Receiving objects:  62% (6279/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9791739Z Receiving objects:  63% (6381/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:29.9864699Z Receiving objects:  64% (6482/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.0347839Z Receiving objects:  65% (6583/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.0565060Z Receiving objects:  66% (6684/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.0768702Z Receiving objects:  67% (6786/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.0866251Z Receiving objects:  68% (6887/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.0964305Z Receiving objects:  69% (6988/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1059802Z Receiving objects:  70% (7089/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1152261Z Receiving objects:  71% (7191/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1231477Z Receiving objects:  72% (7292/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1330992Z Receiving objects:  73% (7393/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1385998Z Receiving objects:  74% (7494/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1431610Z Receiving objects:  75% (7596/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1800235Z Receiving objects:  76% (7697/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1963319Z Receiving objects:  77% (7798/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.1999590Z Receiving objects:  78% (7900/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2027617Z Receiving objects:  79% (8001/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2072528Z Receiving objects:  80% (8102/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2095284Z Receiving objects:  81% (8203/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2116778Z Receiving objects:  82% (8305/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2150213Z Receiving objects:  83% (8406/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2187798Z Receiving objects:  84% (8507/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2220370Z Receiving objects:  85% (8608/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2262928Z Receiving objects:  86% (8710/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2304085Z Receiving objects:  87% (8811/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2348812Z Receiving objects:  88% (8912/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2387941Z Receiving objects:  89% (9014/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2481814Z Receiving objects:  90% (9115/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2509956Z Receiving objects:  91% (9216/10127), 4.95 MiB | 9.88 MiB/s
+2022-06-13T15:37:30.2543826Z Receiving objects:  91% (9288/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2591852Z Receiving objects:  92% (9317/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2698533Z Receiving objects:  93% (9419/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2750190Z Receiving objects:  94% (9520/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2816515Z Receiving objects:  95% (9621/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2891953Z Receiving objects:  96% (9722/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2921377Z Receiving objects:  97% (9824/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.2981110Z Receiving objects:  98% (9925/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.3017982Z Receiving objects:  99% (10026/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.3018890Z remote: Total 10127 (delta 7735), reused 8500 (delta 7093), pack-reused 0        
+2022-06-13T15:37:30.3050697Z Receiving objects: 100% (10127/10127), 11.28 MiB | 11.27 MiB/s
+2022-06-13T15:37:30.3051167Z Receiving objects: 100% (10127/10127), 12.63 MiB | 11.99 MiB/s, done.
+2022-06-13T15:37:30.3095414Z Resolving deltas:   0% (0/7735)
+2022-06-13T15:37:30.3127416Z Resolving deltas:   1% (78/7735)
+2022-06-13T15:37:30.3188045Z Resolving deltas:   2% (155/7735)
+2022-06-13T15:37:30.3251673Z Resolving deltas:   3% (233/7735)
+2022-06-13T15:37:30.3308612Z Resolving deltas:   4% (310/7735)
+2022-06-13T15:37:30.3354114Z Resolving deltas:   5% (387/7735)
+2022-06-13T15:37:30.3406287Z Resolving deltas:   6% (465/7735)
+2022-06-13T15:37:30.3443244Z Resolving deltas:   7% (542/7735)
+2022-06-13T15:37:30.3474989Z Resolving deltas:   8% (619/7735)
+2022-06-13T15:37:30.3508973Z Resolving deltas:   9% (697/7735)
+2022-06-13T15:37:30.3549502Z Resolving deltas:  10% (774/7735)
+2022-06-13T15:37:30.3584178Z Resolving deltas:  11% (851/7735)
+2022-06-13T15:37:30.3629474Z Resolving deltas:  12% (929/7735)
+2022-06-13T15:37:30.3679069Z Resolving deltas:  13% (1006/7735)
+2022-06-13T15:37:30.3720460Z Resolving deltas:  14% (1083/7735)
+2022-06-13T15:37:30.3764998Z Resolving deltas:  15% (1161/7735)
+2022-06-13T15:37:30.3806565Z Resolving deltas:  16% (1238/7735)
+2022-06-13T15:37:30.3844387Z Resolving deltas:  17% (1315/7735)
+2022-06-13T15:37:30.3887449Z Resolving deltas:  18% (1393/7735)
+2022-06-13T15:37:30.3933368Z Resolving deltas:  19% (1470/7735)
+2022-06-13T15:37:30.3978692Z Resolving deltas:  20% (1547/7735)
+2022-06-13T15:37:30.4016381Z Resolving deltas:  21% (1625/7735)
+2022-06-13T15:37:30.4065246Z Resolving deltas:  22% (1702/7735)
+2022-06-13T15:37:30.4114720Z Resolving deltas:  23% (1780/7735)
+2022-06-13T15:37:30.4161296Z Resolving deltas:  24% (1857/7735)
+2022-06-13T15:37:30.4198809Z Resolving deltas:  25% (1934/7735)
+2022-06-13T15:37:30.4242409Z Resolving deltas:  26% (2012/7735)
+2022-06-13T15:37:30.4283239Z Resolving deltas:  27% (2089/7735)
+2022-06-13T15:37:30.4365266Z Resolving deltas:  28% (2166/7735)
+2022-06-13T15:37:30.4479094Z Resolving deltas:  29% (2244/7735)
+2022-06-13T15:37:30.4567361Z Resolving deltas:  30% (2321/7735)
+2022-06-13T15:37:30.4626033Z Resolving deltas:  31% (2398/7735)
+2022-06-13T15:37:30.4682760Z Resolving deltas:  32% (2476/7735)
+2022-06-13T15:37:30.4741539Z Resolving deltas:  33% (2553/7735)
+2022-06-13T15:37:30.4788325Z Resolving deltas:  34% (2630/7735)
+2022-06-13T15:37:30.4848984Z Resolving deltas:  35% (2708/7735)
+2022-06-13T15:37:30.4900406Z Resolving deltas:  36% (2785/7735)
+2022-06-13T15:37:30.4972034Z Resolving deltas:  37% (2862/7735)
+2022-06-13T15:37:30.5028408Z Resolving deltas:  38% (2940/7735)
+2022-06-13T15:37:30.5073627Z Resolving deltas:  39% (3017/7735)
+2022-06-13T15:37:30.5111715Z Resolving deltas:  40% (3094/7735)
+2022-06-13T15:37:30.5151565Z Resolving deltas:  41% (3172/7735)
+2022-06-13T15:37:30.5187685Z Resolving deltas:  42% (3249/7735)
+2022-06-13T15:37:30.5225789Z Resolving deltas:  43% (3327/7735)
+2022-06-13T15:37:30.5268698Z Resolving deltas:  44% (3404/7735)
+2022-06-13T15:37:30.5317177Z Resolving deltas:  45% (3481/7735)
+2022-06-13T15:37:30.5358290Z Resolving deltas:  46% (3559/7735)
+2022-06-13T15:37:30.5398593Z Resolving deltas:  47% (3636/7735)
+2022-06-13T15:37:30.5440447Z Resolving deltas:  48% (3713/7735)
+2022-06-13T15:37:30.5469823Z Resolving deltas:  49% (3791/7735)
+2022-06-13T15:37:30.5502901Z Resolving deltas:  50% (3868/7735)
+2022-06-13T15:37:30.5542944Z Resolving deltas:  51% (3945/7735)
+2022-06-13T15:37:30.5596727Z Resolving deltas:  52% (4023/7735)
+2022-06-13T15:37:30.5676717Z Resolving deltas:  53% (4100/7735)
+2022-06-13T15:37:30.5719199Z Resolving deltas:  54% (4177/7735)
+2022-06-13T15:37:30.5790383Z Resolving deltas:  55% (4255/7735)
+2022-06-13T15:37:30.5839355Z Resolving deltas:  56% (4332/7735)
+2022-06-13T15:37:30.5886897Z Resolving deltas:  57% (4409/7735)
+2022-06-13T15:37:30.6012487Z Resolving deltas:  58% (4487/7735)
+2022-06-13T15:37:30.6212971Z Resolving deltas:  59% (4564/7735)
+2022-06-13T15:37:30.6283704Z Resolving deltas:  60% (4641/7735)
+2022-06-13T15:37:30.6357567Z Resolving deltas:  61% (4719/7735)
+2022-06-13T15:37:30.6408876Z Resolving deltas:  62% (4796/7735)
+2022-06-13T15:37:30.6470433Z Resolving deltas:  63% (4874/7735)
+2022-06-13T15:37:30.6520405Z Resolving deltas:  64% (4951/7735)
+2022-06-13T15:37:30.6576696Z Resolving deltas:  65% (5028/7735)
+2022-06-13T15:37:30.6630154Z Resolving deltas:  66% (5107/7735)
+2022-06-13T15:37:30.6682261Z Resolving deltas:  67% (5183/7735)
+2022-06-13T15:37:30.6734625Z Resolving deltas:  68% (5260/7735)
+2022-06-13T15:37:30.6800977Z Resolving deltas:  69% (5338/7735)
+2022-06-13T15:37:30.6842603Z Resolving deltas:  70% (5415/7735)
+2022-06-13T15:37:30.6886769Z Resolving deltas:  71% (5492/7735)
+2022-06-13T15:37:30.6925706Z Resolving deltas:  72% (5570/7735)
+2022-06-13T15:37:30.7109509Z Resolving deltas:  73% (5647/7735)
+2022-06-13T15:37:30.7224954Z Resolving deltas:  74% (5724/7735)
+2022-06-13T15:37:30.7300758Z Resolving deltas:  75% (5802/7735)
+2022-06-13T15:37:30.7350810Z Resolving deltas:  76% (5879/7735)
+2022-06-13T15:37:30.7428157Z Resolving deltas:  77% (5956/7735)
+2022-06-13T15:37:30.7482149Z Resolving deltas:  78% (6034/7735)
+2022-06-13T15:37:30.7518314Z Resolving deltas:  79% (6111/7735)
+2022-06-13T15:37:30.7551722Z Resolving deltas:  80% (6188/7735)
+2022-06-13T15:37:30.7596524Z Resolving deltas:  81% (6266/7735)
+2022-06-13T15:37:30.7648124Z Resolving deltas:  82% (6343/7735)
+2022-06-13T15:37:30.7703655Z Resolving deltas:  83% (6421/7735)
+2022-06-13T15:37:30.7756145Z Resolving deltas:  84% (6498/7735)
+2022-06-13T15:37:30.7799650Z Resolving deltas:  85% (6575/7735)
+2022-06-13T15:37:30.7852749Z Resolving deltas:  86% (6653/7735)
+2022-06-13T15:37:30.7898416Z Resolving deltas:  87% (6730/7735)
+2022-06-13T15:37:30.7946183Z Resolving deltas:  88% (6807/7735)
+2022-06-13T15:37:30.7994182Z Resolving deltas:  89% (6885/7735)
+2022-06-13T15:37:30.8060210Z Resolving deltas:  90% (6962/7735)
+2022-06-13T15:37:30.8111581Z Resolving deltas:  91% (7039/7735)
+2022-06-13T15:37:30.8219766Z Resolving deltas:  92% (7117/7735)
+2022-06-13T15:37:30.8277804Z Resolving deltas:  93% (7194/7735)
+2022-06-13T15:37:30.8340050Z Resolving deltas:  94% (7271/7735)
+2022-06-13T15:37:30.8489894Z Resolving deltas:  95% (7349/7735)
+2022-06-13T15:37:30.8535622Z Resolving deltas:  96% (7426/7735)
+2022-06-13T15:37:30.8590945Z Resolving deltas:  97% (7503/7735)
+2022-06-13T15:37:30.8621556Z Resolving deltas:  98% (7581/7735)
+2022-06-13T15:37:30.8708313Z Resolving deltas:  99% (7658/7735)
+2022-06-13T15:37:30.8708867Z Resolving deltas: 100% (7735/7735)
+2022-06-13T15:37:30.8709272Z Resolving deltas: 100% (7735/7735), done.
+2022-06-13T15:37:30.9137527Z From https://github.com/apache/iceberg
+2022-06-13T15:37:30.9138706Z  * [new ref]         0784d64a659abd4fdaa82cdb599a250a7514facf -> apache-iceberg-0.13.2-rc1
+2022-06-13T15:37:30.9184230Z ##[endgroup]
+2022-06-13T15:37:30.9184990Z ##[group]Determining the checkout info
+2022-06-13T15:37:30.9185693Z ##[endgroup]
+2022-06-13T15:37:30.9186426Z ##[group]Checking out the ref
+2022-06-13T15:37:30.9187795Z [command]/usr/bin/git checkout --progress --force refs/tags/apache-iceberg-0.13.2-rc1
+2022-06-13T15:37:31.7924816Z Note: switching to 'refs/tags/apache-iceberg-0.13.2-rc1'.
+2022-06-13T15:37:31.7925653Z 
+2022-06-13T15:37:31.7927014Z You are in 'detached HEAD' state. You can look around, make experimental
+2022-06-13T15:37:31.7927739Z changes and commit them, and you can discard any commits you make in this
+2022-06-13T15:37:31.7928767Z state without impacting any branches by switching back to a branch.
+2022-06-13T15:37:31.7929255Z 
+2022-06-13T15:37:31.7930054Z If you want to create a new branch to retain commits you create, you may
+2022-06-13T15:37:31.7930910Z do so (now or later) by using -c with the switch command. Example:
+2022-06-13T15:37:31.7931763Z 
+2022-06-13T15:37:31.7932172Z   git switch -c <new-branch-name>
+2022-06-13T15:37:31.7932854Z 
+2022-06-13T15:37:31.7933215Z Or undo this operation with:
+2022-06-13T15:37:31.7933957Z 
+2022-06-13T15:37:31.7934273Z   git switch -
+2022-06-13T15:37:31.7934921Z 
+2022-06-13T15:37:31.7935357Z Turn off this advice by setting config variable advice.detachedHead to false
+2022-06-13T15:37:31.7936042Z 
+2022-06-13T15:37:31.7936442Z HEAD is now at 0784d64 Add version.txt for release 0.13.2
+2022-06-13T15:37:31.7968708Z ##[endgroup]
+2022-06-13T15:37:31.8022869Z [command]/usr/bin/git log -1 --format='%H'
+2022-06-13T15:37:31.8056822Z '0784d64a659abd4fdaa82cdb599a250a7514facf'
+2022-06-13T15:37:31.8407513Z ##[group]Run actions/setup-java@v1
+2022-06-13T15:37:31.8407914Z with:
+2022-06-13T15:37:31.8408222Z   java-version: 11
+2022-06-13T15:37:31.8408493Z   java-package: jdk
+2022-06-13T15:37:31.8408805Z   architecture: x64
+2022-06-13T15:37:31.8409142Z   server-id: github
+2022-06-13T15:37:31.8409419Z   server-username: GITHUB_ACTOR
+2022-06-13T15:37:31.8409807Z   server-password: GITHUB_TOKEN
+2022-06-13T15:37:31.8410121Z env:
+2022-06-13T15:37:31.8410363Z   SPARK_LOCAL_IP: localhost
+2022-06-13T15:37:31.8410704Z ##[endgroup]
+2022-06-13T15:37:34.0284167Z [command]/usr/bin/tar --version
+2022-06-13T15:37:34.0347298Z tar (GNU tar) 1.30
+2022-06-13T15:37:34.0348979Z Copyright (C) 2017 Free Software Foundation, Inc.
+2022-06-13T15:37:34.0349974Z License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+2022-06-13T15:37:34.0355328Z This is free software: you are free to change and redistribute it.
+2022-06-13T15:37:34.0356496Z There is NO WARRANTY, to the extent permitted by law.
+2022-06-13T15:37:34.0356793Z 
+2022-06-13T15:37:34.0356986Z Written by John Gilmore and Jay Fenlason.
+2022-06-13T15:37:34.0380334Z [command]/usr/bin/tar xz --warning=no-unknown-keyword -C /home/runner/work/_temp/temp_1846094477 -f /home/runner/work/_temp/e3b2f772-c5db-46a4-be1d-384ccc622c75
+2022-06-13T15:37:39.9652595Z creating settings.xml with server-id: github; environment variables: username=$GITHUB_ACTOR, *** and gpg-passphrase=null
+2022-06-13T15:37:39.9718912Z writing /home/runner/.m2/settings.xml
+2022-06-13T15:37:42.5236553Z ##[group]Run actions/cache@v2
+2022-06-13T15:37:42.5236806Z with:
+2022-06-13T15:37:42.5237042Z   path: ~/.gradle/caches
+2022-06-13T15:37:42.5237473Z   key: Linux-gradle-e6e1fa8142421df73898fbc6106ea8ac8b401a67881bd0529c354f69b37ca0e9
+2022-06-13T15:37:42.5237895Z   restore-keys: Linux-gradle
+2022-06-13T15:37:42.5238144Z env:
+2022-06-13T15:37:42.5238376Z   SPARK_LOCAL_IP: localhost
+2022-06-13T15:37:42.5238689Z   JAVA_HOME_11.0.15_x64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:42.5239046Z   JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:42.5239410Z   JAVA_HOME_11_0_15_X64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:42.5239762Z ##[endgroup]
+2022-06-13T15:37:43.8349444Z Received 155189248 of 1007201193 (15.4%), 147.9 MBs/sec
+2022-06-13T15:37:44.8350110Z Received 348127232 of 1007201193 (34.6%), 165.9 MBs/sec
+2022-06-13T15:37:45.8350586Z Received 532676608 of 1007201193 (52.9%), 169.3 MBs/sec
+2022-06-13T15:37:46.8435498Z Received 729808896 of 1007201193 (72.5%), 173.6 MBs/sec
+2022-06-13T15:37:47.8451807Z Received 922746880 of 1007201193 (91.6%), 175.6 MBs/sec
+2022-06-13T15:37:49.5256295Z Received 1007201193 of 1007201193 (100.0%), 143.5 MBs/sec
+2022-06-13T15:37:49.5262956Z Cache Size: ~961 MB (1007201193 B)
+2022-06-13T15:37:49.5505354Z [command]/usr/bin/tar --use-compress-program zstd -d -xf /home/runner/work/_temp/3741d938-3ebc-40dc-b973-02b225d3a9f0/cache.tzst -P -C /home/runner/work/iceberg/iceberg
+2022-06-13T15:37:58.1001943Z Cache restored successfully
+2022-06-13T15:37:58.2377625Z 
+2022-06-13T15:37:58.2378831Z Cache restored from key: Linux-gradle-e6e1fa8142421df73898fbc6106ea8ac8b401a67881bd0529c354f69b37ca0e9
+2022-06-13T15:37:58.3161412Z ##[group]Run echo -e "$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)\t$(hostname -f) $(hostname -s)" | sudo tee -a /etc/hosts
+2022-06-13T15:37:58.3162260Z [36;1mecho -e "$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)\t$(hostname -f) $(hostname -s)" | sudo tee -a /etc/hosts[0m
+2022-06-13T15:37:58.3227941Z shell: /usr/bin/bash -e {0}
+2022-06-13T15:37:58.3228230Z env:
+2022-06-13T15:37:58.3228490Z   SPARK_LOCAL_IP: localhost
+2022-06-13T15:37:58.3228819Z   JAVA_HOME_11.0.15_x64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.3229178Z   JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.3229537Z   JAVA_HOME_11_0_15_X64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.3229844Z ##[endgroup]
+2022-06-13T15:37:58.5871122Z 10.1.0.121	fv-az241-368.20uxw2ajcghezb0hlre1azn1tf.bx.internal.cloudapp.net fv-az241-368
+2022-06-13T15:37:58.5926166Z ##[group]Run ./gradlew -DsparkVersions=3.2 -DhiveVersions= -DflinkVersions= :iceberg-spark:iceberg-spark-3.2_2.12:check :iceberg-spark:iceberg-spark-extensions-3.2_2.12:check :iceberg-spark:iceberg-spark-runtime-3.2_2.12:check -Pquick=true -x javadoc
+2022-06-13T15:37:58.5927263Z [36;1m./gradlew -DsparkVersions=3.2 -DhiveVersions= -DflinkVersions= :iceberg-spark:iceberg-spark-3.2_2.12:check :iceberg-spark:iceberg-spark-extensions-3.2_2.12:check :iceberg-spark:iceberg-spark-runtime-3.2_2.12:check -Pquick=true -x javadoc[0m
+2022-06-13T15:37:58.5988298Z shell: /usr/bin/bash -e {0}
+2022-06-13T15:37:58.5988603Z env:
+2022-06-13T15:37:58.5988843Z   SPARK_LOCAL_IP: localhost
+2022-06-13T15:37:58.5989182Z   JAVA_HOME_11.0.15_x64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.5989548Z   JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.5989909Z   JAVA_HOME_11_0_15_X64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T15:37:58.5990215Z ##[endgroup]
+2022-06-13T15:37:58.6192949Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2022-06-13T15:37:58.6195095Z                                  Dload  Upload   Total   Spent    Left  Speed
+2022-06-13T15:37:58.6195652Z 
+2022-06-13T15:37:58.7061997Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2022-06-13T15:37:58.7063237Z 100 59536  100 59536    0     0   660k      0 --:--:-- --:--:-- --:--:--  668k
+2022-06-13T15:37:58.8984364Z Downloading https://services.gradle.org/distributions/gradle-7.3.3-bin.zip
+2022-06-13T15:38:00.8015132Z ...........10%...........20%...........30%...........40%...........50%...........60%...........70%...........80%...........90%...........100%
+2022-06-13T15:38:02.2556190Z 
+2022-06-13T15:38:02.2556896Z Welcome to Gradle 7.3.3!
+2022-06-13T15:38:02.2557253Z 
+2022-06-13T15:38:02.2558256Z Here are the highlights of this release:
+2022-06-13T15:38:02.2565802Z  - Easily declare new test suites in Java projects
+2022-06-13T15:38:02.2566397Z  - Support for Java 17
+2022-06-13T15:38:02.2566846Z  - Support for Scala 3
+2022-06-13T15:38:02.2567082Z 
+2022-06-13T15:38:02.2567584Z For more details see https://docs.gradle.org/7.3.3/release-notes.html
+2022-06-13T15:38:02.2567851Z 
+2022-06-13T15:38:02.4509796Z Starting a Gradle Daemon (subsequent builds will be faster)
+2022-06-13T15:38:17.7575384Z > Task :iceberg-api:processResources NO-SOURCE
+2022-06-13T15:38:17.7604469Z > Task :iceberg-arrow:processResources NO-SOURCE
+2022-06-13T15:38:17.7605298Z > Task :iceberg-common:processResources NO-SOURCE
+2022-06-13T15:38:17.7606163Z > Task :iceberg-core:processResources NO-SOURCE
+2022-06-13T15:38:17.7606798Z > Task :iceberg-data:processResources NO-SOURCE
+2022-06-13T15:38:17.7768813Z > Task :iceberg-orc:processResources NO-SOURCE
+2022-06-13T15:38:17.7769322Z > Task :iceberg-parquet:processResources NO-SOURCE
+2022-06-13T15:38:17.8518850Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:checkExplicitSourceCompatibility
+2022-06-13T15:38:17.8520052Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:scalastyleJmhCheck NO-SOURCE
+2022-06-13T15:38:19.1511267Z > Task :iceberg-bundled-guava:compileJava
+2022-06-13T15:38:19.2558209Z > Task :iceberg-bundled-guava:processResources NO-SOURCE
+2022-06-13T15:38:19.2559200Z > Task :iceberg-bundled-guava:classes
+2022-06-13T15:38:19.2562467Z > Task :iceberg-bundled-guava:compileTestJava NO-SOURCE
+2022-06-13T15:38:19.3511593Z > Task :iceberg-bundled-guava:processTestResources NO-SOURCE
+2022-06-13T15:38:19.3513966Z > Task :iceberg-bundled-guava:testClasses UP-TO-DATE
+2022-06-13T15:38:21.3513756Z 
+2022-06-13T15:38:21.3520429Z > Task :iceberg-bundled-guava:shadowJar
+2022-06-13T15:38:21.3521173Z Encountered duplicate path "META-INF/MANIFEST.MF" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:21.3522015Z Encountered duplicate path "org/apache/iceberg/GuavaClasses.class" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:21.3523289Z Encountered duplicate path "guava-28.0-jre.jar" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:24.9512099Z Encountered duplicate path "failureaccess-1.0.1.jar" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:24.9513138Z Encountered duplicate path "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:24.9514125Z Encountered duplicate path "animal-sniffer-annotations-1.17.jar" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:24.9514801Z Encountered duplicate path "LICENSE" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:24.9515370Z Encountered duplicate path "NOTICE" during copy operation configured with DuplicatesStrategy.WARN
+2022-06-13T15:38:28.8510578Z 
+2022-06-13T15:38:28.8511740Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:scalastyleMainCheck
+2022-06-13T15:38:28.8636985Z Processed 6 file(s)
+2022-06-13T15:38:28.8637273Z Found 0 errors
+2022-06-13T15:38:28.8637914Z Found 0 warnings
+2022-06-13T15:38:28.8638174Z Finished in 3215 ms
+2022-06-13T15:38:29.2511080Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:29.2511373Z 
+2022-06-13T15:38:29.2512061Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:29.2515362Z > Task :iceberg-common:compileJava
+2022-06-13T15:38:29.2515785Z 
+2022-06-13T15:38:29.2516250Z > Task :iceberg-common:classes
+2022-06-13T15:38:29.2517261Z > Task :iceberg-common:jar
+2022-06-13T15:38:29.3532327Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:scalastyleTestCheck NO-SOURCE
+2022-06-13T15:38:29.3537727Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:scalastyleCheck
+2022-06-13T15:38:29.3538503Z > Task :iceberg-core:processTestResources
+2022-06-13T15:38:29.3539377Z > Task :iceberg-data:processTestResources NO-SOURCE
+2022-06-13T15:38:29.3540571Z > Task :iceberg-hive-metastore:processResources NO-SOURCE
+2022-06-13T15:38:29.3541164Z > Task :iceberg-hive-metastore:processTestResources
+2022-06-13T15:38:29.3541724Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:processResources
+2022-06-13T15:38:29.3542304Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:processTestResources NO-SOURCE
+2022-06-13T15:38:30.8514290Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:30.8514584Z 
+2022-06-13T15:38:30.8521702Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:30.8522175Z > Task :iceberg-api:compileJava
+2022-06-13T15:38:30.8523104Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:30.8523767Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:31.0509928Z 
+2022-06-13T15:38:31.0512837Z > Task :iceberg-api:classes
+2022-06-13T15:38:31.2509398Z > Task :iceberg-api:jar
+2022-06-13T15:38:32.0509882Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:checkClassUniqueness
+2022-06-13T15:38:37.6508817Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:37.6509102Z 
+2022-06-13T15:38:37.6510132Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:37.6510616Z > Task :iceberg-api:compileTestJava
+2022-06-13T15:38:37.8509110Z 
+2022-06-13T15:38:37.8510002Z > Task :iceberg-api:processTestResources NO-SOURCE
+2022-06-13T15:38:37.8510466Z > Task :iceberg-api:testClasses
+2022-06-13T15:38:37.9517824Z > Task :iceberg-api:testJar
+2022-06-13T15:38:37.9518807Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:checkExplicitSourceCompatibility
+2022-06-13T15:38:39.0511009Z 
+2022-06-13T15:38:39.0512080Z > Task :iceberg-core:compileJava
+2022-06-13T15:38:39.0512707Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:39.0513301Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:39.0513785Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:39.0514408Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:41.8509735Z 
+2022-06-13T15:38:41.8510760Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:scalastyleMainCheck
+2022-06-13T15:38:41.8511600Z Processed 62 file(s)
+2022-06-13T15:38:41.8511988Z Found 0 errors
+2022-06-13T15:38:41.8512326Z Found 0 warnings
+2022-06-13T15:38:41.8512672Z Finished in 3774 ms
+2022-06-13T15:38:41.8512918Z 
+2022-06-13T15:38:41.8513345Z > Task :iceberg-core:classes
+2022-06-13T15:38:41.9507830Z 
+2022-06-13T15:38:41.9508794Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:41.9509501Z > Task :iceberg-parquet:compileJava
+2022-06-13T15:38:41.9510818Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:41.9511263Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:41.9511739Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:42.1507686Z 
+2022-06-13T15:38:42.1509082Z > Task :iceberg-core:jar
+2022-06-13T15:38:43.3507752Z 
+2022-06-13T15:38:43.3508863Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:43.3509904Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:43.3510620Z > Task :iceberg-orc:compileJava
+2022-06-13T15:38:44.1511894Z Note: /home/runner/work/iceberg/iceberg/data/src/main/java/org/apache/iceberg/data/GenericAppenderFactory.java uses or overrides a deprecated API.
+2022-06-13T15:38:44.1512340Z 
+2022-06-13T15:38:44.1513384Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:44.1514164Z > Task :iceberg-data:compileJava
+2022-06-13T15:38:44.2507847Z 
+2022-06-13T15:38:44.2521222Z Note: /home/runner/work/iceberg/iceberg/arrow/src/main/java/org/apache/iceberg/arrow/ArrowSchemaUtil.java uses or overrides a deprecated API.
+2022-06-13T15:38:44.2522553Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:44.2523459Z Note: /home/runner/work/iceberg/iceberg/arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorHolder.java uses unchecked or unsafe operations.
+2022-06-13T15:38:44.2524396Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:44.2524830Z > Task :iceberg-arrow:compileJava
+2022-06-13T15:38:44.3508865Z 
+2022-06-13T15:38:44.3509968Z > Task :iceberg-data:classes
+2022-06-13T15:38:44.4508553Z > Task :iceberg-data:jar
+2022-06-13T15:38:44.4511677Z > Task :iceberg-orc:classes
+2022-06-13T15:38:44.4512148Z > Task :iceberg-orc:jar
+2022-06-13T15:38:44.4512608Z > Task :iceberg-parquet:classes
+2022-06-13T15:38:44.5509370Z > Task :iceberg-parquet:jar
+2022-06-13T15:38:45.1509097Z > Task :iceberg-arrow:classes
+2022-06-13T15:38:45.2509014Z > Task :iceberg-arrow:jar
+2022-06-13T15:38:47.1508997Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:checkClassUniqueness
+2022-06-13T15:38:48.2508097Z 
+2022-06-13T15:38:48.2587108Z Note: /home/runner/work/iceberg/iceberg/hive-metastore/src/main/java/org/apache/iceberg/hive/HiveTableOperations.java uses unchecked or unsafe operations.
+2022-06-13T15:38:48.2587844Z > Task :iceberg-hive-metastore:compileJava
+2022-06-13T15:38:48.2588712Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:48.2591638Z 
+2022-06-13T15:38:48.2591976Z > Task :iceberg-hive-metastore:classes
+2022-06-13T15:38:48.2592549Z > Task :iceberg-hive-metastore:jar
+2022-06-13T15:38:49.6516086Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:49.6516364Z 
+2022-06-13T15:38:49.6526831Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:49.6527956Z Note: /home/runner/work/iceberg/iceberg/hive-metastore/src/test/java/org/apache/iceberg/hive/TestHiveCatalog.java uses unchecked or unsafe operations.
+2022-06-13T15:38:49.6528908Z > Task :iceberg-hive-metastore:compileTestJava
+2022-06-13T15:38:49.6529621Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:49.6615368Z 
+2022-06-13T15:38:49.6615933Z > Task :iceberg-hive-metastore:testClasses
+2022-06-13T15:38:49.7508986Z > Task :iceberg-hive-metastore:testJar
+2022-06-13T15:38:49.7509986Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:compileJava NO-SOURCE
+2022-06-13T15:38:51.2508357Z 
+2022-06-13T15:38:51.2509963Z > Task :iceberg-core:compileTestJava
+2022-06-13T15:38:51.2534520Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:51.2535398Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:51.2536990Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:51.2537786Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:51.4510686Z 
+2022-06-13T15:38:51.4511778Z > Task :iceberg-core:testClasses
+2022-06-13T15:38:51.6540526Z > Task :iceberg-core:testJar
+2022-06-13T15:38:53.6508053Z 
+2022-06-13T15:38:53.6510594Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:38:53.6511354Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:38:53.6511770Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:38:53.6512239Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:38:53.6512653Z > Task :iceberg-data:compileTestJava
+2022-06-13T15:38:53.7508249Z 
+2022-06-13T15:38:53.7509280Z > Task :iceberg-data:testClasses
+2022-06-13T15:38:53.8509081Z > Task :iceberg-data:testJar
+2022-06-13T15:38:56.0512569Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:scalastyleTestCheck NO-SOURCE
+2022-06-13T15:38:56.0513963Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:scalastyleCheck
+2022-06-13T15:38:59.3513329Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:generateGrammarSource
+2022-06-13T15:38:59.3514360Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:processResources NO-SOURCE
+2022-06-13T15:38:59.3515870Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:generateTestGrammarSource NO-SOURCE
+2022-06-13T15:38:59.3516762Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:processTestResources NO-SOURCE
+2022-06-13T15:38:59.7509823Z > Task :iceberg-aliyun:compileJava
+2022-06-13T15:38:59.7548127Z > Task :iceberg-aliyun:processResources NO-SOURCE
+2022-06-13T15:38:59.7548736Z > Task :iceberg-aliyun:classes
+2022-06-13T15:38:59.7549815Z > Task :iceberg-aliyun:jar
+2022-06-13T15:39:00.8509272Z > Task :iceberg-aws:compileJava
+2022-06-13T15:39:00.8513530Z > Task :iceberg-aws:processResources NO-SOURCE
+2022-06-13T15:39:00.8513977Z > Task :iceberg-aws:classes
+2022-06-13T15:39:00.9548139Z > Task :iceberg-aws:jar
+2022-06-13T15:39:01.2508446Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2509519Z   reason: class file for org.eclipse.microprofile.openapi.annotations.enums.SchemaType not found
+2022-06-13T15:39:01.2510180Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2510626Z warning: unknown enum constant Id.NAME
+2022-06-13T15:39:01.2510849Z 
+2022-06-13T15:39:01.2511217Z   reason: class file for com.fasterxml.jackson.annotation.JsonTypeInfo$Id not found
+2022-06-13T15:39:01.2511756Z warning: unknown enum constant As.PROPERTY
+2022-06-13T15:39:01.2512307Z   reason: class file for com.fasterxml.jackson.annotation.JsonTypeInfo$As not found
+2022-06-13T15:39:01.2512855Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2513304Z warning: unknown enum constant Mode.DELEGATING
+2022-06-13T15:39:01.2513857Z   reason: class file for com.fasterxml.jackson.annotation.JsonCreator$Mode not found
+2022-06-13T15:39:01.2514432Z warning: unknown enum constant Mode.DELEGATING
+2022-06-13T15:39:01.2514884Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2515308Z warning: unknown enum constant Id.NAME
+2022-06-13T15:39:01.2515740Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2516144Z warning: unknown enum constant Id.NAME
+2022-06-13T15:39:01.2516553Z warning: unknown enum constant As.PROPERTY
+2022-06-13T15:39:01.2516989Z warning: unknown enum constant Include.NON_NULL
+2022-06-13T15:39:01.2517537Z   reason: class file for com.fasterxml.jackson.annotation.JsonInclude$Include not found
+2022-06-13T15:39:01.2518092Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2518535Z warning: unknown enum constant SchemaType.OBJECT
+2022-06-13T15:39:01.2518922Z 15 warnings
+2022-06-13T15:39:01.2543576Z > Task :iceberg-nessie:compileJava
+2022-06-13T15:39:01.2544074Z 
+2022-06-13T15:39:01.2544943Z > Task :iceberg-nessie:processResources NO-SOURCE
+2022-06-13T15:39:01.2545743Z > Task :iceberg-nessie:classes
+2022-06-13T15:39:01.2546117Z > Task :iceberg-nessie:jar
+2022-06-13T15:39:01.2546845Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:checkExplicitSourceCompatibility
+2022-06-13T15:39:01.2547517Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:processResources NO-SOURCE
+2022-06-13T15:39:01.2548142Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:processTestResources NO-SOURCE
+2022-06-13T15:39:19.7510130Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:compileScala
+2022-06-13T15:39:31.8508747Z Unexpected javac output: warning: [options] bootstrap class path not set in conjunction with -source 8
+2022-06-13T15:39:31.8509632Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:39:31.8510218Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:39:31.8510615Z 1 warning.
+2022-06-13T15:39:33.8507746Z 
+2022-06-13T15:39:33.8508996Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:classes
+2022-06-13T15:39:50.1509015Z Note: Some input files use or override a deprecated API.
+2022-06-13T15:39:50.1509583Z 
+2022-06-13T15:39:50.1512137Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T15:39:50.1512830Z Note: Some input files use unchecked or unsafe operations.
+2022-06-13T15:39:50.1514911Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T15:39:50.1515437Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:compileTestJava
+2022-06-13T15:40:03.8507755Z 
+2022-06-13T15:40:03.8512421Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:compileJava
+2022-06-13T15:40:14.8508767Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:compileTestScala NO-SOURCE
+2022-06-13T15:40:14.8509560Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:testClasses
+2022-06-13T15:40:23.8509700Z WARNING: An illegal reflective access operation has occurred
+2022-06-13T15:40:23.8510142Z 
+2022-06-13T15:40:23.8512348Z WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.spark/spark-unsafe_2.12/3.2.0/60c4aabcd0731f0982ec51868112a2f073dd706f/spark-unsafe_2.12-3.2.0.jar) to constructor java.nio.DirectByteBuffer(long,int)
+2022-06-13T15:40:23.8513294Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:test
+2022-06-13T15:40:23.8514660Z WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+2022-06-13T15:40:23.8594862Z WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+2022-06-13T15:40:23.8627623Z WARNING: All illegal access operations will be denied in a future release
+2022-06-13T15:40:27.9537194Z 
+2022-06-13T15:40:27.9538598Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:compileScala
+2022-06-13T15:40:27.9539560Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:classes
+2022-06-13T15:40:28.2508419Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:jar
+2022-06-13T15:40:28.2509464Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:compileJava NO-SOURCE
+2022-06-13T15:40:28.2510419Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:classes UP-TO-DATE
+2022-06-13T15:40:28.2511225Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:compileTestJava NO-SOURCE
+2022-06-13T15:40:28.2512030Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:testClasses UP-TO-DATE
+2022-06-13T16:04:49.0771373Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Shutdown hook called
+2022-06-13T16:04:49.0775373Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-a73e1d80-7539-4792-9374-1073c074dd25
+2022-06-13T16:04:49.0776328Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-67b5ac93-d0ae-4325-9c0e-33829e212d2f
+2022-06-13T16:04:49.0777460Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-0eb126a1-f27d-492a-a53b-d7ac79366f3a
+2022-06-13T16:04:49.0778588Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-97397ca8-4913-457a-bf8d-e9f9cb74fd4d
+2022-06-13T16:04:49.0785564Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-36626d65-305e-449b-86ad-63aefa2d1382
+2022-06-13T16:04:49.0786766Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-7cb3dfb5-72c2-4f91-8991-63361d047888
+2022-06-13T16:04:49.0787766Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-144aaf5b-df71-4198-8340-d6d17eea6aa0
+2022-06-13T16:04:49.0788853Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-2adba3c0-178b-4107-91e0-423d22402021
+2022-06-13T16:04:49.0789846Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-3acc64d1-ed6d-400b-941c-687300e1dbe7
+2022-06-13T16:04:49.0790781Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-cb9a89ea-aa71-4809-8596-efaa245d6431
+2022-06-13T16:04:49.0791778Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-dd67c4b3-5e3f-4221-bff9-8d2f9b54f280
+2022-06-13T16:04:49.0793071Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-f222d7dd-0c26-4c04-94fc-44d1ca701254
+2022-06-13T16:04:49.0794132Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-47ded55c-277b-40bb-bddd-b2fa0ddadc97
+2022-06-13T16:04:49.0795122Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-048a14ec-efde-4105-8378-dc3c915c40dd
+2022-06-13T16:04:49.4785456Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ac8b258b-f94d-452e-854d-f0340a4414f7
+2022-06-13T16:04:49.4787039Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-d4f3d6b8-f7df-4832-a30f-10983b5a88ac
+2022-06-13T16:04:49.4788263Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-833d4dd4-5407-4f46-8924-9c7c49c481b8
+2022-06-13T16:04:49.4789376Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-1e04f45a-edbe-4555-8126-c3afa6fcedbb
+2022-06-13T16:04:49.4790960Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-7f724701-3626-4589-8051-dae68a649ab1
+2022-06-13T16:04:49.4792790Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-3a6f4581-7f2c-4f5b-84d5-45acb3027e42
+2022-06-13T16:04:49.4793913Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-3cd5a3e1-d4d9-4472-b295-a2cba1186522
+2022-06-13T16:04:49.4794929Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-fc9a1896-4560-4729-a08b-6bf2ecf669b4
+2022-06-13T16:04:49.4796048Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/spark-2b823722-dfe9-41aa-9d5a-de2e8ec6af69
+2022-06-13T16:04:49.4797199Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-e6f6a439-e3ba-479d-a1d8-27d17935b207
+2022-06-13T16:04:49.4798357Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-d812001e-e948-429c-951b-513d62f9bcb0
+2022-06-13T16:04:49.4799489Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-232f33f8-e726-4a99-8b8d-bac1db7e0c24
+2022-06-13T16:04:49.4799996Z 
+2022-06-13T16:04:49.4800339Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:test
+2022-06-13T16:04:49.5684979Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ddeabd04-2cee-41ad-9500-8f26371f7e08
+2022-06-13T16:04:49.5686157Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-c68bc367-3e4c-4980-82db-d64a2af7fe1a
+2022-06-13T16:04:49.5687263Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-7df6b8eb-bc08-4dd8-8f61-6c0ca1c46ad1
+2022-06-13T16:04:49.5688380Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-19f68ab9-21d3-4e1a-8939-3d77a88656ad
+2022-06-13T16:04:49.5689651Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ff208906-a8fd-4eee-bcbf-8409aec5a4b2
+2022-06-13T16:04:49.5690878Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ed9e0607-cad4-4bc6-b5c5-b193b444ded3
+2022-06-13T16:04:49.5691921Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-5d8c6bfa-f93f-4d91-89d9-3699df525b44
+2022-06-13T16:04:49.5693046Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-5d1a8601-0d1d-4ed7-bf52-6354f34aa90e
+2022-06-13T16:04:49.5694250Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-be450e32-aa7e-4c29-9178-b2e165a3c600
+2022-06-13T16:04:49.5695300Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-76a36d40-00f4-4454-a140-07c90a941b5e
+2022-06-13T16:04:49.5696624Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-378a4316-63e5-4172-8512-4afeb3ed42e4
+2022-06-13T16:04:49.5698226Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ed5a9ad9-5368-4968-a1a9-4d5934cb5c60
+2022-06-13T16:04:49.5699368Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-bf35cd33-b910-4af8-b330-313a83046d65
+2022-06-13T16:04:49.5700263Z [Thread-5] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/temporary-ba327178-3732-41a5-8f64-a8abac2f640b
+2022-06-13T16:04:52.1507879Z 
+2022-06-13T16:04:52.1508784Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:check
+2022-06-13T16:04:52.3508258Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:jar
+2022-06-13T16:04:52.5511413Z > Task :iceberg-spark:iceberg-spark-3.2_2.12:testJar
+2022-06-13T16:04:53.6508610Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:checkClassUniqueness
+2022-06-13T16:04:53.6509567Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:test NO-SOURCE
+2022-06-13T16:04:53.6510192Z > Task :iceberg-spark:iceberg-spark-runtime-3.2_2.12:check
+2022-06-13T16:04:54.5508354Z Note: Some input files use or override a deprecated API.
+2022-06-13T16:04:54.5508653Z 
+2022-06-13T16:04:54.5509957Z Note: Recompile with -Xlint:deprecation for details.
+2022-06-13T16:04:54.5510525Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:compileTestJava
+2022-06-13T16:04:54.5511639Z Note: /home/runner/work/iceberg/iceberg/spark/v3.2/spark-extensions/src/test/java/org/apache/iceberg/spark/extensions/TestAddFilesProcedure.java uses unchecked or unsafe operations.
+2022-06-13T16:04:54.5512405Z Note: Recompile with -Xlint:unchecked for details.
+2022-06-13T16:04:54.7507533Z 
+2022-06-13T16:04:54.7508547Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:compileTestScala NO-SOURCE
+2022-06-13T16:04:54.7509334Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:testClasses
+2022-06-13T16:05:03.1507957Z WARNING: An illegal reflective access operation has occurred
+2022-06-13T16:05:03.1509399Z WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.spark/spark-unsafe_2.12/3.2.0/60c4aabcd0731f0982ec51868112a2f073dd706f/spark-unsafe_2.12-3.2.0.jar) to constructor java.nio.DirectByteBuffer(long,int)
+2022-06-13T16:05:03.1510015Z 
+2022-06-13T16:05:03.1511208Z WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+2022-06-13T16:05:03.1511857Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:test
+2022-06-13T16:05:03.1512618Z WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+2022-06-13T16:05:03.1513205Z WARNING: All illegal access operations will be denied in a future release
+2022-06-13T16:13:10.3507009Z 
+2022-06-13T16:13:10.3509144Z org.apache.iceberg.spark.extensions.TestCopyOnWriteUpdate > testUpdateWithoutCondition[catalogName = testhive, implementation = org.apache.iceberg.spark.SparkCatalog, config = {type=hive, default-namespace=default}, format = orc, vectorized = true, distributionMode = none] FAILED
+2022-06-13T16:13:10.3510270Z     org.junit.ComparisonFailure: Added data files count must match expected:<[3]> but was:<[2]>
+2022-06-13T16:13:10.3510837Z         at org.junit.Assert.assertEquals(Assert.java:117)
+2022-06-13T16:13:10.3511681Z         at org.apache.iceberg.spark.extensions.SparkRowLevelOperationsTestBase.validateSnapshot(SparkRowLevelOperationsTestBase.java:213)
+2022-06-13T16:13:10.3512868Z         at org.apache.iceberg.spark.extensions.SparkRowLevelOperationsTestBase.validateCopyOnWrite(SparkRowLevelOperationsTestBase.java:193)
+2022-06-13T16:13:10.3513915Z         at org.apache.iceberg.spark.extensions.TestUpdate.testUpdateWithoutCondition(TestUpdate.java:222)
+2022-06-13T16:13:10.3514725Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2022-06-13T16:13:10.3515621Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+2022-06-13T16:13:10.3516449Z         at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2022-06-13T16:13:10.3517156Z         at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+2022-06-13T16:13:10.3517829Z         at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+2022-06-13T16:13:10.3518545Z         at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+2022-06-13T16:13:10.3519298Z         at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+2022-06-13T16:13:10.3520070Z         at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+2022-06-13T16:13:10.3520800Z         at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+2022-06-13T16:13:10.3521453Z         at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+2022-06-13T16:13:10.3522043Z         at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+2022-06-13T16:13:10.3522660Z         at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+2022-06-13T16:13:10.3523290Z         at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+2022-06-13T16:13:10.3524061Z         at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+2022-06-13T16:13:10.3524940Z         at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+2022-06-13T16:13:10.3525575Z         at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+2022-06-13T16:13:10.3526137Z         at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+2022-06-13T16:13:10.3526733Z         at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+2022-06-13T16:13:10.3527346Z         at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+2022-06-13T16:13:10.3527917Z         at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+2022-06-13T16:13:10.3528464Z         at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+2022-06-13T16:13:10.3529000Z         at org.junit.runners.Suite.runChild(Suite.java:128)
+2022-06-13T16:13:10.3529505Z         at org.junit.runners.Suite.runChild(Suite.java:27)
+2022-06-13T16:13:10.3530036Z         at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+2022-06-13T16:13:10.3530596Z         at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+2022-06-13T16:13:10.3531567Z         at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+2022-06-13T16:13:10.3532863Z         at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+2022-06-13T16:13:10.3533354Z         at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+2022-06-13T16:13:10.3534031Z         at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+2022-06-13T16:13:10.3534669Z         at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+2022-06-13T16:13:10.3535226Z         at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+2022-06-13T16:13:10.3535711Z         at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+2022-06-13T16:13:10.3536423Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+2022-06-13T16:13:10.3537322Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+2022-06-13T16:13:10.3538169Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+2022-06-13T16:13:10.3539173Z         at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+2022-06-13T16:13:10.3540276Z         at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+2022-06-13T16:13:10.3541051Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2022-06-13T16:13:10.3541725Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+2022-06-13T16:13:10.3542476Z         at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2022-06-13T16:13:10.3543092Z         at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+2022-06-13T16:13:10.3543673Z         at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+2022-06-13T16:13:10.3544336Z         at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+2022-06-13T16:13:10.3545084Z         at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+2022-06-13T16:13:10.3545909Z         at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+2022-06-13T16:13:10.3546532Z         at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+2022-06-13T16:13:10.3547285Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+2022-06-13T16:13:10.3548065Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+2022-06-13T16:13:10.3548862Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+2022-06-13T16:13:10.3549526Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+2022-06-13T16:13:10.3550281Z         at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+2022-06-13T16:13:10.3551222Z         at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+2022-06-13T16:13:10.3552256Z         at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+2022-06-13T16:13:10.3553131Z         at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+2022-06-13T16:13:10.3553859Z         at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+2022-06-13T16:14:19.7525717Z 
+2022-06-13T16:14:19.7530611Z org.apache.iceberg.spark.extensions.TestCopyOnWriteUpdate > testUpdateWithoutCondition[catalogName = spark_catalog, implementation = org.apache.iceberg.spark.SparkSessionCatalog, config = {type=hive, default-namespace=default, clients=1, parquet-enabled=false, cache-enabled=false}, format = avro, vectorized = false, distributionMode = range] FAILED
+2022-06-13T16:14:19.7533462Z     org.junit.ComparisonFailure: Added data files count must match expected:<[3]> but was:<[2]>
+2022-06-13T16:14:19.7534106Z         at org.junit.Assert.assertEquals(Assert.java:117)
+2022-06-13T16:14:19.7534965Z         at org.apache.iceberg.spark.extensions.SparkRowLevelOperationsTestBase.validateSnapshot(SparkRowLevelOperationsTestBase.java:213)
+2022-06-13T16:14:19.7536135Z         at org.apache.iceberg.spark.extensions.SparkRowLevelOperationsTestBase.validateCopyOnWrite(SparkRowLevelOperationsTestBase.java:193)
+2022-06-13T16:14:19.7537195Z         at org.apache.iceberg.spark.extensions.TestUpdate.testUpdateWithoutCondition(TestUpdate.java:222)
+2022-06-13T16:14:19.7537994Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2022-06-13T16:14:19.7538754Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+2022-06-13T16:14:19.7539596Z         at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2022-06-13T16:14:19.7540303Z         at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+2022-06-13T16:14:19.7541046Z         at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+2022-06-13T16:14:19.7541757Z         at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+2022-06-13T16:14:19.7542508Z         at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+2022-06-13T16:14:19.7543245Z         at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+2022-06-13T16:14:19.7543975Z         at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+2022-06-13T16:14:19.7544630Z         at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+2022-06-13T16:14:19.7545216Z         at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+2022-06-13T16:14:19.7547780Z         at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+2022-06-13T16:14:19.7548492Z         at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+2022-06-13T16:14:19.7549154Z         at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+2022-06-13T16:14:19.7549876Z         at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+2022-06-13T16:14:19.7550512Z         at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+2022-06-13T16:14:19.7552350Z         at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+2022-06-13T16:14:19.7552984Z         at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+2022-06-13T16:14:19.7553592Z         at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+2022-06-13T16:14:19.7554169Z         at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+2022-06-13T16:14:19.7554740Z         at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+2022-06-13T16:14:19.7555274Z         at org.junit.runners.Suite.runChild(Suite.java:128)
+2022-06-13T16:14:19.7555795Z         at org.junit.runners.Suite.runChild(Suite.java:27)
+2022-06-13T16:14:19.7556876Z         at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+2022-06-13T16:14:19.7558101Z         at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+2022-06-13T16:14:19.7558622Z         at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+2022-06-13T16:14:19.7559143Z         at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+2022-06-13T16:14:19.7559635Z         at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+2022-06-13T16:14:19.7560200Z         at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+2022-06-13T16:14:19.7560828Z         at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+2022-06-13T16:14:19.7561382Z         at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+2022-06-13T16:14:19.7562006Z         at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+2022-06-13T16:14:19.7562728Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+2022-06-13T16:14:19.7563622Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+2022-06-13T16:14:19.7564484Z         at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+2022-06-13T16:14:19.7565482Z         at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+2022-06-13T16:14:19.7566516Z         at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+2022-06-13T16:14:19.7567289Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2022-06-13T16:14:19.7567952Z         at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+2022-06-13T16:14:19.7569622Z         at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2022-06-13T16:14:19.7570247Z         at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+2022-06-13T16:14:19.7570824Z         at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+2022-06-13T16:14:19.7571504Z         at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+2022-06-13T16:14:19.7572254Z         at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+2022-06-13T16:14:19.7575177Z         at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+2022-06-13T16:14:19.7575801Z         at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+2022-06-13T16:14:19.7576358Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+2022-06-13T16:14:19.7577144Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+2022-06-13T16:14:19.7577947Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+2022-06-13T16:14:19.7578629Z         at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+2022-06-13T16:14:19.7579385Z         at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+2022-06-13T16:14:19.7580321Z         at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+2022-06-13T16:14:19.7581338Z         at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+2022-06-13T16:14:19.7582217Z         at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+2022-06-13T16:14:19.7582956Z         at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+2022-06-13T16:17:40.5509935Z [shutdown-hook-0] INFO org.apache.spark.util.ShutdownHookManager - Shutdown hook called
+2022-06-13T16:17:40.5511033Z [shutdown-hook-0] INFO org.apache.spark.util.ShutdownHookManager - Deleting directory /tmp/spark-6f2ead47-58f0-4162-ab35-ac5cd81b5f55
+2022-06-13T16:17:40.9506699Z 
+2022-06-13T16:17:40.9507437Z 873 tests completed, 2 failed, 32 skipped
+2022-06-13T16:17:42.8507239Z 
+2022-06-13T16:17:42.8507658Z 
+2022-06-13T16:17:42.8508569Z FAILURE: Build failed with an exception.
+2022-06-13T16:17:42.8508938Z 
+2022-06-13T16:17:42.8511436Z * What went wrong:
+2022-06-13T16:17:42.8512178Z > Task :iceberg-spark:iceberg-spark-extensions-3.2_2.12:test FAILED
+2022-06-13T16:17:42.8513491Z Execution failed for task ':iceberg-spark:iceberg-spark-extensions-3.2_2.12:test'.
+2022-06-13T16:17:42.8513908Z 54 actionable tasks: 54 executed
+2022-06-13T16:17:42.8832184Z > There were failing tests. See the report at: file:///home/runner/work/iceberg/iceberg/spark/v3.2/spark-extensions/build/reports/tests/test/index.html
+2022-06-13T16:17:42.8832624Z 
+2022-06-13T16:17:42.8832718Z * Try:
+2022-06-13T16:17:42.8833127Z > Run with --stacktrace option to get the stack trace.
+2022-06-13T16:17:42.8833614Z > Run with --info or --debug option to get more log output.
+2022-06-13T16:17:42.8834041Z > Run with --scan to get full insights.
+2022-06-13T16:17:42.8834246Z 
+2022-06-13T16:17:42.8834420Z * Get more help at https://help.gradle.org
+2022-06-13T16:17:42.8834633Z 
+2022-06-13T16:17:42.8834750Z BUILD FAILED in 39m 44s
+2022-06-13T16:17:43.8883491Z ##[error]Process completed with exit code 1.
+2022-06-13T16:17:43.9163751Z ##[group]Run actions/upload-artifact@v2
+2022-06-13T16:17:43.9164077Z with:
+2022-06-13T16:17:43.9164330Z   name: test logs
+2022-06-13T16:17:43.9164597Z   path: **/build/testlogs
+
+2022-06-13T16:17:43.9164869Z   if-no-files-found: warn
+2022-06-13T16:17:43.9165124Z env:
+2022-06-13T16:17:43.9165499Z   SPARK_LOCAL_IP: localhost
+2022-06-13T16:17:43.9165834Z   JAVA_HOME_11.0.15_x64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T16:17:43.9166203Z   JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T16:17:43.9166575Z   JAVA_HOME_11_0_15_X64: /opt/hostedtoolcache/jdk/11.0.15/x64
+2022-06-13T16:17:43.9166862Z ##[endgroup]
+2022-06-13T16:17:45.8007133Z With the provided path, there will be 2 files uploaded
+2022-06-13T16:17:45.8013941Z Starting artifact upload
+2022-06-13T16:17:45.8015071Z For more detailed logs during the artifact upload process, enable step-debugging: https://docs.github.com/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging#enabling-step-debug-logging
+2022-06-13T16:17:45.8018165Z Artifact name is valid!
+2022-06-13T16:17:45.8714076Z Container for artifact "test logs" successfully created. Starting upload of file(s)
+2022-06-13T16:17:47.7982603Z Total size of all the files uploaded is 8119642 bytes
+2022-06-13T16:17:47.7983421Z File upload process has finished. Finalizing the artifact upload
+2022-06-13T16:17:47.8409257Z Artifact has been finalized. All files have been successfully uploaded!
+2022-06-13T16:17:47.8409932Z 
+2022-06-13T16:17:47.8411241Z The raw size of all the files that were specified for upload is 129897570 bytes
+2022-06-13T16:17:47.8412131Z The size of all the files that were uploaded is 8119642 bytes. This takes into account any gzip compression used to reduce the upload size, time and storage
+2022-06-13T16:17:47.8412777Z 
+2022-06-13T16:17:47.8413867Z Note: The size of downloaded zips can differ significantly from the reported size. For more information see: https://github.com/actions/upload-artifact#zipped-artifact-downloads 
+2022-06-13T16:17:47.8414590Z 
+2022-06-13T16:17:47.8414963Z Artifact test logs has been successfully uploaded!
+2022-06-13T16:17:47.8590852Z Post job cleanup.
+2022-06-13T16:17:47.9152741Z Post job cleanup.
+2022-06-13T16:17:48.0580166Z [command]/usr/bin/git version
+2022-06-13T16:17:48.0792625Z git version 2.36.1
+2022-06-13T16:17:48.0854053Z Temporarily overriding HOME='/home/runner/work/_temp/5c42bc19-f1ff-43bb-adbb-0e2d4b431a07' before making global git config changes
+2022-06-13T16:17:48.0858084Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-13T16:17:48.0867145Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/iceberg/iceberg
+2022-06-13T16:17:48.0961935Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-13T16:17:48.1033541Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-13T16:17:48.1567577Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-13T16:17:48.1650749Z http.https://github.com/.extraheader
+2022-06-13T16:17:48.1661848Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2022-06-13T16:17:48.1709807Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-13T16:17:48.2300726Z Cleaning up orphan processes
+2022-06-13T16:17:48.2579345Z Terminate orphan process: pid (1720) (java)
+2022-06-13T16:17:48.2625803Z Terminate orphan process: pid (1816) (java)

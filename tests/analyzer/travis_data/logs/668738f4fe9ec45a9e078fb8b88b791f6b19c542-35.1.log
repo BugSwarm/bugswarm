@@ -1,0 +1,393 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd BuildCraft/BuildCraft
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export TERM=dumb
+
+$ jdk_switcher use openjdk7
+Switching to OpenJDK7 (java-1.7.0-openjdk-amd64), JAVA_HOME will be set to /usr/lib/jvm/java-7-openjdk-amd64
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.7.0_75"
+OpenJDK Runtime Environment (IcedTea 2.5.4) (7u75-2.5.4-1~precise1)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_75
+travis_fold:start:before_install[0Ktravis_time:start:00695694[0K$ git clone https://github.com/BuildCraft/BuildCraft-Localization.git ../BuildCraft-Localization
+Cloning into '../BuildCraft-Localization'...
+
+travis_time:end:00695694:start=1479317959239156398,finish=1479317960948762336,duration=1709605938[0Ktravis_fold:end:before_install[0Ktravis_fold:start:install[0Ktravis_time:start:004da450[0K$ ./gradlew setupCIWorkspace -S
+Downloading http://services.gradle.org/distributions/gradle-1.11-bin.zip
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7/gradle-1.11-bin.zip to /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7
+Set executable permissions for: /home/travis/.gradle/wrapper/dists/gradle-1.11-bin/4h5v8877arc3jhuqbm3osbr7o7/gradle-1.11/bin/gradle
+Download http://files.minecraftforge.net/maven/net/minecraftforge/gradle/ForgeGradle/1.2-SNAPSHOT/ForgeGradle-1.2-20150805.153118-302.pom
+Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/RetroGuard/3.6.6/RetroGuard-3.6.6.pom
+Download http://repo1.maven.org/maven2/net/sf/opencsv/opencsv/2.3/opencsv-2.3.pom
+Download http://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+Download http://repo1.maven.org/maven2/com/github/jponge/lzma-java/1.3/lzma-java-1.3.pom
+Download http://repo1.maven.org/maven2/com/github/abrarsyed/jastyle/jAstyle/1.2/jAstyle-1.2.pom
+Download http://repo1.maven.org/maven2/net/sf/trove4j/trove4j/2.1.0/trove4j-2.1.0.pom
+Download http://repo1.maven.org/maven2/com/cloudbees/diff4j/1.1/diff4j-1.1.pom
+Download http://repo1.maven.org/maven2/com/cloudbees/cloudbees-oss-parent/1/cloudbees-oss-parent-1.pom
+Download http://repo1.maven.org/maven2/net/md-5/SpecialSource/1.7.3/SpecialSource-1.7.3.pom
+Download http://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom
+Download http://repo1.maven.org/maven2/com/github/tony19/named-regexp/0.2.3/named-regexp-0.2.3.pom
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.3/asm-debug-all-5.0.3.pom
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-parent/5.0.3/asm-parent-5.0.3.pom
+Download http://repo1.maven.org/maven2/org/ow2/ow2/1.3/ow2-1.3.pom
+Download http://repo1.maven.org/maven2/com/nothome/javaxdelta/2.0.1/javaxdelta-2.0.1.pom
+Download http://files.minecraftforge.net/maven/net/minecraftforge/srg2source/Srg2Source/3.2-SNAPSHOT/Srg2Source-3.2-20150109.190932-47.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.3.3/httpcomponents-client-4.3.3.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/project/7/project-7.pom
+Download http://repo1.maven.org/maven2/org/apache/apache/13/apache-13.pom
+Download http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.pom
+Download http://repo1.maven.org/maven2/com/google/guava/guava/18.0/guava-18.0.pom
+Download http://repo1.maven.org/maven2/com/google/guava/guava-parent/18.0/guava-parent-18.0.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpmime/4.3.3/httpmime-4.3.3.pom
+Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcinjector/3.2-SNAPSHOT/mcinjector-3.2-20150605.000822-18.pom
+Download http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5.pom
+Download http://repo1.maven.org/maven2/org/jvnet/localizer/localizer/1.12/localizer-1.12.pom
+Download http://repo1.maven.org/maven2/org/jvnet/localizer/localizer-parent/1.12/localizer-parent-1.12.pom
+Download http://repo1.maven.org/maven2/commons-io/commons-io/1.4/commons-io-1.4.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-parent/7/commons-parent-7.pom
+Download http://repo1.maven.org/maven2/org/apache/apache/4/apache-4.pom
+Download http://repo1.maven.org/maven2/trove/trove/1.0.2/trove-1.0.2.pom
+Download http://files.minecraftforge.net/maven/org/eclipse/jdt/org.eclipse.jdt.core/3.10.0.v20131029-1755/org.eclipse.jdt.core-3.10.0.v20131029-1755.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/jobs/3.5.300-v20130429-1813/jobs-3.5.300-v20130429-1813.pom
+Download http://repo1.maven.org/maven2/org/eclipse/osgi/3.9.1-v20130814-1242/osgi-3.9.1-v20130814-1242.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/contenttype/3.4.200-v20130326-1255/contenttype-3.4.200-v20130326-1255.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/resources/3.2.1-R32x_v20060914/resources-3.2.1-R32x_v20060914.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/common/3.6.200-v20130402-1505/common-3.6.200-v20130402-1505.pom
+Download http://repo1.maven.org/maven2/org/eclipse/text/org.eclipse.text/3.5.101/org.eclipse.text-3.5.101.pom
+Download http://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/3.2.0.201312181205-r/org.eclipse.jgit-3.2.0.201312181205-r.pom
+Download http://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/3.2.0.201312181205-r/org.eclipse.jgit-parent-3.2.0.201312181205-r.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/preferences/3.5.100-v20130422-1538/preferences-3.5.100-v20130422-1538.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/runtime/3.9.0-v20130326-1255/runtime-3.9.0-v20130326-1255.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.pom
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.3.2/httpcomponents-core-4.3.2.pom
+Download http://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-parent/28/commons-parent-28.pom
+Download http://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-parent/22/commons-parent-22.pom
+Download http://repo1.maven.org/maven2/org/apache/apache/9/apache-9.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/preferences/3.5.200-v20140224-1527/preferences-3.5.200-v20140224-1527.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/registry/3.5.400-v20140428-1507/registry-3.5.400-v20140428-1507.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/runtime/compatibility/3.1.200-v20070502/compatibility-3.1.200-v20070502.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/expressions/3.3.0-v20070606-0010/expressions-3.3.0-v20070606-0010.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/filesystem/1.1.0-v20070606/filesystem-1.1.0-v20070606.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/org.eclipse.core.commands/3.6.0/org.eclipse.core.commands-3.6.0.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/org.eclipse.equinox.common/3.6.0/org.eclipse.equinox.common-3.6.0.pom
+Download http://repo1.maven.org/maven2/com/jcraft/jsch/0.1.46/jsch-0.1.46.pom
+Download http://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/6/oss-parent-6.pom
+Download http://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.5.6/JavaEWAH-0.5.6.pom
+Download http://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
+Download http://repo1.maven.org/maven2/org/eclipse/osgi/3.10.0-v20140606-1445/osgi-3.10.0-v20140606-1445.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/jobs/3.6.0-v20140424-0053/jobs-3.6.0-v20140424-0053.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/contenttype/3.4.200-v20140207-1251/contenttype-3.4.200-v20140207-1251.pom
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/app/1.3.200-v20130910-1609/app-1.3.200-v20130910-1609.pom
+Download http://repo1.maven.org/maven2/org/eclipse/core/runtime/3.10.0-v20140318-2214/runtime-3.10.0-v20140318-2214.pom
+Download http://repo1.maven.org/maven2/org/eclipse/update/configurator/3.2.100-v20070615/configurator-3.2.100-v20070615.pom
+Download http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.7/jopt-simple-4.7.pom
+Download http://files.minecraftforge.net/maven/net/minecraftforge/gradle/ForgeGradle/1.2-SNAPSHOT/ForgeGradle-1.2-20150805.153118-302.jar
+Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/RetroGuard/3.6.6/RetroGuard-3.6.6.jar
+Download http://repo1.maven.org/maven2/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar
+Download http://repo1.maven.org/maven2/com/github/jponge/lzma-java/1.3/lzma-java-1.3.jar
+Download http://repo1.maven.org/maven2/com/github/abrarsyed/jastyle/jAstyle/1.2/jAstyle-1.2.jar
+Download http://repo1.maven.org/maven2/net/sf/trove4j/trove4j/2.1.0/trove4j-2.1.0.jar
+Download http://repo1.maven.org/maven2/com/cloudbees/diff4j/1.1/diff4j-1.1.jar
+Download http://repo1.maven.org/maven2/net/md-5/SpecialSource/1.7.3/SpecialSource-1.7.3.jar
+Download http://repo1.maven.org/maven2/com/github/tony19/named-regexp/0.2.3/named-regexp-0.2.3.jar
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.3/asm-debug-all-5.0.3.jar
+Download http://repo1.maven.org/maven2/com/nothome/javaxdelta/2.0.1/javaxdelta-2.0.1.jar
+Download http://files.minecraftforge.net/maven/net/minecraftforge/srg2source/Srg2Source/3.2-SNAPSHOT/Srg2Source-3.2-20150109.190932-47.jar
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.jar
+Download http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar
+Download http://repo1.maven.org/maven2/com/google/guava/guava/18.0/guava-18.0.jar
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpmime/4.3.3/httpmime-4.3.3.jar
+Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcinjector/3.2-SNAPSHOT/mcinjector-3.2-20150605.000822-18.jar
+Download http://repo1.maven.org/maven2/org/jvnet/localizer/localizer/1.12/localizer-1.12.jar
+Download http://repo1.maven.org/maven2/commons-io/commons-io/1.4/commons-io-1.4.jar
+Download http://repo1.maven.org/maven2/trove/trove/1.0.2/trove-1.0.2.jar
+Download http://files.minecraftforge.net/maven/org/eclipse/jdt/org.eclipse.jdt.core/3.10.0.v20131029-1755/org.eclipse.jdt.core-3.10.0.v20131029-1755.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/resources/3.2.1-R32x_v20060914/resources-3.2.1-R32x_v20060914.jar
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/common/3.6.200-v20130402-1505/common-3.6.200-v20130402-1505.jar
+Download http://repo1.maven.org/maven2/org/eclipse/text/org.eclipse.text/3.5.101/org.eclipse.text-3.5.101.jar
+Download http://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/3.2.0.201312181205-r/org.eclipse.jgit-3.2.0.201312181205-r.jar
+Download http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar
+Download http://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+Download http://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/registry/3.5.400-v20140428-1507/registry-3.5.400-v20140428-1507.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/runtime/compatibility/3.1.200-v20070502/compatibility-3.1.200-v20070502.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/expressions/3.3.0-v20070606-0010/expressions-3.3.0-v20070606-0010.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/filesystem/1.1.0-v20070606/filesystem-1.1.0-v20070606.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/org.eclipse.core.commands/3.6.0/org.eclipse.core.commands-3.6.0.jar
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/org.eclipse.equinox.common/3.6.0/org.eclipse.equinox.common-3.6.0.jar
+Download http://repo1.maven.org/maven2/com/jcraft/jsch/0.1.46/jsch-0.1.46.jar
+Download http://repo1.maven.org/maven2/com/googlecode/javaewah/JavaEWAH/0.5.6/JavaEWAH-0.5.6.jar
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/app/1.3.200-v20130910-1609/app-1.3.200-v20130910-1609.jar
+Download http://repo1.maven.org/maven2/org/eclipse/update/configurator/3.2.100-v20070615/configurator-3.2.100-v20070615.jar
+Download http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.7/jopt-simple-4.7.jar
+Download http://repo1.maven.org/maven2/org/eclipse/equinox/preferences/3.5.200-v20140224-1527/preferences-3.5.200-v20140224-1527.jar
+Download http://repo1.maven.org/maven2/org/eclipse/osgi/3.10.0-v20140606-1445/osgi-3.10.0-v20140606-1445.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/jobs/3.6.0-v20140424-0053/jobs-3.6.0-v20140424-0053.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/contenttype/3.4.200-v20140207-1251/contenttype-3.4.200-v20140207-1251.jar
+Download http://repo1.maven.org/maven2/org/eclipse/core/runtime/3.10.0-v20140318-2214/runtime-3.10.0-v20140318-2214.jar
+The assetDir is deprecated!  I actually just did all this generalizing stuff just now.. Use runDir instead! runDir set to run/assets/..
+The runDir should be the location where you want MC to be run, usually he parent of the asset dir
+****************************
+ Powered By MCP:             
+ http://modcoderpack.com/    
+ Searge, ProfMobius, Fesh0r, 
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+:downloadClient
+:downloadServer
+:getVersionJson
+:extractUserDev
+Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.2-10.12.1.1060/forge-1.7.2-10.12.1.1060-userdev.jar
+:mergeJars
+:applyBinPatches
+:downloadMcpTools
+:extractMcpData
+:genSrgs
+:deobfBinJar
+Applying SpecialSource...
+Applying Exceptor...
+Stripping synthetics...
+:setupCIWorkspace
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 34.564 secs
+
+travis_time:end:004da450:start=1479317960955687065,finish=1479318055965217764,duration=95009530699[0Ktravis_fold:end:install[0Ktravis_time:start:05eda120[0K$ ./gradlew build -S
+The assetDir is deprecated!  I actually just did all this generalizing stuff just now.. Use runDir instead! runDir set to run/assets/..
+The runDir should be the location where you want MC to be run, usually he parent of the asset dir
+****************************
+ Powered By MCP:             
+ http://modcoderpack.com/    
+ Searge, ProfMobius, Fesh0r, 
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:getVersionJson
+:extractUserDev UP-TO-DATE
+:mergeJars SKIPPED
+:applyBinPatches SKIPPED
+:downloadMcpTools SKIPPED
+:extractMcpData UP-TO-DATE
+:genSrgs SKIPPED
+:deobfBinJar SKIPPED
+:compileApiJava
+Download https://libraries.minecraft.net/net/minecraft/launchwrapper/1.9/launchwrapper-1.9.pom
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/4.1/asm-debug-all-4.1.pom
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-parent/4.1/asm-parent-4.1.pom
+Download http://files.minecraftforge.net/maven/org/scala-lang/scala-library/2.10.2/scala-library-2.10.2.pom
+Download http://files.minecraftforge.net/maven/org/scala-lang/scala-compiler/2.10.2/scala-compiler-2.10.2.pom
+Download http://repo1.maven.org/maven2/java3d/vecmath/1.3.1/vecmath-1.3.1.pom
+Download http://repo1.maven.org/maven2/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.pom
+Download https://libraries.minecraft.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.pom
+Download https://libraries.minecraft.net/lzma/lzma/0.0.1/lzma-0.0.1.pom
+Download https://libraries.minecraft.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.pom
+Download https://libraries.minecraft.net/com/paulscode/codecwav/20101023/codecwav-20101023.pom
+Download https://libraries.minecraft.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.pom
+Download https://libraries.minecraft.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.pom
+Download https://libraries.minecraft.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.pom
+Download http://repo1.maven.org/maven2/io/netty/netty-all/4.0.10.Final/netty-all-4.0.10.Final.pom
+Download http://repo1.maven.org/maven2/io/netty/netty-parent/4.0.10.Final/netty-parent-4.0.10.Final.pom
+Download http://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom
+Download http://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.pom
+Download http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-parent/25/commons-parent-25.pom
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput/2.0.5/jinput-2.0.5.pom
+Download http://repo1.maven.org/maven2/net/java/jutils/jutils/1.0.0/jutils-1.0.0.pom
+Download https://libraries.minecraft.net/com/mojang/authlib/1.3/authlib-1.3.pom
+Download http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.pom
+Download http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j/2.0-beta9/log4j-2.0-beta9.pom
+Download http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.pom
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.pom
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/parent/2.9.0/parent-2.9.0.pom
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl_util/2.9.0/lwjgl_util-2.9.0.pom
+Download http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.10.2/scala-reflect-2.10.2.pom
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5.pom
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0.pom
+Download https://libraries.minecraft.net/net/minecraft/launchwrapper/1.9/launchwrapper-1.9.jar
+Download http://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/4.1/asm-debug-all-4.1.jar
+Download http://files.minecraftforge.net/maven/org/scala-lang/scala-library/2.10.2/scala-library-2.10.2.jar
+Download http://files.minecraftforge.net/maven/org/scala-lang/scala-compiler/2.10.2/scala-compiler-2.10.2.jar
+Download http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5.jar
+Download http://repo1.maven.org/maven2/java3d/vecmath/1.3.1/vecmath-1.3.1.jar
+Download http://repo1.maven.org/maven2/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar
+Download https://libraries.minecraft.net/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar
+Download https://libraries.minecraft.net/lzma/lzma/0.0.1/lzma-0.0.1.jar
+Download https://libraries.minecraft.net/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar
+Download https://libraries.minecraft.net/com/paulscode/codecwav/20101023/codecwav-20101023.jar
+Download https://libraries.minecraft.net/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar
+Download https://libraries.minecraft.net/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar
+Download https://libraries.minecraft.net/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar
+Download http://repo1.maven.org/maven2/io/netty/netty-all/4.0.10.Final/netty-all-4.0.10.Final.jar
+Download http://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar
+Download http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar
+Download http://repo1.maven.org/maven2/net/java/jutils/jutils/1.0.0/jutils-1.0.0.jar
+Download https://libraries.minecraft.net/com/mojang/authlib/1.3/authlib-1.3.jar
+Download http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.jar
+Download http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.jar
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl_util/2.9.0/lwjgl_util-2.9.0.jar
+Download http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.10.2/scala-reflect-2.10.2.jar
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-linux.jar
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-windows.jar
+Download http://repo1.maven.org/maven2/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-osx.jar
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-windows.jar
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-linux.jar
+Download http://repo1.maven.org/maven2/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-osx.jar
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: /home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/power/PowerHandler.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+:processApiResources UP-TO-DATE
+:apiClasses
+:apiJar
+:sourceMainJava
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+/home/travis/build/BuildCraft/BuildCraft/build/sources/java/buildcraft/core/InterModComms.java:88: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+					AssemblyRecipeManager.INSTANCE.addRecipe(recipe.getDouble("energy"), is, input.toArray(new ItemStack[input.size()]));
+					                                                                                      ^
+  cast to Object for a varargs call
+  cast to Object[] for a non-varargs call and to suppress this warning
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 warnings
+
+:processResources
+:classes
+:deobfJar
+:jar
+:javadoc/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/blueprints/Schematic.java:275: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/common/buildcraft/transport/Pipe.java:171: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/core/IIconProvider.java:24: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/recipes/IAssemblyRecipeManager.java:34: warning - @param argument "energy" is not a parameter name.
+/home/travis/build/BuildCraft/BuildCraft/common/buildcraft/core/utils/MatrixTranformations.java:68: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/transport/IPipeTile.java:41: warning - @param argument "wire" is not a parameter name.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/power/IPowerReceptor.java:33: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/common/buildcraft/core/inventory/InvUtils.java:88: warning - @param argument "filer" is not a parameter name.
+/home/travis/build/BuildCraft/BuildCraft/common/buildcraft/core/inventory/ITransactor.java:37: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/power/PowerHandler.java:191: warning - @param argument "maxEnergyReceived" is not a parameter name.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/power/PowerHandler.java:98: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/power/PowerHandler.java:406: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/common/buildcraft/transport/network/PacketHandlerTransport.java:275: warning - @return tag has no arguments.
+/home/travis/build/BuildCraft/BuildCraft/api/buildcraft/api/fuels/IronEngineCoolant.java:81: warning - @param argument "data.stack" is not a parameter name.
+
+14 warnings
+:javadocJar
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+:reobf
+:sourceJar
+:assemble
+:checkstyleApi
+Download http://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.6/checkstyle-5.6.pom
+Download http://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.pom
+Download http://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.pom
+Download http://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.pom
+Download http://repo1.maven.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
+Download http://repo1.maven.org/maven2/com/google/collections/google-collections/1.0/google-collections-1.0.pom
+Download http://repo1.maven.org/maven2/com/google/google/1/google-1.pom
+Download http://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/5.6/checkstyle-5.6.jar
+Download http://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar
+Download http://repo1.maven.org/maven2/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-core-1.8.3.jar
+Download http://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
+Download http://repo1.maven.org/maven2/com/google/collections/google-collections/1.0/google-collections-1.0.jar
+:checkstyleMain
+:checkstyleTest UP-TO-DATE
+:check
+:build
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 16.448 secs
+
+travis_time:end:05eda120:start=1479318055982390479,finish=1479318133092614720,duration=77110224241[0K
+[32;1mThe command "./gradlew build -S" exited with 0.[0m
+
+Done. Your build exited with 0.

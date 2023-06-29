@@ -1,761 +1,0 @@
-travis_fold:start:system_info[0K[33;1mBuild system information[0m
-Build language: java
-Build id: ''
-Job id: ''
-[34m[1mBuild image provisioning date and time[0m
-Thu Feb  5 15:09:33 UTC 2015
-[34m[1mOperating System Details[0m
-Distributor ID:	Ubuntu
-Description:	Ubuntu 12.04.5 LTS
-Release:	12.04
-Codename:	precise
-[34m[1mLinux Version[0m
-3.13.0-29-generic
-[34m[1mCookbooks Version[0m
-a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
-[34m[1mGCC version[0m
-gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
-Copyright (C) 2011 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-[34m[1mLLVM version[0m
-clang version 3.4 (tags/RELEASE_34/final)
-Target: x86_64-unknown-linux-gnu
-Thread model: posix
-[34m[1mPre-installed Ruby versions[0m
-ruby-1.9.3-p551
-[34m[1mPre-installed Node.js versions[0m
-v0.10.36
-[34m[1mPre-installed Go versions[0m
-1.4.1
-[34m[1mRedis version[0m
-redis-server 2.8.19
-[34m[1mriak version[0m
-2.0.2
-[34m[1mMongoDB version[0m
-MongoDB 2.4.12
-[34m[1mCouchDB version[0m
-couchdb 1.6.1
-[34m[1mNeo4j version[0m
-1.9.4
-[34m[1mRabbitMQ Version[0m
-3.4.3
-[34m[1mElasticSearch version[0m
-1.4.0
-[34m[1mInstalled Sphinx versions[0m
-2.0.10
-2.1.9
-2.2.6
-[34m[1mDefault Sphinx version[0m
-2.2.6
-[34m[1mInstalled Firefox version[0m
-firefox 31.0esr
-[34m[1mPhantomJS version[0m
-1.9.8
-[34m[1mant -version[0m
-Apache Ant(TM) version 1.8.2 compiled on December 3 2011
-[34m[1mmvn -version[0m
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_76, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-oracle/jre
-Default locale: en_US, platform encoding: ANSI_X3.4-1968
-OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
-travis_fold:end:system_info[0K
-sed: cannot rename /etc/hosts: Device or resource busy
-sed: cannot rename /etc/hosts: Device or resource busy
-$ cd sarxos/webcam-capture
-$ java -Xmx32m -version
-java version "1.7.0_76"
-Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
-$ javac -J-Xmx32m -version
-javac 1.7.0_76
-travis_fold:start:before_install[0Ktravis_time:start:0615face[0K$ mvn install -DskipTests=true -e
-[INFO] Error stacktraces are turned on.
-[INFO] Scanning for projects...
-Downloading: http://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
-4/5 KB   5/5 KB            Downloaded: http://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom (5 KB at 26.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ftp/1.0-beta-7/wagon-ftp-1.0-beta-7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ftp/1.0-beta-7/wagon-ftp-1.0-beta-7.pom (3 KB at 4.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-providers/1.0-beta-7/wagon-providers-1.0-beta-7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-providers/1.0-beta-7/wagon-providers-1.0-beta-7.pom (3 KB at 18.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0-beta-7/wagon-1.0-beta-7.pom
-3/12 KB   5/12 KB   8/12 KB   11/12 KB   12/12 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0-beta-7/wagon-1.0-beta-7.pom (12 KB at 77.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/16/maven-parent-16.pom
-3/23 KB    5/23 KB   8/23 KB   11/23 KB   13/23 KB   16/23 KB   19/23 KB   21/23 KB   23/23 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/16/maven-parent-16.pom (23 KB at 165.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/7/apache-7.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/7/apache-7.pom (15 KB at 111.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/commons-net/commons-net/2.0/commons-net-2.0.pom
-3/8 KB     5/8 KB   8/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/commons-net/commons-net/2.0/commons-net-2.0.pom (8 KB at 61.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
-3/25 KB   5/25 KB   8/25 KB   11/25 KB   13/25 KB   16/25 KB   19/25 KB   21/25 KB   24/25 KB   25/25 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom (25 KB at 163.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/4/apache-4.pom
-3/5 KB     5/5 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/4/apache-4.pom (5 KB at 39.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-7/wagon-provider-api-1.0-beta-7.pom
-1/2 KB   2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-7/wagon-provider-api-1.0-beta-7.pom (2 KB at 15.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.pom (2 KB at 16.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom (9 KB at 70.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ftp/1.0-beta-7/wagon-ftp-1.0-beta-7.jar
-Downloading: https://repo.maven.apache.org/maven2/commons-net/commons-net/2.0/commons-net-2.0.jar
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.jar
-3/15 KB   5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-ftp/1.0-beta-7/wagon-ftp-1.0-beta-7.jar (15 KB at 90.8 KB/sec)
-3/186 KB   5/186 KB   8/186 KB   11/186 KB   3/193 KB   11/186 KB   3/193 KB   13/186 KB   3/193 KB   16/186 KB   3/193 KB   19/186 KB   5/193 KB   19/186 KB   8/193 KB   19/186 KB   11/193 KB   19/186 KB   13/193 KB   19/186 KB   13/193 KB   21/186 KB   13/193 KB   24/186 KB   16/193 KB   24/186 KB   19/193 KB   24/186 KB   21/193 KB   24/186 KB   21/193 KB   27/186 KB   21/193 KB   29/186 KB   24/193 KB   32/186 KB   24/193 KB   36/186 KB   24/193 KB   29/186 KB   27/193 KB   36/186 KB   29/193 KB   36/186 KB   32/193 KB   36/186 KB   36/193 KB   40/186 KB   40/193 KB   40/186 KB   32/193 KB   40/186 KB   40/193 KB   44/186 KB   40/193 KB   48/186 KB   44/193 KB   48/186 KB   48/193 KB   52/186 KB   44/193 KB   52/186 KB   48/193 KB   56/186 KB   52/193 KB   60/186 KB   52/193 KB   64/186 KB   52/193 KB   56/186 KB   56/193 KB   64/186 KB   60/193 KB   68/186 KB   64/193 KB   68/186 KB   68/193 KB   68/186 KB   56/193 KB   68/186 KB   68/193 KB   72/186 KB   68/193 KB   76/186 KB   68/193 KB   80/186 KB   72/193 KB   80/186 KB   72/193 KB   84/186 KB   76/193 KB   88/186 KB   76/193 KB   84/186 KB   80/193 KB   88/186 KB   84/193 KB   88/186 KB   88/193 KB   92/186 KB   84/193 KB   92/186 KB   88/193 KB   96/186 KB   88/193 KB   100/186 KB   92/193 KB   100/186 KB   96/193 KB   100/186 KB   100/193 KB   104/186 KB   104/193 KB   104/186 KB   96/193 KB   104/186 KB   104/193 KB   108/186 KB   104/193 KB   112/186 KB   104/193 KB   116/186 KB   108/193 KB   120/186 KB   108/193 KB   124/186 KB   108/193 KB   116/186 KB   112/193 KB   124/186 KB   116/193 KB   124/186 KB   120/193 KB   124/186 KB   124/193 KB   128/186 KB   128/193 KB   128/186 KB   120/193 KB   128/186 KB   128/193 KB   132/186 KB   128/193 KB   136/186 KB   132/193 KB   140/186 KB   132/193 KB   136/186 KB   136/193 KB   140/186 KB   140/193 KB   144/186 KB   144/193 KB   144/186 KB   136/193 KB   144/186 KB   144/193 KB   148/186 KB   144/193 KB   152/186 KB   148/193 KB   156/186 KB   148/193 KB   160/186 KB   148/193 KB   152/186 KB   152/193 KB   160/186 KB   156/193 KB   160/186 KB   160/193 KB   160/186 KB   160/193 KB   164/186 KB   160/193 KB   168/186 KB   164/193 KB   172/186 KB   164/193 KB   176/186 KB   164/193 KB   180/186 KB   164/193 KB   184/186 KB   164/193 KB   168/186 KB   168/193 KB   184/186 KB   172/193 KB   184/186 KB   176/193 KB   184/186 KB   180/193 KB   184/186 KB   184/193 KB   184/186 KB   188/193 KB   186/186 KB   192/193 KB   186/186 KB   193/193 KB   186/186 KB   184/193 KB   186/186 KB                             Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.jar (186 KB at 561.5 KB/sec)
-                          Downloaded: https://repo.maven.apache.org/maven2/commons-net/commons-net/2.0/commons-net-2.0.jar (193 KB at 566.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/felix/maven-bundle-plugin/2.3.7/maven-bundle-plugin-2.3.7.pom
-3/4 KB                    4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/felix/maven-bundle-plugin/2.3.7/maven-bundle-plugin-2.3.7.pom (4 KB at 35.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/felix/felix-parent/2.1/felix-parent-2.1.pom
-3/10 KB   5/10 KB   8/10 KB   10/10 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/felix/felix-parent/2.1/felix-parent-2.1.pom (10 KB at 84.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/9/apache-9.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/9/apache-9.pom (15 KB at 125.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.pom (2 KB at 12.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/felix/org.apache.felix.bundlerepository/1.6.6/org.apache.felix.bundlerepository-1.6.6.pom
-3/6 KB   5/6 KB   6/6 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/felix/org.apache.felix.bundlerepository/1.6.6/org.apache.felix.bundlerepository-1.6.6.pom (6 KB at 51.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.pom
-193/193 B               Downloaded: https://repo.maven.apache.org/maven2/org/osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.pom (193 B at 1.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/easymock/easymock/2.4/easymock-2.4.pom
-3/6 KB      5/6 KB   6/6 KB            Downloaded: https://repo.maven.apache.org/maven2/org/easymock/easymock/2.4/easymock-2.4.pom (6 KB at 42.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.7/maven-core-2.0.7.pom
-3/7 KB   5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.7/maven-core-2.0.7.pom (7 KB at 57.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.7/maven-2.0.7.pom
-3/11 KB   5/11 KB   8/11 KB   11/11 KB   11/11 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.7/maven-2.0.7.pom (11 KB at 83.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom (15 KB at 104.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom
-3/4 KB     4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom (4 KB at 31.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.7/maven-settings-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.7/maven-settings-2.0.7.pom (2 KB at 18.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.7/maven-model-2.0.7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.7/maven-model-2.0.7.pom (3 KB at 25.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom (2 KB at 17.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.pom (4 KB at 36.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.0.3/plexus-containers-1.0.3.pom
-492/492 B               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.0.3/plexus-containers-1.0.3.pom (492 B at 4.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.4/plexus-1.0.4.pom
-3/6 KB      5/6 KB   6/6 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.4/plexus-1.0.4.pom (6 KB at 44.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.pom
-998/998 B               Downloaded: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.pom (998 B at 8.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.pom
-3/7 KB      5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.pom (7 KB at 61.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.pom (4 KB at 26.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.7/maven-plugin-parameter-documenter-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.7/maven-plugin-parameter-documenter-2.0.7.pom (2 KB at 17.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.7/maven-reporting-api-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.7/maven-reporting-api-2.0.7.pom (2 KB at 15.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.7/maven-reporting-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.7/maven-reporting-2.0.7.pom (2 KB at 13.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.pom
-424/424 B               Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.pom (424 B at 3.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-7/doxia-1.0-alpha-7.pom
-3/4 KB      4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-7/doxia-1.0-alpha-7.pom (4 KB at 35.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.7/maven-profile-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.7/maven-profile-2.0.7.pom (2 KB at 17.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.7/maven-artifact-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.7/maven-artifact-2.0.7.pom (2 KB at 14.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.7/maven-repository-metadata-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.7/maven-repository-metadata-2.0.7.pom (2 KB at 16.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.7/maven-error-diagnostics-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.7/maven-error-diagnostics-2.0.7.pom (2 KB at 15.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.7/maven-project-2.0.7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.7/maven-project-2.0.7.pom (3 KB at 20.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.7/maven-artifact-manager-2.0.7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.7/maven-artifact-manager-2.0.7.pom (3 KB at 23.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.7/maven-plugin-registry-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.7/maven-plugin-registry-2.0.7.pom (2 KB at 17.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.pom (3 KB at 17.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.7/maven-plugin-api-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.7/maven-plugin-api-2.0.7.pom (2 KB at 13.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.7/maven-plugin-descriptor-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.7/maven-plugin-descriptor-2.0.7.pom (2 KB at 16.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.pom
-3/7 KB   5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.pom (7 KB at 57.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.7/maven-monitor-2.0.7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.7/maven-monitor-2.0.7.pom (2 KB at 11.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1/classworlds-1.1.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1/classworlds-1.1.pom (4 KB at 29.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.pom (4 KB at 34.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/15/maven-shared-components-15.pom
-3/10 KB   5/10 KB   8/10 KB   10/10 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/15/maven-shared-components-15.pom (10 KB at 76.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom (2 KB at 13.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom (9 KB at 80.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom (3 KB at 26.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.pom (2 KB at 15.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.17/plexus-components-1.1.17.pom
-3/6 KB   5/6 KB   6/6 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.17/plexus-components-1.1.17.pom (6 KB at 46.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.5/plexus-2.0.5.pom
-3/17 KB   5/17 KB   8/17 KB   11/17 KB   13/17 KB   16/17 KB   17/17 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.5/plexus-2.0.5.pom (17 KB at 151.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.pom
-3/4 KB     4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.pom (4 KB at 30.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.6/plexus-2.0.6.pom
-3/17 KB   5/17 KB   8/17 KB   11/17 KB   13/17 KB   16/17 KB   17/17 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.6/plexus-2.0.6.pom (17 KB at 139.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.pom (2 KB at 11.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.pom
-890/890 B               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.pom (890 B at 7.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.15/plexus-components-1.1.15.pom
-3/3 KB      3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.15/plexus-components-1.1.15.pom (3 KB at 25.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.3/plexus-2.0.3.pom
-3/16 KB   5/16 KB   8/16 KB   11/16 KB   13/16 KB   16/16 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.3/plexus-2.0.3.pom (16 KB at 129.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/1.2/maven-dependency-tree-1.2.pom
-3/4 KB     4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/1.2/maven-dependency-tree-1.2.pom (4 KB at 31.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/9/maven-shared-components-9.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/9/maven-shared-components-9.pom (4 KB at 31.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/8/maven-parent-8.pom
-3/24 KB   5/24 KB   8/24 KB   11/24 KB   13/24 KB   16/24 KB   19/24 KB   21/24 KB   24/24 KB   24/24 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/8/maven-parent-8.pom (24 KB at 204.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.8/maven-project-2.0.8.pom
-3/3 KB     3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.8/maven-project-2.0.8.pom (3 KB at 23.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.8/maven-2.0.8.pom
-3/12 KB   5/12 KB   8/12 KB   11/12 KB   12/12 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.8/maven-2.0.8.pom (12 KB at 106.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/6/maven-parent-6.pom
-3/20 KB    5/20 KB   8/20 KB   11/20 KB   13/20 KB   16/20 KB   19/20 KB   20/20 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/6/maven-parent-6.pom (20 KB at 167.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.8/maven-settings-2.0.8.pom
-3/3 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.8/maven-settings-2.0.8.pom (3 KB at 17.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.8/maven-model-2.0.8.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.8/maven-model-2.0.8.pom (4 KB at 27.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.6/plexus-utils-1.4.6.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.6/plexus-utils-1.4.6.pom (3 KB at 20.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.8/maven-profile-2.0.8.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.8/maven-profile-2.0.8.pom (2 KB at 18.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.8/maven-artifact-manager-2.0.8.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.8/maven-artifact-manager-2.0.8.pom (3 KB at 24.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.8/maven-repository-metadata-2.0.8.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.8/maven-repository-metadata-2.0.8.pom (2 KB at 16.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.8/maven-artifact-2.0.8.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.8/maven-artifact-2.0.8.pom (2 KB at 14.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.8/maven-plugin-registry-2.0.8.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.8/maven-plugin-registry-2.0.8.pom (2 KB at 18.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom (4 KB at 35.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/16/spice-parent-16.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/16/spice-parent-16.pom (9 KB at 72.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/5/forge-parent-5.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/5/forge-parent-5.pom (9 KB at 65.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/felix/maven-bundle-plugin/2.3.7/maven-bundle-plugin-2.3.7.jar
-Downloading: https://repo.maven.apache.org/maven2/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.jar
-Downloading: https://repo.maven.apache.org/maven2/org/apache/felix/org.apache.felix.bundlerepository/1.6.6/org.apache.felix.bundlerepository-1.6.6.jar
-Downloading: https://repo.maven.apache.org/maven2/org/osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.jar
-Downloading: https://repo.maven.apache.org/maven2/org/easymock/easymock/2.4/easymock-2.4.jar
-3/122 KB   5/122 KB   8/122 KB   3/899 KB   11/122 KB   3/165 KB   3/899 KB   13/122 KB   3/165 KB   3/899 KB   8/122 KB   3/165 KB   3/899 KB   13/122 KB   5/165 KB   3/899 KB   13/122 KB   8/165 KB   3/899 KB   8/122 KB   5/899 KB   13/122 KB   8/165 KB   8/899 KB   16/122 KB   11/165 KB   11/899 KB   16/122 KB   11/165 KB   13/899 KB   16/122 KB   11/165 KB   16/899 KB   16/122 KB   11/165 KB   5/899 KB   16/122 KB   11/165 KB   16/899 KB   19/122 KB   11/165 KB   16/899 KB   21/122 KB   11/165 KB   16/899 KB   24/122 KB   11/165 KB   5/899 KB   13/122 KB   11/165 KB   16/899 KB   24/122 KB   13/165 KB   16/899 KB   24/122 KB   16/165 KB   16/899 KB   24/122 KB   19/165 KB   16/899 KB   24/122 KB   21/165 KB   16/899 KB   24/122 KB   24/165 KB   16/899 KB   27/122 KB   24/165 KB   16/899 KB   29/122 KB   27/165 KB   19/899 KB   32/122 KB   27/165 KB   19/899 KB   36/122 KB   27/165 KB   19/899 KB   40/122 KB   27/165 KB   19/899 KB   44/122 KB   27/165 KB   19/899 KB   48/122 KB   27/165 KB   16/899 KB   27/122 KB   27/165 KB   19/899 KB   48/122 KB   29/165 KB   19/899 KB   48/122 KB   32/165 KB   19/899 KB   29/122 KB   27/165 KB   21/899 KB   48/122 KB   32/165 KB   24/899 KB   48/122 KB   32/165 KB   27/899 KB   48/122 KB   36/165 KB   29/899 KB   48/122 KB   36/165 KB   24/899 KB   48/122 KB   36/165 KB   29/899 KB   48/122 KB   40/165 KB   29/899 KB   48/122 KB   44/165 KB   32/899 KB   48/122 KB   48/165 KB   32/899 KB   52/122 KB   52/165 KB   32/899 KB   52/122 KB   56/165 KB   32/899 KB   52/122 KB   60/165 KB   32/899 KB   52/122 KB   64/165 KB   32/899 KB   52/122 KB   68/165 KB   32/899 KB   48/122 KB   44/165 KB   36/899 KB   52/122 KB   68/165 KB   40/899 KB   52/122 KB   68/165 KB   44/899 KB   52/122 KB   68/165 KB   48/899 KB   52/122 KB   68/165 KB   32/899 KB   52/122 KB   48/165 KB   48/899 KB   56/122 KB   68/165 KB   48/899 KB   60/122 KB   68/165 KB   48/899 KB   64/122 KB   68/165 KB   48/899 KB   68/122 KB   68/165 KB   48/899 KB   72/122 KB   68/165 KB   48/899 KB   76/122 KB   68/165 KB   52/899 KB   80/122 KB   68/165 KB   52/899 KB   84/122 KB   68/165 KB   52/899 KB   88/122 KB   72/165 KB   52/899 KB   76/122 KB   68/165 KB   56/899 KB   88/122 KB   72/165 KB   52/899 KB   84/122 KB   72/165 KB   56/899 KB   88/122 KB   76/165 KB   60/899 KB   88/122 KB   80/165 KB   60/899 KB   88/122 KB   76/165 KB   64/899 KB   88/122 KB   80/165 KB   64/899 KB   92/122 KB   80/165 KB   64/899 KB   96/122 KB   80/165 KB   68/899 KB   100/122 KB   84/165 KB   68/899 KB   104/122 KB   84/165 KB   68/899 KB   96/122 KB   84/165 KB   68/899 KB   104/122 KB   88/165 KB   68/899 KB   96/122 KB   80/165 KB   72/899 KB   104/122 KB   92/165 KB   68/899 KB   104/122 KB   92/165 KB   72/899 KB   104/122 KB   96/165 KB   72/899 KB   104/122 KB   100/165 KB   76/899 KB   108/122 KB   104/165 KB   76/899 KB   108/122 KB   108/165 KB   76/899 KB   108/122 KB   112/165 KB   76/899 KB   108/122 KB   116/165 KB   76/899 KB   108/122 KB   120/165 KB   76/899 KB   108/122 KB   124/165 KB   76/899 KB   108/122 KB   128/165 KB   76/899 KB   108/122 KB   132/165 KB   76/899 KB   108/122 KB   100/165 KB   76/899 KB   112/122 KB   132/165 KB   76/899 KB   116/122 KB   132/165 KB   76/899 KB   120/122 KB   132/165 KB   76/899 KB   122/122 KB   132/165 KB   76/899 KB   104/122 KB   100/165 KB   80/899 KB   122/122 KB   132/165 KB   84/899 KB   122/122 KB   132/165 KB   88/899 KB   122/122 KB   132/165 KB   92/899 KB   122/122 KB   132/165 KB   96/899 KB   122/122 KB   132/165 KB   100/899 KB   122/122 KB   132/165 KB   104/899 KB   122/122 KB   132/165 KB   108/899 KB   122/122 KB   136/165 KB   112/899 KB   122/122 KB   136/165 KB   116/899 KB   122/122 KB   136/165 KB   104/899 KB   122/122 KB   136/165 KB   116/899 KB   122/122 KB   140/165 KB   3/80 KB   116/899 KB   122/122 KB   140/165 KB   5/80 KB   116/899 KB   122/122 KB   140/165 KB   8/80 KB   116/899 KB   122/122 KB   140/165 KB   11/80 KB   116/899 KB   122/122 KB   140/165 KB   13/80 KB   116/899 KB   122/122 KB   140/165 KB   13/80 KB   116/899 KB   122/122 KB   144/165 KB   13/80 KB   116/899 KB   122/122 KB   148/165 KB   13/80 KB   116/899 KB   122/122 KB   152/165 KB   13/80 KB   116/899 KB   122/122 KB   156/165 KB   16/80 KB   116/899 KB   122/122 KB   160/165 KB   16/80 KB   120/899 KB   122/122 KB   164/165 KB   16/80 KB   120/899 KB   122/122 KB   165/165 KB   16/80 KB   116/899 KB   122/122 KB   156/165 KB   16/80 KB   120/899 KB   122/122 KB   160/165 KB   16/80 KB   124/899 KB   122/122 KB   165/165 KB   16/80 KB   128/899 KB   122/122 KB   165/165 KB   19/80 KB   128/899 KB   122/122 KB   165/165 KB   21/80 KB   128/899 KB   122/122 KB   165/165 KB   21/80 KB   132/899 KB   122/122 KB   165/165 KB   21/80 KB   136/899 KB   122/122 KB   165/165 KB   24/80 KB   136/899 KB   122/122 KB   165/165 KB   24/80 KB   140/899 KB   122/122 KB   165/165 KB   24/80 KB   144/899 KB   122/122 KB   165/165 KB   27/80 KB   144/899 KB   122/122 KB   165/165 KB   27/80 KB   148/899 KB   122/122 KB   165/165 KB   27/80 KB   152/899 KB   122/122 KB   165/165 KB   29/80 KB   152/899 KB   122/122 KB   165/165 KB   32/80 KB   152/899 KB   122/122 KB   165/165 KB   32/80 KB   156/899 KB   122/122 KB   165/165 KB   32/80 KB   160/899 KB   122/122 KB   165/165 KB   32/80 KB   164/899 KB   122/122 KB   165/165 KB   32/80 KB   168/899 KB   122/122 KB   165/165 KB   36/80 KB   168/899 KB   122/122 KB   165/165 KB   40/80 KB   168/899 KB   122/122 KB   165/165 KB   44/80 KB   168/899 KB   122/122 KB   165/165 KB   48/80 KB   168/899 KB   122/122 KB   165/165 KB   48/80 KB   172/899 KB   122/122 KB   165/165 KB   48/80 KB   176/899 KB   122/122 KB   165/165 KB   52/80 KB   176/899 KB   122/122 KB   165/165 KB   56/80 KB   176/899 KB   122/122 KB   165/165 KB   60/80 KB   176/899 KB   122/122 KB   165/165 KB   64/80 KB   176/899 KB   122/122 KB   165/165 KB   68/80 KB   176/899 KB   122/122 KB   165/165 KB   72/80 KB   176/899 KB   122/122 KB   165/165 KB   76/80 KB   176/899 KB   122/122 KB   165/165 KB   80/80 KB   176/899 KB   122/122 KB   165/165 KB   80/80 KB   180/899 KB   122/122 KB   165/165 KB   80/80 KB   184/899 KB   122/122 KB   165/165 KB   80/80 KB   188/899 KB   122/122 KB   165/165 KB                                                     Downloaded: https://repo.maven.apache.org/maven2/org/apache/felix/maven-bundle-plugin/2.3.7/maven-bundle-plugin-2.3.7.jar (122 KB at 554.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.7/maven-reporting-api-2.0.7.jar
-80/80 KB   192/899 KB   165/165 KB                80/80 KB   196/899 KB   165/165 KB   80/80 KB   200/899 KB   165/165 KB   80/80 KB   204/899 KB   165/165 KB   80/80 KB   208/899 KB   165/165 KB   80/80 KB   208/899 KB   3/160 KB   165/165 KB   80/80 KB   208/899 KB   5/160 KB   165/165 KB   80/80 KB   208/899 KB   8/160 KB   165/165 KB   80/80 KB   208/899 KB   11/160 KB   165/165 KB   80/80 KB   208/899 KB   13/160 KB   165/165 KB   80/80 KB   212/899 KB   13/160 KB   165/165 KB   80/80 KB   216/899 KB   13/160 KB   165/165 KB   80/80 KB   220/899 KB   13/160 KB   165/165 KB   80/80 KB   224/899 KB   13/160 KB   165/165 KB   80/80 KB   224/899 KB   16/160 KB   165/165 KB   80/80 KB   228/899 KB   16/160 KB   165/165 KB   80/80 KB   232/899 KB   16/160 KB   165/165 KB   80/80 KB   232/899 KB   19/160 KB   165/165 KB   80/80 KB   236/899 KB   19/160 KB   165/165 KB   80/80 KB   240/899 KB   19/160 KB   165/165 KB   80/80 KB   240/899 KB   21/160 KB   165/165 KB   80/80 KB   244/899 KB   21/160 KB   165/165 KB   80/80 KB   248/899 KB   21/160 KB   165/165 KB                                                    Downloaded: https://repo.maven.apache.org/maven2/org/apache/felix/org.apache.felix.bundlerepository/1.6.6/org.apache.felix.bundlerepository-1.6.6.jar (165 KB at 681.9 KB/sec)
-80/80 KB   248/899 KB   24/160 KB   165/165 KB   80/80 KB   248/899 KB   27/160 KB                80/80 KB   248/899 KB   29/160 KB   Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar
-80/80 KB   248/899 KB   32/160 KB   80/80 KB   252/899 KB   32/160 KB   80/80 KB   256/899 KB   32/160 KB   80/80 KB   260/899 KB   32/160 KB   80/80 KB   260/899 KB   36/160 KB   80/80 KB   260/899 KB   40/160 KB   80/80 KB   260/899 KB   44/160 KB   80/80 KB   260/899 KB   48/160 KB   80/80 KB   264/899 KB   48/160 KB   80/80 KB   268/899 KB   48/160 KB   80/80 KB   272/899 KB   48/160 KB   80/80 KB   272/899 KB   52/160 KB   80/80 KB   272/899 KB   56/160 KB   80/80 KB   272/899 KB   60/160 KB   80/80 KB   272/899 KB   64/160 KB   80/80 KB   272/899 KB   68/160 KB   80/80 KB   272/899 KB   72/160 KB   80/80 KB   272/899 KB   76/160 KB   272/899 KB   80/160 KB              272/899 KB   84/160 KB   272/899 KB   88/160 KB   272/899 KB   92/160 KB   272/899 KB   96/160 KB                                       Downloaded: https://repo.maven.apache.org/maven2/org/easymock/easymock/2.4/easymock-2.4.jar (80 KB at 302.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar
-272/899 KB   100/160 KB   276/899 KB   104/160 KB   276/899 KB   108/160 KB   276/899 KB   4/10 KB   108/160 KB   276/899 KB   8/10 KB   108/160 KB   276/899 KB   10/10 KB   108/160 KB   276/899 KB   100/160 KB   280/899 KB   10/10 KB   108/160 KB   284/899 KB   10/10 KB   108/160 KB   288/899 KB   10/10 KB   112/160 KB   292/899 KB   10/10 KB   112/160 KB   284/899 KB   10/10 KB   112/160 KB   296/899 KB   10/10 KB   112/160 KB   300/899 KB   10/10 KB   112/160 KB   304/899 KB   10/10 KB   116/160 KB   300/899 KB   10/10 KB   116/160 KB   304/899 KB   10/10 KB   120/160 KB   304/899 KB   10/10 KB   124/160 KB   308/899 KB   10/10 KB   128/160 KB   308/899 KB   10/10 KB   132/160 KB   308/899 KB   10/10 KB   136/160 KB   308/899 KB   10/10 KB   124/160 KB   312/899 KB   10/10 KB   136/160 KB   316/899 KB   10/10 KB   136/160 KB   320/899 KB   10/10 KB   136/160 KB   320/899 KB   10/10 KB   140/160 KB   324/899 KB   10/10 KB   144/160 KB   324/899 KB   10/10 KB   148/160 KB   324/899 KB   10/10 KB   140/160 KB   328/899 KB   10/10 KB   148/160 KB   332/899 KB   10/10 KB   148/160 KB   336/899 KB   10/10 KB   152/160 KB   340/899 KB   10/10 KB   3/6 KB   152/160 KB   344/899 KB   10/10 KB   3/6 KB   152/160 KB   332/899 KB   10/10 KB   152/160 KB   336/899 KB   10/10 KB   3/6 KB   152/160 KB   344/899 KB   10/10 KB   5/6 KB   152/160 KB   344/899 KB   10/10 KB   6/6 KB   152/160 KB   344/899 KB   10/10 KB   6/6 KB   156/160 KB   344/899 KB   10/10 KB   6/6 KB   160/160 KB   344/899 KB   10/10 KB   6/6 KB   160/160 KB   348/899 KB   10/10 KB   6/6 KB   160/160 KB   352/899 KB   10/10 KB   6/6 KB   160/160 KB   356/899 KB   10/10 KB   6/6 KB   160/160 KB   360/899 KB   10/10 KB   6/6 KB   160/160 KB   364/899 KB   10/10 KB   6/6 KB   160/160 KB   368/899 KB   10/10 KB   6/6 KB   160/160 KB   372/899 KB   10/10 KB   6/6 KB   160/160 KB   376/899 KB   10/10 KB   6/6 KB   160/160 KB   380/899 KB   10/10 KB   6/6 KB   160/160 KB   384/899 KB   10/10 KB   6/6 KB   160/160 KB   388/899 KB   10/10 KB   6/6 KB   160/160 KB   392/899 KB   10/10 KB   6/6 KB   160/160 KB   392/899 KB   4/119 KB   10/10 KB   6/6 KB   160/160 KB   392/899 KB   8/119 KB   10/10 KB   6/6 KB   160/160 KB                                                            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.7/maven-reporting-api-2.0.7.jar (10 KB at 30.3 KB/sec)
-392/899 KB   12/119 KB   10/10 KB   6/6 KB   160/160 KB   392/899 KB   16/119 KB   6/6 KB   160/160 KB              Downloading: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
-392/899 KB   20/119 KB   6/6 KB   160/160 KB   392/899 KB   24/119 KB   6/6 KB   160/160 KB   392/899 KB   28/119 KB   6/6 KB   160/160 KB   392/899 KB   32/119 KB   6/6 KB   160/160 KB   392/899 KB   36/119 KB   6/6 KB   160/160 KB   396/899 KB   40/119 KB   6/6 KB   160/160 KB   396/899 KB   44/119 KB   6/6 KB   160/160 KB   396/899 KB   48/119 KB   6/6 KB   160/160 KB   396/899 KB   52/119 KB   6/6 KB   160/160 KB   396/899 KB   36/119 KB   6/6 KB   160/160 KB   400/899 KB   52/119 KB   6/6 KB   160/160 KB   404/899 KB   52/119 KB   6/6 KB   160/160 KB   408/899 KB   56/119 KB   6/6 KB   160/160 KB   412/899 KB   56/119 KB   6/6 KB   160/160 KB   404/899 KB   56/119 KB   6/6 KB   160/160 KB   412/899 KB   60/119 KB   6/6 KB   160/160 KB   412/899 KB   64/119 KB   6/6 KB   160/160 KB   412/899 KB   68/119 KB   6/6 KB   160/160 KB   412/899 KB   72/119 KB   6/6 KB   160/160 KB   416/899 KB   76/119 KB   6/6 KB   160/160 KB   416/899 KB   72/119 KB   6/6 KB   160/160 KB   420/899 KB   76/119 KB   6/6 KB   160/160 KB   424/899 KB   80/119 KB   6/6 KB   160/160 KB   420/899 KB   80/119 KB   6/6 KB   160/160 KB   424/899 KB   84/119 KB   6/6 KB   160/160 KB   424/899 KB   88/119 KB   6/6 KB   160/160 KB   424/899 KB   92/119 KB   6/6 KB   160/160 KB   428/899 KB   96/119 KB   6/6 KB   160/160 KB   428/899 KB   100/119 KB   6/6 KB   160/160 KB   428/899 KB   104/119 KB   6/6 KB   160/160 KB   428/899 KB   108/119 KB   6/6 KB   160/160 KB   428/899 KB   112/119 KB   6/6 KB   160/160 KB   428/899 KB   116/119 KB   6/6 KB   160/160 KB   428/899 KB   92/119 KB   6/6 KB   160/160 KB   432/899 KB   116/119 KB   6/6 KB   160/160 KB                                                   Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar (6 KB at 16.4 KB/sec)
-                                                Downloaded: https://repo.maven.apache.org/maven2/org/osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.jar (160 KB at 443.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.jar
-436/899 KB   116/119 KB                         440/899 KB   116/119 KB   444/899 KB   116/119 KB   448/899 KB   116/119 KB   452/899 KB   116/119 KB   456/899 KB   119/119 KB   460/899 KB   119/119 KB   464/899 KB   119/119 KB   452/899 KB   119/119 KB   468/899 KB   119/119 KB   472/899 KB   119/119 KB   476/899 KB   119/119 KB   480/899 KB   119/119 KB   484/899 KB   119/119 KB   488/899 KB   119/119 KB   492/899 KB   119/119 KB   496/899 KB   119/119 KB   500/899 KB   119/119 KB   504/899 KB   119/119 KB   508/899 KB   119/119 KB   512/899 KB   119/119 KB   512/899 KB   119/119 KB   4/30 KB   512/899 KB   119/119 KB   8/30 KB   512/899 KB   119/119 KB   12/30 KB   512/899 KB   119/119 KB   16/30 KB   512/899 KB   119/119 KB   20/30 KB   512/899 KB   119/119 KB   24/30 KB   512/899 KB   119/119 KB   28/30 KB   512/899 KB   119/119 KB   30/30 KB   516/899 KB   119/119 KB   30/30 KB   520/899 KB   119/119 KB   30/30 KB   524/899 KB   119/119 KB   30/30 KB   528/899 KB   119/119 KB   30/30 KB   532/899 KB   119/119 KB   30/30 KB   536/899 KB   119/119 KB   30/30 KB   540/899 KB   119/119 KB   30/30 KB   544/899 KB   119/119 KB   30/30 KB   548/899 KB   119/119 KB   30/30 KB   552/899 KB   119/119 KB   30/30 KB   556/899 KB   119/119 KB   30/30 KB   560/899 KB   119/119 KB   30/30 KB   564/899 KB   119/119 KB   30/30 KB   568/899 KB   119/119 KB   30/30 KB   572/899 KB   119/119 KB   30/30 KB   576/899 KB   119/119 KB   30/30 KB   580/899 KB   119/119 KB   30/30 KB   584/899 KB   119/119 KB   30/30 KB   588/899 KB   119/119 KB   30/30 KB   592/899 KB   119/119 KB   30/30 KB   596/899 KB   119/119 KB   30/30 KB   600/899 KB   119/119 KB   30/30 KB   604/899 KB   119/119 KB   30/30 KB   608/899 KB   119/119 KB   30/30 KB   608/899 KB   4/20 KB   119/119 KB   30/30 KB   608/899 KB   8/20 KB   119/119 KB   30/30 KB   608/899 KB   12/20 KB   119/119 KB   30/30 KB   3/14 KB   608/899 KB   16/20 KB   119/119 KB   30/30 KB   3/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   3/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   3/14 KB   608/899 KB   8/20 KB   119/119 KB   30/30 KB   3/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   5/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   8/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   11/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   13/14 KB   608/899 KB   20/20 KB   119/119 KB   30/30 KB   14/14 KB                                                              Downloaded: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar (119 KB at 280.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.jar
-612/899 KB   20/20 KB   30/30 KB   14/14 KB                616/899 KB   20/20 KB   30/30 KB   14/14 KB   620/899 KB   20/20 KB   30/30 KB   14/14 KB   624/899 KB   20/20 KB   30/30 KB   14/14 KB   628/899 KB   20/20 KB   30/30 KB   14/14 KB                                                 Downloaded: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar (30 KB at 67.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.jar
-632/899 KB   20/20 KB   14/14 KB              636/899 KB   20/20 KB   14/14 KB   640/899 KB   20/20 KB   14/14 KB   644/899 KB   20/20 KB   14/14 KB   648/899 KB   20/20 KB   14/14 KB   652/899 KB   20/20 KB   14/14 KB   656/899 KB   20/20 KB   14/14 KB   660/899 KB   20/20 KB   14/14 KB   664/899 KB   20/20 KB   14/14 KB   668/899 KB   20/20 KB   14/14 KB   672/899 KB   20/20 KB   14/14 KB   676/899 KB   20/20 KB   14/14 KB   680/899 KB   20/20 KB   14/14 KB   684/899 KB   20/20 KB   14/14 KB   688/899 KB   20/20 KB   14/14 KB   692/899 KB   20/20 KB   14/14 KB   696/899 KB   20/20 KB   14/14 KB   700/899 KB   20/20 KB   14/14 KB   704/899 KB   20/20 KB   14/14 KB   708/899 KB   20/20 KB   14/14 KB   712/899 KB   20/20 KB   14/14 KB   716/899 KB   20/20 KB   14/14 KB   720/899 KB   20/20 KB   14/14 KB   724/899 KB   20/20 KB   14/14 KB   728/899 KB   20/20 KB   14/14 KB   732/899 KB   20/20 KB   14/14 KB   736/899 KB   20/20 KB   14/14 KB   740/899 KB   20/20 KB   14/14 KB   744/899 KB   20/20 KB   14/14 KB   748/899 KB   20/20 KB   14/14 KB   752/899 KB   20/20 KB   14/14 KB   756/899 KB   20/20 KB   14/14 KB   760/899 KB   20/20 KB   14/14 KB   764/899 KB   20/20 KB   14/14 KB   768/899 KB   20/20 KB   14/14 KB   772/899 KB   20/20 KB   14/14 KB   776/899 KB   20/20 KB   14/14 KB   780/899 KB   20/20 KB   14/14 KB   784/899 KB   20/20 KB   14/14 KB   788/899 KB   20/20 KB   14/14 KB   792/899 KB   20/20 KB   14/14 KB   796/899 KB   20/20 KB   14/14 KB   800/899 KB   20/20 KB   14/14 KB   804/899 KB   20/20 KB   14/14 KB   4/174 KB   804/899 KB   20/20 KB   14/14 KB   8/174 KB   804/899 KB   20/20 KB   14/14 KB   12/174 KB   804/899 KB   20/20 KB   14/14 KB   16/174 KB   804/899 KB   20/20 KB   14/14 KB                                                  Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.jar (20 KB at 41.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.jar
-                                               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar (14 KB at 27.3 KB/sec)
-20/174 KB   804/899 KB                         24/174 KB   804/899 KB   28/174 KB   804/899 KB   32/174 KB   804/899 KB   36/174 KB   804/899 KB   Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/1.2/maven-dependency-tree-1.2.jar
-40/174 KB   804/899 KB   44/174 KB   804/899 KB   4/50 KB   44/174 KB   804/899 KB   8/50 KB   44/174 KB   804/899 KB   12/50 KB   44/174 KB   804/899 KB   16/50 KB   44/174 KB   804/899 KB   20/50 KB   44/174 KB   804/899 KB   24/50 KB   44/174 KB   804/899 KB   28/50 KB   44/174 KB   804/899 KB   32/50 KB   44/174 KB   804/899 KB   36/50 KB   44/174 KB   804/899 KB   40/50 KB   44/174 KB   804/899 KB   44/50 KB   44/174 KB   808/899 KB   48/50 KB   44/174 KB   808/899 KB   50/50 KB   44/174 KB   808/899 KB   44/50 KB   48/174 KB   808/899 KB   50/50 KB   44/174 KB   808/899 KB   44/50 KB   52/174 KB   812/899 KB   50/50 KB   52/174 KB   816/899 KB   50/50 KB   52/174 KB   820/899 KB   50/50 KB   52/174 KB   824/899 KB   50/50 KB   52/174 KB   828/899 KB   50/50 KB   52/174 KB   832/899 KB   50/50 KB   52/174 KB   836/899 KB   50/50 KB   52/174 KB   808/899 KB   50/50 KB   56/174 KB   836/899 KB   50/50 KB   60/174 KB   836/899 KB   50/50 KB   64/174 KB   836/899 KB   50/50 KB   68/174 KB   836/899 KB   50/50 KB   72/174 KB   836/899 KB   50/50 KB   76/174 KB   836/899 KB   50/50 KB   80/174 KB   836/899 KB   50/50 KB   84/174 KB   836/899 KB   50/50 KB   88/174 KB   836/899 KB   50/50 KB   92/174 KB   840/899 KB   50/50 KB   96/174 KB   840/899 KB   50/50 KB   88/174 KB   840/899 KB   50/50 KB   96/174 KB   844/899 KB   50/50 KB   96/174 KB   848/899 KB   50/50 KB   100/174 KB   852/899 KB   50/50 KB   100/174 KB   848/899 KB   50/50 KB   104/174 KB   852/899 KB   50/50 KB   108/174 KB   852/899 KB   50/50 KB   112/174 KB   856/899 KB   50/50 KB   108/174 KB   856/899 KB   50/50 KB   112/174 KB   860/899 KB   50/50 KB   116/174 KB   864/899 KB   50/50 KB   120/174 KB   864/899 KB   50/50 KB   112/174 KB   864/899 KB   50/50 KB   120/174 KB   868/899 KB   50/50 KB   120/174 KB   872/899 KB   50/50 KB   124/174 KB   876/899 KB   50/50 KB   124/174 KB   872/899 KB   50/50 KB   128/174 KB   876/899 KB   50/50 KB   128/174 KB   880/899 KB   50/50 KB   132/174 KB   884/899 KB   50/50 KB   132/174 KB   880/899 KB   50/50 KB   136/174 KB   884/899 KB   50/50 KB   140/174 KB   884/899 KB   50/50 KB   144/174 KB   888/899 KB   50/50 KB   148/174 KB   888/899 KB   50/50 KB   152/174 KB   888/899 KB   50/50 KB   140/174 KB   888/899 KB   50/50 KB   152/174 KB   892/899 KB   50/50 KB   152/174 KB   896/899 KB   50/50 KB   152/174 KB   899/899 KB   50/50 KB   156/174 KB   899/899 KB   50/50 KB   160/174 KB   899/899 KB   50/50 KB   164/174 KB   899/899 KB   50/50 KB   168/174 KB   899/899 KB   50/50 KB   172/174 KB   899/899 KB   50/50 KB   174/174 KB   899/899 KB   50/50 KB   4/60 KB   174/174 KB   899/899 KB   50/50 KB   8/60 KB   174/174 KB   899/899 KB   50/50 KB   12/60 KB   174/174 KB   899/899 KB   50/50 KB   12/60 KB   174/174 KB   899/899 KB   3/34 KB   50/50 KB   12/60 KB   174/174 KB   899/899 KB   5/34 KB   50/50 KB   16/60 KB   174/174 KB   899/899 KB   8/34 KB   16/60 KB   174/174 KB   899/899 KB   5/34 KB                                                                        Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.jar (50 KB at 90.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.jar
-20/60 KB   174/174 KB   899/899 KB   11/34 KB   20/60 KB   174/174 KB   899/899 KB   13/34 KB   20/60 KB   174/174 KB   899/899 KB   8/34 KB   24/60 KB   174/174 KB   899/899 KB   13/34 KB   28/60 KB   174/174 KB   899/899 KB   13/34 KB   32/60 KB   174/174 KB   899/899 KB   13/34 KB   36/60 KB   174/174 KB   899/899 KB   13/34 KB   40/60 KB   174/174 KB   899/899 KB   16/34 KB   44/60 KB   174/174 KB   899/899 KB   16/34 KB   48/60 KB   174/174 KB   899/899 KB   16/34 KB   52/60 KB   174/174 KB   899/899 KB   16/34 KB   36/60 KB   174/174 KB   899/899 KB   16/34 KB   52/60 KB   174/174 KB   899/899 KB   19/34 KB   52/60 KB   174/174 KB   899/899 KB   21/34 KB   52/60 KB   174/174 KB   899/899 KB   24/34 KB   52/60 KB   174/174 KB   899/899 KB   27/34 KB   52/60 KB   174/174 KB   899/899 KB   29/34 KB   56/60 KB   174/174 KB   899/899 KB   32/34 KB   56/60 KB   174/174 KB   899/899 KB   34/34 KB   56/60 KB   174/174 KB   899/899 KB   29/34 KB   60/60 KB   174/174 KB   899/899 KB   34/34 KB   60/60 KB   174/174 KB   899/899 KB   34/34 KB                                                   Downloaded: https://repo.maven.apache.org/maven2/biz/aQute/bndlib/1.50.0/bndlib-1.50.0.jar (899 KB at 1511.8 KB/sec)
-                                                Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.jar (174 KB at 295.7 KB/sec)
-60/60 KB   4/220 KB   34/34 KB                  60/60 KB   8/220 KB   34/34 KB   60/60 KB   12/220 KB   34/34 KB   60/60 KB   16/220 KB   34/34 KB   60/60 KB   20/220 KB   34/34 KB   60/60 KB   24/220 KB   34/34 KB   60/60 KB   28/220 KB   34/34 KB   60/60 KB   32/220 KB   34/34 KB   60/60 KB   36/220 KB   34/34 KB   60/60 KB   40/220 KB   34/34 KB   60/60 KB   44/220 KB   34/34 KB   60/60 KB   48/220 KB   34/34 KB   60/60 KB   52/220 KB   34/34 KB   60/60 KB   56/220 KB   34/34 KB   60/60 KB   60/220 KB   34/34 KB   60/60 KB   64/220 KB   34/34 KB   60/60 KB   68/220 KB   34/34 KB   60/60 KB   72/220 KB   34/34 KB   60/60 KB   76/220 KB   34/34 KB   60/60 KB   80/220 KB   34/34 KB   60/60 KB   84/220 KB   34/34 KB   60/60 KB   88/220 KB   34/34 KB   60/60 KB   92/220 KB   34/34 KB   60/60 KB   96/220 KB   34/34 KB   60/60 KB   100/220 KB   34/34 KB   60/60 KB   104/220 KB   34/34 KB   60/60 KB   108/220 KB   34/34 KB   60/60 KB   112/220 KB   34/34 KB                                      Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/1.2/maven-dependency-tree-1.2.jar (34 KB at 54.2 KB/sec)
-                                   Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.jar (60 KB at 95.4 KB/sec)
-116/220 KB                         120/220 KB   124/220 KB   128/220 KB   132/220 KB   136/220 KB   140/220 KB   144/220 KB   148/220 KB   152/220 KB   156/220 KB   160/220 KB   164/220 KB   168/220 KB   172/220 KB   176/220 KB   180/220 KB   184/220 KB   188/220 KB   192/220 KB   196/220 KB   200/220 KB   204/220 KB   208/220 KB   212/220 KB   216/220 KB   220/220 KB                Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.jar (220 KB at 319.1 KB/sec)
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-addon-swt:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-addons:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-addons/pom.xml, line 25, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-addon-spycam:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-addons:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-addons/pom.xml, line 25, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-addons:pom:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-addons:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-addons/pom.xml, line 25, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-driver-ffmpeg-cli:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-driver-ffmpeg-cli:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-drivers/webcam-capture-driver-ffmpeg-cli/pom.xml, line 42, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-driver-javacv:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-driver-javacv:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-drivers/webcam-capture-driver-javacv/pom.xml, line 93, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-driver-openimaj:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-driver-openimaj:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-drivers/webcam-capture-driver-openimaj/pom.xml, line 134, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-driver-v4l4j:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-driver-v4l4j:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-drivers/webcam-capture-driver-v4l4j/pom.xml, line 44, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-applet:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-jarsigner-plugin is missing. @ com.github.sarxos:webcam-capture-example-applet:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/webcam-capture-applet/pom.xml, line 81, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-detect-face:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-executable:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-live-streaming:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-manycams:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-motiondetector:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-painter:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-qrcode:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-swt-awt:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-example-video-recordig:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-examples:pom:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-examples:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-examples/pom.xml, line 33, column 12
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.github.sarxos:webcam-capture-pages:jar:0.3.10-SNAPSHOT
-[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ com.github.sarxos:webcam-capture-pages:[unknown-version], /home/travis/build/sarxos/webcam-capture/webcam-capture-pages/pom.xml, line 18, column 12
-[WARNING] 
-[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
-[WARNING] 
-[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
-[WARNING] 
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Build Order:
-[INFO] 
-[INFO] Webcam Capture Parent POM
-[INFO] Webcam Capture
-[INFO] Webcam Capture Addons
-[INFO] Webcam Capture - SWT Addon
-[INFO] Webcam Capture - Spy Camera PHP Service Addon
-[INFO] Webcam Capture Drivers
-[INFO] Webcam Capture - FFmpeg CLI Driver
-[INFO] Webcam Capture - GStreamer Driver
-[INFO] Webcam Capture - IP Camera Driver
-[INFO] Webcam Capture - JavaCV Driver
-[INFO] Webcam Capture - JMF Driver
-[INFO] Webcam Capture - LTI-CIVIL Driver
-[INFO] Webcam Capture - OpenIMAJ Driver
-[INFO] Webcam Capture - V4L4J Driver
-[INFO] Webcam Capture - VLCj Driver
-[INFO] Webcam Capture Examples
-[INFO] Webcam Capture - Applet Example
-[INFO] Webcam Capture - Detect Face Example
-[INFO] Webcam Capture - Executable Example
-[INFO] Webcam Capture - Live Vide Streaming Example
-[INFO] Webcam Capture - Custom Painter Example
-[INFO] Webcam Capture - Motion Detector Example
-[INFO] Webcam Capture - Custom Painter Example
-[INFO] Webcam Capture - QR Code Example
-[INFO] Webcam Capture - WebcamPanel SWT-AWT
-[INFO] Webcam Capture - Video Recording Example
-[INFO] Webcam Capture Pages
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building Webcam Capture Parent POM 0.3.10-SNAPSHOT
-[INFO] ------------------------------------------------------------------------
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/1.0/maven-enforcer-plugin-1.0.pom
-4/7 KB       7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/1.0/maven-enforcer-plugin-1.0.pom (7 KB at 62.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/1.0/enforcer-1.0.pom
-3/12 KB   5/12 KB   8/12 KB   11/12 KB   12/12 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/1.0/enforcer-1.0.pom (12 KB at 104.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/17/maven-parent-17.pom
-3/25 KB    5/25 KB   8/25 KB   11/25 KB   13/25 KB   16/25 KB   19/25 KB   21/25 KB   24/25 KB   25/25 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/17/maven-parent-17.pom (25 KB at 215.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/1.0/maven-enforcer-plugin-1.0.jar
-3/22 KB    5/22 KB   8/22 KB   11/22 KB   13/22 KB   16/22 KB   19/22 KB   21/22 KB   22/22 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/1.0/maven-enforcer-plugin-1.0.jar (22 KB at 175.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom
-3/7 KB     5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom (7 KB at 56.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom (9 KB at 81.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/22/maven-parent-22.pom
-3/30 KB   5/30 KB   8/30 KB   11/30 KB   13/30 KB   16/30 KB   19/30 KB   21/30 KB   24/30 KB   27/30 KB   29/30 KB   30/30 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/22/maven-parent-22.pom (30 KB at 250.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/11/apache-11.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/11/apache-11.pom (15 KB at 129.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar
-3/27 KB    5/27 KB   8/27 KB   11/27 KB   13/27 KB   16/27 KB   19/27 KB   21/27 KB   24/27 KB   27/27 KB   27/27 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar (27 KB at 212.3 KB/sec)
-[INFO] 
-[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ webcam-capture-parent ---
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.9/maven-artifact-2.0.9.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.9/maven-artifact-2.0.9.pom (2 KB at 15.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.9/maven-2.0.9.pom
-3/19 KB   5/19 KB   8/19 KB   11/19 KB   13/19 KB   16/19 KB   19/19 KB   19/19 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.9/maven-2.0.9.pom (19 KB at 160.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.pom
-3/8 KB     5/8 KB   8/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.pom (8 KB at 70.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.2/plexus-2.0.2.pom
-3/12 KB   5/12 KB   8/12 KB   11/12 KB   12/12 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.2/plexus-2.0.2.pom (12 KB at 92.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.9/maven-plugin-api-2.0.9.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.9/maven-plugin-api-2.0.9.pom (2 KB at 13.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.9/maven-project-2.0.9.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.9/maven-project-2.0.9.pom (3 KB at 24.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.9/maven-settings-2.0.9.pom
-3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.9/maven-settings-2.0.9.pom (3 KB at 18.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.9/maven-model-2.0.9.pom
-3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.9/maven-model-2.0.9.pom (4 KB at 28.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/junit/junit/3.8.2/junit-3.8.2.pom
-747/747 B               Downloaded: https://repo.maven.apache.org/maven2/junit/junit/3.8.2/junit-3.8.2.pom (747 B at 7.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.9/maven-profile-2.0.9.pom
-3/3 KB               Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.9/maven-profile-2.0.9.pom (3 KB at 19.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.9/maven-artifact-manager-2.0.9.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.9/maven-artifact-manager-2.0.9.pom (3 KB at 24.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.9/maven-repository-metadata-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.9/maven-repository-metadata-2.0.9.pom (2 KB at 17.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.9/maven-plugin-registry-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.9/maven-plugin-registry-2.0.9.pom (2 KB at 16.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.9/maven-core-2.0.9.pom
-3/8 KB   5/8 KB   8/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.9/maven-core-2.0.9.pom (8 KB at 67.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.9/maven-plugin-parameter-documenter-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.9/maven-plugin-parameter-documenter-2.0.9.pom (2 KB at 17.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.pom (2 KB at 16.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.9/maven-reporting-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.9/maven-reporting-2.0.9.pom (2 KB at 13.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.pom (2 KB at 8.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-10/doxia-1.0-alpha-10.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-10/doxia-1.0-alpha-10.pom (9 KB at 82.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.9/maven-error-diagnostics-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.9/maven-error-diagnostics-2.0.9.pom (2 KB at 15.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.9/maven-plugin-descriptor-2.0.9.pom
-3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.9/maven-plugin-descriptor-2.0.9.pom (3 KB at 19.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.9/maven-monitor-2.0.9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.9/maven-monitor-2.0.9.pom (2 KB at 11.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.3/commons-lang-2.3.pom
-3/11 KB   5/11 KB   8/11 KB   11/11 KB   11/11 KB              Downloaded: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.3/commons-lang-2.3.pom (11 KB at 95.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/1.0/enforcer-api-1.0.pom
-3/4 KB     4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/1.0/enforcer-api-1.0.pom (4 KB at 28.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9/plexus-container-default-1.0-alpha-9.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9/plexus-container-default-1.0-alpha-9.pom (2 KB at 10.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/1.0/enforcer-rules-1.0.pom
-3/5 KB   5/5 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/1.0/enforcer-rules-1.0.pom (5 KB at 35.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.pom
-3/5 KB   5/5 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.pom (5 KB at 37.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/11/maven-shared-components-11.pom
-3/9 KB   5/9 KB   8/9 KB   9/9 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/11/maven-shared-components-11.pom (9 KB at 71.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/11/maven-parent-11.pom
-3/32 KB   5/32 KB   8/32 KB   11/32 KB   13/32 KB   16/32 KB   19/32 KB   21/32 KB   24/32 KB   27/32 KB   29/32 KB   32/32 KB   32/32 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/11/maven-parent-11.pom (32 KB at 268.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/5/apache-5.pom
-3/5 KB     5/5 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/5/apache-5.pom (5 KB at 37.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-plugin-testing-harness/1.1/maven-plugin-testing-harness-1.1.pom
-3/7 KB   5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-plugin-testing-harness/1.1/maven-plugin-testing-harness-1.1.pom (7 KB at 56.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/7/maven-shared-components-7.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/7/maven-shared-components-7.pom (3 KB at 23.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0-alpha-7/plexus-archiver-1.0-alpha-7.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/1.0-alpha-7/plexus-archiver-1.0-alpha-7.pom (2 KB at 9.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.6/plexus-components-1.1.6.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.6/plexus-components-1.1.6.pom (2 KB at 16.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom
-3/8 KB   5/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.8/plexus-1.0.8.pom (8 KB at 60.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom
-3/8 KB   5/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom (8 KB at 64.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.pom (2 KB at 10.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/beanshell/beanshell/2.0b4/beanshell-2.0b4.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/beanshell/beanshell/2.0b4/beanshell-2.0b4.pom (2 KB at 13.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-i18n/1.0-beta-6/plexus-i18n-1.0-beta-6.pom
-771/771 B               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-i18n/1.0-beta-6/plexus-i18n-1.0-beta-6.pom (771 B at 7.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.4/plexus-components-1.1.4.pom
-3/3 KB               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.4/plexus-components-1.1.4.pom (3 KB at 18.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.jar
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.jar
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar
-Downloading: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.3/commons-lang-2.3.jar
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/1.0/enforcer-api-1.0.jar
-3/10 KB   3/10 KB   5/10 KB   3/10 KB   8/10 KB   3/262 KB   3/10 KB   8/10 KB   3/240 KB   3/10 KB   3/10 KB   3/262 KB   5/10 KB   8/10 KB   3/240 KB   3/262 KB   8/10 KB   10/10 KB   3/240 KB   5/262 KB   10/10 KB   10/10 KB   3/240 KB   3/10 KB   8/10 KB   3/240 KB   5/262 KB   10/10 KB   10/10 KB   5/240 KB   5/262 KB   10/10 KB   10/10 KB   3/10 KB   8/240 KB   5/262 KB   10/10 KB   10/10 KB   3/10 KB   11/240 KB   5/262 KB   8/10 KB   10/10 KB   3/240 KB   3/262 KB   5/10 KB   10/10 KB   3/240 KB   5/262 KB   10/10 KB   10/10 KB   3/10 KB   5/240 KB   8/262 KB   10/10 KB   10/10 KB   3/10 KB   11/240 KB   8/262 KB   10/10 KB   10/10 KB   5/10 KB   11/240 KB   11/262 KB   10/10 KB   10/10 KB   8/10 KB   11/240 KB   13/262 KB   10/10 KB   10/10 KB   8/10 KB   13/240 KB   11/262 KB   10/10 KB   10/10 KB   8/10 KB   13/240 KB   8/262 KB   10/10 KB   10/10 KB   8/10 KB   11/240 KB    13/262 KB   10/10 KB   10/10 KB   10/10 KB   13/240 KB   13/262 KB   10/10 KB   10/10 KB   10/10 KB   16/240 KB   13/262 KB   10/10 KB   10/10 KB   10/10 KB   19/240 KB   16/262 KB   10/10 KB   10/10 KB   10/10 KB   21/240 KB   16/262 KB   10/10 KB   10/10 KB   10/10 KB   24/240 KB   16/262 KB   10/10 KB   10/10 KB   10/10 KB   27/240 KB   16/262 KB   10/10 KB   10/10 KB   10/10 KB   29/240 KB   16/262 KB   10/10 KB   10/10 KB   10/10 KB   19/240 KB   19/262 KB   10/10 KB   10/10 KB   10/10 KB   29/240 KB   21/262 KB   10/10 KB   10/10 KB   10/10 KB   29/240 KB   24/262 KB   10/10 KB   10/10 KB   10/10 KB   29/240 KB   27/262 KB   10/10 KB   10/10 KB   10/10 KB   29/240 KB   29/262 KB   10/10 KB   10/10 KB   10/10 KB   32/240 KB   32/262 KB   10/10 KB   10/10 KB   10/10 KB   32/240 KB   36/262 KB   10/10 KB   10/10 KB   10/10 KB   32/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   32/240 KB   27/262 KB   10/10 KB   10/10 KB   10/10 KB   32/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   36/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   40/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   44/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   48/240 KB   40/262 KB   10/10 KB   10/10 KB   10/10 KB   52/240 KB   44/262 KB   10/10 KB   10/10 KB   10/10 KB   56/240 KB   44/262 KB   10/10 KB   10/10 KB   10/10 KB   52/240 KB   48/262 KB   10/10 KB   10/10 KB   10/10 KB   56/240 KB   52/262 KB   10/10 KB   10/10 KB   10/10 KB   56/240 KB   56/262 KB   10/10 KB   10/10 KB   10/10 KB   60/240 KB   52/262 KB   10/10 KB   10/10 KB   10/10 KB   60/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   64/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   68/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   72/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   76/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   80/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   60/262 KB   10/10 KB   10/10 KB   10/10 KB   60/240 KB   64/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   68/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   72/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   76/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   80/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   84/262 KB   10/10 KB   10/10 KB   10/10 KB   84/240 KB   88/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   92/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   96/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   100/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   84/262 KB   10/10 KB   10/10 KB   10/10 KB   88/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   92/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   96/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   100/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   104/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   108/240 KB   108/262 KB   10/10 KB   10/10 KB   10/10 KB   112/240 KB   104/262 KB   10/10 KB   10/10 KB   10/10 KB   112/240 KB   108/262 KB   10/10 KB   10/10 KB   10/10 KB   116/240 KB   112/262 KB   10/10 KB   10/10 KB   10/10 KB   120/240 KB   112/262 KB   10/10 KB   10/10 KB   10/10 KB   124/240 KB   112/262 KB   10/10 KB   10/10 KB   10/10 KB   128/240 KB                                                              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.jar (10 KB at 65.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/1.0/enforcer-rules-1.0.jar
-112/262 KB   10/10 KB   10/10 KB   10/10 KB   116/240 KB   116/262 KB   10/10 KB   10/10 KB   128/240 KB              120/262 KB   10/10 KB   10/10 KB   128/240 KB   124/262 KB   10/10 KB   10/10 KB   132/240 KB   128/262 KB   10/10 KB   10/10 KB   132/240 KB   132/262 KB   10/10 KB   132/240 KB              136/262 KB   10/10 KB   132/240 KB   140/262 KB   10/10 KB   132/240 KB   144/262 KB   10/10 KB   132/240 KB   148/262 KB   10/10 KB   132/240 KB   120/262 KB   10/10 KB   10/10 KB   132/240 KB                                                   Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.jar (10 KB at 59.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.jar
-148/262 KB   10/10 KB   136/240 KB   148/262 KB   10/10 KB   140/240 KB   148/262 KB   10/10 KB   144/240 KB                                        Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/1.0/enforcer-api-1.0.jar (10 KB at 59.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar
-148/262 KB   148/240 KB              148/262 KB   152/240 KB   148/262 KB   156/240 KB   152/262 KB   160/240 KB   152/262 KB   164/240 KB   152/262 KB   168/240 KB   152/262 KB   172/240 KB   152/262 KB   176/240 KB   152/262 KB   180/240 KB   152/262 KB   156/240 KB   156/262 KB   180/240 KB   160/262 KB   180/240 KB   164/262 KB   180/240 KB   168/262 KB   180/240 KB   172/262 KB   180/240 KB   176/262 KB   180/240 KB   180/262 KB   180/240 KB   184/262 KB   184/240 KB   180/262 KB   184/240 KB   184/262 KB   188/240 KB   184/262 KB   192/240 KB   184/262 KB   196/240 KB   188/262 KB   200/240 KB   188/262 KB   204/240 KB   188/262 KB   208/240 KB   188/262 KB   212/240 KB   188/262 KB   196/240 KB   192/262 KB   212/240 KB   196/262 KB   212/240 KB   200/262 KB   212/240 KB   204/262 KB   212/240 KB   208/262 KB   212/240 KB   212/262 KB   212/240 KB   216/262 KB   216/240 KB   212/262 KB   216/240 KB   216/262 KB   220/240 KB   216/262 KB   224/240 KB   216/262 KB   228/240 KB   220/262 KB   232/240 KB   220/262 KB   236/240 KB   220/262 KB   240/240 KB   220/262 KB   240/240 KB   220/262 KB   228/240 KB   224/262 KB   240/240 KB   228/262 KB   240/240 KB   232/262 KB   240/240 KB   236/262 KB   240/240 KB   240/262 KB   240/240 KB   244/262 KB   240/240 KB   248/262 KB   240/240 KB   252/262 KB   240/240 KB   256/262 KB   240/240 KB   260/262 KB   240/240 KB   262/262 KB   240/240 KB   262/262 KB   3/60 KB   240/240 KB   262/262 KB   5/60 KB   240/240 KB   262/262 KB   8/60 KB   240/240 KB   262/262 KB   11/60 KB   240/240 KB   262/262 KB   13/60 KB   240/240 KB   262/262 KB   16/60 KB   240/240 KB   262/262 KB   19/60 KB   240/240 KB   262/262 KB   21/60 KB   240/240 KB   262/262 KB   24/60 KB   240/240 KB   262/262 KB   27/60 KB   240/240 KB   262/262 KB   29/60 KB   240/240 KB   262/262 KB   32/60 KB   240/240 KB   262/262 KB   36/60 KB   240/240 KB   262/262 KB   3/31 KB   36/60 KB   240/240 KB   262/262 KB   5/31 KB   36/60 KB   240/240 KB   262/262 KB   8/31 KB   36/60 KB   240/240 KB   262/262 KB   11/31 KB   36/60 KB   240/240 KB   262/262 KB   13/31 KB   36/60 KB   240/240 KB   262/262 KB   16/31 KB   36/60 KB   240/240 KB   262/262 KB   19/31 KB   36/60 KB   240/240 KB   262/262 KB   21/31 KB   36/60 KB   240/240 KB   262/262 KB   24/31 KB   36/60 KB   240/240 KB   262/262 KB   27/31 KB   36/60 KB   240/240 KB   262/262 KB   29/31 KB   40/60 KB   240/240 KB   262/262 KB   31/31 KB   40/60 KB   240/240 KB   262/262 KB   27/31 KB   40/60 KB   240/240 KB   262/262 KB   31/31 KB   44/60 KB   240/240 KB   262/262 KB   31/31 KB   48/60 KB   240/240 KB   262/262 KB   31/31 KB   52/60 KB   240/240 KB   262/262 KB   31/31 KB   56/60 KB   240/240 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   3/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   5/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   8/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   11/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   13/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   16/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   19/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB   21/276 KB   262/262 KB   31/31 KB   60/60 KB   240/240 KB                                                               Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar (262 KB at 1042.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-i18n/1.0-beta-6/plexus-i18n-1.0-beta-6.jar
-                                                            Downloaded: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.3/commons-lang-2.3.jar (240 KB at 954.3 KB/sec)
-24/276 KB   31/31 KB   60/60 KB                             27/276 KB   31/31 KB   60/60 KB   29/276 KB   31/31 KB   60/60 KB   32/276 KB   31/31 KB   60/60 KB   36/276 KB   31/31 KB   60/60 KB   40/276 KB   31/31 KB   60/60 KB   44/276 KB   31/31 KB   60/60 KB   48/276 KB   31/31 KB   60/60 KB   52/276 KB   31/31 KB   60/60 KB   56/276 KB   31/31 KB   60/60 KB   60/276 KB   31/31 KB   60/60 KB   64/276 KB   31/31 KB   60/60 KB   68/276 KB   31/31 KB   60/60 KB   72/276 KB   31/31 KB   60/60 KB   76/276 KB   31/31 KB   60/60 KB   80/276 KB   31/31 KB   60/60 KB   84/276 KB   31/31 KB   60/60 KB   88/276 KB   31/31 KB   60/60 KB   92/276 KB   31/31 KB   60/60 KB   96/276 KB   31/31 KB   60/60 KB   100/276 KB   31/31 KB   60/60 KB   104/276 KB   31/31 KB   60/60 KB   108/276 KB   31/31 KB   60/60 KB   112/276 KB   31/31 KB   60/60 KB   116/276 KB   31/31 KB   60/60 KB   120/276 KB   31/31 KB   60/60 KB   124/276 KB   31/31 KB   60/60 KB   128/276 KB   31/31 KB   60/60 KB   132/276 KB   31/31 KB   60/60 KB   136/276 KB   31/31 KB   60/60 KB   140/276 KB   31/31 KB   60/60 KB   144/276 KB   31/31 KB   60/60 KB   148/276 KB   31/31 KB   60/60 KB   152/276 KB   31/31 KB   60/60 KB   156/276 KB   31/31 KB   60/60 KB   160/276 KB   31/31 KB   60/60 KB   164/276 KB   31/31 KB   60/60 KB   168/276 KB   31/31 KB   60/60 KB   172/276 KB   31/31 KB   60/60 KB   176/276 KB   31/31 KB   60/60 KB   180/276 KB   31/31 KB   60/60 KB   184/276 KB   31/31 KB   60/60 KB   188/276 KB   31/31 KB   60/60 KB   192/276 KB   31/31 KB   60/60 KB   196/276 KB   31/31 KB   60/60 KB   200/276 KB   31/31 KB   60/60 KB   204/276 KB   31/31 KB   60/60 KB   208/276 KB   31/31 KB   60/60 KB   212/276 KB   31/31 KB   60/60 KB   216/276 KB   31/31 KB   60/60 KB                                      Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.jar (31 KB at 111.8 KB/sec)
-220/276 KB   60/60 KB              224/276 KB   60/60 KB   228/276 KB   60/60 KB   232/276 KB   60/60 KB   236/276 KB   60/60 KB   240/276 KB   60/60 KB   244/276 KB   60/60 KB   248/276 KB   60/60 KB   252/276 KB   60/60 KB   256/276 KB   60/60 KB   260/276 KB   60/60 KB   264/276 KB   60/60 KB   268/276 KB   60/60 KB   272/276 KB   60/60 KB   276/276 KB   60/60 KB                           Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/1.0/enforcer-rules-1.0.jar (60 KB at 205.3 KB/sec)
-4/12 KB   276/276 KB    8/12 KB   276/276 KB   12/12 KB   276/276 KB   12/12 KB   276/276 KB                           Downloaded: https://repo.maven.apache.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar (276 KB at 818.7 KB/sec)
-                        Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-i18n/1.0-beta-6/plexus-i18n-1.0-beta-6.jar (12 KB at 32.9 KB/sec)
-[INFO] 
-[INFO] --- maven-install-plugin:2.4:install (default-install) @ webcam-capture-parent ---
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom
-2/2 KB                           Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom (2 KB at 13.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom (3 KB at 24.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom (2 KB at 18.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom (2 KB at 18.2 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom (3 KB at 24.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom (2 KB at 16.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom
-2/2 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom (2 KB at 17.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom
-3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom (3 KB at 21.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom
-3/19 KB   6/19 KB   9/19 KB   11/19 KB   14/19 KB   16/19 KB   19/19 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom (19 KB at 154.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/17/spice-parent-17.pom
-3/7 KB     5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/17/spice-parent-17.pom (7 KB at 52.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/10/forge-parent-10.pom
-3/14 KB   5/14 KB   8/14 KB   11/14 KB   13/14 KB   14/14 KB              Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/10/forge-parent-10.pom (14 KB at 110.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom (2 KB at 9.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom
-3/5 KB   5/5 KB   5/5 KB            Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom (5 KB at 41.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar
-Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
-3/226 KB   5/226 KB   8/226 KB   8/226 KB   3/12 KB   11/226 KB   5/12 KB   11/226 KB   3/12 KB   13/226 KB   5/12 KB   13/226 KB   8/12 KB   13/226 KB   11/12 KB   13/226 KB   12/12 KB   16/226 KB   12/12 KB   19/226 KB   12/12 KB   21/226 KB   12/12 KB   24/226 KB   12/12 KB   27/226 KB   12/12 KB   29/226 KB   12/12 KB   32/226 KB   12/12 KB   36/226 KB   12/12 KB   40/226 KB   12/12 KB   44/226 KB   12/12 KB   48/226 KB   12/12 KB   52/226 KB   12/12 KB   56/226 KB   12/12 KB   60/226 KB   12/12 KB   64/226 KB   12/12 KB   68/226 KB   12/12 KB   72/226 KB   12/12 KB   76/226 KB   12/12 KB   80/226 KB   12/12 KB   84/226 KB   12/12 KB   88/226 KB   12/12 KB   92/226 KB   12/12 KB   96/226 KB   12/12 KB   100/226 KB   12/12 KB   104/226 KB   12/12 KB   108/226 KB   12/12 KB   112/226 KB   12/12 KB   116/226 KB   12/12 KB   120/226 KB   12/12 KB   124/226 KB   12/12 KB   128/226 KB   12/12 KB   132/226 KB   12/12 KB   136/226 KB   12/12 KB   140/226 KB   12/12 KB   144/226 KB   12/12 KB   148/226 KB   12/12 KB   152/226 KB   12/12 KB   156/226 KB   12/12 KB   160/226 KB   12/12 KB   164/226 KB   12/12 KB   168/226 KB   12/12 KB   172/226 KB   12/12 KB   176/226 KB   12/12 KB   180/226 KB   12/12 KB   184/226 KB   12/12 KB   188/226 KB   12/12 KB   192/226 KB   12/12 KB   196/226 KB   12/12 KB   200/226 KB   12/12 KB   204/226 KB   12/12 KB   208/226 KB   12/12 KB   212/226 KB   12/12 KB   216/226 KB   12/12 KB   220/226 KB   12/12 KB   224/226 KB   12/12 KB   226/226 KB   12/12 KB                           Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar (12 KB at 85.1 KB/sec)
-                        Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar (226 KB at 1286.0 KB/sec)
-[INFO] Installing /home/travis/build/sarxos/webcam-capture/pom.xml to /home/travis/.m2/repository/com/github/sarxos/webcam-capture-parent/0.3.10-SNAPSHOT/webcam-capture-parent-0.3.10-SNAPSHOT.pom
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building Webcam Capture 0.3.10-SNAPSHOT
-[INFO] ------------------------------------------------------------------------
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/maven-metadata.xml
-623/623 B                           Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/maven-metadata.xml (623 B at 5.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.5.2/maven-install-plugin-2.5.2.pom
-3/7 KB      5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.5.2/maven-install-plugin-2.5.2.pom (7 KB at 55.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/25/maven-plugins-25.pom
-3/10 KB   5/10 KB   8/10 KB   10/10 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/25/maven-plugins-25.pom (10 KB at 79.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/24/maven-parent-24.pom
-3/37 KB    5/37 KB   8/37 KB   11/37 KB   13/37 KB   16/37 KB   19/37 KB   21/37 KB   24/37 KB   27/37 KB   29/37 KB   32/37 KB   35/37 KB   37/37 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/24/maven-parent-24.pom (37 KB at 281.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/14/apache-14.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/14/apache-14.pom (15 KB at 119.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.5.2/maven-install-plugin-2.5.2.jar
-3/33 KB    5/33 KB   8/33 KB   11/33 KB   13/33 KB   16/33 KB   19/33 KB   21/33 KB   24/33 KB   27/33 KB   29/33 KB   32/33 KB   33/33 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.5.2/maven-install-plugin-2.5.2.jar (33 KB at 256.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/maven-metadata.xml
-781/781 B               Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/maven-metadata.xml (781 B at 6.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.0.1/maven-resources-plugin-3.0.1.pom
-3/7 KB      5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.0.1/maven-resources-plugin-3.0.1.pom (7 KB at 58.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/30/maven-plugins-30.pom
-3/10 KB   5/10 KB   8/10 KB   10/10 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/30/maven-plugins-30.pom (10 KB at 87.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/30/maven-parent-30.pom
-3/41 KB    5/41 KB   8/41 KB   11/41 KB   13/41 KB   16/41 KB   19/41 KB   21/41 KB   24/41 KB   27/41 KB   29/41 KB   32/41 KB   36/41 KB   40/41 KB   41/41 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/30/maven-parent-30.pom (41 KB at 317.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/18/apache-18.pom
-4/16 KB    8/16 KB   12/16 KB   16/16 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/18/apache-18.pom (16 KB at 126.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.0.1/maven-resources-plugin-3.0.1.jar
-4/31 KB    8/31 KB   12/31 KB   16/31 KB   20/31 KB   24/31 KB   28/31 KB   31/31 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.0.1/maven-resources-plugin-3.0.1.jar (31 KB at 267.3 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/maven-metadata.xml
-2/2 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/maven-metadata.xml (2 KB at 13.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.pom
-3/6 KB   5/6 KB   6/6 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.pom (6 KB at 46.0 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.19.1/surefire-2.19.1.pom
-3/19 KB   5/19 KB   8/19 KB   11/19 KB   13/19 KB   16/19 KB   19/19 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.19.1/surefire-2.19.1.pom (19 KB at 152.7 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/26/maven-parent-26.pom
-3/39 KB    5/39 KB   8/39 KB   11/39 KB   13/39 KB   16/39 KB   19/39 KB   21/39 KB   24/39 KB   27/39 KB   29/39 KB   32/39 KB   35/39 KB   37/39 KB   39/39 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/26/maven-parent-26.pom (39 KB at 321.1 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/16/apache-16.pom
-3/16 KB    5/16 KB   8/16 KB   11/16 KB   13/16 KB   16/16 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/16/apache-16.pom (16 KB at 126.4 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.jar
-3/38 KB    5/38 KB   8/38 KB   11/38 KB   13/38 KB   16/38 KB   19/38 KB   21/38 KB   24/38 KB   27/38 KB   29/38 KB   32/38 KB   35/38 KB   37/38 KB   38/38 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.jar (38 KB at 304.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/maven-metadata.xml
-709/709 B               Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/maven-metadata.xml (709 B at 6.5 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom
-3/7 KB      5/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom (7 KB at 62.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.jar
-3/34 KB   5/34 KB   8/34 KB   11/34 KB   13/34 KB   16/34 KB   19/34 KB   21/34 KB   24/34 KB   27/34 KB   29/34 KB   32/34 KB   34/34 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.jar (34 KB at 250.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/2.5.1/maven-compiler-plugin-2.5.1.pom
-3/8 KB     5/8 KB   8/8 KB   8/8 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/2.5.1/maven-compiler-plugin-2.5.1.pom (8 KB at 67.9 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom
-3/13 KB   5/13 KB   8/13 KB   11/13 KB   13/13 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/22/maven-plugins-22.pom (13 KB at 116.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/21/maven-parent-21.pom
-3/26 KB    5/26 KB   8/26 KB   11/26 KB   13/26 KB   16/26 KB   19/26 KB   21/26 KB   24/26 KB   26/26 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/21/maven-parent-21.pom (26 KB at 229.8 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/10/apache-10.pom
-3/15 KB    5/15 KB   8/15 KB   11/15 KB   13/15 KB   15/15 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/10/apache-10.pom (15 KB at 37.6 KB/sec)
-Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/2.5.1/maven-compiler-plugin-2.5.1.jar
-3/32 KB    5/32 KB   8/32 KB   11/32 KB   13/32 KB   16/32 KB   19/32 KB   21/32 KB   24/32 KB   27/32 KB   29/32 KB   32/32 KB   32/32 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/2.5.1/maven-compiler-plugin-2.5.1.jar (32 KB at 256.0 KB/sec)
-Downloading: https://repository.apache.org/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml
-Downloading: https://nexus.codehaus.org/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml
-           3/3 KB     3/3 KB   3/3 KB                                       Downloaded: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml (3 KB at 2.4 KB/sec)
-                  Downloaded: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/maven-metadata.xml (3 KB at 2.4 KB/sec)
-[WARNING] Could not transfer metadata com.nativelibs4java:bridj:0.7-SNAPSHOT/maven-metadata.xml from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org: Name or service not known
-[WARNING] Failure to transfer com.nativelibs4java:bridj:0.7-SNAPSHOT/maven-metadata.xml from https://nexus.codehaus.org/snapshots/ was cached in the local repository, resolution will not be reattempted until the update interval of codehaus-snapshots has elapsed or updates are forced. Original error: Could not transfer metadata com.nativelibs4java:bridj:0.7-SNAPSHOT/maven-metadata.xml from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org: Name or service not known
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/bridj-0.7-20150307.234752-76.pom
-4/19 KB           8/19 KB   12/19 KB   16/19 KB   19/19 KB              Downloaded: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/bridj/0.7-SNAPSHOT/bridj-0.7-20150307.234752-76.pom (19 KB at 35.7 KB/sec)
-Downloading: https://repository.apache.org/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/maven-metadata.xml
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/maven-metadata.xml
-Downloading: https://nexus.codehaus.org/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/maven-metadata.xml
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/maven-metadata.xml
-                                            [WARNING] Could not transfer metadata com.nativelibs4java:nativelibs4java-parent:1.9-SNAPSHOT/maven-metadata.xml from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org
-Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/nativelibs4java-parent-1.9-SNAPSHOT.pom
-           Downloading: https://repository.apache.org/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/nativelibs4java-parent-1.9-SNAPSHOT.pom
-           Downloading: https://nexus.codehaus.org/snapshots/com/nativelibs4java/nativelibs4java-parent/1.9-SNAPSHOT/nativelibs4java-parent-1.9-SNAPSHOT.pom
-           Downloading: http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.pom
-3/3 KB              Downloaded: http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.pom (3 KB at 52.5 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.2/slf4j-parent-1.7.2.pom
-4/12 KB   8/12 KB   12/12 KB   12/12 KB              Downloaded: http://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.2/slf4j-parent-1.7.2.pom (12 KB at 349.3 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.0.9/logback-classic-1.0.9.pom
-4/13 KB    8/13 KB   12/13 KB   13/13 KB              Downloaded: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.0.9/logback-classic-1.0.9.pom (13 KB at 317.2 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.0.9/logback-parent-1.0.9.pom
-4/16 KB    8/16 KB   12/16 KB   16/16 KB              Downloaded: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-parent/1.0.9/logback-parent-1.0.9.pom (16 KB at 478.5 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.0.9/logback-core-1.0.9.pom
-4/6 KB     6/6 KB            Downloaded: http://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.0.9/logback-core-1.0.9.pom (6 KB at 151.6 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.pom
-3/3 KB            Downloaded: http://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.pom (3 KB at 114.5 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom
-766/766 B               Downloaded: http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom (766 B at 39.4 KB/sec)
-Downloading: http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom
-2/2 KB               Downloaded: http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom (2 KB at 87.5 KB/sec)
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO] 
-[INFO] Webcam Capture Parent POM .......................... SUCCESS [  8.431 s]
-[INFO] Webcam Capture ..................................... FAILURE [  6.587 s]
-[INFO] Webcam Capture Addons .............................. SKIPPED
-[INFO] Webcam Capture - SWT Addon ......................... SKIPPED
-[INFO] Webcam Capture - Spy Camera PHP Service Addon ...... SKIPPED
-[INFO] Webcam Capture Drivers ............................. SKIPPED
-[INFO] Webcam Capture - FFmpeg CLI Driver ................. SKIPPED
-[INFO] Webcam Capture - GStreamer Driver .................. SKIPPED
-[INFO] Webcam Capture - IP Camera Driver .................. SKIPPED
-[INFO] Webcam Capture - JavaCV Driver ..................... SKIPPED
-[INFO] Webcam Capture - JMF Driver ........................ SKIPPED
-[INFO] Webcam Capture - LTI-CIVIL Driver .................. SKIPPED
-[INFO] Webcam Capture - OpenIMAJ Driver ................... SKIPPED
-[INFO] Webcam Capture - V4L4J Driver ...................... SKIPPED
-[INFO] Webcam Capture - VLCj Driver ....................... SKIPPED
-[INFO] Webcam Capture Examples ............................ SKIPPED
-[INFO] Webcam Capture - Applet Example .................... SKIPPED
-[INFO] Webcam Capture - Detect Face Example ............... SKIPPED
-[INFO] Webcam Capture - Executable Example ................ SKIPPED
-[INFO] Webcam Capture - Live Vide Streaming Example ....... SKIPPED
-[INFO] Webcam Capture - Custom Painter Example ............ SKIPPED
-[INFO] Webcam Capture - Motion Detector Example ........... SKIPPED
-[INFO] Webcam Capture - Custom Painter Example ............ SKIPPED
-[INFO] Webcam Capture - QR Code Example ................... SKIPPED
-[INFO] Webcam Capture - WebcamPanel SWT-AWT ............... SKIPPED
-[INFO] Webcam Capture - Video Recording Example ........... SKIPPED
-[INFO] Webcam Capture Pages ............................... SKIPPED
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 29.036 s
-[INFO] Finished at: 2016-11-16T05:08:12+00:00
-[INFO] Final Memory: 15M/37M
-[INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal on project webcam-capture: Could not resolve dependencies for project com.github.sarxos:webcam-capture:bundle:0.3.10-SNAPSHOT: Failed to collect dependencies at com.nativelibs4java:bridj:jar:0.7-SNAPSHOT: Failed to read artifact descriptor for com.nativelibs4java:bridj:jar:0.7-SNAPSHOT: Could not transfer artifact com.nativelibs4java:nativelibs4java-parent:pom:1.9-SNAPSHOT from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org: Unknown host nexus.codehaus.org -> [Help 1]
-org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal on project webcam-capture: Could not resolve dependencies for project com.github.sarxos:webcam-capture:bundle:0.3.10-SNAPSHOT: Failed to collect dependencies at com.nativelibs4java:bridj:jar:0.7-SNAPSHOT
-	at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies(LifecycleDependencyResolver.java:220)
-	at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.resolveProjectDependencies(LifecycleDependencyResolver.java:127)
-	at org.apache.maven.lifecycle.internal.MojoExecutor.ensureDependenciesAreResolved(MojoExecutor.java:257)
-	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:200)
-	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
-	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
-	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:116)
-	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:80)
-	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:51)
-	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:120)
-	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:355)
-	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:155)
-	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:584)
-	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:216)
-	at org.apache.maven.cli.MavenCli.main(MavenCli.java:160)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289)
-	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229)
-	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415)
-	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
-Caused by: org.apache.maven.project.DependencyResolutionException: Could not resolve dependencies for project com.github.sarxos:webcam-capture:bundle:0.3.10-SNAPSHOT: Failed to collect dependencies at com.nativelibs4java:bridj:jar:0.7-SNAPSHOT
-	at org.apache.maven.project.DefaultProjectDependenciesResolver.resolve(DefaultProjectDependenciesResolver.java:180)
-	at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies(LifecycleDependencyResolver.java:195)
-	... 22 more
-Caused by: org.eclipse.aether.collection.DependencyCollectionException: Failed to collect dependencies at com.nativelibs4java:bridj:jar:0.7-SNAPSHOT
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.collectDependencies(DefaultDependencyCollector.java:291)
-	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.collectDependencies(DefaultRepositorySystem.java:316)
-	at org.apache.maven.project.DefaultProjectDependenciesResolver.resolve(DefaultProjectDependenciesResolver.java:172)
-	... 23 more
-Caused by: org.eclipse.aether.resolution.ArtifactDescriptorException: Failed to read artifact descriptor for com.nativelibs4java:bridj:jar:0.7-SNAPSHOT
-	at org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.loadPom(DefaultArtifactDescriptorReader.java:337)
-	at org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.readArtifactDescriptor(DefaultArtifactDescriptorReader.java:217)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.resolveCachedArtifactDescriptor(DefaultDependencyCollector.java:525)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.getArtifactDescriptorResult(DefaultDependencyCollector.java:509)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.processDependency(DefaultDependencyCollector.java:409)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.processDependency(DefaultDependencyCollector.java:363)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.process(DefaultDependencyCollector.java:351)
-	at org.eclipse.aether.internal.impl.DefaultDependencyCollector.collectDependencies(DefaultDependencyCollector.java:254)
-	... 25 more
-Caused by: org.apache.maven.model.resolution.UnresolvableModelException: Could not transfer artifact com.nativelibs4java:nativelibs4java-parent:pom:1.9-SNAPSHOT from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org
-	at org.apache.maven.repository.internal.DefaultModelResolver.resolveModel(DefaultModelResolver.java:177)
-	at org.apache.maven.repository.internal.DefaultModelResolver.resolveModel(DefaultModelResolver.java:226)
-	at org.apache.maven.model.building.DefaultModelBuilder.readParentExternally(DefaultModelBuilder.java:899)
-	at org.apache.maven.model.building.DefaultModelBuilder.readParent(DefaultModelBuilder.java:751)
-	at org.apache.maven.model.building.DefaultModelBuilder.build(DefaultModelBuilder.java:309)
-	at org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.loadPom(DefaultArtifactDescriptorReader.java:328)
-	... 32 more
-Caused by: org.eclipse.aether.resolution.ArtifactResolutionException: Could not transfer artifact com.nativelibs4java:nativelibs4java-parent:pom:1.9-SNAPSHOT from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org
-	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444)
-	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246)
-	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223)
-	at org.apache.maven.repository.internal.DefaultModelResolver.resolveModel(DefaultModelResolver.java:173)
-	... 37 more
-Caused by: org.eclipse.aether.transfer.ArtifactTransferException: Could not transfer artifact com.nativelibs4java:nativelibs4java-parent:pom:1.9-SNAPSHOT from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org
-	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:43)
-	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355)
-	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
-	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581)
-	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249)
-	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520)
-	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421)
-	... 40 more
-Caused by: org.apache.maven.wagon.TransferFailedException: nexus.codehaus.org
-	at org.apache.maven.wagon.providers.http.AbstractHttpClientWagon.fillInputData(AbstractHttpClientWagon.java:1085)
-	at org.apache.maven.wagon.providers.http.AbstractHttpClientWagon.fillInputData(AbstractHttpClientWagon.java:977)
-	at org.apache.maven.wagon.StreamWagon.getInputStream(StreamWagon.java:116)
-	at org.apache.maven.wagon.StreamWagon.getIfNewer(StreamWagon.java:88)
-	at org.apache.maven.wagon.StreamWagon.get(StreamWagon.java:61)
-	at org.eclipse.aether.transport.wagon.WagonTransporter$GetTaskRunner.run(WagonTransporter.java:560)
-	at org.eclipse.aether.transport.wagon.WagonTransporter.execute(WagonTransporter.java:427)
-	at org.eclipse.aether.transport.wagon.WagonTransporter.get(WagonTransporter.java:404)
-	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$GetTaskRunner.runTask(BasicRepositoryConnector.java:447)
-	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:350)
-	... 45 more
-Caused by: java.net.UnknownHostException: nexus.codehaus.org
-	at java.net.InetAddress.getAllByName0(InetAddress.java:1252)
-	at java.net.InetAddress.getAllByName(InetAddress.java:1164)
-	at java.net.InetAddress.getAllByName(InetAddress.java:1098)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.conn.HttpClientConnectionOperator.connect(HttpClientConnectionOperator.java:101)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:318)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:363)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.execchain.MainClientExec.execute(MainClientExec.java:219)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.execchain.ProtocolExec.execute(ProtocolExec.java:195)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.execchain.RetryExec.execute(RetryExec.java:86)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.execchain.RedirectExec.execute(RedirectExec.java:108)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:184)
-	at org.apache.maven.wagon.providers.http.httpclient.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
-	at org.apache.maven.wagon.providers.http.AbstractHttpClientWagon.execute(AbstractHttpClientWagon.java:848)
-	at org.apache.maven.wagon.providers.http.AbstractHttpClientWagon.fillInputData(AbstractHttpClientWagon.java:1000)
-	... 54 more
-[ERROR] 
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
-[ERROR] 
-[ERROR] After correcting the problems, you can resume the build with the command
-[ERROR]   mvn <goals> -rf :webcam-capture
-
-travis_time:end:0615face:start=1479272861594900521,finish=1479272892386858970,duration=30791958449[0K
-[31;1mThe command "mvn install -DskipTests=true -e" failed and exited with 1 during .[0m
-
-Your build has been stopped.

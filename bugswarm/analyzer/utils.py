@@ -97,3 +97,19 @@ def get_lines_of_pairs_matching(file, pairs_both_matching):
 
 def to_percent(n):
     return str(int(round(n, 2) * 100)) + '%'
+
+
+def get_job_lines(folds):
+    """
+    :param folds: self.folds dictionary
+    :return: All job related lines
+    """
+    lines = []
+    finished_setup = False
+    for name, fold in folds.items():
+        if not finished_setup and name.startswith('Run'):
+            finished_setup = True
+        if finished_setup or name == 'out_of_fold':
+            if 'content' in fold:
+                lines.extend(fold['content'])
+    return lines

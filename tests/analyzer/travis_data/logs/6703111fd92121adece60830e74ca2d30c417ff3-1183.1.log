@@ -1,0 +1,428 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd orbeon/orbeon-forms
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:before_install.1[0Ktravis_time:start:0057da58[0K$ export DISPLAY=:99.0
+
+travis_time:end:0057da58:start=1479355182100539225,finish=1479355182109362048,duration=8822823[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:07bdcce0[0K$ sh -e /etc/init.d/xvfb start
+Starting virtual X frame buffer: Xvfb.
+
+travis_time:end:07bdcce0:start=1479355182121512950,finish=1479355182170333079,duration=48820129[0Ktravis_fold:end:before_install.2[0Ktravis_time:start:108c17f1[0K$ ant test
+Buildfile: /home/travis/build/orbeon/orbeon-forms/build.xml
+
+init:
+     [echo] Building Orbeon Forms 4.3.0.M1.201611170359
+     [echo] ##teamcity[buildNumber '4_3_0_M1_201611170359']
+
+set-version:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/src
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/src
+
+prepare:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/classes
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/lib
+
+classpath:
+
+classes:
+   [scalac] Compiling 1 source file to /home/travis/build/orbeon/orbeon-forms/build/classes
+   [scalac] Compiling 0 scala and 579 java source files to /home/travis/build/orbeon/orbeon-forms/build/classes
+   [scalac] Compiling 379 source files to /home/travis/build/orbeon/orbeon-forms/build/classes
+   [scalac] Compiling 1 source file to /home/travis/build/orbeon/orbeon-forms/build/classes
+    [javac] /home/travis/build/orbeon/orbeon-forms/build.xml:363: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 579 source files to /home/travis/build/orbeon/orbeon-forms/build/classes
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.5
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 1 warning
+
+orbeon-minify-js:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/resources/ops
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/js
+[coffee-script] Compiling ops/javascript/orbeon/util/DeferredPortletLoader.coffee
+[coffee-script] Compiling ops/javascript/orbeon/util/FiniteStateMachine.coffee
+[coffee-script] Compiling ops/javascript/orbeon/util/String.coffee
+[coffee-script] Compiling ops/javascript/orbeon/util/fQuery.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/Document.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/Form.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/LoadingIndicator.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/Calendar.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/LHHA.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/Placeholder.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/RTE.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/RTEConfig.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/control/Upload.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/server/AjaxServer/AjaxServerEvent.coffee
+[coffee-script] Compiling ops/javascript/orbeon/xforms/server/AjaxServer/nextAjaxResponse.coffee
+[coffee-script] Compiling xbl/fb/dialog-itemsets/dialog-itemsets.coffee
+[coffee-script] Compiling xbl/orbeon/datatable/DatatableDisplayed.coffee
+[coffee-script] Compiling xbl/orbeon/wpaint/wpaint.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-control-xhtml-area.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-flat-repeat.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-min-viewport-width.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-placeholder.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-type-date.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/test-update-full.coffee
+[coffee-script] Compiling apps/xforms-sandbox/samples/unit-tests.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/cell/action-icons.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/cell/events.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/cell/label-hint-editor.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/cell/placeholders.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/cell/static-upload.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/section-grid-repeat/grid-repeat-editor.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/section-grid-repeat/position.coffee
+[coffee-script] Compiling forms/orbeon/builder/resources/section-grid-repeat/section-editor.coffee
+     [copy] Copying 33 files to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/resources
+[yui-compressor] [75%] test-control-xhtml-area.js [5872] ---> test-control-xhtml-area-min.js [4435]
+[yui-compressor] [78%] test-flat-repeat.js [1412] ---> test-flat-repeat-min.js [1115]
+[yui-compressor] [82%] test-min-viewport-width.js [1180] ---> test-min-viewport-width-min.js [975]
+[yui-compressor] [73%] test-placeholder.js [4399] ---> test-placeholder-min.js [3238]
+[yui-compressor] [75%] test-type-date.js [3004] ---> test-type-date-min.js [2254]
+[yui-compressor] [71%] test-update-full.js [4738] ---> test-update-full-min.js [3384]
+[yui-compressor] [88%] unit-tests.js [1887] ---> unit-tests-min.js [1679]
+[yui-compressor] [78%] action-icons.js [5054] ---> action-icons-min.js [3966]
+[yui-compressor] [75%] events.js [3832] ---> events-min.js [2885]
+[yui-compressor] [77%] label-hint-editor.js [7057] ---> label-hint-editor-min.js [5481]
+[yui-compressor] [70%] placeholders.js [13144] ---> placeholders-min.js [9208]
+[yui-compressor] [81%] static-upload.js [639] ---> static-upload-min.js [523]
+[yui-compressor] [65%] grid-repeat-editor.js [8084] ---> grid-repeat-editor-min.js [5282]
+[yui-compressor] [72%] position.js [4723] ---> position-min.js [3443]
+[yui-compressor] [71%] section-editor.js [9092] ---> section-editor-min.js [6476]
+[yui-compressor] [68%] DeferredPortletLoader.js [3358] ---> DeferredPortletLoader-min.js [2313]
+[yui-compressor] [62%] FiniteStateMachine.js [2476] ---> FiniteStateMachine-min.js [1546]
+[yui-compressor] [66%] String.js [1465] ---> String-min.js [973]
+[yui-compressor] [74%] fQuery.js [1010] ---> fQuery-min.js [750]
+[yui-compressor] [72%] Document.js [3700] ---> Document-min.js [2674]
+[yui-compressor] [81%] Form.js [433] ---> Form-min.js [353]
+[yui-compressor] [76%] LoadingIndicator.js [4420] ---> LoadingIndicator-min.js [3360]
+[yui-compressor] [72%] Calendar.js [12963] ---> Calendar-min.js [9412]
+[yui-compressor] [71%] LHHA.js [4057] ---> LHHA-min.js [2891]
+[yui-compressor] [71%] Placeholder.js [5000] ---> Placeholder-min.js [3592]
+[yui-compressor] [79%] RTE.js [4594] ---> RTE-min.js [3637]
+[yui-compressor] [44%] RTEConfig.js [6162] ---> RTEConfig-min.js [2724]
+[yui-compressor] [81%] Upload.js [5253] ---> Upload-min.js [4260]
+[yui-compressor] [69%] AjaxServerEvent.js [2331] ---> AjaxServerEvent-min.js [1621]
+[yui-compressor] [79%] nextAjaxResponse.js [809] ---> nextAjaxResponse-min.js [646]
+[yui-compressor] [80%] dialog-itemsets.js [634] ---> dialog-itemsets-min.js [509]
+[yui-compressor] [82%] DatatableDisplayed.js [4146] ---> DatatableDisplayed-min.js [3417]
+[yui-compressor] [75%] wpaint.js [3165] ---> wpaint-min.js [2404]
+[yui-compressor] [JavaScript] Compressed 33 files to 72% (136KB to 99KB, saving 37KB)
+[yui-compressor] [CSS] No files to compress, or all files already up to date
+[yui-compressor] Compressed 33 files to 72% (136KB to 99KB, saving 37KB)
+[yui-compressor] [27%] ExecutionQueue.js [3237] ---> ExecutionQueue-min.js [901]
+[yui-compressor] [33%] Page.js [3109] ---> Page-min.js [1045]
+[yui-compressor] [37%] Message.js [4033] ---> Message-min.js [1528]
+[yui-compressor] [57%] CalendarResources.js [7527] ---> CalendarResources-min.js [4349]
+[yui-compressor] [29%] Control.js [3089] ---> Control-min.js [896]
+[yui-compressor] [52%] Tree.js [12041] ---> Tree-min.js [6287]
+[yui-compressor] [40%] AjaxServer.js [141148] ---> AjaxServer-min.js [57111]
+[yui-compressor] [36%] Server.js [2342] ---> Server-min.js [857]
+[yui-compressor] [36%] UploadServer.js [8384] ---> UploadServer-min.js [3087]
+[yui-compressor] [49%] xforms.js [257122] ---> xforms-min.js [126250]
+[yui-compressor] [32%] button.js [118267] ---> button-min.js [38005]
+[yui-compressor] [37%] connection.js [42554] ---> connection-min.js [15866]
+[yui-compressor] [30%] container.js [320178] ---> container-min.js [97332]
+[yui-compressor] [76%] CheckOnClickNode.js [727] ---> CheckOnClickNode-min.js [557]
+[yui-compressor] [45%] TaskNode.js [10162] ---> TaskNode-min.js [4616]
+[yui-compressor] [30%] treeview.js [129087] ---> treeview-min.js [39438]
+[yui-compressor] [JavaScript] Compressed 16 files to 37% (1038KB to 388KB, saving 650KB)
+[yui-compressor] [CSS] No files to compress, or all files already up to date
+[yui-compressor] Compressed 16 files to 37% (1038KB to 388KB, saving 650KB)
+
+jars:
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-xforms-filter.jar
+      [jar] Building MANIFEST-only jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-cli.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-resources-private.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-resources-public.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-form-runner.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-form-builder.jar
+
+exist-task:
+
+exist-import-sample-data-to-build:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/exist-data
+[xdb:store] Database driver registered.
+[xdb:store] log4j:WARN No appenders could be found for logger (org.exist.util.ConfigurationHelper).
+[xdb:store] log4j:WARN Please initialize the log4j system properly.
+[xdb:store] Found 1 files.
+[xdb:store] Storing system/config/db/orbeon/fr/collection.xconf ...
+[xdb:store] Found 42 files.
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/16ab5903c7f0deb74fdc51dbdf705375/26abcf492f64db9808f2b13847e0cf8b.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/16ab5903c7f0deb74fdc51dbdf705375/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/24565d3894e9d156042d60f9a70f3d74/6513539ce181e43c31ca42accd47b6ac.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/24565d3894e9d156042d60f9a70f3d74/6c722ff77b23d85f68145211aa658531.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/24565d3894e9d156042d60f9a70f3d74/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/3ecb36b2338bd4a37b063bc39a15138f/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/3ecb36b2338bd4a37b063bc39a15138f/f78695d61455878dcbb4e9b2880117ec.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/3fb8620e26ad68404706c7a4e73d4baf/d9435fa641d7ccd32431894401727865.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/3fb8620e26ad68404706c7a4e73d4baf/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/5bba537614484bd9e33c97bfc7649889/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/5bba537614484bd9e33c97bfc7649889/ed5257e984f3311da8e1092f69a00a1c.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/783db082af50ae6675b7ea411c1f0994/16e56d4fc8b7abbc8a3f58416a9974f9.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/783db082af50ae6675b7ea411c1f0994/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/891ce63e59c17348f6fda273afe28c2b/00d662b00f963732326d6343e760a7a1.png ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/891ce63e59c17348f6fda273afe28c2b/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/9531a191c77b75c417e9874427fa21f7/45212d1d929cb8567962a6cc946019df.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/9531a191c77b75c417e9874427fa21f7/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/ad6f8583a9644c36aa1794eb69024a37/036f7ef78da0a162d11f77ab879eb3a7.gif ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/ad6f8583a9644c36aa1794eb69024a37/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/c23140188670605bdde181c2a3476dae/aa2ec704a96c167da2cef4540c2fb987.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/c23140188670605bdde181c2a3476dae/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/e8bfd3ba63fa12a8b59cdd5c08369a35/487920b9fefb9c16db7fbc09ea3faff4.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/e8bfd3ba63fa12a8b59cdd5c08369a35/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/fd5dfce7a236758e72910d333bf832f8/4a95e912b8ce50ff7dc7a5c70652d133.jpg ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/data/fd5dfce7a236758e72910d333bf832f8/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/bookshelf/form/form.xhtml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/417b8b4473f6db9e0f94b05ccb9208be/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/51cbb050c39fa094efe721da690eb168/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/52c62a05a09601f37a121101468f9f98/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/669de95ea7bf7839c342b46328586046/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/b9d842b71560cf9278422f88a32bfaf7419a7b01/831113e3ef799f2c9f57ee0b10f789a8951360ba.bin ...
+[xdb:store] Cannot find mime-type kind for 831113e3ef799f2c9f57ee0b10f789a8951360ba.bin. Treating it as a binary.
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/b9d842b71560cf9278422f88a32bfaf7419a7b01/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/b9d842b71560cf9278422f88a32bfaf7419a7b01/fw9-orbeon.pdf ...
+[xdb:store] Storing orbeon/fr/orbeon/builder/data/b9d842b71560cf9278422f88a32bfaf7419a7b01/fw9.pdf ...
+[xdb:store] Storing orbeon/fr/orbeon/contact/data/9eff349bfd95aab8d4d5e048bd25a815/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/contact/form/form.xhtml ...
+[xdb:store] Storing orbeon/fr/orbeon/controls/form/form.xhtml ...
+[xdb:store] Storing orbeon/fr/orbeon/dmv-14/data/6b01fa4cd1605b8f736fac09be6cf9b2/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/library/form/form.xhtml ...
+[xdb:store] Storing orbeon/fr/orbeon/w9/data/4a83b4cf2b905fbe105d7e57ddc5597b5e78c0a3/data.xml ...
+[xdb:store] Storing orbeon/fr/orbeon/w9/form/831113e3ef799f2c9f57ee0b10f789a8951360ba.bin ...
+[xdb:store] Cannot find mime-type kind for 831113e3ef799f2c9f57ee0b10f789a8951360ba.bin. Treating it as a binary.
+[xdb:store] Storing orbeon/fr/orbeon/w9/form/form.xhtml ...
+[xdb:shutdown] Shutdown database instance
+
+orbeon-dist-war:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/distrib
+
+init:
+     [echo] Building Orbeon Forms 4.3.0.M1.201611170359
+     [echo] ##teamcity[buildNumber '4_3_0_M1_201611170359']
+
+set-version:
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/src
+
+prepare:
+
+classpath:
+
+classes:
+
+orbeon-minify-js:
+[yui-compressor] [JavaScript] No files to compress, or all files already up to date
+[yui-compressor] [CSS] No files to compress, or all files already up to date
+[yui-compressor] No files to compress, or all files already up to date
+[yui-compressor] [JavaScript] No files to compress, or all files already up to date
+[yui-compressor] [CSS] No files to compress, or all files already up to date
+[yui-compressor] No files to compress, or all files already up to date
+
+jars:
+
+war:
+     [echo] war.dir: /home/travis/build/orbeon/orbeon-forms/build/orbeon-war
+     [copy] Copying 86 files to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+   [delete] Deleting: /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib/saxon-9-1-0-8_orbeon_20130503.jar
+      [jar] Building jar: /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib/saxon-9-1-0-8_orbeon_20130503.jar
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/lib
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF
+     [copy] Copying 1 file to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF
+     [copy] Copying 5 files to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/xforms-jsp
+
+init:
+     [echo] Building Orbeon Forms 4.3.0.M1.201611170359
+     [echo] ##teamcity[buildNumber '4_3_0_M1_201611170359']
+
+prepare:
+
+war-copy-descriptors:
+     [copy] Copying 14 files to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF
+     [echo] Target: war
+     [xslt] Processing /home/travis/build/orbeon/orbeon-forms/build.xml to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war/WEB-INF/web.xml
+     [xslt] Loading stylesheet /home/travis/build/orbeon/orbeon-forms/descriptors/orbeon-war-web.xsl
+     [xslt] Warning:  org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser: Property 'http://javax.xml.XMLConstants/property/accessExternalDTD' is not recognized.
+     [xslt] Warning:  org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser: Property 'http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit' is not recognized.
+      [zip] Building zip: /home/travis/build/orbeon/orbeon-forms/build/distrib/orbeon-4.3.0.M1.201611170359-CE.war
+
+test-expand-war:
+    [unzip] Expanding: /home/travis/build/orbeon/orbeon-forms/build/distrib/orbeon-4.3.0.M1.201611170359-CE.war into /home/travis/build/orbeon/orbeon-forms/build/orbeon-war-tomcat
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/orbeon-war-tomcat/WEB-INF/resources/apps/unit-tests
+     [copy] Copying 3 files to /home/travis/build/orbeon/orbeon-forms/build/orbeon-war-tomcat/WEB-INF/resources/apps/unit-tests
+
+test-classpath:
+
+test-classes:
+    [mkdir] Created dir: /home/travis/build/orbeon/orbeon-forms/build/test-classes
+   [scalac] Compiling 59 source files to /home/travis/build/orbeon/orbeon-forms/build/test-classes
+   [scalac] Compiling 0 scala and 16 java source files to /home/travis/build/orbeon/orbeon-forms/build/test-classes
+   [scalac] error: 
+   [scalac]      while compiling: /home/travis/build/orbeon/orbeon-forms/src/test/java/org/orbeon/oxf/xml/dom4j/Dom4jUtilsTest.java
+   [scalac]         during phase: jvm
+   [scalac]      library version: version 2.10.1
+   [scalac]     compiler version: version 2.10.1
+   [scalac]   reconstructed args: -encoding utf-8 -sourcepath /home/travis/build/orbeon/orbeon-forms/src/test/scala -deprecation -dependencyfile /home/travis/build/orbeon/orbeon-forms/.scala_dependencies -feature -language:postfixOps -language:reflectiveCalls -language:implicitConversions -language:higherKinds -language:existentials -Xfatal-warnings -d /home/travis/build/orbeon/orbeon-forms/build/test-classes -classpath /home/travis/build/orbeon/orbeon-forms/build/classes:/home/travis/build/orbeon/orbeon-forms/build/lib/orbeon-xforms-filter.jar:/home/travis/build/orbeon/orbeon-forms/lib/TaminoAPI4J.jar:/home/travis/build/orbeon/orbeon-forms/lib/activation-1.1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/ant-1_6_5.jar:/home/travis/build/orbeon/orbeon-forms/lib/ant-contrib-1.0b3.jar:/home/travis/build/orbeon/orbeon-forms/lib/ant-jsch-1_6_5.jar:/home/travis/build/orbeon/orbeon-forms/lib/ant-junit-1.7.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/apache-mime4j-0.6.jar:/home/travis/build/orbeon/orbeon-forms/lib/avalon-framework-4_2_0.jar:/home/travis/build/orbeon/orbeon-forms/lib/avalon-framework-cvs-20020315.jar:/home/travis/build/orbeon/orbeon-forms/lib/axis_1_2_1-axis.jar:/home/travis/build/orbeon/orbeon-forms/lib/axis_1_2_1-jaxrpc.jar:/home/travis/build/orbeon/orbeon-forms/lib/axis_1_2_1-saaj.jar:/home/travis/build/orbeon/orbeon-forms/lib/axis_1_2_1-wsdl4j-1.5.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/barcode4j-1.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/batic-dependency-xmlgraphics-commons-1.4.jar:/home/travis/build/orbeon/orbeon-forms/lib/batik-all-1_7.jar:/home/travis/build/orbeon/orbeon-forms/lib/bsf-2_2.jar:/home/travis/build/orbeon/orbeon-forms/lib/castor-0_9_4_3-xml.jar:/home/travis/build/orbeon/orbeon-forms/lib/classes12.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-beanutils-1_5.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-cli-1_0.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-codec-1.6.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-collections-3.2.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-dbcp-1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-digester-1_5.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-discovery-0.4.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-exec-1.1-sources.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-exec-1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-fileupload-1.2.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-io-2.0.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-lang3-3.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-logging-1.1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-pool-1.6.jar:/home/travis/build/orbeon/orbeon-forms/lib/commons-validator-1_0_2.jar:/home/travis/build/orbeon/orbeon-forms/lib/dom4j-1_6_1-src.jar:/home/travis/build/orbeon/orbeon-forms/lib/dom4j-1_6_1.jar:/home/travis/build/orbeon/orbeon-forms/lib/ehcache-core-2.6.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/ehcache-dependency-slf4j-api-1.6.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/ehcache-dependency-slf4j-log4j12-1.6.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/ejb-2_0.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-1_4_1_dev_orbeon_20110104.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-antlr-2.7.7.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-jgroups-all-2.2.6.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-jta-1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-lucene-core-2.9.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-lucene-regex-2.9.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-quartz-1.6.6.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-resolver-1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-stax-api-1.0.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-ws-commons-util-1.0.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-xmldb.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-xmlrpc-client-3.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-xmlrpc-common-3.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-dependency-xmlrpc-server-3.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-lucene-module-1_4_1_dev_orbeon_20110104.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-modules-1_4_1_dev_orbeon_20110104.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-ngram-module-1_4_1_dev_orbeon_20110104.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-optional-1_4_1_dev_orbeon_20110104.jar:/home/travis/build/orbeon/orbeon-forms/lib/exist-xqj-1.0.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/fluent-hc-4.2.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/flying-saucer-core-9.0.2-20130125.jar:/home/travis/build/orbeon/orbeon-forms/lib/flying-saucer-dependency-itext-2.1.7.jar:/home/travis/build/orbeon/orbeon-forms/lib/flying-saucer-pdf-9.0.2-20130125.jar:/home/travis/build/orbeon/orbeon-forms/lib/fop-1_0.jar:/home/travis/build/orbeon/orbeon-forms/lib/guava-13.0.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/hamcrest-core-1.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/hsqldb-1_8_0_7.jar:/home/travis/build/orbeon/orbeon-forms/lib/httpclient-4.2.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/httpclient-cache-4.2.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/httpcore-4.2.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/httpmime-4.2.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/ironjacamar-jdbc-1.0.9.Final.jar:/home/travis/build/orbeon/orbeon-forms/lib/itext-bcmail-jdk14-138.jar:/home/travis/build/orbeon/orbeon-forms/lib/itext-bcprov-jdk14-138.jar:/home/travis/build/orbeon/orbeon-forms/lib/jakarta-poi-1.11.0-dev-20030610.jar:/home/travis/build/orbeon/orbeon-forms/lib/jarjar-1.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/jaxen-1_1_beta_9.jar:/home/travis/build/orbeon/orbeon-forms/lib/jboss-common-jdbc-wrapper.jar:/home/travis/build/orbeon/orbeon-forms/lib/jcifs-1.3.14.jar:/home/travis/build/orbeon/orbeon-forms/lib/jfreechart-1.0.9.jar:/home/travis/build/orbeon/orbeon-forms/lib/jfreechart-dependency-jcommon-1.0.12.jar:/home/travis/build/orbeon/orbeon-forms/lib/jgraph-1_0_4.jar:/home/travis/build/orbeon/orbeon-forms/lib/jms-api-1_1.jar:/home/travis/build/orbeon/orbeon-forms/lib/joda-convert-1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/joda-time-2.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/jsch-0.1.42.jar:/home/travis/build/orbeon/orbeon-forms/lib/json-20090211.jar:/home/travis/build/orbeon/orbeon-forms/lib/jtidy-8.0-20060801.131059-3.jar:/home/travis/build/orbeon/orbeon-forms/lib/junit-4.11.jar:/home/travis/build/orbeon/orbeon-forms/lib/liferay-portal-service-6.1.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/log4j-1_2_15.jar:/home/travis/build/orbeon/orbeon-forms/lib/looks-1_1_2.jar:/home/travis/build/orbeon/orbeon-forms/lib/mail-1_3_2.jar:/home/travis/build/orbeon/orbeon-forms/lib/metadata-extractor-2_1.jar:/home/travis/build/orbeon/orbeon-forms/lib/mockito-all-1.8.5.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-2.5.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-casbah-commons_2.8.1-2.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-casbah-core_2.8.1-2.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-casbah-gridfs_2.8.1-2.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-casbah-query_2.8.1-2.1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-scalaj-collection_2.8.0-1.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/mongo-time_2.8.1-0.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/msv-20081113-orbeon.jar:/home/travis/build/orbeon/orbeon-forms/lib/mysql-2_0_12.jar:/home/travis/build/orbeon/orbeon-forms/lib/oracle-weblogic-7.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/oracle/ojdbc6_g.jar:/home/travis/build/orbeon/orbeon-forms/lib/oracle/xdb.jar:/home/travis/build/orbeon/orbeon-forms/lib/oracle/xmlparserv2.jar:/home/travis/build/orbeon/orbeon-forms/lib/orbeon-errorified-20130523.jar:/home/travis/build/orbeon/orbeon-forms/lib/parboiled-core-1.1.4-sources.jar:/home/travis/build/orbeon/orbeon-forms/lib/parboiled-core-1.1.4.jar:/home/travis/build/orbeon/orbeon-forms/lib/parboiled-scala_2.10-1.1.4-sources.jar:/home/travis/build/orbeon/orbeon-forms/lib/parboiled-scala_2.10-1.1.4.jar:/home/travis/build/orbeon/orbeon-forms/lib/pdfbox-0_7_1.jar:/home/travis/build/orbeon/orbeon-forms/lib/portlet-api_2.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/resolver-xerces_2_6_2_orbeon.jar:/home/travis/build/orbeon/orbeon-forms/lib/rhino-1.7R2.jar:/home/travis/build/orbeon/orbeon-forms/lib/saxon-9-1-0-8_orbeon_20130503.jar:/home/travis/build/orbeon/orbeon-forms/lib/saxpath-dev_orbeon.jar:/home/travis/build/orbeon/orbeon-forms/lib/sbinary_2.10-0.4.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/scala-compiler-2.10.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/scala-library-2.10.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/scala-reflect-2.10.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/scalatest_2.10-2.0.M5b.jar:/home/travis/build/orbeon/orbeon-forms/lib/selenium-java-2.31.0-srcs.jar:/home/travis/build/orbeon/orbeon-forms/lib/selenium-java-2.31.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/servlet-2_3-4_0_4.jar:/home/travis/build/orbeon/orbeon-forms/lib/simplecaptcha-1.2.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/spray-json_2.10-1.2.3-sources.jar:/home/travis/build/orbeon/orbeon-forms/lib/spray-json_2.10-1.2.3.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/msv-20081113_orbeon_20081209.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/msv-isorelax-20070407.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/msv-relaxngDatatype-20070407.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/msv-xsdlib-20070407_orbeon_20120712.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/saxon-9-1-0-8_orbeon_20130503-src.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/scala-library-src-2.10.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/scalatest_2.9.0-2.0.M5b-sources.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/xerces-resolver-2.11.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/xerces-serializer-2.11.jar:/home/travis/build/orbeon/orbeon-forms/lib/src/xerces-xercesImpl-2.11.jar:/home/travis/build/orbeon/orbeon-forms/lib/tagsoup-1.2.jar:/home/travis/build/orbeon/orbeon-forms/lib/tomcat-5_5-naming-factory-dbcp.jar:/home/travis/build/orbeon/orbeon-forms/lib/typesafe-config-2.10.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/tyrex-1.0.jar:/home/travis/build/orbeon/orbeon-forms/lib/xerces-2.11-orbeon.jar:/home/travis/build/orbeon/orbeon-forms/lib/xqj2-0.0.1.jar:/home/travis/build/orbeon/orbeon-forms/lib/xqjapi.jar:/home/travis/build/orbeon/orbeon-forms/lib/xsu12.jar:/home/travis/build/orbeon/orbeon-forms/lib/yui-compressor-ant-task-0.5.jar:/home/travis/build/orbeon/orbeon-forms/lib/yuicompressor-2.4.7.jar
+   [scalac] 
+   [scalac]   last tree to typer: Literal(Constant(AssertionError))
+   [scalac]               symbol: null
+   [scalac]    symbol definition: null
+   [scalac]                  tpe: Class(classOf[java.lang.AssertionError])
+   [scalac]        symbol owners: 
+   [scalac]       context owners: anonymous class anonfun$implicitStringToQName$1 -> package scaxon
+   [scalac] 
+   [scalac] == Enclosing template or block ==
+   [scalac] 
+   [scalac] Template( // val <local $anonfun>: <notype>, tree.tpe=org.orbeon.scaxon.anonfun$implicitStringToQName$1
+   [scalac]   "scala.runtime.AbstractFunction0", "scala.Serializable" // parents
+   [scalac]   ValDef(
+   [scalac]     private
+   [scalac]     "_"
+   [scalac]     <tpt>
+   [scalac]     <empty>
+   [scalac]   )
+   [scalac]   // 3 statements
+   [scalac]   DefDef( // final def apply(): org.orbeon.saxon.om.NodeInfo
+   [scalac]     <method> final <triedcooking>
+   [scalac]     "apply"
+   [scalac]     []
+   [scalac]     List(Nil)
+   [scalac]     <tpt> // tree.tpe=org.orbeon.saxon.om.NodeInfo
+   [scalac]     Apply( // def attributeInfo(name: org.dom4j.QName,value: String): org.orbeon.saxon.om.NodeInfo in object XML, tree.tpe=org.orbeon.saxon.om.NodeInfo
+   [scalac]       "org"."orbeon"."scaxon"."XML"."attributeInfo" // def attributeInfo(name: org.dom4j.QName,value: String): org.orbeon.saxon.om.NodeInfo in object XML, tree.tpe=(name: org.dom4j.QName, value: String)org.orbeon.saxon.om.NodeInfo
+   [scalac]       // 2 arguments
+   [scalac]       Apply( // implicit def stringToQName(s: String): org.dom4j.QName in object XML, tree.tpe=org.dom4j.QName
+   [scalac]         "org"."orbeon"."scaxon"."XML"."stringToQName" // implicit def stringToQName(s: String): org.dom4j.QName in object XML, tree.tpe=(s: String)org.dom4j.QName
+   [scalac]         "foo:bar"
+   [scalac]       )
+   [scalac]       ""
+   [scalac]     )
+   [scalac]   )
+   [scalac]   DefDef( // final def apply(): Object
+   [scalac]     <method> final <bridge>
+   [scalac]     "apply"
+   [scalac]     []
+   [scalac]     List(Nil)
+   [scalac]     <tpt> // tree.tpe=Object
+   [scalac]     Apply( // final def apply(): org.orbeon.saxon.om.NodeInfo, tree.tpe=org.orbeon.saxon.om.NodeInfo
+   [scalac]       XMLTest$$anonfun$implicitStringToQName$1.this."apply" // final def apply(): org.orbeon.saxon.om.NodeInfo, tree.tpe=()org.orbeon.saxon.om.NodeInfo
+   [scalac]       Nil
+   [scalac]     )
+   [scalac]   )
+   [scalac]   DefDef( // def <init>(arg$outer: org.orbeon.scaxon.XMLTest): org.orbeon.scaxon.anonfun$implicitStringToQName$1
+   [scalac]     <method> <triedcooking>
+   [scalac]     "<init>"
+   [scalac]     []
+   [scalac]     // 1 parameter list
+   [scalac]     ValDef( // $outer: org.orbeon.scaxon.XMLTest
+   [scalac]       <param>
+   [scalac]       "$outer"
+   [scalac]       <tpt> // tree.tpe=org.orbeon.scaxon.XMLTest
+   [scalac]       <empty>
+   [scalac]     )
+   [scalac]     <tpt> // tree.tpe=org.orbeon.scaxon.anonfun$implicitStringToQName$1
+   [scalac]     Block( // tree.tpe=Unit
+   [scalac]       Apply( // def <init>(): scala.runtime.AbstractFunction0 in class AbstractFunction0, tree.tpe=scala.runtime.AbstractFunction0
+   [scalac]         XMLTest$$anonfun$implicitStringToQName$1.super."<init>" // def <init>(): scala.runtime.AbstractFunction0 in class AbstractFunction0, tree.tpe=()scala.runtime.AbstractFunction0
+   [scalac]         Nil
+   [scalac]       )
+   [scalac]       ()
+   [scalac]     )
+   [scalac]   )
+   [scalac] )
+   [scalac] 
+   [scalac] == Expanded type of tree ==
+   [scalac] 
+   [scalac] ConstantType(value = Constant(AssertionError))
+   [scalac] 
+   [scalac] uncaught exception during compilation: java.io.IOException
+   [scalac] error: File name too long
+   [scalac] two errors found
+
+BUILD FAILED
+/home/travis/build/orbeon/orbeon-forms/build.xml:378: Compilation failed because of an internal compiler error; see the error output for details.
+
+Total time: 2 minutes 48 seconds
+
+travis_time:end:108c17f1:start=1479355182177479986,finish=1479355350939702368,duration=168762222382[0K
+[31;1mThe command "ant test" exited with 1.[0m
+
+Done. Your build exited with 1.

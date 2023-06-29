@@ -1,40 +1,56 @@
 import pprint
 
-from .dispatcher import Dispatcher
+from .gha_dispatcher import GHADispatcher
 from .result_comparer import ResultComparer
+from .travis_dispatcher import TravisDispatcher
 
 LOAD_JSON = 1
 
 
 class Analyzer(object):
     def __init__(self):
-        self.dispatcher = Dispatcher()
+        self.travis_dispatcher = TravisDispatcher()
+        self.gha_dispatcher = GHADispatcher()
         self.comparer = ResultComparer()
 
-    def analyze_single_log(self, log_path, job_id, build_system=None, trigger_sha=None, repo=None, print_result=False,
-                           mining=True):
+    def analyze_single_log(self, log_path, job_id, ci_service, build_system=None,
+                           trigger_sha=None, repo=None, print_result=False, mining=True):
         """
         When mining is True and build_system is None, Analyzer will get build system from Travis and GitHub API.
         Otherwise, Analyzer will get build_system from BugSwarm API.
         """
         if not mining and not build_system:
             # Not in mining mode, and we don't have build_system.
-            build_system = self.dispatcher.get_build_system_from_bugswarm_database(job_id)
+            build_system = self.travis_dispatcher.get_build_system_from_bugswarm_database(job_id)
 
-        result = self.dispatcher.analyze(log_path, job_id, build_system, trigger_sha, repo)
+        if ci_service == 'github':
+            dispatcher = self.gha_dispatcher
+        elif ci_service == 'travis':
+            dispatcher = self.travis_dispatcher
+        else:
+            raise ValueError('`ci_service` must be one of "travis" or "github".')
+
+        result = dispatcher.analyze(log_path, job_id, build_system, trigger_sha, repo)
         if print_result:
             pprint.pprint(result)
 
         return result
 
-    def compare_single_log(self, reproduced, orig, job_id, build_system=None, trigger_sha=None, repo=None,
-                           print_result=False, mining=True):
+    def compare_single_log(self, reproduced, orig, job_id, ci_service, build_system=None,
+                           trigger_sha=None, repo=None, print_result=False, mining=True):
         if not mining and not build_system:
             # Not in mining mode, and we don't have build_system.
-            build_system = self.dispatcher.get_build_system_from_bugswarm_database(job_id)
+            build_system = self.travis_dispatcher.get_build_system_from_bugswarm_database(job_id)
 
-        reproduced_result = self.dispatcher.analyze(reproduced, job_id, build_system, trigger_sha, repo)
-        original_result = self.dispatcher.analyze(orig, job_id, build_system, trigger_sha, repo)
+        if ci_service == 'github':
+            dispatcher = self.gha_dispatcher
+        elif ci_service == 'travis':
+            dispatcher = self.travis_dispatcher
+        else:
+            raise ValueError('`ci_service` must be one of "travis" or "github".')
+
+        reproduced_result = dispatcher.analyze(reproduced, job_id, build_system, trigger_sha, repo)
+        original_result = dispatcher.analyze(orig, job_id, build_system, trigger_sha, repo)
         match, mismatched_attributes = ResultComparer.compare_attributes(reproduced_result, original_result)
         if print_result:
             pprint.pprint(match)
@@ -49,9 +65,9 @@ class Analyzer(object):
 
         if not mining and not build_system:
             # Not in mining mode, and we don't have build_system.
-            build_system = self.dispatcher.get_build_system_from_bugswarm_database(job_id)
+            build_system = self.travis_dispatcher.get_build_system_from_bugswarm_database(job_id)
 
-        result = self.dispatcher.analyze(orig, job_id, build_system, trigger_sha, repo, 1)
+        result = self.travis_dispatcher.analyze(orig, job_id, build_system, trigger_sha, repo, 1)
         if print_result:
             pprint.pprint(result)
 

@@ -1,0 +1,814 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd pedrovgs/Renderers
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:install[0Ktravis_time:start:146a80af[0K$ mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-101-generic", arch: "amd64", family: "unix"
+[INFO] Scanning for projects...
+[INFO] Downloading: http://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom
+[INFO] Downloaded: http://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom (5 KB at 21.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/jayway/maven/plugins/android/generation2/android-maven-plugin/3.8.0/android-maven-plugin-3.8.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/jayway/maven/plugins/android/generation2/android-maven-plugin/3.8.0/android-maven-plugin-3.8.0.pom (25 KB at 39.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/simpligility/maven/progressive-organization-pom/1.0.0/progressive-organization-pom-1.0.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/simpligility/maven/progressive-organization-pom/1.0.0/progressive-organization-pom-1.0.0.pom (25 KB at 198.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/common/22.2.1/common-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/common/22.2.1/common-22.2.1.pom (2 KB at 12.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava/13.0.1/guava-13.0.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava/13.0.1/guava-13.0.1.pom (6 KB at 42.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/13.0.1/guava-parent-13.0.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/13.0.1/guava-parent-13.0.1.pom (3 KB at 22.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/22.2.1/dvlib-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/22.2.1/dvlib-22.2.1.pom (2 KB at 11.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/22.2.1/sdk-common-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/22.2.1/sdk-common-22.2.1.pom (2 KB at 12.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/22.2.1/sdklib-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/22.2.1/sdklib-22.2.1.pom (3 KB at 18.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/22.2.1/layoutlib-api-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/22.2.1/layoutlib-api-22.2.1.pom (2 KB at 14.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.pom (2 KB at 13.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.pom (6 KB at 51.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1.1/httpcomponents-client-4.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1.1/httpcomponents-client-4.1.1.pom (12 KB at 96.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1.1/project-4.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1.1/project-4.1.1.pom (17 KB at 135.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.pom (9 KB at 68.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.1/httpcomponents-core-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.1/httpcomponents-core-4.1.pom (9 KB at 76.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom (18 KB at 150.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/5/commons-parent-5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/5/commons-parent-5.pom (16 KB at 142.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/4/apache-4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/4/apache-4.pom (5 KB at 36.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.pom (11 KB at 85.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/11/commons-parent-11.pom (25 KB at 200.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.pom (6 KB at 46.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1/httpcomponents-client-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1/httpcomponents-client-4.1.pom (12 KB at 90.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.0/commons-compress-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.0/commons-compress-1.0.pom (8 KB at 64.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/0.6.3/builder-0.6.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/0.6.3/builder-0.6.3.pom (3 KB at 24.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/0.6.3/builder-model-0.6.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/0.6.3/builder-model-0.6.3.pom (2 KB at 10.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/0.6.3/builder-test-api-0.6.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/0.6.3/builder-test-api-0.6.3.pom (2 KB at 11.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.2.1/ddmlib-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.2.1/ddmlib-22.2.1.pom (2 KB at 16.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/22.2.1/manifest-merger-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/22.2.1/manifest-merger-22.2.1.pom (2 KB at 13.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/kxml2/kxml2/2.3.0/kxml2-2.3.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/kxml2/kxml2/2.3.0/kxml2-2.3.0.pom (274 B at 2.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.pom (2 KB at 12.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.pom (2 KB at 9.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/22.2.1/lint-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/22.2.1/lint-22.2.1.pom (2 KB at 16.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/22.2.1/lint-checks-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/22.2.1/lint-checks-22.2.1.pom (2 KB at 17.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/22.2.1/lint-api-22.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/22.2.1/lint-api-22.2.1.pom (2 KB at 16.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.0/asm-4.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.0/asm-4.0.pom (2 KB at 17.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.0/asm-parent-4.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.0/asm-parent-4.0.pom (6 KB at 47.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/ow2/1.3/ow2-1.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/ow2/1.3/ow2-1.3.pom (10 KB at 82.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.1/lombok-ast-0.2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.1/lombok-ast-0.2.1.pom (2 KB at 18.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.pom (3 KB at 17.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.pom (3 KB at 17.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/3.1.1/maven-artifact-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/3.1.1/maven-artifact-3.1.1.pom (2 KB at 17.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/3.1.1/maven-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/3.1.1/maven-3.1.1.pom (22 KB at 189.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/23/maven-parent-23.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/23/maven-parent-23.pom (32 KB at 267.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/13/apache-13.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/13/apache-13.pom (14 KB at 114.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.pom (4 KB at 26.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.3.1/plexus-3.3.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.3.1/plexus-3.3.1.pom (20 KB at 172.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/17/spice-parent-17.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/17/spice-parent-17.pom (7 KB at 57.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/10/forge-parent-10.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/10/forge-parent-10.pom (14 KB at 117.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.1.1/maven-model-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.1.1/maven-model-3.1.1.pom (5 KB at 33.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/3.1.1/maven-plugin-api-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/3.1.1/maven-plugin-api-3.1.1.pom (4 KB at 29.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.0.0.M5/org.eclipse.sisu.plexus-0.0.0.M5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.0.0.M5/org.eclipse.sisu.plexus-0.0.0.M5.pom (5 KB at 43.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-plexus/0.0.0.M5/sisu-plexus-0.0.0.M5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-plexus/0.0.0.M5/sisu-plexus-0.0.0.M5.pom (13 KB at 117.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.0/cdi-api-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.0/cdi-api-1.0.pom (2 KB at 11.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-api-parent/1.0/weld-api-parent-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-api-parent/1.0/weld-api-parent-1.0.pom (3 KB at 19.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-api-bom/1.0/weld-api-bom-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-api-bom/1.0/weld-api-bom-1.0.pom (8 KB at 63.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-parent/6/weld-parent-6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/jboss/weld/weld-parent/6/weld-parent-6.pom (21 KB at 178.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.pom (1023 B at 9.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom (612 B at 5.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava/10.0.1/guava-10.0.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava/10.0.1/guava-10.0.1.pom (6 KB at 42.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/10.0.1/guava-parent-10.0.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/10.0.1/guava-parent-10.0.1.pom (2 KB at 17.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom (965 B at 8.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/3.1.0/sisu-guice-3.1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/3.1.0/sisu-guice-3.1.0.pom (10 KB at 88.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-parent/3.1.0/guice-parent-3.1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-parent/3.1.0/guice-parent-3.1.0.pom (11 KB at 96.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.pom (363 B at 3.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.0.0.M5/org.eclipse.sisu.inject-0.0.0.M5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.0.0.M5/org.eclipse.sisu.inject-0.0.0.M5.pom (3 KB at 22.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-inject/0.0.0.M5/sisu-inject-0.0.0.M5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/sisu/sisu-inject/0.0.0.M5/sisu-inject-0.0.0.M5.pom (14 KB at 120.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.pom (815 B at 7.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.5.5/plexus-containers-1.5.5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.5.5/plexus-containers-1.5.5.pom (5 KB at 38.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.7/plexus-2.0.7.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/2.0.7/plexus-2.0.7.pom (17 KB at 148.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.4/plexus-classworlds-2.4.pom (4 KB at 33.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom (4 KB at 35.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/16/spice-parent-16.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/16/spice-parent-16.pom (9 KB at 73.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/5/forge-parent-5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/5/forge-parent-5.pom (9 KB at 72.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-compat/3.1.1/maven-compat-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-compat/3.1.1/maven-compat-3.1.1.pom (4 KB at 34.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model-builder/3.1.1/maven-model-builder-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model-builder/3.1.1/maven-model-builder-3.1.1.pom (3 KB at 25.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.pom (2 KB at 9.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3.1/plexus-components-1.3.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3.1/plexus-components-1.3.1.pom (3 KB at 25.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/3.1.1/maven-settings-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/3.1.1/maven-settings-3.1.1.pom (3 KB at 19.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.1.1/maven-core-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.1.1/maven-core-3.1.1.pom (8 KB at 64.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings-builder/3.1.1/maven-settings-builder-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings-builder/3.1.1/maven-settings-builder-3.1.1.pom (3 KB at 24.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.pom (3 KB at 26.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/12/spice-parent-12.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/spice/spice-parent/12/spice-parent-12.pom (7 KB at 59.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/4/forge-parent-4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/forge/forge-parent/4/forge-parent-4.pom (9 KB at 75.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.pom (6 KB at 43.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.11/plexus-1.0.11.pom (9 KB at 80.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.pom (3 KB at 16.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/3.1.1/maven-repository-metadata-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/3.1.1/maven-repository-metadata-3.1.1.pom (3 KB at 18.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.1.1/maven-aether-provider-3.1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.1.1/maven-aether-provider-3.1.1.pom (4 KB at 32.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/0.9.0.M2/aether-api-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/0.9.0.M2/aether-api-0.9.0.M2.pom (2 KB at 15.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether/0.9.0.M2/aether-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether/0.9.0.M2/aether-0.9.0.M2.pom (28 KB at 238.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-spi/0.9.0.M2/aether-spi-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-spi/0.9.0.M2/aether-spi-0.9.0.M2.pom (2 KB at 13.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.pom (2 KB at 18.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/0.9.0.M2/aether-impl-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/0.9.0.M2/aether-impl-0.9.0.M2.pom (4 KB at 27.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.5.1/plexus-classworlds-2.5.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.5.1/plexus-classworlds-2.5.1.pom (5 KB at 43.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.4/wagon-provider-api-2.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.4/wagon-provider-api-2.4.pom (2 KB at 14.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/2.4/wagon-2.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/2.4/wagon-2.4.pom (20 KB at 169.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.8/plexus-utils-3.0.8.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.8/plexus-utils-3.0.8.pom (4 KB at 28.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.2/plexus-3.2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.2/plexus-3.2.pom (19 KB at 164.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.5/maven-archiver-2.5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.5/maven-archiver-2.5.pom (5 KB at 41.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/17/maven-shared-components-17.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/17/maven-shared-components-17.pom (9 KB at 75.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/21/maven-parent-21.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/21/maven-parent-21.pom (26 KB at 234.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/10/apache-10.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/10/apache-10.pom (15 KB at 127.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.0.6/maven-artifact-2.0.6.pom (2 KB at 14.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/2.0.6/maven-2.0.6.pom (9 KB at 74.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/5/maven-parent-5.pom (15 KB at 136.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom (4 KB at 31.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.1/plexus-utils-1.4.1.pom (2 KB at 17.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.0.6/maven-model-2.0.6.pom (3 KB at 26.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.6/maven-core-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/2.0.6/maven-core-2.0.6.pom (7 KB at 56.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.pom (2 KB at 17.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.pom (4 KB at 33.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.0.3/plexus-containers-1.0.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-containers/1.0.3/plexus-containers-1.0.3.pom (492 B at 4.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.4/plexus-1.0.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/1.0.4/plexus-1.0.4.pom (6 KB at 50.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.pom (998 B at 8.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.pom (7 KB at 59.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.pom (4 KB at 28.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.6/maven-plugin-parameter-documenter-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter/2.0.6/maven-plugin-parameter-documenter-2.0.6.pom (2 KB at 17.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.pom (2 KB at 15.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.6/maven-reporting-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting/2.0.6/maven-reporting-2.0.6.pom (2 KB at 12.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.pom (424 B at 3.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-7/doxia-1.0-alpha-7.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/1.0-alpha-7/doxia-1.0-alpha-7.pom (4 KB at 34.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.0.6/maven-profile-2.0.6.pom (2 KB at 16.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.0.6/maven-repository-metadata-2.0.6.pom (2 KB at 16.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.6/maven-error-diagnostics-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.0.6/maven-error-diagnostics-2.0.6.pom (2 KB at 14.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.0.6/maven-project-2.0.6.pom (3 KB at 21.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.0.6/maven-artifact-manager-2.0.6.pom (3 KB at 21.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.0.6/maven-plugin-registry-2.0.6.pom (2 KB at 16.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.pom (3 KB at 18.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/2.0.6/maven-plugin-api-2.0.6.pom (2 KB at 12.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.6/maven-plugin-descriptor-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-descriptor/2.0.6/maven-plugin-descriptor-2.0.6.pom (2 KB at 17.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.pom (7 KB at 55.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.6/maven-monitor-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-monitor/2.0.6/maven-monitor-2.0.6.pom (2 KB at 10.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1/classworlds-1.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1/classworlds-1.1.pom (4 KB at 28.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom (4 KB at 27.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3/plexus-components-1.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3/plexus-components-1.3.pom (3 KB at 24.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.3/plexus-3.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.3/plexus-3.3.pom (20 KB at 154.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.10/plexus-utils-3.0.10.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.10/plexus-utils-3.0.10.pom (4 KB at 27.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom (3 KB at 19.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.2/plexus-components-1.2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.2/plexus-components-1.2.pom (3 KB at 27.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0.pom (4 KB at 35.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.15/plexus-interpolation-1.15.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.15/plexus-interpolation-1.15.pom (1018 B at 8.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.0.1/plexus-3.0.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.0.1/plexus-3.0.1.pom (19 KB at 146.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.pom (165 B at 1.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.pom (9 KB at 77.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.pom (10 KB at 88.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/25/commons-parent-25.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/25/commons-parent-25.pom (48 KB at 417.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/9/apache-9.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/9/apache-9.pom (15 KB at 127.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.1/asm-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.1/asm-4.1.pom (2 KB at 17.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.1/asm-parent-4.1.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.1/asm-parent-4.1.pom (6 KB at 47.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.pom (18 KB at 159.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/17/commons-parent-17.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/17/commons-parent-17.pom (31 KB at 269.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/7/apache-7.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/apache/7/apache-7.pom (15 KB at 125.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-connector-wagon/0.9.0.M2/aether-connector-wagon-0.9.0.M2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-connector-wagon/0.9.0.M2/aether-connector-wagon-0.9.0.M2.pom (4 KB at 35.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0/wagon-provider-api-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0/wagon-provider-api-1.0.pom (2 KB at 16.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0/wagon-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0/wagon-1.0.pom (10 KB at 83.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/20/maven-parent-20.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/20/maven-parent-20.pom (25 KB at 198.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.4.2/plexus-utils-1.4.2.pom (2 KB at 17.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.pom (2 KB at 14.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-parent/1.9/android-screenshot-parent-1.9.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-parent/1.9/android-screenshot-parent-1.9.pom (3 KB at 21.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.0/ddmlib-22.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.0/ddmlib-22.0.pom (2 KB at 15.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/common/22.0/common-22.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/common/22.0/common-22.0.pom (2 KB at 13.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.pom (3 KB at 19.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.pom
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.pom (812 B at 7.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/jayway/maven/plugins/android/generation2/android-maven-plugin/3.8.0/android-maven-plugin-3.8.0.jar
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/common/22.2.1/common-22.2.1.jar
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava/13.0.1/guava-13.0.1.jar
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/22.2.1/dvlib-22.2.1.jar
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/22.2.1/sdk-common-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/jayway/maven/plugins/android/generation2/android-maven-plugin/3.8.0/android-maven-plugin-3.8.0.jar (386 KB at 1663.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/22.2.1/sdklib-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/22.2.1/dvlib-22.2.1.jar (15 KB at 58.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/common/22.2.1/common-22.2.1.jar (69 KB at 233.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/22.2.1/sdk-common-22.2.1.jar (250 KB at 778.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar (177 KB at 395.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar (60 KB at 130.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar (343 KB at 739.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.0/commons-compress-1.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/22.2.1/sdklib-22.2.1.jar (584 KB at 1213.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/0.6.3/builder-0.6.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava/13.0.1/guava-13.0.1.jar (1847 KB at 3309.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/0.6.3/builder-model-0.6.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.jar (57 KB at 100.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/0.6.3/builder-test-api-0.6.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar (27 KB at 46.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/0.6.3/builder-0.6.3.jar (119 KB at 126.6 KB/sec)
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.0/commons-compress-1.0.jar (141 KB at 149.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/22.2.1/manifest-merger-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/0.6.3/builder-model-0.6.3.jar (8 KB at 7.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/0.6.3/builder-test-api-0.6.3.jar (4 KB at 3.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.2.1/ddmlib-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar (572 KB at 549.5 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/22.2.1/layoutlib-api-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/22.2.1/manifest-merger-22.2.1.jar (37 KB at 34.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/22.2.1/lint-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar (43 KB at 38.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/22.2.1/lint-api-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/22.2.1/ddmlib-22.2.1.jar (253 KB at 221.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.1/lombok-ast-0.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/22.2.1/layoutlib-api-22.2.1.jar (70 KB at 60.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/22.2.1/lint-22.2.1.jar (70 KB at 59.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/22.2.1/lint-checks-22.2.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/22.2.1/lint-api-22.2.1.jar (145 KB at 117.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar (22 KB at 16.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.0/cdi-api-1.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar (2264 KB at 1712.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar (20 KB at 14.3 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/22.2.1/lint-checks-22.2.1.jar (453 KB at 330.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/3.1.0/sisu-guice-3.1.0-no_aop.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.0/cdi-api-1.0.jar (44 KB at 31.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.1/lombok-ast-0.2.1.jar (1036 KB at 742.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.0.0.M5/org.eclipse.sisu.inject-0.0.0.M5.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar (6 KB at 4.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar (3 KB at 1.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar (5 KB at 2.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/3.1.0/sisu-guice-3.1.0-no_aop.jar (350 KB at 229.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.0.0.M5/org.eclipse.sisu.inject-0.0.0.M5.jar (285 KB at 186.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.5/maven-archiver-2.5.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.jar (61 KB at 39.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar (5 KB at 2.6 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar (28 KB at 17.4 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar (14 KB at 8.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/2.5/maven-archiver-2.5.jar (22 KB at 12.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.jar (419 KB at 249.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar (183 KB at 106.2 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/junit/junit/3.8.1/junit-3.8.1.jar (119 KB at 68.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.1/asm-4.1.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar (57 KB at 32.0 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.jar (234 KB at 130.8 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.jar (293 KB at 159.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-connector-wagon/0.9.0.M2/aether-connector-wagon-0.9.0.M2.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/4.1/asm-4.1.jar (47 KB at 25.1 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar (181 KB at 97.7 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar (131 KB at 68.2 KB/sec)
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar (278 KB at 144.9 KB/sec)
+[INFO] Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.jar
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-connector-wagon/0.9.0.M2/aether-connector-wagon-0.9.0.M2.jar (34 KB at 17.1 KB/sec)
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.jar (15 KB at 7.2 KB/sec)
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.jar (20 KB at 10.1 KB/sec)
+[INFO] Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.jar (4 KB at 1.6 KB/sec)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] RENDERERS - PARENT
+[INFO] RENDERERS - LIBRARY
+[INFO] RENDERERS - SAMPLE
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building RENDERERS - PARENT 1.0.10-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] RENDERERS - PARENT ................................. SKIPPED
+[INFO] RENDERERS - LIBRARY ................................ SKIPPED
+[INFO] RENDERERS - SAMPLE ................................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 24.964 s
+[INFO] Finished at: 2016-11-15T18:44:18+00:00
+Exception in thread "pool-2-thread-1" [INFO] Final Memory: 11M/26M
+[INFO] ------------------------------------------------------------------------
+java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)---------------------------------------------------
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+
+constituent[0]: file:/usr/local/maven/lib/aether-connector-basic-1.0.0.v20140518.jar
+constituent[1]: file:/usr/local/maven/lib/plexus-sec-dispatcher-1.3.jar
+constituent[2]: file:/usr/local/maven/lib/plexus-component-annotations-1.5.5.jar
+constituent[3]: file:/usr/local/maven/lib/jsr250-api-1.0.jar
+constituent[4]: file:/usr/local/maven/lib/maven-settings-builder-3.2.5.jar
+constituent[5]: file:/usr/local/maven/lib/aether-api-1.0.0.v20140518.jar
+constituent[6]: file:/usr/local/maven/lib/maven-settings-3.2.5.jar
+constituent[7]: file:/usr/local/maven/lib/maven-plugin-api-3.2.5.jar
+constituent[8]: file:/usr/local/maven/lib/commons-cli-1.2.jar
+constituent[9]: file:/usr/local/maven/lib/slf4j-api-1.7.5.jar
+constituent[10]: file:/usr/local/maven/lib/wagon-file-2.8.jar
+constituent[11]: file:/usr/local/maven/lib/javax.inject-1.jar
+constituent[12]: file:/usr/local/maven/lib/aether-transport-wagon-1.0.0.v20140518.jar
+constituent[13]: file:/usr/local/maven/lib/maven-compat-3.2.5.jarException in thread "main" 
+constituent[14]: file:/usr/local/maven/lib/maven-embedder-3.2.5.jar
+constituent[15]: file:/usr/local/maven/lib/cdi-api-1.0.jar
+constituent[16]: file:/usr/local/maven/lib/jsoup-1.7.2.jar
+constituent[17]: file:/usr/local/maven/lib/wagon-provider-api-2.8.jar
+constituent[18]: file:/usr/local/maven/lib/plexus-utils-3.0.20.jar
+constituent[19]: file:/usr/local/maven/lib/org.eclipse.sisu.plexus-0.3.0.M1.jar
+constituent[20]: file:/usr/local/maven/lib/slf4j-simple-1.7.5.jar
+constituent[21]: file:/usr/local/maven/lib/plexus-interpolation-1.21.jar
+constituent[22]: file:/usr/local/maven/lib/plexus-cipher-1.7.jar
+constituent[23]: file:/usr/local/maven/lib/maven-aether-provider-3.2.5.jar
+constituent[24]: file:/usr/local/maven/lib/maven-repository-metadata-3.2.5.jar
+constituent[25]: file:/usr/local/maven/lib/commons-lang-2.6.jar
+constituent[26]: file:/usr/local/maven/lib/maven-model-builder-3.2.5.jar
+constituent[27]: file:/usr/local/maven/lib/aether-impl-1.0.0.v20140518.jar
+constituent[28]: file:/usr/local/maven/lib/org.eclipse.sisu.inject-0.3.0.M1.jar
+constituent[29]: file:/usr/local/maven/lib/aether-util-1.0.0.v20140518.jar
+constituent[30]: file:/usr/local/maven/lib/maven-core-3.2.5.jar
+constituent[31]: file:/usr/local/maven/lib/sisu-guice-3.2.3-no_aop.jar
+constituent[32]: file:/usr/local/maven/lib/aether-spi-1.0.0.v20140518.jar
+constituent[33]: file:/usr/local/maven/lib/wagon-http-shared-2.8.jar
+constituent[34]: file:/usr/local/maven/lib/maven-artifact-3.2.5.jar
+constituent[35]: file:/usr/local/maven/lib/wagon-http-2.8-shaded.jar
+constituent[36]: file:/usr/local/maven/lib/commons-io-2.2.jar
+constituent[37]: file:/usr/local/maven/lib/guava-18.0.jar
+constituent[38]: file:/usr/local/maven/lib/aopalliance-1.0.jar
+constituent[39]: file:/usr/local/maven/lib/maven-model-3.2.5.jar
+constituent[40]: file:/usr/local/maven/conf/logging/
+---------------------------------------------------
+java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+
+[31;1mThe command "eval mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V" failed. Retrying, 2 of 3.[0m
+
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-101-generic", arch: "amd64", family: "unix"
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] RENDERERS - PARENT
+[INFO] RENDERERS - LIBRARY
+[INFO] RENDERERS - SAMPLE
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building RENDERERS - PARENT 1.0.10-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] RENDERERS - PARENT ................................. SKIPPED
+[INFO] RENDERERS - LIBRARY ................................ SKIPPED
+[INFO] RENDERERS - SAMPLE ................................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.373 s
+[INFO] Finished at: 2016-11-15T18:44:23+00:00
+Exception in thread "pool-1-thread-1" [INFO] Final Memory: 9M/23M
+[INFO] ------------------------------------------------------------------------
+java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+---------------------------------------------------
+constituent[0]: file:/usr/local/maven/lib/aether-connector-basic-1.0.0.v20140518.jar
+constituent[1]: file:/usr/local/maven/lib/plexus-sec-dispatcher-1.3.jar
+constituent[2]: file:/usr/local/maven/lib/plexus-component-annotations-1.5.5.jar
+constituent[3]: file:/usr/local/maven/lib/jsr250-api-1.0.jar
+constituent[4]: file:/usr/local/maven/lib/maven-settings-builder-3.2.5.jar
+constituent[5]: file:/usr/local/maven/lib/aether-api-1.0.0.v20140518.jar
+constituent[6]: file:/usr/local/maven/lib/maven-settings-3.2.5.jar
+constituent[7]: file:/usr/local/maven/lib/maven-plugin-api-3.2.5.jar
+constituent[8]: file:/usr/local/maven/lib/commons-cli-1.2.jar
+constituent[9]: file:/usr/local/maven/lib/slf4j-api-1.7.5.jar
+constituent[10]: file:/usr/local/maven/lib/wagon-file-2.8.jar
+constituent[11]: file:/usr/local/maven/lib/javax.inject-1.jar
+constituent[12]: file:/usr/local/maven/lib/aether-transport-wagon-1.0.0.v20140518.jar
+constituent[13]: file:/usr/local/maven/lib/maven-compat-3.2.5.jar
+constituent[14]: file:/usr/local/maven/lib/maven-embedder-3.2.5.jar
+constituent[15]: file:/usr/local/maven/lib/cdi-api-1.0.jar
+constituent[16]: file:/usr/local/maven/lib/jsoup-1.7.2.jar
+constituent[17]: file:/usr/local/maven/lib/wagon-provider-api-2.8.jar
+constituent[18]: file:/usr/local/maven/lib/plexus-utils-3.0.20.jar
+constituent[19]: file:/usr/local/maven/lib/org.eclipse.sisu.plexus-0.3.0.M1.jar
+constituent[20]: file:/usr/local/maven/lib/slf4j-simple-1.7.5.jar
+constituent[21]: file:/usr/local/maven/lib/plexus-interpolation-1.21.jar
+constituent[22]: file:/usr/local/maven/lib/plexus-cipher-1.7.jar
+constituent[23]: file:/usr/local/maven/lib/maven-aether-provider-3.2.5.jar
+constituent[24]: file:/usr/local/maven/lib/maven-repository-metadata-3.2.5.jar
+constituent[25]: file:/usr/local/maven/lib/commons-lang-2.6.jar
+constituent[26]: file:/usr/local/maven/lib/maven-model-builder-3.2.5.jar
+constituent[27]: file:/usr/local/maven/lib/aether-impl-1.0.0.v20140518.jar
+constituent[28]: file:/usr/local/maven/lib/org.eclipse.sisu.inject-0.3.0.M1.jar
+constituent[29]: file:/usr/local/maven/lib/aether-util-1.0.0.v20140518.jar
+constituent[30]: file:/usr/local/maven/lib/maven-core-3.2.5.jar
+constituent[31]: file:/usr/local/maven/lib/sisu-guice-3.2.3-no_aop.jar
+constituent[32]: file:/usr/local/maven/lib/aether-spi-1.0.0.v20140518.jar
+constituent[33]: file:/usr/local/maven/lib/wagon-http-shared-2.8.jar
+constituent[34]: file:/usr/local/maven/lib/maven-artifact-3.2.5.jar
+constituent[35]: file:/usr/local/maven/lib/wagon-http-2.8-shaded.jar
+constituent[36]: file:/usr/local/maven/lib/commons-io-2.2.jar
+constituent[37]: file:/usr/local/maven/lib/guava-18.0.jar
+constituent[38]: file:/usr/local/maven/lib/aopalliance-1.0.jar
+constituent[39]: file:/usr/local/maven/lib/maven-model-3.2.5.jar
+constituent[40]: file:/usr/local/maven/conf/logging/
+---------------------------------------------------
+Exception in thread "main" java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+
+[31;1mThe command "eval mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V" failed. Retrying, 3 of 3.[0m
+
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-101-generic", arch: "amd64", family: "unix"
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] RENDERERS - PARENT
+[INFO] RENDERERS - LIBRARY
+[INFO] RENDERERS - SAMPLE
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building RENDERERS - PARENT 1.0.10-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] RENDERERS - PARENT ................................. SKIPPED
+[INFO] RENDERERS - LIBRARY ................................ SKIPPED
+[INFO] RENDERERS - SAMPLE ................................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.277 s
+[INFO] Finished at: 2016-11-15T18:44:28+00:00
+Exception in thread "pool-1-thread-1" [INFO] Final Memory: 9M/23M
+[INFO] ------------------------------------------------------------------------
+java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+---------------------------------------------------
+constituent[0]: file:/usr/local/maven/lib/aether-connector-basic-1.0.0.v20140518.jar
+constituent[1]: file:/usr/local/maven/lib/plexus-sec-dispatcher-1.3.jar
+constituent[2]: file:/usr/local/maven/lib/plexus-component-annotations-1.5.5.jar
+constituent[3]: file:/usr/local/maven/lib/jsr250-api-1.0.jar
+constituent[4]: file:/usr/local/maven/lib/maven-settings-builder-3.2.5.jar
+constituent[5]: file:/usr/local/maven/lib/aether-api-1.0.0.v20140518.jar
+constituent[6]: file:/usr/local/maven/lib/maven-settings-3.2.5.jar
+constituent[7]: file:/usr/local/maven/lib/maven-plugin-api-3.2.5.jar
+constituent[8]: file:/usr/local/maven/lib/commons-cli-1.2.jar
+constituent[9]: file:/usr/local/maven/lib/slf4j-api-1.7.5.jar
+constituent[10]: file:/usr/local/maven/lib/wagon-file-2.8.jar
+constituent[11]: file:/usr/local/maven/lib/javax.inject-1.jar
+constituent[12]: file:/usr/local/maven/lib/aether-transport-wagon-1.0.0.v20140518.jar
+constituent[13]: file:/usr/local/maven/lib/maven-compat-3.2.5.jar
+constituent[14]: file:/usr/local/maven/lib/maven-embedder-3.2.5.jar
+constituent[15]: file:/usr/local/maven/lib/cdi-api-1.0.jar
+constituent[16]: file:/usr/local/maven/lib/jsoup-1.7.2.jar
+constituent[17]: file:/usr/local/maven/lib/wagon-provider-api-2.8.jar
+constituent[18]: file:/usr/local/maven/lib/plexus-utils-3.0.20.jar
+constituent[19]: file:/usr/local/maven/lib/org.eclipse.sisu.plexus-0.3.0.M1.jar
+constituent[20]: file:/usr/local/maven/lib/slf4j-simple-1.7.5.jar
+constituent[21]: file:/usr/local/maven/lib/plexus-interpolation-1.21.jar
+constituent[22]: file:/usr/local/maven/lib/plexus-cipher-1.7.jar
+constituent[23]: file:/usr/local/maven/lib/maven-aether-provider-3.2.5.jar
+constituent[24]: file:/usr/local/maven/lib/maven-repository-metadata-3.2.5.jar
+constituent[25]: file:/usr/local/maven/lib/commons-lang-2.6.jar
+constituent[26]: file:/usr/local/maven/lib/maven-model-builder-3.2.5.jar
+constituent[27]: file:/usr/local/maven/lib/aether-impl-1.0.0.v20140518.jar
+constituent[28]: file:/usr/local/maven/lib/org.eclipse.sisu.inject-0.3.0.M1.jar
+constituent[29]: file:/usr/local/maven/lib/aether-util-1.0.0.v20140518.jar
+constituent[30]: file:/usr/local/maven/lib/maven-core-3.2.5.jar
+constituent[31]: file:/usr/local/maven/lib/sisu-guice-3.2.3-no_aop.jar
+constituent[32]: file:/usr/local/maven/lib/aether-spi-1.0.0.v20140518.jar
+constituent[33]: file:/usr/local/maven/lib/wagon-http-shared-2.8.jar
+constituent[34]: file:/usr/local/maven/lib/maven-artifact-3.2.5.jar
+constituent[35]: file:/usr/local/maven/lib/wagon-http-2.8-shaded.jar
+constituent[36]: file:/usr/local/maven/lib/commons-io-2.2.jar
+constituent[37]: file:/usr/local/maven/lib/guava-18.0.jar
+constituent[38]: file:/usr/local/maven/lib/aopalliance-1.0.jar
+constituent[39]: file:/usr/local/maven/lib/maven-model-3.2.5.jar
+constituent[40]: file:/usr/local/maven/conf/logging/
+---------------------------------------------------
+Exception in thread "main" java.lang.NoClassDefFoundError: org/eclipse/aether/spi/connector/Transfer$State
+	at org.eclipse.aether.connector.wagon.WagonRepositoryConnector$GetTask.run(WagonRepositoryConnector.java:608)
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.aether.spi.connector.Transfer$State
+	at org.codehaus.plexus.classworlds.strategy.SelfFirstStrategy.loadClass(SelfFirstStrategy.java:50)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.unsynchronizedLoadClass(ClassRealm.java:271)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:247)
+	at org.codehaus.plexus.classworlds.realm.ClassRealm.loadClass(ClassRealm.java:239)
+	... 5 more
+
+[31;1mThe command "eval mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V" failed 3 times.[0m
+
+
+travis_time:end:146a80af:start=1479235431515276060,finish=1479235469857249960,duration=38341973900[0K
+[31;1mThe command "mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V" failed and exited with 1 during .[0m
+
+Your build has been stopped.

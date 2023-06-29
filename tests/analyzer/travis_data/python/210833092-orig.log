@@ -1,0 +1,977 @@
+travis_fold:start:worker_info
+[0K[33;1mWorker information[0m
+hostname: i-0510913-precise-production-2-worker-org-docker.travisci.net:7d4baabb-6d2d-4120-b57e-ac5fa139b874
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: a01da9a:travis:python
+startup: 582.161114ms
+travis_fold:end:worker_info
+[0Ktravis_fold:start:system_info
+[0K[33;1mBuild system information[0m
+Build language: python
+Build group: stable
+Build dist: precise
+Build id: 210833087
+Job id: 210833092
+travis-build version: 5e3ef60b0
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID: Ubuntu
+Description:    Ubuntu 12.04.5 LTS
+Release:    12.04
+Codename:   precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info
+[0K
+travis_fold:start:fix.CVE-2015-7547
+[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 259 not upgraded.
+Need to get 8,840 kB of archives.
+After this operation, 14.3 kB disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.15 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.15 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.15 [1,177 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.15 [4,636 kB]
+Fetched 8,840 kB in 0s (30.3 MB/s)
+Preconfiguring packages ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72431 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.15) ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72430 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.15) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.15) ...
+Setting up libc6-dev (2.15-0ubuntu10.15) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547
+[0K[33;1m3.5 is not installed; attempting download[0m
+[33;1mDownloading archive: https://s3.amazonaws.com/travis-python-archives/binaries/ubuntu/12.04/x86_64/python-3.5.tar.bz2[0m
+$ sudo tar xjf python-3.5.tar.bz2 --directory /
+travis_fold:start:git.checkout
+[0Ktravis_time:start:070c47e7
+[0K$ git clone --depth=50 --branch=0.8-rc https://github.com/magmax/python-readchar.git magmax/python-readchar
+Cloning into 'magmax/python-readchar'...
+remote: Counting objects: 305, done.[K
+remote: Compressing objects:   0% (1/134)   [K
+remote: Compressing objects:   1% (2/134)   [K
+remote: Compressing objects:   2% (3/134)   [K
+remote: Compressing objects:   3% (5/134)   [K
+remote: Compressing objects:   4% (6/134)   [K
+remote: Compressing objects:   5% (7/134)   [K
+remote: Compressing objects:   6% (9/134)   [K
+remote: Compressing objects:   7% (10/134)   [K
+remote: Compressing objects:   8% (11/134)   [K
+remote: Compressing objects:   9% (13/134)   [K
+remote: Compressing objects:  10% (14/134)   [K
+remote: Compressing objects:  11% (15/134)   [K
+remote: Compressing objects:  12% (17/134)   [K
+remote: Compressing objects:  13% (18/134)   [K
+remote: Compressing objects:  14% (19/134)   [K
+remote: Compressing objects:  15% (21/134)   [K
+remote: Compressing objects:  16% (22/134)   [K
+remote: Compressing objects:  17% (23/134)   [K
+remote: Compressing objects:  18% (25/134)   [K
+remote: Compressing objects:  19% (26/134)   [K
+remote: Compressing objects:  20% (27/134)   [K
+remote: Compressing objects:  21% (29/134)   [K
+remote: Compressing objects:  22% (30/134)   [K
+remote: Compressing objects:  23% (31/134)   [K
+remote: Compressing objects:  24% (33/134)   [K
+remote: Compressing objects:  25% (34/134)   [K
+remote: Compressing objects:  26% (35/134)   [K
+remote: Compressing objects:  27% (37/134)   [K
+remote: Compressing objects:  28% (38/134)   [K
+remote: Compressing objects:  29% (39/134)   [K
+remote: Compressing objects:  30% (41/134)   [K
+remote: Compressing objects:  31% (42/134)   [K
+remote: Compressing objects:  32% (43/134)   [K
+remote: Compressing objects:  33% (45/134)   [K
+remote: Compressing objects:  34% (46/134)   [K
+remote: Compressing objects:  35% (47/134)   [K
+remote: Compressing objects:  36% (49/134)   [K
+remote: Compressing objects:  37% (50/134)   [K
+remote: Compressing objects:  38% (51/134)   [K
+remote: Compressing objects:  39% (53/134)   [K
+remote: Compressing objects:  40% (54/134)   [K
+remote: Compressing objects:  41% (55/134)   [K
+remote: Compressing objects:  42% (57/134)   [K
+remote: Compressing objects:  43% (58/134)   [K
+remote: Compressing objects:  44% (59/134)   [K
+remote: Compressing objects:  45% (61/134)   [K
+remote: Compressing objects:  46% (62/134)   [K
+remote: Compressing objects:  47% (63/134)   [K
+remote: Compressing objects:  48% (65/134)   [K
+remote: Compressing objects:  49% (66/134)   [K
+remote: Compressing objects:  50% (67/134)   [K
+remote: Compressing objects:  51% (69/134)   [K
+remote: Compressing objects:  52% (70/134)   [K
+remote: Compressing objects:  53% (72/134)   [K
+remote: Compressing objects:  54% (73/134)   [K
+remote: Compressing objects:  55% (74/134)   [K
+remote: Compressing objects:  56% (76/134)   [K
+remote: Compressing objects:  57% (77/134)   [K
+remote: Compressing objects:  58% (78/134)   [K
+remote: Compressing objects:  59% (80/134)   [K
+remote: Compressing objects:  60% (81/134)   [K
+remote: Compressing objects:  61% (82/134)   [K
+remote: Compressing objects:  62% (84/134)   [K
+remote: Compressing objects:  63% (85/134)   [K
+remote: Compressing objects:  64% (86/134)   [K
+remote: Compressing objects:  65% (88/134)   [K
+remote: Compressing objects:  66% (89/134)   [K
+remote: Compressing objects:  67% (90/134)   [K
+remote: Compressing objects:  68% (92/134)   [K
+remote: Compressing objects:  69% (93/134)   [K
+remote: Compressing objects:  70% (94/134)   [K
+remote: Compressing objects:  71% (96/134)   [K
+remote: Compressing objects:  72% (97/134)   [K
+remote: Compressing objects:  73% (98/134)   [K
+remote: Compressing objects:  74% (100/134)   [K
+remote: Compressing objects:  75% (101/134)   [K
+remote: Compressing objects:  76% (102/134)   [K
+remote: Compressing objects:  77% (104/134)   [K
+remote: Compressing objects:  78% (105/134)   [K
+remote: Compressing objects:  79% (106/134)   [K
+remote: Compressing objects:  80% (108/134)   [K
+remote: Compressing objects:  81% (109/134)   [K
+remote: Compressing objects:  82% (110/134)   [K
+remote: Compressing objects:  83% (112/134)   [K
+remote: Compressing objects:  84% (113/134)   [K
+remote: Compressing objects:  85% (114/134)   [K
+remote: Compressing objects:  86% (116/134)   [K
+remote: Compressing objects:  87% (117/134)   [K
+remote: Compressing objects:  88% (118/134)   [K
+remote: Compressing objects:  89% (120/134)   [K
+remote: Compressing objects:  90% (121/134)   [K
+remote: Compressing objects:  91% (122/134)   [K
+remote: Compressing objects:  92% (124/134)   [K
+remote: Compressing objects:  93% (125/134)   [K
+remote: Compressing objects:  94% (126/134)   [K
+remote: Compressing objects:  95% (128/134)   [K
+remote: Compressing objects:  96% (129/134)   [K
+remote: Compressing objects:  97% (130/134)   [K
+remote: Compressing objects:  98% (132/134)   [K
+remote: Compressing objects:  99% (133/134)   [K
+remote: Compressing objects: 100% (134/134)   [K
+remote: Compressing objects: 100% (134/134), done.[K
+Receiving objects:   0% (1/305)   
+Receiving objects:   1% (4/305)   
+Receiving objects:   2% (7/305)   
+Receiving objects:   3% (10/305)   
+Receiving objects:   4% (13/305)   
+Receiving objects:   5% (16/305)   
+Receiving objects:   6% (19/305)   
+Receiving objects:   7% (22/305)   
+remote: Total 305 (delta 174), reused 298 (delta 167), pack-reused 0[K
+Receiving objects:   8% (25/305)   
+Receiving objects:   9% (28/305)   
+Receiving objects:  10% (31/305)   
+Receiving objects:  11% (34/305)   
+Receiving objects:  12% (37/305)   
+Receiving objects:  13% (40/305)   
+Receiving objects:  14% (43/305)   
+Receiving objects:  15% (46/305)   
+Receiving objects:  16% (49/305)   
+Receiving objects:  17% (52/305)   
+Receiving objects:  18% (55/305)   
+Receiving objects:  19% (58/305)   
+Receiving objects:  20% (61/305)   
+Receiving objects:  21% (65/305)   
+Receiving objects:  22% (68/305)   
+Receiving objects:  23% (71/305)   
+Receiving objects:  24% (74/305)   
+Receiving objects:  25% (77/305)   
+Receiving objects:  26% (80/305)   
+Receiving objects:  27% (83/305)   
+Receiving objects:  28% (86/305)   
+Receiving objects:  29% (89/305)   
+Receiving objects:  30% (92/305)   
+Receiving objects:  31% (95/305)   
+Receiving objects:  32% (98/305)   
+Receiving objects:  33% (101/305)   
+Receiving objects:  34% (104/305)   
+Receiving objects:  35% (107/305)   
+Receiving objects:  36% (110/305)   
+Receiving objects:  37% (113/305)   
+Receiving objects:  38% (116/305)   
+Receiving objects:  39% (119/305)   
+Receiving objects:  40% (122/305)   
+Receiving objects:  41% (126/305)   
+Receiving objects:  42% (129/305)   
+Receiving objects:  43% (132/305)   
+Receiving objects:  44% (135/305)   
+Receiving objects:  45% (138/305)   
+Receiving objects:  46% (141/305)   
+Receiving objects:  47% (144/305)   
+Receiving objects:  48% (147/305)   
+Receiving objects:  49% (150/305)   
+Receiving objects:  50% (153/305)   
+Receiving objects:  51% (156/305)   
+Receiving objects:  52% (159/305)   
+Receiving objects:  53% (162/305)   
+Receiving objects:  54% (165/305)   
+Receiving objects:  55% (168/305)   
+Receiving objects:  56% (171/305)   
+Receiving objects:  57% (174/305)   
+Receiving objects:  58% (177/305)   
+Receiving objects:  59% (180/305)   
+Receiving objects:  60% (183/305)   
+Receiving objects:  61% (187/305)   
+Receiving objects:  62% (190/305)   
+Receiving objects:  63% (193/305)   
+Receiving objects:  64% (196/305)   
+Receiving objects:  65% (199/305)   
+Receiving objects:  66% (202/305)   
+Receiving objects:  67% (205/305)   
+Receiving objects:  68% (208/305)   
+Receiving objects:  69% (211/305)   
+Receiving objects:  70% (214/305)   
+Receiving objects:  71% (217/305)   
+Receiving objects:  72% (220/305)   
+Receiving objects:  73% (223/305)   
+Receiving objects:  74% (226/305)   
+Receiving objects:  75% (229/305)   
+Receiving objects:  76% (232/305)   
+Receiving objects:  77% (235/305)   
+Receiving objects:  78% (238/305)   
+Receiving objects:  79% (241/305)   
+Receiving objects:  80% (244/305)   
+Receiving objects:  81% (248/305)   
+Receiving objects:  82% (251/305)   
+Receiving objects:  83% (254/305)   
+Receiving objects:  84% (257/305)   
+Receiving objects:  85% (260/305)   
+Receiving objects:  86% (263/305)   
+Receiving objects:  87% (266/305)   
+Receiving objects:  88% (269/305)   
+Receiving objects:  89% (272/305)   
+Receiving objects:  90% (275/305)   
+Receiving objects:  91% (278/305)   
+Receiving objects:  92% (281/305)   
+Receiving objects:  93% (284/305)   
+Receiving objects:  94% (287/305)   
+Receiving objects:  95% (290/305)   
+Receiving objects:  96% (293/305)   
+Receiving objects:  97% (296/305)   
+Receiving objects:  98% (299/305)   
+Receiving objects:  99% (302/305)   
+Receiving objects: 100% (305/305)   
+Receiving objects: 100% (305/305), 35.45 KiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/174)   
+Resolving deltas:   2% (5/174)   
+Resolving deltas:  10% (19/174)   
+Resolving deltas:  12% (21/174)   
+Resolving deltas:  20% (35/174)   
+Resolving deltas:  21% (38/174)   
+Resolving deltas:  29% (52/174)   
+Resolving deltas:  32% (56/174)   
+Resolving deltas:  37% (65/174)   
+Resolving deltas:  39% (69/174)   
+Resolving deltas:  43% (76/174)   
+Resolving deltas:  45% (79/174)   
+Resolving deltas:  51% (90/174)   
+Resolving deltas:  62% (109/174)   
+Resolving deltas:  70% (122/174)   
+Resolving deltas:  72% (126/174)   
+Resolving deltas:  77% (134/174)   
+Resolving deltas:  78% (137/174)   
+Resolving deltas:  80% (140/174)   
+Resolving deltas:  83% (145/174)   
+Resolving deltas:  90% (157/174)   
+Resolving deltas:  92% (161/174)   
+Resolving deltas:  93% (163/174)   
+Resolving deltas:  94% (164/174)   
+Resolving deltas:  95% (166/174)   
+Resolving deltas:  97% (169/174)   
+Resolving deltas:  98% (171/174)   
+Resolving deltas: 100% (174/174)   
+Resolving deltas: 100% (174/174), done.
+Checking connectivity... done.
+
+travis_time:end:070c47e7:start=1489469065667086397,finish=1489469066063446448,duration=396360051
+[0K$ cd magmax/python-readchar
+$ git checkout -qf 8b1a809158dd44a18f5a243419d1d8b505d48375
+travis_fold:end:git.checkout
+[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export TMODE=test
+
+travis_time:start:1127691a
+[0K$ source ~/virtualenv/python3.5/bin/activate
+
+travis_time:end:1127691a:start=1489469072628782349,finish=1489469072634290039,duration=5507690
+[0K$ python --version
+Python 3.5.2
+$ pip --version
+pip 9.0.1 from /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (python 3.5)
+travis_fold:start:install.1
+[0Ktravis_time:start:00d33bf0
+[0K$ if [[ $TMODE == 'test' ]]; then pip install pytest; fi
+Requirement already satisfied: pytest in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
+Requirement already satisfied: py>=1.4.29 in /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages (from pytest)
+
+travis_time:end:00d33bf0:start=1489469073143009131,finish=1489469073699178613,duration=556169482
+[0Ktravis_fold:end:install.1
+[0Ktravis_fold:start:install.2
+[0Ktravis_time:start:36bf7fc2
+[0K$ if [[ $TMODE == 'test' ]]; then python setup.py install; fi
+zip_safe flag not set; analyzing archive contents...
+
+Installed /tmp/easy_install-m_wd4a6o/flake8-3.3.0/.eggs/pytest_runner-2.11.1-py3.5.egg
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+no previously-included directories found matching 'docs/build/'
+zip_safe flag not set; analyzing archive contents...
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/flake8-3.3.0-py3.5.egg
+Searching for mccabe<0.7.0,>=0.6.0
+Reading https://pypi.python.org/simple/mccabe/
+Downloading https://pypi.python.org/packages/06/18/fa675aa501e11d6d6ca0ae73a101b2f3571a565e0f7d38e062eec18a91ee/mccabe-0.6.1.tar.gz#md5=723df2f7b1737b8887475bac4c763e1e
+Best match: mccabe 0.6.1
+Processing mccabe-0.6.1.tar.gz
+Writing /tmp/easy_install-auc1ydnr/mccabe-0.6.1/setup.cfg
+Running mccabe-0.6.1/setup.py -q bdist_egg --dist-dir /tmp/easy_install-auc1ydnr/mccabe-0.6.1/egg-dist-tmp-8then5qp
+zip_safe flag not set; analyzing archive contents...
+
+Installed /tmp/easy_install-auc1ydnr/mccabe-0.6.1/.eggs/pytest_runner-2.11.1-py3.5.egg
+creating /home/travis/build/magmax/python-readchar/.eggs/mccabe-0.6.1-py3.5.egg
+Extracting mccabe-0.6.1-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/mccabe-0.6.1-py3.5.egg
+Searching for pycodestyle<2.4.0,>=2.0.0
+Reading https://pypi.python.org/simple/pycodestyle/
+Downloading https://pypi.python.org/packages/e1/88/0e2cbf412bd849ea6f1af1f97882add46a374f4ba1d2aea39353609150ad/pycodestyle-2.3.1.tar.gz#md5=240e342756af30cae0983b16303a2055
+Best match: pycodestyle 2.3.1
+Processing pycodestyle-2.3.1.tar.gz
+Writing /tmp/easy_install-uzyt8z9m/pycodestyle-2.3.1/setup.cfg
+Running pycodestyle-2.3.1/setup.py -q bdist_egg --dist-dir /tmp/easy_install-uzyt8z9m/pycodestyle-2.3.1/egg-dist-tmp-hbuh9o5s
+warning: no previously-included files matching '*.pyc' found under directory 'docs'
+warning: no previously-included files matching '*.pyo' found under directory 'docs'
+warning: no previously-included files matching '*.pyc' found under directory 'testsuite'
+warning: no previously-included files matching '*.pyo' found under directory 'testsuite'
+no previously-included directories found matching 'docs/_build'
+creating /home/travis/build/magmax/python-readchar/.eggs/pycodestyle-2.3.1-py3.5.egg
+Extracting pycodestyle-2.3.1-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/pycodestyle-2.3.1-py3.5.egg
+Searching for pyflakes<1.6.0,>=1.5.0
+Reading https://pypi.python.org/simple/pyflakes/
+Downloading https://pypi.python.org/packages/5b/b7/dcd6ebc826065ca4ccd2406aac4378e1df6eb91124625d45d520219932a1/pyflakes-1.5.0.tar.gz#md5=84a99f05e5409f8196325dda3f5a1b9a
+Best match: pyflakes 1.5.0
+Processing pyflakes-1.5.0.tar.gz
+Writing /tmp/easy_install-mil7oflq/pyflakes-1.5.0/setup.cfg
+Running pyflakes-1.5.0/setup.py -q bdist_egg --dist-dir /tmp/easy_install-mil7oflq/pyflakes-1.5.0/egg-dist-tmp-dh1rg5uz
+zip_safe flag not set; analyzing archive contents...
+pyflakes.test.__pycache__.test_undefined_names.cpython-35: module references __file__
+pyflakes.test.__pycache__.test_undefined_names.cpython-35: module references __path__
+pyflakes.test.__pycache__.test_api.cpython-35: module references __file__
+pyflakes.__pycache__.checker.cpython-35: module references __file__
+pyflakes.__pycache__.checker.cpython-35: module references __path__
+creating /home/travis/build/magmax/python-readchar/.eggs/pyflakes-1.5.0-py3.5.egg
+Extracting pyflakes-1.5.0-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/pyflakes-1.5.0-py3.5.egg
+running install
+running bdist_egg
+running egg_info
+creating readchar.egg-info
+writing dependency_links to readchar.egg-info/dependency_links.txt
+writing readchar.egg-info/PKG-INFO
+writing top-level names to readchar.egg-info/top_level.txt
+writing manifest file 'readchar.egg-info/SOURCES.txt'
+reading manifest file 'readchar.egg-info/SOURCES.txt'
+writing manifest file 'readchar.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib
+creating build/lib/readchar
+copying readchar/__init__.py -> build/lib/readchar
+copying readchar/key.py -> build/lib/readchar
+copying readchar/readchar.py -> build/lib/readchar
+copying readchar/readchar_linux.py -> build/lib/readchar
+copying readchar/readchar_windows.py -> build/lib/readchar
+creating build/lib/tests
+creating build/lib/tests/acceptance
+copying tests/acceptance/__init__.py -> build/lib/tests/acceptance
+creating build/lib/tests/unit
+copying tests/unit/__init__.py -> build/lib/tests/unit
+copying tests/unit/test_key.py -> build/lib/tests/unit
+copying tests/unit/test_readkey.py -> build/lib/tests/unit
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/readchar
+copying build/lib/readchar/__init__.py -> build/bdist.linux-x86_64/egg/readchar
+copying build/lib/readchar/key.py -> build/bdist.linux-x86_64/egg/readchar
+copying build/lib/readchar/readchar.py -> build/bdist.linux-x86_64/egg/readchar
+copying build/lib/readchar/readchar_linux.py -> build/bdist.linux-x86_64/egg/readchar
+copying build/lib/readchar/readchar_windows.py -> build/bdist.linux-x86_64/egg/readchar
+creating build/bdist.linux-x86_64/egg/tests
+creating build/bdist.linux-x86_64/egg/tests/acceptance
+copying build/lib/tests/acceptance/__init__.py -> build/bdist.linux-x86_64/egg/tests/acceptance
+creating build/bdist.linux-x86_64/egg/tests/unit
+copying build/lib/tests/unit/__init__.py -> build/bdist.linux-x86_64/egg/tests/unit
+copying build/lib/tests/unit/test_key.py -> build/bdist.linux-x86_64/egg/tests/unit
+copying build/lib/tests/unit/test_readkey.py -> build/bdist.linux-x86_64/egg/tests/unit
+byte-compiling build/bdist.linux-x86_64/egg/readchar/__init__.py to __init__.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/readchar/key.py to key.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/readchar/readchar.py to readchar.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/readchar/readchar_linux.py to readchar_linux.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/readchar/readchar_windows.py to readchar_windows.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/tests/acceptance/__init__.py to __init__.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/tests/unit/__init__.py to __init__.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/tests/unit/test_key.py to test_key.cpython-35.pyc
+byte-compiling build/bdist.linux-x86_64/egg/tests/unit/test_readkey.py to test_readkey.cpython-35.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+copying readchar.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying readchar.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying readchar.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying readchar.egg-info/not-zip-safe -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying readchar.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+creating dist
+creating 'dist/readchar-1.1.1-py3.5.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+Processing readchar-1.1.1-py3.5.egg
+creating /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/readchar-1.1.1-py3.5.egg
+Extracting readchar-1.1.1-py3.5.egg to /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
+Adding readchar 1.1.1 to easy-install.pth file
+
+Installed /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages/readchar-1.1.1-py3.5.egg
+Processing dependencies for readchar==1.1.1
+Finished processing dependencies for readchar==1.1.1
+
+travis_time:end:36bf7fc2:start=1489469073704111272,finish=1489469078480605308,duration=4776494036
+[0Ktravis_fold:end:install.2
+[0Ktravis_fold:start:install.3
+[0Ktravis_time:start:148b75a6
+[0K$ pip freeze
+mock==2.0.0
+nose==1.3.7
+numpy==1.12.0
+pbr==1.10.0
+py==1.4.32
+pytest==3.0.5
+readchar==1.1.1
+six==1.10.0
+
+travis_time:end:148b75a6:start=1489469078485850589,finish=1489469078908830203,duration=422979614
+[0Ktravis_fold:end:install.3
+[0Ktravis_fold:start:install.4
+[0Ktravis_time:start:0969c28e
+[0K$ ls -lh .eggs || true
+total 148K
+-rw-r--r-- 1 travis travis 142K Mar 14 05:24 flake8-3.3.0-py3.5.egg
+drwxr-xr-x 4 travis travis   55 Mar 14 05:24 mccabe-0.6.1-py3.5.egg
+drwxr-xr-x 4 travis travis   60 Mar 14 05:24 pycodestyle-2.3.1-py3.5.egg
+drwxr-xr-x 4 travis travis   36 Mar 14 05:24 pyflakes-1.5.0-py3.5.egg
+-rw-r--r-- 1 travis travis  211 Mar 14 05:24 README.txt
+
+travis_time:end:0969c28e:start=1489469078913788052,finish=1489469078919950074,duration=6162022
+[0Ktravis_fold:end:install.4
+[0Ktravis_time:start:0a68fad3
+[0K$ python setup.py $TMODE
+running test
+Searching for pytest-cov>=2.3.1
+Reading https://pypi.python.org/simple/pytest-cov/
+Downloading https://pypi.python.org/packages/00/c0/2bfd1fcdb9d407b8ac8185b1cb5ff458105c6b207a9a7f0e13032de9828f/pytest-cov-2.4.0.tar.gz#md5=2fda09677d232acc99ec1b3c5831e33f
+Best match: pytest-cov 2.4.0
+Processing pytest-cov-2.4.0.tar.gz
+Writing /tmp/easy_install-7r3f042y/pytest-cov-2.4.0/setup.cfg
+Running pytest-cov-2.4.0/setup.py -q bdist_egg --dist-dir /tmp/easy_install-7r3f042y/pytest-cov-2.4.0/egg-dist-tmp-lki80u8g
+warning: no files found matching '.isort.cfg'
+warning: no files found matching '.pylintrc'
+warning: no previously-included files matching '*.py[cod]' found anywhere in distribution
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+warning: no previously-included files matching '*.so' found anywhere in distribution
+creating /home/travis/build/magmax/python-readchar/.eggs/pytest_cov-2.4.0-py3.5.egg
+Extracting pytest_cov-2.4.0-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/pytest_cov-2.4.0-py3.5.egg
+Searching for coverage==4.0.3
+Reading https://pypi.python.org/simple/coverage/
+Downloading https://pypi.python.org/packages/b5/bd/bd9a159bc6eb462630bf31aaec401d0157f518c6df94d1cba0de9e3fa578/coverage-4.0.3.zip#md5=649a25c38ed318a481923edd40a76c48
+Best match: coverage 4.0.3
+Processing coverage-4.0.3.zip
+Writing /tmp/easy_install-qhpdfn2n/coverage-4.0.3/setup.cfg
+Running coverage-4.0.3/setup.py -q bdist_egg --dist-dir /tmp/easy_install-qhpdfn2n/coverage-4.0.3/egg-dist-tmp-93t2_dfk
+warning: no previously-included files found matching 'ci/appveyor.token'
+no previously-included directories found matching 'doc/_build'
+no previously-included directories found matching 'tests/eggsrc/build'
+no previously-included directories found matching 'tests/eggsrc/dist'
+no previously-included directories found matching 'tests/eggsrc/*.egg-info'
+warning: no previously-included files matching '*.py[co]' found anywhere in distribution
+creating /home/travis/build/magmax/python-readchar/.eggs/coverage-4.0.3-py3.5-linux-x86_64.egg
+Extracting coverage-4.0.3-py3.5-linux-x86_64.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/coverage-4.0.3-py3.5-linux-x86_64.egg
+Searching for python-coveralls==2.7.0
+Reading https://pypi.python.org/simple/python-coveralls/
+Downloading https://pypi.python.org/packages/e3/90/0eb6eed625a8d89c4d59b5c3fe7a8e3913ecbff42ab07b828097169f638f/python-coveralls-2.7.0.tar.gz#md5=6c87be8e56a86b2edda38e9fbdc03c9e
+Best match: python-coveralls 2.7.0
+Processing python-coveralls-2.7.0.tar.gz
+Writing /tmp/easy_install-stywk9h6/python-coveralls-2.7.0/setup.cfg
+Running python-coveralls-2.7.0/setup.py -q bdist_egg --dist-dir /tmp/easy_install-stywk9h6/python-coveralls-2.7.0/egg-dist-tmp-64tlui_o
+zip_safe flag not set; analyzing archive contents...
+Moving python_coveralls-2.7.0-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/python_coveralls-2.7.0-py3.5.egg
+Searching for pexpect==4.2.1
+Reading https://pypi.python.org/simple/pexpect/
+Downloading https://pypi.python.org/packages/e8/13/d0b0599099d6cd23663043a2a0bb7c61e58c6ba359b2656e6fb000ef5b98/pexpect-4.2.1.tar.gz#md5=3694410001a99dff83f0b500a1ca1c95
+Best match: pexpect 4.2.1
+Processing pexpect-4.2.1.tar.gz
+Writing /tmp/easy_install-5mj602fs/pexpect-4.2.1/setup.cfg
+Running pexpect-4.2.1/setup.py -q bdist_egg --dist-dir /tmp/easy_install-5mj602fs/pexpect-4.2.1/egg-dist-tmp-85460i21
+zip_safe flag not set; analyzing archive contents...
+pexpect.__pycache__.replwrap.cpython-35: module references __file__
+creating /home/travis/build/magmax/python-readchar/.eggs/pexpect-4.2.1-py3.5.egg
+Extracting pexpect-4.2.1-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/pexpect-4.2.1-py3.5.egg
+Searching for doublex>=1.8.2
+Reading https://pypi.python.org/simple/doublex/
+Downloading https://pypi.python.org/packages/1e/cc/49160062bb7c676c0a631d66bb0b864edc32d4e6797e8517141fda6cc12e/doublex-1.8.4.tar.gz#md5=ebd8442cc0f4ceaf8f59990b6a05ca59
+Best match: doublex 1.8.4
+Processing doublex-1.8.4.tar.gz
+Writing /tmp/easy_install-07rtfjee/doublex-1.8.4/setup.cfg
+Running doublex-1.8.4/setup.py -q bdist_egg --dist-dir /tmp/easy_install-07rtfjee/doublex-1.8.4/egg-dist-tmp-w37vjman
+zip_safe flag not set; analyzing archive contents...
+Moving doublex-1.8.4-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/doublex-1.8.4-py3.5.egg
+Searching for sh
+Reading https://pypi.python.org/simple/sh/
+Downloading https://pypi.python.org/packages/7a/78/aa98f6cc3534f3b8d3f919835370f1124bb197c06fb4e16ccdccfb5f087e/sh-1.12.11.tar.gz#md5=de645c2493135427d413eb618778ad94
+Best match: sh 1.12.11
+Processing sh-1.12.11.tar.gz
+Writing /tmp/easy_install-6444yk93/sh-1.12.11/setup.cfg
+Running sh-1.12.11/setup.py -q bdist_egg --dist-dir /tmp/easy_install-6444yk93/sh-1.12.11/egg-dist-tmp-xu09f0wl
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+zip_safe flag not set; analyzing archive contents...
+__pycache__.sh.cpython-35: module references __file__
+__pycache__.sh.cpython-35: module references __path__
+__pycache__.sh.cpython-35: module MAY be using inspect.stack
+creating /home/travis/build/magmax/python-readchar/.eggs/sh-1.12.11-py3.5.egg
+Extracting sh-1.12.11-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/sh-1.12.11-py3.5.egg
+Searching for requests
+Reading https://pypi.python.org/simple/requests/
+Downloading https://pypi.python.org/packages/16/09/37b69de7c924d318e51ece1c4ceb679bf93be9d05973bb30c35babd596e2/requests-2.13.0.tar.gz#md5=921ec6b48f2ddafc8bb6160957baf444
+Best match: requests 2.13.0
+Processing requests-2.13.0.tar.gz
+Writing /tmp/easy_install-j7oqf364/requests-2.13.0/setup.cfg
+Running requests-2.13.0/setup.py -q bdist_egg --dist-dir /tmp/easy_install-j7oqf364/requests-2.13.0/egg-dist-tmp-9c7hvpxn
+warning: no files found matching 'test_requests.py'
+warning: no files found matching 'requirements.txt'
+creating /home/travis/build/magmax/python-readchar/.eggs/requests-2.13.0-py3.5.egg
+Extracting requests-2.13.0-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/requests-2.13.0-py3.5.egg
+Searching for PyYAML
+Reading https://pypi.python.org/simple/PyYAML/
+Downloading https://pypi.python.org/packages/6b/f0/a0250248ea260d55748fff586d89a32afbb22656f4498b08d2636a48d4ec/PyYAML-3.12.zip#md5=aa5e762e79b19bb80dbcf04f82178832
+Best match: PyYAML 3.12
+Processing PyYAML-3.12.zip
+Writing /tmp/easy_install-wfbvnyp8/PyYAML-3.12/setup.cfg
+Running PyYAML-3.12/setup.py -q bdist_egg --dist-dir /tmp/easy_install-wfbvnyp8/PyYAML-3.12/egg-dist-tmp-he3vkn72
+In file included from ext/_yaml.c:271:0:
+ext/_yaml.h:10:0: warning: "PyString_CheckExact" redefined [enabled by default]
+ext/_yaml.c:139:0: note: this is the location of the previous definition
+ext/_yaml.c: In function â€˜__pyx_pf_5_yaml_get_version_stringâ€™:
+ext/_yaml.c:1410:17: warning: assignment discards â€˜constâ€™ qualifier from pointer target type [enabled by default]
+ext/_yaml.c: In function â€˜__pyx_pf_5_yaml_7CParser___init__â€™:
+ext/_yaml.c:2577:5: warning: passing argument 2 of â€˜yaml_parser_set_inputâ€™ from incompatible pointer type [enabled by default]
+/usr/include/yaml.h:1367:1: note: expected â€˜int (*)(void *, unsigned char *, size_t,  size_t *)â€™ but argument is of type â€˜int (*)(void *, char *, size_t,  size_t *)â€™
+ext/_yaml.c:2818:5: warning: pointer targets in passing argument 2 of â€˜yaml_parser_set_input_stringâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:1341:1: note: expected â€˜const unsigned char *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__token_to_objectâ€™:
+ext/_yaml.c:4572:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:4584:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:5444:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:5518:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:5592:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:5604:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:5716:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_DecodeUTF8â€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:1268:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__event_to_objectâ€™:
+ext/_yaml.c:7424:9: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected ï¿½ï¿½ï¿½const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:7436:9: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:7655:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:7749:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:7790:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:7811:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_DecodeUTF8â€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:1268:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:8179:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:8220:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:8449:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:8490:7: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__compose_nodeâ€™:
+ext/_yaml.c:10094:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:10378:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:10434:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:10490:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__compose_scalar_nodeâ€™:
+ext/_yaml.c:11109:3: warning: pointer targets in passing argument 1 of â€˜PyUnicode_DecodeUTF8â€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:1268:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c:11310:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__compose_sequence_nodeâ€™:
+ext/_yaml.c:11841:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_7CParser__compose_mapping_nodeâ€™:
+ext/_yaml.c:12435:5: warning: pointer targets in passing argument 1 of â€˜PyUnicode_FromStringâ€™ differ in signedness [-Wpointer-sign]
+/opt/python/3.5.2/include/python3.5m/unicodeobject.h:718:23: note: expected â€˜const char *â€™ but argument is of type â€˜yaml_char_t *â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_input_handlerâ€™:
+ext/_yaml.c:13141:87: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+ext/_yaml.c: In function â€˜__pyx_pf_5_yaml_8CEmitter___init__â€™:
+ext/_yaml.c:13630:3: warning: passing argument 2 of â€˜yaml_emitter_set_outputâ€™ from incompatible pointer type [enabled by default]
+/usr/include/yaml.h:1829:1: note: expected â€˜int (*)(void *, unsigned char *, size_t)â€™ but argument is of type â€˜int (*)(void *, char *, size_t)â€™
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_8CEmitter__object_to_eventâ€™:
+ext/_yaml.c:15002:44: warning: pointer targets in assignment differ in signedness [-Wpointer-sign]
+ext/_yaml.c:15117:44: warning: pointer targets in assignment differ in signedness [-Wpointer-sign]
+ext/_yaml.c:15454:5: warning: pointer targets in passing argument 2 of â€˜yaml_alias_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:553:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:16169:5: warning: pointer targets in passing argument 2 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:16169:5: warning: pointer targets in passing argument 3 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:16169:5: warning: pointer targets in passing argument 4 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:16603:5: warning: pointer targets in passing argument 2 of â€˜yaml_sequence_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:601:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:16603:5: warning: pointer targets in passing argument 3 of â€˜yaml_sequence_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:601:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:17037:5: warning: pointer targets in passing argument 2 of â€˜yaml_mapping_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:633:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:17037:5: warning: pointer targets in passing argument 3 of â€˜yaml_mapping_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:633:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c: In function â€˜__pyx_pf_5_yaml_8CEmitter_12serializeâ€™:
+ext/_yaml.c:18516:42: warning: pointer targets in assignment differ in signedness [-Wpointer-sign]
+ext/_yaml.c:18631:42: warning: pointer targets in assignment differ in signedness [-Wpointer-sign]
+ext/_yaml.c: In function â€˜__pyx_f_5_yaml_8CEmitter__serialize_nodeâ€™:
+ext/_yaml.c:19491:5: warning: pointer targets in passing argument 2 of â€˜yaml_alias_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:553:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:20240:7: warning: pointer targets in passing argument 2 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:20240:7: warning: pointer targets in passing argument 3 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:20240:7: warning: pointer targets in passing argument 4 of â€˜yaml_scalar_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:578:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:20605:7: warning: pointer targets in passing argument 2 of â€˜yaml_sequence_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:601:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:20605:7: warning: pointer targets in passing argument 3 of â€˜yaml_sequence_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:601:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:21113:7: warning: pointer targets in passing argument 2 of â€˜yaml_mapping_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:633:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+ext/_yaml.c:21113:7: warning: pointer targets in passing argument 3 of â€˜yaml_mapping_start_event_initializeâ€™ differ in signedness [-Wpointer-sign]
+/usr/include/yaml.h:633:1: note: expected â€˜yaml_char_t *â€™ but argument is of type â€˜char *â€™
+zip_safe flag not set; analyzing archive contents...
+__pycache__._yaml.cpython-35: module references __file__
+creating /home/travis/build/magmax/python-readchar/.eggs/PyYAML-3.12-py3.5-linux-x86_64.egg
+Extracting PyYAML-3.12-py3.5-linux-x86_64.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/PyYAML-3.12-py3.5-linux-x86_64.egg
+Searching for ptyprocess>=0.5
+Reading https://pypi.python.org/simple/ptyprocess/
+Downloading https://pypi.python.org/packages/db/d7/b465161910f3d1cef593c5e002bff67e0384898f597f1a7fdc8db4c02bf6/ptyprocess-0.5.1.tar.gz#md5=94e537122914cc9ec9c1eadcd36e73a1
+Best match: ptyprocess 0.5.1
+Processing ptyprocess-0.5.1.tar.gz
+Writing /tmp/easy_install-4ajkg9i7/ptyprocess-0.5.1/setup.cfg
+Running ptyprocess-0.5.1/setup.py -q bdist_egg --dist-dir /tmp/easy_install-4ajkg9i7/ptyprocess-0.5.1/egg-dist-tmp-yepyu23p
+zip_safe flag not set; analyzing archive contents...
+Moving ptyprocess-0.5.1-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/ptyprocess-0.5.1-py3.5.egg
+Searching for PyHamcrest
+Reading https://pypi.python.org/simple/PyHamcrest/
+Downloading https://pypi.python.org/packages/a4/89/a469aad9256aedfbb47a29ec2b2eeb855d9f24a7a4c2ff28bd8d1042ef02/PyHamcrest-1.9.0.tar.gz#md5=8b833a3fa30197455df79424f30c8c3f
+Best match: PyHamcrest 1.9.0
+Processing PyHamcrest-1.9.0.tar.gz
+Writing /tmp/easy_install-o_w2l2w7/PyHamcrest-1.9.0/setup.cfg
+Running PyHamcrest-1.9.0/setup.py -q bdist_egg --dist-dir /tmp/easy_install-o_w2l2w7/PyHamcrest-1.9.0/egg-dist-tmp-i7xlb8fg
+warning: no files found matching 'README.md'
+zip_safe flag not set; analyzing archive contents...
+Moving PyHamcrest-1.9.0-py3.5.egg to /home/travis/build/magmax/python-readchar/.eggs
+
+Installed /home/travis/build/magmax/python-readchar/.eggs/PyHamcrest-1.9.0-py3.5.egg
+running egg_info
+writing top-level names to readchar.egg-info/top_level.txt
+writing dependency_links to readchar.egg-info/dependency_links.txt
+writing readchar.egg-info/PKG-INFO
+reading manifest file 'readchar.egg-info/SOURCES.txt'
+writing manifest file 'readchar.egg-info/SOURCES.txt'
+running build_ext
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.5.2, pytest-3.0.5, py-1.4.32, pluggy-0.4.0
+rootdir: /home/travis/build/magmax/python-readchar, inifile: setup.cfg
+plugins: cov-2.4.0
+[1m
+collecting 0 items[0m[1m
+collecting 4 items[0m[1m
+collecting 4 items[0m[1m
+collecting 11 items[0m[1m
+collecting 11 items[0m[1m
+collected 11 items 
+[0m
+tests/unit/test_key.py ....
+tests/unit/test_readkey.py .FF....
+
+----------- coverage: platform linux, python 3.5.2-final-0 -----------
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+readchar/__init__.py               4      4     0%   1-6
+readchar/key.py                   40     40     0%   2-56
+readchar/readchar.py              21      9    57%   5-18
+readchar/readchar_linux.py        11     11     0%   5-18
+readchar/readchar_windows.py       9      9     0%   5-17
+------------------------------------------------------------
+TOTAL                             85     73    14%   
+
+=========================== short test summary info ============================
+FAIL tests/unit/test_readkey.py::ReadKeyTest::test_page_down
+FAIL tests/unit/test_readkey.py::ReadKeyTest::test_page_up
+
+=================================== FAILURES ===================================
+[31m[1m__________________________ ReadKeyTest.test_page_down __________________________[0m
+
+self = <tests.unit.test_readkey.ReadKeyTest testMethod=test_page_down>
+
+[1m    def test_page_down(self):[0m
+[1m        char = key.PAGE_DOWN[0m
+[1m        getchar_fn = readchar_fn_factory(char + 'foo')[0m
+[1m    [0m
+[1m        result = readkey(getchar_fn)[0m
+[1m    [0m
+[1m>       self.assertEqual(char, result)[0m
+[31m[1mE       AssertionError: '\x1b[6~' != '\x1b[6'[0m
+[31m[1mE       - [6~[0m
+[31m[1mE       ?    -[0m
+[31m[1mE       + [6[0m
+
+[1m[31mtests/unit/test_readkey.py[0m:69: AssertionError
+[31m[1m___________________________ ReadKeyTest.test_page_up ___________________________[0m
+
+self = <tests.unit.test_readkey.ReadKeyTest testMethod=test_page_up>
+
+[1m    def test_page_up(self):[0m
+[1m        char = key.PAGE_UP[0m
+[1m        getchar_fn = readchar_fn_factory(char + 'foo')[0m
+[1m    [0m
+[1m        result = readkey(getchar_fn)[0m
+[1m    [0m
+[1m>       self.assertEqual(char, result)[0m
+[31m[1mE       AssertionError: '\x1b[5~' != '\x1b[5'[0m
+[31m[1mE       - [5~[0m
+[31m[1mE       ?    -[0m
+[31m[1mE       + [5[0m
+
+[1m[31mtests/unit/test_readkey.py[0m:61: AssertionError
+============================ pytest-warning summary ============================
+WC1 None [pytest] section in setup.cfg files is deprecated, use [tool:pytest] instead.
+[31m[1m============ 2 failed, 9 passed, 1 pytest-warnings in 0.28 seconds =============[0m
+
+travis_time:end:0a68fad3:start=1489469078924633417,finish=1489469095581620442,duration=16656987025
+[0K
+[31;1mThe command "python setup.py $TMODE" exited with 1.[0m
+travis_time:start:076336fe
+[0K$ if [[ $TMODE == 'test' ]]; then python setup.py sdist bdist_wheel; fi
+running sdist
+running egg_info
+writing readchar.egg-info/PKG-INFO
+writing top-level names to readchar.egg-info/top_level.txt
+writing dependency_links to readchar.egg-info/dependency_links.txt
+reading manifest file 'readchar.egg-info/SOURCES.txt'
+writing manifest file 'readchar.egg-info/SOURCES.txt'
+running check
+creating readchar-1.1.1
+creating readchar-1.1.1/readchar
+creating readchar-1.1.1/readchar.egg-info
+creating readchar-1.1.1/tests
+creating readchar-1.1.1/tests/acceptance
+creating readchar-1.1.1/tests/unit
+copying files to readchar-1.1.1...
+copying README.rst -> readchar-1.1.1
+copying setup.cfg -> readchar-1.1.1
+copying setup.py -> readchar-1.1.1
+copying readchar/__init__.py -> readchar-1.1.1/readchar
+copying readchar/key.py -> readchar-1.1.1/readchar
+copying readchar/readchar.py -> readchar-1.1.1/readchar
+copying readchar/readchar_linux.py -> readchar-1.1.1/readchar
+copying readchar/readchar_windows.py -> readchar-1.1.1/readchar
+copying readchar.egg-info/PKG-INFO -> readchar-1.1.1/readchar.egg-info
+copying readchar.egg-info/SOURCES.txt -> readchar-1.1.1/readchar.egg-info
+copying readchar.egg-info/dependency_links.txt -> readchar-1.1.1/readchar.egg-info
+copying readchar.egg-info/not-zip-safe -> readchar-1.1.1/readchar.egg-info
+copying readchar.egg-info/top_level.txt -> readchar-1.1.1/readchar.egg-info
+copying tests/acceptance/__init__.py -> readchar-1.1.1/tests/acceptance
+copying tests/unit/__init__.py -> readchar-1.1.1/tests/unit
+copying tests/unit/test_key.py -> readchar-1.1.1/tests/unit
+copying tests/unit/test_readkey.py -> readchar-1.1.1/tests/unit
+Writing readchar-1.1.1/setup.cfg
+Creating tar archive
+removing 'readchar-1.1.1' (and everything under it)
+running bdist_wheel
+running build
+running build_py
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/readchar
+copying build/lib/readchar/__init__.py -> build/bdist.linux-x86_64/wheel/readchar
+copying build/lib/readchar/key.py -> build/bdist.linux-x86_64/wheel/readchar
+copying build/lib/readchar/readchar.py -> build/bdist.linux-x86_64/wheel/readchar
+copying build/lib/readchar/readchar_linux.py -> build/bdist.linux-x86_64/wheel/readchar
+copying build/lib/readchar/readchar_windows.py -> build/bdist.linux-x86_64/wheel/readchar
+creating build/bdist.linux-x86_64/wheel/tests
+creating build/bdist.linux-x86_64/wheel/tests/acceptance
+copying build/lib/tests/acceptance/__init__.py -> build/bdist.linux-x86_64/wheel/tests/acceptance
+creating build/bdist.linux-x86_64/wheel/tests/unit
+copying build/lib/tests/unit/__init__.py -> build/bdist.linux-x86_64/wheel/tests/unit
+copying build/lib/tests/unit/test_key.py -> build/bdist.linux-x86_64/wheel/tests/unit
+copying build/lib/tests/unit/test_readkey.py -> build/bdist.linux-x86_64/wheel/tests/unit
+running install_egg_info
+Copying readchar.egg-info to build/bdist.linux-x86_64/wheel/readchar-1.1.1-py3.5.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/readchar-1.1.1.dist-info/WHEEL
+
+travis_time:end:076336fe:start=1489469095586649786,finish=1489469096258323463,duration=671673677
+[0K
+[32;1mThe command "if [[ $TMODE == 'test' ]]; then python setup.py sdist bdist_wheel; fi" exited with 0.[0m
+
+Done. Your build exited with 1.

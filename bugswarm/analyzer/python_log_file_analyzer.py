@@ -4,10 +4,11 @@ It will report unittest2 and nose as unittest as their outputs are the same.
 """
 import re
 
-from .log_file_analyzer import LogFileAnalyzer
+from .base_log_analyzer import LogAnalyzerABC
+from .utils import get_job_lines
 
 
-class PythonLogFileAnalyzer(LogFileAnalyzer):
+class PythonLogFileAnalyzer(LogAnalyzerABC):
     def init_deep(self):
         self.reactor_lines = []
         self.test_lines = []
@@ -19,6 +20,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
         self.init_deep()
         self.extract_tests()
         self.analyze_tests()
+        super().custom_analyze()
 
     def extract_tests(self):
         test_failures_started = False
@@ -29,7 +31,8 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
 
         # TODO: Possible future improvement: We could even get all executed tests (also the ones which succeed)
         # Do something similar for, e.g., the tox framework?
-        for line in self.folds[self.OUT_OF_FOLD]['content']:
+        lines = get_job_lines(self.folds)
+        for line in lines:
             line = ansi_escape.sub('', line)
             match_obj = re.search(r'Ran .* tests? in ', line)
             if match_obj:
@@ -49,7 +52,7 @@ class PythonLogFileAnalyzer(LogFileAnalyzer):
                 self.tests_failed_lines.append(line)
 
         if not self.test_lines:
-            self.test_lines = map(lambda line: ansi_escape.sub('', line), self.folds[self.OUT_OF_FOLD]['content'])
+            self.test_lines = map(lambda line: ansi_escape.sub('', line), lines)
 
     def setup_python_tests(self):
         if not self.initialized_tests:

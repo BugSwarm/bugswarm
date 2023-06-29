@@ -1,0 +1,128 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd apache/tajo
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export PATH=$PATH:$HOME/local/bin
+
+$ jdk_switcher use openjdk6
+Switching to OpenJDK6 (java-1.6.0-openjdk-amd64), JAVA_HOME will be set to /usr/lib/jvm/java-6-openjdk-amd64
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:329cb0f3[0K$ Installing caching utilities
+
+travis_time:end:329cb0f3:start=1479429883070561041,finish=1479429883274859275,duration=204298234[0Ktravis_time:start:20c026cb[0K
+travis_time:end:20c026cb:start=1479429883291432427,finish=1479429883302510648,duration=11078221[0Ktravis_time:start:098f55d8[0K/home/travis/.casher/bin/casher:63:in `block in fetch': undefined method `[]' for nil:NilClass (NoMethodError)
+	from /home/travis/.casher/bin/casher:62:in `each'
+	from /home/travis/.casher/bin/casher:62:in `fetch'
+	from /home/travis/.casher/bin/casher:52:in `block in run'
+	from /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/timeout.rb:69:in `timeout'
+	from /home/travis/.casher/bin/casher:52:in `run'
+	from /home/travis/.casher/bin/casher:234:in `<main>'
+[32;1mattempting to download cache archive[0m
+
+travis_time:end:098f55d8:start=1479429883314566459,finish=1479429884423673225,duration=1109106766[0Ktravis_time:start:0cc8c82b[0K
+travis_time:end:0cc8c82b:start=1479429884434536105,finish=1479429884441332528,duration=6796423[0Ktravis_time:start:070ce51c[0K[32;1madding /home/travis/.m2 to cache[0m
+[32;1madding /home/travis/local to cache[0m
+
+travis_time:end:070ce51c:start=1479429884449210683,finish=1479429885219424401,duration=770213718[0Ktravis_fold:end:cache.1[0K$ java -Xmx32m -version
+java version "1.6.0_34"
+OpenJDK Runtime Environment (IcedTea6 1.13.6) (6b34-1.13.6-1ubuntu0.12.04.1)
+OpenJDK 64-Bit Server VM (build 23.25-b01, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.6.0_34
+travis_fold:start:install[0Ktravis_time:start:0236521c[0K$ ./dev-support/travis-install-dependencies.sh
++PROTOBUF_VERSION=2.5.0
++INSTALL=/home/travis/local
++'[' '!' -d /home/travis/local ']'
++'[' '!' -f /home/travis/local/bin/protoc ']'
++cd /home/travis/local
++echo 'Fetching protobuf'
+Fetching protobuf
++N=protobuf-2.5.0
++wget -q https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
++tar -xzvf protobuf-2.5.0.tar.gz
+tar (child): protobuf-2.5.0.tar.gz: Cannot open: No such file or directory
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
++rm protobuf-2.5.0.tar.gz
+rm: cannot remove `protobuf-2.5.0.tar.gz': No such file or directory
++echo 'Building protobuf'
++cd protobuf-2.5.0
+Building protobuf
+./dev-support/travis-install-dependencies.sh: line 36: cd: protobuf-2.5.0: No such file or directory
++./configure --with-pic --prefix=/home/travis/local --with-gflags=/home/travis/local
+./dev-support/travis-install-dependencies.sh: line 37: ./configure: No such file or directory
++make -j4 install
+make: *** No rule to make target `install'.  Stop.
+
+travis_time:end:0236521c:start=1479429885932468789,finish=1479429886486574345,duration=554105556[0K
+[31;1mThe command "./dev-support/travis-install-dependencies.sh" failed and exited with 2 during .[0m
+
+Your build has been stopped.

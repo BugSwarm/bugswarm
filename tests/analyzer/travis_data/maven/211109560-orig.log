@@ -1,0 +1,904 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: i-08915b0-precise-production-2-worker-org-docker.travisci.net:c1660acf-d0a9-4439-8ef9-985a7867b06f
+version: v2.5.0 https://github.com/travis-ci/worker/tree/da3a43228dffc0fcca5a46569ca786b22991979f
+instance: 4af119d:travis:java
+startup: 554.771971ms
+travis_fold:end:worker_info[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+Build id: 211109549
+Job id: 211109560
+travis-build version: d3ec3d05b
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+travis_fold:start:fix.CVE-2015-7547[0K$ export DEBIAN_FRONTEND=noninteractive
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libc-bin libc-dev-bin libc6-dev
+Suggested packages:
+  glibc-doc
+The following packages will be upgraded:
+  libc-bin libc-dev-bin libc6 libc6-dev
+4 upgraded, 0 newly installed, 0 to remove and 272 not upgraded.
+Need to get 8,840 kB of archives.
+After this operation, 14.3 kB disk space will be freed.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6-dev amd64 2.15-0ubuntu10.15 [2,943 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-dev-bin amd64 2.15-0ubuntu10.15 [84.7 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc-bin amd64 2.15-0ubuntu10.15 [1,177 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main libc6 amd64 2.15-0ubuntu10.15 [4,636 kB]
+Fetched 8,840 kB in 0s (33.9 MB/s)
+Preconfiguring packages ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.15) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72018 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6 ...
+Setting up libc6 (2.15-0ubuntu10.15) ...
+Setting up libc-dev-bin (2.15-0ubuntu10.15) ...
+Setting up libc6-dev (2.15-0ubuntu10.15) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+travis_fold:end:fix.CVE-2015-7547[0K$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+travis_fold:start:git.checkout[0Ktravis_time:start:044bf722[0K$ git clone --depth=50 https://github.com/checkstyle/checkstyle.git checkstyle/checkstyle
+Cloning into 'checkstyle/checkstyle'...
+remote: Counting objects: 2833, done.[K
+remote: Compressing objects:   0% (1/1913)   [Kremote: Compressing objects:   1% (20/1913)   [Kremote: Compressing objects:   2% (39/1913)   [Kremote: Compressing objects:   3% (58/1913)   [Kremote: Compressing objects:   4% (77/1913)   [Kremote: Compressing objects:   5% (96/1913)   [Kremote: Compressing objects:   6% (115/1913)   [Kremote: Compressing objects:   7% (134/1913)   [Kremote: Compressing objects:   8% (154/1913)   [Kremote: Compressing objects:   9% (173/1913)   [Kremote: Compressing objects:  10% (192/1913)   [Kremote: Compressing objects:  11% (211/1913)   [Kremote: Compressing objects:  12% (230/1913)   [Kremote: Compressing objects:  13% (249/1913)   [Kremote: Compressing objects:  14% (268/1913)   [Kremote: Compressing objects:  15% (287/1913)   [Kremote: Compressing objects:  16% (307/1913)   [Kremote: Compressing objects:  17% (326/1913)   [Kremote: Compressing objects:  18% (345/1913)   [Kremote: Compressing objects:  19% (364/1913)   [Kremote: Compressing objects:  20% (383/1913)   [Kremote: Compressing objects:  21% (402/1913)   [Kremote: Compressing objects:  22% (421/1913)   [Kremote: Compressing objects:  23% (440/1913)   [Kremote: Compressing objects:  24% (460/1913)   [Kremote: Compressing objects:  25% (479/1913)   [Kremote: Compressing objects:  26% (498/1913)   [Kremote: Compressing objects:  27% (517/1913)   [Kremote: Compressing objects:  28% (536/1913)   [Kremote: Compressing objects:  29% (555/1913)   [Kremote: Compressing objects:  30% (574/1913)   [Kremote: Compressing objects:  31% (594/1913)   [Kremote: Compressing objects:  32% (613/1913)   [Kremote: Compressing objects:  33% (632/1913)   [Kremote: Compressing objects:  34% (651/1913)   [Kremote: Compressing objects:  35% (670/1913)   [Kremote: Compressing objects:  36% (689/1913)   [Kremote: Compressing objects:  37% (708/1913)   [Kremote: Compressing objects:  38% (727/1913)   [Kremote: Compressing objects:  39% (747/1913)   [Kremote: Compressing objects:  40% (766/1913)   [Kremote: Compressing objects:  41% (785/1913)   [Kremote: Compressing objects:  42% (804/1913)   [Kremote: Compressing objects:  43% (823/1913)   [Kremote: Compressing objects:  44% (842/1913)   [Kremote: Compressing objects:  45% (861/1913)   [Kremote: Compressing objects:  46% (880/1913)   [Kremote: Compressing objects:  47% (900/1913)   [Kremote: Compressing objects:  48% (919/1913)   [Kremote: Compressing objects:  49% (938/1913)   [Kremote: Compressing objects:  50% (957/1913)   [Kremote: Compressing objects:  51% (976/1913)   [Kremote: Compressing objects:  52% (995/1913)   [Kremote: Compressing objects:  53% (1014/1913)   [Kremote: Compressing objects:  54% (1034/1913)   [Kremote: Compressing objects:  55% (1053/1913)   [Kremote: Compressing objects:  56% (1072/1913)   [Kremote: Compressing objects:  57% (1091/1913)   [Kremote: Compressing objects:  58% (1110/1913)   [Kremote: Compressing objects:  59% (1129/1913)   [Kremote: Compressing objects:  60% (1148/1913)   [Kremote: Compressing objects:  61% (1167/1913)   [Kremote: Compressing objects:  62% (1187/1913)   [Kremote: Compressing objects:  63% (1206/1913)   [Kremote: Compressing objects:  64% (1225/1913)   [Kremote: Compressing objects:  65% (1244/1913)   [Kremote: Compressing objects:  66% (1263/1913)   [Kremote: Compressing objects:  67% (1282/1913)   [Kremote: Compressing objects:  68% (1301/1913)   [Kremote: Compressing objects:  69% (1320/1913)   [Kremote: Compressing objects:  70% (1340/1913)   [Kremote: Compressing objects:  71% (1359/1913)   [Kremote: Compressing objects:  72% (1378/1913)   [Kremote: Compressing objects:  73% (1397/1913)   [Kremote: Compressing objects:  74% (1416/1913)   [Kremote: Compressing objects:  75% (1435/1913)   [Kremote: Compressing objects:  76% (1454/1913)   [Kremote: Compressing objects:  77% (1474/1913)   [Kremote: Compressing objects:  78% (1493/1913)   [Kremote: Compressing objects:  79% (1512/1913)   [Kremote: Compressing objects:  80% (1531/1913)   [Kremote: Compressing objects:  81% (1550/1913)   [Kremote: Compressing objects:  82% (1569/1913)   [Kremote: Compressing objects:  83% (1588/1913)   [Kremote: Compressing objects:  84% (1607/1913)   [Kremote: Compressing objects:  85% (1627/1913)   [Kremote: Compressing objects:  86% (1646/1913)   [Kremote: Compressing objects:  87% (1665/1913)   [Kremote: Compressing objects:  88% (1684/1913)   [Kremote: Compressing objects:  89% (1703/1913)   [Kremote: Compressing objects:  90% (1722/1913)   [Kremote: Compressing objects:  91% (1741/1913)   [Kremote: Compressing objects:  92% (1760/1913)   [Kremote: Compressing objects:  93% (1780/1913)   [Kremote: Compressing objects:  94% (1799/1913)   [Kremote: Compressing objects:  95% (1818/1913)   [Kremote: Compressing objects:  96% (1837/1913)   [Kremote: Compressing objects:  97% (1856/1913)   [Kremote: Compressing objects:  98% (1875/1913)   [Kremote: Compressing objects:  99% (1894/1913)   [Kremote: Compressing objects: 100% (1913/1913)   [Kremote: Compressing objects: 100% (1913/1913), done.[K
+Receiving objects:   0% (1/2833)   Receiving objects:   1% (29/2833)   Receiving objects:   2% (57/2833)   Receiving objects:   3% (85/2833)   Receiving objects:   4% (114/2833)   Receiving objects:   5% (142/2833)   Receiving objects:   6% (170/2833)   Receiving objects:   7% (199/2833)   Receiving objects:   8% (227/2833)   Receiving objects:   9% (255/2833)   Receiving objects:  10% (284/2833)   Receiving objects:  11% (312/2833)   Receiving objects:  12% (340/2833)   Receiving objects:  13% (369/2833)   Receiving objects:  14% (397/2833)   Receiving objects:  15% (425/2833)   Receiving objects:  16% (454/2833)   Receiving objects:  17% (482/2833)   Receiving objects:  18% (510/2833)   Receiving objects:  19% (539/2833)   Receiving objects:  20% (567/2833)   Receiving objects:  21% (595/2833)   Receiving objects:  22% (624/2833)   Receiving objects:  23% (652/2833)   Receiving objects:  24% (680/2833)   Receiving objects:  25% (709/2833)   Receiving objects:  26% (737/2833)   Receiving objects:  27% (765/2833)   Receiving objects:  28% (794/2833)   Receiving objects:  29% (822/2833)   Receiving objects:  30% (850/2833)   Receiving objects:  31% (879/2833)   Receiving objects:  32% (907/2833)   Receiving objects:  33% (935/2833)   Receiving objects:  34% (964/2833)   Receiving objects:  35% (992/2833)   Receiving objects:  36% (1020/2833)   Receiving objects:  37% (1049/2833)   Receiving objects:  38% (1077/2833)   Receiving objects:  39% (1105/2833)   Receiving objects:  40% (1134/2833)   Receiving objects:  41% (1162/2833)   Receiving objects:  42% (1190/2833)   Receiving objects:  43% (1219/2833)   Receiving objects:  44% (1247/2833)   Receiving objects:  45% (1275/2833)   Receiving objects:  46% (1304/2833)   Receiving objects:  47% (1332/2833)   Receiving objects:  48% (1360/2833)   Receiving objects:  49% (1389/2833)   Receiving objects:  50% (1417/2833)   Receiving objects:  51% (1445/2833)   Receiving objects:  52% (1474/2833)   Receiving objects:  53% (1502/2833)   Receiving objects:  54% (1530/2833)   Receiving objects:  55% (1559/2833)   Receiving objects:  56% (1587/2833)   Receiving objects:  57% (1615/2833)   Receiving objects:  58% (1644/2833)   Receiving objects:  59% (1672/2833)   Receiving objects:  60% (1700/2833)   Receiving objects:  61% (1729/2833)   Receiving objects:  62% (1757/2833)   Receiving objects:  63% (1785/2833)   Receiving objects:  64% (1814/2833)   Receiving objects:  65% (1842/2833)   Receiving objects:  66% (1870/2833)   Receiving objects:  67% (1899/2833)   Receiving objects:  68% (1927/2833)   Receiving objects:  69% (1955/2833)   Receiving objects:  70% (1984/2833)   Receiving objects:  71% (2012/2833)   Receiving objects:  72% (2040/2833)   Receiving objects:  73% (2069/2833)   Receiving objects:  74% (2097/2833)   Receiving objects:  75% (2125/2833)   Receiving objects:  76% (2154/2833)   Receiving objects:  77% (2182/2833)   Receiving objects:  78% (2210/2833)   Receiving objects:  79% (2239/2833)   Receiving objects:  80% (2267/2833)   Receiving objects:  81% (2295/2833)   Receiving objects:  82% (2324/2833)   Receiving objects:  83% (2352/2833)   Receiving objects:  84% (2380/2833)   Receiving objects:  85% (2409/2833)   Receiving objects:  86% (2437/2833)   Receiving objects:  87% (2465/2833)   Receiving objects:  88% (2494/2833)   Receiving objects:  89% (2522/2833)   Receiving objects:  90% (2550/2833)   Receiving objects:  91% (2579/2833)   Receiving objects:  92% (2607/2833)   Receiving objects:  93% (2635/2833)   Receiving objects:  94% (2664/2833)   Receiving objects:  95% (2692/2833)   remote: Total 2833 (delta 1100), reused 1623 (delta 661), pack-reused 0[K
+Receiving objects:  96% (2720/2833)   Receiving objects:  97% (2749/2833)   Receiving objects:  98% (2777/2833)   Receiving objects:  99% (2805/2833)   Receiving objects: 100% (2833/2833)   Receiving objects: 100% (2833/2833), 4.16 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/1100)   Resolving deltas:   1% (11/1100)   Resolving deltas:   5% (62/1100)   Resolving deltas:   8% (88/1100)   Resolving deltas:   9% (105/1100)   Resolving deltas:  10% (118/1100)   Resolving deltas:  11% (127/1100)   Resolving deltas:  12% (132/1100)   Resolving deltas:  13% (147/1100)   Resolving deltas:  14% (154/1100)   Resolving deltas:  15% (166/1100)   Resolving deltas:  16% (176/1100)   Resolving deltas:  17% (188/1100)   Resolving deltas:  18% (200/1100)   Resolving deltas:  19% (216/1100)   Resolving deltas:  20% (220/1100)   Resolving deltas:  21% (231/1100)   Resolving deltas:  22% (242/1100)   Resolving deltas:  23% (257/1100)   Resolving deltas:  24% (271/1100)   Resolving deltas:  25% (276/1100)   Resolving deltas:  26% (290/1100)   Resolving deltas:  27% (304/1100)   Resolving deltas:  28% (309/1100)   Resolving deltas:  29% (319/1100)   Resolving deltas:  30% (335/1100)   Resolving deltas:  31% (341/1100)   Resolving deltas:  32% (359/1100)   Resolving deltas:  33% (363/1100)   Resolving deltas:  34% (374/1100)   Resolving deltas:  35% (388/1100)   Resolving deltas:  36% (398/1100)   Resolving deltas:  37% (409/1100)   Resolving deltas:  38% (422/1100)   Resolving deltas:  39% (430/1100)   Resolving deltas:  40% (441/1100)   Resolving deltas:  41% (452/1100)   Resolving deltas:  42% (466/1100)   Resolving deltas:  43% (475/1100)   Resolving deltas:  44% (485/1100)   Resolving deltas:  45% (496/1100)   Resolving deltas:  46% (507/1100)   Resolving deltas:  47% (519/1100)   Resolving deltas:  48% (532/1100)   Resolving deltas:  49% (539/1100)   Resolving deltas:  50% (552/1100)   Resolving deltas:  51% (569/1100)   Resolving deltas:  53% (587/1100)   Resolving deltas:  54% (596/1100)   Resolving deltas:  55% (608/1100)   Resolving deltas:  56% (617/1100)   Resolving deltas:  57% (629/1100)   Resolving deltas:  58% (643/1100)   Resolving deltas:  59% (649/1100)   Resolving deltas:  60% (660/1100)   Resolving deltas:  61% (673/1100)   Resolving deltas:  62% (683/1100)   Resolving deltas:  63% (693/1100)   Resolving deltas:  64% (704/1100)   Resolving deltas:  65% (715/1100)   Resolving deltas:  66% (726/1100)   Resolving deltas:  67% (737/1100)   Resolving deltas:  68% (754/1100)   Resolving deltas:  69% (760/1100)   Resolving deltas:  70% (770/1100)   Resolving deltas:  71% (781/1100)   Resolving deltas:  72% (794/1100)   Resolving deltas:  73% (804/1100)   Resolving deltas:  74% (814/1100)   Resolving deltas:  75% (825/1100)   Resolving deltas:  76% (842/1100)   Resolving deltas:  77% (847/1100)   Resolving deltas:  78% (858/1100)   Resolving deltas:  79% (869/1100)   Resolving deltas:  80% (880/1100)   Resolving deltas:  81% (891/1100)   Resolving deltas:  82% (902/1100)   Resolving deltas:  83% (919/1100)   Resolving deltas:  84% (924/1100)   Resolving deltas:  85% (935/1100)   Resolving deltas:  86% (946/1100)   Resolving deltas:  87% (957/1100)   Resolving deltas:  88% (968/1100)   Resolving deltas:  89% (986/1100)   Resolving deltas:  90% (997/1100)   Resolving deltas:  91% (1007/1100)   Resolving deltas:  92% (1022/1100)   Resolving deltas:  93% (1032/1100)   Resolving deltas:  94% (1035/1100)   Resolving deltas:  95% (1051/1100)   Resolving deltas:  96% (1056/1100)   Resolving deltas:  97% (1069/1100)   Resolving deltas: 100% (1100/1100)   Resolving deltas: 100% (1100/1100), done.
+Checking connectivity... done.
+
+travis_time:end:044bf722:start=1489527821945123956,finish=1489527823203799918,duration=1258675962[0K$ cd checkstyle/checkstyle
+travis_time:start:0dd49b20[0K$ git fetch origin +refs/pull/4008/merge:
+remote: Counting objects: 37, done.[K
+remote: Compressing objects:   8% (1/12)   [Kremote: Compressing objects:  16% (2/12)   [Kremote: Compressing objects:  25% (3/12)   [Kremote: Compressing objects:  33% (4/12)   [Kremote: Compressing objects:  41% (5/12)   [Kremote: Compressing objects:  50% (6/12)   [Kremote: Compressing objects:  58% (7/12)   [Kremote: Compressing objects:  66% (8/12)   [Kremote: Compressing objects:  75% (9/12)   [Kremote: Compressing objects:  83% (10/12)   [Kremote: Compressing objects:  91% (11/12)   [Kremote: Compressing objects: 100% (12/12)   [Kremote: Compressing objects: 100% (12/12), done.[K
+remote: Total 37 (delta 12), reused 30 (delta 9), pack-reused 0[K
+Unpacking objects:   2% (1/37)   Unpacking objects:   5% (2/37)   Unpacking objects:   8% (3/37)   Unpacking objects:  10% (4/37)   Unpacking objects:  13% (5/37)   Unpacking objects:  16% (6/37)   Unpacking objects:  18% (7/37)   Unpacking objects:  21% (8/37)   Unpacking objects:  24% (9/37)   Unpacking objects:  27% (10/37)   Unpacking objects:  29% (11/37)   Unpacking objects:  32% (12/37)   Unpacking objects:  35% (13/37)   Unpacking objects:  37% (14/37)   Unpacking objects:  40% (15/37)   Unpacking objects:  43% (16/37)   Unpacking objects:  45% (17/37)   Unpacking objects:  48% (18/37)   Unpacking objects:  51% (19/37)   Unpacking objects:  54% (20/37)   Unpacking objects:  56% (21/37)   Unpacking objects:  59% (22/37)   Unpacking objects:  62% (23/37)   Unpacking objects:  64% (24/37)   Unpacking objects:  67% (25/37)   Unpacking objects:  70% (26/37)   Unpacking objects:  72% (27/37)   Unpacking objects:  75% (28/37)   Unpacking objects:  78% (29/37)   Unpacking objects:  81% (30/37)   Unpacking objects:  83% (31/37)   Unpacking objects:  86% (32/37)   Unpacking objects:  89% (33/37)   Unpacking objects:  91% (34/37)   Unpacking objects:  94% (35/37)   Unpacking objects:  97% (36/37)   Unpacking objects: 100% (37/37)   Unpacking objects: 100% (37/37), done.
+From https://github.com/checkstyle/checkstyle
+ * branch            refs/pull/4008/merge -> FETCH_HEAD
+
+travis_time:end:0dd49b20:start=1489527823209829376,finish=1489527823643275987,duration=433446611[0K$ git checkout -qf FETCH_HEAD
+travis_fold:end:git.checkout[0Ktravis_fold:start:apt[0K[33;1mInstalling APT Packages (BETA)[0m
+$ export DEBIAN_FRONTEND=noninteractive
+travis_time:start:1ead4248[0K$ sudo -E apt-get -yq update &>> ~/apt-get-update.log
+
+travis_time:end:1ead4248:start=1489527823779648280,finish=1489527828766715966,duration=4987067686[0Ktravis_time:start:2f24d0a4[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install xsltproc xmlstarlet
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  xmlstarlet xsltproc
+0 upgraded, 2 newly installed, 0 to remove and 272 not upgraded.
+Need to get 199 kB of archives.
+After this operation, 596 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu/ precise/main xmlstarlet amd64 1.3.0-1 [184 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ precise-updates/main xsltproc amd64 1.1.26-8ubuntu1.3 [15.1 kB]
+Fetched 199 kB in 0s (2,574 kB/s)
+Selecting previously unselected package xmlstarlet.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 72018 files and directories currently installed.)
+Unpacking xmlstarlet (from .../xmlstarlet_1.3.0-1_amd64.deb) ...
+Selecting previously unselected package xsltproc.
+Unpacking xsltproc (from .../xsltproc_1.1.26-8ubuntu1.3_amd64.deb) ...
+Processing triggers for man-db ...
+Setting up xmlstarlet (1.3.0-1) ...
+Setting up xsltproc (1.1.26-8ubuntu1.3) ...
+
+travis_time:end:2f24d0a4:start=1489527828775767393,finish=1489527835371221050,duration=6595453657[0Ktravis_fold:end:apt[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from repository settings[0m
+$ export READ_ONLY_TOKEN=9ffd28faf1c5d120b63be99b2d585156816e3789
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export DESC="tests es"
+$ export CMD="mvn clean integration-test failsafe:verify -DargLine='-Duser.language=es -Duser.country=ES'"
+
+travis_fold:start:cache.1[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:034fad51[0K$ Installing caching utilities
+
+travis_time:end:034fad51:start=1489527837904663750,finish=1489527837957509025,duration=52845275[0Ktravis_time:start:0aa0d15a[0K
+travis_time:end:0aa0d15a:start=1489527837963280933,finish=1489527837967185306,duration=3904373[0Ktravis_time:start:10bb08d1[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching PR.4008/cache-linux-precise-35835bf9ff2ec7a44505e56ff19c8521abb40b782a84211322b6fc7ae63ee5cd--jdk-oraclejdk8.tgz[0m
+[32;1mfetching PR.4008/cache--jdk-oraclejdk8.tgz[0m
+[32;1mfetching master/cache-linux-precise-35835bf9ff2ec7a44505e56ff19c8521abb40b782a84211322b6fc7ae63ee5cd--jdk-oraclejdk8.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:10bb08d1:start=1489527837971672599,finish=1489527839307890573,duration=1336217974[0Ktravis_time:start:00461699[0K
+travis_time:end:00461699:start=1489527839312833648,finish=1489527839316712335,duration=3878687[0Ktravis_time:start:0eee288f[0K[32;1madding /home/travis/.m2 to cache[0m
+
+travis_time:end:0eee288f:start=1489527839321158256,finish=1489527840983569179,duration=1662410923[0Ktravis_fold:end:cache.1[0K$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:install[0Ktravis_time:start:00499af1[0K$ if [ "${TRAVIS_OS_NAME}" == "osx" ]; then
+    # https://github.com/travis-ci/travis-ci/issues/6307#issuecomment-233315824
+    rvm get head
+  fi
+  
+
+travis_time:end:00499af1:start=1489527841423364415,finish=1489527841427462025,duration=4097610[0Ktravis_fold:end:install[0Ktravis_time:start:22c56b50[0K$ SKIP_FILES=".github|appveyor.yml|circle.yml|distelli-manifest.yml|fast-forward-merge.sh|LICENSE|LICENSE.apache20|README.md|release.sh|RIGHTS.antlr|shippable.yml|wercker.yml"
+
+travis_time:end:22c56b50:start=1489527841432606859,finish=1489527841436548203,duration=3941344[0K
+[32;1mThe command "SKIP_FILES=".github|appveyor.yml|circle.yml|distelli-manifest.yml|fast-forward-merge.sh|LICENSE|LICENSE.apache20|README.md|release.sh|RIGHTS.antlr|shippable.yml|wercker.yml"" exited with 0.[0m
+travis_time:start:084bee90[0K$ SKIP_CI=$(if [[ $(git diff --name-only HEAD HEAD~1 | grep -vE "$SKIP_FILES" | cat | wc -c | sed 's/^ *//' ) > 0 ]]; then echo false; else echo true; fi;)
+
+travis_time:end:084bee90:start=1489527841441757008,finish=1489527841456097963,duration=14340955[0K
+[32;1mThe command "SKIP_CI=$(if [[ $(git diff --name-only HEAD HEAD~1 | grep -vE "$SKIP_FILES" | cat | wc -c | sed 's/^ *//' ) > 0 ]]; then echo false; else echo true; fi;)" exited with 0.[0m
+travis_time:start:1c3a7b10[0K$ echo "SKIP_CI="$SKIP_CI
+SKIP_CI=false
+
+travis_time:end:1c3a7b10:start=1489527841461169590,finish=1489527841464998300,duration=3828710[0K
+[32;1mThe command "echo "SKIP_CI="$SKIP_CI" exited with 0.[0m
+travis_time:start:2ac0c220[0K$ set -e
+if [[ $SKIP_CI == 'false' ]];
+then
+     eval $CMD;
+     echo "eval of CMD is completed"
+fi
+
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=192m; support was removed in 8.0
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 1 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building checkstyle 7.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repository.apache.org/releases/junit/junit-dep/maven-metadata.xml
+Downloading: https://oss.sonatype.org/content/repositories/releases/junit/junit-dep/maven-metadata.xml
+Downloading: https://nexus.codehaus.org/snapshots/junit/junit-dep/maven-metadata.xml
+Downloading: https://repository.apache.org/snapshots/junit/junit-dep/maven-metadata.xml
+563/563 B               Downloaded: https://oss.sonatype.org/content/repositories/releases/junit/junit-dep/maven-metadata.xml (563 B at 0.4 KB/sec)
+[WARNING] Could not transfer metadata junit:junit-dep/maven-metadata.xml from/to codehaus-snapshots (https://nexus.codehaus.org/snapshots/): nexus.codehaus.org: unknown error
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ checkstyle ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven) @ checkstyle ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-versions) @ checkstyle ---
+[INFO] 
+[INFO] --- antlr-maven-plugin:2.2:generate (default) @ checkstyle ---
+[INFO] performing grammar generation [java.g]
+ANTLR Parser Generator   Version 2.7.7 (20060906)   1989-2005
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:633:9: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:633:9:     k==1:AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:633:9:     k==2:IDENT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:780:16: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:780:16:     k==1:AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:780:16:     k==2:IDENT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:816:61: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:816:61:     k==1:SEMI
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:816:61:     k==2:"final","abstract","strictfp",SEMI,"void","boolean","byte","char","short","int","float","long","double",IDENT,"private","public","protected","static","transient","native","synchronized","volatile","class","interface",LCURLY,RCURLY,"default",LT,ENUM,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:705:9: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:705:9:     k==1:AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:705:9:     k==2:IDENT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:961: warning:Syntactic predicate superfluous for single alternative
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:987:31: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:987:31:     k==1:IDENT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:987:31:     k==2:LBRACK,DOT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1048:84: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1048:84:     k==1:SEMI
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1048:84:     k==2:"final","abstract","strictfp",SEMI,"void","boolean","byte","char","short","int","float","long","double",IDENT,STAR,"private","public","protected","static","transient","native","synchronized","volatile","class",LCURLY,RCURLY,LPAREN,RPAREN,"this","super",COLON,"if","while","do","break","continue","return","switch","throw","for","else","case","default","try",LT,GT,LE,GE,"instanceof",SL,SR,BSR,PLUS,MINUS,DIV,MOD,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,ASSERT,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1148:9: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1148:9:     k==1:"default"
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1148:9:     k==2:"final","abstract","strictfp",SEMI,"void","boolean","byte","char","short","int","float","long","double",IDENT,STAR,"private","public","protected","static","transient","native","synchronized","volatile","class",LCURLY,RCURLY,LPAREN,RPAREN,"this","super",COLON,"if","while","do","break","continue","return","switch","throw","for","case","default","try",LT,GT,LE,GE,"instanceof",SL,SR,BSR,PLUS,MINUS,DIV,MOD,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,ASSERT,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1356:26: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1356:26:     k==1:"instanceof"
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1356:26:     k==2:"void","boolean","byte","char","short","int","float","long","double",IDENT,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1371: warning:nondeterminism upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1371:     k==1:SL,SR,BSR
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1371:     k==2:"void","boolean","byte","char","short","int","float","long","double",IDENT,LPAREN,"this","super",PLUS,MINUS,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1371:     between alt 1 and exit branch of block
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1384: warning:nondeterminism upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1384:     k==1:STAR,DIV,MOD
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1384:     k==2:"void","boolean","byte","char","short","int","float","long","double",IDENT,LPAREN,"this","super",PLUS,MINUS,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1384:     between alt 1 and exit branch of block
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9: warning:nondeterminism between alts 1 and 3 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9:     k==1:INC
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9:     k==2:"final","abstract","strictfp",SEMI,RBRACK,"void","boolean","byte","char","short","int","float","long","double",IDENT,STAR,"private","public","protected","static","transient","native","synchronized","volatile","class","interface",LCURLY,RCURLY,COMMA,LPAREN,RPAREN,"this","super",ASSIGN,COLON,"if","while","do","break","continue","return","switch","throw","for","else","case","default","try",PLUS_ASSIGN,MINUS_ASSIGN,STAR_ASSIGN,DIV_ASSIGN,MOD_ASSIGN,SR_ASSIGN,BSR_ASSIGN,SL_ASSIGN,BAND_ASSIGN,BXOR_ASSIGN,BOR_ASSIGN,QUESTION,LOR,LAND,BOR,BXOR,BAND,NOT_EQUAL,EQUAL,LT,GT,LE,GE,"instanceof",SL,SR,BSR,PLUS,MINUS,DIV,MOD,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,ASSERT,ENUM,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9: warning:nondeterminism between alts 2 and 3 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9:     k==1:DEC
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1482:9:     k==2:"final","abstract","strictfp",SEMI,RBRACK,"void","boolean","byte","char","short","int","float","long","double",IDENT,STAR,"private","public","protected","static","transient","native","synchronized","volatile","class","interface",LCURLY,RCURLY,COMMA,LPAREN,RPAREN,"this","super",ASSIGN,COLON,"if","while","do","break","continue","return","switch","throw","for","else","case","default","try",PLUS_ASSIGN,MINUS_ASSIGN,STAR_ASSIGN,DIV_ASSIGN,MOD_ASSIGN,SR_ASSIGN,BSR_ASSIGN,SL_ASSIGN,BAND_ASSIGN,BXOR_ASSIGN,BOR_ASSIGN,QUESTION,LOR,LAND,BOR,BXOR,BAND,NOT_EQUAL,EQUAL,LT,GT,LE,GE,"instanceof",SL,SR,BSR,PLUS,MINUS,DIV,MOD,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,ASSERT,ENUM,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1562:36: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1562:36:     k==1:LCURLY
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1562:36:     k==2:"final","abstract","strictfp",SEMI,"void","boolean","byte","char","short","int","float","long","double",IDENT,"private","public","protected","static","transient","native","synchronized","volatile","class","interface",LCURLY,RCURLY,"default",LT,ENUM,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1572:33: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1572:33:     k==1:LCURLY
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1572:33:     k==2:"void","boolean","byte","char","short","int","float","long","double",IDENT,LCURLY,RCURLY,COMMA,LPAREN,"this","super",PLUS,MINUS,INC,DEC,BNOT,LNOT,"true","false","null","new",NUM_INT,CHAR_LITERAL,STRING_LITERAL,NUM_FLOAT,NUM_LONG,NUM_DOUBLE,AT
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1615:17: warning:nondeterminism between alts 1 and 2 of block upon
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1615:17:     k==1:RPAREN
+/home/travis/build/checkstyle/checkstyle/src/main/resources/com/puppycrawl/tools/checkstyle/grammars/java.g:1615:17:     k==2:LAMBDA
+
+[INFO] 
+[INFO] --- antlr4-maven-plugin:4.6:antlr4 (default) @ checkstyle ---
+[INFO] ANTLR 4: Processing source directory /home/travis/build/checkstyle/checkstyle/src/main/resources
+[INFO] Processing grammar: com/puppycrawl/tools/checkstyle/grammars/javadoc/JavadocLexer.g4
+[INFO] Processing grammar: com/puppycrawl/tools/checkstyle/grammars/javadoc/JavadocParser.g4
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.0.0:add-source (add-source) @ checkstyle ---
+[INFO] Source directory: /home/travis/build/checkstyle/checkstyle/target/generated-sources/antlr added.
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.2:resources (default-resources) @ checkstyle ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 162 resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.0.0:add-test-source (add-test-source) @ checkstyle ---
+[INFO] Test Source directory: /home/travis/build/checkstyle/checkstyle/src/test/resources added.
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.0.0:add-test-source (add-it-test-source) @ checkstyle ---
+[INFO] Test Source directory: /home/travis/build/checkstyle/checkstyle/src/it/java added.
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.0.0:add-test-source (add-it-test-resource) @ checkstyle ---
+[INFO] Test Source directory: /home/travis/build/checkstyle/checkstyle/src/it/resources added.
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.1:compile (default-compile) @ checkstyle ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 353 source files to /home/travis/build/checkstyle/checkstyle/target/classes
+[INFO] /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocMethodCheck.java: /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocMethodCheck.java uses or overrides a deprecated API.
+[INFO] /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/checks/javadoc/JavadocMethodCheck.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/api/AutomaticBean.java: Some input files use unchecked or unsafe operations.
+[INFO] /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/api/AutomaticBean.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-antrun-plugin:1.8:run (ant-phase-compile) @ checkstyle ---
+[INFO] Executing tasks
+
+main:
+
+execute:
+[propertyfile] Creating new property file: /home/travis/build/checkstyle/checkstyle/target/classes/checkstylecompilation.properties
+  [javadoc] Generating Javadoc
+  [javadoc] Javadoc execution
+  [javadoc] Loading source file /home/travis/build/checkstyle/checkstyle/src/main/java/com/puppycrawl/tools/checkstyle/api/TokenTypes.java...
+  [javadoc] Constructing Javadoc information...
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.2:testResources (default-testResources) @ checkstyle ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 787 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.1:testCompile (default-testCompile) @ checkstyle ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1086 source files to /home/travis/build/checkstyle/checkstyle/target/test-classes
+[INFO] /home/travis/build/checkstyle/checkstyle/src/test/java/com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractTypeAwareCheckTest.java: Some input files use or override a deprecated API.
+[INFO] /home/travis/build/checkstyle/checkstyle/src/test/java/com/puppycrawl/tools/checkstyle/checks/javadoc/AbstractTypeAwareCheckTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ checkstyle ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTaskTest
+Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.852 sec - in com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTaskTest
+Running com.puppycrawl.tools.checkstyle.api.LineColumnTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.227 sec - in com.puppycrawl.tools.checkstyle.api.LineColumnTest
+Running com.puppycrawl.tools.checkstyle.api.TokenTypesTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.TokenTypesTest
+Running com.puppycrawl.tools.checkstyle.api.AbstractCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.AbstractCheckTest
+Running com.puppycrawl.tools.checkstyle.api.DetailASTTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.05 sec - in com.puppycrawl.tools.checkstyle.api.DetailASTTest
+Running com.puppycrawl.tools.checkstyle.api.LocalizedMessagesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.puppycrawl.tools.checkstyle.api.LocalizedMessagesTest
+Running com.puppycrawl.tools.checkstyle.api.AbstractViolationReporterTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.api.AbstractViolationReporterTest
+Running com.puppycrawl.tools.checkstyle.api.ScopeTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.api.ScopeTest
+Running com.puppycrawl.tools.checkstyle.api.LocalizedMessageTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.412 sec - in com.puppycrawl.tools.checkstyle.api.LocalizedMessageTest
+Running com.puppycrawl.tools.checkstyle.api.FileContentsTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.api.FileContentsTest
+Running com.puppycrawl.tools.checkstyle.api.JavadocTokenTypesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.JavadocTokenTypesTest
+Running com.puppycrawl.tools.checkstyle.api.FullIdentTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.FullIdentTest
+Running com.puppycrawl.tools.checkstyle.api.AutomaticBeanTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.api.AutomaticBeanTest
+Running com.puppycrawl.tools.checkstyle.api.SeverityLevelTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.api.SeverityLevelTest
+Running com.puppycrawl.tools.checkstyle.api.SeverityLevelCounterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.SeverityLevelCounterTest
+Running com.puppycrawl.tools.checkstyle.api.CheckTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.api.CheckTest
+Running com.puppycrawl.tools.checkstyle.api.FileTextTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in com.puppycrawl.tools.checkstyle.api.FileTextTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.SuppressWarningsCheckTest
+Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.316 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.SuppressWarningsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationLocationCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationLocationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.MissingDeprecatedCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.MissingDeprecatedCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.MissingOverrideCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.059 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.MissingOverrideCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.PackageAnnotationCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.PackageAnnotationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationUseStyleCheckTest
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.065 sec - in com.puppycrawl.tools.checkstyle.checks.annotation.AnnotationUseStyleCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheckTest
+Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.137 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheckTest
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.EmptyCatchBlockCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.EmptyCatchBlockCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.AvoidNestedBlocksCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.AvoidNestedBlocksCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.EmptyBlockCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.EmptyBlockCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheckTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.048 sec - in com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.132 sec - in com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.OverloadMethodsDeclarationOrderCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.checks.coding.OverloadMethodsDeclarationOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.UnnecessaryParenthesesCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec - in com.puppycrawl.tools.checkstyle.checks.coding.UnnecessaryParenthesesCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.NoFinalizerCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec - in com.puppycrawl.tools.checkstyle.checks.coding.NoFinalizerCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.SimplifyBooleanReturnCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.checks.coding.SimplifyBooleanReturnCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.NestedForDepthCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in com.puppycrawl.tools.checkstyle.checks.coding.NestedForDepthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.PackageDeclarationCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.coding.PackageDeclarationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 sec - in com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 sec - in com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheckTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 sec - in com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.DeclarationOrderCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec - in com.puppycrawl.tools.checkstyle.checks.coding.DeclarationOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.SimplifyBooleanExpressionCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in com.puppycrawl.tools.checkstyle.checks.coding.SimplifyBooleanExpressionCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.DefaultComesLastCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.checks.coding.DefaultComesLastCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.EmptyStatementCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.checks.coding.EmptyStatementCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.ExplicitInitializationCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.coding.ExplicitInitializationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.MissingSwitchDefaultCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in com.puppycrawl.tools.checkstyle.checks.coding.MissingSwitchDefaultCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalTypeCheckTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalTypeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.NoCloneCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.checks.coding.NoCloneCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.EqualsAvoidNullCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 sec - in com.puppycrawl.tools.checkstyle.checks.coding.EqualsAvoidNullCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.SuperFinalizeCheckTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.coding.SuperFinalizeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.311 sec - in com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.NestedIfDepthCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.coding.NestedIfDepthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.MissingCtorCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.checks.coding.MissingCtorCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalInstantiationCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalInstantiationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.ArrayTrailingCommaCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.checks.coding.ArrayTrailingCommaCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 sec - in com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.NestedTryDepthCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.coding.NestedTryDepthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.InnerAssignmentCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.coding.InnerAssignmentCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.FallThroughCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.048 sec - in com.puppycrawl.tools.checkstyle.checks.coding.FallThroughCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalCatchCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalCatchCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.CovariantEqualsCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec - in com.puppycrawl.tools.checkstyle.checks.coding.CovariantEqualsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.ParameterAssignmentCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in com.puppycrawl.tools.checkstyle.checks.coding.ParameterAssignmentCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.OneStatementPerLineCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in com.puppycrawl.tools.checkstyle.checks.coding.OneStatementPerLineCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.SuperCloneCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.coding.SuperCloneCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.ModifiedControlVariableCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 sec - in com.puppycrawl.tools.checkstyle.checks.coding.ModifiedControlVariableCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalThrowsCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalThrowsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenTextCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 sec - in com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenTextCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.RequireThisCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 sec - in com.puppycrawl.tools.checkstyle.checks.coding.RequireThisCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.EqualsHashCodeCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec - in com.puppycrawl.tools.checkstyle.checks.coding.EqualsHashCodeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.coding.StringLiteralEqualityCheckTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.coding.StringLiteralEqualityCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.InnerTypeLastCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in com.puppycrawl.tools.checkstyle.checks.design.InnerTypeLastCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.ThrowsCountCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in com.puppycrawl.tools.checkstyle.checks.design.ThrowsCountCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.InterfaceIsTypeCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in com.puppycrawl.tools.checkstyle.checks.design.InterfaceIsTypeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.OneTopLevelClassCheckTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 sec - in com.puppycrawl.tools.checkstyle.checks.design.OneTopLevelClassCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.DesignForExtensionCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 sec - in com.puppycrawl.tools.checkstyle.checks.design.DesignForExtensionCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.MutableExceptionCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 sec - in com.puppycrawl.tools.checkstyle.checks.design.MutableExceptionCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheckTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 sec - in com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheckTest
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.156 sec - in com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.header.HeaderCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.75 sec - in com.puppycrawl.tools.checkstyle.checks.header.HeaderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.header.RegexpHeaderCheckTest
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.12 sec - in com.puppycrawl.tools.checkstyle.checks.header.RegexpHeaderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 sec - in com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportControlRegExpTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportControlRegExpTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.RedundantImportCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec - in com.puppycrawl.tools.checkstyle.checks.imports.RedundantImportCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportControlRegExpInPkgTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportControlRegExpInPkgTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportControlLoaderTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportControlLoaderTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheckTest
+Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.379 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.AccessResultTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.imports.AccessResultTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 sec - in com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportControlCheckTest
+Tests run: 30, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.427 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportControlCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.PkgImportRuleTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.checks.imports.PkgImportRuleTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ImportControlTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ImportControlTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.ClassImportRuleTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.imports.ClassImportRuleTest
+Running com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheckTest
+Tests run: 32, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.137 sec - in com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.indentation.NewHandlerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec - in com.puppycrawl.tools.checkstyle.checks.indentation.NewHandlerTest
+Running com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheckTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 sec - in com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.indentation.LineSetTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.indentation.LineSetTest
+Running com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheckTest
+Tests run: 73, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.605 sec - in com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheckTest
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.127 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagInfoTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagInfoTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocParagraphCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.032 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocParagraphCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheckTest
+Tests run: 37, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.23 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagContinuationIndentationCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.126 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagContinuationIndentationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.AtclauseOrderCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.207 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.AtclauseOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.WriteTagCheckTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.WriteTagCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocNodeImplTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocNodeImplTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheckTest
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.135 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractTypeAwareCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractTypeAwareCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheckTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheckTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.392 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.javadoc.SingleLineJavadocCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.167 sec - in com.puppycrawl.tools.checkstyle.checks.javadoc.SingleLineJavadocCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.BooleanExpressionComplexityCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.BooleanExpressionComplexityCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.NPathComplexityCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.JavaNCSSCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.JavaNCSSCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.ClassFanOutComplexityCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.ClassFanOutComplexityCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.metrics.ClassDataAbstractionCouplingCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec - in com.puppycrawl.tools.checkstyle.checks.metrics.ClassDataAbstractionCouplingCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.modifier.RedundantModifierCheckTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 sec - in com.puppycrawl.tools.checkstyle.checks.modifier.RedundantModifierCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 sec - in com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheckTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.195 sec - in com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.CatchParameterNameCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec - in com.puppycrawl.tools.checkstyle.checks.naming.CatchParameterNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.ConstantNameCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec - in com.puppycrawl.tools.checkstyle.checks.naming.ConstantNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.InterfaceTypeParameterNameCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.checks.naming.InterfaceTypeParameterNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.TypeNameCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 sec - in com.puppycrawl.tools.checkstyle.checks.naming.TypeNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec - in com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.LocalFinalVariableNameCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 sec - in com.puppycrawl.tools.checkstyle.checks.naming.LocalFinalVariableNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.MethodTypeParameterNameCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in com.puppycrawl.tools.checkstyle.checks.naming.MethodTypeParameterNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec - in com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheckTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.059 sec - in com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.ClassTypeParameterNameCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.naming.ClassTypeParameterNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 sec - in com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.naming.ParameterNameCheckTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.14 sec - in com.puppycrawl.tools.checkstyle.checks.naming.ParameterNameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.regexp.RegexpCheckTest
+Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.136 sec - in com.puppycrawl.tools.checkstyle.checks.regexp.RegexpCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheckTest
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec - in com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec - in com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.regexp.RegexpMultilineCheckTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.059 sec - in com.puppycrawl.tools.checkstyle.checks.regexp.RegexpMultilineCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.regexp.RegexpOnFilenameCheckTest
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 sec - in com.puppycrawl.tools.checkstyle.checks.regexp.RegexpOnFilenameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.MethodCountCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.MethodCountCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.ParameterNumberCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.ParameterNumberCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.AnonInnerLengthCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.AnonInnerLengthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.OuterTypeNumberCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.OuterTypeNumberCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.sizes.ExecutableStatementCountCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec - in com.puppycrawl.tools.checkstyle.checks.sizes.ExecutableStatementCountCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceAfterCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceAfterCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheckTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.MethodParamPadCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.MethodParamPadCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheckTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.SeparatorWrapCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.SeparatorWrapCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.FileTabCharacterCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.FileTabCharacterCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceBeforeCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceBeforeCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheckTest
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.096 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyForIteratorPadCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyForIteratorPadCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.ParenPadCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.ParenPadCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.TypecastParenPadCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.TypecastParenPadCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheckTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.NoLineWrapCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.NoLineWrapCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyForInitializerPadCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyForInitializerPadCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.GenericWhitespaceCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.GenericWhitespaceCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.whitespace.SingleSpaceSeparatorCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in com.puppycrawl.tools.checkstyle.checks.whitespace.SingleSpaceSeparatorCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.TodoCommentCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in com.puppycrawl.tools.checkstyle.checks.TodoCommentCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.FinalParametersCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec - in com.puppycrawl.tools.checkstyle.checks.FinalParametersCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.ArrayTypeStyleCheckTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in com.puppycrawl.tools.checkstyle.checks.ArrayTypeStyleCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.UpperEllCheckTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in com.puppycrawl.tools.checkstyle.checks.UpperEllCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.ClassResolverTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.59 sec - in com.puppycrawl.tools.checkstyle.checks.ClassResolverTest
+Running com.puppycrawl.tools.checkstyle.checks.AvoidEscapedUnicodeCharactersCheckTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.08 sec - in com.puppycrawl.tools.checkstyle.checks.AvoidEscapedUnicodeCharactersCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.SuppressWarningsHolderTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.123 sec - in com.puppycrawl.tools.checkstyle.checks.SuppressWarningsHolderTest
+Running com.puppycrawl.tools.checkstyle.checks.UncommentedMainCheckTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in com.puppycrawl.tools.checkstyle.checks.UncommentedMainCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.UniquePropertiesCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.checks.UniquePropertiesCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.DescendantTokenCheckTest
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.065 sec - in com.puppycrawl.tools.checkstyle.checks.DescendantTokenCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.TranslationCheckTest
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 sec - in com.puppycrawl.tools.checkstyle.checks.TranslationCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.FileSetCheckLifecycleTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec - in com.puppycrawl.tools.checkstyle.checks.FileSetCheckLifecycleTest
+Running com.puppycrawl.tools.checkstyle.checks.OuterTypeFilenameCheckTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec - in com.puppycrawl.tools.checkstyle.checks.OuterTypeFilenameCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.TrailingCommentCheckTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.checks.TrailingCommentCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheckTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec - in com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheckTest
+Running com.puppycrawl.tools.checkstyle.checks.FileContentsHolderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.checks.FileContentsHolderTest
+Running com.puppycrawl.tools.checkstyle.doclets.TokenTypesDocletTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.473 sec - in com.puppycrawl.tools.checkstyle.doclets.TokenTypesDocletTest
+Running com.puppycrawl.tools.checkstyle.filters.FilterSetTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.07 sec - in com.puppycrawl.tools.checkstyle.filters.FilterSetTest
+Running com.puppycrawl.tools.checkstyle.filters.SeverityMatchFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.filters.SeverityMatchFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressElementTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.187 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressElementTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressionsLoaderTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.038 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressionsLoaderTest
+Running com.puppycrawl.tools.checkstyle.filters.BeforeExecutionFileFilterSetTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.filters.BeforeExecutionFileFilterSetTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressionFilterTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.034 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressionFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.IntRangeFilterTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.035 sec - in com.puppycrawl.tools.checkstyle.filters.IntRangeFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.IntMatchFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec - in com.puppycrawl.tools.checkstyle.filters.IntMatchFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressionCommentFilterTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.237 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressionCommentFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.CsvFilterTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec - in com.puppycrawl.tools.checkstyle.filters.CsvFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressWithNearbyCommentFilterTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.165 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressWithNearbyCommentFilterTest
+Running com.puppycrawl.tools.checkstyle.filters.SuppressWarningsFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec - in com.puppycrawl.tools.checkstyle.filters.SuppressWarningsFilterTest
+Running com.puppycrawl.tools.checkstyle.grammars.comments.AllBlockCommentsTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 sec - in com.puppycrawl.tools.checkstyle.grammars.comments.AllBlockCommentsTest
+Running com.puppycrawl.tools.checkstyle.grammars.comments.AllSinglelineCommentsTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in com.puppycrawl.tools.checkstyle.grammars.comments.AllSinglelineCommentsTest
+Running com.puppycrawl.tools.checkstyle.grammars.comments.CommentsTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.grammars.comments.CommentsTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.DefaultMethodsTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.DefaultMethodsTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.LambdaTest
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.LambdaTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.AnnotationTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.AnnotationTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.TypeUseAnnotationsOnQualifiedTypesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.TypeUseAnnotationsOnQualifiedTypesTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.ReceiverParameterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.ReceiverParameterTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.AnnotationsOnArrayTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.AnnotationsOnArrayTest
+Running com.puppycrawl.tools.checkstyle.grammars.java8.MethodReferencesTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec - in com.puppycrawl.tools.checkstyle.grammars.java8.MethodReferencesTest
+Running com.puppycrawl.tools.checkstyle.grammars.javadoc.JavadocParseTreeTest
+Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 sec - in com.puppycrawl.tools.checkstyle.grammars.javadoc.JavadocParseTreeTest
+Running com.puppycrawl.tools.checkstyle.grammars.AstRegressionTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 sec - in com.puppycrawl.tools.checkstyle.grammars.AstRegressionTest
+Running com.puppycrawl.tools.checkstyle.grammars.UnicodeEscapeTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.grammars.UnicodeEscapeTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java7DiamondTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.grammars.Java7DiamondTest
+Running com.puppycrawl.tools.checkstyle.grammars.LineCommentAtTheEndOfFileTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.grammars.LineCommentAtTheEndOfFileTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java7MultiCatchTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.puppycrawl.tools.checkstyle.grammars.Java7MultiCatchTest
+Running com.puppycrawl.tools.checkstyle.grammars.HexFloatsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.grammars.HexFloatsTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java9TryWithResourcesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in com.puppycrawl.tools.checkstyle.grammars.Java9TryWithResourcesTest
+Running com.puppycrawl.tools.checkstyle.grammars.MultiDimensionalArraysInGenericsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.grammars.MultiDimensionalArraysInGenericsTest
+Running com.puppycrawl.tools.checkstyle.grammars.EmbeddedNullCharTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 sec - in com.puppycrawl.tools.checkstyle.grammars.EmbeddedNullCharTest
+Running com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaTokenTypesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaTokenTypesTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java7NumericalLiteralsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.grammars.Java7NumericalLiteralsTest
+Running com.puppycrawl.tools.checkstyle.grammars.GeneratedJava14LexerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in com.puppycrawl.tools.checkstyle.grammars.GeneratedJava14LexerTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java7TryWithResourcesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.grammars.Java7TryWithResourcesTest
+Running com.puppycrawl.tools.checkstyle.grammars.Java7StringSwitchTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.puppycrawl.tools.checkstyle.grammars.Java7StringSwitchTest
+Running com.puppycrawl.tools.checkstyle.grammars.VarargTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.puppycrawl.tools.checkstyle.grammars.VarargTest
+Running com.puppycrawl.tools.checkstyle.gui.MainFrameModelTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.755 sec - in com.puppycrawl.tools.checkstyle.gui.MainFrameModelTest
+Running com.puppycrawl.tools.checkstyle.gui.ParseTreeTablePresentationTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in com.puppycrawl.tools.checkstyle.gui.ParseTreeTablePresentationTest
+Running com.puppycrawl.tools.checkstyle.gui.CodeSelectorPresentationTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.puppycrawl.tools.checkstyle.gui.CodeSelectorPresentationTest
+Running com.puppycrawl.tools.checkstyle.internal.XdocsPagesTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.622 sec - in com.puppycrawl.tools.checkstyle.internal.XdocsPagesTest
+Running com.puppycrawl.tools.checkstyle.internal.AllChecksTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.636 sec - in com.puppycrawl.tools.checkstyle.internal.AllChecksTest
+Running com.puppycrawl.tools.checkstyle.internal.CommitValidationTest
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.208 sec <<< FAILURE! - in com.puppycrawl.tools.checkstyle.internal.CommitValidationTest
+testCommitMessageHasProperStructure(com.puppycrawl.tools.checkstyle.internal.CommitValidationTest)  Time elapsed: 0.009 sec  <<< FAILURE!
+java.lang.AssertionError: 
+Commit e60dd2160315077c31dac80cb9680e66d10d6159 message: "Create separate folder for InputExecutableStatementCount\n" is invalid
+Proper commit message should adhere to the following rules:
+    1) Must match one of the following patterns:
+        ^Issue #\d+: .*$
+        ^Pull #\d+: .*$
+        ^(minor|config|infra|doc|spelling): .*$
+    2) It contains only one line of text
+    3) Must not end with a period, space, or tab
+    4) Commit message should be less than or equal to 200 characters
+
+The rule broken was: 1
+	at com.puppycrawl.tools.checkstyle.internal.CommitValidationTest.testCommitMessageHasProperStructure(CommitValidationTest.java:147)
+
+Running com.puppycrawl.tools.checkstyle.PropertiesExpanderTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.PropertiesExpanderTest
+Running com.puppycrawl.tools.checkstyle.MainTest
+Tests run: 42, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.217 sec - in com.puppycrawl.tools.checkstyle.MainTest
+Running com.puppycrawl.tools.checkstyle.PackageNamesLoaderTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec - in com.puppycrawl.tools.checkstyle.PackageNamesLoaderTest
+Running com.puppycrawl.tools.checkstyle.ConfigurationLoaderTest
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.948 sec - in com.puppycrawl.tools.checkstyle.ConfigurationLoaderTest
+Running com.puppycrawl.tools.checkstyle.utils.JavadocUtilsTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.utils.JavadocUtilsTest
+Running com.puppycrawl.tools.checkstyle.utils.AnnotationUtilityTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.puppycrawl.tools.checkstyle.utils.AnnotationUtilityTest
+Running com.puppycrawl.tools.checkstyle.utils.CommonUtilsTest
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.732 sec - in com.puppycrawl.tools.checkstyle.utils.CommonUtilsTest
+Running com.puppycrawl.tools.checkstyle.utils.ScopeUtilsTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.utils.ScopeUtilsTest
+Running com.puppycrawl.tools.checkstyle.utils.CheckUtilsTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.utils.CheckUtilsTest
+Running com.puppycrawl.tools.checkstyle.utils.TokenUtilsTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.puppycrawl.tools.checkstyle.utils.TokenUtilsTest
+Running com.puppycrawl.tools.checkstyle.XMLLoggerTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in com.puppycrawl.tools.checkstyle.XMLLoggerTest
+Running com.puppycrawl.tools.checkstyle.CheckerTest
+Tests run: 30, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.502 sec - in com.puppycrawl.tools.checkstyle.CheckerTest
+Running com.puppycrawl.tools.checkstyle.DefaultLoggerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.DefaultLoggerTest
+Running com.puppycrawl.tools.checkstyle.PackageObjectFactoryTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.147 sec - in com.puppycrawl.tools.checkstyle.PackageObjectFactoryTest
+Running com.puppycrawl.tools.checkstyle.PropertyCacheFileTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.417 sec - in com.puppycrawl.tools.checkstyle.PropertyCacheFileTest
+Running com.puppycrawl.tools.checkstyle.DefinitionsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.DefinitionsTest
+Running com.puppycrawl.tools.checkstyle.DefaultConfigurationTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.puppycrawl.tools.checkstyle.DefaultConfigurationTest
+Running com.puppycrawl.tools.checkstyle.TreeWalkerTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 sec - in com.puppycrawl.tools.checkstyle.TreeWalkerTest
+Running com.puppycrawl.tools.checkstyle.filefilters.ExclusionBeforeExecutionFileFilterTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in com.puppycrawl.tools.checkstyle.filefilters.ExclusionBeforeExecutionFileFilterTest
+Running com.puppycrawl.tools.checkstyle.AstTreeStringPrinterTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.AstTreeStringPrinterTest
+Running com.puppycrawl.tools.checkstyle.DetailNodeTreeStringPrinterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in com.puppycrawl.tools.checkstyle.DetailNodeTreeStringPrinterTest
+Running com.puppycrawl.tools.checkstyle.AuditEventDefaultFormatterTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.308 sec - in com.puppycrawl.tools.checkstyle.AuditEventDefaultFormatterTest
+
+Results :
+
+Failed tests: 
+  CommitValidationTest.testCommitMessageHasProperStructure:147 Commit e60dd2160315077c31dac80cb9680e66d10d6159 message: "Create separate folder for InputExecutableStatementCount\n" is invalid
+Proper commit message should adhere to the following rules:
+    1) Must match one of the following patterns:
+        ^Issue #\d+: .*$
+        ^Pull #\d+: .*$
+        ^(minor|config|infra|doc|spelling): .*$
+    2) It contains only one line of text
+    3) Must not end with a period, space, or tab
+    4) Commit message should be less than or equal to 200 characters
+
+The rule broken was: 1
+
+Tests run: 1993, Failures: 1, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:06 min
+[INFO] Finished at: 2017-03-14T21:45:09+00:00
+[INFO] Final Memory: 42M/455M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project checkstyle: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/travis/build/checkstyle/checkstyle/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

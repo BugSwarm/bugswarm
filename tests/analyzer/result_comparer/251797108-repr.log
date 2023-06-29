@@ -1,187 +1,0 @@
-Script started on Fri Jan 31 20:07:42 2020
-travis_time:start:270b9944[0Ktravis_time:end:270b9944:start=1580501262644521722,finish=1580501262733936374,duration=89414652,event=no_world_writable_dirs[0Ktravis_time:start:092de610[0Ktravis_time:end:092de610:start=1580501262738765394,finish=1580501262741613446,duration=2848052,event=check_unsupported[0Ktravis_time:start:0e239122[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
-Build language: java
-Build group: stable
-Build dist: precise
-Build id: ''
-Job id: ''
-Runtime kernel version: 4.15.0-74-generic
-[34m[1mBuild image provisioning date and time[0m
-Thu Feb  5 15:09:33 UTC 2015
-[34m[1mOperating System Details[0m
-Distributor ID:	Ubuntu
-Description:	Ubuntu 12.04.5 LTS
-Release:	12.04
-Codename:	precise
-[34m[1mLinux Version[0m
-3.13.0-29-generic
-[34m[1mCookbooks Version[0m
-a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
-[34m[1mGCC version[0m
-gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
-Copyright (C) 2011 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-[34m[1mLLVM version[0m
-clang version 3.4 (tags/RELEASE_34/final)
-Target: x86_64-unknown-linux-gnu
-Thread model: posix
-[34m[1mPre-installed Ruby versions[0m
-ruby-1.9.3-p551
-[34m[1mPre-installed Node.js versions[0m
-v0.10.36
-[34m[1mPre-installed Go versions[0m
-1.4.1
-[34m[1mRedis version[0m
-redis-server 2.8.19
-[34m[1mriak version[0m
-2.0.2
-[34m[1mMongoDB version[0m
-MongoDB 2.4.12
-[34m[1mCouchDB version[0m
-couchdb 1.6.1
-[34m[1mNeo4j version[0m
-1.9.4
-[34m[1mRabbitMQ Version[0m
-3.4.3
-[34m[1mElasticSearch version[0m
-1.4.0
-[34m[1mInstalled Sphinx versions[0m
-2.0.10
-2.1.9
-2.2.6
-[34m[1mDefault Sphinx version[0m
-2.2.6
-[34m[1mInstalled Firefox version[0m
-firefox 31.0esr
-[34m[1mPhantomJS version[0m
-1.9.8
-[34m[1mant -version[0m
-Apache Ant(TM) version 1.8.2 compiled on December 3 2011
-[34m[1mmvn -version[0m
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_76, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-oracle/jre
-Default locale: en_US, platform encoding: ANSI_X3.4-1968
-OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
-travis_fold:end:system_info[0K
-travis_time:end:0e239122:start=1580501262745370553,finish=1580501262751578927,duration=6208374,event=show_system_info[0Ktravis_time:start:07c04ee0[0Ktravis_time:end:07c04ee0:start=1580501262756192143,finish=1580501262770394379,duration=14202236,event=rm_riak_source[0Ktravis_time:start:036437dc[0Ktravis_time:end:036437dc:start=1580501262773430467,finish=1580501262778850010,duration=5419543,event=fix_rwky_redis[0Ktravis_time:start:2900c1b0[0K[31;1mTimeout waiting for network availability.[0m
-travis_time:end:2900c1b0:start=1580501262781828216,finish=1580501283223409779,duration=20441581563,event=wait_for_network[0Ktravis_time:start:031cca20[0Ktravis_time:end:031cca20:start=1580501283230939533,finish=1580501284469059141,duration=1238119608,event=update_apt_keys[0Ktravis_time:start:1f81dd7e[0Ktravis_time:end:1f81dd7e:start=1580501284472362424,finish=1580501284517098925,duration=44736501,event=fix_hhvm_source[0Ktravis_time:start:037e73b0[0Ktravis_time:end:037e73b0:start=1580501284519229229,finish=1580501284521377375,duration=2148146,event=update_mongo_arch[0Ktravis_time:start:03953f10[0Ktravis_time:end:03953f10:start=1580501284523622495,finish=1580501284552431338,duration=28808843,event=fix_sudo_enabled_trusty[0Ktravis_time:start:11ca0d5e[0Ktravis_time:end:11ca0d5e:start=1580501284554609234,finish=1580501284560293105,duration=5683871,event=clean_up_path[0Ktravis_time:start:0e3b5747[0Ktravis_time:end:0e3b5747:start=1580501284562377596,finish=1580501284568590063,duration=6212467,event=fix_resolv_conf[0Ktravis_time:start:10fa8740[0Ktravis_time:end:10fa8740:start=1580501284571842800,finish=1580501284581642440,duration=9799640,event=fix_etc_hosts[0Ktravis_time:start:049fa44e[0Ktravis_time:start:1e001fba[0Ktravis_time:end:1e001fba:start=1580501284602625056,finish=1580501284609091403,duration=6466347,event=no_ipv6_localhost[0Ktravis_time:start:045a0180[0Ktravis_time:end:045a0180:start=1580501284611270167,finish=1580501284625876514,duration=14606347,event=fix_etc_mavenrc[0Ktravis_time:start:143b0f2a[0Ktravis_time:end:143b0f2a:start=1580501284628097354,finish=1580501284630412290,duration=2314936,event=fix_wwdr_certificate[0Ktravis_time:start:1b009cfc[0Ktravis_time:end:1b009cfc:start=1580501284632630841,finish=1580501284651095097,duration=18464256,event=put_localhost_first[0Ktravis_time:start:1667fb09[0Ktravis_time:end:1667fb09:start=1580501284654523552,finish=1580501284657245669,duration=2722117,event=home_paths[0Ktravis_time:start:0f235740[0Ktravis_time:end:0f235740:start=1580501284660698313,finish=1580501284681635325,duration=20937012,event=disable_initramfs[0Ktravis_time:start:003fecbe[0Ktravis_time:end:003fecbe:start=1580501284683811379,finish=1580501284694327094,duration=10515715,event=disable_ssh_roaming[0Ktravis_time:start:1c4a10bf[0Ktravis_time:end:1c4a10bf:start=1580501284697757470,finish=1580501284700282593,duration=2525123,event=debug_tools[0Ktravis_time:start:074c83eb[0Ktravis_time:end:074c83eb:start=1580501284704160454,finish=1580501284708775218,duration=4614764,event=uninstall_oclint[0Ktravis_time:start:08b6823e[0Ktravis_time:end:08b6823e:start=1580501284713323042,finish=1580501284717072876,duration=3749834,event=rvm_use[0Ktravis_time:start:22381a40[0Ktravis_time:end:22381a40:start=1580501284720849447,finish=1580501284729686136,duration=8836689,event=rm_etc_boto_cfg[0Ktravis_time:start:1706c46a[0Ktravis_time:end:1706c46a:start=1580501284732850192,finish=1580501284735366357,duration=2516165,event=rm_oraclejdk8_symlink[0Ktravis_time:start:0188aca2[0Ktravis_time:end:0188aca2:start=1580501284738851686,finish=1580501284772107732,duration=33256046,event=enable_i386[0Ktravis_time:start:1b7709d0[0Ktravis_time:end:1b7709d0:start=1580501284774376708,finish=1580501284776877689,duration=2500981,event=update_rubygems[0Ktravis_time:start:3b4c1f90[0Ktravis_time:end:3b4c1f90:start=1580501284778983333,finish=1580501284782943477,duration=3960144,event=ensure_path_components[0Ktravis_time:start:04f31000[0Ktravis_time:end:04f31000:start=1580501284786196834,finish=1580501284788566606,duration=2369772,event=redefine_curl[0Ktravis_time:start:08169e7c[0Ktravis_time:end:08169e7c:start=1580501284791819939,finish=1580501284794453429,duration=2633490,event=nonblock_pipe[0Ktravis_time:start:02a5c01a[0Ktravis_time:end:02a5c01a:start=1580501284798026212,finish=1580501288903013964,duration=4104987752,event=apt_get_update[0Ktravis_time:start:1f6c34e4[0Ktravis_time:end:1f6c34e4:start=1580501288905236685,finish=1580501288906904390,duration=1667705,event=deprecate_xcode_64[0Ktravis_time:start:02dc5490[0Ktravis_time:end:02dc5490:start=1580501288909027836,finish=1580501288911729315,duration=2701479,event=update_heroku[0Ktravis_time:start:0c96897c[0Ktravis_time:end:0c96897c:start=1580501288913984225,finish=1580501288916306113,duration=2321888,event=shell_session_update[0Ktravis_time:start:01ea2aa8[0Ktravis_fold:start:docker_mtu[0Ktee: /etc/docker/daemon.json: No such file or directory
-docker: unrecognized service
-travis_fold:end:docker_mtu[0Ktravis_time:end:01ea2aa8:start=1580501288919448844,finish=1580501288940310325,duration=20861481,event=set_docker_mtu[0Ktravis_time:start:07ca5434[0Ktravis_time:end:07ca5434:start=1580501288943746752,finish=1580501288955000455,duration=11253703,event=resolvconf[0K
-travis_fold:start:install_jdk[0K[33;1mInstalling openjdk7[0m
-$ jdk_switcher use "openjdk7"
-Switching to OpenJDK7 (java-1.7.0-openjdk-amd64), JAVA_HOME will be set to /usr/lib/jvm/java-7-openjdk-amd64
-travis_fold:end:install_jdk[0Ktravis_fold:start:apt[0Ktravis_time:start:32fd8724[0K$ travis_apt_get_update
-travis_time:end:32fd8724:start=1580501288971243847,finish=1580501293128681450,duration=4157437603,event=prepare[0K[33;1mInstalling APT Packages[0m
-travis_time:start:015300cd[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends $(travis_apt_get_options) install git
-Reading package lists...
-Building dependency tree...
-Reading state information...
-git is already the newest version.
-0 upgraded, 0 newly installed, 0 to remove and 251 not upgraded.
-travis_time:end:015300cd:start=1580501293131254791,finish=1580501294821409427,duration=1690154636,event=prepare[0Ktravis_fold:end:apt[0Ktravis_time:start:1c1c53c4[0Ktravis_time:end:1c1c53c4:start=1580501294823893461,finish=1580501294825626606,duration=1733145,event=fix_ps4[0Ktravis_time:start:0be87b2a[0K
-$ cd failed/ome/bioformats
-
-travis_time:end:0be87b2a:start=1580501294827935211,finish=1580501294829951685,duration=2016474,event=checkout[0Ktravis_time:start:1fc7ddae[0K
-[33;1mSetting environment variables from .travis.yml[0m
-$ export BUILD=maven
-
-travis_time:end:1fc7ddae:start=1580501294832188365,finish=1580501294837093136,duration=4904771,event=env[0Ktravis_fold:start:cache.1[0KSetting up build cache
-$ export CASHER_DIR=${TRAVIS_HOME}/.casher
-travis_time:start:2d551594[0K$ Installing caching utilities
-
-[31;1mThe command "eval curl -sf  -o $CASHER_DIR/bin/casher https:///files/casher " failed. Retrying, 2 of 3.[0m
-
-
-[31;1mThe command "eval curl -sf  -o $CASHER_DIR/bin/casher https:///files/casher " failed. Retrying, 3 of 3.[0m
-
-
-[31;1mThe command "eval curl -sf  -o $CASHER_DIR/bin/casher https:///files/casher " failed 3 times.[0m
-
-travis_time:end:2d551594:start=1580501301053820288,finish=1580501304132022697,duration=3078202409,event=setup_casher[0Ktravis_time:start:08e15e14[0K$ Installing caching utilities from the Travis CI server (https:///files/casher) failed, failing over to using GitHub (https://raw.githubusercontent.com/travis-ci/casher/bash/bin/casher)
-travis_time:end:08e15e14:start=1580501304140047498,finish=1580501304343812295,duration=203764797,event=setup_casher[0Ktravis_time:start:0c072fc0[0Ktravis_time:end:0c072fc0:start=1580501304347250634,finish=1580501304349315060,duration=2064426,event=setup_casher[0Ktravis_time:start:1d9bcce0[0KYAML safe loading is not available. Please upgrade psych to a version that supports safe loading (>= 2.0).
-attempting to download cache archive[0m
-[31;1mcould not download cache[0m
-travis_time:end:1d9bcce0:start=1580501304351887633,finish=1580501305127527047,duration=775639414,event=setup_casher[0Ktravis_time:start:13610c39[0Ktravis_time:end:13610c39:start=1580501305131286737,finish=1580501305134083447,duration=2796710,event=setup_casher[0Ktravis_time:start:0317a5e1[0KYAML safe loading is not available. Please upgrade psych to a version that supports safe loading (>= 2.0).
-adding /home/travis/.m2 to cache[0m
-travis_time:end:0317a5e1:start=1580501305137662199,finish=1580501306201040525,duration=1063378326,event=setup_casher[0Ktravis_fold:end:cache.1[0K
-$ java -Xmx32m -version
-java version "1.7.0_75"
-OpenJDK Runtime Environment (IcedTea 2.5.4) (7u75-2.5.4-1~precise1)
-OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
-$ javac -J-Xmx32m -version
-javac 1.7.0_75
-travis_fold:start:before_install[0Ktravis_time:start:007296f9[0K$ if [[ $BUILD == 'ant' ]]; then pip install --user flake8 Sphinx; fi
-travis_time:end:007296f9:start=1580501306349768255,finish=1580501306351631622,duration=1863367,event=before_install[0Ktravis_fold:end:before_install[0Ktravis_fold:start:install[0Ktravis_time:start:0b5e657c[0K$ mvn install -Dhttps.protocols=TLSv1.2 -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_75, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "4.15.0-74-generic", arch: "amd64", family: "unix"
-[INFO] Scanning for projects...
-[INFO] Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom
-[ERROR] The build could not read 1 project -> [Help 1]
-[ERROR]   
-[ERROR]   The project ome:pom-bio-formats:5.6.0-SNAPSHOT (/home/travis/build/failed/ome/bioformats/pom.xml) has 1 error
-[ERROR]     Unresolveable build extension: Plugin org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0 or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.wagon:wagon-webdav-jackrabbit:jar:1.0: Could not transfer artifact org.apache.maven.wagon:wagon-webdav-jackrabbit:pom:1.0 from/to central (http://repo.maven.apache.org/maven2): Failed to transfer file: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom. Return code is: 501 , ReasonPhrase:HTTPS Required. -> [Help 2]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
-[ERROR] [Help 2] http://cwiki.apache.org/confluence/display/MAVEN/PluginResolutionException
-
-[31;1mThe command "eval mvn install -Dhttps.protocols=TLSv1.2 -DskipTests=true -Dmaven.javadoc.skip=true -B -V " failed. Retrying, 2 of 3.[0m
-
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_75, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "4.15.0-74-generic", arch: "amd64", family: "unix"
-[INFO] Scanning for projects...
-[INFO] Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom
-[ERROR] The build could not read 1 project -> [Help 1]
-[ERROR]   
-[ERROR]   The project ome:pom-bio-formats:5.6.0-SNAPSHOT (/home/travis/build/failed/ome/bioformats/pom.xml) has 1 error
-[ERROR]     Unresolveable build extension: Plugin org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0 or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.wagon:wagon-webdav-jackrabbit:jar:1.0: Could not transfer artifact org.apache.maven.wagon:wagon-webdav-jackrabbit:pom:1.0 from/to central (http://repo.maven.apache.org/maven2): Failed to transfer file: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom. Return code is: 501 , ReasonPhrase:HTTPS Required. -> [Help 2]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
-[ERROR] [Help 2] http://cwiki.apache.org/confluence/display/MAVEN/PluginResolutionException
-
-[31;1mThe command "eval mvn install -Dhttps.protocols=TLSv1.2 -DskipTests=true -Dmaven.javadoc.skip=true -B -V " failed. Retrying, 3 of 3.[0m
-
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_75, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
-Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "4.15.0-74-generic", arch: "amd64", family: "unix"
-[INFO] Scanning for projects...
-[INFO] Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom
-[ERROR] The build could not read 1 project -> [Help 1]
-[ERROR]   
-[ERROR]   The project ome:pom-bio-formats:5.6.0-SNAPSHOT (/home/travis/build/failed/ome/bioformats/pom.xml) has 1 error
-[ERROR]     Unresolveable build extension: Plugin org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0 or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.wagon:wagon-webdav-jackrabbit:jar:1.0: Could not transfer artifact org.apache.maven.wagon:wagon-webdav-jackrabbit:pom:1.0 from/to central (http://repo.maven.apache.org/maven2): Failed to transfer file: http://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-webdav-jackrabbit/1.0/wagon-webdav-jackrabbit-1.0.pom. Return code is: 501 , ReasonPhrase:HTTPS Required. -> [Help 2]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
-[ERROR] [Help 2] http://cwiki.apache.org/confluence/display/MAVEN/PluginResolutionException
-
-[31;1mThe command "eval mvn install -Dhttps.protocols=TLSv1.2 -DskipTests=true -Dmaven.javadoc.skip=true -B -V " failed 3 times.[0m
-
-travis_time:end:0b5e657c:start=1580501306354411467,finish=1580501314577726176,duration=8223314709,event=install[0K[31;1mThe command "mvn install -Dhttps.protocols=TLSv1.2 -DskipTests=true -Dmaven.javadoc.skip=true -B -V" failed and exited with 1 during .[0m
-
-Your build has been stopped.

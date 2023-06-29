@@ -1,0 +1,1060 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd cloudfoundry/uaa
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:install[0Ktravis_time:start:0c8f42e2[0K$ mvn -U install --quiet -DskipTests=true
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+
+travis_time:end:0c8f42e2:start=1479257818805227525,finish=1479257996951192977,duration=178145965452[0Ktravis_fold:end:install[0Ktravis_fold:start:before_script.1[0Ktravis_time:start:062fde76[0K$ if [ "$CLOUD_FOUNDRY_CONFIG_PATH" != "" ]; then psql -c 'create database cloud_controller;' -U postgres; fi
+
+travis_time:end:062fde76:start=1479257996964483546,finish=1479257996972699468,duration=8215922[0Ktravis_fold:end:before_script.1[0Ktravis_fold:start:before_script.2[0Ktravis_time:start:106196c0[0K$ if [ "$CLOUD_FOUNDRY_CONFIG_PATH" != "" ]; then psql -c 'create database uaa;' -U postgres; fi
+
+travis_time:end:106196c0:start=1479257996980000669,finish=1479257996991466004,duration=11465335[0Ktravis_fold:end:before_script.2[0Ktravis_fold:start:before_script.3[0Ktravis_time:start:07e5dfe6[0K$ if [ "$CLOUD_FOUNDRY_CONFIG_PATH" != "" ]; then psql -c 'create role root NOSUPERUSER LOGIN INHERIT CREATEDB;' -U postgres; fi
+
+travis_time:end:07e5dfe6:start=1479257996997721676,finish=1479257997002707262,duration=4985586[0Ktravis_fold:end:before_script.3[0Ktravis_fold:start:before_script.4[0Ktravis_time:start:1bdb06b5[0K$ if [ "$CLOUD_FOUNDRY_CONFIG_PATH" != "" ]; then psql -c "alter role root with password 'changeme';" -U postgres; fi
+
+travis_time:end:1bdb06b5:start=1479257997009329385,finish=1479257997013942520,duration=4613135[0Ktravis_fold:end:before_script.4[0Ktravis_time:start:0c247615[0K$ mvn clean test
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-common:jar:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-scim:jar:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-uaa:war:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-api:war:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-api:[unknown-version], /home/travis/build/cloudfoundry/uaa/samples/api/pom.xml, line 82, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-app:war:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-app:[unknown-version], /home/travis/build/cloudfoundry/uaa/samples/app/pom.xml, line 86, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-samples:pom:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-parent:1.5.0-SNAPSHOT, /home/travis/build/cloudfoundry/uaa/pom.xml, line 155, column 21
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-deploy-plugin is missing. @ org.cloudfoundry.identity:cloudfoundry-identity-samples:[unknown-version], /home/travis/build/cloudfoundry/uaa/samples/pom.xml, line 31, column 15
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.cloudfoundry.identity:cloudfoundry-identity-parent:pom:1.5.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-javadoc-plugin is missing. @ line 155, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] CloudFoundry Identity - Parent
+[INFO] CloudFoundry Identity Common Jar
+[INFO] CloudFoundry Identity SCIM
+[INFO] UAA
+[INFO] CloudFoundry Identity - Samples
+[INFO] Sample resource server for Cloudfoundry Identity Services
+[INFO] Sample user webapp for Cloudfoundry Identity Services
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building CloudFoundry Identity - Parent 1.5.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: http://objectstyle.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom
+3/4 KB   4/4 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom (4 KB at 7.6 KB/sec)
+Downloading: http://objectstyle.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar
+         Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar
+3/25 KB   5/25 KB   8/25 KB   11/25 KB   13/25 KB   16/25 KB   19/25 KB   21/25 KB   24/25 KB   25/25 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.jar (25 KB at 173.1 KB/sec)
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ cloudfoundry-identity-parent ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.1.1:enforce (enforce-versions) @ cloudfoundry-identity-parent ---
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building CloudFoundry Identity Common Jar 1.5.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ cloudfoundry-identity-common ---
+[INFO] Deleting /home/travis/build/cloudfoundry/uaa/common/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.1.1:enforce (enforce-versions) @ cloudfoundry-identity-common ---
+[INFO] 
+[INFO] --- maven-antrun-plugin:1.6:run (generate-sql) @ cloudfoundry-identity-common ---
+[INFO] Executing tasks
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/common/target/generated-resources
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ cloudfoundry-identity-common ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ cloudfoundry-identity-common ---
+[INFO] Compiling 135 source files to /home/travis/build/cloudfoundry/uaa/common/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ cloudfoundry-identity-common ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ cloudfoundry-identity-common ---
+[INFO] Compiling 61 source files to /home/travis/build/cloudfoundry/uaa/common/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.11:test (default-test) @ cloudfoundry-identity-common ---
+[INFO] Surefire report directory: /home/travis/build/cloudfoundry/uaa/common/target/surefire-reports
+Downloading: http://objectstyle.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.pom
+           Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.pom
+3/3 KB     3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.pom (3 KB at 23.4 KB/sec)
+Downloading: http://objectstyle.org/maven2/org/apache/maven/surefire/surefire-providers/2.11/surefire-providers-2.11.pom
+         Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.11/surefire-providers-2.11.pom
+3/3 KB   3/3 KB            Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.11/surefire-providers-2.11.pom (3 KB at 19.9 KB/sec)
+Downloading: http://objectstyle.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.jar
+         Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.jar
+3/33 KB   5/33 KB   8/33 KB   11/33 KB   13/33 KB   16/33 KB   19/33 KB   21/33 KB   24/33 KB   27/33 KB   29/33 KB   32/33 KB   33/33 KB              Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/2.11/surefire-junit4-2.11.jar (33 KB at 255.0 KB/sec)
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.cloudfoundry.identity.uaa.security.web.UaaRequestMatcherTests
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.763 sec
+Running org.cloudfoundry.identity.uaa.security.DefaultSecurityContextAccessorTests
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec
+Running org.cloudfoundry.identity.uaa.authentication.AuthzAuthenticationFilterTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.327 sec
+Running org.cloudfoundry.identity.uaa.authentication.manager.PeriodLockoutPolicyTests
+[2016-11-16 01:00:16.947] common - ???? [main] ....  WARN --- PeriodLockoutPolicy: User null and id 1 has 2 failed logins within the last checking period.
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 sec
+Running org.cloudfoundry.identity.uaa.authentication.manager.LoginAuthenticationManagerTests
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 sec
+Running org.cloudfoundry.identity.uaa.authentication.manager.AuthzAuthenticationManagerTests
+[2016-11-16 01:00:17.316] common - ???? [main] ....  WARN --- AuthzAuthenticationManager: Login policy rejected authentication for auser, NaN. Ignoring login request.
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.017 sec
+Running org.cloudfoundry.identity.uaa.authentication.login.RemoteAuthenticationEndpointTests
+[2016-11-16 01:00:18.054] common - ???? [main] ....  INFO --- RemoteAuthenticationEndpoint: Failed to authenticate user 
+java.lang.RuntimeException: error
+	at org.cloudfoundry.identity.uaa.authentication.login.RemoteAuthenticationEndpoint.authenticate(RemoteAuthenticationEndpoint.java:59)
+	at org.cloudfoundry.identity.uaa.authentication.login.RemoteAuthenticationEndpointTests.otherExceptionGives500Status(RemoteAuthenticationEndpointTests.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:234)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:133)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:188)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:166)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:101)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:74)
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
+Running org.cloudfoundry.identity.uaa.authentication.login.PromptTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running org.cloudfoundry.identity.uaa.authentication.login.PromptEditorTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.cloudfoundry.identity.uaa.error.ConvertingExceptionViewTests
+[2016-11-16 01:00:18.067] common - ???? [main] .... ERROR --- ConvertingExceptionView: Invoking request method resulted in exception
+org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation
+	at org.cloudfoundry.identity.uaa.error.ConvertingExceptionView.writeWithMessageConverters(ConvertingExceptionView.java:145)
+	at org.cloudfoundry.identity.uaa.error.ConvertingExceptionView.handleHttpEntityResponse(ConvertingExceptionView.java:103)
+	at org.cloudfoundry.identity.uaa.error.ConvertingExceptionView.render(ConvertingExceptionView.java:64)
+	at org.cloudfoundry.identity.uaa.error.ConvertingExceptionViewTests.testRender(ConvertingExceptionViewTests.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:234)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:133)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:188)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:166)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:101)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:74)
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.error.JsonAwareAccessDeniedHandlerTests
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.cloudfoundry.identity.uaa.error.JsonAwareAuthenticationEntryPointTests
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Running org.cloudfoundry.identity.uaa.audit.JdbcFailedLoginCountingAuditServiceTests
+[2016-11-16 01:00:18.134] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.audit.JdbcFailedLoginCountingAuditServiceTests]: using defaults.
+[2016-11-16 01:00:18.274] common - ???? [main] ....  INFO --- XmlBeanDefinitionReader: Loading XML bean definitions from class path resource [test-data-source.xml]
+[2016-11-16 01:00:18.806] common - ???? [main] ....  INFO --- GenericApplicationContext: Refreshing org.springframework.context.support.GenericApplicationContext@1e6d7f85: startup date [Wed Nov 16 01:00:18 UTC 2016]; root of context hierarchy
+[2016-11-16 01:00:18.933] common - ???? [main] ....  INFO --- PropertySourcesPlaceholderConfigurer: Loading properties file from class path resource [hsqldb.properties]
+[2016-11-16 01:00:18.972] common - ???? [main] ....  INFO --- DefaultListableBeanFactory: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@7d227617: defining beans [dataSource,jdbcTemplate,org.springframework.jdbc.datasource.init.DataSourceInitializer#0,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,platform,limitSqlAdapter,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+[2016-11-16 01:00:19.830] common - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:19.860] common - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 30 ms.
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.987 sec
+Running org.cloudfoundry.identity.uaa.audit.event.AuditListenerTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.cloudfoundry.identity.uaa.audit.JdbcAuditServiceTests
+[2016-11-16 01:00:20.095] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.audit.JdbcAuditServiceTests]: using defaults.
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 sec
+Running org.cloudfoundry.identity.uaa.client.OAuth2ClientAuthenticationFilterTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.07 sec
+Running org.cloudfoundry.identity.uaa.client.SourceTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.cloudfoundry.identity.uaa.client.OAuthClientAuthenticationFilterTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0.04 sec
+Running org.cloudfoundry.identity.uaa.oauth.RemoteTokenServicesTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec
+Running org.cloudfoundry.identity.uaa.oauth.token.TokenKeyEndpointTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.155 sec
+Running org.cloudfoundry.identity.uaa.oauth.token.UaaTokenServicesTests
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.478 sec
+Running org.cloudfoundry.identity.uaa.oauth.token.SignerProviderTests
+[2016-11-16 01:00:22.028] common - ???? [main] ....  INFO --- SignerProvider: Configured with RSA signing key
+[2016-11-16 01:00:22.037] common - ???? [main] ....  INFO --- SignerProvider: Signing and verification RSA keys match
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec
+Running org.cloudfoundry.identity.uaa.oauth.AccessControllerTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
+Running org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpointsTests
+[2016-11-16 01:00:22.090] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.094] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.097] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.108] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.111] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.114] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.116] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.130] common - ???? [main] ....  WARN --- ClientAdminEndpoints: Client with id bar attempting to change password for client foo
+[2016-11-16 01:00:22.150] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.151] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.161] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.166] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.169] common - ???? [main] ....  WARN --- ClientAdminEndpoints: Couldn't fetch client config for client_id: foo
+java.lang.NullPointerException
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpoints.syncWithExisting(ClientAdminEndpoints.java:488)
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpoints.updateClientDetails(ClientAdminEndpoints.java:193)
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpointsTests.updateNonImplicitClientWithEmptySecretIsOk(ClientAdminEndpointsTests.java:492)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.rules.ExpectedException$ExpectedExceptionStatement.evaluate(ExpectedException.java:110)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:234)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:133)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:188)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:166)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:101)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:74)
+[2016-11-16 01:00:22.171] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+[2016-11-16 01:00:22.174] common - ???? [main] ....  WARN --- ClientAdminEndpoints: Couldn't fetch client config for client_id: foo
+java.lang.NullPointerException
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpoints.syncWithExisting(ClientAdminEndpoints.java:488)
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpoints.updateClientDetails(ClientAdminEndpoints.java:193)
+	at org.cloudfoundry.identity.uaa.oauth.ClientAdminEndpointsTests.updateNonImplicitClientAndMakeItImplicit(ClientAdminEndpointsTests.java:500)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:21)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.rules.ExpectedException$ExpectedExceptionStatement.evaluate(ExpectedException.java:110)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:234)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:133)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:188)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:166)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:101)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:74)
+[2016-11-16 01:00:22.175] common - ???? [main] ....  INFO --- ClientAdminEndpoints: requested grant type missing refresh_token: foo
+Tests run: 39, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.126 sec
+Running org.cloudfoundry.identity.uaa.oauth.ClientAdminBootstrapTests
+[2016-11-16 01:00:22.189] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Adding autoapprove flag: BaseClientDetails [clientId=foo, clientSecret=bar, scope=[openid], resourceIds=[none], authorizedGrantTypes=[authorization_code, refresh_token], registeredRedirectUris=null, authorities=[uaa.none], accessTokenValiditySeconds=null, refreshTokenValiditySeconds=null, additionalInformation={autoapprove=true}]
+[2016-11-16 01:00:22.193] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Overriding client details for foo
+[2016-11-16 01:00:22.196] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Overriding client details for foo
+[2016-11-16 01:00:22.283] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Overriding client details for foo
+[2016-11-16 01:00:22.284] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Overriding client details for bar
+[2016-11-16 01:00:22.286] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Adding https callback: BaseClientDetails [clientId=foo, clientSecret=null, scope=[password, read, write], resourceIds=[password, scim, tokens], authorizedGrantTypes=[client_credentials], registeredRedirectUris=[https://foo.bar.com/spam], authorities=[uaa.none], accessTokenValiditySeconds=null, refreshTokenValiditySeconds=null, additionalInformation={}]
+[2016-11-16 01:00:22.288] common - ???? [main] ....  INFO --- ClientAdminBootstrap: Adding https callback: BaseClientDetails [clientId=foo, clientSecret=null, scope=[password, read, write], resourceIds=[password, scim, tokens], authorizedGrantTypes=[client_credentials], registeredRedirectUris=[https://foo.bar.com], authorities=[uaa.none], accessTokenValiditySeconds=null, refreshTokenValiditySeconds=null, additionalInformation={}]
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 sec
+Running org.cloudfoundry.identity.uaa.oauth.UaaAuthorizationRequestManagerTests
+[2016-11-16 01:00:22.291] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.oauth.UaaAuthorizationRequestManagerTests]: using defaults.
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 sec
+Running org.cloudfoundry.identity.uaa.oauth.JdbcScimClientDetailsServiceTests
+[2016-11-16 01:00:22.318] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.oauth.JdbcScimClientDetailsServiceTests]: using defaults.
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.04 sec
+Running org.cloudfoundry.identity.uaa.oauth.event.ClientAdminEventPublisherTests
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec
+Running org.cloudfoundry.identity.uaa.oauth.UaaUserApprovalHandlerTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running org.cloudfoundry.identity.uaa.oauth.ClientInfoEndpointTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.cloudfoundry.identity.uaa.oauth.approval.ApprovalsAdminEndpointsTests
+[2016-11-16 01:00:22.398] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.oauth.approval.ApprovalsAdminEndpointsTests]: using defaults.
+[2016-11-16 01:00:22.470] common - ???? [main] ....  WARN --- ApprovalsAdminEndpoints: vidya attemting to update approvals for marissa
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 sec
+Running org.cloudfoundry.identity.uaa.oauth.approval.ApprovalTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.cloudfoundry.identity.uaa.oauth.approval.JdbcApprovalStoreTests
+[2016-11-16 01:00:22.498] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.oauth.approval.JdbcApprovalStoreTests]: using defaults.
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.573 sec
+Running org.cloudfoundry.identity.uaa.oauth.CheckTokenEndpointTests
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.149 sec
+Running org.cloudfoundry.identity.uaa.oauth.UaaUserTokenConverterTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.oauth.UaaAuthenticationKeyGeneratorTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.cloudfoundry.identity.uaa.oauth.UserManagedAuthzApprovalHandlerTests
+[2016-11-16 01:00:24.238] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.oauth.UserManagedAuthzApprovalHandlerTests]: using defaults.
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.096 sec
+Running org.cloudfoundry.identity.uaa.openid.UserInfoEndpointTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.web.HealthzEndpointTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.web.ForwardAwareInternalResourceViewResolverTests
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
+Running org.cloudfoundry.identity.uaa.util.UaaPagingUtilsTests
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.user.UaaAuthorityTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Running org.cloudfoundry.identity.uaa.user.UaaUserEditorTests
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.user.JdbcUaaUserDatabaseTests
+[2016-11-16 01:00:24.385] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.user.JdbcUaaUserDatabaseTests]: using defaults.
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 sec
+Running org.cloudfoundry.identity.uaa.config.YamlMapFactoryBeanTests
+[2016-11-16 01:00:24.445] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: file [/home/travis/build/cloudfoundry/uaa/common/non-exsitent-file.yml]
+[2016-11-16 01:00:24.445] common - ???? [main] ....  WARN --- YamlProcessor: Could not load map from file [/home/travis/build/cloudfoundry/uaa/common/non-exsitent-file.yml]: non-exsitent-file.yml (No such file or directory)
+[2016-11-16 01:00:24.446] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: file [/home/travis/build/cloudfoundry/uaa/common/non-exsitent-file.yml]
+[2016-11-16 01:00:24.448] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.450] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.451] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.451] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.452] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.452] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.454] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: non-existent
+[2016-11-16 01:00:24.454] common - ???? [main] ....  WARN --- YamlProcessor: Could not load map from non-existent: planned
+[2016-11-16 01:00:24.454] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.455] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec
+Running org.cloudfoundry.identity.uaa.config.EnvironmentPropertiesFactoryBeanTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.cloudfoundry.identity.uaa.config.YamlPropertiesFactoryBeanTests
+[2016-11-16 01:00:24.465] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.466] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 2 documents from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.467] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.468] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 2 documents from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.473] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.474] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 3 documents from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.475] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.477] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 3 documents from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.477] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: class path resource [no-such-file.yml]
+[2016-11-16 01:00:24.478] common - ???? [main] ....  WARN --- YamlProcessor: Could not load map from class path resource [no-such-file.yml]: class path resource [no-such-file.yml] cannot be opened because it does not exist
+[2016-11-16 01:00:24.479] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.484] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.485] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.486] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.489] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.490] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.490] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.491] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.493] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.499] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.500] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.502] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0.045 sec
+Running org.cloudfoundry.identity.uaa.config.YamlConfigurationValidatorTests
+[2016-11-16 01:00:24.618] common - ???? [main] ....  INFO --- Version: HV000001: Hibernate Validator 4.3.1.Final
+[2016-11-16 01:00:24.748] common - ???? [main] .... ERROR --- YamlConfigurationValidator: YAML configuration failed validation
+[2016-11-16 01:00:24.749] common - ???? [main] .... ERROR --- YamlConfigurationValidator: name: may not be null
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.244 sec
+Running org.cloudfoundry.identity.uaa.config.EnvironmentMapFactoryBeanTests
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+Running org.cloudfoundry.identity.uaa.config.NestedMapPropertySourceTests
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.cloudfoundry.identity.uaa.config.YamlBindingTests
+[2016-11-16 01:00:24.769] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.770] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.788] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.789] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.794] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.794] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 0 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.802] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.803] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Required fields are not provided for field 'info'
+Missing field 'info.value'
+[2016-11-16 01:00:24.826] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.827] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.833] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.834] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.841] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.841] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.847] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.847] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.856] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.857] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+[2016-11-16 01:00:24.863] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.863] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 sec
+Running org.cloudfoundry.identity.uaa.config.YamlServletProfileInitializerTests
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:24.970] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:24.971] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.003] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.004] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Setting active profiles: bar
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.025] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.026] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Setting active profiles: bar
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.034] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.039] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Setting LOG_FILE: /tmp/bar.log
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.049] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.050] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Setting LOG_PATH: /tmp/log/bar
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.062] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.063] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: bar
+log4j:ERROR Could not read configuration file from URL [file:/home/travis/build/cloudfoundry/uaa/common/bar].
+java.io.FileNotFoundException: /home/travis/build/cloudfoundry/uaa/common/bar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:90)
+	at sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:188)
+	at java.net.URL.openStream(URL.java:1037)
+	at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:433)
+	at org.apache.log4j.PropertyConfigurator.configure(PropertyConfigurator.java:336)
+	at org.springframework.util.Log4jConfigurer.initLogging(Log4jConfigurer.java:72)
+	at org.cloudfoundry.identity.uaa.config.YamlServletProfileInitializer.applyLog4jConfiguration(YamlServletProfileInitializer.java:150)
+	at org.cloudfoundry.identity.uaa.config.YamlServletProfileInitializer.initialize(YamlServletProfileInitializer.java:103)
+	at org.cloudfoundry.identity.uaa.config.YamlServletProfileInitializerTests.testLog4jConfigurationFromYaml(YamlServletProfileInitializerTests.java:139)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:234)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:133)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:188)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:166)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:101)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:74)
+log4j:ERROR Ignoring configuration file [file:/home/travis/build/cloudfoundry/uaa/common/bar].
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Testing for YAML resources at: file:/config/path/foo.yml
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.075] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.077] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: foo.yml
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.085] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.086] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Testing for YAML resources at: file:${APPLICATION_CONFIG_FILE}
+No YAML environment properties from servlet.  Defaulting to servlet context.
+Testing for YAML resources at: foo.yml
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.096] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.097] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: file:foo/uaa.yml
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.105] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.109] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Testing for YAML resources at: ${APPLICATION_CONFIG_URL}
+Testing for YAML resources at: file:foo/uaa.yml
+Loading YAML environment properties from location: resource loaded from byte array
+[2016-11-16 01:00:25.124] common - ???? [main] ....  INFO --- YamlProcessor: Loading from YAML: resource loaded from byte array
+[2016-11-16 01:00:25.125] common - ???? [main] ....  INFO --- YamlProcessor: Loaded 1 document from YAML resource: resource loaded from byte array
+Loading log4j config from location: classpath:log4j.properties
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.267 sec
+Running org.cloudfoundry.identity.uaa.rest.MessageTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.cloudfoundry.identity.uaa.rest.jdbc.JdbcPagingListTests
+[2016-11-16 01:00:25.149] common - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.rest.jdbc.JdbcPagingListTests]: using defaults.
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec
+[2016-11-16 01:00:25.183] common - ???? [Thread-1] ....  INFO --- GenericApplicationContext: Closing org.springframework.context.support.GenericApplicationContext@1e6d7f85: startup date [Wed Nov 16 01:00:18 UTC 2016]; root of context hierarchy
+[2016-11-16 01:00:25.184] common - ???? [Thread-1] ....  INFO --- DefaultListableBeanFactory: Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@7d227617: defining beans [dataSource,jdbcTemplate,org.springframework.jdbc.datasource.init.DataSourceInitializer#0,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,platform,limitSqlAdapter,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+
+Results :
+
+Tests run: 318, Failures: 0, Errors: 0, Skipped: 7
+
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building CloudFoundry Identity SCIM 1.5.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ cloudfoundry-identity-scim ---
+[INFO] Deleting /home/travis/build/cloudfoundry/uaa/scim/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.1.1:enforce (enforce-versions) @ cloudfoundry-identity-scim ---
+[INFO] 
+[INFO] --- maven-antrun-plugin:1.6:run (generate-sql) @ cloudfoundry-identity-scim ---
+[INFO] Executing tasks
+
+main:
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+  [vppcopy] Copying 2 files to /home/travis/build/cloudfoundry/uaa/scim/target/generated-resources
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ cloudfoundry-identity-scim ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ cloudfoundry-identity-scim ---
+[INFO] Compiling 52 source files to /home/travis/build/cloudfoundry/uaa/scim/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ cloudfoundry-identity-scim ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ cloudfoundry-identity-scim ---
+[INFO] Compiling 26 source files to /home/travis/build/cloudfoundry/uaa/scim/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.11:test (default-test) @ cloudfoundry-identity-scim ---
+[INFO] Surefire report directory: /home/travis/build/cloudfoundry/uaa/scim/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.cloudfoundry.identity.uaa.scim.ScimGroupMemberTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.048 sec
+Running org.cloudfoundry.identity.uaa.scim.endpoints.ScimUserEndpointsTests
+[2016-11-16 01:00:29.604] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:30.053] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:30.070] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 16 ms.
+[2016-11-16 01:00:30.071] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:30.078] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 7 ms.
+[2016-11-16 01:00:30.491] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.495] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.502] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dave
+[2016-11-16 01:00:30.637] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.639] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.642] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dave
+[2016-11-16 01:00:30.649] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user dave
+[2016-11-16 01:00:30.678] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.681] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.683] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dave
+[2016-11-16 01:00:30.718] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.720] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.730] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: vidya
+[2016-11-16 01:00:30.753] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.755] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.762] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: vidya
+[2016-11-16 01:00:30.771] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user vidya
+[2016-11-16 01:00:30.792] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.794] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.824] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.826] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.828] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dave
+[2016-11-16 01:00:30.850] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.853] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.877] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.879] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.974] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.976] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:30.994] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:30.997] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.000] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dave
+[2016-11-16 01:00:31.018] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.020] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.022] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: deleteme
+[2016-11-16 01:00:31.028] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 8b627505-a080-4e8c-a3f3-10ba73b2e8aa
+[2016-11-16 01:00:31.045] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.072] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.074] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: deleteme
+[2016-11-16 01:00:31.084] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 4d333de8-d241-424c-88aa-d15f87da2ae7
+[2016-11-16 01:00:31.099] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.101] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.102] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: deleteme2
+[2016-11-16 01:00:31.109] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: de1f9db5-e8f9-414a-b0fd-f78af3c62cf7
+[2016-11-16 01:00:31.122] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.125] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.126] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: deleteme3
+[2016-11-16 01:00:31.133] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: d51aa21b-f589-4524-b69f-a4a5298f465c
+[2016-11-16 01:00:31.149] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.151] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.153] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: deleteme3
+[2016-11-16 01:00:31.169] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 6342e8d9-6fc4-46c0-9e09-99ab75832f9e
+[2016-11-16 01:00:31.201] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.204] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.317] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.319] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.339] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.341] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.362] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.364] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.385] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.387] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.411] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.413] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.479] scim - ???? [main] ....  INFO --- XmlBeanDefinitionReader: Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+[2016-11-16 01:00:31.646] scim - ???? [main] ....  INFO --- SQLErrorCodesFactory: SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+[2016-11-16 01:00:31.662] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.664] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.683] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.685] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.709] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.710] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.734] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.736] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.759] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.761] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.790] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.791] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:31.813] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:31.815] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+Tests run: 30, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 2.372 sec
+Running org.cloudfoundry.identity.uaa.scim.endpoints.UserIdConversionEndpointsTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.156 sec
+Running org.cloudfoundry.identity.uaa.scim.endpoints.ScimGroupEndpointsTests
+[2016-11-16 01:00:32.013] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.endpoints.ScimGroupEndpointsTests]: using defaults.
+[2016-11-16 01:00:32.026] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:32.068] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:32.074] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 6 ms.
+[2016-11-16 01:00:32.075] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:32.082] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 7 ms.
+[2016-11-16 01:00:32.294] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: d529ce1a-ba69-4ab3-a19c-98d8bf1e9022
+[2016-11-16 01:00:32.397] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: b684b891-8084-4fd5-922a-ff43e7326b8b
+[2016-11-16 01:00:32.508] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 91183aa4-ce56-4aef-b5bf-014a8d1a5645
+[2016-11-16 01:00:32.531] scim - ???? [main] ....  INFO --- XmlBeanDefinitionReader: Loading XML bean definitions from class path resource [test-data-source.xml]
+[2016-11-16 01:00:32.688] scim - ???? [main] ....  INFO --- GenericApplicationContext: Refreshing org.springframework.context.support.GenericApplicationContext@294c9ed9: startup date [Wed Nov 16 01:00:32 UTC 2016]; root of context hierarchy
+[2016-11-16 01:00:32.774] scim - ???? [main] ....  INFO --- PropertySourcesPlaceholderConfigurer: Loading properties file from class path resource [hsqldb.properties]
+[2016-11-16 01:00:32.797] scim - ???? [main] ....  INFO --- DefaultListableBeanFactory: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@5636a67c: defining beans [dataSource,jdbcTemplate,org.springframework.jdbc.datasource.init.DataSourceInitializer#0,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,platform,limitSqlAdapter,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+[2016-11-16 01:00:33.081] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:33.087] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 6 ms.
+[2016-11-16 01:00:33.087] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:33.090] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:33.369] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 397c0003-eac8-46ca-b31b-52f30380a9e9
+[2016-11-16 01:00:33.494] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 2de15bcf-f8a5-40cd-8924-83daa62d31b5
+[2016-11-16 01:00:33.516] scim - ???? [main] ....  WARN --- ScimGroupEndpoints: Attempt to add invalid member: non-existent id to group: 
+[2016-11-16 01:00:33.617] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 1f211767-4935-49b8-b8b5-1e84e473b32d
+[2016-11-16 01:00:33.734] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 6e64d45c-e35c-4b3c-8b60-20ff250bd3ab
+[2016-11-16 01:00:33.838] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: d62bde64-da6c-4a44-8743-df68afd13982
+[2016-11-16 01:00:33.957] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 6911aaed-47c6-4866-a3dc-370e7f7fc7c5
+[2016-11-16 01:00:33.981] scim - ???? [main] .... ERROR --- ScimGroupEndpoints: Error updating group, restoring to previous state: (Group id: 4c851ebd-fc6c-4c26-9baf-496e8dec1e78, name: clients.read, created: 2016-11-16 01:00:33.971, modified: 2016-11-16 01:00:33.971, version: 0, members: [(memberId: d4a453de-8e16-4ac4-85c0-dd94fa09452b, type: USER, roles: [READER, WRITER])])
+[2016-11-16 01:00:34.090] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: b8396b3a-e529-412b-a37c-7af31eff6e91
+[2016-11-16 01:00:34.210] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: c8349f95-30f7-46ff-88aa-eb8339bf9ab2
+[2016-11-16 01:00:34.322] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 6c531cc6-617d-4b34-86e1-f7acac54668e
+[2016-11-16 01:00:34.441] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 9663fa98-1479-4959-aca6-6e27170bcc0f
+[2016-11-16 01:00:34.449] scim - ???? [main] .... ERROR --- ScimGroupEndpoints: Error updating group, restoring to previous state
+[2016-11-16 01:00:34.556] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 823ce143-07d1-41b9-97ab-310d2bb464e9
+[2016-11-16 01:00:34.668] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 4f0cb4bd-1c38-496e-b362-7abc232dbb78
+[2016-11-16 01:00:34.784] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: f256e47f-5c7f-4a89-bf6c-c7f550f74f33
+[2016-11-16 01:00:34.804] scim - ???? [main] .... ERROR --- ScimGroupEndpoints: error deleting group, restoring system to previous state
+Tests run: 27, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.836 sec <<< FAILURE!
+Running org.cloudfoundry.identity.uaa.scim.endpoints.HandlerAdapterFactoryBeanTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 sec
+Running org.cloudfoundry.identity.uaa.scim.bootstrap.ScimExternalGroupBootstrapTests
+[2016-11-16 01:00:34.886] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.bootstrap.ScimExternalGroupBootstrapTests]: using defaults.
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 sec
+Running org.cloudfoundry.identity.uaa.scim.bootstrap.ScimUserBootstrapTests
+[2016-11-16 01:00:34.992] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:35.012] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:35.029] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 17 ms.
+[2016-11-16 01:00:35.029] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:35.032] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:35.038] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:35.134] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:35.141] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=mabel, email=mabel@blah.com, givenName=Mabel, familyName=User}]
+[2016-11-16 01:00:35.237] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: mabel
+[2016-11-16 01:00:35.243] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:35.258] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:35.276] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 17 ms.
+[2016-11-16 01:00:35.277] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:35.292] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 14 ms.
+[2016-11-16 01:00:35.302] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:35.406] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:35.481] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:35.531] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:35.543] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 12 ms.
+[2016-11-16 01:00:35.544] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:35.557] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 6 ms.
+[2016-11-16 01:00:35.569] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:35.694] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:35.725] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:35.740] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:35.800] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 60 ms.
+[2016-11-16 01:00:35.800] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:35.805] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 4 ms.
+[2016-11-16 01:00:35.812] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:35.929] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:35.943] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Updating user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joel, familyName=User}] with SCIM Id: 63cefe94-673a-4b88-a03f-2acc6d8b643d
+[2016-11-16 01:00:35.943] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Removing existing group memberships ...
+[2016-11-16 01:00:35.953] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user joe
+[2016-11-16 01:00:35.954] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Adding new groups [uaa.user]
+[2016-11-16 01:00:36.078] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:36.098] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:36.103] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 5 ms.
+[2016-11-16 01:00:36.103] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:36.106] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:36.114] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:36.214] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:36.232] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Updating user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}] with SCIM Id: cd5a779c-0b66-41b6-880a-5fdeb9335c37
+[2016-11-16 01:00:36.232] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Removing existing group memberships ...
+[2016-11-16 01:00:36.240] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user joe
+[2016-11-16 01:00:36.241] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Adding new groups [openid, read, write, uaa.user]
+[2016-11-16 01:00:36.377] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:36.390] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:36.394] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 4 ms.
+[2016-11-16 01:00:36.394] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:36.397] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:36.406] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:36.506] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[{GROUP_ID=5fc5e696-3c74-4052-b87b-ebb6726aab33, MEMBER_ID=404e4344-5d3c-4904-a8fa-1fce7773a0d0, MEMBER_TYPE=USER, AUTHORITIES=MEMBER, ADDED=2016-11-16 01:00:36.51}, {GROUP_ID=b96c81f6-7d9f-4390-af84-20cc37434d87, MEMBER_ID=404e4344-5d3c-4904-a8fa-1fce7773a0d0, MEMBER_TYPE=USER, AUTHORITIES=MEMBER, ADDED=2016-11-16 01:00:36.516}, {GROUP_ID=c0c4172d-7ec1-4b60-9425-f3251415420d, MEMBER_ID=404e4344-5d3c-4904-a8fa-1fce7773a0d0, MEMBER_TYPE=USER, AUTHORITIES=MEMBER, ADDED=2016-11-16 01:00:36.513}]
+[2016-11-16 01:00:36.521] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Updating user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}] with SCIM Id: 404e4344-5d3c-4904-a8fa-1fce7773a0d0
+[2016-11-16 01:00:36.521] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Removing existing group memberships ...
+[2016-11-16 01:00:36.529] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user joe
+[2016-11-16 01:00:36.530] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Adding new groups [openid, uaa.user]
+[2016-11-16 01:00:36.646] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:36.659] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:36.675] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 15 ms.
+[2016-11-16 01:00:36.675] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:36.678] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:36.690] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:36.814] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+[2016-11-16 01:00:36.820] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Updating user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=Bloggs}] with SCIM Id: 40c7887e-9a81-41ca-a886-7e09eb021b89
+[2016-11-16 01:00:36.821] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Removing existing group memberships ...
+[2016-11-16 01:00:36.824] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user joe
+[2016-11-16 01:00:36.826] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Adding new groups [uaa.user]
+[2016-11-16 01:00:36.930] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:36.941] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:36.953] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 11 ms.
+[2016-11-16 01:00:36.964] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:36.970] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 6 ms.
+[2016-11-16 01:00:36.980] scim - ???? [main] ....  INFO --- ScimUserBootstrap: Registering new user account: [UaaUser {id=NaN, username=joe, email=joe@test.org, givenName=Joe, familyName=User}]
+[2016-11-16 01:00:37.085] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: joe
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.101 sec
+Running org.cloudfoundry.identity.uaa.scim.bootstrap.ScimGroupBootstrapTests
+[2016-11-16 01:00:37.094] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.bootstrap.ScimGroupBootstrapTests]: using defaults.
+[2016-11-16 01:00:37.196] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev1
+[2016-11-16 01:00:37.295] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev2
+[2016-11-16 01:00:37.394] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev3
+[2016-11-16 01:00:37.493] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa1
+[2016-11-16 01:00:37.593] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa2
+[2016-11-16 01:00:37.693] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: mgr1
+[2016-11-16 01:00:37.793] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: hr1
+[2016-11-16 01:00:37.973] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev1
+[2016-11-16 01:00:38.081] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev2
+[2016-11-16 01:00:38.190] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev3
+[2016-11-16 01:00:38.299] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa1
+[2016-11-16 01:00:38.408] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa2
+[2016-11-16 01:00:38.517] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: mgr1
+[2016-11-16 01:00:38.625] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: hr1
+[2016-11-16 01:00:38.726] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev1
+[2016-11-16 01:00:38.825] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev2
+[2016-11-16 01:00:38.924] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: dev3
+[2016-11-16 01:00:39.024] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa1
+[2016-11-16 01:00:39.124] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: qa2
+[2016-11-16 01:00:39.223] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: mgr1
+[2016-11-16 01:00:39.322] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: hr1
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.285 sec
+Running org.cloudfoundry.identity.uaa.scim.remote.RemoteScimUserProvisioningTests
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.05 sec
+Running org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupExternalMembershipManagerTests
+[2016-11-16 01:00:39.432] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupExternalMembershipManagerTests]: using defaults.
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 sec
+Running org.cloudfoundry.identity.uaa.scim.jdbc.ScimSearchQueryConverterTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupProvisioningTests
+[2016-11-16 01:00:39.475] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupProvisioningTests]: using defaults.
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec
+Running org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupMembershipManagerTests
+[2016-11-16 01:00:39.577] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimGroupMembershipManagerTests]: using defaults.
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.894 sec
+Running org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimUserProvisioningTests
+[2016-11-16 01:00:40.468] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimUserProvisioningTests]: using defaults.
+[2016-11-16 01:00:40.609] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: JO@FOO.COM
+[2016-11-16 01:00:40.725] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: JO@FOO.COM
+[2016-11-16 01:00:40.847] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user josephine
+[2016-11-16 01:00:40.855] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user josephine
+[2016-11-16 01:00:40.862] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Updating user josephine
+[2016-11-16 01:00:41.344] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 354d8557-b65d-4103-88ce-7bd5ba8bda1e
+[2016-11-16 01:00:41.352] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 4a0bb10a-a233-4809-b03a-a5bd9f41abeb
+[2016-11-16 01:00:41.452] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 4a0bb10a-a233-4809-b03a-a5bd9f41abeb
+[2016-11-16 01:00:41.466] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deactivating user: 550e8400-e29b-41d4-a716-446655440000
+[2016-11-16 01:00:41.473] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deleting user: c0480ab2-f374-4664-8df5-a3a4ebbf5c89
+[2016-11-16 01:00:41.481] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deleting user: 792b4c83-e1b7-4be6-9170-47e8525213b7
+[2016-11-16 01:00:41.580] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: 792b4c83-e1b7-4be6-9170-47e8525213b7
+[2016-11-16 01:00:41.596] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Deleting user: 550e8400-e29b-41d4-a716-446655440000
+Tests run: 52, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.315 sec
+Running org.cloudfoundry.identity.uaa.scim.validate.DefaultPasswordValidatorTests
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec
+Running org.cloudfoundry.identity.uaa.scim.ScimCoreTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running org.cloudfoundry.identity.uaa.scim.ScimUserTests
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.122 sec
+Running org.cloudfoundry.identity.uaa.authorization.external.LdapGroupMappingAuthorizationManagerTests
+[2016-11-16 01:00:41.921] scim - ???? [main] ....  INFO --- TestContextManager: @TestExecutionListeners is not present for class [class org.cloudfoundry.identity.uaa.authorization.external.LdapGroupMappingAuthorizationManagerTests]: using defaults.
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 sec
+Running org.cloudfoundry.identity.uaa.password.PasswordCheckEndpointTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.679 sec
+Running org.cloudfoundry.identity.uaa.password.PasswordChangeEndpointTests
+[2016-11-16 01:00:44.640] scim - ???? [main] ....  INFO --- EmbeddedDatabaseFactory: Creating embedded database 'testdb'
+[2016-11-16 01:00:44.657] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql]
+[2016-11-16 01:00:44.663] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/schema-hsqldb.sql] in 5 ms.
+[2016-11-16 01:00:44.663] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql]
+[2016-11-16 01:00:44.666] scim - ???? [main] ....  INFO --- ResourceDatabasePopulator: Done executing SQL script from class path resource [org/cloudfoundry/identity/uaa/scim/schema-hsqldb.sql] in 3 ms.
+[2016-11-16 01:00:44.672] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.673] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.683] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.684] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.692] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.693] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.703] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.705] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.707] scim - ???? [main] ....  WARN --- PasswordChangeEndpoint: User with id b117ab06-e28d-43e1-94e3-7071e7d6d53b attempting to change password for user 44a1ad0a-0be5-4e1b-b3b0-cc2cd1eea7fb
+[2016-11-16 01:00:44.712] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.714] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.722] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.723] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+[2016-11-16 01:00:44.729] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: jdsa
+[2016-11-16 01:00:44.730] scim - ???? [main] ....  INFO --- JdbcScimUserProvisioning: Creating new user: olds
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 sec
+Running org.cloudfoundry.identity.uaa.password.event.PasswordChangeEventPublisherTests
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec
+[2016-11-16 01:00:44.782] scim - ???? [Thread-1] ....  INFO --- GenericApplicationContext: Closing org.springframework.context.support.GenericApplicationContext@294c9ed9: startup date [Wed Nov 16 01:00:32 UTC 2016]; root of context hierarchy
+[2016-11-16 01:00:44.782] scim - ???? [Thread-1] ....  INFO --- DefaultListableBeanFactory: Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@5636a67c: defining beans [dataSource,jdbcTemplate,org.springframework.jdbc.datasource.init.DataSourceInitializer#0,org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,platform,limitSqlAdapter,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor#0]; root of factory hierarchy
+
+Results :
+
+Failed tests:   testListGroupsWithNameEqFilter(org.cloudfoundry.identity.uaa.scim.endpoints.ScimGroupEndpointsTests): expected:<1> but was:<0>
+
+Tests run: 213, Failures: 1, Errors: 0, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] CloudFoundry Identity - Parent ..................... SUCCESS [  2.858 s]
+[INFO] CloudFoundry Identity Common Jar ................... SUCCESS [ 22.916 s]
+[INFO] CloudFoundry Identity SCIM ......................... FAILURE [ 19.602 s]
+[INFO] UAA ................................................ SKIPPED
+[INFO] CloudFoundry Identity - Samples .................... SKIPPED
+[INFO] Sample resource server for Cloudfoundry Identity Services SKIPPED
+[INFO] Sample user webapp for Cloudfoundry Identity Services SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 45.961 s
+[INFO] Finished at: 2016-11-16T01:00:44+00:00
+[INFO] Final Memory: 39M/94M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.11:test (default-test) on project cloudfoundry-identity-scim: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/travis/build/cloudfoundry/uaa/scim/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :cloudfoundry-identity-scim
+
+travis_time:end:0c247615:start=1479257997024808950,finish=1479258045006657282,duration=47981848332[0K
+[31;1mThe command "mvn clean test" exited with 1.[0m
+
+Done. Your build exited with 1.

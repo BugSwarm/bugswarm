@@ -1,0 +1,1569 @@
+2022-06-23T20:12:50.8361515Z Requested labels: ubuntu-latest
+2022-06-23T20:12:50.8361585Z Job defined at: flutter/website/.github/workflows/scorecards-analysis.yml@refs/heads/main
+2022-06-23T20:12:50.8361610Z Waiting for a runner to pick up this job...
+2022-06-23T20:12:52.7391600Z Job is waiting for a hosted runner to come online.
+2022-06-23T20:12:57.3417561Z Job is about to start running on the hosted runner: GitHub Actions 99 (hosted)
+2022-06-23T20:13:00.9178280Z Current runner version: '2.293.0'
+2022-06-23T20:13:00.9208529Z ##[group]Operating System
+2022-06-23T20:13:00.9209229Z Ubuntu
+2022-06-23T20:13:00.9209538Z 20.04.4
+2022-06-23T20:13:00.9210039Z LTS
+2022-06-23T20:13:00.9210374Z ##[endgroup]
+2022-06-23T20:13:00.9210826Z ##[group]Virtual Environment
+2022-06-23T20:13:00.9211258Z Environment: ubuntu-20.04
+2022-06-23T20:13:00.9211589Z Version: 20220619.1
+2022-06-23T20:13:00.9212199Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220619.1/images/linux/Ubuntu2004-Readme.md
+2022-06-23T20:13:00.9213004Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220619.1
+2022-06-23T20:13:00.9213529Z ##[endgroup]
+2022-06-23T20:13:00.9214069Z ##[group]Virtual Environment Provisioner
+2022-06-23T20:13:00.9214546Z 1.0.0.0-main-20220531-1
+2022-06-23T20:13:00.9214877Z ##[endgroup]
+2022-06-23T20:13:00.9215749Z ##[group]GITHUB_TOKEN Permissions
+2022-06-23T20:13:00.9216319Z Actions: read
+2022-06-23T20:13:00.9217012Z Contents: read
+2022-06-23T20:13:00.9217633Z Metadata: read
+2022-06-23T20:13:00.9218161Z SecurityEvents: write
+2022-06-23T20:13:00.9218493Z ##[endgroup]
+2022-06-23T20:13:00.9223074Z Secret source: Actions
+2022-06-23T20:13:00.9223775Z Prepare workflow directory
+2022-06-23T20:13:01.0312136Z Prepare all required actions
+2022-06-23T20:13:01.0548963Z Getting action download info
+2022-06-23T20:13:01.4609577Z Download action repository 'actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b' (SHA:2541b1294d2704b0964813337f33b291d3f8596b)
+2022-06-23T20:13:02.1942004Z Download action repository 'ossf/scorecard-action@3e15ea8318eee9b333819ec77a36aca8d39df13e' (SHA:3e15ea8318eee9b333819ec77a36aca8d39df13e)
+2022-06-23T20:13:02.8442815Z Download action repository 'actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8' (SHA:3cea5372237819ed00197afe530f5a7ea3e805c8)
+2022-06-23T20:13:03.3559837Z Download action repository 'github/codeql-action@41a4ada31ba866a7f1196b9602703a89edd69e22' (SHA:41a4ada31ba866a7f1196b9602703a89edd69e22)
+2022-06-23T20:13:08.0611341Z ##[group]Build container for action use: '/home/runner/work/_actions/ossf/scorecard-action/3e15ea8318eee9b333819ec77a36aca8d39df13e/./Dockerfile'.
+2022-06-23T20:13:08.0694924Z ##[command]/usr/bin/docker build -t 72882e:787b5530c4ef4f9d91a9964741e3d3c5 -f "/home/runner/work/_actions/ossf/scorecard-action/3e15ea8318eee9b333819ec77a36aca8d39df13e/./Dockerfile" "/home/runner/work/_actions/ossf/scorecard-action/3e15ea8318eee9b333819ec77a36aca8d39df13e"
+2022-06-23T20:13:08.3972358Z Sending build context to Docker daemon    1.7MB
+2022-06-23T20:13:08.3973938Z 
+2022-06-23T20:13:08.4041455Z Step 1/7 : FROM gcr.io/openssf/scorecard:v4.3.1@sha256:06e3ddde7f63619813c5749389010b596e753fa070c524a42fd0de756f96970f as base
+2022-06-23T20:13:08.6438422Z gcr.io/openssf/scorecard:v4.3.1@sha256:06e3ddde7f63619813c5749389010b596e753fa070c524a42fd0de756f96970f: Pulling from openssf/scorecard
+2022-06-23T20:13:08.6468582Z 36698cfa5275: Pulling fs layer
+2022-06-23T20:13:08.6472880Z ac950f8db016: Pulling fs layer
+2022-06-23T20:13:08.6476166Z df2cfc36ce7b: Pulling fs layer
+2022-06-23T20:13:08.8284270Z 36698cfa5275: Verifying Checksum
+2022-06-23T20:13:08.8284664Z 36698cfa5275: Download complete
+2022-06-23T20:13:08.9107894Z df2cfc36ce7b: Verifying Checksum
+2022-06-23T20:13:08.9111043Z df2cfc36ce7b: Download complete
+2022-06-23T20:13:08.9348441Z ac950f8db016: Verifying Checksum
+2022-06-23T20:13:08.9369109Z ac950f8db016: Download complete
+2022-06-23T20:13:09.1683245Z 36698cfa5275: Pull complete
+2022-06-23T20:13:09.7671525Z ac950f8db016: Pull complete
+2022-06-23T20:13:10.0944867Z df2cfc36ce7b: Pull complete
+2022-06-23T20:13:10.1028614Z Digest: sha256:06e3ddde7f63619813c5749389010b596e753fa070c524a42fd0de756f96970f
+2022-06-23T20:13:10.1076223Z Status: Downloaded newer image for gcr.io/openssf/scorecard:v4.3.1@sha256:06e3ddde7f63619813c5749389010b596e753fa070c524a42fd0de756f96970f
+2022-06-23T20:13:10.1091296Z  ---> c37173427b62
+2022-06-23T20:13:10.1091726Z Step 2/7 : FROM debian:11.3-slim@sha256:06a93cbdd49a265795ef7b24fe374fee670148a7973190fb798e43b3cf7c5d0f
+2022-06-23T20:13:10.6202387Z docker.io/library/debian:11.3-slim@sha256:06a93cbdd49a265795ef7b24fe374fee670148a7973190fb798e43b3cf7c5d0f: Pulling from library/debian
+2022-06-23T20:13:10.8133682Z 42c077c10790: Pulling fs layer
+2022-06-23T20:13:11.3891928Z 42c077c10790: Download complete
+2022-06-23T20:13:12.8243857Z 42c077c10790: Pull complete
+2022-06-23T20:13:12.8327474Z Digest: sha256:06a93cbdd49a265795ef7b24fe374fee670148a7973190fb798e43b3cf7c5d0f
+2022-06-23T20:13:12.8342038Z Status: Downloaded newer image for debian:11.3-slim@sha256:06a93cbdd49a265795ef7b24fe374fee670148a7973190fb798e43b3cf7c5d0f
+2022-06-23T20:13:12.8382853Z  ---> c9cb6c086ef7
+2022-06-23T20:13:12.8383378Z Step 3/7 : RUN apt-get update &&     apt-get install -y --no-install-recommends     jq ca-certificates curl
+2022-06-23T20:13:13.0901505Z  ---> Running in cc5af76362a1
+2022-06-23T20:13:13.4837108Z Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+2022-06-23T20:13:13.5094390Z Get:2 http://deb.debian.org/debian bullseye-updates InRelease [39.4 kB]
+2022-06-23T20:13:13.5094978Z Get:3 http://security.debian.org/debian-security bullseye-security InRelease [44.1 kB]
+2022-06-23T20:13:13.6383117Z Get:4 http://deb.debian.org/debian bullseye/main amd64 Packages [8182 kB]
+2022-06-23T20:13:13.7978226Z Get:5 http://deb.debian.org/debian bullseye-updates/main amd64 Packages [2592 B]
+2022-06-23T20:13:13.9010219Z Get:6 http://security.debian.org/debian-security bullseye-security/main amd64 Packages [160 kB]
+2022-06-23T20:13:14.9859463Z Fetched 8545 kB in 2s (5541 kB/s)
+2022-06-23T20:13:15.5860803Z Reading package lists...
+2022-06-23T20:13:16.2332832Z Reading package lists...
+2022-06-23T20:13:16.4016097Z Building dependency tree...
+2022-06-23T20:13:16.4016403Z Reading state information...
+2022-06-23T20:13:16.5441205Z The following additional packages will be installed:
+2022-06-23T20:13:16.5441656Z   libbrotli1 libcurl4 libjq1 libldap-2.4-2 libnghttp2-14 libonig5 libpsl5
+2022-06-23T20:13:16.5442548Z   librtmp1 libsasl2-2 libsasl2-modules-db libssh2-1 openssl
+2022-06-23T20:13:16.5454647Z Recommended packages:
+2022-06-23T20:13:16.5455025Z   libldap-common publicsuffix libsasl2-modules
+2022-06-23T20:13:16.6452246Z The following NEW packages will be installed:
+2022-06-23T20:13:16.6459461Z   ca-certificates curl jq libbrotli1 libcurl4 libjq1 libldap-2.4-2
+2022-06-23T20:13:16.6460191Z   libnghttp2-14 libonig5 libpsl5 librtmp1 libsasl2-2 libsasl2-modules-db
+2022-06-23T20:13:16.6465190Z   libssh2-1 openssl
+2022-06-23T20:13:16.6955498Z 0 upgraded, 15 newly installed, 0 to remove and 1 not upgraded.
+2022-06-23T20:13:16.6955867Z Need to get 3040 kB of archives.
+2022-06-23T20:13:16.6956880Z After this operation, 6651 kB of additional disk space will be used.
+2022-06-23T20:13:16.6957327Z Get:1 http://deb.debian.org/debian bullseye/main amd64 ca-certificates all 20210119 [158 kB]
+2022-06-23T20:13:16.7176601Z Get:2 http://deb.debian.org/debian bullseye/main amd64 libbrotli1 amd64 1.0.9-2+b2 [279 kB]
+2022-06-23T20:13:16.7267636Z Get:3 http://deb.debian.org/debian bullseye/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg-2.1+deb11u1 [69.1 kB]
+2022-06-23T20:13:16.7296114Z Get:4 http://deb.debian.org/debian bullseye/main amd64 libsasl2-2 amd64 2.1.27+dfsg-2.1+deb11u1 [106 kB]
+2022-06-23T20:13:16.7296623Z Get:5 http://deb.debian.org/debian bullseye/main amd64 libnghttp2-14 amd64 1.43.0-1 [77.1 kB]
+2022-06-23T20:13:16.7297062Z Get:6 http://deb.debian.org/debian bullseye/main amd64 libpsl5 amd64 0.21.0-1.2 [57.3 kB]
+2022-06-23T20:13:16.7347216Z Get:7 http://deb.debian.org/debian bullseye/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b2 [60.8 kB]
+2022-06-23T20:13:16.7354099Z Get:8 http://deb.debian.org/debian bullseye/main amd64 libssh2-1 amd64 1.9.0-2 [156 kB]
+2022-06-23T20:13:16.7370205Z Get:9 http://deb.debian.org/debian bullseye/main amd64 libcurl4 amd64 7.74.0-1.3+deb11u1 [341 kB]
+2022-06-23T20:13:16.7397140Z Get:10 http://deb.debian.org/debian bullseye/main amd64 curl amd64 7.74.0-1.3+deb11u1 [267 kB]
+2022-06-23T20:13:16.7417330Z Get:11 http://deb.debian.org/debian bullseye/main amd64 libonig5 amd64 6.9.6-1.1 [185 kB]
+2022-06-23T20:13:16.7449299Z Get:12 http://deb.debian.org/debian bullseye/main amd64 libjq1 amd64 1.6-2.1 [135 kB]
+2022-06-23T20:13:16.7450708Z Get:13 http://deb.debian.org/debian bullseye/main amd64 jq amd64 1.6-2.1 [64.9 kB]
+2022-06-23T20:13:16.8908749Z Get:14 http://security.debian.org/debian-security bullseye-security/main amd64 openssl amd64 1.1.1n-0+deb11u2 [852 kB]
+2022-06-23T20:13:16.9546373Z Get:15 http://security.debian.org/debian-security bullseye-security/main amd64 libldap-2.4-2 amd64 2.4.57+dfsg-3+deb11u1 [232 kB]
+2022-06-23T20:13:17.0815350Z [91mdebconf: delaying package configuration, since apt-utils is not installed
+2022-06-23T20:13:17.1071894Z [0mFetched 3040 kB in 0s (10.0 MB/s)
+2022-06-23T20:13:17.1238600Z Selecting previously unselected package openssl.
+2022-06-23T20:13:17.1250205Z (Reading database ... 
+2022-06-23T20:13:17.1251002Z (Reading database ... 5%
+2022-06-23T20:13:17.1251674Z (Reading database ... 10%
+2022-06-23T20:13:17.1252291Z (Reading database ... 15%
+2022-06-23T20:13:17.1252977Z (Reading database ... 20%
+2022-06-23T20:13:17.1253717Z (Reading database ... 25%
+2022-06-23T20:13:17.1254259Z (Reading database ... 30%
+2022-06-23T20:13:17.1255386Z (Reading database ... 35%
+2022-06-23T20:13:17.1260683Z (Reading database ... 40%
+2022-06-23T20:13:17.1261437Z (Reading database ... 45%
+2022-06-23T20:13:17.1262074Z (Reading database ... 50%
+2022-06-23T20:13:17.1262636Z (Reading database ... 55%
+2022-06-23T20:13:17.1263330Z (Reading database ... 60%
+2022-06-23T20:13:17.1277219Z (Reading database ... 65%
+2022-06-23T20:13:17.1286261Z (Reading database ... 70%
+2022-06-23T20:13:17.1297233Z (Reading database ... 75%
+2022-06-23T20:13:17.1307178Z (Reading database ... 80%
+2022-06-23T20:13:17.1313383Z (Reading database ... 85%
+2022-06-23T20:13:17.1313669Z (Reading database ... 90%
+2022-06-23T20:13:17.1325573Z (Reading database ... 95%
+2022-06-23T20:13:17.1325839Z (Reading database ... 100%
+2022-06-23T20:13:17.1326485Z (Reading database ... 6662 files and directories currently installed.)
+2022-06-23T20:13:17.1334100Z Preparing to unpack .../00-openssl_1.1.1n-0+deb11u2_amd64.deb ...
+2022-06-23T20:13:17.1345248Z Unpacking openssl (1.1.1n-0+deb11u2) ...
+2022-06-23T20:13:17.2202967Z Selecting previously unselected package ca-certificates.
+2022-06-23T20:13:17.2219206Z Preparing to unpack .../01-ca-certificates_20210119_all.deb ...
+2022-06-23T20:13:17.2235717Z Unpacking ca-certificates (20210119) ...
+2022-06-23T20:13:17.2639072Z Selecting previously unselected package libbrotli1:amd64.
+2022-06-23T20:13:17.2662872Z Preparing to unpack .../02-libbrotli1_1.0.9-2+b2_amd64.deb ...
+2022-06-23T20:13:17.2694516Z Unpacking libbrotli1:amd64 (1.0.9-2+b2) ...
+2022-06-23T20:13:17.3160729Z Selecting previously unselected package libsasl2-modules-db:amd64.
+2022-06-23T20:13:17.3161212Z Preparing to unpack .../03-libsasl2-modules-db_2.1.27+dfsg-2.1+deb11u1_amd64.deb ...
+2022-06-23T20:13:17.3180264Z Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg-2.1+deb11u1) ...
+2022-06-23T20:13:17.3500433Z Selecting previously unselected package libsasl2-2:amd64.
+2022-06-23T20:13:17.3512673Z Preparing to unpack .../04-libsasl2-2_2.1.27+dfsg-2.1+deb11u1_amd64.deb ...
+2022-06-23T20:13:17.3529103Z Unpacking libsasl2-2:amd64 (2.1.27+dfsg-2.1+deb11u1) ...
+2022-06-23T20:13:17.3868585Z Selecting previously unselected package libldap-2.4-2:amd64.
+2022-06-23T20:13:17.3881998Z Preparing to unpack .../05-libldap-2.4-2_2.4.57+dfsg-3+deb11u1_amd64.deb ...
+2022-06-23T20:13:17.3897755Z Unpacking libldap-2.4-2:amd64 (2.4.57+dfsg-3+deb11u1) ...
+2022-06-23T20:13:17.4299648Z Selecting previously unselected package libnghttp2-14:amd64.
+2022-06-23T20:13:17.4311595Z Preparing to unpack .../06-libnghttp2-14_1.43.0-1_amd64.deb ...
+2022-06-23T20:13:17.4326297Z Unpacking libnghttp2-14:amd64 (1.43.0-1) ...
+2022-06-23T20:13:17.4591065Z Selecting previously unselected package libpsl5:amd64.
+2022-06-23T20:13:17.4605037Z Preparing to unpack .../07-libpsl5_0.21.0-1.2_amd64.deb ...
+2022-06-23T20:13:17.4622346Z Unpacking libpsl5:amd64 (0.21.0-1.2) ...
+2022-06-23T20:13:17.4916877Z Selecting previously unselected package librtmp1:amd64.
+2022-06-23T20:13:17.4929877Z Preparing to unpack .../08-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb ...
+2022-06-23T20:13:17.4943108Z Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+2022-06-23T20:13:17.5196792Z Selecting previously unselected package libssh2-1:amd64.
+2022-06-23T20:13:17.5210584Z Preparing to unpack .../09-libssh2-1_1.9.0-2_amd64.deb ...
+2022-06-23T20:13:17.5227804Z Unpacking libssh2-1:amd64 (1.9.0-2) ...
+2022-06-23T20:13:17.5554402Z Selecting previously unselected package libcurl4:amd64.
+2022-06-23T20:13:17.5566864Z Preparing to unpack .../10-libcurl4_7.74.0-1.3+deb11u1_amd64.deb ...
+2022-06-23T20:13:17.5581062Z Unpacking libcurl4:amd64 (7.74.0-1.3+deb11u1) ...
+2022-06-23T20:13:17.6014504Z Selecting previously unselected package curl.
+2022-06-23T20:13:17.6028787Z Preparing to unpack .../11-curl_7.74.0-1.3+deb11u1_amd64.deb ...
+2022-06-23T20:13:17.6043173Z Unpacking curl (7.74.0-1.3+deb11u1) ...
+2022-06-23T20:13:17.6419300Z Selecting previously unselected package libonig5:amd64.
+2022-06-23T20:13:17.6433648Z Preparing to unpack .../12-libonig5_6.9.6-1.1_amd64.deb ...
+2022-06-23T20:13:17.6448768Z Unpacking libonig5:amd64 (6.9.6-1.1) ...
+2022-06-23T20:13:17.6817421Z Selecting previously unselected package libjq1:amd64.
+2022-06-23T20:13:17.6830422Z Preparing to unpack .../13-libjq1_1.6-2.1_amd64.deb ...
+2022-06-23T20:13:17.6847644Z Unpacking libjq1:amd64 (1.6-2.1) ...
+2022-06-23T20:13:17.7141032Z Selecting previously unselected package jq.
+2022-06-23T20:13:17.7152306Z Preparing to unpack .../14-jq_1.6-2.1_amd64.deb ...
+2022-06-23T20:13:17.7166339Z Unpacking jq (1.6-2.1) ...
+2022-06-23T20:13:17.7426012Z Setting up libpsl5:amd64 (0.21.0-1.2) ...
+2022-06-23T20:13:17.7474620Z Setting up libbrotli1:amd64 (1.0.9-2+b2) ...
+2022-06-23T20:13:17.7526395Z Setting up libnghttp2-14:amd64 (1.43.0-1) ...
+2022-06-23T20:13:17.7576834Z Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg-2.1+deb11u1) ...
+2022-06-23T20:13:17.7620179Z Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+2022-06-23T20:13:17.7659959Z Setting up libsasl2-2:amd64 (2.1.27+dfsg-2.1+deb11u1) ...
+2022-06-23T20:13:17.7701637Z Setting up libssh2-1:amd64 (1.9.0-2) ...
+2022-06-23T20:13:17.7743688Z Setting up openssl (1.1.1n-0+deb11u2) ...
+2022-06-23T20:13:17.7822446Z Setting up libonig5:amd64 (6.9.6-1.1) ...
+2022-06-23T20:13:17.7867863Z Setting up libjq1:amd64 (1.6-2.1) ...
+2022-06-23T20:13:17.7926868Z Setting up libldap-2.4-2:amd64 (2.4.57+dfsg-3+deb11u1) ...
+2022-06-23T20:13:17.7972409Z Setting up ca-certificates (20210119) ...
+2022-06-23T20:13:17.8898942Z debconf: unable to initialize frontend: Dialog
+2022-06-23T20:13:17.8899783Z debconf: (TERM is not set, so the dialog frontend is not usable.)
+2022-06-23T20:13:17.8900498Z debconf: falling back to frontend: Readline
+2022-06-23T20:13:17.8904965Z debconf: unable to initialize frontend: Readline
+2022-06-23T20:13:17.8907644Z debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.32.1 /usr/local/share/perl/5.32.1 /usr/lib/x86_64-linux-gnu/perl5/5.32 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.32 /usr/share/perl/5.32 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+2022-06-23T20:13:17.8908578Z debconf: falling back to frontend: Teletype
+2022-06-23T20:13:18.3250272Z Updating certificates in /etc/ssl/certs...
+2022-06-23T20:13:18.9084874Z 129 added, 0 removed; done.
+2022-06-23T20:13:18.9326619Z Setting up jq (1.6-2.1) ...
+2022-06-23T20:13:18.9379195Z Setting up libcurl4:amd64 (7.74.0-1.3+deb11u1) ...
+2022-06-23T20:13:18.9424745Z Setting up curl (7.74.0-1.3+deb11u1) ...
+2022-06-23T20:13:18.9477198Z Processing triggers for libc-bin (2.31-13+deb11u3) ...
+2022-06-23T20:13:18.9602967Z Processing triggers for ca-certificates (20210119) ...
+2022-06-23T20:13:18.9670091Z Updating certificates in /etc/ssl/certs...
+2022-06-23T20:13:19.4503249Z 0 added, 0 removed; done.
+2022-06-23T20:13:19.4503944Z Running hooks in /etc/ca-certificates/update.d...
+2022-06-23T20:13:19.4517317Z done.
+2022-06-23T20:13:20.2387341Z Removing intermediate container cc5af76362a1
+2022-06-23T20:13:20.2387800Z  ---> fc2addd063ed
+2022-06-23T20:13:20.2388092Z Step 4/7 : COPY --from=base /scorecard /scorecard
+2022-06-23T20:13:21.0284797Z  ---> d4c7ed88badd
+2022-06-23T20:13:21.0285429Z Step 5/7 : COPY policies/template.yml  /policy.yml
+2022-06-23T20:13:22.0174159Z  ---> 98b7d039e5cf
+2022-06-23T20:13:22.0174495Z Step 6/7 : COPY entrypoint.sh /entrypoint.sh
+2022-06-23T20:13:23.0183930Z  ---> bb82152da088
+2022-06-23T20:13:23.0184563Z Step 7/7 : ENTRYPOINT ["/entrypoint.sh"]
+2022-06-23T20:13:23.0410057Z  ---> Running in 04e990e26e91
+2022-06-23T20:13:24.0216980Z Removing intermediate container 04e990e26e91
+2022-06-23T20:13:24.0217333Z  ---> 6f2477153aa7
+2022-06-23T20:13:24.0271458Z Successfully built 6f2477153aa7
+2022-06-23T20:13:24.0329394Z Successfully tagged 72882e:787b5530c4ef4f9d91a9964741e3d3c5
+2022-06-23T20:13:24.0345731Z ##[endgroup]
+2022-06-23T20:13:24.0853083Z ##[group]Run actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+2022-06-23T20:13:24.0853555Z with:
+2022-06-23T20:13:24.0853894Z   persist-credentials: false
+2022-06-23T20:13:24.0854306Z   repository: flutter/website
+2022-06-23T20:13:24.0854938Z   token: ***
+2022-06-23T20:13:24.0855261Z   ssh-strict: true
+2022-06-23T20:13:24.0855576Z   clean: true
+2022-06-23T20:13:24.0855832Z   fetch-depth: 1
+2022-06-23T20:13:24.0856216Z   lfs: false
+2022-06-23T20:13:24.0887696Z   submodules: false
+2022-06-23T20:13:24.0887961Z   set-safe-directory: true
+2022-06-23T20:13:24.0888241Z ##[endgroup]
+2022-06-23T20:13:24.4901788Z Syncing repository: flutter/website
+2022-06-23T20:13:24.4904387Z ##[group]Getting Git version info
+2022-06-23T20:13:24.4904908Z Working directory is '/home/runner/work/website/website'
+2022-06-23T20:13:24.4905407Z [command]/usr/bin/git version
+2022-06-23T20:13:24.5084353Z git version 2.36.1
+2022-06-23T20:13:24.5146287Z ##[endgroup]
+2022-06-23T20:13:24.5174592Z Temporarily overriding HOME='/home/runner/work/_temp/dc04b6f1-3b67-471e-be55-a723f62f7d00' before making global git config changes
+2022-06-23T20:13:24.5178184Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-23T20:13:24.5183428Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/website/website
+2022-06-23T20:13:24.5238761Z Deleting the contents of '/home/runner/work/website/website'
+2022-06-23T20:13:24.5244104Z ##[group]Initializing the repository
+2022-06-23T20:13:24.5248863Z [command]/usr/bin/git init /home/runner/work/website/website
+2022-06-23T20:13:24.5332596Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-06-23T20:13:24.5333398Z hint: is subject to change. To configure the initial branch name to use in all
+2022-06-23T20:13:24.5334730Z hint: of your new repositories, which will suppress this warning, call:
+2022-06-23T20:13:24.5335195Z hint: 
+2022-06-23T20:13:24.5336321Z hint: 	git config --global init.defaultBranch <name>
+2022-06-23T20:13:24.5336782Z hint: 
+2022-06-23T20:13:24.5337814Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-06-23T20:13:24.5338455Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-06-23T20:13:24.5338879Z hint: 
+2022-06-23T20:13:24.5339745Z hint: 	git branch -m <name>
+2022-06-23T20:13:24.5353518Z Initialized empty Git repository in /home/runner/work/website/website/.git/
+2022-06-23T20:13:24.5372437Z [command]/usr/bin/git remote add origin https://github.com/flutter/website
+2022-06-23T20:13:24.5429059Z ##[endgroup]
+2022-06-23T20:13:24.5429758Z ##[group]Disabling automatic garbage collection
+2022-06-23T20:13:24.5436681Z [command]/usr/bin/git config --local gc.auto 0
+2022-06-23T20:13:24.5478486Z ##[endgroup]
+2022-06-23T20:13:24.5479147Z ##[group]Setting up auth
+2022-06-23T20:13:24.5492585Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-23T20:13:24.5539886Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-23T20:13:24.6052009Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-23T20:13:24.6088231Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-23T20:13:24.6377361Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2022-06-23T20:13:24.6430033Z ##[endgroup]
+2022-06-23T20:13:24.6430936Z ##[group]Fetching the repository
+2022-06-23T20:13:24.6441704Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +0f91a9b1445482d38f169e6dcb19301ecfc38e23:refs/remotes/origin/main
+2022-06-23T20:13:25.2475202Z remote: Enumerating objects: 2418, done.        
+2022-06-23T20:13:25.2482099Z remote: Counting objects:   0% (1/2418)        
+2022-06-23T20:13:25.2483712Z remote: Counting objects:   1% (25/2418)        
+2022-06-23T20:13:25.2511732Z remote: Counting objects:   2% (49/2418)        
+2022-06-23T20:13:25.2512501Z remote: Counting objects:   3% (73/2418)        
+2022-06-23T20:13:25.2513433Z remote: Counting objects:   4% (97/2418)        
+2022-06-23T20:13:25.2514772Z remote: Counting objects:   5% (121/2418)        
+2022-06-23T20:13:25.2516979Z remote: Counting objects:   6% (146/2418)        
+2022-06-23T20:13:25.2517753Z remote: Counting objects:   7% (170/2418)        
+2022-06-23T20:13:25.2518558Z remote: Counting objects:   8% (194/2418)        
+2022-06-23T20:13:25.2519389Z remote: Counting objects:   9% (218/2418)        
+2022-06-23T20:13:25.2520214Z remote: Counting objects:  10% (242/2418)        
+2022-06-23T20:13:25.2520729Z remote: Counting objects:  11% (266/2418)        
+2022-06-23T20:13:25.2521231Z remote: Counting objects:  12% (291/2418)        
+2022-06-23T20:13:25.2521537Z remote: Counting objects:  13% (315/2418)        
+2022-06-23T20:13:25.2521843Z remote: Counting objects:  14% (339/2418)        
+2022-06-23T20:13:25.2527380Z remote: Counting objects:  15% (363/2418)        
+2022-06-23T20:13:25.2527693Z remote: Counting objects:  16% (387/2418)        
+2022-06-23T20:13:25.2529567Z remote: Counting objects:  17% (412/2418)        
+2022-06-23T20:13:25.2530046Z remote: Counting objects:  18% (436/2418)        
+2022-06-23T20:13:25.2530344Z remote: Counting objects:  19% (460/2418)        
+2022-06-23T20:13:25.2532338Z remote: Counting objects:  20% (484/2418)        
+2022-06-23T20:13:25.2532790Z remote: Counting objects:  21% (508/2418)        
+2022-06-23T20:13:25.2533093Z remote: Counting objects:  22% (532/2418)        
+2022-06-23T20:13:25.2533414Z remote: Counting objects:  23% (557/2418)        
+2022-06-23T20:13:25.2549436Z remote: Counting objects:  24% (581/2418)        
+2022-06-23T20:13:25.2550074Z remote: Counting objects:  25% (605/2418)        
+2022-06-23T20:13:25.2550412Z remote: Counting objects:  26% (629/2418)        
+2022-06-23T20:13:25.2550708Z remote: Counting objects:  27% (653/2418)        
+2022-06-23T20:13:25.2552499Z remote: Counting objects:  28% (678/2418)        
+2022-06-23T20:13:25.2552987Z remote: Counting objects:  29% (702/2418)        
+2022-06-23T20:13:25.2553297Z remote: Counting objects:  30% (726/2418)        
+2022-06-23T20:13:25.2553747Z remote: Counting objects:  31% (750/2418)        
+2022-06-23T20:13:25.2557226Z remote: Counting objects:  32% (774/2418)        
+2022-06-23T20:13:25.2557724Z remote: Counting objects:  33% (798/2418)        
+2022-06-23T20:13:25.2558035Z remote: Counting objects:  34% (823/2418)        
+2022-06-23T20:13:25.2558380Z remote: Counting objects:  35% (847/2418)        
+2022-06-23T20:13:25.2558679Z remote: Counting objects:  36% (871/2418)        
+2022-06-23T20:13:25.2559257Z remote: Counting objects:  37% (895/2418)        
+2022-06-23T20:13:25.2559587Z remote: Counting objects:  38% (919/2418)        
+2022-06-23T20:13:25.2559882Z remote: Counting objects:  39% (944/2418)        
+2022-06-23T20:13:25.2560181Z remote: Counting objects:  40% (968/2418)        
+2022-06-23T20:13:25.2560480Z remote: Counting objects:  41% (992/2418)        
+2022-06-23T20:13:25.2560773Z remote: Counting objects:  42% (1016/2418)        
+2022-06-23T20:13:25.2561091Z remote: Counting objects:  43% (1040/2418)        
+2022-06-23T20:13:25.2561401Z remote: Counting objects:  44% (1064/2418)        
+2022-06-23T20:13:25.2561714Z remote: Counting objects:  45% (1089/2418)        
+2022-06-23T20:13:25.2562385Z remote: Counting objects:  46% (1113/2418)        
+2022-06-23T20:13:25.2562680Z remote: Counting objects:  47% (1137/2418)        
+2022-06-23T20:13:25.2562978Z remote: Counting objects:  48% (1161/2418)        
+2022-06-23T20:13:25.2563274Z remote: Counting objects:  49% (1185/2418)        
+2022-06-23T20:13:25.2563571Z remote: Counting objects:  50% (1209/2418)        
+2022-06-23T20:13:25.2563967Z remote: Counting objects:  51% (1234/2418)        
+2022-06-23T20:13:25.2564283Z remote: Counting objects:  52% (1258/2418)        
+2022-06-23T20:13:25.2564579Z remote: Counting objects:  53% (1282/2418)        
+2022-06-23T20:13:25.2564873Z remote: Counting objects:  54% (1306/2418)        
+2022-06-23T20:13:25.2565147Z remote: Counting objects:  55% (1330/2418)        
+2022-06-23T20:13:25.2565437Z remote: Counting objects:  56% (1355/2418)        
+2022-06-23T20:13:25.2565724Z remote: Counting objects:  57% (1379/2418)        
+2022-06-23T20:13:25.2566128Z remote: Counting objects:  58% (1403/2418)        
+2022-06-23T20:13:25.2566520Z remote: Counting objects:  59% (1427/2418)        
+2022-06-23T20:13:25.2566807Z remote: Counting objects:  60% (1451/2418)        
+2022-06-23T20:13:25.2567215Z remote: Counting objects:  61% (1475/2418)        
+2022-06-23T20:13:25.2567592Z remote: Counting objects:  62% (1500/2418)        
+2022-06-23T20:13:25.2567846Z remote: Counting objects:  63% (1524/2418)        
+2022-06-23T20:13:25.2568128Z remote: Counting objects:  64% (1548/2418)        
+2022-06-23T20:13:25.2568393Z remote: Counting objects:  65% (1572/2418)        
+2022-06-23T20:13:25.2568655Z remote: Counting objects:  66% (1596/2418)        
+2022-06-23T20:13:25.2568918Z remote: Counting objects:  67% (1621/2418)        
+2022-06-23T20:13:25.2569166Z remote: Counting objects:  68% (1645/2418)        
+2022-06-23T20:13:25.2569428Z remote: Counting objects:  69% (1669/2418)        
+2022-06-23T20:13:25.2569690Z remote: Counting objects:  70% (1693/2418)        
+2022-06-23T20:13:25.2569954Z remote: Counting objects:  71% (1717/2418)        
+2022-06-23T20:13:25.2570214Z remote: Counting objects:  72% (1741/2418)        
+2022-06-23T20:13:25.2570464Z remote: Counting objects:  73% (1766/2418)        
+2022-06-23T20:13:25.2570896Z remote: Counting objects:  74% (1790/2418)        
+2022-06-23T20:13:25.2571178Z remote: Counting objects:  75% (1814/2418)        
+2022-06-23T20:13:25.2571456Z remote: Counting objects:  76% (1838/2418)        
+2022-06-23T20:13:25.2571725Z remote: Counting objects:  77% (1862/2418)        
+2022-06-23T20:13:25.2572006Z remote: Counting objects:  78% (1887/2418)        
+2022-06-23T20:13:25.2572283Z remote: Counting objects:  79% (1911/2418)        
+2022-06-23T20:13:25.2572562Z remote: Counting objects:  80% (1935/2418)        
+2022-06-23T20:13:25.2572825Z remote: Counting objects:  81% (1959/2418)        
+2022-06-23T20:13:25.2573103Z remote: Counting objects:  82% (1983/2418)        
+2022-06-23T20:13:25.2573502Z remote: Counting objects:  83% (2007/2418)        
+2022-06-23T20:13:25.2573788Z remote: Counting objects:  84% (2032/2418)        
+2022-06-23T20:13:25.2574181Z remote: Counting objects:  85% (2056/2418)        
+2022-06-23T20:13:25.2574462Z remote: Counting objects:  86% (2080/2418)        
+2022-06-23T20:13:25.2574742Z remote: Counting objects:  87% (2104/2418)        
+2022-06-23T20:13:25.2575123Z remote: Counting objects:  88% (2128/2418)        
+2022-06-23T20:13:25.2575392Z remote: Counting objects:  89% (2153/2418)        
+2022-06-23T20:13:25.2575670Z remote: Counting objects:  90% (2177/2418)        
+2022-06-23T20:13:25.2576072Z remote: Counting objects:  91% (2201/2418)        
+2022-06-23T20:13:25.2576357Z remote: Counting objects:  92% (2225/2418)        
+2022-06-23T20:13:25.2576757Z remote: Counting objects:  93% (2249/2418)        
+2022-06-23T20:13:25.2577053Z remote: Counting objects:  94% (2273/2418)        
+2022-06-23T20:13:25.2577350Z remote: Counting objects:  95% (2298/2418)        
+2022-06-23T20:13:25.2577649Z remote: Counting objects:  96% (2322/2418)        
+2022-06-23T20:13:25.2577932Z remote: Counting objects:  97% (2346/2418)        
+2022-06-23T20:13:25.2578230Z remote: Counting objects:  98% (2370/2418)        
+2022-06-23T20:13:25.2578527Z remote: Counting objects:  99% (2394/2418)        
+2022-06-23T20:13:25.2578825Z remote: Counting objects: 100% (2418/2418)        
+2022-06-23T20:13:25.2579145Z remote: Counting objects: 100% (2418/2418), done.        
+2022-06-23T20:13:25.2579535Z remote: Compressing objects:   0% (1/1980)        
+2022-06-23T20:13:25.2579873Z remote: Compressing objects:   1% (20/1980)        
+2022-06-23T20:13:25.2589370Z remote: Compressing objects:   2% (40/1980)        
+2022-06-23T20:13:25.2589726Z remote: Compressing objects:   3% (60/1980)        
+2022-06-23T20:13:25.2590035Z remote: Compressing objects:   4% (80/1980)        
+2022-06-23T20:13:25.2649838Z remote: Compressing objects:   5% (99/1980)        
+2022-06-23T20:13:25.2702672Z remote: Compressing objects:   6% (119/1980)        
+2022-06-23T20:13:25.2717348Z remote: Compressing objects:   7% (139/1980)        
+2022-06-23T20:13:25.2731118Z remote: Compressing objects:   8% (159/1980)        
+2022-06-23T20:13:25.2753541Z remote: Compressing objects:   9% (179/1980)        
+2022-06-23T20:13:25.2780896Z remote: Compressing objects:  10% (198/1980)        
+2022-06-23T20:13:25.2802003Z remote: Compressing objects:  11% (218/1980)        
+2022-06-23T20:13:25.2815840Z remote: Compressing objects:  12% (238/1980)        
+2022-06-23T20:13:25.2852843Z remote: Compressing objects:  13% (258/1980)        
+2022-06-23T20:13:25.2987942Z remote: Compressing objects:  14% (278/1980)        
+2022-06-23T20:13:25.3008901Z remote: Compressing objects:  15% (297/1980)        
+2022-06-23T20:13:25.3040872Z remote: Compressing objects:  16% (317/1980)        
+2022-06-23T20:13:25.3041227Z remote: Compressing objects:  17% (337/1980)        
+2022-06-23T20:13:25.3046306Z remote: Compressing objects:  18% (357/1980)        
+2022-06-23T20:13:25.3046630Z remote: Compressing objects:  19% (377/1980)        
+2022-06-23T20:13:25.3182282Z remote: Compressing objects:  20% (396/1980)        
+2022-06-23T20:13:25.3414417Z remote: Compressing objects:  21% (416/1980)        
+2022-06-23T20:13:25.3479917Z remote: Compressing objects:  22% (436/1980)        
+2022-06-23T20:13:25.3551739Z remote: Compressing objects:  23% (456/1980)        
+2022-06-23T20:13:25.3672619Z remote: Compressing objects:  24% (476/1980)        
+2022-06-23T20:13:25.4042241Z remote: Compressing objects:  25% (495/1980)        
+2022-06-23T20:13:25.4119262Z remote: Compressing objects:  26% (515/1980)        
+2022-06-23T20:13:25.4327546Z remote: Compressing objects:  27% (535/1980)        
+2022-06-23T20:13:25.4511385Z remote: Compressing objects:  28% (555/1980)        
+2022-06-23T20:13:25.4594290Z remote: Compressing objects:  29% (575/1980)        
+2022-06-23T20:13:25.4646259Z remote: Compressing objects:  30% (594/1980)        
+2022-06-23T20:13:25.4743172Z remote: Compressing objects:  31% (614/1980)        
+2022-06-23T20:13:25.4773410Z remote: Compressing objects:  32% (634/1980)        
+2022-06-23T20:13:25.4969586Z remote: Compressing objects:  33% (654/1980)        
+2022-06-23T20:13:25.5477411Z remote: Compressing objects:  34% (674/1980)        
+2022-06-23T20:13:25.5601284Z remote: Compressing objects:  35% (693/1980)        
+2022-06-23T20:13:25.5637432Z remote: Compressing objects:  36% (713/1980)        
+2022-06-23T20:13:25.6174233Z remote: Compressing objects:  37% (733/1980)        
+2022-06-23T20:13:25.6284362Z remote: Compressing objects:  38% (753/1980)        
+2022-06-23T20:13:25.6494401Z remote: Compressing objects:  39% (773/1980)        
+2022-06-23T20:13:25.6509557Z remote: Compressing objects:  40% (792/1980)        
+2022-06-23T20:13:25.6511081Z remote: Compressing objects:  41% (812/1980)        
+2022-06-23T20:13:25.6513020Z remote: Compressing objects:  42% (832/1980)        
+2022-06-23T20:13:25.6513329Z remote: Compressing objects:  43% (852/1980)        
+2022-06-23T20:13:25.6609861Z remote: Compressing objects:  44% (872/1980)        
+2022-06-23T20:13:25.6730884Z remote: Compressing objects:  45% (891/1980)        
+2022-06-23T20:13:25.6731492Z remote: Compressing objects:  46% (911/1980)        
+2022-06-23T20:13:25.8855243Z remote: Compressing objects:  47% (931/1980)        
+2022-06-23T20:13:25.9062639Z remote: Compressing objects:  48% (951/1980)        
+2022-06-23T20:13:25.9063296Z remote: Compressing objects:  49% (971/1980)        
+2022-06-23T20:13:25.9064322Z remote: Compressing objects:  50% (990/1980)        
+2022-06-23T20:13:25.9065083Z remote: Compressing objects:  51% (1010/1980)        
+2022-06-23T20:13:25.9067989Z remote: Compressing objects:  52% (1030/1980)        
+2022-06-23T20:13:25.9068856Z remote: Compressing objects:  53% (1050/1980)        
+2022-06-23T20:13:25.9069634Z remote: Compressing objects:  54% (1070/1980)        
+2022-06-23T20:13:25.9070617Z remote: Compressing objects:  55% (1089/1980)        
+2022-06-23T20:13:25.9071611Z remote: Compressing objects:  56% (1109/1980)        
+2022-06-23T20:13:25.9071925Z remote: Compressing objects:  57% (1129/1980)        
+2022-06-23T20:13:25.9072240Z remote: Compressing objects:  58% (1149/1980)        
+2022-06-23T20:13:25.9072671Z remote: Compressing objects:  59% (1169/1980)        
+2022-06-23T20:13:25.9072969Z remote: Compressing objects:  60% (1188/1980)        
+2022-06-23T20:13:25.9073265Z remote: Compressing objects:  61% (1208/1980)        
+2022-06-23T20:13:25.9073565Z remote: Compressing objects:  62% (1228/1980)        
+2022-06-23T20:13:25.9073874Z remote: Compressing objects:  63% (1248/1980)        
+2022-06-23T20:13:25.9074176Z remote: Compressing objects:  64% (1268/1980)        
+2022-06-23T20:13:25.9074473Z remote: Compressing objects:  65% (1287/1980)        
+2022-06-23T20:13:25.9074760Z remote: Compressing objects:  66% (1307/1980)        
+2022-06-23T20:13:25.9075063Z remote: Compressing objects:  67% (1327/1980)        
+2022-06-23T20:13:25.9075363Z remote: Compressing objects:  68% (1347/1980)        
+2022-06-23T20:13:25.9075782Z remote: Compressing objects:  69% (1367/1980)        
+2022-06-23T20:13:25.9076267Z remote: Compressing objects:  70% (1386/1980)        
+2022-06-23T20:13:25.9076688Z remote: Compressing objects:  71% (1406/1980)        
+2022-06-23T20:13:25.9079619Z remote: Compressing objects:  72% (1426/1980)        
+2022-06-23T20:13:25.9080192Z remote: Compressing objects:  73% (1446/1980)        
+2022-06-23T20:13:25.9080865Z remote: Compressing objects:  74% (1466/1980)        
+2022-06-23T20:13:25.9097139Z remote: Compressing objects:  75% (1485/1980)        
+2022-06-23T20:13:25.9181972Z remote: Compressing objects:  76% (1505/1980)        
+2022-06-23T20:13:25.9194929Z remote: Compressing objects:  77% (1525/1980)        
+2022-06-23T20:13:26.0919180Z remote: Compressing objects:  78% (1545/1980)        
+2022-06-23T20:13:26.1051663Z remote: Compressing objects:  79% (1565/1980)        
+2022-06-23T20:13:26.1052185Z remote: Compressing objects:  80% (1584/1980)        
+2022-06-23T20:13:26.1052503Z remote: Compressing objects:  81% (1604/1980)        
+2022-06-23T20:13:26.1052809Z remote: Compressing objects:  82% (1624/1980)        
+2022-06-23T20:13:26.1053222Z remote: Compressing objects:  83% (1644/1980)        
+2022-06-23T20:13:26.1053537Z remote: Compressing objects:  84% (1664/1980)        
+2022-06-23T20:13:26.1053854Z remote: Compressing objects:  85% (1683/1980)        
+2022-06-23T20:13:26.1054556Z remote: Compressing objects:  86% (1703/1980)        
+2022-06-23T20:13:26.1054880Z remote: Compressing objects:  87% (1723/1980)        
+2022-06-23T20:13:26.1055180Z remote: Compressing objects:  88% (1743/1980)        
+2022-06-23T20:13:26.1055498Z remote: Compressing objects:  89% (1763/1980)        
+2022-06-23T20:13:26.1055811Z remote: Compressing objects:  90% (1782/1980)        
+2022-06-23T20:13:26.1065614Z remote: Compressing objects:  91% (1802/1980)        
+2022-06-23T20:13:26.1065914Z remote: Compressing objects:  92% (1822/1980)        
+2022-06-23T20:13:26.1066446Z remote: Compressing objects:  93% (1842/1980)        
+2022-06-23T20:13:26.1066873Z remote: Compressing objects:  94% (1862/1980)        
+2022-06-23T20:13:26.1067184Z remote: Compressing objects:  95% (1881/1980)        
+2022-06-23T20:13:26.1067658Z remote: Compressing objects:  96% (1901/1980)        
+2022-06-23T20:13:26.1067986Z remote: Compressing objects:  97% (1921/1980)        
+2022-06-23T20:13:26.1068363Z remote: Compressing objects:  98% (1941/1980)        
+2022-06-23T20:13:26.1068674Z remote: Compressing objects:  99% (1961/1980)        
+2022-06-23T20:13:26.1069183Z remote: Compressing objects: 100% (1980/1980)        
+2022-06-23T20:13:26.1069540Z remote: Compressing objects: 100% (1980/1980), done.        
+2022-06-23T20:13:26.1186670Z Receiving objects:   0% (1/2418)
+2022-06-23T20:13:26.2110842Z Receiving objects:   1% (25/2418)
+2022-06-23T20:13:26.3149760Z Receiving objects:   2% (49/2418)
+2022-06-23T20:13:26.3194629Z Receiving objects:   3% (73/2418)
+2022-06-23T20:13:26.3340339Z Receiving objects:   4% (97/2418)
+2022-06-23T20:13:26.3589446Z Receiving objects:   5% (121/2418)
+2022-06-23T20:13:26.3590208Z Receiving objects:   6% (146/2418)
+2022-06-23T20:13:26.3590825Z Receiving objects:   7% (170/2418)
+2022-06-23T20:13:26.3599094Z Receiving objects:   8% (194/2418)
+2022-06-23T20:13:26.3599821Z Receiving objects:   9% (218/2418)
+2022-06-23T20:13:26.3600290Z Receiving objects:  10% (242/2418)
+2022-06-23T20:13:26.3601566Z Receiving objects:  11% (266/2418)
+2022-06-23T20:13:26.3682398Z Receiving objects:  12% (291/2418)
+2022-06-23T20:13:26.3685565Z Receiving objects:  13% (315/2418)
+2022-06-23T20:13:26.3688073Z Receiving objects:  14% (339/2418)
+2022-06-23T20:13:26.3690689Z Receiving objects:  15% (363/2418)
+2022-06-23T20:13:26.3693050Z Receiving objects:  16% (387/2418)
+2022-06-23T20:13:26.3695405Z Receiving objects:  17% (412/2418)
+2022-06-23T20:13:26.3697881Z Receiving objects:  18% (436/2418)
+2022-06-23T20:13:26.3700429Z Receiving objects:  19% (460/2418)
+2022-06-23T20:13:26.3704599Z Receiving objects:  20% (484/2418)
+2022-06-23T20:13:26.3707167Z Receiving objects:  21% (508/2418)
+2022-06-23T20:13:26.3709534Z Receiving objects:  22% (532/2418)
+2022-06-23T20:13:26.3761829Z Receiving objects:  23% (557/2418)
+2022-06-23T20:13:26.3762130Z Receiving objects:  24% (581/2418)
+2022-06-23T20:13:26.3762401Z Receiving objects:  25% (605/2418)
+2022-06-23T20:13:26.3762668Z Receiving objects:  26% (629/2418)
+2022-06-23T20:13:26.3762944Z Receiving objects:  27% (653/2418)
+2022-06-23T20:13:26.3763194Z Receiving objects:  28% (678/2418)
+2022-06-23T20:13:26.3763467Z Receiving objects:  29% (702/2418)
+2022-06-23T20:13:26.3763731Z Receiving objects:  30% (726/2418)
+2022-06-23T20:13:26.3763991Z Receiving objects:  31% (750/2418)
+2022-06-23T20:13:26.4459170Z Receiving objects:  32% (774/2418)
+2022-06-23T20:13:26.4503968Z Receiving objects:  33% (798/2418)
+2022-06-23T20:13:26.4544916Z Receiving objects:  34% (823/2418)
+2022-06-23T20:13:26.4549276Z Receiving objects:  35% (847/2418)
+2022-06-23T20:13:26.4550057Z Receiving objects:  36% (871/2418)
+2022-06-23T20:13:26.4554405Z Receiving objects:  37% (895/2418)
+2022-06-23T20:13:26.4803079Z Receiving objects:  38% (919/2418)
+2022-06-23T20:13:26.4809452Z Receiving objects:  39% (944/2418)
+2022-06-23T20:13:26.4903532Z Receiving objects:  40% (968/2418)
+2022-06-23T20:13:26.4926743Z Receiving objects:  41% (992/2418)
+2022-06-23T20:13:26.4927482Z Receiving objects:  42% (1016/2418)
+2022-06-23T20:13:26.4928384Z Receiving objects:  43% (1040/2418)
+2022-06-23T20:13:26.4928826Z Receiving objects:  44% (1064/2418)
+2022-06-23T20:13:26.5296803Z Receiving objects:  45% (1089/2418)
+2022-06-23T20:13:26.8917169Z Receiving objects:  46% (1113/2418)
+2022-06-23T20:13:27.0996253Z Receiving objects:  47% (1137/2418), 17.30 MiB | 34.58 MiB/s
+2022-06-23T20:13:27.1169584Z Receiving objects:  48% (1161/2418), 17.30 MiB | 34.58 MiB/s
+2022-06-23T20:13:27.1443739Z Receiving objects:  48% (1176/2418), 43.61 MiB | 43.61 MiB/s
+2022-06-23T20:13:27.1790703Z Receiving objects:  49% (1185/2418), 43.61 MiB | 43.61 MiB/s
+2022-06-23T20:13:27.8893129Z Receiving objects:  50% (1209/2418), 43.61 MiB | 43.61 MiB/s
+2022-06-23T20:13:27.9582759Z Receiving objects:  51% (1234/2418), 67.80 MiB | 45.20 MiB/s
+2022-06-23T20:13:28.1134172Z Receiving objects:  52% (1258/2418), 67.80 MiB | 45.20 MiB/s
+2022-06-23T20:13:28.1169271Z Receiving objects:  53% (1282/2418), 67.80 MiB | 45.20 MiB/s
+2022-06-23T20:13:28.3237466Z Receiving objects:  53% (1283/2418), 93.38 MiB | 46.69 MiB/s
+2022-06-23T20:13:28.4076654Z Receiving objects:  54% (1306/2418), 93.38 MiB | 46.69 MiB/s
+2022-06-23T20:13:28.5284929Z Receiving objects:  55% (1330/2418), 93.38 MiB | 46.69 MiB/s
+2022-06-23T20:13:28.5453827Z Receiving objects:  56% (1355/2418), 93.38 MiB | 46.69 MiB/s
+2022-06-23T20:13:28.6476533Z Receiving objects:  57% (1379/2418), 93.38 MiB | 46.69 MiB/s
+2022-06-23T20:13:28.7376307Z Receiving objects:  58% (1403/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:28.8214659Z Receiving objects:  59% (1427/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:28.9566124Z Receiving objects:  60% (1451/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:29.0188253Z Receiving objects:  61% (1475/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:29.0460318Z Receiving objects:  62% (1500/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:29.1218958Z Receiving objects:  63% (1524/2418), 118.22 MiB | 47.29 MiB/s
+2022-06-23T20:13:29.1391940Z Receiving objects:  63% (1537/2418), 143.46 MiB | 47.76 MiB/s
+2022-06-23T20:13:29.1872962Z Receiving objects:  64% (1548/2418), 143.46 MiB | 47.76 MiB/s
+2022-06-23T20:13:30.1219311Z Receiving objects:  65% (1572/2418), 143.46 MiB | 47.76 MiB/s
+2022-06-23T20:13:31.1230552Z Receiving objects:  65% (1579/2418), 179.69 MiB | 44.88 MiB/s
+2022-06-23T20:13:32.1233247Z Receiving objects:  65% (1580/2418), 193.70 MiB | 39.17 MiB/s
+2022-06-23T20:13:32.2414117Z Receiving objects:  65% (1583/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.2568661Z Receiving objects:  66% (1596/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.2933527Z Receiving objects:  67% (1621/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.3227320Z Receiving objects:  68% (1645/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.3897255Z Receiving objects:  69% (1669/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.3911719Z Receiving objects:  70% (1693/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.4688470Z Receiving objects:  71% (1717/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.4964096Z Receiving objects:  72% (1741/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.5106893Z Receiving objects:  73% (1766/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.5757585Z Receiving objects:  74% (1790/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.9353023Z Receiving objects:  75% (1814/2418), 216.76 MiB | 33.07 MiB/s
+2022-06-23T20:13:32.9379603Z Receiving objects:  76% (1838/2418), 229.38 MiB | 30.19 MiB/s
+2022-06-23T20:13:32.9399459Z Receiving objects:  77% (1862/2418), 229.38 MiB | 30.19 MiB/s
+2022-06-23T20:13:33.1233345Z Receiving objects:  78% (1887/2418), 229.38 MiB | 30.19 MiB/s
+2022-06-23T20:13:33.2911794Z Receiving objects:  78% (1894/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.2925971Z Receiving objects:  79% (1911/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.2943510Z Receiving objects:  80% (1935/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.2967530Z Receiving objects:  81% (1959/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.2988350Z Receiving objects:  82% (1983/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.3008962Z Receiving objects:  83% (2007/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.3025954Z Receiving objects:  84% (2032/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.3717346Z Receiving objects:  85% (2056/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4140556Z Receiving objects:  86% (2080/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4151725Z Receiving objects:  87% (2104/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4617323Z Receiving objects:  88% (2128/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4898264Z Receiving objects:  89% (2153/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4936389Z Receiving objects:  90% (2177/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4969057Z Receiving objects:  91% (2201/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4981021Z Receiving objects:  92% (2225/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.4990631Z Receiving objects:  93% (2249/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5011033Z Receiving objects:  94% (2273/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5033085Z Receiving objects:  95% (2298/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5048840Z Receiving objects:  96% (2322/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5065360Z Receiving objects:  97% (2346/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5126365Z Receiving objects:  98% (2370/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5127305Z remote: Total 2418 (delta 290), reused 1592 (delta 251), pack-reused 0        
+2022-06-23T20:13:33.5159024Z Receiving objects:  99% (2394/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5159540Z Receiving objects: 100% (2418/2418), 241.70 MiB | 27.42 MiB/s
+2022-06-23T20:13:33.5159990Z Receiving objects: 100% (2418/2418), 251.09 MiB | 33.94 MiB/s, done.
+2022-06-23T20:13:33.5167719Z Resolving deltas:   0% (0/290)
+2022-06-23T20:13:33.5168047Z Resolving deltas:   1% (3/290)
+2022-06-23T20:13:33.5168456Z Resolving deltas:   2% (6/290)
+2022-06-23T20:13:33.5168802Z Resolving deltas:   3% (9/290)
+2022-06-23T20:13:33.5169153Z Resolving deltas:   4% (12/290)
+2022-06-23T20:13:33.5169486Z Resolving deltas:   5% (15/290)
+2022-06-23T20:13:33.5174471Z Resolving deltas:   6% (18/290)
+2022-06-23T20:13:33.5178725Z Resolving deltas:   7% (21/290)
+2022-06-23T20:13:33.5179316Z Resolving deltas:   8% (24/290)
+2022-06-23T20:13:33.5179602Z Resolving deltas:   9% (27/290)
+2022-06-23T20:13:33.5185119Z Resolving deltas:  10% (29/290)
+2022-06-23T20:13:33.5185923Z Resolving deltas:  11% (32/290)
+2022-06-23T20:13:33.5186190Z Resolving deltas:  12% (35/290)
+2022-06-23T20:13:33.5186453Z Resolving deltas:  13% (38/290)
+2022-06-23T20:13:33.5189509Z Resolving deltas:  14% (41/290)
+2022-06-23T20:13:33.5194146Z Resolving deltas:  15% (44/290)
+2022-06-23T20:13:33.5196099Z Resolving deltas:  16% (47/290)
+2022-06-23T20:13:33.5196631Z Resolving deltas:  17% (50/290)
+2022-06-23T20:13:33.5197151Z Resolving deltas:  18% (53/290)
+2022-06-23T20:13:33.5198574Z Resolving deltas:  19% (56/290)
+2022-06-23T20:13:33.5198852Z Resolving deltas:  20% (58/290)
+2022-06-23T20:13:33.5199117Z Resolving deltas:  21% (61/290)
+2022-06-23T20:13:33.5199359Z Resolving deltas:  22% (64/290)
+2022-06-23T20:13:33.5199729Z Resolving deltas:  23% (67/290)
+2022-06-23T20:13:33.5199990Z Resolving deltas:  24% (70/290)
+2022-06-23T20:13:33.5200355Z Resolving deltas:  25% (73/290)
+2022-06-23T20:13:33.5201734Z Resolving deltas:  26% (76/290)
+2022-06-23T20:13:33.5201987Z Resolving deltas:  27% (79/290)
+2022-06-23T20:13:33.5202244Z Resolving deltas:  28% (82/290)
+2022-06-23T20:13:33.5202491Z Resolving deltas:  29% (85/290)
+2022-06-23T20:13:33.5202727Z Resolving deltas:  30% (87/290)
+2022-06-23T20:13:33.5202972Z Resolving deltas:  31% (90/290)
+2022-06-23T20:13:33.5203220Z Resolving deltas:  32% (93/290)
+2022-06-23T20:13:33.5203588Z Resolving deltas:  33% (96/290)
+2022-06-23T20:13:33.5203816Z Resolving deltas:  34% (99/290)
+2022-06-23T20:13:33.5206275Z Resolving deltas:  35% (102/290)
+2022-06-23T20:13:33.5208762Z Resolving deltas:  36% (105/290)
+2022-06-23T20:13:33.5209293Z Resolving deltas:  37% (108/290)
+2022-06-23T20:13:33.5209579Z Resolving deltas:  38% (111/290)
+2022-06-23T20:13:33.5209838Z Resolving deltas:  39% (114/290)
+2022-06-23T20:13:33.5210084Z Resolving deltas:  40% (116/290)
+2022-06-23T20:13:33.5215427Z Resolving deltas:  41% (119/290)
+2022-06-23T20:13:33.5216114Z Resolving deltas:  42% (122/290)
+2022-06-23T20:13:33.5221295Z Resolving deltas:  43% (125/290)
+2022-06-23T20:13:33.5226325Z Resolving deltas:  44% (128/290)
+2022-06-23T20:13:33.5230103Z Resolving deltas:  45% (131/290)
+2022-06-23T20:13:33.5231814Z Resolving deltas:  46% (134/290)
+2022-06-23T20:13:33.5233267Z Resolving deltas:  47% (137/290)
+2022-06-23T20:13:33.5234626Z Resolving deltas:  48% (140/290)
+2022-06-23T20:13:33.5237483Z Resolving deltas:  49% (143/290)
+2022-06-23T20:13:33.5239681Z Resolving deltas:  50% (145/290)
+2022-06-23T20:13:33.5244100Z Resolving deltas:  51% (148/290)
+2022-06-23T20:13:33.5245764Z Resolving deltas:  52% (151/290)
+2022-06-23T20:13:33.5246315Z Resolving deltas:  53% (154/290)
+2022-06-23T20:13:33.5247439Z Resolving deltas:  54% (157/290)
+2022-06-23T20:13:33.5252311Z Resolving deltas:  55% (160/290)
+2022-06-23T20:13:33.5252868Z Resolving deltas:  56% (163/290)
+2022-06-23T20:13:33.5253301Z Resolving deltas:  57% (166/290)
+2022-06-23T20:13:33.5345900Z Resolving deltas:  58% (169/290)
+2022-06-23T20:13:33.5354974Z Resolving deltas:  59% (172/290)
+2022-06-23T20:13:33.5356213Z Resolving deltas:  60% (174/290)
+2022-06-23T20:13:33.5357421Z Resolving deltas:  61% (177/290)
+2022-06-23T20:13:33.5358959Z Resolving deltas:  62% (180/290)
+2022-06-23T20:13:33.5360261Z Resolving deltas:  63% (183/290)
+2022-06-23T20:13:33.5361445Z Resolving deltas:  64% (186/290)
+2022-06-23T20:13:33.5362624Z Resolving deltas:  65% (189/290)
+2022-06-23T20:13:33.5363800Z Resolving deltas:  66% (192/290)
+2022-06-23T20:13:33.5365070Z Resolving deltas:  67% (195/290)
+2022-06-23T20:13:33.5366264Z Resolving deltas:  68% (198/290)
+2022-06-23T20:13:33.5367463Z Resolving deltas:  69% (201/290)
+2022-06-23T20:13:33.5368648Z Resolving deltas:  70% (203/290)
+2022-06-23T20:13:33.5369834Z Resolving deltas:  71% (206/290)
+2022-06-23T20:13:33.5371036Z Resolving deltas:  72% (209/290)
+2022-06-23T20:13:33.5372215Z Resolving deltas:  73% (212/290)
+2022-06-23T20:13:33.5373378Z Resolving deltas:  74% (215/290)
+2022-06-23T20:13:33.5374550Z Resolving deltas:  75% (218/290)
+2022-06-23T20:13:33.5375103Z Resolving deltas:  76% (221/290)
+2022-06-23T20:13:33.5375503Z Resolving deltas:  77% (224/290)
+2022-06-23T20:13:33.5377137Z Resolving deltas:  78% (227/290)
+2022-06-23T20:13:33.5379430Z Resolving deltas:  79% (230/290)
+2022-06-23T20:13:33.5381587Z Resolving deltas:  80% (232/290)
+2022-06-23T20:13:33.5383431Z Resolving deltas:  81% (235/290)
+2022-06-23T20:13:33.5385209Z Resolving deltas:  82% (238/290)
+2022-06-23T20:13:33.5387345Z Resolving deltas:  83% (241/290)
+2022-06-23T20:13:33.5389433Z Resolving deltas:  84% (245/290)
+2022-06-23T20:13:33.5391267Z Resolving deltas:  85% (247/290)
+2022-06-23T20:13:33.5392913Z Resolving deltas:  86% (250/290)
+2022-06-23T20:13:33.5397216Z Resolving deltas:  87% (253/290)
+2022-06-23T20:13:33.5398937Z Resolving deltas:  88% (256/290)
+2022-06-23T20:13:33.5400685Z Resolving deltas:  89% (259/290)
+2022-06-23T20:13:33.5402358Z Resolving deltas:  90% (261/290)
+2022-06-23T20:13:33.5403989Z Resolving deltas:  91% (264/290)
+2022-06-23T20:13:33.5406033Z Resolving deltas:  92% (267/290)
+2022-06-23T20:13:33.5407889Z Resolving deltas:  93% (270/290)
+2022-06-23T20:13:33.5409870Z Resolving deltas:  94% (273/290)
+2022-06-23T20:13:33.5515562Z Resolving deltas:  95% (276/290)
+2022-06-23T20:13:33.5538488Z Resolving deltas:  96% (279/290)
+2022-06-23T20:13:33.5544762Z Resolving deltas:  97% (282/290)
+2022-06-23T20:13:33.5552441Z Resolving deltas:  98% (285/290)
+2022-06-23T20:13:33.5578859Z Resolving deltas:  99% (288/290)
+2022-06-23T20:13:33.5586128Z Resolving deltas: 100% (290/290)
+2022-06-23T20:13:33.5586994Z Resolving deltas: 100% (290/290), done.
+2022-06-23T20:13:34.5621737Z From https://github.com/flutter/website
+2022-06-23T20:13:34.5622805Z  * [new ref]         0f91a9b1445482d38f169e6dcb19301ecfc38e23 -> origin/main
+2022-06-23T20:13:34.5651627Z ##[endgroup]
+2022-06-23T20:13:34.5652628Z ##[group]Determining the checkout info
+2022-06-23T20:13:34.5665996Z ##[endgroup]
+2022-06-23T20:13:34.5666696Z ##[group]Checking out the ref
+2022-06-23T20:13:34.5667402Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2022-06-23T20:13:35.7854776Z Updating files:  64% (1331/2076)
+2022-06-23T20:13:35.7886894Z Updating files:  65% (1350/2076)
+2022-06-23T20:13:35.7962174Z Updating files:  66% (1371/2076)
+2022-06-23T20:13:35.8011901Z Updating files:  67% (1391/2076)
+2022-06-23T20:13:35.8080450Z Updating files:  68% (1412/2076)
+2022-06-23T20:13:35.8111180Z Updating files:  69% (1433/2076)
+2022-06-23T20:13:35.8135820Z Updating files:  70% (1454/2076)
+2022-06-23T20:13:35.8258698Z Updating files:  71% (1474/2076)
+2022-06-23T20:13:35.8308820Z Updating files:  72% (1495/2076)
+2022-06-23T20:13:35.8348815Z Updating files:  73% (1516/2076)
+2022-06-23T20:13:35.8369580Z Updating files:  74% (1537/2076)
+2022-06-23T20:13:35.8742605Z Updating files:  75% (1557/2076)
+2022-06-23T20:13:35.8762212Z Updating files:  76% (1578/2076)
+2022-06-23T20:13:35.8796767Z Updating files:  77% (1599/2076)
+2022-06-23T20:13:35.9101991Z Updating files:  78% (1620/2076)
+2022-06-23T20:13:35.9113656Z Updating files:  79% (1641/2076)
+2022-06-23T20:13:35.9132943Z Updating files:  80% (1661/2076)
+2022-06-23T20:13:35.9152598Z Updating files:  81% (1682/2076)
+2022-06-23T20:13:35.9170492Z Updating files:  82% (1703/2076)
+2022-06-23T20:13:35.9184518Z Updating files:  83% (1724/2076)
+2022-06-23T20:13:35.9202151Z Updating files:  84% (1744/2076)
+2022-06-23T20:13:35.9380808Z Updating files:  85% (1765/2076)
+2022-06-23T20:13:35.9394398Z Updating files:  86% (1786/2076)
+2022-06-23T20:13:35.9477144Z Updating files:  87% (1807/2076)
+2022-06-23T20:13:35.9754220Z Updating files:  88% (1827/2076)
+2022-06-23T20:13:35.9780244Z Updating files:  89% (1848/2076)
+2022-06-23T20:13:35.9790930Z Updating files:  90% (1869/2076)
+2022-06-23T20:13:35.9817849Z Updating files:  91% (1890/2076)
+2022-06-23T20:13:35.9827024Z Updating files:  92% (1910/2076)
+2022-06-23T20:13:35.9840653Z Updating files:  93% (1931/2076)
+2022-06-23T20:13:35.9858559Z Updating files:  94% (1952/2076)
+2022-06-23T20:13:35.9872526Z Updating files:  95% (1973/2076)
+2022-06-23T20:13:35.9885238Z Updating files:  96% (1993/2076)
+2022-06-23T20:13:35.9898059Z Updating files:  97% (2014/2076)
+2022-06-23T20:13:35.9933405Z Updating files:  98% (2035/2076)
+2022-06-23T20:13:35.9955760Z Updating files:  99% (2056/2076)
+2022-06-23T20:13:35.9956040Z Updating files: 100% (2076/2076)
+2022-06-23T20:13:35.9956286Z Updating files: 100% (2076/2076), done.
+2022-06-23T20:13:36.0011331Z Switched to a new branch 'main'
+2022-06-23T20:13:36.0016189Z branch 'main' set up to track 'origin/main'.
+2022-06-23T20:13:36.0097475Z ##[endgroup]
+2022-06-23T20:13:36.0136365Z [command]/usr/bin/git log -1 --format='%H'
+2022-06-23T20:13:36.0174581Z '0f91a9b1445482d38f169e6dcb19301ecfc38e23'
+2022-06-23T20:13:36.0187892Z ##[group]Removing auth
+2022-06-23T20:13:36.0196555Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-23T20:13:36.0251963Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-23T20:13:36.0551005Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-23T20:13:36.0584788Z http.https://github.com/.extraheader
+2022-06-23T20:13:36.0597191Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2022-06-23T20:13:36.0644978Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-23T20:13:36.0924502Z ##[endgroup]
+2022-06-23T20:13:36.1228234Z ##[group]Run ossf/scorecard-action@3e15ea8318eee9b333819ec77a36aca8d39df13e
+2022-06-23T20:13:36.1228588Z with:
+2022-06-23T20:13:36.1228829Z   results_file: results.sarif
+2022-06-23T20:13:36.1229088Z   results_format: sarif
+2022-06-23T20:13:36.1229616Z   repo_token: ***
+2022-06-23T20:13:36.1229849Z   publish_results: true
+2022-06-23T20:13:36.1230090Z ##[endgroup]
+2022-06-23T20:13:36.1491822Z ##[command]/usr/bin/docker run --name e787b5530c4ef4f9d91a9964741e3d3c5_5da48a --label 72882e --workdir /github/workspace --rm -e INPUT_RESULTS_FILE -e INPUT_RESULTS_FORMAT -e INPUT_REPO_TOKEN -e INPUT_PUBLISH_RESULTS -e HOME -e GITHUB_JOB -e GITHUB_REF -e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_RETENTION_DAYS -e GITHUB_RUN_ATTEMPT -e GITHUB_ACTOR -e GITHUB_WORKFLOW -e GITHUB_HEAD_REF -e GITHUB_BASE_REF -e GITHUB_EVENT_NAME -e GITHUB_SERVER_URL -e GITHUB_API_URL -e GITHUB_GRAPHQL_URL -e GITHUB_REF_NAME -e GITHUB_REF_PROTECTED -e GITHUB_REF_TYPE -e GITHUB_WORKSPACE -e GITHUB_ACTION -e GITHUB_EVENT_PATH -e GITHUB_ACTION_REPOSITORY -e GITHUB_ACTION_REF -e GITHUB_PATH -e GITHUB_ENV -e GITHUB_STEP_SUMMARY -e RUNNER_OS -e RUNNER_ARCH -e RUNNER_NAME -e RUNNER_TOOL_CACHE -e RUNNER_TEMP -e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL -e ACTIONS_RUNTIME_TOKEN -e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/website/website":"/github/workspace" 72882e:787b5530c4ef4f9d91a9964741e3d3c5
+2022-06-23T20:13:38.0778157Z Event file: /github/workflow/event.json
+2022-06-23T20:13:38.0778506Z Event name: push
+2022-06-23T20:13:38.0778950Z Ref: refs/heads/main
+2022-06-23T20:13:38.0779483Z Repository: flutter/website
+2022-06-23T20:13:38.0780002Z Fork repository: false
+2022-06-23T20:13:38.0780631Z Private repository: false
+2022-06-23T20:13:38.0780951Z Publication enabled: true
+2022-06-23T20:13:38.0781206Z Format: sarif
+2022-06-23T20:13:38.0781439Z Policy file: /policy.yml
+2022-06-23T20:13:38.0781711Z Default branch: refs/heads/main
+2022-06-23T20:13:38.0793865Z {
+2022-06-23T20:13:38.0794269Z   "id": 41847366,
+2022-06-23T20:13:38.0794575Z   "node_id": "MDEwOlJlcG9zaXRvcnk0MTg0NzM2Ng==",
+2022-06-23T20:13:38.0794875Z   "name": "website",
+2022-06-23T20:13:38.0795126Z   "full_name": "flutter/website",
+2022-06-23T20:13:38.0795367Z   "private": false,
+2022-06-23T20:13:38.0795587Z   "owner": {
+2022-06-23T20:13:38.0795805Z     "login": "flutter",
+2022-06-23T20:13:38.0796016Z     "id": 14101776,
+2022-06-23T20:13:38.0796314Z     "node_id": "MDEyOk9yZ2FuaXphdGlvbjE0MTAxNzc2",
+2022-06-23T20:13:38.0796751Z     "avatar_url": "https://avatars.githubusercontent.com/u/14101776?v=4",
+2022-06-23T20:13:38.0797097Z     "gravatar_id": "",
+2022-06-23T20:13:38.0797517Z     "url": "https://api.github.com/users/flutter",
+2022-06-23T20:13:38.0797849Z     "html_url": "https://github.com/flutter",
+2022-06-23T20:13:38.0798210Z     "followers_url": "https://api.github.com/users/flutter/followers",
+2022-06-23T20:13:38.0798628Z     "following_url": "https://api.github.com/users/flutter/following{/other_user}",
+2022-06-23T20:13:38.0799047Z     "gists_url": "https://api.github.com/users/flutter/gists{/gist_id}",
+2022-06-23T20:13:38.0799574Z     "starred_url": "https://api.github.com/users/flutter/starred{/owner}{/repo}",
+2022-06-23T20:13:38.0800232Z     "subscriptions_url": "https://api.github.com/users/flutter/subscriptions",
+2022-06-23T20:13:38.0800668Z     "organizations_url": "https://api.github.com/users/flutter/orgs",
+2022-06-23T20:13:38.0801068Z     "repos_url": "https://api.github.com/users/flutter/repos",
+2022-06-23T20:13:38.0801461Z     "events_url": "https://api.github.com/users/flutter/events{/privacy}",
+2022-06-23T20:13:38.0801895Z     "received_events_url": "https://api.github.com/users/flutter/received_events",
+2022-06-23T20:13:38.0802690Z     "type": "Organization",
+2022-06-23T20:13:38.0802959Z     "site_admin": false
+2022-06-23T20:13:38.0803164Z   },
+2022-06-23T20:13:38.0803437Z   "html_url": "https://github.com/flutter/website",
+2022-06-23T20:13:38.0803784Z   "description": "Flutter documentation web site",
+2022-06-23T20:13:38.0804060Z   "fork": false,
+2022-06-23T20:13:38.0804343Z   "url": "https://api.github.com/repos/flutter/website",
+2022-06-23T20:13:38.0804731Z   "forks_url": "https://api.github.com/repos/flutter/website/forks",
+2022-06-23T20:13:38.0805148Z   "keys_url": "https://api.github.com/repos/flutter/website/keys{/key_id}",
+2022-06-23T20:13:38.0805625Z   "collaborators_url": "https://api.github.com/repos/flutter/website/collaborators{/collaborator}",
+2022-06-23T20:13:38.0806675Z   "teams_url": "https://api.github.com/repos/flutter/website/teams",
+2022-06-23T20:13:38.0807197Z   "hooks_url": "https://api.github.com/repos/flutter/website/hooks",
+2022-06-23T20:13:38.0807656Z   "issue_events_url": "https://api.github.com/repos/flutter/website/issues/events{/number}",
+2022-06-23T20:13:38.0808103Z   "events_url": "https://api.github.com/repos/flutter/website/events",
+2022-06-23T20:13:38.0808541Z   "assignees_url": "https://api.github.com/repos/flutter/website/assignees{/user}",
+2022-06-23T20:13:38.0808990Z   "branches_url": "https://api.github.com/repos/flutter/website/branches{/branch}",
+2022-06-23T20:13:38.0809422Z   "tags_url": "https://api.github.com/repos/flutter/website/tags",
+2022-06-23T20:13:38.0809840Z   "blobs_url": "https://api.github.com/repos/flutter/website/git/blobs{/sha}",
+2022-06-23T20:13:38.0810277Z   "git_tags_url": "https://api.github.com/repos/flutter/website/git/tags{/sha}",
+2022-06-23T20:13:38.0810713Z   "git_refs_url": "https://api.github.com/repos/flutter/website/git/refs{/sha}",
+2022-06-23T20:13:38.0811133Z   "trees_url": "https://api.github.com/repos/flutter/website/git/trees{/sha}",
+2022-06-23T20:13:38.0811570Z   "statuses_url": "https://api.github.com/repos/flutter/website/statuses/{sha}",
+2022-06-23T20:13:38.0812023Z   "languages_url": "https://api.github.com/repos/flutter/website/languages",
+2022-06-23T20:13:38.0812469Z   "stargazers_url": "https://api.github.com/repos/flutter/website/stargazers",
+2022-06-23T20:13:38.0812906Z   "contributors_url": "https://api.github.com/repos/flutter/website/contributors",
+2022-06-23T20:13:38.0813358Z   "subscribers_url": "https://api.github.com/repos/flutter/website/subscribers",
+2022-06-23T20:13:38.0813812Z   "subscription_url": "https://api.github.com/repos/flutter/website/subscription",
+2022-06-23T20:13:38.0814261Z   "commits_url": "https://api.github.com/repos/flutter/website/commits{/sha}",
+2022-06-23T20:13:38.0814705Z   "git_commits_url": "https://api.github.com/repos/flutter/website/git/commits{/sha}",
+2022-06-23T20:13:38.0815143Z   "comments_url": "https://api.github.com/repos/flutter/website/comments{/number}",
+2022-06-23T20:13:38.0815616Z   "issue_comment_url": "https://api.github.com/repos/flutter/website/issues/comments{/number}",
+2022-06-23T20:13:38.0816087Z   "contents_url": "https://api.github.com/repos/flutter/website/contents/{+path}",
+2022-06-23T20:13:38.0816546Z   "compare_url": "https://api.github.com/repos/flutter/website/compare/{base}...{head}",
+2022-06-23T20:13:38.0816972Z   "merges_url": "https://api.github.com/repos/flutter/website/merges",
+2022-06-23T20:13:38.0817415Z   "archive_url": "https://api.github.com/repos/flutter/website/{archive_format}{/ref}",
+2022-06-23T20:13:38.0817865Z   "downloads_url": "https://api.github.com/repos/flutter/website/downloads",
+2022-06-23T20:13:38.0818303Z   "issues_url": "https://api.github.com/repos/flutter/website/issues{/number}",
+2022-06-23T20:13:38.0818742Z   "pulls_url": "https://api.github.com/repos/flutter/website/pulls{/number}",
+2022-06-23T20:13:38.0819181Z   "milestones_url": "https://api.github.com/repos/flutter/website/milestones{/number}",
+2022-06-23T20:13:38.0819700Z   "notifications_url": "https://api.github.com/repos/flutter/website/notifications{?since,all,participating}",
+2022-06-23T20:13:38.0820511Z   "labels_url": "https://api.github.com/repos/flutter/website/labels{/name}",
+2022-06-23T20:13:38.0821055Z   "releases_url": "https://api.github.com/repos/flutter/website/releases{/id}",
+2022-06-23T20:13:38.0821491Z   "deployments_url": "https://api.github.com/repos/flutter/website/deployments",
+2022-06-23T20:13:38.0822175Z   "created_at": "2015-09-03T07:30:01Z",
+2022-06-23T20:13:38.0822531Z   "updated_at": "2022-06-22T15:38:09Z",
+2022-06-23T20:13:38.0822877Z   "pushed_at": "2022-06-23T20:12:41Z",
+2022-06-23T20:13:38.0823184Z   "git_url": "git://github.com/flutter/website.git",
+2022-06-23T20:13:38.0823522Z   "ssh_url": "git@github.com:flutter/website.git",
+2022-06-23T20:13:38.0823872Z   "clone_url": "https://github.com/flutter/website.git",
+2022-06-23T20:13:38.0824835Z   "svn_url": "https://github.com/flutter/website",
+2022-06-23T20:13:38.0825218Z   "homepage": "https://docs.flutter.dev",
+2022-06-23T20:13:38.0825482Z   "size": 419039,
+2022-06-23T20:13:38.0825734Z   "stargazers_count": 2137,
+2022-06-23T20:13:38.0825993Z   "watchers_count": 2137,
+2022-06-23T20:13:38.0826221Z   "language": "SCSS",
+2022-06-23T20:13:38.0826456Z   "has_issues": true,
+2022-06-23T20:13:38.0826699Z   "has_projects": false,
+2022-06-23T20:13:38.0826949Z   "has_downloads": true,
+2022-06-23T20:13:38.0827172Z   "has_wiki": false,
+2022-06-23T20:13:38.0827400Z   "has_pages": true,
+2022-06-23T20:13:38.0827632Z   "forks_count": 2814,
+2022-06-23T20:13:38.0827871Z   "mirror_url": null,
+2022-06-23T20:13:38.0828089Z   "archived": false,
+2022-06-23T20:13:38.0828315Z   "disabled": false,
+2022-06-23T20:13:38.0833977Z   "open_issues_count": 609,
+2022-06-23T20:13:38.0835268Z   "license": {
+2022-06-23T20:13:38.0835478Z     "key": "other",
+2022-06-23T20:13:38.0835703Z     "name": "Other",
+2022-06-23T20:13:38.0835950Z     "spdx_id": "NOASSERTION",
+2022-06-23T20:13:38.0836191Z     "url": null,
+2022-06-23T20:13:38.0836423Z     "node_id": "MDc6TGljZW5zZTA="
+2022-06-23T20:13:38.0836657Z   },
+2022-06-23T20:13:38.0836882Z   "allow_forking": true,
+2022-06-23T20:13:38.0837132Z   "is_template": false,
+2022-06-23T20:13:38.0837350Z   "topics": [
+2022-06-23T20:13:38.0837557Z     "dart",
+2022-06-23T20:13:38.0837762Z     "flutter",
+2022-06-23T20:13:38.0837958Z     "website"
+2022-06-23T20:13:38.0838158Z   ],
+2022-06-23T20:13:38.0838375Z   "visibility": "public",
+2022-06-23T20:13:38.0838610Z   "forks": 2814,
+2022-06-23T20:13:38.0838825Z   "open_issues": 609,
+2022-06-23T20:13:38.0839055Z   "watchers": 2137,
+2022-06-23T20:13:38.0839291Z   "default_branch": "main",
+2022-06-23T20:13:38.0839534Z   "permissions": {
+2022-06-23T20:13:38.0839748Z     "admin": false,
+2022-06-23T20:13:38.0839974Z     "maintain": false,
+2022-06-23T20:13:38.0840200Z     "push": true,
+2022-06-23T20:13:38.0840422Z     "triage": true,
+2022-06-23T20:13:38.0840630Z     "pull": true
+2022-06-23T20:13:38.0840837Z   },
+2022-06-23T20:13:38.0841051Z   "temp_clone_token": "",
+2022-06-23T20:13:38.0841290Z   "allow_squash_merge": true,
+2022-06-23T20:13:38.0841558Z   "allow_merge_commit": false,
+2022-06-23T20:13:38.0841819Z   "allow_rebase_merge": true,
+2022-06-23T20:13:38.0842073Z   "allow_auto_merge": false,
+2022-06-23T20:13:38.0842520Z   "delete_branch_on_merge": true,
+2022-06-23T20:13:38.0842793Z   "allow_update_branch": true,
+2022-06-23T20:13:38.0843067Z   "use_squash_pr_title_as_default": false,
+2022-06-23T20:13:38.0843335Z   "organization": {
+2022-06-23T20:13:38.0843568Z     "login": "flutter",
+2022-06-23T20:13:38.0843790Z     "id": 14101776,
+2022-06-23T20:13:38.0844074Z     "node_id": "MDEyOk9yZ2FuaXphdGlvbjE0MTAxNzc2",
+2022-06-23T20:13:38.0844503Z     "avatar_url": "https://avatars.githubusercontent.com/u/14101776?v=4",
+2022-06-23T20:13:38.0844847Z     "gravatar_id": "",
+2022-06-23T20:13:38.0845148Z     "url": "https://api.github.com/users/flutter",
+2022-06-23T20:13:38.0845473Z     "html_url": "https://github.com/flutter",
+2022-06-23T20:13:38.0845845Z     "followers_url": "https://api.github.com/users/flutter/followers",
+2022-06-23T20:13:38.0846590Z     "following_url": "https://api.github.com/users/flutter/following{/other_user}",
+2022-06-23T20:13:38.0847042Z     "gists_url": "https://api.github.com/users/flutter/gists{/gist_id}",
+2022-06-23T20:13:38.0847455Z     "starred_url": "https://api.github.com/users/flutter/starred{/owner}{/repo}",
+2022-06-23T20:13:38.0847942Z     "subscriptions_url": "https://api.github.com/users/flutter/subscriptions",
+2022-06-23T20:13:38.0848373Z     "organizations_url": "https://api.github.com/users/flutter/orgs",
+2022-06-23T20:13:38.0848771Z     "repos_url": "https://api.github.com/users/flutter/repos",
+2022-06-23T20:13:38.0849173Z     "events_url": "https://api.github.com/users/flutter/events{/privacy}",
+2022-06-23T20:13:38.0849595Z     "received_events_url": "https://api.github.com/users/flutter/received_events",
+2022-06-23T20:13:38.0849937Z     "type": "Organization",
+2022-06-23T20:13:38.0850188Z     "site_admin": false
+2022-06-23T20:13:38.0850406Z   },
+2022-06-23T20:13:38.0850675Z   "network_count": 2814,
+2022-06-23T20:13:38.0850930Z   "subscribers_count": 154
+2022-06-23T20:13:38.0851158Z }
+2022-06-23T20:14:12.0547216Z {
+2022-06-23T20:14:12.0548251Z   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+2022-06-23T20:14:12.0548751Z   "version": "2.1.0",
+2022-06-23T20:14:12.0549208Z   "runs": [
+2022-06-23T20:14:12.0549475Z     {
+2022-06-23T20:14:12.0549780Z       "automationDetails": {
+2022-06-23T20:14:12.0550464Z         "id": "supply-chain/branch-protection/70d045b9ef00e7171ce3950aca38eef6ea4d7308-23 Jun 22 20:13 +0000"
+2022-06-23T20:14:12.0550894Z       },
+2022-06-23T20:14:12.0551185Z       "tool": {
+2022-06-23T20:14:12.0551499Z         "driver": {
+2022-06-23T20:14:12.0551819Z           "name": "Scorecard",
+2022-06-23T20:14:12.0552268Z           "informationUri": "https://github.com/ossf/scorecard",
+2022-06-23T20:14:12.0552761Z           "semanticVersion": "v4.3.0-36-g70d045b",
+2022-06-23T20:14:12.0553178Z           "rules": [
+2022-06-23T20:14:12.0553474Z             {
+2022-06-23T20:14:12.0553837Z               "id": "BranchProtectionID",
+2022-06-23T20:14:12.0554258Z               "name": "Branch-Protection",
+2022-06-23T20:14:12.0555080Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#branch-protection",
+2022-06-23T20:14:12.0555602Z               "shortDescription": {
+2022-06-23T20:14:12.0556059Z                 "text": "Branch-Protection"
+2022-06-23T20:14:12.0556345Z               },
+2022-06-23T20:14:12.0556674Z               "fullDescription": {
+2022-06-23T20:14:12.0557512Z                 "text": "Determines if the default and release branches are protected with GitHub's branch protection settings."
+2022-06-23T20:14:12.0557949Z               },
+2022-06-23T20:14:12.0558188Z               "help": {
+2022-06-23T20:14:12.0558792Z                 "text": "Determines if the default and release branches are protected with GitHub's branch protection settings.",
+2022-06-23T20:14:12.0573448Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Enable branch protection settings in your source hosting provider to avoid force pushes or deletion of your important branches.\n\n- For GitHub, check out the steps [here](https://docs.github.com/en/github/administering-a-repository/managing-a-branch-protection-rule).\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (vulnerable to intentional malicious code injection)  \n\n\n\nThis check determines whether a project's default and release branches are\n\nprotected with GitHub's [branch protection](https://docs.github.com/en/github/administering-a-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) settings. \n\nBranch protection allows maintainers to define rules that enforce\n\ncertain workflows for branches, such as requiring review or passing certain\n\nstatus checks before acceptance into a main branch, or preventing rewriting of\n\npublic history.\n\n\n\nNote: The following settings queried by the Branch-Protection check require an admin token: `DismissStaleReviews`, `EnforceAdmin`, and `StrictStatusCheck`. If\n\nthe provided token does not have admin access, the check will query the branch\n\nsettings accessible to non-admins and provide results based only on these settings.\n\nEven so, we recommend using a non-admin token, which provides a thorough enough\n\nresult to meet most user needs. \n\n\n\nDifferent types of branch protection protect against different risks:\n\n\n\n  - Require code review: requires at least one reviewer, which greatly\n\n    reduces the risk that a compromised contributor can inject malicious code.\n\n    Review also increases the likelihood that an unintentional vulnerability in\n\n    a contribution will be detected and fixed before the change is accepted.\n\n\n\n  - Prevent force push: prevents use of the `--force` command on public\n\n    branches, which overwrites code irrevocably. This protection prevents the\n\n    rewriting of public history without external notice.\n\n\n\n  - Require [status checks](https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks):\n\n    ensures that all required CI tests are met before a change is accepted. \n\n\n\nAlthough requiring code review can greatly reduce the chance that\n\nunintentional or malicious code enters the \"main\" branch, it is not feasible for\n\nall projects, such as those that don't have many active participants. For more\n\ndiscussion, see [Code Reviews](https://github.com/ossf/scorecard/blob/main/docs/checks.md#code-reviews).\n\n\n\nAdditionally, in some cases these rules will need to be suspended. For example,\n\nif a past commit includes illegal content such as child pornography, it may be\n\nnecessary to use a force push to rewrite the history rather than simply hide the\n\ncommit. \n\n\n\nThis test has tiered scoring. Each tier must be fully satisfied to achieve points at the next tier. For example, if you fulfill the Tier 3 checks but do not fulfill all the Tier 2 checks, you will not receive any points for Tier 3.\n\n\n\nNote: If Scorecard is run without an administrative access token, the requirements that specify “For administrators” are ignored.\n\n\n\nTier 1 Requirements (3/10 points):\n\n  - Prevent force push\n\n  - Prevent branch deletion\n\n  - For administrators: Include administrator for review\n\n\n\nTier 2 Requirements (6/10 points):\n\n  - Required reviewers >=1 ​\n\n  - For administrators: Strict status checks (require branches to be up-to-date before merging)\n\n\n\nTier 3 Requirements (8/10 points):\n\n  - Status checks defined\n\n\n\nTier 4 Requirements (9/10 points):\n\n  - Required reviewers >= 2\n\n\n\nTier 5 Requirements (10/10 points):\n\n  - For administrators: Dismiss stale reviews\n\n"
+2022-06-23T20:14:12.0580019Z               },
+2022-06-23T20:14:12.0580431Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0580740Z                 "level": "error"
+2022-06-23T20:14:12.0581042Z               },
+2022-06-23T20:14:12.0581381Z               "properties": {
+2022-06-23T20:14:12.0581835Z                 "precision": "high",
+2022-06-23T20:14:12.0582189Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0582699Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0583166Z                 "tags": [
+2022-06-23T20:14:12.0583555Z                   "supply-chain",
+2022-06-23T20:14:12.0583831Z                   "security",
+2022-06-23T20:14:12.0584499Z                   "source-code",
+2022-06-23T20:14:12.0584906Z                   "code-reviews"
+2022-06-23T20:14:12.0585224Z                 ]
+2022-06-23T20:14:12.0585455Z               }
+2022-06-23T20:14:12.0585806Z             }
+2022-06-23T20:14:12.0586084Z           ]
+2022-06-23T20:14:12.0586324Z         }
+2022-06-23T20:14:12.0586594Z       },
+2022-06-23T20:14:12.0586869Z       "results": [
+2022-06-23T20:14:12.0587187Z         {
+2022-06-23T20:14:12.0587464Z           "ruleId": "BranchProtectionID",
+2022-06-23T20:14:12.0587916Z           "ruleIndex": 0,
+2022-06-23T20:14:12.0588465Z           "message": {
+2022-06-23T20:14:12.0590006Z             "text": "score is 6: branch protection is not maximal on development and all release branches:\nWarn: no status checks found to merge onto branch 'main'\nWarn: number of required reviewers is only 1 on branch 'main'\nClick Remediation section below to solve this issue"
+2022-06-23T20:14:12.0591169Z           },
+2022-06-23T20:14:12.0591430Z           "locations": [
+2022-06-23T20:14:12.0591721Z             {
+2022-06-23T20:14:12.0592037Z               "physicalLocation": {
+2022-06-23T20:14:12.0592467Z                 "region": {
+2022-06-23T20:14:12.0592737Z                   "startLine": 1
+2022-06-23T20:14:12.0593040Z                 },
+2022-06-23T20:14:12.0593354Z                 "artifactLocation": {
+2022-06-23T20:14:12.0593920Z                   "uri": "no file associated with this alert",
+2022-06-23T20:14:12.0594243Z                   "uriBaseId": "%SRCROOT%"
+2022-06-23T20:14:12.0594541Z                 }
+2022-06-23T20:14:12.0594815Z               }
+2022-06-23T20:14:12.0595206Z             }
+2022-06-23T20:14:12.0595496Z           ]
+2022-06-23T20:14:12.0595773Z         }
+2022-06-23T20:14:12.0596044Z       ]
+2022-06-23T20:14:12.0596263Z     },
+2022-06-23T20:14:12.0596544Z     {
+2022-06-23T20:14:12.0631731Z       "automationDetails": {
+2022-06-23T20:14:12.0632516Z         "id": "supply-chain/local/70d045b9ef00e7171ce3950aca38eef6ea4d7308-23 Jun 22 20:13 +0000"
+2022-06-23T20:14:12.0640534Z       },
+2022-06-23T20:14:12.0640915Z       "tool": {
+2022-06-23T20:14:12.0641410Z         "driver": {
+2022-06-23T20:14:12.0641664Z           "name": "Scorecard",
+2022-06-23T20:14:12.0642020Z           "informationUri": "https://github.com/ossf/scorecard",
+2022-06-23T20:14:12.0642560Z           "semanticVersion": "v4.3.0-36-g70d045b",
+2022-06-23T20:14:12.0642823Z           "rules": [
+2022-06-23T20:14:12.0643029Z             {
+2022-06-23T20:14:12.0643272Z               "id": "BinaryArtifactsID",
+2022-06-23T20:14:12.0643624Z               "name": "Binary-Artifacts",
+2022-06-23T20:14:12.0644272Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#binary-artifacts",
+2022-06-23T20:14:12.0644692Z               "shortDescription": {
+2022-06-23T20:14:12.0645051Z                 "text": "Binary-Artifacts"
+2022-06-23T20:14:12.0645288Z               },
+2022-06-23T20:14:12.0645535Z               "fullDescription": {
+2022-06-23T20:14:12.0645956Z                 "text": "Determines if the project has generated executable (binary) artifacts in the source repository."
+2022-06-23T20:14:12.0646317Z               },
+2022-06-23T20:14:12.0646522Z               "help": {
+2022-06-23T20:14:12.0646916Z                 "text": "Determines if the project has generated executable (binary) artifacts in the source repository.",
+2022-06-23T20:14:12.0653744Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Remove the generated executable artifacts from the repository.\n\n- Build from source.\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (non-reviewable code)\n\n\n\nThis check determines whether the project has generated executable (binary)\n\nartifacts in the source repository.\n\n\n\nIncluding generated executables in the source repository increases user risk.\n\nMany programming language systems can generate executables from source code\n\n(e.g., C/C++ generated machine code, Java `.class` files, Python `.pyc` files,\n\nand minified JavaScript). Users will often directly use executables if they are\n\nincluded in the source repository, leading to many dangerous behaviors.\n\n\n\nProblems with generated executable (binary) artifacts:\n\n\n\n  - Binary artifacts cannot be reviewed, allowing possible obsolete or\n\n    maliciously subverted executables. Reviews generally review source code, not\n\n    executables, since it's difficult to audit executables to ensure that they\n\n    correspond to the source code. Over time the included executables might not\n\n    correspond to the source code. \n\n  - Generated executables allow the executable generation process to atrophy,\n\n    which can lead to an inability to create working executables. These problems\n\n    can be countered with verified reproducible builds, but it's easier to\n\n    implement verified reproducible builds when executables are not included in\n\n    the source repository (since the executable generation process is less\n\n    likely to have atrophied). \n\n\n\nAllowed by Scorecards:\n\n\n\n  - Files in the source repository that are simultaneously reviewable source\n\n    code and executables, since these are reviewable. (Some interpretive\n\n    systems, such as many operating system shells, don't have a mechanism for\n\n    storing generated executables that are different from the source file.) \n\n  - Source code in the source repository generated by other tools (e.g., by\n\n    bison, yacc, flex, and lex). There are potential downsides to generated\n\n    source code, but generated source code tends to be much easier to review and\n\n    thus presents a lower risk. Generated source code is also often difficult\n\n    for external tools to detect. \n\n  - Generated documentation in source repositories. Generated documentation is\n\n    intended for use by humans (not computers) who can evaluate the context.\n\n    Thus, generated documentation doesn't pose the same level of risk.  \n\n"
+2022-06-23T20:14:12.0660401Z               },
+2022-06-23T20:14:12.0660661Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0660910Z                 "level": "error"
+2022-06-23T20:14:12.0661252Z               },
+2022-06-23T20:14:12.0661485Z               "properties": {
+2022-06-23T20:14:12.0661747Z                 "precision": "high",
+2022-06-23T20:14:12.0662021Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0662456Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0662721Z                 "tags": [
+2022-06-23T20:14:12.0663035Z                   "supply-chain",
+2022-06-23T20:14:12.0663282Z                   "security",
+2022-06-23T20:14:12.0663533Z                   "dependencies"
+2022-06-23T20:14:12.0663764Z                 ]
+2022-06-23T20:14:12.0663958Z               }
+2022-06-23T20:14:12.0664828Z             },
+2022-06-23T20:14:12.0665061Z             {
+2022-06-23T20:14:12.0665320Z               "id": "DangerousWorkflowID",
+2022-06-23T20:14:12.0665709Z               "name": "Dangerous-Workflow",
+2022-06-23T20:14:12.0666365Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#dangerous-workflow",
+2022-06-23T20:14:12.0666802Z               "shortDescription": {
+2022-06-23T20:14:12.0667168Z                 "text": "Dangerous-Workflow"
+2022-06-23T20:14:12.0667408Z               },
+2022-06-23T20:14:12.0667650Z               "fullDescription": {
+2022-06-23T20:14:12.0668160Z                 "text": "Determines if the project's GitHub Action workflows avoid dangerous patterns."
+2022-06-23T20:14:12.0668504Z               },
+2022-06-23T20:14:12.0668712Z               "help": {
+2022-06-23T20:14:12.0669201Z                 "text": "Determines if the project's GitHub Action workflows avoid dangerous patterns.",
+2022-06-23T20:14:12.0675364Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Avoid the dangerous workflow patterns.  See this [post](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/) for information on avoiding untrusted code checkouts. See this [document](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections) for information on avoiding and mitigating the risk of script injections.\n\n\n\n**Severity**: Critical\n\n\n\n**Details**:\n\nRisk: `Critical`  (vulnerable to repository compromise)\n\n  \n\nThis check determines whether the project's GitHub Action workflows has dangerous \n\ncode patterns. Some examples of these patterns are untrusted code checkouts, \n\nlogging github context and secrets, or use of potentially untrusted inputs in scripts.\n\nThe following patterns are checked:\n\n\n\nUntrusted Code Checkout: This is the misuse of potentially dangerous triggers. \n\nThis checks if a `pull_request_target` or `workflow_run` workflow trigger was used in conjunction \n\nwith an explicit pull request checkout. Workflows triggered with `pull_request_target` / `workflow_run`\n\nhave write permission to the target repository and access to target repository \n\nsecrets. With the PR checkout, PR authors may compromise the repository, for \n\nexample, by using build scripts controlled by the author of the PR or reading \n\ntoken in memory. This check does not detect whether untrusted code checkouts are \n\nused safely, for example, only on pull request that have been assigned a label.\n\n\n\nScript Injection with Untrusted Context Variables: This pattern detects whether a \n\nworkflow's inline script may execute untrusted input from attackers. This occurs when \n\nan attacker adds malicious commands and scripts to a context. When a workflow runs, \n\nthese strings may be interpreted as code that is executed on the runner. Attackers \n\ncan add their own content to certain github context variables that are considered \n\nuntrusted, for example, `github.event.issue.title`. These values should not flow \n\ndirectly into executable code.\n\n\n\nThe highest score is awarded when all workflows avoid the dangerous code patterns.\n\n"
+2022-06-23T20:14:12.0679174Z               },
+2022-06-23T20:14:12.0679413Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0679681Z                 "level": "error"
+2022-06-23T20:14:12.0680027Z               },
+2022-06-23T20:14:12.0680264Z               "properties": {
+2022-06-23T20:14:12.0680511Z                 "precision": "high",
+2022-06-23T20:14:12.0680799Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0681207Z                 "security-severity": "9.0",
+2022-06-23T20:14:12.0681470Z                 "tags": [
+2022-06-23T20:14:12.0681773Z                   "supply-chain",
+2022-06-23T20:14:12.0682033Z                   "security",
+2022-06-23T20:14:12.0682281Z                   "infrastructure"
+2022-06-23T20:14:12.0683288Z                 ]
+2022-06-23T20:14:12.0683790Z               }
+2022-06-23T20:14:12.0684045Z             },
+2022-06-23T20:14:12.0684254Z             {
+2022-06-23T20:14:12.0684528Z               "id": "DependencyUpdateToolID",
+2022-06-23T20:14:12.0685410Z               "name": "Dependency-Update-Tool",
+2022-06-23T20:14:12.0686108Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#dependency-update-tool",
+2022-06-23T20:14:12.0686547Z               "shortDescription": {
+2022-06-23T20:14:12.0686928Z                 "text": "Dependency-Update-Tool"
+2022-06-23T20:14:12.0687176Z               },
+2022-06-23T20:14:12.0687411Z               "fullDescription": {
+2022-06-23T20:14:12.0687763Z                 "text": "Determines if the project uses a dependency update tool."
+2022-06-23T20:14:12.0688078Z               },
+2022-06-23T20:14:12.0688284Z               "help": {
+2022-06-23T20:14:12.0688607Z                 "text": "Determines if the project uses a dependency update tool.",
+2022-06-23T20:14:12.0694946Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Signup for automatic dependency updates with [dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates) or [renovatebot](https://docs.renovatebot.com/configuration-options/) and place the config file in the locations that are recommended by these tools. Due to https://github.com/dependabot/dependabot-core/issues/2804 Dependabot can be enabled for forks where security updates have ever been turned on so projects maintaining stable forks should evaluate whether this behavior is satisfactory before turning it on.\n\n- Unlike dependabot, renovatebot has support to migrate dockerfiles' dependencies from version pinning to hash pinning  via the [pinDigests setting](https://docs.renovatebot.com/configuration-options/#pindigests) without aditional manual effort.\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (possibly vulnerable to attacks on known flaws)  \n\n\n\nThis check tries to determine if the project uses a dependency update tool,\n\nspecifically [dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates) or\n\n[renovatebot](https://docs.renovatebot.com/configuration-options/). Out-of-date\n\ndependencies make a project vulnerable to known flaws and prone to attacks.\n\nThese tools automate the process of updating dependencies by scanning for\n\noutdated or insecure requirements, and opening a pull request to update them if\n\nfound.   \n\n\n\nThis check can determine only whether the dependency update tool is enabled; it\n\ndoes not ensure that the tool is run or that the tool's pull requests are\n\nmerged.   \n\n\n\nNote: A project that fulfills this criterion with other tools may still receive\n\na low score on this test. There are many ways to implement dependency updates,\n\nand it is challenging for an automated tool like Scorecard to detect them all. A\n\nlow score is therefore not a definitive indication that the project is at risk.  \n\n"
+2022-06-23T20:14:12.0698746Z               },
+2022-06-23T20:14:12.0698996Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0699271Z                 "level": "error"
+2022-06-23T20:14:12.0699503Z               },
+2022-06-23T20:14:12.0699723Z               "properties": {
+2022-06-23T20:14:12.0699988Z                 "precision": "high",
+2022-06-23T20:14:12.0700278Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0700707Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0700954Z                 "tags": [
+2022-06-23T20:14:12.0731782Z                   "supply-chain",
+2022-06-23T20:14:12.0732225Z                   "security",
+2022-06-23T20:14:12.0732504Z                   "dependencies"
+2022-06-23T20:14:12.0732728Z                 ]
+2022-06-23T20:14:12.0732941Z               }
+2022-06-23T20:14:12.0733153Z             },
+2022-06-23T20:14:12.0733361Z             {
+2022-06-23T20:14:12.0733578Z               "id": "LicenseID",
+2022-06-23T20:14:12.0733830Z               "name": "License",
+2022-06-23T20:14:12.0734267Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#license",
+2022-06-23T20:14:12.0734679Z               "shortDescription": {
+2022-06-23T20:14:12.0734928Z                 "text": "License"
+2022-06-23T20:14:12.0735159Z               },
+2022-06-23T20:14:12.0735405Z               "fullDescription": {
+2022-06-23T20:14:12.0735744Z                 "text": "Determines if the project has defined a license."
+2022-06-23T20:14:12.0736025Z               },
+2022-06-23T20:14:12.0736245Z               "help": {
+2022-06-23T20:14:12.0736567Z                 "text": "Determines if the project has defined a license.",
+2022-06-23T20:14:12.0785274Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Determine [which license](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) to apply to your project.\n\n- Create the license in a .txt, .html, or .md file named LICENSE or COPYING, and place it in the top-level directory.\n\n- Alternately, create a `LICENSE` directory and add license files with a name that matches your [SPDX license identifier](https://spdx.dev/ids/).\n\n\n\n**Severity**: Low\n\n\n\n**Details**:\n\nRisk: `Low` (possible impediment to security review)\n\n\n\nThis check tries to determine if the project has published a license. It\n\nworks by checking standard locations for a file named according to common\n\nconventions for licenses.\n\n\n\nA license can give users information about how the source code may or may\n\nnot be used. The lack of a license will impede any kind of security review\n\nor audit and creates a legal risk for potential users.\n\n\n\nThis check will detect files in the top-level directory with any combination\n\nof the following names and extensions:`LICENSE`, `LICENCE`, `COPYING`,\n\n`COPYRIGHT` and .html, .txt, .md. It will also detect these files in a\n\ndirectory named `LICENSES`. (Files in a `LICENSES` directory are typically\n\nnamed as their [SPDX](https://spdx.org/licenses/) license identifier followed\n\nby an appropriate file extension, as described in the [REUSE](https://reuse.software/spec/) Specification.)\n\n"
+2022-06-23T20:14:12.0788268Z               },
+2022-06-23T20:14:12.0788518Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0788799Z                 "level": "error"
+2022-06-23T20:14:12.0789029Z               },
+2022-06-23T20:14:12.0789263Z               "properties": {
+2022-06-23T20:14:12.0789510Z                 "precision": "high",
+2022-06-23T20:14:12.0789911Z                 "problem.severity": "recommendation",
+2022-06-23T20:14:12.0790402Z                 "security-severity": "1.0",
+2022-06-23T20:14:12.0790664Z                 "tags": [
+2022-06-23T20:14:12.0790880Z                   "license"
+2022-06-23T20:14:12.0791102Z                 ]
+2022-06-23T20:14:12.0791311Z               }
+2022-06-23T20:14:12.0791518Z             },
+2022-06-23T20:14:12.0791708Z             {
+2022-06-23T20:14:12.0791967Z               "id": "PinnedDependenciesID",
+2022-06-23T20:14:12.0792361Z               "name": "Pinned-Dependencies",
+2022-06-23T20:14:12.0793026Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#pinned-dependencies",
+2022-06-23T20:14:12.0793449Z               "shortDescription": {
+2022-06-23T20:14:12.0793823Z                 "text": "Pinned-Dependencies"
+2022-06-23T20:14:12.0794081Z               },
+2022-06-23T20:14:12.0794325Z               "fullDescription": {
+2022-06-23T20:14:12.0794688Z                 "text": "Determines if the project has declared and pinned its dependencies."
+2022-06-23T20:14:12.0795112Z               },
+2022-06-23T20:14:12.0795448Z               "help": {
+2022-06-23T20:14:12.0795794Z                 "text": "Determines if the project has declared and pinned its dependencies.",
+2022-06-23T20:14:12.0806822Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- First determine if your project is producing a library or application. If it is a library, you generally don't want to pin dependencies of library users, and should not follow any remediation steps.\n\n- If your project is producing an application, declare all your dependencies with specific versions in your package format file (e.g. `package.json` for npm, `requirements.txt` for python). For C/C++, check in the code from a trusted source and add a `README` on the specific version used (and the archive SHA hashes).\n\n- If the package manager supports lock files (e.g. `package-lock.json` for npm), make sure to check these in the source code as well. These files maintain signatures for the entire dependency tree and saves from future exploitation in case the package is compromised.\n\n- For Dockerfiles, pin dependencies by hash. See [Dockerfile](https://github.com/ossf/scorecard/blob/main/cron/worker/Dockerfile) for example. If you are using a manifest list to support builds across multiple architectures, you can pin to the manifest list hash instead of a single image hash. You can use a tool like [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)  to obtain the hash of the manifest list like in this [example](https://github.com/ossf/scorecard/issues/1773#issuecomment-1076699039).\n\n- For GitHub workflows, pin dependencies by hash. See [main.yaml](https://github.com/ossf/scorecard/blob/f55b86d6627cc3717e3a0395e03305e81b9a09be/.github/workflows/main.yml#L27) for example. To determine the permissions needed for your workflows, you may use [StepSecurity's online tool](https://app.stepsecurity.io/) by ticking the \"Pin actions to a full length commit SHA\". You may also tick the \"Restrict permissions for GITHUB_TOKEN\" to fix issues found by the Token-Permissions check.\n\n- To help update your dependencies after pinning them, use tools such as\n\n Github's [dependabot](https://github.blog/2020-06-01-keep-all-your-packages-up-to-date-with-dependabot/)\n\nor [renovate bot](https://github.com/renovatebot/renovate).\n\n\n\n**Severity**: Medium\n\n\n\n**Details**:\n\nRisk: `Medium` (possible compromised dependencies)\n\n\n\nThis check tries to determine if the project pins its dependencies. \n\nA \"pinned dependency\" is a dependency that is explicitly set to a specific hash instead of \n\nallowing a mutable version or range of versions. It\n\nis currently limited to repositories hosted on GitHub, and does not support\n\nother source hosting repositories (i.e., Forges). \n\n\n\nThe check works by looking for unpinned dependencies in Dockerfiles, shell scripts and GitHub workflows.\n\n\n\nPinned dependencies reduce several security risks:\n\n\n\n  - They ensure that checking and deployment are all done with the same\n\n    software, reducing deployment risks, simplifying debugging, and enabling\n\n    reproducibility. \n\n  - They can help mitigate compromised dependencies from undermining the\n\n    security of the project (in the case where you've evaluated the pinned\n\n    dependency, you are confident it's not compromised, and a later version is\n\n    released that is compromised). \n\n  - They are one way to [counter dependency confusion (aka substitution) attacks](https://azure.microsoft.com/en-us/resources/3-ways-to-mitigate-risk-using-private-package-feeds/),\n\n    in which an application uses multiple feeds to acquire software packages (a\n\n    \"hybrid configuration\"), and attackers fool the user into using a malicious\n\n    package via a feed that was not expected for that package.\n\n\n\nHowever, pinning dependencies can inhibit software updates, either because of a\n\nsecurity vulnerability or because the pinned version is compromised. Mitigate\n\nthis risk by:\n\n\n\n  - [having applications and _not_ libraries pin to specific hashes](https://jbeckwith.com/2019/12/18/package-lock/);\n\n  - using automated tools to notify applications when their dependencies are\n\n    outdated;\n\n  - quickly updating applications that do pin dependencies.\n\n\n\nFor projects hosted on GitHub, you can learn more about\n\ndependencies using the [GitHub dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph).\n\n"
+2022-06-23T20:14:12.0814622Z               },
+2022-06-23T20:14:12.0814886Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0815162Z                 "level": "error"
+2022-06-23T20:14:12.0815393Z               },
+2022-06-23T20:14:12.0815617Z               "properties": {
+2022-06-23T20:14:12.0815879Z                 "precision": "high",
+2022-06-23T20:14:12.0816179Z                 "problem.severity": "warning",
+2022-06-23T20:14:12.0816615Z                 "security-severity": "4.0",
+2022-06-23T20:14:12.0816967Z                 "tags": [
+2022-06-23T20:14:12.0817269Z                   "supply-chain",
+2022-06-23T20:14:12.0817509Z                   "security",
+2022-06-23T20:14:12.0819318Z                   "dependencies"
+2022-06-23T20:14:12.0819547Z                 ]
+2022-06-23T20:14:12.0819758Z               }
+2022-06-23T20:14:12.0819965Z             },
+2022-06-23T20:14:12.0820175Z             {
+2022-06-23T20:14:12.0820415Z               "id": "TokenPermissionsID",
+2022-06-23T20:14:12.0820838Z               "name": "Token-Permissions",
+2022-06-23T20:14:12.0821494Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#token-permissions",
+2022-06-23T20:14:12.0821922Z               "shortDescription": {
+2022-06-23T20:14:12.0822271Z                 "text": "Token-Permissions"
+2022-06-23T20:14:12.0822526Z               },
+2022-06-23T20:14:12.0823070Z               "fullDescription": {
+2022-06-23T20:14:12.0823616Z                 "text": "Determines if the project's workflows follow the principle of least privilege."
+2022-06-23T20:14:12.0823943Z               },
+2022-06-23T20:14:12.0824845Z               "help": {
+2022-06-23T20:14:12.0825360Z                 "text": "Determines if the project's workflows follow the principle of least privilege.",
+2022-06-23T20:14:12.0834629Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Set permissions as `read-all` or `contents: read` as described in GitHub's [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#permissions).\n\n- To help determine the permissions needed for your workflows, you may use [StepSecurity's online tool](https://app.stepsecurity.io/) by ticking the \"Restrict permissions for GITHUB_TOKEN\". You may also tick the \"Pin actions to a full length commit SHA\" to fix issues found by the Pinned-dependencies check.\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (vulnerable to malicious code additions)\n\n\n\nThis check determines whether the project's automated workflows tokens are set\n\nto read-only by default. It is currently limited to repositories hosted on\n\nGitHub, and does not support other source hosting repositories (i.e., Forges).\n\n\n\nSetting token permissions to read-only follows the principle of least privilege.\n\nThis is important because attackers may use a compromised token with write\n\naccess to push malicious code into the project.\n\n\n\nThe highest score is awarded when the permissions definitions in each workflow's\n\nyaml file are set as read-only at the\n\n[top level](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#permissions)\n\nand the required write permissions are declared at the\n\n[run-level](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idpermissions).\n\nOne point is reduced from the score if all jobs have their permissions defined but the top level permissions are not defined. \n\nThis configuration is secure, but there is a chance that when a new job is added to the workflow, its job permissions could be \n\nleft undefined because of human error.\n\n\n\nThe check cannot detect if the \"read-only\" GitHub permission setting is\n\nenabled, as there is no API available.\n\n\n\nAdditionally, points are reduced if certain write permissions are defined for a job. \n\n\n\n### Write permissions causing a small reduction\n\n* `statuses` - May allow an attacker to change the result of pre-submit checks and get a PR merged.\n\n* `checks` - May allow an attacker to remove pre-submit checks and introduce a bug.\n\n* `security-events` - May allow an attacker to read vulnerability reports before a patch is available. However, points are not reduced if the job utilizes a recognized action for uploading SARIF results.\n\n* `deployments` - May allow an attacker to charge repo owner by triggering VM runs, and tiny chance an attacker can trigger a remote service with code they own if server accepts code/location variables unsanitized.\n\n\n\n### Write permissions causing a large reduction\n\n* `contents` - Allows an attacker to commit unreviewed code. However, points are not reduced if the job utilizes a recognized packaging action or command.\n\n* `packages` - Allows an attacker to publish packages. However, points are not reduced if the job utilizes a recognized packaging action or command.\n\n* `actions` - May allow an attacker to steal GitHub secrets by approving to run an action that needs approval.\n\n"
+2022-06-23T20:14:12.0839830Z               },
+2022-06-23T20:14:12.0840091Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0840353Z                 "level": "error"
+2022-06-23T20:14:12.0840580Z               },
+2022-06-23T20:14:12.0840813Z               "properties": {
+2022-06-23T20:14:12.0841072Z                 "precision": "high",
+2022-06-23T20:14:12.0841347Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0842125Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0842402Z                 "tags": [
+2022-06-23T20:14:12.0842730Z                   "supply-chain",
+2022-06-23T20:14:12.0842970Z                   "security",
+2022-06-23T20:14:12.0843217Z                   "infrastructure"
+2022-06-23T20:14:12.0843452Z                 ]
+2022-06-23T20:14:12.0843661Z               }
+2022-06-23T20:14:12.0843854Z             }
+2022-06-23T20:14:12.0844061Z           ]
+2022-06-23T20:14:12.0844387Z         }
+2022-06-23T20:14:12.0844580Z       },
+2022-06-23T20:14:12.0844770Z       "results": []
+2022-06-23T20:14:12.0844975Z     },
+2022-06-23T20:14:12.0845161Z     {
+2022-06-23T20:14:12.0845366Z       "automationDetails": {
+2022-06-23T20:14:12.0846009Z         "id": "supply-chain/online-scm/70d045b9ef00e7171ce3950aca38eef6ea4d7308-23 Jun 22 20:13 +0000"
+2022-06-23T20:14:12.0846344Z       },
+2022-06-23T20:14:12.0846549Z       "tool": {
+2022-06-23T20:14:12.0846752Z         "driver": {
+2022-06-23T20:14:12.0846996Z           "name": "Scorecard",
+2022-06-23T20:14:12.0847380Z           "informationUri": "https://github.com/ossf/scorecard",
+2022-06-23T20:14:12.0847828Z           "semanticVersion": "v4.3.0-36-g70d045b",
+2022-06-23T20:14:12.0848083Z           "rules": [
+2022-06-23T20:14:12.0848298Z             {
+2022-06-23T20:14:12.0848530Z               "id": "CITestsID",
+2022-06-23T20:14:12.0848847Z               "name": "CI-Tests",
+2022-06-23T20:14:12.0849431Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#ci-tests",
+2022-06-23T20:14:12.0849841Z               "shortDescription": {
+2022-06-23T20:14:12.0850171Z                 "text": "CI-Tests"
+2022-06-23T20:14:12.0850404Z               },
+2022-06-23T20:14:12.0850630Z               "fullDescription": {
+2022-06-23T20:14:12.0850997Z                 "text": "Determines if the project runs tests before pull requests are merged."
+2022-06-23T20:14:12.0851318Z               },
+2022-06-23T20:14:12.0851539Z               "help": {
+2022-06-23T20:14:12.0851870Z                 "text": "Determines if the project runs tests before pull requests are merged.",
+2022-06-23T20:14:12.0856194Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Check-in scripts that run all the tests in your repository.\n\n- Integrate those scripts with a CI/CD platform that runs it on every pull request (e.g. if hosted on GitHub, [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions), [Prow](https://github.com/kubernetes/test-infra/tree/master/prow), etc).\n\n\n\n**Severity**: Low\n\n\n\n**Details**:\n\nRisk: `Low` (possible unknown vulnerabilities)\n\n\n\nThis check tries to determine if the project runs tests before pull requests are\n\nmerged. It is currently limited to repositories hosted on GitHub, and does not\n\nsupport other source hosting repositories (i.e., Forges).\n\n\n\nRunning tests helps developers catch mistakes early on, which can reduce the\n\nnumber of vulnerabilities that find their way into a project.\n\n\n\nThe check works by looking for a set of CI-system names in GitHub `CheckRuns`\n\nand `Statuses` among the recent commits (~30). A CI-system is considered\n\nwell-known if its name contains any of the following: appveyor, buildkite,\n\ncircleci, e2e, github-actions, jenkins, mergeable, test, travis-ci.\n\n\n\nNote: A project that fulfills this criterion with other tools may still receive\n\na low score on this test. There are many ways to implement CI testing, and it is\n\nchallenging for an automated tool like Scorecard to detect them all. A low score\n\nis therefore not a definitive indication that the project is at risk.\n\n\n\nIf a project's system was not detected and you think it should be, please\n\n[open an issue in the scorecard project](https://github.com/ossf/scorecard/issues/new/choose). \n\n"
+2022-06-23T20:14:12.0858890Z               },
+2022-06-23T20:14:12.0859149Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0859619Z                 "level": "error"
+2022-06-23T20:14:12.0859861Z               },
+2022-06-23T20:14:12.0860121Z               "properties": {
+2022-06-23T20:14:12.0860378Z                 "precision": "high",
+2022-06-23T20:14:12.0860687Z                 "problem.severity": "recommendation",
+2022-06-23T20:14:12.0861109Z                 "security-severity": "1.0",
+2022-06-23T20:14:12.0861357Z                 "tags": [
+2022-06-23T20:14:12.0861665Z                   "supply-chain",
+2022-06-23T20:14:12.0861911Z                   "testing"
+2022-06-23T20:14:12.0862133Z                 ]
+2022-06-23T20:14:12.0862327Z               }
+2022-06-23T20:14:12.0862532Z             },
+2022-06-23T20:14:12.0862738Z             {
+2022-06-23T20:14:12.0862991Z               "id": "CIIBestPracticesID",
+2022-06-23T20:14:12.0863355Z               "name": "CII-Best-Practices",
+2022-06-23T20:14:12.0864003Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#cii-best-practices",
+2022-06-23T20:14:12.0865755Z               "shortDescription": {
+2022-06-23T20:14:12.0866191Z                 "text": "CII-Best-Practices"
+2022-06-23T20:14:12.0866435Z               },
+2022-06-23T20:14:12.0866673Z               "fullDescription": {
+2022-06-23T20:14:12.0867021Z                 "text": "Determines if the project has a CII Best Practices Badge."
+2022-06-23T20:14:12.0867324Z               },
+2022-06-23T20:14:12.0867528Z               "help": {
+2022-06-23T20:14:12.0867853Z                 "text": "Determines if the project has a CII Best Practices Badge.",
+2022-06-23T20:14:12.0873145Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Sign up for the [CII Best Practices program](https://bestpractices.coreinfrastructure.org/en).\n\n\n\n**Severity**: Low\n\n\n\n**Details**:\n\nRisk: `Low` (possibly not following security best practices)\n\n\n\nThis check determines whether the project has earned a [CII Best Practices Badge](https://bestpractices.coreinfrastructure.org/), \n\nwhich indicates that the project uses a set of security-focused best development practices for open\n\nsource software. The check uses the URL for the Git repo and the CII API.\n\n\n\nThe CII Best Practices badge has 3 tiers: passing, silver, and gold. We give\n\nfull credit to projects that meet the [passing criteria](https://bestpractices.coreinfrastructure.org/criteria/0), which is a\n\nsignificant achievement for many projects. Lower scores represent a project that\n\nis at least working to achieve a badge, with increasingly more points awarded as\n\nmore criteria are met.\n\n\n\nTo earn the passing badge, the project MUST: \n\n\n\n  - publish the process for reporting vulnerabilities on the project site\n\n  - provide a working build system that can automatically rebuild the software\n\n    from source code (where applicable)\n\n  - have a general policy that tests will be added to an automated test suite\n\n    when major new functionality is added\n\n  - meet various cryptography criteria where applicable\n\n  - have at least one primary developer who knows how to design secure software\n\n  - have at least one primary developer who knows of common kinds of errors\n\n    that lead to vulnerabilities in this kind of software (and at least one\n\n    method to counter or mitigate each of them) \n\n  - apply at least one static code analysis tool (beyond compiler warnings and\n\n    \"safe\" language modes) to any proposed major production release. \n\n\n\nSome of these criteria overlap with other Scorecards checks.\n\n"
+2022-06-23T20:14:12.0876339Z               },
+2022-06-23T20:14:12.0876597Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0876871Z                 "level": "error"
+2022-06-23T20:14:12.0877099Z               },
+2022-06-23T20:14:12.0877315Z               "properties": {
+2022-06-23T20:14:12.0877575Z                 "precision": "high",
+2022-06-23T20:14:12.0877882Z                 "problem.severity": "recommendation",
+2022-06-23T20:14:12.0878623Z                 "security-severity": "1.0",
+2022-06-23T20:14:12.0879005Z                 "tags": [
+2022-06-23T20:14:12.0879331Z                   "security-awareness",
+2022-06-23T20:14:12.0879667Z                   "security-training",
+2022-06-23T20:14:12.0879915Z                   "security"
+2022-06-23T20:14:12.0880116Z                 ]
+2022-06-23T20:14:12.0880318Z               }
+2022-06-23T20:14:12.0880647Z             },
+2022-06-23T20:14:12.0880831Z             {
+2022-06-23T20:14:12.0881048Z               "id": "CodeReviewID",
+2022-06-23T20:14:12.0881360Z               "name": "Code-Review",
+2022-06-23T20:14:12.0882068Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#code-review",
+2022-06-23T20:14:12.0882459Z               "shortDescription": {
+2022-06-23T20:14:12.0882787Z                 "text": "Code-Review"
+2022-06-23T20:14:12.0883017Z               },
+2022-06-23T20:14:12.0883249Z               "fullDescription": {
+2022-06-23T20:14:12.0883767Z                 "text": "Determines if the project requires code review before pull requests (aka merge requests) are merged."
+2022-06-23T20:14:12.0884124Z               },
+2022-06-23T20:14:12.0884340Z               "help": {
+2022-06-23T20:14:12.0884731Z                 "text": "Determines if the project requires code review before pull requests (aka merge requests) are merged.",
+2022-06-23T20:14:12.0893133Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- If the project has only one contributor, or does not have enough reviewers to practically require that all contributions be reviewed, try to recruit more maintainers to the project who will be willing to review others' work. Ideally at least some of these people will be from different organizations (see [Contributors](checks.md#contributors)). If the project has very limited utility, consider expanding its intended utility so more people will be interested in improving it, and make that larger scope clear to potential contributors.\n\n- Follow security best practices by performing strict code reviews for every new pull request / merge request.\n\n- Make \"code reviews\" mandatory in your repository configuration. ([Instructions for GitHub.](https://docs.github.com/en/github/administering-a-repository/about-protected-branches#require-pull-request-reviews-before-merging))\n\n- Enforce the rule for administrators / code owners as well. ([Instructions for GitHub.](https://docs.github.com/en/github/administering-a-repository/about-protected-branches#include-administrators))\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (unintentional vulnerabilities or possible injection of malicious\n\ncode)\n\n\n\nThis check determines whether the project requires code review before pull\n\nrequests (merge requests) are merged.\n\n\n\nReviews detect various unintentional problems, including vulnerabilities that\n\ncan be fixed immediately before they are merged, which improves the quality of\n\nthe code. Reviews may also detect or deter an attacker trying to insert\n\nmalicious code (either as a malicious contributor or as an attacker who has\n\nsubverted a contributor's account), because a reviewer might detect the\n\nsubversion.\n\n\n\nThe check first tries to detect whether [Branch-Protection](checks.md#branch-protection) is enabled on the\n\ndefault branch with at least one required reviewer. If this fails, the check\n\ndetermines whether the most recent (~30) commits have a Github-approved review\n\nor if the merger is different from the committer (implicit review). It also\n\nperforms a similar check for reviews using\n\n[Prow](https://github.com/kubernetes/test-infra/tree/master/prow#readme) (labels\n\n\"lgtm\" or \"approved\") and [Gerrit](https://www.gerritcodereview.com/) (\"Reviewed-on\" and \"Reviewed-by\").\n\n\n\nNote: Requiring reviews for all changes is infeasible for some projects, such as\n\nthose with only one active participant. Even a project with multiple active\n\ncontributors may not have enough active participation to be able to require\n\nreview of all proposed changes. Projects with a small number of active\n\nparticipants instead sometimes aim for a review of a\n\npercentage of proposals (e.g., \"at least half of all proposed changes are\n\nreviewed\").\n\n\n\nRequiring review does not eliminate all risks. The other reviewers might fail to\n\nnotice unintentional vulnerabilities or malicious code, be colluding with a\n\nmalicious developer, or even be the same person (using a \"[sock\n\npuppet](https://en.wikipedia.org/wiki/Sock_puppet_account)\" account).  \n\n"
+2022-06-23T20:14:12.0898394Z               },
+2022-06-23T20:14:12.0898649Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0898904Z                 "level": "error"
+2022-06-23T20:14:12.0899128Z               },
+2022-06-23T20:14:12.0899355Z               "properties": {
+2022-06-23T20:14:12.0899727Z                 "precision": "high",
+2022-06-23T20:14:12.0900005Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0900427Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0900690Z                 "tags": [
+2022-06-23T20:14:12.0901000Z                   "supply-chain",
+2022-06-23T20:14:12.0901239Z                   "security",
+2022-06-23T20:14:12.0901545Z                   "source-code",
+2022-06-23T20:14:12.0901855Z                   "code-reviews"
+2022-06-23T20:14:12.0902089Z                 ]
+2022-06-23T20:14:12.0902286Z               }
+2022-06-23T20:14:12.0902495Z             },
+2022-06-23T20:14:12.0902703Z             {
+2022-06-23T20:14:12.0902925Z               "id": "ContributorsID",
+2022-06-23T20:14:12.0903192Z               "name": "Contributors",
+2022-06-23T20:14:12.0903636Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#contributors",
+2022-06-23T20:14:12.0904054Z               "shortDescription": {
+2022-06-23T20:14:12.0910444Z                 "text": "Contributors"
+2022-06-23T20:14:12.0910683Z               },
+2022-06-23T20:14:12.0910938Z               "fullDescription": {
+2022-06-23T20:14:12.0911355Z                 "text": "Determines if the project has a set of contributors from multiple organizations (e.g., companies)."
+2022-06-23T20:14:12.0911714Z               },
+2022-06-23T20:14:12.0911917Z               "help": {
+2022-06-23T20:14:12.0912307Z                 "text": "Determines if the project has a set of contributors from multiple organizations (e.g., companies).",
+2022-06-23T20:14:12.0916431Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Ask contributors to [join their respective organizations](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization), if they have not already. Otherwise, there is no remediation for this check; it simply provides insight into which organizations have contributed so that you can make a trust-based decision based on that information.  \n\n\n\n**Severity**: Low\n\n\n\n**Details**:\n\nRisk: `Low` (lower number of trusted code reviewers)\n\n\n\nThis check tries to determine if the project has recent contributors from\n\nmultiple organizations (e.g., companies). It is currently limited to\n\nrepositories hosted on GitHub, and does not support other source hosting\n\nrepositories (i.e., Forges).\n\n\n\nThe check looks at the `Company` field on the GitHub user profile for authors of\n\nrecent commits. To receive the highest score, the project must have had\n\ncontributors from at least 3 different companies in the last 30 commits; each of\n\nthose contributors must have had at least 5 commits in the last 30 commits.\n\n\n\nNote: Some projects cannot meet this requirement, such as small projects with\n\nonly one active participant, or projects with a narrow scope that cannot attract\n\nthe interest of multiple organizations. See\n\n[Code Reviews](https://github.com/ossf/scorecard/blob/main/docs/checks.md#code-reviews)\n\nfor more information about evaluating projects with a small number of\n\nparticipants.   \n\n"
+2022-06-23T20:14:12.0919871Z               },
+2022-06-23T20:14:12.0920161Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0920438Z                 "level": "error"
+2022-06-23T20:14:12.0920652Z               },
+2022-06-23T20:14:12.0920886Z               "properties": {
+2022-06-23T20:14:12.0921146Z                 "precision": "high",
+2022-06-23T20:14:12.0921439Z                 "problem.severity": "recommendation",
+2022-06-23T20:14:12.0921899Z                 "security-severity": "1.0",
+2022-06-23T20:14:12.0922164Z                 "tags": [
+2022-06-23T20:14:12.0922506Z                   "source-code"
+2022-06-23T20:14:12.0922729Z                 ]
+2022-06-23T20:14:12.0922939Z               }
+2022-06-23T20:14:12.0923150Z             },
+2022-06-23T20:14:12.0923361Z             {
+2022-06-23T20:14:12.0923575Z               "id": "FuzzingID",
+2022-06-23T20:14:12.0923821Z               "name": "Fuzzing",
+2022-06-23T20:14:12.0924252Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#fuzzing",
+2022-06-23T20:14:12.0924660Z               "shortDescription": {
+2022-06-23T20:14:12.0924910Z                 "text": "Fuzzing"
+2022-06-23T20:14:12.0925141Z               },
+2022-06-23T20:14:12.0925382Z               "fullDescription": {
+2022-06-23T20:14:12.0925699Z                 "text": "Determines if the project uses fuzzing."
+2022-06-23T20:14:12.0925962Z               },
+2022-06-23T20:14:12.0926178Z               "help": {
+2022-06-23T20:14:12.0926474Z                 "text": "Determines if the project uses fuzzing.",
+2022-06-23T20:14:12.0929439Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Integrate the project with OSS-Fuzz by following the instructions [here](https://google.github.io/oss-fuzz/).\n\n\n\n**Severity**: Medium\n\n\n\n**Details**:\n\nRisk: `Medium` (possible vulnerabilities in code)\n\n\n\nThis check tries to determine if the project uses\n\n[fuzzing](https://owasp.org/www-community/Fuzzing) by checking if the repository\n\nname is included in the [OSS-Fuzz](https://github.com/google/oss-fuzz) project\n\nlist.\n\n\n\nFuzzing, or fuzz testing, is the practice of feeding unexpected or random data\n\ninto a program to expose bugs. Regular fuzzing is important to detect\n\nvulnerabilities that may be exploited by others, especially since attackers can\n\nalso use fuzzing to find the same flaws.\n\n\n\nNote: A project that fulfills this criterion with other tools may still receive\n\na low score on this test. There are many ways to implement fuzzing, and it is\n\nchallenging for an automated tool like Scorecard to detect them all. A low score\n\nis therefore not a definitive indication that the project is at risk.   \n\n"
+2022-06-23T20:14:12.0931335Z               },
+2022-06-23T20:14:12.0931577Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0931849Z                 "level": "error"
+2022-06-23T20:14:12.0932077Z               },
+2022-06-23T20:14:12.0932293Z               "properties": {
+2022-06-23T20:14:12.0932558Z                 "precision": "high",
+2022-06-23T20:14:12.0932849Z                 "problem.severity": "warning",
+2022-06-23T20:14:12.0933239Z                 "security-severity": "4.0",
+2022-06-23T20:14:12.0933487Z                 "tags": [
+2022-06-23T20:14:12.0933796Z                   "supply-chain",
+2022-06-23T20:14:12.0934049Z                   "security",
+2022-06-23T20:14:12.0934283Z                   "testing"
+2022-06-23T20:14:12.0934488Z                 ]
+2022-06-23T20:14:12.0934698Z               }
+2022-06-23T20:14:12.0934903Z             },
+2022-06-23T20:14:12.0935110Z             {
+2022-06-23T20:14:12.0935328Z               "id": "MaintainedID",
+2022-06-23T20:14:12.0935587Z               "name": "Maintained",
+2022-06-23T20:14:12.0936018Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#maintained",
+2022-06-23T20:14:12.0936423Z               "shortDescription": {
+2022-06-23T20:14:12.0936828Z                 "text": "Maintained"
+2022-06-23T20:14:12.0937131Z               },
+2022-06-23T20:14:12.0937383Z               "fullDescription": {
+2022-06-23T20:14:12.0937726Z                 "text": "Determines if the project is \"actively maintained\"."
+2022-06-23T20:14:12.0938012Z               },
+2022-06-23T20:14:12.0938227Z               "help": {
+2022-06-23T20:14:12.0938545Z                 "text": "Determines if the project is \"actively maintained\".",
+2022-06-23T20:14:12.0942179Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- There is no remediation work needed from projects with a low score; this check simply provides insight into the project activity and maintenance commitment. External users should determine whether the software is the type that would not normally need active maintenance.\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (possibly unpatched vulnerabilities)\n\n   \n\nThis check determines whether the project is actively maintained. If the project\n\nis archived, it receives the lowest score. If there is at least one commit per\n\nweek during the previous 90 days, the project receives the highest score.  If there\n\nis activity on issues from users who are collaborators, members, or owners of the\n\nproject, the project receives a partial score.\n\n\n\nA project which is not active might not be patched, have its\n\ndependencies patched, or be actively tested and used. However, a lack\n\nof active maintenance is not necessarily always a problem. Some software,\n\nespecially smaller utility functions, does not normally need to be maintained.\n\nFor example, a library that determines if an integer is even would not normally\n\nneed maintenance unless an underlying implementation language definition\n\nchanged. A lack of active maintenance should signal that potential users should\n\ninvestigate further to judge the situation.   \n\n"
+2022-06-23T20:14:12.0945692Z               },
+2022-06-23T20:14:12.0945942Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0946228Z                 "level": "error"
+2022-06-23T20:14:12.0946457Z               },
+2022-06-23T20:14:12.0946691Z               "properties": {
+2022-06-23T20:14:12.0946936Z                 "precision": "high",
+2022-06-23T20:14:12.0947221Z                 "problem.severity": "error",
+2022-06-23T20:14:12.0947642Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.0947904Z                 "tags": [
+2022-06-23T20:14:12.0948200Z                   "supply-chain",
+2022-06-23T20:14:12.0948448Z                   "security"
+2022-06-23T20:14:12.0948671Z                 ]
+2022-06-23T20:14:12.0948880Z               }
+2022-06-23T20:14:12.0949073Z             },
+2022-06-23T20:14:12.0949274Z             {
+2022-06-23T20:14:12.0949508Z               "id": "PackagingID",
+2022-06-23T20:14:12.0949766Z               "name": "Packaging",
+2022-06-23T20:14:12.0950188Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#packaging",
+2022-06-23T20:14:12.0950604Z               "shortDescription": {
+2022-06-23T20:14:12.0950871Z                 "text": "Packaging"
+2022-06-23T20:14:12.0951105Z               },
+2022-06-23T20:14:12.0951327Z               "fullDescription": {
+2022-06-23T20:14:12.0951777Z                 "text": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall."
+2022-06-23T20:14:12.0952165Z               },
+2022-06-23T20:14:12.0952379Z               "help": {
+2022-06-23T20:14:12.0952790Z                 "text": "Determines if the project is published as a package that others can easily download, install, easily update, and uninstall.",
+2022-06-23T20:14:12.0959463Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Publish your project as a downloadable package, e.g., if hosted on GitHub, use [GitHub's mechanisms for publishing a package](https://docs.github.com/en/packages/learn-github-packages/publishing-a-package).\n\n- If hosted on GitHub, use a GitHub action to release your package to language-specific hubs.\n\n\n\n**Severity**: Medium\n\n\n\n**Details**:\n\nRisk: `Medium` (users possibly missing security updates)\n\n\n\nThis check tries to determine if the project is published as a package. It is\n\ncurrently limited to repositories hosted on GitHub, and does not support other\n\nsource hosting repositories (i.e., Forges).\n\n\n\nPackages give users of a project an easy way to download, install, update, and\n\nuninstall the software by a package manager. In particular, they make it easy\n\nfor users to receive security patches as updates.\n\n\n\nThe check currently looks for\n\n[GitHub packaging workflows](https://docs.github.com/en/packages/learn-github-packages/publishing-a-package)\n\nand language-specific GitHub Actions that upload the package to a corresponding\n\nhub, e.g., [Npm](https://www.npmjs.com/). We plan to add better support to query\n\npackage manager hubs directly in the future, e.g., for\n\n[Npm](https://www.npmjs.com/), [PyPi](https://pypi.org/).\n\n\n\nYou can create a package in several ways:\n\n\n\n  - Many program language ecosystems have a generally-used packaging format\n\n    supported by a language-level package manager tool and public package\n\n    repository. \n\n  - Many operating system platforms also have at least one package format,\n\n    tool, and public repository (in some cases the source repository generates\n\n    system-independent source packages, which are then used by others to\n\n    generate system executable packages). \n\n  - Using container images.\n\n\n\nNote: A project that fulfills this criterion with other tools may still receive\n\na low score on this test. There are many ways to package software, and it is\n\nchallenging for an automated tool like Scorecards to detect them all. A low\n\nscore is therefore not a definitive indication that the project is at risk. If\n\nScorecards fails to detect the way you publish a package and you think we should\n\nsupport your use case, please let us know by [opening an\n\nissue](https://github.com/ossf/scorecard/issues/new/choose). \n\n"
+2022-06-23T20:14:12.0963658Z               },
+2022-06-23T20:14:12.0963909Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0964162Z                 "level": "error"
+2022-06-23T20:14:12.0964382Z               },
+2022-06-23T20:14:12.0964605Z               "properties": {
+2022-06-23T20:14:12.0964981Z                 "precision": "high",
+2022-06-23T20:14:12.0965258Z                 "problem.severity": "warning",
+2022-06-23T20:14:12.0965666Z                 "security-severity": "4.0",
+2022-06-23T20:14:12.0965930Z                 "tags": [
+2022-06-23T20:14:12.0966237Z                   "supply-chain",
+2022-06-23T20:14:12.0966474Z                   "security",
+2022-06-23T20:14:12.0966709Z                   "releases"
+2022-06-23T20:14:12.0966932Z                 ]
+2022-06-23T20:14:12.0967140Z               }
+2022-06-23T20:14:12.0967334Z             },
+2022-06-23T20:14:12.0967541Z             {
+2022-06-23T20:14:12.0967766Z               "id": "SASTID",
+2022-06-23T20:14:12.0968008Z               "name": "SAST",
+2022-06-23T20:14:12.0968407Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#sast",
+2022-06-23T20:14:12.0968806Z               "shortDescription": {
+2022-06-23T20:14:12.0969064Z                 "text": "SAST"
+2022-06-23T20:14:12.0969287Z               },
+2022-06-23T20:14:12.0969511Z               "fullDescription": {
+2022-06-23T20:14:12.0969851Z                 "text": "Determines if the project uses static code analysis."
+2022-06-23T20:14:12.0970148Z               },
+2022-06-23T20:14:12.0970363Z               "help": {
+2022-06-23T20:14:12.0970666Z                 "text": "Determines if the project uses static code analysis.",
+2022-06-23T20:14:12.0974422Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Run CodeQL checks in your CI/CD by following the instructions [here](https://github.com/github/codeql-action#usage).\n\n\n\n**Severity**: Medium\n\n\n\n**Details**:\n\nRisk: `Medium` (possible unknown bugs)\n\n\n\nThis check tries to determine if the project uses Static Application Security\n\nTesting (SAST), also known as [static code analysis](https://owasp.org/www-community/controls/Static_Code_Analysis).\n\nIt is currently limited to repositories hosted on GitHub, and does not support\n\nother source hosting repositories (i.e., Forges).\n\n\n\nSAST is testing run on source code before the application is run. Using SAST\n\ntools can prevent known classes of bugs from being inadvertently introduced in the\n\ncodebase.\n\n\n\nThe checks currently looks for known Github apps such as\n\n[CodeQL](https://codeql.github.com/) (github-code-scanning),\n\n[LGTM](https://lgtm.com/) and\n\n[SonarCloud](https://sonarcloud.io/) in the recent (~30) merged PRs, or the use\n\nof \"github/codeql-action\" in a GitHub workflow.\n\n\n\nNote: A project that fulfills this criterion with other tools may still receive\n\na low score on this test. There are many ways to implement SAST, and it is\n\nchallenging for an automated tool like Scorecard to detect them all. A low score\n\nis therefore not a definitive indication that the project is at risk.   \n\n"
+2022-06-23T20:14:12.0976836Z               },
+2022-06-23T20:14:12.0977094Z               "defaultConfiguration": {
+2022-06-23T20:14:12.0977369Z                 "level": "error"
+2022-06-23T20:14:12.0978749Z               },
+2022-06-23T20:14:12.0978998Z               "properties": {
+2022-06-23T20:14:12.0979639Z                 "precision": "high",
+2022-06-23T20:14:12.0980053Z                 "problem.severity": "warning",
+2022-06-23T20:14:12.0980483Z                 "security-severity": "4.0",
+2022-06-23T20:14:12.0980747Z                 "tags": [
+2022-06-23T20:14:12.0981053Z                   "supply-chain",
+2022-06-23T20:14:12.1024947Z                   "security",
+2022-06-23T20:14:12.1025319Z                   "testing"
+2022-06-23T20:14:12.1025549Z                 ]
+2022-06-23T20:14:12.1025772Z               }
+2022-06-23T20:14:12.1025975Z             },
+2022-06-23T20:14:12.1026187Z             {
+2022-06-23T20:14:12.1026436Z               "id": "SecurityPolicyID",
+2022-06-23T20:14:12.1026900Z               "name": "Security-Policy",
+2022-06-23T20:14:12.1027538Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#security-policy",
+2022-06-23T20:14:12.1027968Z               "shortDescription": {
+2022-06-23T20:14:12.1028330Z                 "text": "Security-Policy"
+2022-06-23T20:14:12.1028581Z               },
+2022-06-23T20:14:12.1028810Z               "fullDescription": {
+2022-06-23T20:14:12.1029169Z                 "text": "Determines if the project has published a security policy."
+2022-06-23T20:14:12.1029482Z               },
+2022-06-23T20:14:12.1029696Z               "help": {
+2022-06-23T20:14:12.1030059Z                 "text": "Determines if the project has published a security policy.",
+2022-06-23T20:14:12.1033869Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Place a security policy file `SECURITY.md` in the root directory of your repository. This makes it easily discoverable by a vulnerability reporter.\n\n- The file should contain information on what constitutes a vulnerability and a way to report it securely (e.g. issue tracker with private issue support, encrypted email with a published public key). Follow the  [coordinated vulnerability disclosure guidelines](https://github.com/ossf/oss-vulnerability-guide/blob/main/guide.md) to respond to vulnerability disclosures.\n\n- For GitHub, see more information [here](https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository).\n\n\n\n**Severity**: Medium\n\n\n\n**Details**:\n\nRisk: `Medium` (possible insecure reporting of vulnerabilities)\n\n\n\nThis check tries to determine if the project has published a security policy. It\n\nworks by looking for a file named `SECURITY.md` (case-insensitive) in a few\n\nwell-known directories.\n\n\n\nA security policy (typically a `SECURITY.md` file) can give users information\n\nabout what constitutes a vulnerability and how to report one securely so that\n\ninformation about a bug is not publicly visible.   \n\n"
+2022-06-23T20:14:12.1036231Z               },
+2022-06-23T20:14:12.1036492Z               "defaultConfiguration": {
+2022-06-23T20:14:12.1036767Z                 "level": "error"
+2022-06-23T20:14:12.1036984Z               },
+2022-06-23T20:14:12.1037220Z               "properties": {
+2022-06-23T20:14:12.1037479Z                 "precision": "high",
+2022-06-23T20:14:12.1037771Z                 "problem.severity": "warning",
+2022-06-23T20:14:12.1038179Z                 "security-severity": "4.0",
+2022-06-23T20:14:12.1038444Z                 "tags": [
+2022-06-23T20:14:12.1038753Z                   "supply-chain",
+2022-06-23T20:14:12.1039006Z                   "security",
+2022-06-23T20:14:12.1039227Z                   "policy"
+2022-06-23T20:14:12.1039454Z                 ]
+2022-06-23T20:14:12.1039667Z               }
+2022-06-23T20:14:12.1039875Z             },
+2022-06-23T20:14:12.1040069Z             {
+2022-06-23T20:14:12.1040311Z               "id": "SignedReleasesID",
+2022-06-23T20:14:12.1040674Z               "name": "Signed-Releases",
+2022-06-23T20:14:12.1041379Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#signed-releases",
+2022-06-23T20:14:12.1041783Z               "shortDescription": {
+2022-06-23T20:14:12.1042137Z                 "text": "Signed-Releases"
+2022-06-23T20:14:12.1042385Z               },
+2022-06-23T20:14:12.1043688Z               "fullDescription": {
+2022-06-23T20:14:12.1044081Z                 "text": "Determines if the project cryptographically signs release artifacts."
+2022-06-23T20:14:12.1044409Z               },
+2022-06-23T20:14:12.1044628Z               "help": {
+2022-06-23T20:14:12.1044980Z                 "text": "Determines if the project cryptographically signs release artifacts.",
+2022-06-23T20:14:12.1047916Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Publish the release.\n\n- Generate a signing key.\n\n- Download the release as an archive locally.\n\n- Sign the release archive with this key (should output a signature file).\n\n- Attach the signature file next to the release archive.\n\n- If the source is hosted on GitHub, check out the steps [here](https://wiki.debian.org/Creating%20signed%20GitHub%20releases).\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High` (possibility of installing malicious releases)\n\n\n\nThis check tries to determine if the project cryptographically signs release\n\nartifacts. It is currently limited to repositories hosted on GitHub, and does\n\nnot support other source hosting repositories (i.e., Forges).\n\n\n\nSigned releases attest to the provenance of the artifact.\n\n\n\nThis check looks for the following filenames in the project's last five\n\nreleases: [*.minisig](https://github.com/jedisct1/minisign), *.asc (pgp),\n\n*.sig, *.sign.\n\n\n\nNote: The check does not verify the signatures. \n\n"
+2022-06-23T20:14:12.1049759Z               },
+2022-06-23T20:14:12.1050017Z               "defaultConfiguration": {
+2022-06-23T20:14:12.1050292Z                 "level": "error"
+2022-06-23T20:14:12.1050507Z               },
+2022-06-23T20:14:12.1050736Z               "properties": {
+2022-06-23T20:14:12.1050994Z                 "precision": "high",
+2022-06-23T20:14:12.1051279Z                 "problem.severity": "error",
+2022-06-23T20:14:12.1051649Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.1051912Z                 "tags": [
+2022-06-23T20:14:12.1052220Z                   "supply-chain",
+2022-06-23T20:14:12.1052473Z                   "security",
+2022-06-23T20:14:12.1052694Z                   "releases"
+2022-06-23T20:14:12.1052914Z                 ]
+2022-06-23T20:14:12.1053123Z               }
+2022-06-23T20:14:12.1053330Z             },
+2022-06-23T20:14:12.1053735Z             {
+2022-06-23T20:14:12.1054059Z               "id": "VulnerabilitiesID",
+2022-06-23T20:14:12.1054358Z               "name": "Vulnerabilities",
+2022-06-23T20:14:12.1054817Z               "helpUri": "https://github.com/ossf/scorecard/blob/70d045b9ef00e7171ce3950aca38eef6ea4d7308/docs/checks.md#vulnerabilities",
+2022-06-23T20:14:12.1055222Z               "shortDescription": {
+2022-06-23T20:14:12.1055510Z                 "text": "Vulnerabilities"
+2022-06-23T20:14:12.1055754Z               },
+2022-06-23T20:14:12.1055993Z               "fullDescription": {
+2022-06-23T20:14:12.1056343Z                 "text": "Determines if the project has open, known unfixed vulnerabilities."
+2022-06-23T20:14:12.1056655Z               },
+2022-06-23T20:14:12.1056871Z               "help": {
+2022-06-23T20:14:12.1057211Z                 "text": "Determines if the project has open, known unfixed vulnerabilities.",
+2022-06-23T20:14:12.1058847Z                 "markdown": "**Remediation (click \"Show more\" below)**:\n\n- Fix the vulnerabilities. The details of each vulnerability can be found on <https://osv.dev>.\n\n\n\n**Severity**: High\n\n\n\n**Details**:\n\nRisk: `High`  (known vulnerabilities)\n\n  \n\nThis check determines whether the project has open, unfixed vulnerabilities\n\nusing the [OSV (Open Source Vulnerabilities)](https://osv.dev/) service. An open\n\nvulnerability is readily exploited by attackers and should be fixed as soon as\n\npossible.     \n\n"
+2022-06-23T20:14:12.1059812Z               },
+2022-06-23T20:14:12.1060054Z               "defaultConfiguration": {
+2022-06-23T20:14:12.1060370Z                 "level": "error"
+2022-06-23T20:14:12.1060597Z               },
+2022-06-23T20:14:12.1060827Z               "properties": {
+2022-06-23T20:14:12.1061070Z                 "precision": "high",
+2022-06-23T20:14:12.1061355Z                 "problem.severity": "error",
+2022-06-23T20:14:12.1061742Z                 "security-severity": "7.0",
+2022-06-23T20:14:12.1062007Z                 "tags": [
+2022-06-23T20:14:12.1062303Z                   "supply-chain",
+2022-06-23T20:14:12.1062558Z                   "security",
+2022-06-23T20:14:12.1062809Z                   "vulnerabilities"
+2022-06-23T20:14:12.1063045Z                 ]
+2022-06-23T20:14:12.1063240Z               }
+2022-06-23T20:14:12.1063445Z             }
+2022-06-23T20:14:12.1063649Z           ]
+2022-06-23T20:14:12.1063841Z         }
+2022-06-23T20:14:12.1064039Z       },
+2022-06-23T20:14:12.1072303Z       "results": [
+2022-06-23T20:14:12.1072539Z         {
+2022-06-23T20:14:12.1072787Z           "ruleId": "CIIBestPracticesID",
+2022-06-23T20:14:12.1073061Z           "ruleIndex": 1,
+2022-06-23T20:14:12.1073300Z           "message": {
+2022-06-23T20:14:12.1073670Z             "text": "score is 0: no badge detected\nClick Remediation section below to solve this issue"
+2022-06-23T20:14:12.1073994Z           },
+2022-06-23T20:14:12.1074213Z           "locations": [
+2022-06-23T20:14:12.1074434Z             {
+2022-06-23T20:14:12.1074677Z               "physicalLocation": {
+2022-06-23T20:14:12.1074929Z                 "region": {
+2022-06-23T20:14:12.1075175Z                   "startLine": 1
+2022-06-23T20:14:12.1075405Z                 },
+2022-06-23T20:14:12.1075649Z                 "artifactLocation": {
+2022-06-23T20:14:12.1075944Z                   "uri": "no file associated with this alert",
+2022-06-23T20:14:12.1076243Z                   "uriBaseId": "%SRCROOT%"
+2022-06-23T20:14:12.1076482Z                 }
+2022-06-23T20:14:12.1076687Z               }
+2022-06-23T20:14:12.1076878Z             }
+2022-06-23T20:14:12.1077080Z           ]
+2022-06-23T20:14:12.1077281Z         },
+2022-06-23T20:14:12.1077465Z         {
+2022-06-23T20:14:12.1077750Z           "ruleId": "FuzzingID",
+2022-06-23T20:14:12.1077999Z           "ruleIndex": 4,
+2022-06-23T20:14:12.1078233Z           "message": {
+2022-06-23T20:14:12.1078588Z             "text": "score is 0: project is not fuzzed\nClick Remediation section below to solve this issue"
+2022-06-23T20:14:12.1078928Z           },
+2022-06-23T20:14:12.1079374Z           "locations": [
+2022-06-23T20:14:12.1079682Z             {
+2022-06-23T20:14:12.1079924Z               "physicalLocation": {
+2022-06-23T20:14:12.1080180Z                 "region": {
+2022-06-23T20:14:12.1080422Z                   "startLine": 1
+2022-06-23T20:14:12.1080653Z                 },
+2022-06-23T20:14:12.1080881Z                 "artifactLocation": {
+2022-06-23T20:14:12.1081193Z                   "uri": "no file associated with this alert",
+2022-06-23T20:14:12.1081496Z                   "uriBaseId": "%SRCROOT%"
+2022-06-23T20:14:12.1081735Z                 }
+2022-06-23T20:14:12.1081928Z               }
+2022-06-23T20:14:12.1082134Z             }
+2022-06-23T20:14:12.1082339Z           ]
+2022-06-23T20:14:12.1082526Z         }
+2022-06-23T20:14:12.1082726Z       ]
+2022-06-23T20:14:12.1082919Z     }
+2022-06-23T20:14:12.1083108Z   ]
+2022-06-23T20:14:12.1083280Z }
+2022-06-23T20:14:12.1991920Z ##[group]Run actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+2022-06-23T20:14:12.1992296Z with:
+2022-06-23T20:14:12.1992495Z   name: SARIF file
+2022-06-23T20:14:12.1992733Z   path: results.sarif
+2022-06-23T20:14:12.1992981Z   retention-days: 5
+2022-06-23T20:14:12.1993234Z   if-no-files-found: warn
+2022-06-23T20:14:12.1993466Z ##[endgroup]
+2022-06-23T20:14:12.2822298Z With the provided path, there will be 1 file uploaded
+2022-06-23T20:14:12.2830805Z Starting artifact upload
+2022-06-23T20:14:12.2831783Z For more detailed logs during the artifact upload process, enable step-debugging: https://docs.github.com/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging#enabling-step-debug-logging
+2022-06-23T20:14:12.2836875Z Artifact name is valid!
+2022-06-23T20:14:12.3961761Z Container for artifact "SARIF file" successfully created. Starting upload of file(s)
+2022-06-23T20:14:12.5341492Z Total size of all the files uploaded is 13860 bytes
+2022-06-23T20:14:12.5342394Z File upload process has finished. Finalizing the artifact upload
+2022-06-23T20:14:12.6265133Z Artifact has been finalized. All files have been successfully uploaded!
+2022-06-23T20:14:12.6265479Z 
+2022-06-23T20:14:12.6265682Z The raw size of all the files that were specified for upload is 64167 bytes
+2022-06-23T20:14:12.6266209Z The size of all the files that were uploaded is 13860 bytes. This takes into account any gzip compression used to reduce the upload size, time and storage
+2022-06-23T20:14:12.6266528Z 
+2022-06-23T20:14:12.6267364Z Note: The size of downloaded zips can differ significantly from the reported size. For more information see: https://github.com/actions/upload-artifact#zipped-artifact-downloads 
+2022-06-23T20:14:12.6267759Z 
+2022-06-23T20:14:12.6269070Z Artifact SARIF file has been successfully uploaded!
+2022-06-23T20:14:12.6438567Z ##[group]Run github/codeql-action/upload-sarif@41a4ada31ba866a7f1196b9602703a89edd69e22
+2022-06-23T20:14:12.6438929Z with:
+2022-06-23T20:14:12.6439155Z   sarif_file: results.sarif
+2022-06-23T20:14:12.6439457Z   checkout_path: /home/runner/work/website/website
+2022-06-23T20:14:12.6439976Z   token: ***
+2022-06-23T20:14:12.6440184Z   matrix: null
+2022-06-23T20:14:12.6440436Z   wait-for-processing: true
+2022-06-23T20:14:12.6440690Z ##[endgroup]
+2022-06-23T20:14:13.6853854Z ##[group]Uploading results
+2022-06-23T20:14:13.6858082Z Processing sarif files: ["results.sarif"]
+2022-06-23T20:14:13.7520945Z Uploading results
+2022-06-23T20:14:14.1391809Z Successfully uploaded results
+2022-06-23T20:14:14.1393669Z ##[endgroup]
+2022-06-23T20:14:14.1394150Z 
+2022-06-23T20:14:14.1401723Z ##[group]Waiting for processing to finish
+2022-06-23T20:14:14.4204610Z Analysis upload status is pending.
+2022-06-23T20:14:19.7198592Z Analysis upload status is complete.
+2022-06-23T20:14:19.7199634Z ##[endgroup]
+2022-06-23T20:14:20.0193117Z Post job cleanup.
+2022-06-23T20:14:20.1742117Z [command]/usr/bin/git version
+2022-06-23T20:14:20.1806430Z git version 2.36.1
+2022-06-23T20:14:20.1873042Z Temporarily overriding HOME='/home/runner/work/_temp/bbe374b6-3eb5-4fba-823b-2b19811628be' before making global git config changes
+2022-06-23T20:14:20.1875892Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-23T20:14:20.1883179Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/website/website
+2022-06-23T20:14:20.1939810Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-23T20:14:20.1986693Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-23T20:14:20.2425611Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-23T20:14:20.2464427Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-23T20:14:20.3072538Z Uploading runner diagnostic logs
+2022-06-23T20:14:20.3296171Z Completed runner diagnostic log upload
+2022-06-23T20:14:20.3296540Z Cleaning up orphan processes

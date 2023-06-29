@@ -1,0 +1,143 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd TimotheeJeannin/ProviGen
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export ANDROID_SDKS=android-8
+$ export ANDROID_TARGET=android-8
+$ export ANDROID_ABI=armeabi
+
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:before_install.1[0Ktravis_time:start:02b42348[0K$ sudo apt-get update -qq
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-updates_restricted_binary-i386_Packages.gz is not what the server reported 19521 20707
+W: Size of file /var/lib/apt/lists/us.archive.ubuntu.com_ubuntu_dists_precise-backports_multiverse_source_Sources.gz is not what the server reported 5886 5888
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_travis-ci_zero-mq_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 832 1195
+W: Size of file /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_precise-security_restricted_binary-amd64_Packages.gz is not what the server reported 13782 14904
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-amd64_Packages.gz is not what the server reported 33653 36677
+W: Size of file /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_precise-security_restricted_binary-i386_Packages.gz is not what the server reported 13751 14885
+W: Size of file /var/lib/apt/lists/ppa.launchpad.net_ubuntugis_ppa_ubuntu_dists_precise_main_binary-i386_Packages.gz is not what the server reported 33699 36733
+
+travis_time:end:02b42348:start=1479407968002686246,finish=1479407975457313767,duration=7454627521[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:04152858[0K$ if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+Extracting templates from packages: 8%Extracting templates from packages: 16%Extracting templates from packages: 24%Extracting templates from packages: 32%Extracting templates from packages: 40%Extracting templates from packages: 48%Extracting templates from packages: 56%Extracting templates from packages: 64%Extracting templates from packages: 72%Extracting templates from packages: 80%Extracting templates from packages: 88%Extracting templates from packages: 96%Extracting templates from packages: 100%
+Preconfiguring packages ...
+(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace libc-dev-bin 2.15-0ubuntu10.10 (using .../libc-dev-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-dev-bin ...
+Preparing to replace libc6-dev 2.15-0ubuntu10.10 (using .../libc6-dev_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6-dev ...
+Preparing to replace libc-bin 2.15-0ubuntu10.10 (using .../libc-bin_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc-bin ...
+Processing triggers for man-db ...
+Setting up libc-bin (2.15-0ubuntu10.15) ...
+(Reading database ... 72018 files and directories currently installed.)
+Preparing to replace libc6 2.15-0ubuntu10.10 (using .../libc6_2.15-0ubuntu10.15_amd64.deb) ...
+Unpacking replacement libc6 ...
+Selecting previously unselected package libc6:i386.
+Unpacking libc6:i386 (from .../libc6_2.15-0ubuntu10.15_i386.deb) ...
+Setting up libc6 (2.15-0ubuntu10.15) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+Selecting previously unselected package libgcc1:i386.
+(Reading database ... 72321 files and directories currently installed.)
+Unpacking libgcc1:i386 (from .../libgcc1_1%3a4.6.3-1ubuntu5_i386.deb) ...
+Selecting previously unselected package gcc-4.6-base:i386.
+Unpacking gcc-4.6-base:i386 (from .../gcc-4.6-base_4.6.3-1ubuntu5_i386.deb) ...
+Processing triggers for ccache ...
+Updating symlinks in /usr/lib/ccache ...
+Setting up gcc-4.6-base:i386 (4.6.3-1ubuntu5) ...
+Setting up libc6:i386 (2.15-0ubuntu10.15) ...
+Setting up libgcc1:i386 (1:4.6.3-1ubuntu5) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+(Reading database ... 72326 files and directories currently installed.)
+Preparing to replace libfontconfig1-dev 2.8.0-3ubuntu9.1 (using .../libfontconfig1-dev_2.8.0-3ubuntu9.2_amd64.deb) ...
+Unpacking replacement libfontconfig1-dev ...
+Preparing to replace libfontconfig1 2.8.0-3ubuntu9.1 (using .../libfontconfig1_2.8.0-3ubuntu9.2_amd64.deb) ...
+Unpacking replacement libfontconfig1 ...
+Preparing to replace fontconfig-config 2.8.0-3ubuntu9.1 (using .../fontconfig-config_2.8.0-3ubuntu9.2_all.deb) ...
+Unpacking replacement fontconfig-config ...
+Preparing to replace libexpat1-dev 2.0.1-7.2ubuntu1.1 (using .../libexpat1-dev_2.0.1-7.2ubuntu1.4_amd64.deb) ...
+Unpacking replacement libexpat1-dev ...
+Preparing to replace libexpat1 2.0.1-7.2ubuntu1.1 (using .../libexpat1_2.0.1-7.2ubuntu1.4_amd64.deb) ...
+Unpacking replacement libexpat1 ...
+Preparing to replace libfreetype6-dev 2.4.8-1ubuntu2.1 (using .../libfreetype6-dev_2.4.8-1ubuntu2.3_amd64.deb) ...
+Unpacking replacement libfreetype6-dev ...
+Preparing to replace libfreetype6 2.4.8-1ubuntu2.1 (using .../libfreetype6_2.4.8-1ubuntu2.3_amd64.deb) ...
+Unpacking replacement libfreetype6 ...
+Preparing to replace libpng12-dev 1.2.46-3ubuntu4 (using .../libpng12-dev_1.2.46-3ubuntu4.2_amd64.deb) ...
+Unpacking replacement libpng12-dev ...
+Preparing to replace libpng12-0 1.2.46-3ubuntu4 (using .../libpng12-0_1.2.46-3ubuntu4.2_amd64.deb) ...
+Unpacking replacement libpng12-0 ...
+Processing triggers for man-db ...

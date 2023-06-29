@@ -1,15 +1,21 @@
 import re
 
-from ..log_file_analyzer import LogFileAnalyzer
+from ..base_log_analyzer import LogAnalyzerABC
+from ..utils import get_job_lines
 
 
-class JavaOtherAnalyzer(LogFileAnalyzer):
+class JavaOtherAnalyzer(LogAnalyzerABC):
     def __init__(self, primary_language, folds, job_id, build_system):
         super().__init__(primary_language, folds, job_id)
         self.tests_failed_lines = []
         self.analyzer = 'java-other'
         self.build_system = build_system
         self.did_tests_fail = False
+
+    def custom_analyze(self):
+        self.extract_tests()
+        self.analyze_tests()
+        super().custom_analyze()
 
     def convert_time_to_seconds(self, hrs, min, sec):
         return float(hrs) * 3600 + float(min) * 60 + float(sec)
@@ -18,7 +24,7 @@ class JavaOtherAnalyzer(LogFileAnalyzer):
         # Strip ANSI color codes from lines, since they mess up the regex.
         # Taken from https://stackoverflow.com/a/14693789
         ansi_escape = re.compile(r'\x1B[@-_][0-?]*[ -/]*[@-~]', re.M)
-        for line in self.folds[self.OUT_OF_FOLD]['content']:
+        for line in get_job_lines(self.folds):
             # Assume everything is test related
             line = ansi_escape.sub('', line)
             self.test_lines.append(line)
@@ -98,10 +104,6 @@ class JavaOtherAnalyzer(LogFileAnalyzer):
             for line in self.tests_failed_lines:
                 self.tests_failed.append('(' + line + ')')
         self.uninit_ok_tests()
-
-    def custom_analyze(self):
-        self.extract_tests()
-        self.analyze_tests()
 
     def bool_tests_failed(self):
         if hasattr(self, "tests_failed") and self.tests_failed:

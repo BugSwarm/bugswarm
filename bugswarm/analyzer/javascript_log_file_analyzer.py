@@ -1,9 +1,10 @@
 import re
 
-from .log_file_analyzer import LogFileAnalyzer
+from .base_log_analyzer import LogAnalyzerABC
+from .utils import get_job_lines
 
 
-class JavaScriptFileAnalyzer(LogFileAnalyzer):
+class JavaScriptFileAnalyzer(LogAnalyzerABC):
 
     # LogFileAnalyzer initializes primary language, folds, and job id
     def init_deep(self):
@@ -13,6 +14,7 @@ class JavaScriptFileAnalyzer(LogFileAnalyzer):
     def custom_analyze(self):
         self.init_deep()
         self.extract_test_failures()
+        super().custom_analyze()
 
     def convert_time_to_sec(self, mocha_pass_and_time):
         time = int(mocha_pass_and_time.group(2))
@@ -64,7 +66,7 @@ class JavaScriptFileAnalyzer(LogFileAnalyzer):
         has_summary = False
         summary_time = 0
 
-        for line in self.folds[self.OUT_OF_FOLD]['content']:
+        for line in get_job_lines(self.folds):
             line = ansi_escape.sub('', line)
 
             mocha_failure = re.search(r'(\d+) failing$', line)

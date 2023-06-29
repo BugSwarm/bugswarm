@@ -1,189 +1,0 @@
-travis_fold:start:system_info[0K[33;1mBuild system information[0m
-Build language: java
-Build id: ''
-Job id: ''
-[34m[1mBuild image provisioning date and time[0m
-Thu Feb  5 15:09:33 UTC 2015
-[34m[1mOperating System Details[0m
-Distributor ID:	Ubuntu
-Description:	Ubuntu 12.04.5 LTS
-Release:	12.04
-Codename:	precise
-[34m[1mLinux Version[0m
-3.13.0-29-generic
-[34m[1mCookbooks Version[0m
-a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
-[34m[1mGCC version[0m
-gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
-Copyright (C) 2011 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-[34m[1mLLVM version[0m
-clang version 3.4 (tags/RELEASE_34/final)
-Target: x86_64-unknown-linux-gnu
-Thread model: posix
-[34m[1mPre-installed Ruby versions[0m
-ruby-1.9.3-p551
-[34m[1mPre-installed Node.js versions[0m
-v0.10.36
-[34m[1mPre-installed Go versions[0m
-1.4.1
-[34m[1mRedis version[0m
-redis-server 2.8.19
-[34m[1mriak version[0m
-2.0.2
-[34m[1mMongoDB version[0m
-MongoDB 2.4.12
-[34m[1mCouchDB version[0m
-couchdb 1.6.1
-[34m[1mNeo4j version[0m
-1.9.4
-[34m[1mRabbitMQ Version[0m
-3.4.3
-[34m[1mElasticSearch version[0m
-1.4.0
-[34m[1mInstalled Sphinx versions[0m
-2.0.10
-2.1.9
-2.2.6
-[34m[1mDefault Sphinx version[0m
-2.2.6
-[34m[1mInstalled Firefox version[0m
-firefox 31.0esr
-[34m[1mPhantomJS version[0m
-1.9.8
-[34m[1mant -version[0m
-Apache Ant(TM) version 1.8.2 compiled on December 3 2011
-[34m[1mmvn -version[0m
-Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
-Maven home: /usr/local/maven
-Java version: 1.7.0_76, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-7-oracle/jre
-Default locale: en_US, platform encoding: ANSI_X3.4-1968
-OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
-travis_fold:end:system_info[0K
-sed: cannot rename /etc/hosts: Device or resource busy
-sed: cannot rename /etc/hosts: Device or resource busy
-$ cd square/keywhiz
-
-[33;1mSetting environment variables from .travis.yml[0m
-$ export UI_DIR=ui
-
-$ jdk_switcher use oraclejdk8
-Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
-$ java -Xmx32m -version
-java version "1.8.0_31"
-Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
-$ javac -J-Xmx32m -version
-javac 1.8.0_31
-travis_fold:start:before_install.1[0Ktravis_time:start:00e3085f[0K$ export CHROME_BIN=chromium-browser
-
-travis_time:end:00e3085f:start=1479281868782396745,finish=1479281868786333657,duration=3936912[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:31af94a2[0K$ export DISPLAY=:99.0
-
-travis_time:end:31af94a2:start=1479281868790886613,finish=1479281868794393948,duration=3507335[0Ktravis_fold:end:before_install.2[0Ktravis_fold:start:before_install.3[0Ktravis_time:start:0153d524[0K$ sh -e /etc/init.d/xvfb start
-Starting virtual X frame buffer: Xvfb.
-
-travis_time:end:0153d524:start=1479281868799692416,finish=1479281868818801197,duration=19108781[0Ktravis_fold:end:before_install.3[0Ktravis_fold:start:before_install.4[0Ktravis_time:start:31b17988[0K$ npm install karma && npm install karma-jasmine karma-chrome-launcher
-npm WARN optional dep failed, continuing fsevents@1.0.15
-karma@1.3.0 node_modules/karma
-├── isbinaryfile@3.0.1
-├── range-parser@1.2.0
-├── di@0.0.1
-├── rimraf@2.5.4
-├── graceful-fs@4.1.10
-├── qjobs@1.1.5
-├── mime@1.3.4
-├── colors@1.1.2
-├── http-proxy@1.15.2 (eventemitter3@1.2.0, requires-port@1.0.0)
-├── tmp@0.0.28 (os-tmpdir@1.0.2)
-├── minimatch@3.0.3 (brace-expansion@1.1.6)
-├── dom-serialize@2.2.1 (void-elements@2.0.1, custom-event@1.0.1, extend@3.0.0, ent@2.2.0)
-├── glob@7.1.1 (path-is-absolute@1.0.1, inherits@2.0.3, fs.realpath@1.0.0, inflight@1.0.6, once@1.4.0)
-├── optimist@0.6.1 (wordwrap@0.0.3, minimist@0.0.10)
-├── useragent@2.1.9 (lru-cache@2.2.4)
-├── connect@3.5.0 (utils-merge@1.0.0, parseurl@1.3.1, finalhandler@0.5.0, debug@2.2.0)
-├── expand-braces@0.1.2 (array-unique@0.2.1, array-slice@0.2.3, braces@0.1.5)
-├── body-parser@1.15.2 (bytes@2.4.0, content-type@1.0.2, depd@1.1.0, raw-body@2.1.7, on-finished@2.3.0, qs@6.2.0, http-errors@1.5.0, debug@2.2.0, type-is@1.6.13, iconv-lite@0.4.13)
-├── bluebird@3.4.6
-├── source-map@0.5.6
-├── chokidar@1.6.1 (path-is-absolute@1.0.1, inherits@2.0.3, async-each@1.0.1, glob-parent@2.0.0, is-binary-path@1.0.1, is-glob@2.0.1, readdirp@2.1.0, anymatch@1.3.0)
-├── log4js@0.6.38 (readable-stream@1.0.34, semver@4.3.6)
-├── socket.io@1.4.7 (has-binary@0.1.7, debug@2.2.0, socket.io-parser@2.2.6, engine.io@1.6.10, socket.io-adapter@0.4.0, socket.io-client@1.4.6)
-├── lodash@3.10.1
-├── combine-lists@1.0.1 (lodash@4.17.2)
-└── core-js@2.4.1
-jasmine-core@2.5.2 node_modules/jasmine-core
-
-karma-jasmine@1.0.2 node_modules/karma-jasmine
-
-karma-chrome-launcher@2.0.0 node_modules/karma-chrome-launcher
-├── fs-access@1.0.1 (null-check@1.0.0)
-└── which@1.2.12 (isexe@1.1.2)
-
-travis_time:end:31b17988:start=1479281868835437374,finish=1479281883031279237,duration=14195841863[0Ktravis_fold:end:before_install.4[0Ktravis_fold:start:before_install.5[0Ktravis_time:start:063e3f5e[0K$ cd $UI_DIR && npm install -g grunt-cli bower
-/home/travis/.nvm/v0.10.36/bin/grunt -> /home/travis/.nvm/v0.10.36/lib/node_modules/grunt-cli/bin/grunt
-/home/travis/.nvm/v0.10.36/bin/bower -> /home/travis/.nvm/v0.10.36/lib/node_modules/bower/bin/bower
-grunt-cli@1.2.0 /home/travis/.nvm/v0.10.36/lib/node_modules/grunt-cli
-├── grunt-known-options@1.1.0
-├── resolve@1.1.7
-├── nopt@3.0.6 (abbrev@1.0.9)
-└── findup-sync@0.3.0 (glob@5.0.15)
-
-bower@1.8.0 /home/travis/.nvm/v0.10.36/lib/node_modules/bower
-
-travis_time:end:063e3f5e:start=1479281883037295798,finish=1479281889173860419,duration=6136564621[0Ktravis_fold:end:before_install.5[0Ktravis_fold:start:before_install.6[0Ktravis_time:start:20fdc280[0K$ npm install
-npm WARN package.json keywhiz-ui@0.0.1 No repository field.
-npm WARN deprecated grunt-ngmin@0.0.3: use grunt-ng-annotate instead
-npm WARN deprecated ngmin@0.4.1: use ng-annotate instead
-npm WARN deprecated minimatch@0.2.14: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-npm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-npm WARN engine request@2.78.0: wanted: {"node":">= 4"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN deprecated graceful-fs@1.2.3: graceful-fs v3.0.0 and before will fail on node releases >= v7.0. Please update to graceful-fs@^4.0.0 as soon as possible. Use 'npm ls graceful-fs' to find it in the tree.
-npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-npm WARN deprecated tough-cookie@2.2.2: ReDoS vulnerability parsing Set-Cookie https://nodesecurity.io/advisories/130
-npm WARN engine form-data@2.1.2: wanted: {"node":">= 0.12"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN optional dep failed, continuing fsevents@1.0.15
-npm WARN engine cryptiles@2.0.5: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN engine boom@2.10.1: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN engine hoek@2.16.3: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN deprecated tough-cookie@0.12.1: ReDoS vulnerability parsing Set-Cookie https://nodesecurity.io/advisories/130
-npm WARN deprecated graceful-fs@2.0.3: graceful-fs v3.0.0 and before will fail on node releases >= v7.0. Please update to graceful-fs@^4.0.0 as soon as possible. Use 'npm ls graceful-fs' to find it in the tree.
-npm WARN deprecated npmconf@2.1.2: this package has been reintegrated into npm and is now out of date with respect to npm
-npm WARN engine cryptiles@2.0.5: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN engine hoek@2.16.3: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN engine boom@2.10.1: wanted: {"node":">=0.10.40"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN engine punycode@2.0.1: wanted: {"node":">=6"} (current: {"node":"0.10.36","npm":"1.4.28"})
-npm WARN deprecated minimatch@1.0.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
-
-> phantomjs@1.9.20 install /home/travis/build/square/keywhiz/ui/node_modules/karma-phantomjs-launcher/node_modules/phantomjs
-> node install.js
-
-Considering PhantomJS found at /usr/local/phantomjs/bin/phantomjs
-FATAL ERROR: CALL_AND_RETRY_2 Allocation failed - process out of memory
-Aborted (core dumped)
-
-npm ERR! phantomjs@1.9.20 install: `node install.js`
-npm ERR! Exit status 134
-npm ERR! 
-npm ERR! Failed at the phantomjs@1.9.20 install script.
-npm ERR! This is most likely a problem with the phantomjs package,
-npm ERR! not with npm itself.
-npm ERR! Tell the author that this fails on your system:
-npm ERR!     node install.js
-npm ERR! You can get their info via:
-npm ERR!     npm owner ls phantomjs
-npm ERR! There is likely additional logging output above.
-npm ERR! System Linux 3.13.0-101-generic
-npm ERR! command "/home/travis/.nvm/v0.10.36/bin/node" "/home/travis/.nvm/v0.10.36/bin/npm" "install"
-npm ERR! cwd /home/travis/build/square/keywhiz/ui
-npm ERR! node -v v0.10.36
-npm ERR! npm -v 1.4.28
-npm ERR! code ELIFECYCLE
-npm ERR! not ok code 0
-
-travis_time:end:20fdc280:start=1479281889179317364,finish=1479281930555409018,duration=41376091654[0K
-[31;1mThe command "npm install" failed and exited with 1 during .[0m
-
-Your build has been stopped.

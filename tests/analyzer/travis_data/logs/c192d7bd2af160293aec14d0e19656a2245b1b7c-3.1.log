@@ -1,0 +1,108 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd syncany/syncany
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export TERM=dumb
+
+$ jdk_switcher use oraclejdk7
+Switching to Oracle JDK7 (java-7-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-7-oracle
+$ export TERM=dumb
+$ java -Xmx32m -version
+java version "1.7.0_76"
+Java(TM) SE Runtime Environment (build 1.7.0_76-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.7.0_76
+travis_fold:start:before_install.1[0Ktravis_time:start:30fbcc13[0K$ sudo apt-get install -qq ruby ruby-dev build-essential rubygems
+Selecting previously unselected package ruby1.8-dev.
+(Reading database ... 72019 files and directories currently installed.)
+Unpacking ruby1.8-dev (from .../ruby1.8-dev_1.8.7.352-2ubuntu1.6_amd64.deb) ...
+Selecting previously unselected package ruby-dev.
+Unpacking ruby-dev (from .../archives/ruby-dev_4.8_all.deb) ...
+Selecting previously unselected package rubygems.
+Unpacking rubygems (from .../rubygems_1.8.15-1ubuntu0.1_all.deb) ...
+Processing triggers for man-db ...
+Setting up ruby1.8-dev (1.8.7.352-2ubuntu1.6) ...
+Setting up ruby-dev (4.8) ...
+Setting up rubygems (1.8.15-1ubuntu0.1) ...
+
+travis_time:end:30fbcc13:start=1479287530365008594,finish=1479287536246400609,duration=5881392015[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:0748c527[0K$ sudo gem install fpm
+ERROR:  Error installing fpm:
+	ERROR: Failed to build gem native extension.
+
+        /usr/bin/ruby1.8 extconf.rb
+
+Gem files will remain installed in /var/lib/gems/1.8/gems/json-1.8.3 for inspection.
+Results logged to /var/lib/gems/1.8/gems/json-1.8.3/ext/json/ext/generator/gem_make.out
+Building native extensions.  This could take a while...
+
+travis_time:end:0748c527:start=1479287536251625569,finish=1479287554737437726,duration=18485812157[0K
+[31;1mThe command "sudo gem install fpm" failed and exited with 1 during .[0m
+
+Your build has been stopped.

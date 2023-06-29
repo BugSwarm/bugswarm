@@ -6,10 +6,11 @@ import re
 
 from bugswarm.common import log
 
-from ..log_file_analyzer import LogFileAnalyzer
+from ..base_log_analyzer import LogAnalyzerABC
+from ..utils import get_job_lines
 
 
-class JavaAntAnalyzer(LogFileAnalyzer):
+class JavaAntAnalyzer(LogAnalyzerABC):
     def __init__(self, primary_language, folds, job_id):
         super().__init__(primary_language, folds, job_id)
         self.reactor_lines = []
@@ -17,11 +18,17 @@ class JavaAntAnalyzer(LogFileAnalyzer):
         self.analyzer = 'java-ant'
         self.build_system = 'Ant'
 
+    def custom_analyze(self):
+        self.extract_tests()
+        self.analyze_tests()
+        self.get_offending_tests()
+        super().custom_analyze()
+
     def extract_tests(self):
         test_section_started = False
 
         # Possible future improvement: We could even get all executed tests (also the ones that succeed).
-        for line in self.folds[self.OUT_OF_FOLD]['content']:
+        for line in get_job_lines(self.folds):
             match = re.search(r'\[(junit|junitlauncher|testng|test.*)\] ', line)
             if match:
                 test_section_started = True
@@ -213,11 +220,6 @@ class JavaAntAnalyzer(LogFileAnalyzer):
                 continue
 
         self.uninit_ok_tests()
-
-    def custom_analyze(self):
-        self.extract_tests()
-        self.analyze_tests()
-        self.get_offending_tests()
 
     def get_offending_tests(self):
         for line in self.tests_failed_lines:

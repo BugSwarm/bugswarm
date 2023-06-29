@@ -4,10 +4,11 @@ A Mixin for Gradle build log analysis.
 
 import re
 
-from ..log_file_analyzer import LogFileAnalyzer
+from ..base_log_analyzer import LogAnalyzerABC
+from ..utils import get_job_lines
 
 
-class JavaGradleAnalyzer(LogFileAnalyzer):
+class JavaGradleAnalyzer(LogAnalyzerABC):
     def __init__(self, primary_language, folds, job_id):
         super().__init__(primary_language, folds, job_id)
         self.reactor_lines = []
@@ -20,12 +21,15 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
     def custom_analyze(self):
         self.extract_tests()
         self.analyze_tests()
+        super().custom_analyze()
 
     def extract_tests(self):
         test_section_started = False
         line_marker = 0
+        ansi_escape = re.compile(r'\x1B[@-_][0-?]*[ -/]*[@-~]', re.M)
 
-        for line in self.folds[self.OUT_OF_FOLD]["content"]:
+        for line in get_job_lines(self.folds):
+            line = ansi_escape.sub('', line)
             # We cannot tell when the test started, so we assume test started when we have the first task.
             if re.search(r'^:.+', line, re.M):
                 line_marker = 1
@@ -75,11 +79,11 @@ class JavaGradleAnalyzer(LogFileAnalyzer):
 
         # Matches the likes of TestNG > Regression2 > test.groupinvocation.GroupSuiteTest.Regression2 FAILED
         # Appends 'test.groupinvocation.GroupSuiteTest.Regression2' to self.tests_failed
-        match = re.search(r'(.* >)+ ([^\s\[\(]+\.[^\[\(]+(\[.+\])?) FAILED$', line, re.M)
+        match = re.search(r'^[\w\s]+ > [\w\s]+ > ([^\s\[\(]+\.[^\[\(]+(\[.+\])?) FAILED$', line, re.M)
         if match:
             self.tests_run = True
             self.init_tests()
-            self.tests_failed.append(match.group(2))
+            self.tests_failed.append(match.group(1))
             self.did_tests_fail = True
             return
 

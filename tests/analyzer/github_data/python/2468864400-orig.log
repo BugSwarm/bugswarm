@@ -1,0 +1,1136 @@
+2022-06-09T14:02:37.9562642Z Requested labels: ubuntu-latest
+2022-06-09T14:02:37.9562700Z Job defined at: wagtail/wagtail/.github/workflows/test.yml@refs/pull/8639/merge
+2022-06-09T14:02:37.9562720Z Waiting for a runner to pick up this job...
+2022-06-09T14:02:41.0451264Z Job is waiting for a hosted runner to come online.
+2022-06-09T14:02:44.1618938Z Job is about to start running on the hosted runner: GitHub Actions 6 (hosted)
+2022-06-09T14:02:49.4865382Z Current runner version: '2.292.0'
+2022-06-09T14:02:49.4893753Z ##[group]Operating System
+2022-06-09T14:02:49.4894358Z Ubuntu
+2022-06-09T14:02:49.4894622Z 20.04.4
+2022-06-09T14:02:49.4895006Z LTS
+2022-06-09T14:02:49.4895329Z ##[endgroup]
+2022-06-09T14:02:49.4895645Z ##[group]Virtual Environment
+2022-06-09T14:02:49.4896045Z Environment: ubuntu-20.04
+2022-06-09T14:02:49.4896414Z Version: 20220605.1
+2022-06-09T14:02:49.5005583Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220605.1/images/linux/Ubuntu2004-Readme.md
+2022-06-09T14:02:49.5006234Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220605.1
+2022-06-09T14:02:49.5006641Z ##[endgroup]
+2022-06-09T14:02:49.5006934Z ##[group]Virtual Environment Provisioner
+2022-06-09T14:02:49.5007237Z 1.0.0.0-main-20220531-1
+2022-06-09T14:02:49.5007508Z ##[endgroup]
+2022-06-09T14:02:49.5008417Z ##[group]GITHUB_TOKEN Permissions
+2022-06-09T14:02:49.5009256Z Actions: read
+2022-06-09T14:02:49.5009631Z Checks: read
+2022-06-09T14:02:49.5009901Z Contents: read
+2022-06-09T14:02:49.5010152Z Deployments: read
+2022-06-09T14:02:49.5010410Z Discussions: read
+2022-06-09T14:02:49.5010652Z Issues: read
+2022-06-09T14:02:49.5010885Z Metadata: read
+2022-06-09T14:02:49.5011124Z Packages: read
+2022-06-09T14:02:49.5011361Z Pages: read
+2022-06-09T14:02:49.5011608Z PullRequests: read
+2022-06-09T14:02:49.5011886Z RepositoryProjects: read
+2022-06-09T14:02:49.5012180Z SecurityEvents: read
+2022-06-09T14:02:49.5012435Z Statuses: read
+2022-06-09T14:02:49.5012674Z ##[endgroup]
+2022-06-09T14:02:49.5016573Z Secret source: None
+2022-06-09T14:02:49.5017002Z Prepare workflow directory
+2022-06-09T14:02:49.6624893Z Prepare all required actions
+2022-06-09T14:02:49.6832843Z Getting action download info
+2022-06-09T14:02:49.9341303Z Download action repository 'actions/checkout@v3' (SHA:2541b1294d2704b0964813337f33b291d3f8596b)
+2022-06-09T14:02:50.6044229Z Download action repository 'actions/setup-python@v3' (SHA:98f2ad02fd48d057ee3b4d4f66525b231c3e52b6)
+2022-06-09T14:02:51.7245247Z ##[group]Checking docker version
+2022-06-09T14:02:51.7266025Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2022-06-09T14:02:51.9483712Z '1.41'
+2022-06-09T14:02:51.9501645Z Docker daemon API version: '1.41'
+2022-06-09T14:02:51.9502006Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2022-06-09T14:02:51.9882802Z '1.41'
+2022-06-09T14:02:51.9910192Z Docker client API version: '1.41'
+2022-06-09T14:02:51.9919230Z ##[endgroup]
+2022-06-09T14:02:51.9919555Z ##[group]Clean up resources from previous jobs
+2022-06-09T14:02:51.9927545Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=6f1554"
+2022-06-09T14:02:52.0259268Z ##[command]/usr/bin/docker network prune --force --filter "label=6f1554"
+2022-06-09T14:02:52.0615109Z ##[endgroup]
+2022-06-09T14:02:52.0615403Z ##[group]Create local container network
+2022-06-09T14:02:52.0628034Z ##[command]/usr/bin/docker network create --label 6f1554 github_network_aa958a0d3d2b452fbb5095b6ffd84ae4
+2022-06-09T14:02:52.1470682Z aa4d73ec7b9dc9e304ee7765ab90d3dbeac8131ba5c8499ead3ec6d2499dfdad
+2022-06-09T14:02:52.1494663Z ##[endgroup]
+2022-06-09T14:02:52.1643565Z ##[group]Starting postgres service container
+2022-06-09T14:02:52.1665445Z ##[command]/usr/bin/docker pull postgres:10.8
+2022-06-09T14:02:53.5934777Z 10.8: Pulling from library/postgres
+2022-06-09T14:02:53.9631445Z fc7181108d40: Pulling fs layer
+2022-06-09T14:02:53.9632086Z 81cfa12d39e9: Pulling fs layer
+2022-06-09T14:02:53.9632348Z 793d305ca761: Pulling fs layer
+2022-06-09T14:02:53.9632608Z 41e3ced3a2aa: Pulling fs layer
+2022-06-09T14:02:53.9632872Z a300bc9d5405: Pulling fs layer
+2022-06-09T14:02:53.9633117Z 3c6a5c3830ed: Pulling fs layer
+2022-06-09T14:02:53.9633378Z fb8c79b24338: Pulling fs layer
+2022-06-09T14:02:53.9633643Z fcda1144379f: Pulling fs layer
+2022-06-09T14:02:53.9633918Z 4b6eec722dcd: Pulling fs layer
+2022-06-09T14:02:53.9634233Z 0cf140aafa92: Pulling fs layer
+2022-06-09T14:02:53.9634498Z dd5097fa647e: Pulling fs layer
+2022-06-09T14:02:53.9635305Z 688d8ff20487: Pulling fs layer
+2022-06-09T14:02:53.9635565Z 09b45950483d: Pulling fs layer
+2022-06-09T14:02:53.9635830Z afe654b3bcaf: Pulling fs layer
+2022-06-09T14:02:53.9636861Z 41e3ced3a2aa: Waiting
+2022-06-09T14:02:53.9637109Z a300bc9d5405: Waiting
+2022-06-09T14:02:53.9637357Z 3c6a5c3830ed: Waiting
+2022-06-09T14:02:53.9638265Z fb8c79b24338: Waiting
+2022-06-09T14:02:53.9638530Z fcda1144379f: Waiting
+2022-06-09T14:02:53.9638763Z 4b6eec722dcd: Waiting
+2022-06-09T14:02:53.9638974Z 0cf140aafa92: Waiting
+2022-06-09T14:02:53.9643145Z dd5097fa647e: Waiting
+2022-06-09T14:02:53.9644558Z 688d8ff20487: Waiting
+2022-06-09T14:02:53.9645146Z 09b45950483d: Waiting
+2022-06-09T14:02:53.9645389Z afe654b3bcaf: Waiting
+2022-06-09T14:02:54.3183504Z 793d305ca761: Verifying Checksum
+2022-06-09T14:02:54.3184043Z 793d305ca761: Download complete
+2022-06-09T14:02:54.3751665Z 81cfa12d39e9: Verifying Checksum
+2022-06-09T14:02:54.3754288Z 81cfa12d39e9: Download complete
+2022-06-09T14:02:54.6862142Z 41e3ced3a2aa: Verifying Checksum
+2022-06-09T14:02:54.6865857Z 41e3ced3a2aa: Download complete
+2022-06-09T14:02:54.7182217Z fc7181108d40: Verifying Checksum
+2022-06-09T14:02:54.7182487Z fc7181108d40: Download complete
+2022-06-09T14:02:54.8098351Z a300bc9d5405: Verifying Checksum
+2022-06-09T14:02:54.8098732Z a300bc9d5405: Download complete
+2022-06-09T14:02:55.0631322Z 3c6a5c3830ed: Verifying Checksum
+2022-06-09T14:02:55.0632921Z 3c6a5c3830ed: Download complete
+2022-06-09T14:02:55.0753253Z fb8c79b24338: Verifying Checksum
+2022-06-09T14:02:55.0753558Z fb8c79b24338: Download complete
+2022-06-09T14:02:55.1675456Z fcda1144379f: Verifying Checksum
+2022-06-09T14:02:55.1676054Z fcda1144379f: Download complete
+2022-06-09T14:02:55.4516807Z 0cf140aafa92: Verifying Checksum
+2022-06-09T14:02:55.4517173Z 0cf140aafa92: Download complete
+2022-06-09T14:02:55.5245944Z dd5097fa647e: Verifying Checksum
+2022-06-09T14:02:55.5264354Z dd5097fa647e: Download complete
+2022-06-09T14:02:55.8250568Z 688d8ff20487: Verifying Checksum
+2022-06-09T14:02:55.8252932Z 688d8ff20487: Download complete
+2022-06-09T14:02:55.9114991Z 09b45950483d: Verifying Checksum
+2022-06-09T14:02:55.9115759Z 09b45950483d: Download complete
+2022-06-09T14:02:56.0574181Z fc7181108d40: Pull complete
+2022-06-09T14:02:56.1633445Z afe654b3bcaf: Verifying Checksum
+2022-06-09T14:02:56.1634373Z afe654b3bcaf: Download complete
+2022-06-09T14:02:56.2379889Z 4b6eec722dcd: Verifying Checksum
+2022-06-09T14:02:56.2380240Z 4b6eec722dcd: Download complete
+2022-06-09T14:02:56.8620999Z 81cfa12d39e9: Pull complete
+2022-06-09T14:02:56.9364800Z 793d305ca761: Pull complete
+2022-06-09T14:02:57.0700991Z 41e3ced3a2aa: Pull complete
+2022-06-09T14:02:57.4457176Z a300bc9d5405: Pull complete
+2022-06-09T14:02:57.5350371Z 3c6a5c3830ed: Pull complete
+2022-06-09T14:02:57.5990111Z fb8c79b24338: Pull complete
+2022-06-09T14:02:57.6659773Z fcda1144379f: Pull complete
+2022-06-09T14:03:00.0099970Z 4b6eec722dcd: Pull complete
+2022-06-09T14:03:00.0828128Z 0cf140aafa92: Pull complete
+2022-06-09T14:03:00.1517164Z dd5097fa647e: Pull complete
+2022-06-09T14:03:00.2320400Z 688d8ff20487: Pull complete
+2022-06-09T14:03:00.3016592Z 09b45950483d: Pull complete
+2022-06-09T14:03:00.3626906Z afe654b3bcaf: Pull complete
+2022-06-09T14:03:00.3705958Z Digest: sha256:a2248950711dbeb7bc5b9a7084c8857400621c34ed633039ed59e9f0b97f58e8
+2022-06-09T14:03:00.3725989Z Status: Downloaded newer image for postgres:10.8
+2022-06-09T14:03:00.3753106Z docker.io/library/postgres:10.8
+2022-06-09T14:03:00.3840321Z ##[command]/usr/bin/docker create --name ff472e5c9f134cb6a39b7517c3008c68_postgres108_c1f1aa --label 6f1554 --network github_network_aa958a0d3d2b452fbb5095b6ffd84ae4 --network-alias postgres -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=postgres" -e GITHUB_ACTIONS=true -e CI=true postgres:10.8
+2022-06-09T14:03:00.4383358Z 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:00.4414650Z ##[command]/usr/bin/docker start 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:00.8842443Z 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:00.8879737Z ##[command]/usr/bin/docker ps --all --filter id=3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2022-06-09T14:03:00.9370617Z 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661 Up Less than a second (health: starting)
+2022-06-09T14:03:00.9455679Z ##[command]/usr/bin/docker port 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:00.9998784Z 5432/tcp -> 0.0.0.0:5432
+2022-06-09T14:03:01.0001531Z 5432/tcp -> :::5432
+2022-06-09T14:03:01.0116350Z ##[endgroup]
+2022-06-09T14:03:01.0116694Z ##[group]Waiting for all services to be ready
+2022-06-09T14:03:01.0167565Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:01.0609823Z starting
+2022-06-09T14:03:01.0647988Z postgres service is starting, waiting 2 seconds before checking again.
+2022-06-09T14:03:03.0613232Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:03.0915155Z starting
+2022-06-09T14:03:03.0933915Z postgres service is starting, waiting 4 seconds before checking again.
+2022-06-09T14:03:07.2199508Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:07.2517685Z starting
+2022-06-09T14:03:07.2536881Z postgres service is starting, waiting 8 seconds before checking again.
+2022-06-09T14:03:15.5144245Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:03:15.5501673Z healthy
+2022-06-09T14:03:15.5525331Z postgres service is healthy.
+2022-06-09T14:03:15.5525834Z ##[endgroup]
+2022-06-09T14:03:15.5945313Z ##[group]Run actions/checkout@v3
+2022-06-09T14:03:15.5945577Z with:
+2022-06-09T14:03:15.5945795Z   repository: wagtail/wagtail
+2022-06-09T14:03:15.5946216Z   token: ***
+2022-06-09T14:03:15.5946409Z   ssh-strict: true
+2022-06-09T14:03:15.5946637Z   persist-credentials: true
+2022-06-09T14:03:15.5946858Z   clean: true
+2022-06-09T14:03:15.5947041Z   fetch-depth: 1
+2022-06-09T14:03:15.5947362Z   lfs: false
+2022-06-09T14:03:15.5947571Z   submodules: false
+2022-06-09T14:03:15.5947790Z   set-safe-directory: true
+2022-06-09T14:03:15.5948031Z ##[endgroup]
+2022-06-09T14:03:15.9237093Z Syncing repository: wagtail/wagtail
+2022-06-09T14:03:15.9238741Z ##[group]Getting Git version info
+2022-06-09T14:03:15.9239212Z Working directory is '/home/runner/work/wagtail/wagtail'
+2022-06-09T14:03:15.9243277Z [command]/usr/bin/git version
+2022-06-09T14:03:15.9426004Z git version 2.36.1
+2022-06-09T14:03:15.9465661Z ##[endgroup]
+2022-06-09T14:03:15.9501791Z Temporarily overriding HOME='/home/runner/work/_temp/0649cf16-ca23-4fe8-a65c-c12eef139799' before making global git config changes
+2022-06-09T14:03:15.9505235Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-09T14:03:15.9511895Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/wagtail/wagtail
+2022-06-09T14:03:15.9561003Z Deleting the contents of '/home/runner/work/wagtail/wagtail'
+2022-06-09T14:03:15.9568489Z ##[group]Initializing the repository
+2022-06-09T14:03:15.9574302Z [command]/usr/bin/git init /home/runner/work/wagtail/wagtail
+2022-06-09T14:03:15.9662234Z hint: Using 'master' as the name for the initial branch. This default branch name
+2022-06-09T14:03:15.9662800Z hint: is subject to change. To configure the initial branch name to use in all
+2022-06-09T14:03:15.9663197Z hint: of your new repositories, which will suppress this warning, call:
+2022-06-09T14:03:15.9663730Z hint: 
+2022-06-09T14:03:15.9664263Z hint: 	git config --global init.defaultBranch <name>
+2022-06-09T14:03:15.9664534Z hint: 
+2022-06-09T14:03:15.9664934Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2022-06-09T14:03:15.9665442Z hint: 'development'. The just-created branch can be renamed via this command:
+2022-06-09T14:03:15.9665763Z hint: 
+2022-06-09T14:03:15.9666031Z hint: 	git branch -m <name>
+2022-06-09T14:03:15.9691665Z Initialized empty Git repository in /home/runner/work/wagtail/wagtail/.git/
+2022-06-09T14:03:15.9692161Z [command]/usr/bin/git remote add origin https://github.com/wagtail/wagtail
+2022-06-09T14:03:15.9732379Z ##[endgroup]
+2022-06-09T14:03:15.9732962Z ##[group]Disabling automatic garbage collection
+2022-06-09T14:03:15.9735989Z [command]/usr/bin/git config --local gc.auto 0
+2022-06-09T14:03:15.9767445Z ##[endgroup]
+2022-06-09T14:03:15.9768140Z ##[group]Setting up auth
+2022-06-09T14:03:15.9778528Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-09T14:03:15.9814064Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-09T14:03:16.0237617Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-09T14:03:16.0274528Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-09T14:03:16.0560509Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2022-06-09T14:03:16.0614602Z ##[endgroup]
+2022-06-09T14:03:16.0615628Z ##[group]Fetching the repository
+2022-06-09T14:03:16.0625348Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +9f358f53f646f67acae45493101fca2751af6e68:refs/remotes/pull/8639/merge
+2022-06-09T14:03:16.4664561Z remote: Enumerating objects: 6912, done.        
+2022-06-09T14:03:16.4671234Z remote: Counting objects:   0% (1/6912)        
+2022-06-09T14:03:16.4674408Z remote: Counting objects:   1% (70/6912)        
+2022-06-09T14:03:16.4677399Z remote: Counting objects:   2% (139/6912)        
+2022-06-09T14:03:16.4680488Z remote: Counting objects:   3% (208/6912)        
+2022-06-09T14:03:16.4683431Z remote: Counting objects:   4% (277/6912)        
+2022-06-09T14:03:16.4687485Z remote: Counting objects:   5% (346/6912)        
+2022-06-09T14:03:16.4690635Z remote: Counting objects:   6% (415/6912)        
+2022-06-09T14:03:16.4693536Z remote: Counting objects:   7% (484/6912)        
+2022-06-09T14:03:16.4696522Z remote: Counting objects:   8% (553/6912)        
+2022-06-09T14:03:16.4701244Z remote: Counting objects:   9% (623/6912)        
+2022-06-09T14:03:16.4705055Z remote: Counting objects:  10% (692/6912)        
+2022-06-09T14:03:16.4707828Z remote: Counting objects:  11% (761/6912)        
+2022-06-09T14:03:16.4711076Z remote: Counting objects:  12% (830/6912)        
+2022-06-09T14:03:16.4713937Z remote: Counting objects:  13% (899/6912)        
+2022-06-09T14:03:16.4716761Z remote: Counting objects:  14% (968/6912)        
+2022-06-09T14:03:16.4718888Z remote: Counting objects:  15% (1037/6912)        
+2022-06-09T14:03:16.4723114Z remote: Counting objects:  16% (1106/6912)        
+2022-06-09T14:03:16.4726495Z remote: Counting objects:  17% (1176/6912)        
+2022-06-09T14:03:16.4729887Z remote: Counting objects:  18% (1245/6912)        
+2022-06-09T14:03:16.4734335Z remote: Counting objects:  19% (1314/6912)        
+2022-06-09T14:03:16.4737818Z remote: Counting objects:  20% (1383/6912)        
+2022-06-09T14:03:16.4741333Z remote: Counting objects:  21% (1452/6912)        
+2022-06-09T14:03:16.4744538Z remote: Counting objects:  22% (1521/6912)        
+2022-06-09T14:03:16.4747945Z remote: Counting objects:  23% (1590/6912)        
+2022-06-09T14:03:16.4751538Z remote: Counting objects:  24% (1659/6912)        
+2022-06-09T14:03:16.4755052Z remote: Counting objects:  25% (1728/6912)        
+2022-06-09T14:03:16.4758485Z remote: Counting objects:  26% (1798/6912)        
+2022-06-09T14:03:16.4761018Z remote: Counting objects:  27% (1867/6912)        
+2022-06-09T14:03:16.4763436Z remote: Counting objects:  28% (1936/6912)        
+2022-06-09T14:03:16.4766030Z remote: Counting objects:  29% (2005/6912)        
+2022-06-09T14:03:16.4768843Z remote: Counting objects:  30% (2074/6912)        
+2022-06-09T14:03:16.4771314Z remote: Counting objects:  31% (2143/6912)        
+2022-06-09T14:03:16.4773635Z remote: Counting objects:  32% (2212/6912)        
+2022-06-09T14:03:16.4776339Z remote: Counting objects:  33% (2281/6912)        
+2022-06-09T14:03:16.4778812Z remote: Counting objects:  34% (2351/6912)        
+2022-06-09T14:03:16.4786598Z remote: Counting objects:  35% (2420/6912)        
+2022-06-09T14:03:16.4786899Z remote: Counting objects:  36% (2489/6912)        
+2022-06-09T14:03:16.4787206Z remote: Counting objects:  37% (2558/6912)        
+2022-06-09T14:03:16.4787508Z remote: Counting objects:  38% (2627/6912)        
+2022-06-09T14:03:16.4787804Z remote: Counting objects:  39% (2696/6912)        
+2022-06-09T14:03:16.4788077Z remote: Counting objects:  40% (2765/6912)        
+2022-06-09T14:03:16.4788370Z remote: Counting objects:  41% (2834/6912)        
+2022-06-09T14:03:16.4788660Z remote: Counting objects:  42% (2904/6912)        
+2022-06-09T14:03:16.4788934Z remote: Counting objects:  43% (2973/6912)        
+2022-06-09T14:03:16.4789222Z remote: Counting objects:  44% (3042/6912)        
+2022-06-09T14:03:16.4789510Z remote: Counting objects:  45% (3111/6912)        
+2022-06-09T14:03:16.4789783Z remote: Counting objects:  46% (3180/6912)        
+2022-06-09T14:03:16.4790075Z remote: Counting objects:  47% (3249/6912)        
+2022-06-09T14:03:16.4790362Z remote: Counting objects:  48% (3318/6912)        
+2022-06-09T14:03:16.4790634Z remote: Counting objects:  49% (3387/6912)        
+2022-06-09T14:03:16.4790926Z remote: Counting objects:  50% (3456/6912)        
+2022-06-09T14:03:16.4791401Z remote: Counting objects:  51% (3526/6912)        
+2022-06-09T14:03:16.4791719Z remote: Counting objects:  52% (3595/6912)        
+2022-06-09T14:03:16.4791990Z remote: Counting objects:  53% (3664/6912)        
+2022-06-09T14:03:16.4792279Z remote: Counting objects:  54% (3733/6912)        
+2022-06-09T14:03:16.4792566Z remote: Counting objects:  55% (3802/6912)        
+2022-06-09T14:03:16.4792837Z remote: Counting objects:  56% (3871/6912)        
+2022-06-09T14:03:16.4793124Z remote: Counting objects:  57% (3940/6912)        
+2022-06-09T14:03:16.4793410Z remote: Counting objects:  58% (4009/6912)        
+2022-06-09T14:03:16.4793681Z remote: Counting objects:  59% (4079/6912)        
+2022-06-09T14:03:16.4793968Z remote: Counting objects:  60% (4148/6912)        
+2022-06-09T14:03:16.4794380Z remote: Counting objects:  61% (4217/6912)        
+2022-06-09T14:03:16.4794778Z remote: Counting objects:  62% (4286/6912)        
+2022-06-09T14:03:16.4795054Z remote: Counting objects:  63% (4355/6912)        
+2022-06-09T14:03:16.4795416Z remote: Counting objects:  64% (4424/6912)        
+2022-06-09T14:03:16.4795707Z remote: Counting objects:  65% (4493/6912)        
+2022-06-09T14:03:16.4795993Z remote: Counting objects:  66% (4562/6912)        
+2022-06-09T14:03:16.4796261Z remote: Counting objects:  67% (4632/6912)        
+2022-06-09T14:03:16.4796546Z remote: Counting objects:  68% (4701/6912)        
+2022-06-09T14:03:16.4796828Z remote: Counting objects:  69% (4770/6912)        
+2022-06-09T14:03:16.4797096Z remote: Counting objects:  70% (4839/6912)        
+2022-06-09T14:03:16.4797381Z remote: Counting objects:  71% (4908/6912)        
+2022-06-09T14:03:16.4797663Z remote: Counting objects:  72% (4977/6912)        
+2022-06-09T14:03:16.4797933Z remote: Counting objects:  73% (5046/6912)        
+2022-06-09T14:03:16.4799138Z remote: Counting objects:  74% (5115/6912)        
+2022-06-09T14:03:16.4799501Z remote: Counting objects:  75% (5184/6912)        
+2022-06-09T14:03:16.4800025Z remote: Counting objects:  76% (5254/6912)        
+2022-06-09T14:03:16.4800310Z remote: Counting objects:  77% (5323/6912)        
+2022-06-09T14:03:16.4800606Z remote: Counting objects:  78% (5392/6912)        
+2022-06-09T14:03:16.4800901Z remote: Counting objects:  79% (5461/6912)        
+2022-06-09T14:03:16.4801182Z remote: Counting objects:  80% (5530/6912)        
+2022-06-09T14:03:16.4801481Z remote: Counting objects:  81% (5599/6912)        
+2022-06-09T14:03:16.4801883Z remote: Counting objects:  82% (5668/6912)        
+2022-06-09T14:03:16.4802154Z remote: Counting objects:  83% (5737/6912)        
+2022-06-09T14:03:16.4802444Z remote: Counting objects:  84% (5807/6912)        
+2022-06-09T14:03:16.4802727Z remote: Counting objects:  85% (5876/6912)        
+2022-06-09T14:03:16.4803010Z remote: Counting objects:  86% (5945/6912)        
+2022-06-09T14:03:16.4803276Z remote: Counting objects:  87% (6014/6912)        
+2022-06-09T14:03:16.4803565Z remote: Counting objects:  88% (6083/6912)        
+2022-06-09T14:03:16.4803848Z remote: Counting objects:  89% (6152/6912)        
+2022-06-09T14:03:16.4804119Z remote: Counting objects:  90% (6221/6912)        
+2022-06-09T14:03:16.4804401Z remote: Counting objects:  91% (6290/6912)        
+2022-06-09T14:03:16.4804690Z remote: Counting objects:  92% (6360/6912)        
+2022-06-09T14:03:16.4804957Z remote: Counting objects:  93% (6429/6912)        
+2022-06-09T14:03:16.4805242Z remote: Counting objects:  94% (6498/6912)        
+2022-06-09T14:03:16.4805524Z remote: Counting objects:  95% (6567/6912)        
+2022-06-09T14:03:16.4805807Z remote: Counting objects:  96% (6636/6912)        
+2022-06-09T14:03:16.4806077Z remote: Counting objects:  97% (6705/6912)        
+2022-06-09T14:03:16.4849150Z remote: Counting objects:  98% (6774/6912)        
+2022-06-09T14:03:16.4849829Z remote: Counting objects:  99% (6843/6912)        
+2022-06-09T14:03:16.4850197Z remote: Counting objects: 100% (6912/6912)        
+2022-06-09T14:03:16.4850534Z remote: Counting objects: 100% (6912/6912), done.        
+2022-06-09T14:03:16.4851108Z remote: Compressing objects:   0% (1/4442)        
+2022-06-09T14:03:16.4851551Z remote: Compressing objects:   1% (45/4442)        
+2022-06-09T14:03:16.4851859Z remote: Compressing objects:   2% (89/4442)        
+2022-06-09T14:03:16.4852173Z remote: Compressing objects:   3% (134/4442)        
+2022-06-09T14:03:16.4852593Z remote: Compressing objects:   4% (178/4442)        
+2022-06-09T14:03:16.4853019Z remote: Compressing objects:   5% (223/4442)        
+2022-06-09T14:03:16.4853326Z remote: Compressing objects:   6% (267/4442)        
+2022-06-09T14:03:16.4853613Z remote: Compressing objects:   7% (311/4442)        
+2022-06-09T14:03:16.4853919Z remote: Compressing objects:   8% (356/4442)        
+2022-06-09T14:03:16.4854247Z remote: Compressing objects:   9% (400/4442)        
+2022-06-09T14:03:16.4854554Z remote: Compressing objects:  10% (445/4442)        
+2022-06-09T14:03:16.4854839Z remote: Compressing objects:  11% (489/4442)        
+2022-06-09T14:03:16.4855151Z remote: Compressing objects:  12% (534/4442)        
+2022-06-09T14:03:16.4855453Z remote: Compressing objects:  13% (578/4442)        
+2022-06-09T14:03:16.4856020Z remote: Compressing objects:  14% (622/4442)        
+2022-06-09T14:03:16.4856313Z remote: Compressing objects:  15% (667/4442)        
+2022-06-09T14:03:16.4856600Z remote: Compressing objects:  16% (711/4442)        
+2022-06-09T14:03:16.4856893Z remote: Compressing objects:  17% (756/4442)        
+2022-06-09T14:03:16.4857166Z remote: Compressing objects:  18% (800/4442)        
+2022-06-09T14:03:16.4857552Z remote: Compressing objects:  19% (844/4442)        
+2022-06-09T14:03:16.4857821Z remote: Compressing objects:  20% (889/4442)        
+2022-06-09T14:03:16.4858087Z remote: Compressing objects:  21% (933/4442)        
+2022-06-09T14:03:16.4858490Z remote: Compressing objects:  22% (978/4442)        
+2022-06-09T14:03:16.4858911Z remote: Compressing objects:  23% (1022/4442)        
+2022-06-09T14:03:16.4859335Z remote: Compressing objects:  24% (1067/4442)        
+2022-06-09T14:03:16.4859643Z remote: Compressing objects:  25% (1111/4442)        
+2022-06-09T14:03:16.4859947Z remote: Compressing objects:  26% (1155/4442)        
+2022-06-09T14:03:16.4860233Z remote: Compressing objects:  27% (1200/4442)        
+2022-06-09T14:03:16.4860534Z remote: Compressing objects:  28% (1244/4442)        
+2022-06-09T14:03:16.4860831Z remote: Compressing objects:  29% (1289/4442)        
+2022-06-09T14:03:16.4861114Z remote: Compressing objects:  30% (1333/4442)        
+2022-06-09T14:03:16.4861413Z remote: Compressing objects:  31% (1378/4442)        
+2022-06-09T14:03:16.4861717Z remote: Compressing objects:  32% (1422/4442)        
+2022-06-09T14:03:16.4862017Z remote: Compressing objects:  33% (1466/4442)        
+2022-06-09T14:03:16.4862296Z remote: Compressing objects:  34% (1511/4442)        
+2022-06-09T14:03:16.4862597Z remote: Compressing objects:  35% (1555/4442)        
+2022-06-09T14:03:16.4862896Z remote: Compressing objects:  36% (1600/4442)        
+2022-06-09T14:03:16.4863187Z remote: Compressing objects:  37% (1644/4442)        
+2022-06-09T14:03:16.4863488Z remote: Compressing objects:  38% (1688/4442)        
+2022-06-09T14:03:16.4863788Z remote: Compressing objects:  39% (1733/4442)        
+2022-06-09T14:03:16.4864070Z remote: Compressing objects:  40% (1777/4442)        
+2022-06-09T14:03:16.4864367Z remote: Compressing objects:  41% (1822/4442)        
+2022-06-09T14:03:16.4864793Z remote: Compressing objects:  42% (1866/4442)        
+2022-06-09T14:03:16.4865294Z remote: Compressing objects:  43% (1911/4442)        
+2022-06-09T14:03:16.4865569Z remote: Compressing objects:  44% (1955/4442)        
+2022-06-09T14:03:16.4865859Z remote: Compressing objects:  45% (1999/4442)        
+2022-06-09T14:03:16.4866144Z remote: Compressing objects:  46% (2044/4442)        
+2022-06-09T14:03:16.4866413Z remote: Compressing objects:  47% (2088/4442)        
+2022-06-09T14:03:16.4866702Z remote: Compressing objects:  48% (2133/4442)        
+2022-06-09T14:03:16.5014464Z remote: Compressing objects:  49% (2177/4442)        
+2022-06-09T14:03:16.5159368Z remote: Compressing objects:  50% (2221/4442)        
+2022-06-09T14:03:16.5309323Z remote: Compressing objects:  51% (2266/4442)        
+2022-06-09T14:03:16.5388749Z remote: Compressing objects:  52% (2310/4442)        
+2022-06-09T14:03:16.5433331Z remote: Compressing objects:  53% (2355/4442)        
+2022-06-09T14:03:16.5438078Z remote: Compressing objects:  54% (2399/4442)        
+2022-06-09T14:03:16.5448088Z remote: Compressing objects:  55% (2444/4442)        
+2022-06-09T14:03:16.5448710Z remote: Compressing objects:  56% (2488/4442)        
+2022-06-09T14:03:16.5459956Z remote: Compressing objects:  57% (2532/4442)        
+2022-06-09T14:03:16.5460445Z remote: Compressing objects:  58% (2577/4442)        
+2022-06-09T14:03:16.5475146Z remote: Compressing objects:  59% (2621/4442)        
+2022-06-09T14:03:16.5480881Z remote: Compressing objects:  60% (2666/4442)        
+2022-06-09T14:03:16.5510982Z remote: Compressing objects:  61% (2710/4442)        
+2022-06-09T14:03:16.5544823Z remote: Compressing objects:  62% (2755/4442)        
+2022-06-09T14:03:16.5674321Z remote: Compressing objects:  63% (2799/4442)        
+2022-06-09T14:03:16.5723795Z remote: Compressing objects:  64% (2843/4442)        
+2022-06-09T14:03:16.5938620Z remote: Compressing objects:  65% (2888/4442)        
+2022-06-09T14:03:16.5958585Z remote: Compressing objects:  66% (2932/4442)        
+2022-06-09T14:03:16.6018239Z remote: Compressing objects:  67% (2977/4442)        
+2022-06-09T14:03:16.6118594Z remote: Compressing objects:  68% (3021/4442)        
+2022-06-09T14:03:16.6188758Z remote: Compressing objects:  69% (3065/4442)        
+2022-06-09T14:03:16.6189259Z remote: Compressing objects:  70% (3110/4442)        
+2022-06-09T14:03:16.6191646Z remote: Compressing objects:  71% (3154/4442)        
+2022-06-09T14:03:16.6192061Z remote: Compressing objects:  72% (3199/4442)        
+2022-06-09T14:03:16.6192758Z remote: Compressing objects:  73% (3243/4442)        
+2022-06-09T14:03:16.6193640Z remote: Compressing objects:  74% (3288/4442)        
+2022-06-09T14:03:16.6194276Z remote: Compressing objects:  75% (3332/4442)        
+2022-06-09T14:03:16.6195372Z remote: Compressing objects:  76% (3376/4442)        
+2022-06-09T14:03:16.6196071Z remote: Compressing objects:  77% (3421/4442)        
+2022-06-09T14:03:16.6196786Z remote: Compressing objects:  78% (3465/4442)        
+2022-06-09T14:03:16.6197354Z remote: Compressing objects:  79% (3510/4442)        
+2022-06-09T14:03:16.6198021Z remote: Compressing objects:  80% (3554/4442)        
+2022-06-09T14:03:16.6198579Z remote: Compressing objects:  81% (3599/4442)        
+2022-06-09T14:03:16.6199243Z remote: Compressing objects:  82% (3643/4442)        
+2022-06-09T14:03:16.6199785Z remote: Compressing objects:  83% (3687/4442)        
+2022-06-09T14:03:16.6200769Z remote: Compressing objects:  84% (3732/4442)        
+2022-06-09T14:03:16.6201525Z remote: Compressing objects:  85% (3776/4442)        
+2022-06-09T14:03:16.6202173Z remote: Compressing objects:  86% (3821/4442)        
+2022-06-09T14:03:16.6202773Z remote: Compressing objects:  87% (3865/4442)        
+2022-06-09T14:03:16.6204030Z remote: Compressing objects:  88% (3909/4442)        
+2022-06-09T14:03:16.6204884Z remote: Compressing objects:  89% (3954/4442)        
+2022-06-09T14:03:16.6205502Z remote: Compressing objects:  90% (3998/4442)        
+2022-06-09T14:03:16.6206843Z remote: Compressing objects:  91% (4043/4442)        
+2022-06-09T14:03:16.6207838Z remote: Compressing objects:  92% (4087/4442)        
+2022-06-09T14:03:16.6208642Z remote: Compressing objects:  93% (4132/4442)        
+2022-06-09T14:03:16.6210548Z remote: Compressing objects:  94% (4176/4442)        
+2022-06-09T14:03:16.6211085Z remote: Compressing objects:  95% (4220/4442)        
+2022-06-09T14:03:16.6212408Z remote: Compressing objects:  96% (4265/4442)        
+2022-06-09T14:03:16.6213359Z remote: Compressing objects:  97% (4309/4442)        
+2022-06-09T14:03:16.6213961Z remote: Compressing objects:  98% (4354/4442)        
+2022-06-09T14:03:16.6214971Z remote: Compressing objects:  99% (4398/4442)        
+2022-06-09T14:03:16.6215470Z remote: Compressing objects: 100% (4442/4442)        
+2022-06-09T14:03:16.6216440Z remote: Compressing objects: 100% (4442/4442), done.        
+2022-06-09T14:03:16.7537259Z Receiving objects:   0% (1/6912)
+2022-06-09T14:03:16.7563937Z Receiving objects:   1% (70/6912)
+2022-06-09T14:03:16.7586740Z Receiving objects:   2% (139/6912)
+2022-06-09T14:03:16.7605806Z Receiving objects:   3% (208/6912)
+2022-06-09T14:03:16.8140494Z Receiving objects:   4% (277/6912)
+2022-06-09T14:03:16.8171343Z Receiving objects:   5% (346/6912)
+2022-06-09T14:03:16.8193282Z Receiving objects:   6% (415/6912)
+2022-06-09T14:03:17.6342498Z Receiving objects:   7% (484/6912)
+2022-06-09T14:03:18.0283029Z Receiving objects:   7% (531/6912), 3.29 MiB | 3.27 MiB/s
+2022-06-09T14:03:18.6541423Z Receiving objects:   8% (553/6912), 3.29 MiB | 3.27 MiB/s
+2022-06-09T14:03:18.9071541Z Receiving objects:   8% (595/6912), 6.66 MiB | 3.29 MiB/s
+2022-06-09T14:03:19.2241385Z Receiving objects:   9% (623/6912), 6.66 MiB | 3.29 MiB/s
+2022-06-09T14:03:19.2292842Z Receiving objects:  10% (692/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.2887281Z Receiving objects:  11% (761/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.3191439Z Receiving objects:  12% (830/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.3506466Z Receiving objects:  13% (899/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.3533171Z Receiving objects:  14% (968/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.4152982Z Receiving objects:  15% (1037/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.4790031Z Receiving objects:  16% (1106/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.5410999Z Receiving objects:  17% (1176/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.6105839Z Receiving objects:  18% (1245/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.6619484Z Receiving objects:  19% (1314/6912), 8.35 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.6671209Z Receiving objects:  19% (1341/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7330769Z Receiving objects:  20% (1383/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7341345Z Receiving objects:  21% (1452/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7354532Z Receiving objects:  22% (1521/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7368426Z Receiving objects:  23% (1590/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7915373Z Receiving objects:  24% (1659/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7934740Z Receiving objects:  25% (1728/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.7948734Z Receiving objects:  26% (1798/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.8019211Z Receiving objects:  27% (1867/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.8583420Z Receiving objects:  28% (1936/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.8624834Z Receiving objects:  29% (2005/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.8637157Z Receiving objects:  30% (2074/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9180057Z Receiving objects:  31% (2143/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9199212Z Receiving objects:  32% (2212/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9225718Z Receiving objects:  33% (2281/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9240479Z Receiving objects:  34% (2351/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9559553Z Receiving objects:  35% (2420/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9826570Z Receiving objects:  36% (2489/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9841852Z Receiving objects:  37% (2558/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9868727Z Receiving objects:  38% (2627/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:19.9885524Z Receiving objects:  39% (2696/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.0460924Z Receiving objects:  40% (2765/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.0479138Z Receiving objects:  41% (2834/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.0514474Z Receiving objects:  42% (2904/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.0527648Z Receiving objects:  43% (2973/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1073669Z Receiving objects:  44% (3042/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1088239Z Receiving objects:  45% (3111/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1097631Z Receiving objects:  46% (3180/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1101503Z Receiving objects:  47% (3249/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1107830Z Receiving objects:  48% (3318/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1119562Z Receiving objects:  49% (3387/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1125250Z Receiving objects:  50% (3456/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1138267Z Receiving objects:  51% (3526/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1141986Z Receiving objects:  52% (3595/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1164718Z Receiving objects:  53% (3664/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1707666Z Receiving objects:  54% (3733/6912), 10.03 MiB | 3.30 MiB/s
+2022-06-09T14:03:20.1718144Z Receiving objects:  55% (3802/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.1722589Z Receiving objects:  56% (3871/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.2369560Z Receiving objects:  57% (3940/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.2373240Z Receiving objects:  58% (4009/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.2379622Z Receiving objects:  59% (4079/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.2402959Z Receiving objects:  60% (4148/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.2975123Z Receiving objects:  61% (4217/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3002788Z Receiving objects:  62% (4286/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3024353Z Receiving objects:  63% (4355/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3042258Z Receiving objects:  64% (4424/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3049070Z Receiving objects:  65% (4493/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3349990Z Receiving objects:  66% (4562/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3620817Z Receiving objects:  67% (4632/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3638733Z Receiving objects:  68% (4701/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.3675496Z Receiving objects:  69% (4770/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.4246002Z Receiving objects:  70% (4839/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.4279797Z Receiving objects:  71% (4908/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.5866776Z Receiving objects:  72% (4977/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.6777539Z Receiving objects:  73% (5046/6912), 11.71 MiB | 3.31 MiB/s
+2022-06-09T14:03:20.7458969Z Receiving objects:  73% (5047/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8064981Z Receiving objects:  74% (5115/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8108307Z Receiving objects:  75% (5184/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8692430Z Receiving objects:  76% (5254/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8701014Z Receiving objects:  77% (5323/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8709702Z Receiving objects:  78% (5392/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8722662Z Receiving objects:  79% (5461/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.8760866Z Receiving objects:  80% (5530/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9059950Z Receiving objects:  81% (5599/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9324967Z Receiving objects:  82% (5668/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9336895Z Receiving objects:  83% (5737/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9348194Z Receiving objects:  84% (5807/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9369651Z Receiving objects:  85% (5876/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9376600Z Receiving objects:  86% (5945/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9383424Z Receiving objects:  87% (6014/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9394138Z Receiving objects:  88% (6083/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:20.9692818Z Receiving objects:  89% (6152/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0036883Z Receiving objects:  90% (6221/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0037678Z Receiving objects:  91% (6290/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0038483Z Receiving objects:  92% (6360/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0039057Z Receiving objects:  93% (6429/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0042539Z Receiving objects:  94% (6498/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0621940Z Receiving objects:  95% (6567/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0654236Z Receiving objects:  96% (6636/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.0696591Z Receiving objects:  97% (6705/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.1215138Z Receiving objects:  98% (6774/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.1216441Z remote: Total 6912 (delta 1622), reused 4946 (delta 1366), pack-reused 0        
+2022-06-09T14:03:21.1257186Z Receiving objects:  99% (6843/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.1258248Z Receiving objects: 100% (6912/6912), 13.43 MiB | 3.32 MiB/s
+2022-06-09T14:03:21.1258973Z Receiving objects: 100% (6912/6912), 15.04 MiB | 3.34 MiB/s, done.
+2022-06-09T14:03:21.1270534Z Resolving deltas:   0% (0/1622)
+2022-06-09T14:03:21.1278491Z Resolving deltas:   1% (17/1622)
+2022-06-09T14:03:21.1285153Z Resolving deltas:   2% (33/1622)
+2022-06-09T14:03:21.1293370Z Resolving deltas:   3% (49/1622)
+2022-06-09T14:03:21.1298430Z Resolving deltas:   4% (65/1622)
+2022-06-09T14:03:21.1303401Z Resolving deltas:   5% (82/1622)
+2022-06-09T14:03:21.1339917Z Resolving deltas:   6% (98/1622)
+2022-06-09T14:03:21.1342341Z Resolving deltas:   7% (114/1622)
+2022-06-09T14:03:21.1343032Z Resolving deltas:   8% (130/1622)
+2022-06-09T14:03:21.1346830Z Resolving deltas:   9% (146/1622)
+2022-06-09T14:03:21.1352432Z Resolving deltas:  10% (163/1622)
+2022-06-09T14:03:21.1392156Z Resolving deltas:  11% (179/1622)
+2022-06-09T14:03:21.1409493Z Resolving deltas:  12% (195/1622)
+2022-06-09T14:03:21.1440718Z Resolving deltas:  13% (211/1622)
+2022-06-09T14:03:21.1443564Z Resolving deltas:  14% (228/1622)
+2022-06-09T14:03:21.1446813Z Resolving deltas:  15% (244/1622)
+2022-06-09T14:03:21.1462503Z Resolving deltas:  16% (260/1622)
+2022-06-09T14:03:21.1467096Z Resolving deltas:  17% (276/1622)
+2022-06-09T14:03:21.1471549Z Resolving deltas:  18% (292/1622)
+2022-06-09T14:03:21.1478154Z Resolving deltas:  19% (309/1622)
+2022-06-09T14:03:21.1479892Z Resolving deltas:  20% (325/1622)
+2022-06-09T14:03:21.1483142Z Resolving deltas:  21% (341/1622)
+2022-06-09T14:03:21.1486833Z Resolving deltas:  22% (357/1622)
+2022-06-09T14:03:21.1491102Z Resolving deltas:  23% (374/1622)
+2022-06-09T14:03:21.1502020Z Resolving deltas:  24% (390/1622)
+2022-06-09T14:03:21.1514704Z Resolving deltas:  25% (406/1622)
+2022-06-09T14:03:21.1518070Z Resolving deltas:  26% (422/1622)
+2022-06-09T14:03:21.1519917Z Resolving deltas:  27% (438/1622)
+2022-06-09T14:03:21.1520578Z Resolving deltas:  28% (455/1622)
+2022-06-09T14:03:21.1525284Z Resolving deltas:  29% (471/1622)
+2022-06-09T14:03:21.1531663Z Resolving deltas:  30% (487/1622)
+2022-06-09T14:03:21.1539269Z Resolving deltas:  31% (503/1622)
+2022-06-09T14:03:21.1545507Z Resolving deltas:  32% (520/1622)
+2022-06-09T14:03:21.1550132Z Resolving deltas:  33% (536/1622)
+2022-06-09T14:03:21.1553166Z Resolving deltas:  34% (552/1622)
+2022-06-09T14:03:21.1556519Z Resolving deltas:  35% (568/1622)
+2022-06-09T14:03:21.1558760Z Resolving deltas:  36% (584/1622)
+2022-06-09T14:03:21.1567206Z Resolving deltas:  37% (601/1622)
+2022-06-09T14:03:21.1574395Z Resolving deltas:  38% (617/1622)
+2022-06-09T14:03:21.1581484Z Resolving deltas:  39% (633/1622)
+2022-06-09T14:03:21.1588492Z Resolving deltas:  40% (649/1622)
+2022-06-09T14:03:21.1595843Z Resolving deltas:  41% (666/1622)
+2022-06-09T14:03:21.1603662Z Resolving deltas:  42% (682/1622)
+2022-06-09T14:03:21.1610809Z Resolving deltas:  43% (698/1622)
+2022-06-09T14:03:21.1615701Z Resolving deltas:  44% (714/1622)
+2022-06-09T14:03:21.1620372Z Resolving deltas:  45% (730/1622)
+2022-06-09T14:03:21.1626014Z Resolving deltas:  46% (747/1622)
+2022-06-09T14:03:21.1632082Z Resolving deltas:  47% (763/1622)
+2022-06-09T14:03:21.1637651Z Resolving deltas:  48% (779/1622)
+2022-06-09T14:03:21.1641949Z Resolving deltas:  49% (795/1622)
+2022-06-09T14:03:21.1646736Z Resolving deltas:  50% (811/1622)
+2022-06-09T14:03:21.1651233Z Resolving deltas:  51% (828/1622)
+2022-06-09T14:03:21.1654332Z Resolving deltas:  52% (844/1622)
+2022-06-09T14:03:21.1656697Z Resolving deltas:  53% (860/1622)
+2022-06-09T14:03:21.1660642Z Resolving deltas:  54% (876/1622)
+2022-06-09T14:03:21.1665512Z Resolving deltas:  55% (893/1622)
+2022-06-09T14:03:21.1668621Z Resolving deltas:  56% (909/1622)
+2022-06-09T14:03:21.1672265Z Resolving deltas:  57% (925/1622)
+2022-06-09T14:03:21.1675319Z Resolving deltas:  58% (941/1622)
+2022-06-09T14:03:21.1678455Z Resolving deltas:  59% (957/1622)
+2022-06-09T14:03:21.1682749Z Resolving deltas:  60% (974/1622)
+2022-06-09T14:03:21.1685515Z Resolving deltas:  61% (990/1622)
+2022-06-09T14:03:21.1689390Z Resolving deltas:  62% (1006/1622)
+2022-06-09T14:03:21.1691962Z Resolving deltas:  63% (1022/1622)
+2022-06-09T14:03:21.1696976Z Resolving deltas:  64% (1039/1622)
+2022-06-09T14:03:21.1702529Z Resolving deltas:  65% (1055/1622)
+2022-06-09T14:03:21.1709904Z Resolving deltas:  66% (1071/1622)
+2022-06-09T14:03:21.1723920Z Resolving deltas:  67% (1087/1622)
+2022-06-09T14:03:21.1729115Z Resolving deltas:  68% (1103/1622)
+2022-06-09T14:03:21.1732506Z Resolving deltas:  69% (1120/1622)
+2022-06-09T14:03:21.1745170Z Resolving deltas:  70% (1136/1622)
+2022-06-09T14:03:21.1749645Z Resolving deltas:  71% (1152/1622)
+2022-06-09T14:03:21.1753178Z Resolving deltas:  72% (1168/1622)
+2022-06-09T14:03:21.1756835Z Resolving deltas:  73% (1185/1622)
+2022-06-09T14:03:21.1762292Z Resolving deltas:  74% (1201/1622)
+2022-06-09T14:03:21.1773687Z Resolving deltas:  75% (1217/1622)
+2022-06-09T14:03:21.1785637Z Resolving deltas:  76% (1233/1622)
+2022-06-09T14:03:21.1793640Z Resolving deltas:  77% (1249/1622)
+2022-06-09T14:03:21.1806518Z Resolving deltas:  78% (1266/1622)
+2022-06-09T14:03:21.1821413Z Resolving deltas:  79% (1282/1622)
+2022-06-09T14:03:21.1829625Z Resolving deltas:  80% (1298/1622)
+2022-06-09T14:03:21.1833090Z Resolving deltas:  81% (1314/1622)
+2022-06-09T14:03:21.1837460Z Resolving deltas:  82% (1331/1622)
+2022-06-09T14:03:21.1841652Z Resolving deltas:  83% (1347/1622)
+2022-06-09T14:03:21.1847975Z Resolving deltas:  84% (1363/1622)
+2022-06-09T14:03:21.1851045Z Resolving deltas:  85% (1379/1622)
+2022-06-09T14:03:21.1855158Z Resolving deltas:  86% (1395/1622)
+2022-06-09T14:03:21.1862485Z Resolving deltas:  87% (1412/1622)
+2022-06-09T14:03:21.1867678Z Resolving deltas:  88% (1428/1622)
+2022-06-09T14:03:21.1871093Z Resolving deltas:  89% (1444/1622)
+2022-06-09T14:03:21.1876611Z Resolving deltas:  90% (1460/1622)
+2022-06-09T14:03:21.1882091Z Resolving deltas:  91% (1477/1622)
+2022-06-09T14:03:21.1887774Z Resolving deltas:  92% (1493/1622)
+2022-06-09T14:03:21.1894631Z Resolving deltas:  93% (1509/1622)
+2022-06-09T14:03:21.1903058Z Resolving deltas:  94% (1525/1622)
+2022-06-09T14:03:21.1908898Z Resolving deltas:  95% (1541/1622)
+2022-06-09T14:03:21.1918669Z Resolving deltas:  96% (1558/1622)
+2022-06-09T14:03:21.1928281Z Resolving deltas:  97% (1574/1622)
+2022-06-09T14:03:21.1938458Z Resolving deltas:  98% (1590/1622)
+2022-06-09T14:03:21.1970683Z Resolving deltas:  99% (1606/1622)
+2022-06-09T14:03:21.1971222Z Resolving deltas: 100% (1622/1622)
+2022-06-09T14:03:21.1971665Z Resolving deltas: 100% (1622/1622), done.
+2022-06-09T14:03:21.2391783Z From https://github.com/wagtail/wagtail
+2022-06-09T14:03:21.2392949Z  * [new ref]         9f358f53f646f67acae45493101fca2751af6e68 -> pull/8639/merge
+2022-06-09T14:03:21.2443136Z ##[endgroup]
+2022-06-09T14:03:21.2449730Z ##[group]Determining the checkout info
+2022-06-09T14:03:21.2451463Z ##[endgroup]
+2022-06-09T14:03:21.2452523Z ##[group]Checking out the ref
+2022-06-09T14:03:21.2459234Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/8639/merge
+2022-06-09T14:03:21.6275071Z Note: switching to 'refs/remotes/pull/8639/merge'.
+2022-06-09T14:03:21.6280131Z 
+2022-06-09T14:03:21.6281515Z You are in 'detached HEAD' state. You can look around, make experimental
+2022-06-09T14:03:21.6282382Z changes and commit them, and you can discard any commits you make in this
+2022-06-09T14:03:21.6283380Z state without impacting any branches by switching back to a branch.
+2022-06-09T14:03:21.6283799Z 
+2022-06-09T14:03:21.6284684Z If you want to create a new branch to retain commits you create, you may
+2022-06-09T14:03:21.6285508Z do so (now or later) by using -c with the switch command. Example:
+2022-06-09T14:03:21.6286175Z 
+2022-06-09T14:03:21.6286626Z   git switch -c <new-branch-name>
+2022-06-09T14:03:21.6287432Z 
+2022-06-09T14:03:21.6287813Z Or undo this operation with:
+2022-06-09T14:03:21.6288879Z 
+2022-06-09T14:03:21.6289394Z   git switch -
+2022-06-09T14:03:21.6289722Z 
+2022-06-09T14:03:21.6290329Z Turn off this advice by setting config variable advice.detachedHead to false
+2022-06-09T14:03:21.6290770Z 
+2022-06-09T14:03:21.6291402Z HEAD is now at 9f358f5 Merge 8ed08d47f2b17d31b12acd898affb32a969c6e97 into ab92256b093b3817ac58aff5c1e2b1b04af8c10f
+2022-06-09T14:03:21.6292672Z ##[endgroup]
+2022-06-09T14:03:21.6341813Z [command]/usr/bin/git log -1 --format='%H'
+2022-06-09T14:03:21.6371600Z '9f358f53f646f67acae45493101fca2751af6e68'
+2022-06-09T14:03:21.6705075Z ##[group]Run actions/setup-python@v3
+2022-06-09T14:03:21.6705436Z with:
+2022-06-09T14:03:21.6705722Z   python-version: 3.7
+2022-06-09T14:03:21.6706108Z   token: ***
+2022-06-09T14:03:21.6706381Z ##[endgroup]
+2022-06-09T14:03:21.8679561Z Successfully setup CPython (3.7.13)
+2022-06-09T14:03:21.8836841Z ##[group]Run python -m pip install --upgrade pip
+2022-06-09T14:03:21.8837295Z [36;1mpython -m pip install --upgrade pip[0m
+2022-06-09T14:03:21.8837799Z [36;1mpip install "psycopg2>=2.6"[0m
+2022-06-09T14:03:21.8838068Z [36;1mpip install -e .[testing][0m
+2022-06-09T14:03:21.8838350Z [36;1mpip install "Django>=3.2,<3.3"[0m
+2022-06-09T14:03:21.8902710Z shell: /usr/bin/bash -e {0}
+2022-06-09T14:03:21.8902950Z env:
+2022-06-09T14:03:21.8903251Z   pythonLocation: /opt/hostedtoolcache/Python/3.7.13/x64
+2022-06-09T14:03:21.8903609Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.7.13/x64/lib
+2022-06-09T14:03:21.8903884Z ##[endgroup]
+2022-06-09T14:03:25.4982190Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (22.1.2)
+2022-06-09T14:03:27.5470133Z Collecting psycopg2>=2.6
+2022-06-09T14:03:27.5720133Z   Downloading psycopg2-2.9.3.tar.gz (380 kB)
+2022-06-09T14:03:27.5874111Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 380.6/380.6 kB 39.7 MB/s eta 0:00:00
+2022-06-09T14:03:27.6667117Z   Preparing metadata (setup.py): started
+2022-06-09T14:03:29.1316622Z   Preparing metadata (setup.py): finished with status 'done'
+2022-06-09T14:03:29.1360733Z Using legacy 'setup.py install' for psycopg2, since package 'wheel' is not installed.
+2022-06-09T14:03:29.1661328Z Installing collected packages: psycopg2
+2022-06-09T14:03:29.1684190Z   Running setup.py install for psycopg2: started
+2022-06-09T14:03:38.3793263Z   Running setup.py install for psycopg2: finished with status 'done'
+2022-06-09T14:03:38.3845959Z Successfully installed psycopg2-2.9.3
+2022-06-09T14:03:39.3605156Z Obtaining file:///home/runner/work/wagtail/wagtail
+2022-06-09T14:03:39.3617478Z   Preparing metadata (setup.py): started
+2022-06-09T14:03:39.8795110Z   Preparing metadata (setup.py): finished with status 'done'
+2022-06-09T14:03:40.1210637Z Collecting Django<4.1,>=3.2
+2022-06-09T14:03:40.1448057Z   Downloading Django-3.2.13-py3-none-any.whl (7.9 MB)
+2022-06-09T14:03:40.2635327Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.9/7.9 MB 69.2 MB/s eta 0:00:00
+2022-06-09T14:03:40.3496427Z Collecting django-modelcluster<7.0,>=6.0
+2022-06-09T14:03:40.3549834Z   Downloading django_modelcluster-6.0-py2.py3-none-any.whl (26 kB)
+2022-06-09T14:03:40.3748597Z Collecting django-permissionedforms<1.0,>=0.1
+2022-06-09T14:03:40.4043015Z   Downloading django_permissionedforms-0.1-py2.py3-none-any.whl (5.7 kB)
+2022-06-09T14:03:40.4519560Z Collecting django-taggit<4.0,>=2.0
+2022-06-09T14:03:40.4632714Z   Downloading django_taggit-3.0.0-py3-none-any.whl (59 kB)
+2022-06-09T14:03:40.4694474Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.9/59.9 kB 19.3 MB/s eta 0:00:00
+2022-06-09T14:03:40.4918008Z Collecting django-treebeard<5.0,>=4.5.1
+2022-06-09T14:03:40.5014022Z   Downloading django_treebeard-4.5.1-py3-none-any.whl (103 kB)
+2022-06-09T14:03:40.5080951Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.8/103.8 kB 27.6 MB/s eta 0:00:00
+2022-06-09T14:03:40.5754636Z Collecting djangorestframework<4.0,>=3.11.1
+2022-06-09T14:03:40.5830477Z   Downloading djangorestframework-3.13.1-py3-none-any.whl (958 kB)
+2022-06-09T14:03:40.6014674Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 958.3/958.3 kB 62.8 MB/s eta 0:00:00
+2022-06-09T14:03:40.6364227Z Collecting django-filter<22,>=2.2
+2022-06-09T14:03:40.6422804Z   Downloading django_filter-21.1-py3-none-any.whl (81 kB)
+2022-06-09T14:03:40.6489368Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.4/81.4 kB 18.8 MB/s eta 0:00:00
+2022-06-09T14:03:40.6795300Z Collecting draftjs_exporter<3.0,>=2.1.5
+2022-06-09T14:03:40.6928111Z   Downloading draftjs_exporter-2.1.7-py3-none-any.whl (43 kB)
+2022-06-09T14:03:40.6982142Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.7/43.7 kB 13.8 MB/s eta 0:00:00
+2022-06-09T14:03:41.1062864Z Collecting Pillow<10.0.0,>=4.0.0
+2022-06-09T14:03:41.1171437Z   Downloading Pillow-9.1.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.1 MB)
+2022-06-09T14:03:41.1637598Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 73.0 MB/s eta 0:00:00
+2022-06-09T14:03:41.2079339Z Collecting beautifulsoup4<4.10,>=4.8
+2022-06-09T14:03:41.2133928Z   Downloading beautifulsoup4-4.9.3-py3-none-any.whl (115 kB)
+2022-06-09T14:03:41.2204497Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 115.8/115.8 kB 27.7 MB/s eta 0:00:00
+2022-06-09T14:03:41.2461455Z Collecting html5lib<2,>=0.999
+2022-06-09T14:03:41.2573675Z   Downloading html5lib-1.1-py2.py3-none-any.whl (112 kB)
+2022-06-09T14:03:41.2830561Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 112.2/112.2 kB 24.8 MB/s eta 0:00:00
+2022-06-09T14:03:41.3057869Z Collecting Willow<1.5,>=1.4
+2022-06-09T14:03:41.3124472Z   Downloading Willow-1.4.1-py2.py3-none-any.whl (106 kB)
+2022-06-09T14:03:41.3233973Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 106.9/106.9 kB 28.2 MB/s eta 0:00:00
+2022-06-09T14:03:41.3955857Z Collecting requests<3.0,>=2.11.1
+2022-06-09T14:03:41.4018474Z   Downloading requests-2.27.1-py2.py3-none-any.whl (63 kB)
+2022-06-09T14:03:41.4076611Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.1/63.1 kB 20.1 MB/s eta 0:00:00
+2022-06-09T14:03:41.4264032Z Collecting l18n>=2018.5
+2022-06-09T14:03:41.4326010Z   Downloading l18n-2021.3-py3-none-any.whl (51 kB)
+2022-06-09T14:03:41.4390435Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.5/51.5 kB 11.9 MB/s eta 0:00:00
+2022-06-09T14:03:41.5063548Z Collecting xlsxwriter<4.0,>=1.2.8
+2022-06-09T14:03:41.5119755Z   Downloading XlsxWriter-3.0.3-py3-none-any.whl (149 kB)
+2022-06-09T14:03:41.5205257Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 150.0/150.0 kB 26.6 MB/s eta 0:00:00
+2022-06-09T14:03:41.5546653Z Collecting tablib[xls,xlsx]>=0.14.0
+2022-06-09T14:03:41.5632482Z   Downloading tablib-3.2.1-py3-none-any.whl (48 kB)
+2022-06-09T14:03:41.5693194Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.7/48.7 kB 13.3 MB/s eta 0:00:00
+2022-06-09T14:03:41.5931257Z Collecting anyascii>=0.1.5
+2022-06-09T14:03:41.6102957Z   Downloading anyascii-0.3.1-py3-none-any.whl (287 kB)
+2022-06-09T14:03:41.6203084Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 287.5/287.5 kB 41.6 MB/s eta 0:00:00
+2022-06-09T14:03:41.6435843Z Collecting telepath<1,>=0.1.1
+2022-06-09T14:03:41.6519057Z   Downloading telepath-0.2-py35-none-any.whl (10 kB)
+2022-06-09T14:03:41.6873535Z Collecting python-dateutil>=2.7
+2022-06-09T14:03:41.6932643Z   Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+2022-06-09T14:03:41.7018057Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 48.7 MB/s eta 0:00:00
+2022-06-09T14:03:41.8124689Z Collecting pytz>=2014.7
+2022-06-09T14:03:41.8238782Z   Downloading pytz-2022.1-py2.py3-none-any.whl (503 kB)
+2022-06-09T14:03:41.8361107Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 503.5/503.5 kB 58.5 MB/s eta 0:00:00
+2022-06-09T14:03:41.9389839Z Collecting elasticsearch<6.0,>=5.0
+2022-06-09T14:03:41.9451666Z   Downloading elasticsearch-5.5.3-py2.py3-none-any.whl (119 kB)
+2022-06-09T14:03:41.9519686Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 119.3/119.3 kB 30.0 MB/s eta 0:00:00
+2022-06-09T14:03:41.9882172Z Collecting Jinja2<3.2,>=3.0
+2022-06-09T14:03:41.9936834Z   Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+2022-06-09T14:03:42.0005740Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 33.6 MB/s eta 0:00:00
+2022-06-09T14:03:42.6439298Z Collecting boto3<1.17,>=1.16
+2022-06-09T14:03:42.6508258Z   Downloading boto3-1.16.63-py2.py3-none-any.whl (130 kB)
+2022-06-09T14:03:42.6593762Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.3/130.3 kB 25.0 MB/s eta 0:00:00
+2022-06-09T14:03:42.6969106Z Collecting freezegun>=0.3.8
+2022-06-09T14:03:42.7114846Z   Downloading freezegun-1.2.1-py3-none-any.whl (16 kB)
+2022-06-09T14:03:42.7609261Z Collecting openpyxl>=2.6.4
+2022-06-09T14:03:42.7664962Z   Downloading openpyxl-3.0.10-py2.py3-none-any.whl (242 kB)
+2022-06-09T14:03:42.7770372Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.1/242.1 kB 34.6 MB/s eta 0:00:00
+2022-06-09T14:03:42.8245350Z Collecting azure-mgmt-cdn<6.0,>=5.1
+2022-06-09T14:03:42.8307013Z   Downloading azure_mgmt_cdn-5.2.0-py2.py3-none-any.whl (86 kB)
+2022-06-09T14:03:42.8377618Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.9/86.9 kB 19.9 MB/s eta 0:00:00
+2022-06-09T14:03:42.8579913Z Collecting azure-mgmt-frontdoor<0.4,>=0.3
+2022-06-09T14:03:42.8635379Z   Downloading azure_mgmt_frontdoor-0.3.0-py2.py3-none-any.whl (65 kB)
+2022-06-09T14:03:42.8693441Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.4/65.4 kB 19.4 MB/s eta 0:00:00
+2022-06-09T14:03:42.9013725Z Collecting django-pattern-library<0.8,>=0.7
+2022-06-09T14:03:42.9074679Z   Downloading django_pattern_library-0.7.0-py3-none-any.whl (32 kB)
+2022-06-09T14:03:43.3826300Z Collecting coverage>=3.7.0
+2022-06-09T14:03:43.3936777Z   Downloading coverage-6.4.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (208 kB)
+2022-06-09T14:03:43.4026404Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.0/209.0 kB 36.8 MB/s eta 0:00:00
+2022-06-09T14:03:43.4502463Z Collecting black==22.3.0
+2022-06-09T14:03:43.4553293Z   Downloading black-22.3.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.4 MB)
+2022-06-09T14:03:43.4771745Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 74.0 MB/s eta 0:00:00
+2022-06-09T14:03:43.5428726Z Collecting flake8>=3.6.0
+2022-06-09T14:03:43.5487020Z   Downloading flake8-4.0.1-py2.py3-none-any.whl (64 kB)
+2022-06-09T14:03:43.5545913Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.1/64.1 kB 19.1 MB/s eta 0:00:00
+2022-06-09T14:03:43.6399231Z Collecting isort==5.6.4
+2022-06-09T14:03:43.6459763Z   Downloading isort-5.6.4-py3-none-any.whl (98 kB)
+2022-06-09T14:03:43.6537049Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.9/98.9 kB 19.5 MB/s eta 0:00:00
+2022-06-09T14:03:43.6710559Z Collecting flake8-blind-except==0.1.1
+2022-06-09T14:03:43.6764941Z   Downloading flake8-blind-except-0.1.1.tar.gz (2.5 kB)
+2022-06-09T14:03:43.6838995Z   Preparing metadata (setup.py): started
+2022-06-09T14:03:43.8914129Z   Preparing metadata (setup.py): finished with status 'done'
+2022-06-09T14:03:43.9298360Z Collecting flake8-comprehensions==3.8.0
+2022-06-09T14:03:43.9354857Z   Downloading flake8_comprehensions-3.8.0-py3-none-any.whl (6.6 kB)
+2022-06-09T14:03:43.9597306Z Collecting flake8-print==2.0.2
+2022-06-09T14:03:43.9653872Z   Downloading flake8-print-2.0.2.tar.gz (2.8 kB)
+2022-06-09T14:03:43.9718556Z   Preparing metadata (setup.py): started
+2022-06-09T14:03:44.1838441Z   Preparing metadata (setup.py): finished with status 'done'
+2022-06-09T14:03:44.2232682Z Collecting doc8==0.8.1
+2022-06-09T14:03:44.2290375Z   Downloading doc8-0.8.1-py2.py3-none-any.whl (25 kB)
+2022-06-09T14:03:44.2514423Z Collecting flake8-assertive==2.0.0
+2022-06-09T14:03:44.2727098Z   Downloading flake8_assertive-2.0.0-py3-none-any.whl (8.3 kB)
+2022-06-09T14:03:44.2952032Z Collecting curlylint==0.13.1
+2022-06-09T14:03:44.3008158Z   Downloading curlylint-0.13.1-py3-none-any.whl (51 kB)
+2022-06-09T14:03:44.3070331Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.0/52.0 kB 16.5 MB/s eta 0:00:00
+2022-06-09T14:03:44.3272788Z Collecting djhtml==1.4.13
+2022-06-09T14:03:44.3324680Z   Downloading djhtml-1.4.13.tar.gz (24 kB)
+2022-06-09T14:03:46.2583348Z   Installing build dependencies: started
+2022-06-09T14:03:49.2043157Z   Installing build dependencies: finished with status 'done'
+2022-06-09T14:03:49.2086916Z   Getting requirements to build wheel: started
+2022-06-09T14:03:50.8936735Z   Getting requirements to build wheel: finished with status 'done'
+2022-06-09T14:03:51.1500618Z   Installing backend dependencies: started
+2022-06-09T14:03:53.1556727Z   Installing backend dependencies: finished with status 'done'
+2022-06-09T14:03:53.1606317Z   Preparing metadata (pyproject.toml): started
+2022-06-09T14:03:54.9084615Z   Preparing metadata (pyproject.toml): finished with status 'done'
+2022-06-09T14:03:54.9524537Z Collecting polib<2.0,>=1.1
+2022-06-09T14:03:54.9582278Z   Downloading polib-1.1.1-py2.py3-none-any.whl (20 kB)
+2022-06-09T14:03:55.0152923Z Collecting platformdirs>=2
+2022-06-09T14:03:55.0265559Z   Downloading platformdirs-2.5.2-py3-none-any.whl (14 kB)
+2022-06-09T14:03:55.0527709Z Collecting mypy-extensions>=0.4.3
+2022-06-09T14:03:55.0610511Z   Downloading mypy_extensions-0.4.3-py2.py3-none-any.whl (4.5 kB)
+2022-06-09T14:03:55.0829620Z Collecting pathspec>=0.9.0
+2022-06-09T14:03:55.0878894Z   Downloading pathspec-0.9.0-py2.py3-none-any.whl (31 kB)
+2022-06-09T14:03:55.1198093Z Collecting typing-extensions>=3.10.0.0
+2022-06-09T14:03:55.1246475Z   Downloading typing_extensions-4.2.0-py3-none-any.whl (24 kB)
+2022-06-09T14:03:55.1580853Z Collecting tomli>=1.1.0
+2022-06-09T14:03:55.1628297Z   Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+2022-06-09T14:03:55.2734092Z Collecting typed-ast>=1.4.2
+2022-06-09T14:03:55.2792648Z   Downloading typed_ast-1.5.4-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (843 kB)
+2022-06-09T14:03:55.2966302Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 843.7/843.7 kB 65.3 MB/s eta 0:00:00
+2022-06-09T14:03:55.3386234Z Collecting click>=8.0.0
+2022-06-09T14:03:55.3435691Z   Downloading click-8.1.3-py3-none-any.whl (96 kB)
+2022-06-09T14:03:55.3495365Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 26.6 MB/s eta 0:00:00
+2022-06-09T14:03:55.3799216Z Collecting parsy==1.1.0
+2022-06-09T14:03:55.3852313Z   Downloading parsy-1.1.0-py3-none-any.whl (6.9 kB)
+2022-06-09T14:03:55.4197752Z Collecting attrs>=17.2.0
+2022-06-09T14:03:55.4292479Z   Downloading attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+2022-06-09T14:03:55.4345543Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.6/60.6 kB 19.5 MB/s eta 0:00:00
+2022-06-09T14:03:55.4609565Z Collecting toml>=0.9.4
+2022-06-09T14:03:55.4657455Z   Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+2022-06-09T14:03:55.5302067Z Collecting Pygments
+2022-06-09T14:03:55.5657791Z   Downloading Pygments-2.12.0-py3-none-any.whl (1.1 MB)
+2022-06-09T14:03:55.5881776Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 56.2 MB/s eta 0:00:00
+2022-06-09T14:03:55.6218948Z Collecting six
+2022-06-09T14:03:55.6264776Z   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+2022-06-09T14:03:55.6735346Z Collecting stevedore
+2022-06-09T14:03:55.6783078Z   Downloading stevedore-3.5.0-py3-none-any.whl (49 kB)
+2022-06-09T14:03:55.6845682Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.7/49.7 kB 12.5 MB/s eta 0:00:00
+2022-06-09T14:03:55.7050032Z Collecting chardet
+2022-06-09T14:03:55.7105210Z   Downloading chardet-4.0.0-py2.py3-none-any.whl (178 kB)
+2022-06-09T14:03:55.7185074Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.7/178.7 kB 38.0 MB/s eta 0:00:00
+2022-06-09T14:03:55.7509792Z Collecting restructuredtext-lint>=0.7
+2022-06-09T14:03:55.7561896Z   Downloading restructuredtext_lint-1.4.0.tar.gz (16 kB)
+2022-06-09T14:03:55.7724845Z   Preparing metadata (setup.py): started
+2022-06-09T14:03:55.9802785Z   Preparing metadata (setup.py): finished with status 'done'
+2022-06-09T14:03:56.0175995Z Collecting docutils
+2022-06-09T14:03:56.0226579Z   Downloading docutils-0.18.1-py2.py3-none-any.whl (570 kB)
+2022-06-09T14:03:56.0355117Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 570.0/570.0 kB 61.1 MB/s eta 0:00:00
+2022-06-09T14:03:56.0676339Z Requirement already satisfied: setuptools in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (from flake8-blind-except==0.1.1->wagtail==4.0a0) (47.1.0)
+2022-06-09T14:03:56.1858776Z Collecting importlib-metadata
+2022-06-09T14:03:56.1964216Z   Downloading importlib_metadata-4.11.4-py3-none-any.whl (18 kB)
+2022-06-09T14:03:56.2616681Z Collecting azure-common~=1.1
+2022-06-09T14:03:56.2669605Z   Downloading azure_common-1.1.28-py2.py3-none-any.whl (14 kB)
+2022-06-09T14:03:56.3218700Z Collecting msrest>=0.5.0
+2022-06-09T14:03:56.3265456Z   Downloading msrest-0.7.0-py2.py3-none-any.whl (85 kB)
+2022-06-09T14:03:56.3326717Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.4/85.4 kB 24.6 MB/s eta 0:00:00
+2022-06-09T14:03:56.3767997Z Collecting msrestazure<2.0.0,>=0.4.32
+2022-06-09T14:03:56.3949494Z   Downloading msrestazure-0.6.4-py2.py3-none-any.whl (40 kB)
+2022-06-09T14:03:56.4003257Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 kB 12.6 MB/s eta 0:00:00
+2022-06-09T14:03:56.4950068Z Collecting soupsieve>1.2
+2022-06-09T14:03:56.5011760Z   Downloading soupsieve-2.3.2.post1-py3-none-any.whl (37 kB)
+2022-06-09T14:03:56.5338382Z Collecting jmespath<1.0.0,>=0.7.1
+2022-06-09T14:03:56.5386435Z   Downloading jmespath-0.10.0-py2.py3-none-any.whl (24 kB)
+2022-06-09T14:03:56.5727367Z Collecting s3transfer<0.4.0,>=0.3.0
+2022-06-09T14:03:56.5806813Z   Downloading s3transfer-0.3.7-py2.py3-none-any.whl (73 kB)
+2022-06-09T14:03:56.5876132Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.4/73.4 kB 17.8 MB/s eta 0:00:00
+2022-06-09T14:03:57.3353569Z Collecting botocore<1.20.0,>=1.19.63
+2022-06-09T14:03:57.3411619Z   Downloading botocore-1.19.63-py2.py3-none-any.whl (7.2 MB)
+2022-06-09T14:03:57.4322423Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 82.3 MB/s eta 0:00:00
+2022-06-09T14:03:57.5188430Z Collecting asgiref<4,>=3.3.2
+2022-06-09T14:03:57.5236569Z   Downloading asgiref-3.5.2-py3-none-any.whl (22 kB)
+2022-06-09T14:03:57.5523615Z Collecting sqlparse>=0.2.2
+2022-06-09T14:03:57.5605568Z   Downloading sqlparse-0.4.2-py3-none-any.whl (42 kB)
+2022-06-09T14:03:57.5660606Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.3/42.3 kB 13.3 MB/s eta 0:00:00
+2022-06-09T14:03:57.6790601Z Collecting Markdown<4.0,>=3.1
+2022-06-09T14:03:57.6880587Z   Downloading Markdown-3.3.7-py3-none-any.whl (97 kB)
+2022-06-09T14:03:57.6942811Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.8/97.8 kB 28.8 MB/s eta 0:00:00
+2022-06-09T14:03:57.7769072Z Collecting PyYAML<7.0,>=5.1
+2022-06-09T14:03:57.7852200Z   Downloading PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+2022-06-09T14:03:57.7983519Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 596.3/596.3 kB 60.3 MB/s eta 0:00:00
+2022-06-09T14:03:57.9395392Z Collecting urllib3>=1.21.1
+2022-06-09T14:03:57.9451428Z   Downloading urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+2022-06-09T14:03:57.9533247Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.0/139.0 kB 28.0 MB/s eta 0:00:00
+2022-06-09T14:03:58.0002081Z Collecting pycodestyle<2.9.0,>=2.8.0
+2022-06-09T14:03:58.0055187Z   Downloading pycodestyle-2.8.0-py2.py3-none-any.whl (42 kB)
+2022-06-09T14:03:58.0138601Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.1/42.1 kB 5.8 MB/s eta 0:00:00
+2022-06-09T14:03:58.0362165Z Collecting importlib-metadata
+2022-06-09T14:03:58.0417930Z   Downloading importlib_metadata-4.2.0-py3-none-any.whl (16 kB)
+2022-06-09T14:03:58.0780864Z Collecting pyflakes<2.5.0,>=2.4.0
+2022-06-09T14:03:58.0857757Z   Downloading pyflakes-2.4.0-py2.py3-none-any.whl (69 kB)
+2022-06-09T14:03:58.0928204Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.7/69.7 kB 15.8 MB/s eta 0:00:00
+2022-06-09T14:03:58.1146984Z Collecting mccabe<0.7.0,>=0.6.0
+2022-06-09T14:03:58.1196429Z   Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+2022-06-09T14:03:58.1632167Z Collecting webencodings
+2022-06-09T14:03:58.1681562Z   Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+2022-06-09T14:03:58.2854749Z Collecting MarkupSafe>=2.0
+2022-06-09T14:03:58.2912901Z   Downloading MarkupSafe-2.1.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+2022-06-09T14:03:58.3471167Z Collecting et-xmlfile
+2022-06-09T14:03:58.3519520Z   Downloading et_xmlfile-1.1.0-py3-none-any.whl (4.7 kB)
+2022-06-09T14:03:58.4725298Z Collecting charset-normalizer~=2.0.0
+2022-06-09T14:03:58.4778092Z   Downloading charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+2022-06-09T14:03:58.5177239Z Collecting certifi>=2017.4.17
+2022-06-09T14:03:58.5227071Z   Downloading certifi-2022.5.18.1-py3-none-any.whl (155 kB)
+2022-06-09T14:03:58.5300946Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.2/155.2 kB 36.5 MB/s eta 0:00:00
+2022-06-09T14:03:58.5594975Z Collecting idna<4,>=2.5
+2022-06-09T14:03:58.5642551Z   Downloading idna-3.3-py3-none-any.whl (61 kB)
+2022-06-09T14:03:58.5698812Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 20.5 MB/s eta 0:00:00
+2022-06-09T14:03:58.6457968Z Collecting xlwt
+2022-06-09T14:03:58.6508862Z   Downloading xlwt-1.3.0-py2.py3-none-any.whl (99 kB)
+2022-06-09T14:03:58.6581292Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0/100.0 kB 24.6 MB/s eta 0:00:00
+2022-06-09T14:03:58.6848776Z Collecting xlrd
+2022-06-09T14:03:58.6902903Z   Downloading xlrd-2.0.1-py2.py3-none-any.whl (96 kB)
+2022-06-09T14:03:58.6965447Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.5/96.5 kB 25.7 MB/s eta 0:00:00
+2022-06-09T14:03:59.0040782Z Collecting zipp>=0.5
+2022-06-09T14:03:59.0096315Z   Downloading zipp-3.8.0-py3-none-any.whl (5.4 kB)
+2022-06-09T14:03:59.0636641Z Collecting Markdown<4.0,>=3.1
+2022-06-09T14:03:59.0752334Z   Downloading Markdown-3.3.6-py3-none-any.whl (97 kB)
+2022-06-09T14:03:59.0818589Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.8/97.8 kB 25.0 MB/s eta 0:00:00
+2022-06-09T14:03:59.1034920Z   Downloading Markdown-3.3.4-py3-none-any.whl (97 kB)
+2022-06-09T14:03:59.1097788Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.6/97.6 kB 25.7 MB/s eta 0:00:00
+2022-06-09T14:03:59.1841770Z Collecting requests-oauthlib>=0.5.0
+2022-06-09T14:03:59.1892057Z   Downloading requests_oauthlib-1.3.1-py2.py3-none-any.whl (23 kB)
+2022-06-09T14:03:59.2381160Z Collecting isodate>=0.6.0
+2022-06-09T14:03:59.2433125Z   Downloading isodate-0.6.1-py2.py3-none-any.whl (41 kB)
+2022-06-09T14:03:59.2499994Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.7/41.7 kB 13.0 MB/s eta 0:00:00
+2022-06-09T14:03:59.2856441Z Collecting azure-core>=1.24.0
+2022-06-09T14:03:59.2909872Z   Downloading azure_core-1.24.1-py3-none-any.whl (178 kB)
+2022-06-09T14:03:59.2996230Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.6/178.6 kB 32.2 MB/s eta 0:00:00
+2022-06-09T14:03:59.3418256Z Collecting adal<2.0.0,>=0.6.0
+2022-06-09T14:03:59.3468036Z   Downloading adal-1.2.7-py2.py3-none-any.whl (55 kB)
+2022-06-09T14:03:59.3522673Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.5/55.5 kB 18.2 MB/s eta 0:00:00
+2022-06-09T14:03:59.9945774Z Collecting pbr!=2.1.0,>=2.0.0
+2022-06-09T14:04:00.0037951Z   Downloading pbr-5.9.0-py2.py3-none-any.whl (112 kB)
+2022-06-09T14:04:00.0109700Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 112.3/112.3 kB 25.8 MB/s eta 0:00:00
+2022-06-09T14:04:00.5020578Z Collecting cryptography>=1.1.0
+2022-06-09T14:04:00.5079067Z   Downloading cryptography-37.0.2-cp36-abi3-manylinux_2_24_x86_64.whl (4.0 MB)
+2022-06-09T14:04:00.5653459Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/4.0 MB 74.6 MB/s eta 0:00:00
+2022-06-09T14:04:00.6201708Z Collecting PyJWT<3,>=1.0.0
+2022-06-09T14:04:00.6249191Z   Downloading PyJWT-2.4.0-py3-none-any.whl (18 kB)
+2022-06-09T14:04:01.2233049Z Collecting oauthlib>=3.0.0
+2022-06-09T14:04:01.2287698Z   Downloading oauthlib-3.2.0-py3-none-any.whl (151 kB)
+2022-06-09T14:04:01.2362650Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.5/151.5 kB 36.6 MB/s eta 0:00:00
+2022-06-09T14:04:01.6260415Z Collecting cffi>=1.12
+2022-06-09T14:04:01.6336308Z   Downloading cffi-1.15.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (427 kB)
+2022-06-09T14:04:01.6449886Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 427.1/427.1 kB 53.7 MB/s eta 0:00:00
+2022-06-09T14:04:01.7544434Z Collecting pycparser
+2022-06-09T14:04:01.7610614Z   Downloading pycparser-2.21-py2.py3-none-any.whl (118 kB)
+2022-06-09T14:04:01.7687827Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.7/118.7 kB 25.8 MB/s eta 0:00:00
+2022-06-09T14:04:01.8462889Z Using legacy 'setup.py install' for flake8-blind-except, since package 'wheel' is not installed.
+2022-06-09T14:04:01.8466712Z Using legacy 'setup.py install' for flake8-print, since package 'wheel' is not installed.
+2022-06-09T14:04:01.8474888Z Using legacy 'setup.py install' for restructuredtext-lint, since package 'wheel' is not installed.
+2022-06-09T14:04:01.8478831Z Building wheels for collected packages: djhtml
+2022-06-09T14:04:01.8492943Z   Building wheel for djhtml (pyproject.toml): started
+2022-06-09T14:04:04.0628091Z   Building wheel for djhtml (pyproject.toml): finished with status 'done'
+2022-06-09T14:04:04.0645694Z   Created wheel for djhtml: filename=djhtml-1.4.13-py3-none-any.whl size=22763 sha256=53c487861c561189c6b6d0441a89641166944c3865e2f26b6d9d73f040d8f27d
+2022-06-09T14:04:04.0651672Z   Stored in directory: /home/runner/.cache/pip/wheels/c1/71/5e/c2a6cf87fd8692a4634734d091c919bff4c2134304a6f8c6fe
+2022-06-09T14:04:04.0688982Z Successfully built djhtml
+2022-06-09T14:04:04.6909523Z Installing collected packages: xlwt, webencodings, pytz, polib, parsy, mypy-extensions, mccabe, draftjs_exporter, djhtml, azure-common, zipp, xlsxwriter, xlrd, Willow, urllib3, typing-extensions, typed-ast, tomli, toml, telepath, tablib, sqlparse, soupsieve, six, PyYAML, PyJWT, Pygments, pyflakes, pycparser, pycodestyle, platformdirs, Pillow, pbr, pathspec, oauthlib, MarkupSafe, jmespath, isort, idna, flake8-blind-except, et-xmlfile, docutils, coverage, charset-normalizer, chardet, certifi, attrs, anyascii, restructuredtext-lint, requests, python-dateutil, openpyxl, l18n, Jinja2, isodate, importlib-metadata, html5lib, elasticsearch, cffi, beautifulsoup4, asgiref, stevedore, requests-oauthlib, Markdown, freezegun, flake8, Django, cryptography, click, botocore, azure-core, s3transfer, msrest, flake8-print, flake8-comprehensions, flake8-assertive, doc8, djangorestframework, django-treebeard, django-taggit, django-permissionedforms, django-pattern-library, django-modelcluster, django-filter, curlylint, black, adal, wagtail, msrestazure, boto3, azure-mgmt-frontdoor, azure-mgmt-cdn
+2022-06-09T14:04:07.3013365Z   Running setup.py install for flake8-blind-except: started
+2022-06-09T14:04:07.5571987Z   Running setup.py install for flake8-blind-except: finished with status 'done'
+2022-06-09T14:04:08.4158548Z   Running setup.py install for restructuredtext-lint: started
+2022-06-09T14:04:08.7044080Z   Running setup.py install for restructuredtext-lint: finished with status 'done'
+2022-06-09T14:04:13.1592056Z   Running setup.py install for flake8-print: started
+2022-06-09T14:04:13.4454969Z   Running setup.py install for flake8-print: finished with status 'done'
+2022-06-09T14:04:14.1244372Z   Running setup.py develop for wagtail
+2022-06-09T14:04:15.2915310Z Successfully installed Django-3.2.13 Jinja2-3.1.2 Markdown-3.3.4 MarkupSafe-2.1.1 Pillow-9.1.1 PyJWT-2.4.0 PyYAML-6.0 Pygments-2.12.0 Willow-1.4.1 adal-1.2.7 anyascii-0.3.1 asgiref-3.5.2 attrs-21.4.0 azure-common-1.1.28 azure-core-1.24.1 azure-mgmt-cdn-5.2.0 azure-mgmt-frontdoor-0.3.0 beautifulsoup4-4.9.3 black-22.3.0 boto3-1.16.63 botocore-1.19.63 certifi-2022.5.18.1 cffi-1.15.0 chardet-4.0.0 charset-normalizer-2.0.12 click-8.1.3 coverage-6.4.1 cryptography-37.0.2 curlylint-0.13.1 django-filter-21.1 django-modelcluster-6.0 django-pattern-library-0.7.0 django-permissionedforms-0.1 django-taggit-3.0.0 django-treebeard-4.5.1 djangorestframework-3.13.1 djhtml-1.4.13 doc8-0.8.1 docutils-0.18.1 draftjs_exporter-2.1.7 elasticsearch-5.5.3 et-xmlfile-1.1.0 flake8-4.0.1 flake8-assertive-2.0.0 flake8-blind-except-0.1.1 flake8-comprehensions-3.8.0 flake8-print-2.0.2 freezegun-1.2.1 html5lib-1.1 idna-3.3 importlib-metadata-4.2.0 isodate-0.6.1 isort-5.6.4 jmespath-0.10.0 l18n-2021.3 mccabe-0.6.1 msrest-0.7.0 msrestazure-0.6.4 mypy-extensions-0.4.3 oauthlib-3.2.0 openpyxl-3.0.10 parsy-1.1.0 pathspec-0.9.0 pbr-5.9.0 platformdirs-2.5.2 polib-1.1.1 pycodestyle-2.8.0 pycparser-2.21 pyflakes-2.4.0 python-dateutil-2.8.2 pytz-2022.1 requests-2.27.1 requests-oauthlib-1.3.1 restructuredtext-lint-1.4.0 s3transfer-0.3.7 six-1.16.0 soupsieve-2.3.2.post1 sqlparse-0.4.2 stevedore-3.5.0 tablib-3.2.1 telepath-0.2 toml-0.10.2 tomli-2.0.1 typed-ast-1.5.4 typing-extensions-4.2.0 urllib3-1.26.9 wagtail-4.0a0 webencodings-0.5.1 xlrd-2.0.1 xlsxwriter-3.0.3 xlwt-1.3.0 zipp-3.8.0
+2022-06-09T14:04:16.3279396Z Requirement already satisfied: Django<3.3,>=3.2 in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (3.2.13)
+2022-06-09T14:04:16.3362398Z Requirement already satisfied: pytz in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (from Django<3.3,>=3.2) (2022.1)
+2022-06-09T14:04:16.3374593Z Requirement already satisfied: asgiref<4,>=3.3.2 in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (from Django<3.3,>=3.2) (3.5.2)
+2022-06-09T14:04:16.3385646Z Requirement already satisfied: sqlparse>=0.2.2 in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (from Django<3.3,>=3.2) (0.4.2)
+2022-06-09T14:04:16.3465970Z Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages (from asgiref<4,>=3.3.2->Django<3.3,>=3.2) (4.2.0)
+2022-06-09T14:04:17.0458044Z ##[group]Run ./runtests.py
+2022-06-09T14:04:17.0458346Z [36;1m./runtests.py[0m
+2022-06-09T14:04:17.0518269Z shell: /usr/bin/bash -e {0}
+2022-06-09T14:04:17.0518508Z env:
+2022-06-09T14:04:17.0518795Z   pythonLocation: /opt/hostedtoolcache/Python/3.7.13/x64
+2022-06-09T14:04:17.0519150Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.7.13/x64/lib
+2022-06-09T14:04:17.0519496Z   DATABASE_ENGINE: django.db.backends.postgresql
+2022-06-09T14:04:17.0519786Z   DATABASE_HOST: localhost
+2022-06-09T14:04:17.0520026Z   DATABASE_USER: postgres
+2022-06-09T14:04:17.0520263Z   DATABASE_PASSWORD: postgres
+2022-06-09T14:04:17.0520510Z   USE_EMAIL_USER_MODEL: 
+2022-06-09T14:04:17.0520740Z   DISABLE_TIMEZONE: 
+2022-06-09T14:04:17.0520948Z ##[endgroup]
+2022-06-09T14:05:09.7904796Z Creating test database for alias 'default'...
+2022-06-09T14:05:11.1734648Z Destroying test database for alias 'default'...
+2022-06-09T14:05:11.1784257Z Traceback (most recent call last):
+2022-06-09T14:05:11.1794159Z   File "./runtests.py", line 102, in <module>
+2022-06-09T14:05:11.1794513Z     runtests()
+2022-06-09T14:05:11.1794853Z   File "./runtests.py", line 93, in runtests
+2022-06-09T14:05:11.1795177Z     execute_from_command_line(argv)
+2022-06-09T14:05:11.1796004Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/__init__.py", line 419, in execute_from_command_line
+2022-06-09T14:05:11.1833644Z     utility.execute()
+2022-06-09T14:05:11.1835461Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/__init__.py", line 413, in execute
+2022-06-09T14:05:11.1846365Z     self.fetch_command(subcommand).run_from_argv(self.argv)
+2022-06-09T14:05:11.1848663Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/commands/test.py", line 23, in run_from_argv
+2022-06-09T14:05:11.1864488Z     super().run_from_argv(argv)
+2022-06-09T14:05:11.1866083Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/base.py", line 354, in run_from_argv
+2022-06-09T14:05:11.1866501Z     self.execute(*args, **cmd_options)
+2022-06-09T14:05:11.1868809Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/base.py", line 398, in execute
+2022-06-09T14:05:11.1869297Z     output = self.handle(*args, **options)
+2022-06-09T14:05:11.1870811Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/commands/test.py", line 55, in handle
+2022-06-09T14:05:11.1871303Z     failures = test_runner.run_tests(test_labels)
+2022-06-09T14:05:11.1872788Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/test/runner.py", line 728, in run_tests
+2022-06-09T14:05:11.1873246Z     self.run_checks(databases)
+2022-06-09T14:05:11.1875524Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/test/runner.py", line 665, in run_checks
+2022-06-09T14:05:11.1876075Z     call_command('check', verbosity=self.verbosity, databases=databases)
+2022-06-09T14:05:11.1877826Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/__init__.py", line 181, in call_command
+2022-06-09T14:05:11.1878244Z     return command.execute(*args, **defaults)
+2022-06-09T14:05:11.1879948Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/base.py", line 398, in execute
+2022-06-09T14:05:11.1880415Z     output = self.handle(*args, **options)
+2022-06-09T14:05:11.1882624Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/commands/check.py", line 69, in handle
+2022-06-09T14:05:11.1883279Z     databases=options['databases'],
+2022-06-09T14:05:11.1884759Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/management/base.py", line 423, in check
+2022-06-09T14:05:11.1885455Z     databases=databases,
+2022-06-09T14:05:11.1887735Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/checks/registry.py", line 76, in run_checks
+2022-06-09T14:05:11.1888201Z     new_errors = check(app_configs=app_configs, databases=databases)
+2022-06-09T14:05:11.1890472Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+2022-06-09T14:05:11.1890870Z     return check_resolver(resolver)
+2022-06-09T14:05:11.1893094Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+2022-06-09T14:05:11.1893555Z     return check_method()
+2022-06-09T14:05:11.1895544Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/urls/resolvers.py", line 416, in check
+2022-06-09T14:05:11.1897024Z     for pattern in self.url_patterns:
+2022-06-09T14:05:11.1898264Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+2022-06-09T14:05:11.1898772Z     res = instance.__dict__[self.name] = self.func(instance)
+2022-06-09T14:05:11.1900864Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/urls/resolvers.py", line 602, in url_patterns
+2022-06-09T14:05:11.1901325Z     patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+2022-06-09T14:05:11.1901935Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+2022-06-09T14:05:11.1904815Z     res = instance.__dict__[self.name] = self.func(instance)
+2022-06-09T14:05:11.1906055Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/django/urls/resolvers.py", line 595, in urlconf_module
+2022-06-09T14:05:11.1906469Z     return import_module(self.urlconf_name)
+2022-06-09T14:05:11.1906882Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/importlib/__init__.py", line 127, in import_module
+2022-06-09T14:05:11.1907296Z     return _bootstrap._gcd_import(name[level:], package, level)
+2022-06-09T14:05:11.1907678Z   File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+2022-06-09T14:05:11.1908065Z   File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+2022-06-09T14:05:11.1908630Z   File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+2022-06-09T14:05:11.1909127Z   File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+2022-06-09T14:05:11.1909620Z   File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+2022-06-09T14:05:11.1910129Z   File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+2022-06-09T14:05:11.1910649Z   File "/home/runner/work/wagtail/wagtail/wagtail/test/urls.py", line 7, in <module>
+2022-06-09T14:05:11.1911122Z     from wagtail.admin import urls as wagtailadmin_urls
+2022-06-09T14:05:11.1911636Z   File "/home/runner/work/wagtail/wagtail/wagtail/admin/urls/__init__.py", line 13, in <module>
+2022-06-09T14:05:11.1912108Z     from wagtail.admin.api import urls as api_urls
+2022-06-09T14:05:11.1912591Z   File "/home/runner/work/wagtail/wagtail/wagtail/admin/api/urls.py", line 11, in <module>
+2022-06-09T14:05:11.1913055Z     for fn in hooks.get_hooks("construct_admin_api"):
+2022-06-09T14:05:11.1913535Z   File "/home/runner/work/wagtail/wagtail/wagtail/hooks.py", line 112, in get_hooks
+2022-06-09T14:05:11.1913942Z     search_for_hooks()
+2022-06-09T14:05:11.1914397Z   File "/home/runner/work/wagtail/wagtail/wagtail/hooks.py", line 106, in search_for_hooks
+2022-06-09T14:05:11.1914836Z     list(get_app_submodules("wagtail_hooks"))
+2022-06-09T14:05:11.1915334Z   File "/home/runner/work/wagtail/wagtail/wagtail/utils/apps.py", line 23, in get_app_submodules
+2022-06-09T14:05:11.1915823Z     yield name, import_module("%s.%s" % (name, submodule_name))
+2022-06-09T14:05:11.1916608Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/importlib/__init__.py", line 127, in import_module
+2022-06-09T14:05:11.1917364Z     return _bootstrap._gcd_import(name[level:], package, level)
+2022-06-09T14:05:11.1917967Z   File "/home/runner/work/wagtail/wagtail/wagtail/test/modeladmintest/wagtail_hooks.py", line 2, in <module>
+2022-06-09T14:05:11.1918570Z     from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
+2022-06-09T14:05:11.1919183Z   File "/home/runner/work/wagtail/wagtail/wagtail/contrib/modeladmin/helpers/__init__.py", line 2, in <module>
+2022-06-09T14:05:11.1919743Z     from .permission import PagePermissionHelper, PermissionHelper  # NOQA
+2022-06-09T14:05:11.1929557Z   File "/home/runner/work/wagtail/wagtail/wagtail/contrib/modeladmin/helpers/permission.py", line 11, in <module>
+2022-06-09T14:05:11.1929973Z     class PermissionHelper:
+2022-06-09T14:05:11.1931712Z   File "/home/runner/work/wagtail/wagtail/wagtail/contrib/modeladmin/helpers/permission.py", line 49, in PermissionHelper
+2022-06-09T14:05:11.1932150Z     @lru_cache
+2022-06-09T14:05:11.1932563Z   File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/functools.py", line 490, in lru_cache
+2022-06-09T14:05:11.1990364Z ##[error]    raise TypeError('Expected maxsize to be an integer or None')
+2022-06-09T14:05:11.2000140Z TypeError: Expected maxsize to be an integer or None
+2022-06-09T14:05:11.5403394Z ##[error]Process completed with exit code 1.
+2022-06-09T14:05:11.5461313Z Post job cleanup.
+2022-06-09T14:05:11.6889790Z [command]/usr/bin/git version
+2022-06-09T14:05:11.6950621Z git version 2.36.1
+2022-06-09T14:05:11.7010002Z Temporarily overriding HOME='/home/runner/work/_temp/dc1fadb9-1ef5-450a-bb66-610e1ba0a975' before making global git config changes
+2022-06-09T14:05:11.7011829Z Adding repository directory to the temporary git global config as a safe directory
+2022-06-09T14:05:11.7017561Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/wagtail/wagtail
+2022-06-09T14:05:11.7065907Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2022-06-09T14:05:11.7108320Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2022-06-09T14:05:11.7391131Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2022-06-09T14:05:11.7421021Z http.https://github.com/.extraheader
+2022-06-09T14:05:11.7434910Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2022-06-09T14:05:11.7473856Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2022-06-09T14:05:11.7924756Z Print service container logs: ff472e5c9f134cb6a39b7517c3008c68_postgres108_c1f1aa
+2022-06-09T14:05:11.7932607Z ##[command]/usr/bin/docker logs --details 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:05:11.8241555Z  
+2022-06-09T14:05:11.8241971Z  The files belonging to this database system will be owned by user "postgres".
+2022-06-09T14:05:11.8242413Z  WARNING: enabling "trust" authentication for local connections
+2022-06-09T14:05:11.8242798Z  You can change this by editing pg_hba.conf or using the option -A, or
+2022-06-09T14:05:11.8243186Z  --auth-local and --auth-host, the next time you run initdb.
+2022-06-09T14:05:11.8243533Z  2022-06-09 14:03:02.464 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2022-06-09T14:05:11.8243894Z  2022-06-09 14:03:02.464 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2022-06-09T14:05:11.8244282Z  2022-06-09 14:03:02.466 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2022-06-09T14:05:11.8244733Z  2022-06-09 14:03:02.479 UTC [51] LOG:  database system was shut down at 2022-06-09 14:03:02 UTC
+2022-06-09T14:05:11.8245098Z  2022-06-09 14:03:02.483 UTC [1] LOG:  database system is ready to accept connections
+2022-06-09T14:05:11.8245749Z  2022-06-09 14:03:10.987 UTC [67] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8246072Z  2022-06-09 14:03:21.092 UTC [78] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8246393Z  2022-06-09 14:03:31.220 UTC [88] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8246692Z  2022-06-09 14:03:41.324 UTC [96] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8247006Z  2022-06-09 14:03:51.443 UTC [104] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8247333Z  2022-06-09 14:04:01.553 UTC [114] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8247646Z  2022-06-09 14:04:11.676 UTC [126] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8247957Z  2022-06-09 14:04:21.797 UTC [142] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8248253Z  2022-06-09 14:04:31.933 UTC [152] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8248826Z  2022-06-09 14:04:42.047 UTC [161] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8249154Z  2022-06-09 14:04:52.190 UTC [170] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8249461Z  2022-06-09 14:05:02.306 UTC [178] FATAL:  role "root" does not exist
+2022-06-09T14:05:11.8249749Z  This user must also own the server process.
+2022-06-09T14:05:11.8250000Z  
+2022-06-09T14:05:11.8250279Z  The database cluster will be initialized with locale "en_US.utf8".
+2022-06-09T14:05:11.8250654Z  The default database encoding has accordingly been set to "UTF8".
+2022-06-09T14:05:11.8251004Z  The default text search configuration will be set to "english".
+2022-06-09T14:05:11.8251284Z  
+2022-06-09T14:05:11.8251510Z  Data page checksums are disabled.
+2022-06-09T14:05:11.8251749Z  
+2022-06-09T14:05:11.8252018Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2022-06-09T14:05:11.8252354Z  creating subdirectories ... ok
+2022-06-09T14:05:11.8252645Z  selecting default max_connections ... 100
+2022-06-09T14:05:11.8252946Z  selecting default shared_buffers ... 128MB
+2022-06-09T14:05:11.8253264Z  selecting dynamic shared memory implementation ... posix
+2022-06-09T14:05:11.8253579Z  creating configuration files ... ok
+2022-06-09T14:05:11.8253862Z  running bootstrap script ... ok
+2022-06-09T14:05:11.8254171Z  performing post-bootstrap initialization ... ok
+2022-06-09T14:05:11.8254537Z  syncing data to disk ... ok
+2022-06-09T14:05:11.8254845Z  
+2022-06-09T14:05:11.8255179Z  Success. You can now start the database server using:
+2022-06-09T14:05:11.8255624Z  
+2022-06-09T14:05:11.8255964Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2022-06-09T14:05:11.8256299Z  
+2022-06-09T14:05:11.8256736Z  waiting for server to start....2022-06-09 14:03:02.260 UTC [42] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2022-06-09T14:05:11.8257454Z  2022-06-09 14:03:02.274 UTC [43] LOG:  database system was shut down at 2022-06-09 14:03:02 UTC
+2022-06-09T14:05:11.8257999Z  2022-06-09 14:03:02.278 UTC [42] LOG:  database system is ready to accept connections
+2022-06-09T14:05:11.8258367Z   done
+2022-06-09T14:05:11.8258603Z  server started
+2022-06-09T14:05:11.8258899Z  
+2022-06-09T14:05:11.8259337Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2022-06-09T14:05:11.8259733Z  
+2022-06-09T14:05:11.8260056Z  waiting for server to shut down...2022-06-09 14:03:02.351 UTC [42] LOG:  received fast shutdown request
+2022-06-09T14:05:11.8260502Z  .2022-06-09 14:03:02.352 UTC [42] LOG:  aborting any active transactions
+2022-06-09T14:05:11.8261136Z  2022-06-09 14:03:02.355 UTC [42] LOG:  worker process: logical replication launcher (PID 49) exited with exit code 1
+2022-06-09T14:05:11.8261641Z  2022-06-09 14:03:02.355 UTC [44] LOG:  shutting down
+2022-06-09T14:05:11.8261984Z  2022-06-09 14:03:02.365 UTC [42] LOG:  database system is shut down
+2022-06-09T14:05:11.8262335Z   done
+2022-06-09T14:05:11.8262642Z  server stopped
+2022-06-09T14:05:11.8262973Z  
+2022-06-09T14:05:11.8263272Z  PostgreSQL init process complete; ready for start up.
+2022-06-09T14:05:11.8263745Z  
+2022-06-09T14:05:11.8291549Z Stop and remove container: ff472e5c9f134cb6a39b7517c3008c68_postgres108_c1f1aa
+2022-06-09T14:05:11.8298523Z ##[command]/usr/bin/docker rm --force 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:05:12.0260938Z 3d2bd9dc786af3592c60d24eeeeb9a1d0a5514c713abd9049aacbd96e6c8a661
+2022-06-09T14:05:12.0295244Z Remove container network: github_network_aa958a0d3d2b452fbb5095b6ffd84ae4
+2022-06-09T14:05:12.0302272Z ##[command]/usr/bin/docker network rm github_network_aa958a0d3d2b452fbb5095b6ffd84ae4
+2022-06-09T14:05:12.1597683Z github_network_aa958a0d3d2b452fbb5095b6ffd84ae4
+2022-06-09T14:05:12.1791648Z Cleaning up orphan processes

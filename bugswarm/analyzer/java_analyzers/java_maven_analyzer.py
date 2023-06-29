@@ -4,10 +4,11 @@ A Mixin for Maven build log analysis.
 
 import re
 
-from ..log_file_analyzer import LogFileAnalyzer
+from ..base_log_analyzer import LogAnalyzerABC
+from ..utils import get_job_lines
 
 
-class JavaMavenAnalyzer(LogFileAnalyzer):
+class JavaMavenAnalyzer(LogAnalyzerABC):
     def __init__(self, primary_language, folds, job_id):
         super().__init__(primary_language, folds, job_id)
         self.reactor_lines = []
@@ -24,6 +25,14 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
         self.extract_err_msg()
         if hasattr(self, 'tests_failed') and len(self.tests_failed) < 1:
             self.extract_failed_tests_from_tests_lines()
+        super().custom_analyze()
+
+    def bool_tests_failed(self):
+        if hasattr(self, 'tests_failed') and self.tests_failed:
+            return True
+        if hasattr(self, 'num_tests_failed') and self.num_tests_failed > 0:
+            return True
+        return False
 
     def extract_tests(self):
         test_section_started = False
@@ -35,7 +44,7 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
         ansi_escape = re.compile(r'\x1B[@-_][0-?]*[ -/]*[@-~]', re.M)
 
         # Possible future improvement: We could even get all executed tests (also the ones which succeed)
-        for line in self.folds[self.OUT_OF_FOLD]['content']:
+        for line in get_job_lines(self.folds):
             line = ansi_escape.sub('', line)
             if line[:7] == '[ERROR]':
                 self.err_lines.append(line[8:])
@@ -206,14 +215,8 @@ class JavaMavenAnalyzer(LogFileAnalyzer):
                 if offending_test is not None:
                     self.tests_failed.append(offending_test)
 
-    def bool_tests_failed(self):
-        if hasattr(self, 'tests_failed') and self.tests_failed:
-            return True
-        if hasattr(self, 'num_tests_failed') and self.num_tests_failed > 0:
-            return True
-        return False
-
     # Remove empty line or useless help line
+
     def clean_err_msg(self):
         self.err_msg = [line for line in self.err_msg if len(line) >= 2 and line != '-> [Help 1]']
 

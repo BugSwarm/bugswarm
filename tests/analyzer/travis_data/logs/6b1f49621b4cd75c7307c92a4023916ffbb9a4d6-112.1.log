@@ -1,0 +1,1953 @@
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: java
+Build id: ''
+Job id: ''
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info[0K
+sed: cannot rename /etc/hosts: Device or resource busy
+sed: cannot rename /etc/hosts: Device or resource busy
+$ cd linkedin/datafu
+$ jdk_switcher use openjdk6
+Switching to OpenJDK6 (java-1.6.0-openjdk-amd64), JAVA_HOME will be set to /usr/lib/jvm/java-6-openjdk-amd64
+$ java -Xmx32m -version
+java version "1.6.0_34"
+OpenJDK Runtime Environment (IcedTea6 1.13.6) (6b34-1.13.6-1ubuntu0.12.04.1)
+OpenJDK 64-Bit Server VM (build 23.25-b01, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.6.0_34
+travis_time:start:12564630[0K$ ant test
+Buildfile: /home/travis/build/linkedin/datafu/build.xml
+
+ivy-jar-download:
+      [get] Getting: http://repo2.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar
+      [get] To: /home/travis/build/linkedin/datafu/ivy/ivy-2.2.0.jar
+
+ivy-taskdef:
+
+ivy-resolve:
+[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: loading settings :: file = /home/travis/build/linkedin/datafu/ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: datafu#datafu;working@f18c628ada95
+[ivy:retrieve] 	confs: [common, tools]
+[ivy:retrieve] 	found org.apache.pig#pig;0.11.1 in ibiblio
+[ivy:retrieve] 	found commons-cli#commons-cli;1.2 in ibiblio
+[ivy:retrieve] 	found xmlenc#xmlenc;0.52 in ibiblio
+[ivy:retrieve] 	found commons-httpclient#commons-httpclient;3.1 in ivyrep
+[ivy:retrieve] 	found commons-logging#commons-logging;1.0.4 in ivyrep
+[ivy:retrieve] 	found commons-codec#commons-codec;1.4 in ibiblio
+[ivy:retrieve] 	found commons-net#commons-net;1.4.1 in ibiblio
+[ivy:retrieve] 	found oro#oro;2.0.8 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#jetty;6.1.26 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#jetty-util;6.1.26 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#servlet-api;2.5-20081211 in ibiblio
+[ivy:retrieve] 	found tomcat#jasper-runtime;5.5.12 in ibiblio
+[ivy:retrieve] 	found tomcat#jasper-compiler;5.5.12 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#jsp-api-2.1;6.1.14 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#servlet-api-2.5;6.1.14 in ibiblio
+[ivy:retrieve] 	found org.mortbay.jetty#jsp-2.1;6.1.14 in ibiblio
+[ivy:retrieve] 	found org.eclipse.jdt#core;3.1.1 in ibiblio
+[ivy:retrieve] 	found ant#ant;1.6.5 in ibiblio
+[ivy:retrieve] 	found commons-el#commons-el;1.0 in ibiblio
+[ivy:retrieve] 	found net.java.dev.jets3t#jets3t;0.7.1 in ibiblio
+[ivy:retrieve] 	found commons-logging#commons-logging;1.1.1 in ibiblio
+[ivy:retrieve] 	found net.sf.kosmosfs#kfs;0.3 in ibiblio
+[ivy:retrieve] 	found junit#junit;4.8.1 in ibiblio
+[ivy:retrieve] 	found hsqldb#hsqldb;1.8.0.10 in ibiblio
+[ivy:retrieve] 	found org.apache.avro#avro;1.5.3 in ibiblio
+[ivy:retrieve] 	found org.codehaus.jackson#jackson-mapper-asl;1.7.3 in ibiblio
+[ivy:retrieve] 	found org.codehaus.jackson#jackson-core-asl;1.7.3 in ibiblio
+[ivy:retrieve] 	found com.thoughtworks.paranamer#paranamer;2.3 in ibiblio
+[ivy:retrieve] 	found org.xerial.snappy#snappy-java;1.0.3.2 in ibiblio
+[ivy:retrieve] 	found org.slf4j#slf4j-api;1.6.1 in ibiblio
+[ivy:retrieve] 	found org.apache.pig#pigunit;0.11.1 in ibiblio
+[ivy:retrieve] 	found commons-lang#commons-lang;2.3 in ibiblio
+[ivy:retrieve] 	found log4j#log4j;1.2.14 in ibiblio
+[ivy:retrieve] 	found com.google.guava#guava;11.0 in ibiblio
+[ivy:retrieve] 	found com.google.code.findbugs#jsr305;1.3.9 in ibiblio
+[ivy:retrieve] 	found it.unimi.dsi#fastutil;6.3 in ibiblio
+[ivy:retrieve] 	found joda-time#joda-time;1.6 in ibiblio
+[ivy:retrieve] 	found org.apache.commons#commons-math;2.1 in ibiblio
+[ivy:retrieve] 	found commons-io#commons-io;1.4 in ibiblio
+[ivy:retrieve] 	found org.apache.hadoop#hadoop-core;0.20.2 in ibiblio
+[ivy:retrieve] 	found org.testng#testng;6.2 in ibiblio
+[ivy:retrieve] 	found org.beanshell#bsh;2.0b4 in ibiblio
+[ivy:retrieve] 	found com.beust#jcommander;1.12 in ibiblio
+[ivy:retrieve] 	found org.yaml#snakeyaml;1.6 in ibiblio
+[ivy:retrieve] 	found jline#jline;0.9.94 in ibiblio
+[ivy:retrieve] 	found org.antlr#antlr;3.2 in ibiblio
+[ivy:retrieve] 	found org.antlr#antlr-runtime;3.2 in ibiblio
+[ivy:retrieve] 	found org.antlr#stringtemplate;3.2.1 in ibiblio
+[ivy:retrieve] 	found antlr#antlr;2.7.7 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-ant-tasks;2.1.3 in ibiblio
+[ivy:retrieve] 	found org.apache.ant#ant;1.8.0 in ibiblio
+[ivy:retrieve] 	found org.apache.ant#ant-launcher;1.8.0 in ibiblio
+[ivy:retrieve] 	found classworlds#classworlds;1.1-alpha-2 in ibiblio
+[ivy:retrieve] 	found org.codehaus.plexus#plexus-container-default;1.0-alpha-9-stable-1 in ibiblio
+[ivy:retrieve] 	found org.codehaus.plexus#plexus-utils;1.5.15 in ibiblio
+[ivy:retrieve] 	found org.codehaus.plexus#plexus-interpolation;1.11 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-artifact;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-artifact-manager;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-repository-metadata;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven.wagon#wagon-provider-api;1.0-beta-6 in ibiblio
+[ivy:retrieve] 	found backport-util-concurrent#backport-util-concurrent;3.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-model;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-project;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-settings;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-profile;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-plugin-registry;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven#maven-error-diagnostics;2.2.1 in ibiblio
+[ivy:retrieve] 	found org.apache.maven.wagon#wagon-file;1.0-beta-6 in ibiblio
+[ivy:retrieve] 	found org.apache.maven.wagon#wagon-http-lightweight;1.0-beta-6 in ibiblio
+[ivy:retrieve] 	found org.apache.maven.wagon#wagon-http-shared;1.0-beta-6 in ibiblio
+[ivy:retrieve] 	found nekohtml#xercesMinimal;1.9.6.2 in ibiblio
+[ivy:retrieve] 	found nekohtml#nekohtml;1.9.6.2 in ibiblio
+[ivy:retrieve] 	found com.sun#tools;1.4.2 in tools
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/pig/pig/0.11.1/pig-0.11.1.jar ...
+[ivy:retrieve] .................................................................................................................................................................. (3330kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.pig#pig;0.11.1!pig.jar (898ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/pig/pigunit/0.11.1/pigunit-0.11.1.jar ...
+[ivy:retrieve] ............... (279kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.pig#pigunit;0.11.1!pigunit.jar (360ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/avro/avro/1.5.3/avro-1.5.3.jar ...
+[ivy:retrieve] ........ (257kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.avro#avro;1.5.3!avro.jar (352ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/it/unimi/dsi/fastutil/6.3/fastutil-6.3.jar ...
+[ivy:retrieve] ...........................
+[ivy:retrieve] .........................
+[ivy:retrieve] ........................
+[ivy:retrieve] .......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (14240kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] it.unimi.dsi#fastutil;6.3!fastutil.jar (5491ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/joda-time/joda-time/1.6/joda-time-1.6.jar ...
+[ivy:retrieve] .............................. (522kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] joda-time#joda-time;1.6!joda-time.jar (44ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/commons/commons-math/2.1/commons-math-2.1.jar ...
+[ivy:retrieve] .................... (812kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.commons#commons-math;2.1!commons-math.jar (52ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-io/commons-io/1.4/commons-io-1.4.jar ...
+[ivy:retrieve] ... (106kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-io#commons-io;1.4!commons-io.jar (28ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/hadoop/hadoop-core/0.20.2/hadoop-core-0.20.2.jar ...
+[ivy:retrieve] ............................................................................................................................................ (2624kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.hadoop#hadoop-core;0.20.2!hadoop-core.jar (108ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/testng/testng/6.2/testng-6.2.jar ...
+[ivy:retrieve] ..................................... (582kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.testng#testng;6.2!testng.jar (50ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/google/guava/guava/11.0/guava-11.0.jar ...
+[ivy:retrieve] ................................................................ (1611kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.google.guava#guava;11.0!guava.jar (78ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/log4j/log4j/1.2.14/log4j-1.2.14.jar ...
+[ivy:retrieve] .................. (358kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] log4j#log4j;1.2.14!log4j.jar (36ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/jline/jline/0.9.94/jline-0.9.94.jar ...
+[ivy:retrieve] ... (85kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] jline#jline;0.9.94!jline.jar (28ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/antlr/antlr/3.2/antlr-3.2.jar ...
+[ivy:retrieve] .................................................... (874kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.antlr#antlr;3.2!antlr.jar (54ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar ...
+[ivy:retrieve] .............................................................. (1285kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-ant-tasks;2.1.3!maven-ant-tasks.jar (66ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar ...
+[ivy:retrieve] ... (40kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.2!commons-cli.jar (24ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xmlenc/xmlenc/0.52/xmlenc-0.52.jar ...
+[ivy:retrieve] .. (14kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xmlenc#xmlenc;0.52!xmlenc.jar (24ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.jar ...
+[ivy:retrieve] ... (56kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-codec#commons-codec;1.4!commons-codec.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-net/commons-net/1.4.1/commons-net-1.4.1.jar ...
+[ivy:retrieve] ........ (176kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-net#commons-net;1.4.1!commons-net.jar (28ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar ...
+[ivy:retrieve] ............. (527kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jetty;6.1.26!jetty.jar (43ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar ...
+[ivy:retrieve] ...... (172kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jetty-util;6.1.26!jetty-util.jar (29ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/tomcat/jasper-runtime/5.5.12/jasper-runtime-5.5.12.jar ...
+[ivy:retrieve] .... (74kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] tomcat#jasper-runtime;5.5.12!jasper-runtime.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/tomcat/jasper-compiler/5.5.12/jasper-compiler-5.5.12.jar ...
+[ivy:retrieve] .......... (395kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] tomcat#jasper-compiler;5.5.12!jasper-compiler.jar (37ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jsp-api-2.1/6.1.14/jsp-api-2.1-6.1.14.jar ...
+[ivy:retrieve] .... (131kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jsp-api-2.1;6.1.14!jsp-api-2.1.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jsp-2.1/6.1.14/jsp-2.1-6.1.14.jar ...
+[ivy:retrieve] ....................................................... (1000kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jsp-2.1;6.1.14!jsp-2.1.jar (56ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-el/commons-el/1.0/commons-el-1.0.jar ...
+[ivy:retrieve] .... (109kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-el#commons-el;1.0!commons-el.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/java/dev/jets3t/jets3t/0.7.1/jets3t-0.7.1.jar ...
+[ivy:retrieve] ................ (368kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.java.dev.jets3t#jets3t;0.7.1!jets3t.jar (38ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/servlet-api-2.5/6.1.14/servlet-api-2.5-6.1.14.jar ...
+[ivy:retrieve] ..... (129kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#servlet-api-2.5;6.1.14!servlet-api-2.5.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/kosmosfs/kfs/0.3/kfs-0.3.jar ...
+[ivy:retrieve] .. (11kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.kosmosfs#kfs;0.3!kfs.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit/4.8.1/junit-4.8.1.jar ...
+[ivy:retrieve] ..... (231kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] junit#junit;4.8.1!junit.jar (34ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar ...
+[ivy:retrieve] ................................... (690kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] hsqldb#hsqldb;1.8.0.10!hsqldb.jar (49ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/oro/oro/2.0.8/oro-2.0.8.jar ...
+[ivy:retrieve] ... (63kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] oro#oro;2.0.8!oro.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/servlet-api/2.5-20081211/servlet-api-2.5-20081211.jar ...
+[ivy:retrieve] .... (130kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#servlet-api;2.5-20081211!servlet-api.jar (28ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/eclipse/jdt/core/3.1.1/core-3.1.1.jar ...
+[ivy:retrieve] ..................................................................................................................................................................................................... (3483kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.eclipse.jdt#core;3.1.1!core.jar (136ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/ant/ant/1.6.5/ant-1.6.5.jar ...
+[ivy:retrieve] .............................................. (1009kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] ant#ant;1.6.5!ant.jar (57ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar ...
+[ivy:retrieve] ... (59kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.1.1!commons-logging.jar (25ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.7.3/jackson-mapper-asl-1.7.3.jar ...
+[ivy:retrieve] ......................... (610kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.jackson#jackson-mapper-asl;1.7.3!jackson-mapper-asl.jar (46ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar ...
+[ivy:retrieve] .. (28kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer;2.3!paranamer.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.0.3.2/snappy-java-1.0.3.2.jar ...
+[ivy:retrieve] .............................................. (972kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.xerial.snappy#snappy-java;1.0.3.2!snappy-java.jar(bundle) (57ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar ...
+[ivy:retrieve] .. (24kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.slf4j#slf4j-api;1.6.1!slf4j-api.jar (24ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.7.3/jackson-core-asl-1.7.3.jar ...
+[ivy:retrieve] ............ (202kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.jackson#jackson-core-asl;1.7.3!jackson-core-asl.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.3/commons-lang-2.3.jar ...
+[ivy:retrieve] ......... (239kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.3!commons-lang.jar (35ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar ...
+[ivy:retrieve] .. (32kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.google.code.findbugs#jsr305;1.3.9!jsr305.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar ...
+[ivy:retrieve] ......... (275kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.beanshell#bsh;2.0b4!bsh.jar (36ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/beust/jcommander/1.12/jcommander-1.12.jar ...
+[ivy:retrieve] .. (30kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.beust#jcommander;1.12!jcommander.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar ...
+[ivy:retrieve] .......... (226kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.yaml#snakeyaml;1.6!snakeyaml.jar (529ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2.jar ...
+[ivy:retrieve] .... (148kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.antlr#antlr-runtime;3.2!antlr-runtime.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar ...
+[ivy:retrieve] ....... (145kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.antlr#stringtemplate;3.2.1!stringtemplate.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar ...
+[ivy:retrieve] ............ (434kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] antlr#antlr;2.7.7!antlr.jar (37ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/ant/ant/1.8.0/ant-1.8.0.jar ...
+[ivy:retrieve] ............................................... (1470kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.ant#ant;1.8.0!ant.jar (67ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar ...
+[ivy:retrieve] .. (36kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] classworlds#classworlds;1.1-alpha-2!classworlds.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar ...
+[ivy:retrieve] ..... (189kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.plexus#plexus-container-default;1.0-alpha-9-stable-1!plexus-container-default.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.jar ...
+[ivy:retrieve] ........ (222kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.plexus#plexus-utils;1.5.15!plexus-utils.jar (31ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/plexus/plexus-interpolation/1.11/plexus-interpolation-1.11.jar ...
+[ivy:retrieve] ... (49kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.plexus#plexus-interpolation;1.11!plexus-interpolation.jar (31ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1.jar ...
+[ivy:retrieve] .... (78kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-artifact;2.2.1!maven-artifact.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar ...
+[ivy:retrieve] ... (65kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-artifact-manager;2.2.1!maven-artifact-manager.jar (30ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-model/2.2.1/maven-model-2.2.1.jar ...
+[ivy:retrieve] ... (85kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-model;2.2.1!maven-model.jar (28ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar ...
+[ivy:retrieve] ..... (152kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-project;2.2.1!maven-project.jar (29ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-error-diagnostics/2.2.1/maven-error-diagnostics-2.2.1.jar ...
+[ivy:retrieve] .. (12kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-error-diagnostics;2.2.1!maven-error-diagnostics.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-settings/2.2.1/maven-settings-2.2.1.jar ...
+[ivy:retrieve] ... (47kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-settings;2.2.1!maven-settings.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.jar ...
+[ivy:retrieve] .. (10kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven.wagon#wagon-file;1.0-beta-6!wagon-file.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.jar ...
+[ivy:retrieve] .. (14kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven.wagon#wagon-http-lightweight;1.0-beta-6!wagon-http-lightweight.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar ...
+[ivy:retrieve] ... (51kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven.wagon#wagon-provider-api;1.0-beta-6!wagon-provider-api.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/ant/ant-launcher/1.8.0/ant-launcher-1.8.0.jar ...
+[ivy:retrieve] .. (11kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.ant#ant-launcher;1.8.0!ant-launcher.jar (25ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-repository-metadata/2.2.1/maven-repository-metadata-2.2.1.jar ...
+[ivy:retrieve] .. (25kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-repository-metadata;2.2.1!maven-repository-metadata.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar ...
+[ivy:retrieve] ............. (323kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] backport-util-concurrent#backport-util-concurrent;3.1!backport-util-concurrent.jar (49ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.jar ...
+[ivy:retrieve] .. (34kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-profile;2.2.1!maven-profile.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.jar ...
+[ivy:retrieve] .. (29kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven#maven-plugin-registry;2.2.1!maven-plugin-registry.jar (25ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.jar ...
+[ivy:retrieve] .. (24kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.maven.wagon#wagon-http-shared;1.0-beta-6!wagon-http-shared.jar (26ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/nekohtml/xercesMinimal/1.9.6.2/xercesMinimal-1.9.6.2.jar ...
+[ivy:retrieve] .. (38kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] nekohtml#xercesMinimal;1.9.6.2!xercesMinimal.jar (27ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/nekohtml/nekohtml/1.9.6.2/nekohtml-1.9.6.2.jar ...
+[ivy:retrieve] ..... (109kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] nekohtml#nekohtml;1.9.6.2!nekohtml.jar (28ms)
+[ivy:retrieve] downloading /usr/lib/jvm/java-6-openjdk-amd64/jre/../lib/tools.jar ...
+[ivy:retrieve] ........................................................................................................ (6581kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.sun#tools;1.4.2!tools.jar (353ms)
+[ivy:retrieve] :: resolution report :: resolve 9089ms :: artifacts dl 10462ms
+[ivy:retrieve] 	:: evicted modules:
+[ivy:retrieve] 	commons-logging#commons-logging;1.0.4 by [commons-logging#commons-logging;1.1.1] in [common]
+[ivy:retrieve] 	commons-codec#commons-codec;1.2 by [commons-codec#commons-codec;1.4] in [common]
+[ivy:retrieve] 	commons-logging#commons-logging;1.0.3 by [commons-logging#commons-logging;1.0.4] in [common]
+[ivy:retrieve] 	commons-codec#commons-codec;1.3 by [commons-codec#commons-codec;1.4] in [common]
+[ivy:retrieve] 	commons-httpclient#commons-httpclient;3.0.1 by [commons-httpclient#commons-httpclient;3.1] in [common]
+[ivy:retrieve] 	org.mortbay.jetty#jetty;6.1.14 by [org.mortbay.jetty#jetty;6.1.26] in [common]
+[ivy:retrieve] 	org.mortbay.jetty#jetty-util;6.1.14 by [org.mortbay.jetty#jetty-util;6.1.26] in [common]
+[ivy:retrieve] 	junit#junit;4.5 by [junit#junit;4.8.1] in [common]
+[ivy:retrieve] 	junit#junit;3.8.1 by [junit#junit;4.8.1] in [common]
+[ivy:retrieve] 	org.codehaus.plexus#plexus-utils;1.0.4 by [org.codehaus.plexus#plexus-utils;1.5.15] in [common]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      common      |   81  |   70  |   70  |   10  ||   71  |   70  |
+	|       tools      |   1   |   1   |   0   |   0   ||   1   |   1   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: problems summary ::
+[ivy:retrieve] 
+[ivy:retrieve] :::: ERRORS
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 	unknown resolver null
+[ivy:retrieve] 
+[ivy:retrieve] :: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
+[ivy:retrieve] :: retrieving :: datafu#datafu
+[ivy:retrieve] 	confs: [common, tools]
+[ivy:retrieve] 	72 artifacts copied, 0 already retrieved (49189kB/112ms)
+
+init:
+    [mkdir] Created dir: /home/travis/build/linkedin/datafu/dist
+
+build:
+    [mkdir] Created dir: /home/travis/build/linkedin/datafu/dist/classes
+    [javac] Compiling 67 source files to /home/travis/build/linkedin/datafu/dist/classes
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/util/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/bags/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/sessions/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/linkanalysis/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/hash/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/geo/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/sets/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/stats/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/random/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/sampling/package-info.class
+    [javac] Creating empty /home/travis/build/linkedin/datafu/dist/classes/datafu/pig/urls/package-info.class
+
+build-plugins:
+    [mkdir] Created dir: /home/travis/build/linkedin/datafu/dist/pluginclasses
+    [javac] Compiling 4 source files to /home/travis/build/linkedin/datafu/dist/pluginclasses
+
+build-pig-tests:
+    [mkdir] Created dir: /home/travis/build/linkedin/datafu/dist/pigtestclasses
+     [copy] Copied 14 empty directories to 14 empty directories under /home/travis/build/linkedin/datafu/dist/pigtestclasses
+    [javac] Compiling 21 source files to /home/travis/build/linkedin/datafu/dist/pigtestclasses
+
+jar:
+      [jar] Building jar: /home/travis/build/linkedin/datafu/dist/datafu-1.0.1-SNAPSHOT.jar
+     [move] Moving 1 file to /home/travis/build/linkedin/datafu/dist
+   [delete] Deleting: /home/travis/build/linkedin/datafu/dist/datafu-1.0.1-SNAPSHOT-orig.jar
+     [move] Moving 1 file to /home/travis/build/linkedin/datafu/dist
+   [jarjar] Building jar: /home/travis/build/linkedin/datafu/dist/datafu-1.0.1-SNAPSHOT.jar
+   [delete] Deleting: /home/travis/build/linkedin/datafu/dist/datafu-1.0.1-SNAPSHOT-orig.jar
+
+test:
+   [testng] [TestNG] Running:
+   [testng]   Ant suite
+   [testng] 
+   [testng] 
+   [testng] *** Running shouldAssertWithMessageOnZero ***
+   [testng] log4j:WARN No appenders could be found for logger (org.apache.pig.pigunit.PigTest).
+   [testng] log4j:WARN Please initialize the log4j system properly.
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running shouldAssertWithoutMessageOnZero ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running shouldNotAssertWithMessageOnOne ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1)
+   [testng] 
+   [testng] *** Running shouldNotAssertWithoutMessageOnOne ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1)
+   [testng] 
+   [testng] *** Running appendToBagTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1,{(1),(2),(3),(4)})
+   [testng] (2,{(10),(20),(30),(40),(50),(60)})
+   [testng] 
+   [testng] *** Running bagConcatTest ***
+   [testng] data: {A: {T: (v: int)},B: {T: (v: int)},C: {T: (v: int)}}
+   [testng] data2: {datafu.pig.bags.bagconcat_A_39: {T: (v: int)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data: {A: {T: (v: int)},B: {T: (v: int)},C: {T: (v: int)}}
+   [testng] data2: {datafu.pig.bags.bagconcat_A_84: {T: (v: int)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1),(2),(3),(3),(5),(6),(10),(13)})
+   [testng] ({(2),(3),(4),(5),(5),(20)})
+   [testng] 
+   [testng] *** Running bagGroupMultipleTest ***
+   [testng] data: {input_bag: {T: (k: int,k2: chararray,v: int)}}
+   [testng] data2: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] data3: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] data: {input_bag: {T: (k: int,k2: chararray,v: int)}}
+   [testng] data2: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] data3: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({((2,B),{(2,B,1)}),((2,A),{(2,A,1)}),((2,C),{(2,C,1)}),((1,B),{(1,B,1)}),((1,A),{(1,A,1),(1,A,2)}),((3,A),{(3,A,1)})})
+   [testng] data: {input_bag: {T: (k: int,k2: chararray,v: int)}}
+   [testng] data2: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] data3: {grouped: {(group: (k: int,k2: chararray),input_bag: {T: (k: int,k2: chararray,v: int)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({((1,A),{(1,A,1),(1,A,2)}),((1,B),{(1,B,1)}),((2,A),{(2,A,1)}),((2,B),{(2,B,1)}),((2,C),{(2,C,1)}),((3,A),{(3,A,1)})})
+   [testng] 
+   [testng] *** Running bagGroupSingleTest ***
+   [testng] data: {input_bag: {T: (k: int,v: chararray)}}
+   [testng] data2: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] data3: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] data: {input_bag: {T: (k: int,v: chararray)}}
+   [testng] data2: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] data3: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(2,{(2,A),(2,B),(2,C)}),(1,{(1,A),(1,B)}),(3,{(3,A)})})
+   [testng] data: {input_bag: {T: (k: int,v: chararray)}}
+   [testng] data2: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] data3: {grouped: {(group: int,input_bag: {T: (k: int,v: chararray)})}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({(1,{(1,A),(1,B)}),(2,{(2,A),(2,B),(2,C)}),(3,{(3,A)})})
+   [testng] 
+   [testng] *** Running bagLeftOuterJoinTest ***
+   [testng] data: {outer_key: chararray,bag1: {T: (k: chararray,v: chararray)},bag2: {T: (k: chararray,v: chararray)},bag3: {T: (k3: chararray,v3: chararray)}}
+   [testng] data2: {outer_key: chararray,joined1: {(bag1::k: chararray,bag1::v: chararray,bag2::k: chararray,bag2::v: chararray,bag3::k3: chararray,bag3::v3: chararray)},joined2: {(bag1::k: chararray,bag1::v: chararray,bag3::k3: chararray,bag3::v3: chararray,bag2::k: chararray,bag2::v: chararray)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data: {outer_key: chararray,bag1: {T: (k: chararray,v: chararray)},bag2: {T: (k: chararray,v: chararray)},bag3: {T: (k3: chararray,v3: chararray)}}
+   [testng] data2: {outer_key: chararray,joined1: {(bag1::k: chararray,bag1::v: chararray,bag2::k: chararray,bag2::v: chararray,bag3::k3: chararray,bag3::v3: chararray)},joined2: {(bag1::k: chararray,bag1::v: chararray,bag3::k3: chararray,bag3::v3: chararray,bag2::k: chararray,bag2::v: chararray)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1,{(K1,A1,K1,A2,K1,A3),(K2,B1,K2,B2,,),(K2,B1,K2,B22,,),(K3,C1,,,K3,C3)},{(K1,A1,K1,A3,K1,A2),(K2,B1,,,K2,B2),(K2,B1,,,K2,B22),(K3,C1,K3,C3,,)})
+   [testng] 
+   [testng] *** Running bagSplitTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({(1,11),(2,22),(3,33),(4,44),(5,55)})
+   [testng] ({(6,66),(7,77),(8,88),(9,99),(10,1010)})
+   [testng] ({(11,1111),(12,1212)})
+   [testng] 
+   [testng] *** Running bagSplitWithBagNumTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({(1,11),(2,22),(3,33),(4,44),(5,55),(6,66),(7,77),(8,88),(9,99),(10,1010)},0)
+   [testng] ({(11,1111),(12,1212)},1)
+   [testng] 
+   [testng] *** Running bagUnionTest ***
+   [testng] data: {input_bag: {T: (inner_bag: {T2: (k: int,v: chararray)})}}
+   [testng] data2: {unioned: {T2: (k: int,v: chararray)}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] data: {input_bag: {T: (inner_bag: {T2: (k: int,v: chararray)})}}
+   [testng] data2: {unioned: {T2: (k: int,v: chararray)}}
+   [testng] STORE data INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1,A),(1,B),(2,A),(2,B),(2,C),(3,A)})
+   [testng] 
+   [testng] *** Running comprehensiveBagSplitAndEnumerate ***
+   [testng] Values for data_out: 
+   [testng] (A,1.0,1)
+   [testng] (B,2.0,1)
+   [testng] (C,3.0,1)
+   [testng] (D,4.0,2)
+   [testng] (E,5.0,2)
+   [testng] 
+   [testng] *** Running countEachExecAndAccumulateTest ***
+   [testng] Testing exec
+   [testng] {(B,2),(A,2),(D,1),(C,1)}
+   [testng] Testing accumulate
+   [testng] {(B,2),(A,2),(D,1),(C,1)}
+   [testng] 
+   [testng] *** Running countEachFlattenTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({(A,3),(B,2),(C,1)})
+   [testng] 
+   [testng] *** Running countEachTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] ({((A),3),((B),2),((C),1)})
+   [testng] 
+   [testng] *** Running distinctByAccumulateTest ***
+   [testng] 
+   [testng] *** Running distinctByExecTest ***
+   [testng] 
+   [testng] *** Running distinctByTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(Z,1,0),(A,1,0),(B,2,0),(C,3,0),(D,4,0),(E,5,0)})
+   [testng] ({(A,10,2),(M,50,3),(Z,49,22),(B,1,1)})
+   [testng] 
+   [testng] *** Running emptyBagToNullFieldsTest ***
+   [testng] ({(1,1),(2,2),(3,3),(4,4),(5,5)})
+   [testng] ({})
+   [testng] ({(4,4),(5,5)})
+   [testng] ({(1,1),(2,2),(3,3),(4,4),(5,5)})
+   [testng] ({(,)})
+   [testng] ({(4,4),(5,5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] ({(1,1),(2,2),(3,3),(4,4),(5,5)})
+   [testng] ({})
+   [testng] ({(4,4),(5,5)})
+   [testng] ({(1,1),(2,2),(3,3),(4,4),(5,5)})
+   [testng] ({(,)})
+   [testng] ({(4,4),(5,5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1,1),(2,2),(3,3),(4,4),(5,5)})
+   [testng] ({(,)})
+   [testng] ({(4,4),(5,5)})
+   [testng] 
+   [testng] *** Running emptyBagToNullTest ***
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ({})
+   [testng] ({(4),(5)})
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ()
+   [testng] ({(4),(5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ({})
+   [testng] ({(4),(5)})
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ()
+   [testng] ({(4),(5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ()
+   [testng] ({(4),(5)})
+   [testng] 
+   [testng] *** Running enumerateAccumulatorTest ***
+   [testng] 
+   [testng] *** Running enumerateTest ***
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (10,{(1),(2),(3)},0)
+   [testng] (20,{(4),(5),(6)},1)
+   [testng] (30,{(7),(8)},2)
+   [testng] (40,{(9),(10),(11)},3)
+   [testng] (50,{(12),(13),(14),(15)},4)
+   [testng] 
+   [testng] *** Running enumerateTest2 ***
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (10,{(1),(2),(3)},0)
+   [testng] (20,{(4),(5),(6)},1)
+   [testng] (30,{(7),(8)},2)
+   [testng] (40,{(9),(10),(11)},3)
+   [testng] (50,{(12),(13),(14),(15)},4)
+   [testng] (11,{(11),(12),(13),(14)},0)
+   [testng] (21,{(15),(16),(17),(18)},1)
+   [testng] (31,{(19),(20)},2)
+   [testng] (41,{(21),(22),(23),(24)},3)
+   [testng] (51,{(25),(26),(27)},4)
+   [testng] 
+   [testng] *** Running enumerateWithReverseTest ***
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (10,{(1),(2),(3)},5)
+   [testng] (20,{(4),(5),(6)},4)
+   [testng] (30,{(7),(8)},3)
+   [testng] (40,{(9),(10),(11)},2)
+   [testng] (50,{(12),(13),(14),(15)},1)
+   [testng] 
+   [testng] *** Running enumerateWithStartTest ***
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (10,{(1),(2),(3)},1)
+   [testng] (20,{(4),(5),(6)},2)
+   [testng] (30,{(7),(8)},3)
+   [testng] (40,{(9),(10),(11)},4)
+   [testng] (50,{(12),(13),(14),(15)},5)
+   [testng] 
+   [testng] *** Running firstTupleFromBagTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1,(4))
+   [testng] 
+   [testng] *** Running nullToEmptyBagTest ***
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ({(4),(5)})
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ({})
+   [testng] ({(4),(5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ()
+   [testng] ({(4),(5)})
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ({})
+   [testng] ({(4),(5)})
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1),(2),(3),(4),(5)})
+   [testng] ({})
+   [testng] ({(4),(5)})
+   [testng] 
+   [testng] *** Running prependToBagTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (1,{(4),(1),(2),(3)})
+   [testng] (2,{(60),(10),(20),(30),(40),(50)})
+   [testng] 
+   [testng] *** Running unorderedPairsTest ***
+   [testng] STORE data5 INTO 'output';
+   [testng] --> none
+   [testng] data: {B: {T: (v: int)}}
+   [testng] data = LOAD 'input' AS (B: bag {T: tuple(v:INT)});
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     B: {
+   [testng]         T: (
+   [testng]             v: int
+   [testng]         )
+   [testng]     }
+   [testng] );
+   [testng] STORE data5 INTO 'output';
+   [testng] --> none
+   [testng] data = LOAD 'input' AS (B: bag {T: tuple(v:INT)});
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     B: {
+   [testng]         T: (
+   [testng]             v: int
+   [testng]         )
+   [testng]     }
+   [testng] );
+   [testng] STORE data5 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running unorderedPairsTest2 ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,(1),(2))
+   [testng] (1,(1),(3))
+   [testng] (1,(1),(4))
+   [testng] (1,(1),(5))
+   [testng] (1,(2),(3))
+   [testng] (1,(2),(4))
+   [testng] (1,(2),(5))
+   [testng] (1,(3),(4))
+   [testng] (1,(3),(5))
+   [testng] (1,(4),(5))
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,(1),(2))
+   [testng] (1,(1),(3))
+   [testng] (1,(1),(4))
+   [testng] (1,(1),(5))
+   [testng] (1,(2),(3))
+   [testng] (1,(2),(4))
+   [testng] (1,(2),(5))
+   [testng] (1,(3),(4))
+   [testng] (1,(3),(5))
+   [testng] (1,(4),(5))
+   [testng] 
+   [testng] *** Running coalesceBagIncompatibleTypeTest ***
+   [testng] 
+   [testng] *** Running coalesceCastIntToDatetimeLazyTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,2013-08-06T21:56:23.000Z)
+   [testng] (2,1970-01-01T00:00:00.000Z)
+   [testng] 
+   [testng] *** Running coalesceCastIntToDatetimeTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,2013-08-06T21:56:23.000Z)
+   [testng] (2,1970-01-01T00:00:00.000Z)
+   [testng] 
+   [testng] *** Running coalesceCastIntToDoubleTest ***
+   [testng] data2: {testcase: int,result: double}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,result: double}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (1,500.0)
+   [testng] (2,10000.0)
+   [testng] 
+   [testng] *** Running coalesceCastIntToLongTest1 ***
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (1,500)
+   [testng] (2,10000)
+   [testng] 
+   [testng] *** Running coalesceCastIntToLongTest2 ***
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (1,500)
+   [testng] (2,10000)
+   [testng] 
+   [testng] *** Running coalesceCastIntToLongTestFails ***
+   [testng] 
+   [testng] *** Running coalesceIntTest ***
+   [testng] data2: {testcase: int,result: int}
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,result: int}
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,1)
+   [testng] (2,2)
+   [testng] (3,3)
+   [testng] (4,)
+   [testng] (5,1)
+   [testng] (6,1)
+   [testng] 
+   [testng] *** Running coalesceLongTest ***
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,result: long}
+   [testng] STORE data4 INTO 'output';
+   [testng] --> none
+   [testng] Values for data4: 
+   [testng] (1,500)
+   [testng] (2,10000)
+   [testng] 
+   [testng] *** Running leftJoinTest ***
+   [testng] (1,{(1,1)},{(1,10)},{})
+   [testng] (2,{(2,2)},{},{(2,100)})
+   [testng] (3,{},{(3,30)},{})
+   [testng] (5,{(5,5)},{(5,50)},{(5,500)})
+   [testng] (1,1,1,10,,)
+   [testng] (2,2,,,2,100)
+   [testng] (5,5,5,50,5,500)
+   [testng] data4: {input1::val1: int,input1::val2: int,input2::val1: int,input2::val2: int,input3::val1: int,input3::val2: int}
+   [testng] STORE data5 INTO 'output';
+   [testng] --> none
+   [testng] (1,{(1,1)},{(1,10)},{})
+   [testng] (2,{(2,2)},{},{(2,100)})
+   [testng] (3,{},{(3,30)},{})
+   [testng] (5,{(5,5)},{(5,50)},{(5,500)})
+   [testng] (1,1,1,10,,)
+   [testng] (2,2,,,2,100)
+   [testng] (5,5,5,50,5,500)
+   [testng] data4: {input1::val1: int,input1::val2: int,input2::val1: int,input2::val2: int,input3::val1: int,input3::val2: int}
+   [testng] STORE data5 INTO 'output';
+   [testng] --> none
+   [testng] Values for data5: 
+   [testng] (1,10,0)
+   [testng] (2,0,100)
+   [testng] (5,50,500)
+   [testng] 
+   [testng] *** Running haversineTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (5482.039905391504)
+   [testng] (6745.389878517191)
+   [testng] (9936.375310497508)
+   [testng] (3626.0520003238234)
+   [testng] 
+   [testng] *** Running md5Base64Test ***
+   [testng] STORE data_out INTO 'output';
+   [testng] --> none
+   [testng] STORE data_out INTO 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (2agldXWLtJeJSdwGWSBcxg==)
+   [testng] (nsN/Avrg2Nan9EU6YicvHw==)
+   [testng] (y5QTmoufMkPmiomOxr2bPQ==)
+   [testng] 
+   [testng] *** Running md5Test ***
+   [testng] STORE data_out INTO 'output';
+   [testng] --> none
+   [testng] STORE data_out INTO 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (d9a82575758bb4978949dc0659205cc6)
+   [testng] (9ec37f02fae0d8d6a7f4453a62272f1f)
+   [testng] (cb94139a8b9f3243e68a898ec6bd9b3d)
+   [testng] 
+   [testng] *** Running inIntTest ***
+   [testng] data2: {C: {T: (v: int)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data2: {C: {T: (v: int)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1),(2),(3)})
+   [testng] ({(1),(2)})
+   [testng] ({})
+   [testng] 
+   [testng] *** Running inStringTest ***
+   [testng] data2: {C: {T: (v: chararray)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data2: {C: {T: (v: chararray)}}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(will),(matt),(sam)})
+   [testng] ({(will),(matt)})
+   [testng] ({})
+   [testng] 
+   [testng] *** Running inTopLevelTest ***
+   [testng] data: {owner: chararray,color: chararray}
+   [testng] data2: {owner: chararray,color: chararray}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data: {owner: chararray,color: chararray}
+   [testng] data2: {owner: chararray,color: chararray}
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] (alice,red)
+   [testng] (bob,blue)
+   [testng] (dave,red)
+   [testng] 
+   [testng] *** Running intToBoolTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data: {val: int}
+   [testng] data = LOAD 'input' AS (val:INT);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     val: int
+   [testng] );
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] data = LOAD 'input' AS (val:INT);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     val: int
+   [testng] );
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running intToBoolToIntTest ***
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] data: {val: int}
+   [testng] data = LOAD 'input' AS (val:INT);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     val: int
+   [testng] );
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] data = LOAD 'input' AS (val:INT);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     val: int
+   [testng] );
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running markovPairDefaultTest ***
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] expected: ({((10),(20)),((20),(30)),((30),(40)),((40),(50)),((50),(60))})
+   [testng] actual: ({((10),(20)),((20),(30)),((30),(40)),((40),(50)),((50),(60))})
+   [testng] 
+   [testng] *** Running markovPairLookaheadTest ***
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] expected: ({((10),(20)),((10),(30)),((10),(40)),((20),(30)),((20),(40)),((20),(50)),((30),(40)),((30),(50)),((40),(50))})
+   [testng] actual: ({((10),(20)),((10),(30)),((10),(40)),((20),(30)),((20),(40)),((20),(50)),((30),(40)),((30),(50)),((40),(50))})
+   [testng] 
+   [testng] *** Running markovPairMultipleInput ***
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] expected: ({((10,100),(20,200)),((20,200),(30,300)),((30,300),(40,400)),((40,400),(50,500)),((50,500),(60,600))})
+   [testng] actual: ({((10,100),(20,200)),((20,200),(30,300)),((30,300),(40,400)),((40,400),(50,500)),((50,500),(60,600))})
+   [testng] 
+   [testng] *** Running randomIntRangeTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] Starting hubAndSpokeDiskCacheTest
+   [testng] Beginning iteration (maxIters = 150, tolerance=1.000000e-18)
+   [testng] Initializing graph
+   [testng] Done, took 7.957899 ms
+   [testng] Beginning iterations
+   [testng] Done, took 158.700825 ms
+   [testng] 
+   [testng] Starting hubAndSpokeInMemoryTest
+   [testng] Beginning iteration (maxIters = 150, tolerance=1.000000e-18)
+   [testng] Initializing graph
+   [testng] Done, took 3.296203 ms
+   [testng] Beginning iterations
+   [testng] Done, took 45.406801 ms
+   [testng] 
+   [testng] Starting wikipediaGraphDiskCacheTest
+   [testng] Beginning iteration (maxIters = 150, tolerance=1.000000e-18)
+   [testng] Initializing graph
+   [testng] Done, took 0.035389 ms
+   [testng] Beginning iterations
+   [testng] Done, took 0.378195 ms
+   [testng] Validating page rank results
+   [testng] All ranks match expected
+   [testng] 
+   [testng] Starting wikipediaGraphInMemoryTest
+   [testng] Beginning iteration (maxIters = 150, tolerance=1.000000e-18)
+   [testng] Initializing graph
+   [testng] Done, took 0.052488 ms
+   [testng] Beginning iterations
+   [testng] Done, took 0.025680 ms
+   [testng] Validating page rank results
+   [testng] All ranks match expected
+   [testng] 
+   [testng] *** Running pigPageRankTest ***
+   [testng] STORE data_grouped3 INTO 'output';
+   [testng] --> none
+   [testng] STORE data_grouped3 INTO 'output';
+   [testng] --> none
+   [testng] Nodes: 11, Edges: 17
+   [testng] Finished loading graph.
+   [testng] Initializing.
+   [testng] Done, took 0.022892 ms
+   [testng] Beginning iterations
+   [testng] Done, 150 iterations took 0.802329 ms
+   [testng] Final node ranks:
+   [testng] 1 => 0.342910
+   [testng] 9 => 0.016169
+   [testng] 10 => 0.016169
+   [testng] 5 => 0.039087
+   [testng] 8 => 0.016169
+   [testng] 6 => 0.016169
+   [testng] 3 => 0.032781
+   [testng] 2 => 0.039087
+   [testng] 4 => 0.080886
+   [testng] 7 => 0.016169
+   [testng] 0 => 0.384401
+   [testng] 
+   [testng] *** Running medianTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (5.5)
+   [testng] 
+   [testng] *** Running quantile2Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.5,8.0,10.0)
+   [testng] 
+   [testng] *** Running quantile3Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (130.0,2280.0,15870.0,50000.0,84130.0,97720.0,99870.0)
+   [testng] 
+   [testng] *** Running quantile4aTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,4.0,7.0,10.0)
+   [testng] 
+   [testng] *** Running quantile4bTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,4.0,7.0,10.0)
+   [testng] 
+   [testng] *** Running quantile5aTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0)
+   [testng] 
+   [testng] *** Running quantile5bTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0)
+   [testng] 
+   [testng] *** Running quantileParamsTest ***
+   [testng] 
+   [testng] *** Running quantileParamsTest2 ***
+   [testng] 
+   [testng] *** Running quantileParamsTest3 ***
+   [testng] 
+   [testng] *** Running quantileParamsTest4 ***
+   [testng] 
+   [testng] *** Running quantileParamsTest5 ***
+   [testng] 
+   [testng] *** Running quantileSchemaTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.0)
+   [testng] 
+   [testng] *** Running quantileSchemaTest2 ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.0)
+   [testng] 
+   [testng] *** Running quantileSchemaTest3 ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.0)
+   [testng] 
+   [testng] *** Running quantileSchemaTest4 ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.0)
+   [testng] 
+   [testng] *** Running quantileTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.5,8.0,10.0)
+   [testng] 
+   [testng] *** Running streamingMedianTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (5.0)
+   [testng] 
+   [testng] *** Running streamingQuantile2Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (5.0,8.0,10.0)
+   [testng] 
+   [testng] *** Running streamingQuantile3Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (70.0,30.0,370.0,1000.0,1.0)
+   [testng] 
+   [testng] *** Running streamingQuantile4Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (130.0,2280.0,15870.0,50000.0,84130.0,97720.0,99870.0)
+   [testng] 
+   [testng] *** Running streamingQuantile5aTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0)
+   [testng] 
+   [testng] *** Running streamingQuantile5bTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0)
+   [testng] 
+   [testng] *** Running streamingQuantile6Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,4.0,7.0,10.0)
+   [testng] 
+   [testng] *** Running streamingQuantile7Test ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,4.0,7.0,10.0)
+   [testng] 
+   [testng] *** Running streamingQuantileAccumulateTest ***
+   [testng] 
+   [testng] *** Running streamingQuantileExecTest ***
+   [testng] 
+   [testng] *** Running streamingQuantileTest ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (1.0,3.0,5.0,8.0,10.0)
+   [testng] 
+   [testng] *** Running reservoirSampleAccumulateTest ***
+   [testng] 58
+   [testng] 95
+   [testng] 16
+   [testng] 26
+   [testng] 84
+   [testng] 49
+   [testng] 39
+   [testng] 22
+   [testng] 32
+   [testng] 88
+   [testng] 
+   [testng] *** Running reservoirSampleAlgebraicTest ***
+   [testng] 43
+   [testng] 85
+   [testng] 48
+   [testng] 62
+   [testng] 57
+   [testng] 51
+   [testng] 9
+   [testng] 17
+   [testng] 35
+   [testng] 70
+   [testng] 
+   [testng] *** Running reservoirSampleExecTest ***
+   [testng] 19
+   [testng] 38
+   [testng] 62
+   [testng] 26
+   [testng] 89
+   [testng] 67
+   [testng] 72
+   [testng] 70
+   [testng] 56
+   [testng] 96
+   [testng] 
+   [testng] *** Running reservoirSampleTest ***
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Values for sampled: 
+   [testng] (10)
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Values for sampled: 
+   [testng] (20)
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Values for sampled: 
+   [testng] (30)
+   [testng] 
+   [testng] *** Running sampleByKeyExecTest ***
+   [testng] 
+   [testng] *** Running sampleByKeyMultipleKeyTest ***
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Values for sampled: 
+   [testng] (A1,B1,1)
+   [testng] (A1,B1,4)
+   [testng] (A1,B4,4)
+   [testng] (A2,B1,4)
+   [testng] (A2,B2,4)
+   [testng] (A3,B1,3)
+   [testng] (A3,B1,1)
+   [testng] (A4,B4,29)
+   [testng] (A5,B1,4)
+   [testng] (A6,B3,1)
+   [testng] (A7,B1,39)
+   [testng] (A8,B1,4)
+   [testng] (A9,B3,92)
+   [testng] (A9,B3,0)
+   [testng] (A10,B2,23)
+   [testng] (A10,B2,1)
+   [testng] (A10,B2,31)
+   [testng] 
+   [testng] *** Running sampleByKeyTest ***
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Values for sampled: 
+   [testng] (A4,B1,3)
+   [testng] (A4,B2,3)
+   [testng] (A4,B3,59)
+   [testng] (A4,B4,29)
+   [testng] (A5,B1,4)
+   [testng] (A6,B2,3)
+   [testng] (A6,B2,55)
+   [testng] (A6,B3,1)
+   [testng] (A7,B1,39)
+   [testng] (A7,B2,27)
+   [testng] (A7,B3,85)
+   [testng] (A10,B1,7)
+   [testng] (A10,B2,23)
+   [testng] (A10,B3,1)
+   [testng] (A10,B4,41)
+   [testng] (A10,B5,52)
+   [testng] 
+   [testng] *** Running weightedSampleLimitExecTest ***
+   [testng] 90
+   [testng] 3
+   [testng] 83
+   [testng] 96
+   [testng] 54
+   [testng] 21
+   [testng] 28
+   [testng] 66
+   [testng] 13
+   [testng] 62
+   [testng] 
+   [testng] *** Running weightedSampleLimitTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(a,100),(c,5),(b,1)})
+   [testng] 
+   [testng] *** Running weightedSampleTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(a,100),(c,5),(b,1),(d,2)})
+   [testng] 
+   [testng] *** Running sessionCountAccumulateTest ***
+   [testng] 
+   [testng] *** Running sessionCountExecTest ***
+   [testng] 
+   [testng] *** Running sessionCountPageViewsTest ***
+   [testng] STORE view_counts INTO 'output';
+   [testng] --> none
+   [testng] views: {user_id: int,page_id: int,time: chararray}
+   [testng] views = LOAD 'input' AS (user_id:int, page_id:int, time:chararray);
+   [testng] --> views = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     user_id: int,
+   [testng]     page_id: int,
+   [testng]     time: chararray
+   [testng] );
+   [testng] STORE view_counts INTO 'output';
+   [testng] --> none
+   [testng] views = LOAD 'input' AS (user_id:int, page_id:int, time:chararray);
+   [testng] --> views = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     user_id: int,
+   [testng]     page_id: int,
+   [testng]     time: chararray
+   [testng] );
+   [testng] STORE view_counts INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running sessionizeAccumulateTest ***
+   [testng] 
+   [testng] *** Running sessionizeExecTest ***
+   [testng] 
+   [testng] *** Running sessionizeLongTest ***
+   [testng] STORE max_value INTO 'output';
+   [testng] --> none
+   [testng] STORE max_value INTO 'output';
+   [testng] --> none
+   [testng] Values for max_value: 
+   [testng] (1,30)
+   [testng] (1,20)
+   [testng] (2,20)
+   [testng] (2,50)
+   [testng] (2,30)
+   [testng] (2,10)
+   [testng] (2,40)
+   [testng] (3,50)
+   [testng] 
+   [testng] *** Running sessionizeTest ***
+   [testng] STORE max_value INTO 'output';
+   [testng] --> none
+   [testng] STORE max_value INTO 'output';
+   [testng] --> none
+   [testng] Values for max_value: 
+   [testng] (1,30)
+   [testng] (1,20)
+   [testng] (2,10)
+   [testng] (2,50)
+   [testng] (2,40)
+   [testng] (2,30)
+   [testng] (2,20)
+   [testng] (3,50)
+   [testng] 
+   [testng] *** Running setIntersectEmptyBagsTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(2,20),(4,40)})
+   [testng] ({})
+   [testng] ({(1,10),(2,20)})
+   [testng] ({})
+   [testng] ({})
+   [testng] ({})
+   [testng] 
+   [testng] *** Running setIntersectOutOfOrderTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running setIntersectTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(2,20),(4,40)})
+   [testng] ({(1,10),(3,30)})
+   [testng] 
+   [testng] *** Running setUnionEmptyBagsTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1,10),(1,20),(1,30),(1,40),(1,50),(1,60),(1,80)})
+   [testng] ({(1,10),(1,20),(1,30),(1,40),(1,50)})
+   [testng] ({})
+   [testng] 
+   [testng] *** Running setUnionTest ***
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] STORE data2 INTO 'output';
+   [testng] --> none
+   [testng] Values for data2: 
+   [testng] ({(1,1),(1,10),(1,20),(1,25),(1,30),(1,40),(1,50),(1,60),(1,70),(1,80)})
+   [testng] 
+   [testng] *** Running testIntersectWithNullTuples ***
+   [testng] 
+   [testng] *** Running simpleRandomSampleTest ***
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Read 32 items, selected 0, and wait-listed 32.
+   [testng] Values for sampled: 
+   [testng] (10)
+   [testng] 
+   [testng] *** Running stratifiedSampleTest ***
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] STORE sampled INTO 'output';
+   [testng] --> none
+   [testng] Read 4 items, selected 0, and wait-listed 4.
+   [testng] Read 2 items, selected 0, and wait-listed 2.
+   [testng] Read 3 items, selected 0, and wait-listed 3.
+   [testng] Read 4 items, selected 0, and wait-listed 4.
+   [testng] Read 1 items, selected 0, and wait-listed 1.
+   [testng] Read 3 items, selected 0, and wait-listed 3.
+   [testng] Read 3 items, selected 0, and wait-listed 3.
+   [testng] Read 2 items, selected 0, and wait-listed 2.
+   [testng] Read 4 items, selected 0, and wait-listed 4.
+   [testng] Read 6 items, selected 0, and wait-listed 6.
+   [testng] Values for sampled: 
+   [testng] (A1,2)
+   [testng] (A10,3)
+   [testng] (A2,1)
+   [testng] (A3,2)
+   [testng] (A4,2)
+   [testng] (A5,1)
+   [testng] (A6,2)
+   [testng] (A7,2)
+   [testng] (A8,1)
+   [testng] (A9,2)
+   [testng] 
+   [testng] *** Running transposeBadTypeTest ***
+   [testng] 
+   [testng] *** Running transposeTest ***
+   [testng] data2: {testcase: int,transposed: {(key: chararray,value: int)}}
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] data2: {testcase: int,transposed: {(key: chararray,value: int)}}
+   [testng] STORE data3 INTO 'output';
+   [testng] --> none
+   [testng] Values for data3: 
+   [testng] (1,{(val1,10),(val2,11),(val3,12)})
+   [testng] (2,{(val1,20),(val2,21),(val3,22)})
+   [testng] 
+   [testng] *** Running userAgentTest ***
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] data: {usr_agent: chararray}
+   [testng] data = load 'input' as (usr_agent:chararray);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     usr_agent: chararray
+   [testng] );
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] data = load 'input' as (usr_agent:chararray);
+   [testng] --> data = LOAD 'pigunit-input-overriden.txt' AS (
+   [testng]     usr_agent: chararray
+   [testng] );
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] 
+   [testng] *** Running varAccumulateTest ***
+   [testng] 
+   [testng] *** Running varDoubleAlgebraicFinalTest ***
+   [testng] 
+   [testng] *** Running varDoubleAlgebraicIntermediateTest ***
+   [testng] 
+   [testng] *** Running varExecTest ***
+   [testng] 
+   [testng] *** Running varFloatAlgebraicFinalTest ***
+   [testng] 
+   [testng] *** Running varFloatAlgebraicIntermediateTest ***
+   [testng] 
+   [testng] *** Running varIntAlgebraicFinalTest ***
+   [testng] 
+   [testng] *** Running varIntAlgebraicIntermediateTest ***
+   [testng] 
+   [testng] *** Running varLongAlgebraicFinalTest ***
+   [testng] 
+   [testng] *** Running varLongAlgebraicIntermediateTest ***
+   [testng] 
+   [testng] *** Running varTestByteArray ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestDouble ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestFloat ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestInteger ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestLong ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestNullEntries ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestNullEntry ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (8.25)
+   [testng] 
+   [testng] *** Running varTestOneData ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (0.0)
+   [testng] 
+   [testng] *** Running varTestZeroData ***
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] STORE data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] 
+   [testng] *** Running wilsonTest ***
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] store data_out into 'output';
+   [testng] --> none
+   [testng] Values for data_out: 
+   [testng] (0.05129329438755058,1.0)
+   [testng] (0.02564664719377529,0.9743533528062247)
+   [testng] (0.40383153036599573,0.5961684696340043)
+   [testng] (0.4690696003681042,0.5309303996318957)
+   [testng] (0.9943574414020421,0.9999487067056124)
+   [testng] (0.9961732415144449,1.0000000000000002)
+   [testng] (0.9927371921365078,0.9994513564118793)
+   [testng] PASSED: shouldAssertWithMessageOnZero
+   [testng] PASSED: shouldAssertWithoutMessageOnZero
+   [testng] PASSED: shouldNotAssertWithMessageOnOne
+   [testng] PASSED: shouldNotAssertWithoutMessageOnOne
+   [testng] PASSED: appendToBagTest
+   [testng] PASSED: bagConcatTest
+   [testng] PASSED: bagGroupMultipleTest
+   [testng] PASSED: bagGroupSingleTest
+   [testng] PASSED: bagLeftOuterJoinTest
+   [testng] PASSED: bagSplitTest
+   [testng] PASSED: bagSplitWithBagNumTest
+   [testng] PASSED: bagUnionTest
+   [testng] PASSED: comprehensiveBagSplitAndEnumerate
+   [testng] PASSED: countEachExecAndAccumulateTest
+   [testng] PASSED: countEachFlattenTest
+   [testng] PASSED: countEachTest
+   [testng] PASSED: distinctByAccumulateTest
+   [testng] PASSED: distinctByExecTest
+   [testng] PASSED: distinctByTest
+   [testng] PASSED: emptyBagToNullFieldsTest
+   [testng] PASSED: emptyBagToNullTest
+   [testng] PASSED: enumerateAccumulatorTest
+   [testng] PASSED: enumerateTest
+   [testng] PASSED: enumerateTest2
+   [testng] PASSED: enumerateWithReverseTest
+   [testng] PASSED: enumerateWithStartTest
+   [testng] PASSED: firstTupleFromBagTest
+   [testng] PASSED: nullToEmptyBagTest
+   [testng] PASSED: prependToBagTest
+   [testng] PASSED: unorderedPairsTest
+   [testng] PASSED: unorderedPairsTest2
+   [testng] PASSED: coalesceBagIncompatibleTypeTest
+   [testng] PASSED: coalesceCastIntToDatetimeLazyTest
+   [testng] PASSED: coalesceCastIntToDatetimeTest
+   [testng] PASSED: coalesceCastIntToDoubleTest
+   [testng] PASSED: coalesceCastIntToLongTest1
+   [testng] PASSED: coalesceCastIntToLongTest2
+   [testng] PASSED: coalesceCastIntToLongTestFails
+   [testng] PASSED: coalesceIntTest
+   [testng] PASSED: coalesceLongTest
+   [testng] PASSED: leftJoinTest
+   [testng] PASSED: haversineTest
+   [testng] PASSED: md5Base64Test
+   [testng] PASSED: md5Test
+   [testng] PASSED: inIntTest
+   [testng] PASSED: inStringTest
+   [testng] PASSED: inTopLevelTest
+   [testng] PASSED: intToBoolTest
+   [testng] PASSED: intToBoolToIntTest
+   [testng] PASSED: markovPairDefaultTest
+   [testng] PASSED: markovPairLookaheadTest
+   [testng] PASSED: markovPairMultipleInput
+   [testng] PASSED: randomIntRangeTest
+   [testng] PASSED: hubAndSpokeDiskCacheTest
+   [testng] PASSED: hubAndSpokeInMemoryTest
+   [testng] PASSED: wikipediaGraphDiskCacheTest
+   [testng] PASSED: wikipediaGraphInMemoryTest
+   [testng] PASSED: pigPageRankTest
+   [testng] PASSED: medianTest
+   [testng] PASSED: quantile2Test
+   [testng] PASSED: quantile3Test
+   [testng] PASSED: quantile4aTest
+   [testng] PASSED: quantile4bTest
+   [testng] PASSED: quantile5aTest
+   [testng] PASSED: quantile5bTest
+   [testng] PASSED: quantileParamsTest
+   [testng] PASSED: quantileParamsTest2
+   [testng] PASSED: quantileParamsTest3
+   [testng] PASSED: quantileParamsTest4
+   [testng] PASSED: quantileParamsTest5
+   [testng] PASSED: quantileSchemaTest
+   [testng] PASSED: quantileSchemaTest2
+   [testng] PASSED: quantileSchemaTest3
+   [testng] PASSED: quantileSchemaTest4
+   [testng] PASSED: quantileTest
+   [testng] PASSED: streamingMedianTest
+   [testng] PASSED: streamingQuantile2Test
+   [testng] PASSED: streamingQuantile3Test
+   [testng] PASSED: streamingQuantile4Test
+   [testng] PASSED: streamingQuantile5aTest
+   [testng] PASSED: streamingQuantile5bTest
+   [testng] PASSED: streamingQuantile6Test
+   [testng] PASSED: streamingQuantile7Test
+   [testng] PASSED: streamingQuantileAccumulateTest
+   [testng] PASSED: streamingQuantileExecTest
+   [testng] PASSED: streamingQuantileTest
+   [testng] PASSED: reservoirSampleAccumulateTest
+   [testng] PASSED: reservoirSampleAlgebraicTest
+   [testng] PASSED: reservoirSampleExecTest
+   [testng] PASSED: reservoirSampleTest
+   [testng] PASSED: sampleByKeyExecTest
+   [testng] PASSED: sampleByKeyMultipleKeyTest
+   [testng] PASSED: sampleByKeyTest
+   [testng] PASSED: weightedSampleLimitExecTest
+   [testng] PASSED: weightedSampleLimitTest
+   [testng] PASSED: weightedSampleTest
+   [testng] PASSED: sessionCountAccumulateTest
+   [testng] PASSED: sessionCountExecTest
+   [testng] PASSED: sessionCountPageViewsTest
+   [testng] PASSED: sessionizeAccumulateTest
+   [testng] PASSED: sessionizeExecTest
+   [testng] PASSED: sessionizeLongTest
+   [testng] PASSED: sessionizeTest
+   [testng] PASSED: setIntersectEmptyBagsTest
+   [testng] PASSED: setIntersectOutOfOrderTest
+   [testng] PASSED: setIntersectTest
+   [testng] PASSED: setUnionEmptyBagsTest
+   [testng] PASSED: setUnionTest
+   [testng] PASSED: testIntersectWithNullTuples
+   [testng] PASSED: simpleRandomSampleTest
+   [testng] PASSED: stratifiedSampleTest
+   [testng] PASSED: transposeBadTypeTest
+   [testng] PASSED: transposeTest
+   [testng] PASSED: userAgentTest
+   [testng] PASSED: varAccumulateTest
+   [testng] PASSED: varDoubleAlgebraicFinalTest
+   [testng] PASSED: varDoubleAlgebraicIntermediateTest
+   [testng] PASSED: varExecTest
+   [testng] PASSED: varFloatAlgebraicFinalTest
+   [testng] PASSED: varFloatAlgebraicIntermediateTest
+   [testng] PASSED: varIntAlgebraicFinalTest
+   [testng] PASSED: varIntAlgebraicIntermediateTest
+   [testng] PASSED: varLongAlgebraicFinalTest
+   [testng] PASSED: varLongAlgebraicIntermediateTest
+   [testng] PASSED: varTestByteArray
+   [testng] PASSED: varTestDouble
+   [testng] PASSED: varTestFloat
+   [testng] PASSED: varTestInteger
+   [testng] PASSED: varTestLong
+   [testng] PASSED: varTestNullEntries
+   [testng] PASSED: varTestNullEntry
+   [testng] PASSED: varTestOneData
+   [testng] PASSED: varTestZeroData
+   [testng] PASSED: wilsonTest
+   [testng] 
+   [testng] ===============================================
+   [testng]     Ant test
+   [testng]     Tests run: 134, Failures: 0, Skips: 0
+   [testng] ===============================================
+   [testng] 
+   [testng] 
+   [testng] ===============================================
+   [testng] Ant suite
+   [testng] Total tests run: 134, Failures: 0, Skips: 0
+   [testng] ===============================================
+   [testng] 
+   [testng] [TestNG] Time taken by [TestListenerAdapter] Passed:0 Failed:0 Skipped:0]: 0 ms
+   [testng] [TestNG] Time taken by org.testng.reporters.SuiteHTMLReporter@7b40ac2c: 107 ms
+   [testng] [TestNG] Time taken by org.testng.reporters.EmailableReporter@4631ca2b: 41 ms
+   [testng] [TestNG] Time taken by org.testng.reporters.XMLReporter@4f7a95c6: 73 ms
+   [testng] [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@25d8a8b: 15 ms
+
+BUILD SUCCESSFUL
+Total time: 12 minutes 38 seconds
+
+travis_time:end:12564630:start=1479278882679954506,finish=1479279640894451474,duration=758214496968[0K
+[32;1mThe command "ant test" exited with 0.[0m
+
+Done. Your build exited with 0.
