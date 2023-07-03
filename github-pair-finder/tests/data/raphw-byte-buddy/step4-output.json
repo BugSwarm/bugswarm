@@ -1,0 +1,2595 @@
+{
+    "21903~master": {
+        "branch_name": "master",
+        "workflow_id": 21903,
+        "workflow_path": ".github/workflows/main.yml",
+        "pairs": [
+            {
+                "failed_build": {
+                    "build_id": 2549440080,
+                    "build_num": 910,
+                    "commit": "db7aede5e68772486617dfe573ddd2306be927dc",
+                    "message": "Adjust annotation.",
+                    "committed_at": "2022-06-23T13:25:53Z",
+                    "jobs": [
+                        {
+                            "job_id": 7024440071,
+                            "job_num": 1,
+                            "job_name": "HotSpot (32 bit) (ubuntu-18.04, 8)",
+                            "config": {
+                                "name": "HotSpot (32 bit)",
+                                "id-in-workflow": "hotspot-32",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x86",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify \"-Djapicmp.skip=true\" -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024440186,
+                            "job_num": 2,
+                            "job_name": "HotSpot (32 bit) (windows-2019, 8)",
+                            "config": {
+                                "name": "HotSpot (32 bit)",
+                                "id-in-workflow": "hotspot-32",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x86",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify \"-Djapicmp.skip=true\" -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024440605,
+                            "job_num": 3,
+                            "job_name": "HotSpot (legacy) (6)",
+                            "config": {
+                                "name": "HotSpot (legacy)",
+                                "id-in-workflow": "hotspot-legacy",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 6
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/cache@v2",
+                                        "with": {
+                                            "path": "~/.m2/repository",
+                                            "key": "${{ runner.os }}-legacy-maven-${{ hashFiles('**/pom.xml') }}",
+                                            "restore-keys": "${{ runner.os }}-legacy-maven-"
+                                        }
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw -s .mvn/nossl.settings.xml -U verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024440799,
+                            "job_num": 4,
+                            "job_name": "HotSpot (legacy) (7)",
+                            "config": {
+                                "name": "HotSpot (legacy)",
+                                "id-in-workflow": "hotspot-legacy",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 7
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/cache@v2",
+                                        "with": {
+                                            "path": "~/.m2/repository",
+                                            "key": "${{ runner.os }}-legacy-maven-${{ hashFiles('**/pom.xml') }}",
+                                            "restore-keys": "${{ runner.os }}-legacy-maven-"
+                                        }
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw -s .mvn/nossl.settings.xml -U verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441027,
+                            "job_num": 5,
+                            "job_name": "Any (supported) (ubuntu-18.04, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441172,
+                            "job_num": 6,
+                            "job_name": "Any (supported) (ubuntu-18.04, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441318,
+                            "job_num": 7,
+                            "job_name": "Any (supported) (ubuntu-18.04, 17)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441490,
+                            "job_num": 8,
+                            "job_name": "Any (supported) (ubuntu-18.04, 18)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441647,
+                            "job_num": 9,
+                            "job_name": "Any (supported) (macOS-10.15, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441821,
+                            "job_num": 10,
+                            "job_name": "Any (supported) (macOS-10.15, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024441989,
+                            "job_num": 11,
+                            "job_name": "Any (supported) (macOS-10.15, 17)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024442165,
+                            "job_num": 12,
+                            "job_name": "Any (supported) (macOS-10.15, 18)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024442513,
+                            "job_num": 13,
+                            "job_name": "Any (supported) (windows-2019, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024442657,
+                            "job_num": 14,
+                            "job_name": "Any (supported) (windows-2019, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024442848,
+                            "job_num": 15,
+                            "job_name": "Any (supported) (windows-2019, 17)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024442994,
+                            "job_num": 16,
+                            "job_name": "Any (supported) (windows-2019, 18)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443284,
+                            "job_num": 17,
+                            "job_name": "HotSpot (EA)",
+                            "config": {
+                                "name": "HotSpot (EA)",
+                                "id-in-workflow": "hotspot-ea",
+                                "runs-on": "ubuntu-18.04",
+                                "continue-on-error": true,
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "19-ea",
+                                            "distribution": "zulu",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Install JDK and build project",
+                                        "run": "./mvnw verify -Pjava19",
+                                        "continue-on-error": false
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443464,
+                            "job_num": 18,
+                            "job_name": "HotSpot (unsupported) (9)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 9
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443612,
+                            "job_num": 19,
+                            "job_name": "HotSpot (unsupported) (10)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 10
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443718,
+                            "job_num": 20,
+                            "job_name": "HotSpot (unsupported) (12)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 12
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443818,
+                            "job_num": 21,
+                            "job_name": "HotSpot (unsupported) (13)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 13
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024443953,
+                            "job_num": 22,
+                            "job_name": "HotSpot (unsupported) (14)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 14
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024444067,
+                            "job_num": 23,
+                            "job_name": "HotSpot (unsupported) (15)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 15
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024444194,
+                            "job_num": 24,
+                            "job_name": "HotSpot (unsupported) (16)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 16
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024444446,
+                            "job_num": 25,
+                            "job_name": "Any (supported) (ubuntu-18.04, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024444582,
+                            "job_num": 26,
+                            "job_name": "Any (supported) (ubuntu-18.04, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024444868,
+                            "job_num": 27,
+                            "job_name": "Any (supported) (macOS-10.15, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024445010,
+                            "job_num": 28,
+                            "job_name": "Any (supported) (macOS-10.15, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024445121,
+                            "job_num": 29,
+                            "job_name": "Any (supported) (windows-2019, 8)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024445258,
+                            "job_num": 30,
+                            "job_name": "Any (supported) (windows-2019, 11)",
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7024682480,
+                            "job_num": 31,
+                            "job_name": "Coverage",
+                            "config": {
+                                "name": "Coverage",
+                                "id-in-workflow": "coverage",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "hotspot-ea",
+                                    "hotspot-supported",
+                                    "j9-supported",
+                                    "hotspot-unsupported",
+                                    "hotspot-32",
+                                    "hotspot-legacy"
+                                ],
+                                "if": "github.event_name == 'push'",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "failure",
+                            "failed_step_index": 3,
+                            "failed_step_command": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks",
+                            "failed_step_kind": "run"
+                        },
+                        {
+                            "job_id": 7025100031,
+                            "job_num": 32,
+                            "job_name": "Release new version",
+                            "config": {
+                                "name": "Release new version",
+                                "id-in-workflow": "release",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "coverage"
+                                ],
+                                "if": "github.event_name == 'push' && startsWith(github.event.head_commit.message, '[release]')",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "gpg-private-key": "${{ secrets.gpg_secret }}"
+                                        }
+                                    },
+                                    {
+                                        "name": "Publish new version",
+                                        "run": "git config user.name \"${{ github.event.head_commit.committer.name }}\"\ngit config user.email \"${{ github.event.head_commit.committer.email }}\"\n./mvnw -B -s .mvn/release.settings.xml release:prepare release:perform -Drepository.url=https://${{ github.actor }}:${{ secrets.github_token }}@github.com/${{ github.repository }}.git -Dcentral.username=raphw -Dcentral.password=${{ secrets.central_password }} -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -Dgpg.keyname=B4AC8CDC141AF0AE468D16921DA784CCB5C46DD5 -Dgradle.key=${{ secrets.gradle_key }} -Dgradle.secret=${{ secrets.gradle_secret }}\n"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "skipped",
+                            "failed_step_index": null,
+                            "failed_step_command": null,
+                            "failed_step_kind": null
+                        }
+                    ],
+                    "status": "failed"
+                },
+                "passed_build": {
+                    "build_id": 2561765990,
+                    "build_num": 911,
+                    "commit": "5ef0cdddc720ab83b79a2e2f555d84405b634999",
+                    "message": "[release] Release new version",
+                    "committed_at": "2022-06-25T19:53:25Z",
+                    "jobs": [
+                        {
+                            "job_id": 7056044015,
+                            "job_num": 1,
+                            "job_name": "HotSpot (EA)",
+                            "config": {
+                                "name": "HotSpot (EA)",
+                                "id-in-workflow": "hotspot-ea",
+                                "runs-on": "ubuntu-18.04",
+                                "continue-on-error": true,
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "19-ea",
+                                            "distribution": "zulu",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Install JDK and build project",
+                                        "run": "./mvnw verify -Pjava19",
+                                        "continue-on-error": false
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044375,
+                            "job_num": 2,
+                            "job_name": "HotSpot (unsupported) (9)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 9
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044442,
+                            "job_num": 3,
+                            "job_name": "HotSpot (unsupported) (10)",
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 10
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044489,
+                            "job_name": "HotSpot (unsupported) (12)",
+                            "job_num": 4,
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 12
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044526,
+                            "job_name": "HotSpot (unsupported) (13)",
+                            "job_num": 5,
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 13
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044567,
+                            "job_name": "HotSpot (unsupported) (14)",
+                            "job_num": 6,
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 14
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044609,
+                            "job_name": "HotSpot (unsupported) (15)",
+                            "job_num": 7,
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 15
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044641,
+                            "job_name": "HotSpot (unsupported) (16)",
+                            "job_num": 8,
+                            "config": {
+                                "name": "HotSpot (unsupported)",
+                                "id-in-workflow": "hotspot-unsupported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 16
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044680,
+                            "job_name": "Any (supported) (ubuntu-18.04, 8)",
+                            "job_num": 9,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044701,
+                            "job_name": "Any (supported) (ubuntu-18.04, 11)",
+                            "job_num": 10,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044726,
+                            "job_name": "Any (supported) (macOS-10.15, 8)",
+                            "job_num": 11,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044754,
+                            "job_name": "Any (supported) (macOS-10.15, 11)",
+                            "job_num": 12,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044767,
+                            "job_name": "Any (supported) (windows-2019, 8)",
+                            "job_num": 13,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044790,
+                            "job_name": "Any (supported) (windows-2019, 11)",
+                            "job_num": 14,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "j9-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "adopt-openj9",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044825,
+                            "job_name": "Any (supported) (ubuntu-18.04, 8)",
+                            "job_num": 15,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044848,
+                            "job_name": "Any (supported) (ubuntu-18.04, 11)",
+                            "job_num": 16,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044865,
+                            "job_name": "Any (supported) (ubuntu-18.04, 17)",
+                            "job_num": 17,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044885,
+                            "job_name": "Any (supported) (ubuntu-18.04, 18)",
+                            "job_num": 18,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044917,
+                            "job_name": "Any (supported) (macOS-10.15, 8)",
+                            "job_num": 19,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044941,
+                            "job_name": "Any (supported) (macOS-10.15, 11)",
+                            "job_num": 20,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056044975,
+                            "job_name": "Any (supported) (macOS-10.15, 17)",
+                            "job_num": 21,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045008,
+                            "job_name": "Any (supported) (macOS-10.15, 18)",
+                            "job_num": 22,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "macOS-10.15",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045039,
+                            "job_name": "Any (supported) (windows-2019, 8)",
+                            "job_num": 23,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045057,
+                            "job_name": "Any (supported) (windows-2019, 11)",
+                            "job_num": 24,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 11
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045077,
+                            "job_name": "Any (supported) (windows-2019, 17)",
+                            "job_num": 25,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 17
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045105,
+                            "job_name": "Any (supported) (windows-2019, 18)",
+                            "job_num": 26,
+                            "config": {
+                                "name": "Any (supported)",
+                                "id-in-workflow": "hotspot-supported",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 18
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045137,
+                            "job_name": "HotSpot (legacy) (6)",
+                            "job_num": 27,
+                            "config": {
+                                "name": "HotSpot (legacy)",
+                                "id-in-workflow": "hotspot-legacy",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 6
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/cache@v2",
+                                        "with": {
+                                            "path": "~/.m2/repository",
+                                            "key": "${{ runner.os }}-legacy-maven-${{ hashFiles('**/pom.xml') }}",
+                                            "restore-keys": "${{ runner.os }}-legacy-maven-"
+                                        }
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw -s .mvn/nossl.settings.xml -U verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045151,
+                            "job_name": "HotSpot (legacy) (7)",
+                            "job_num": 28,
+                            "config": {
+                                "name": "HotSpot (legacy)",
+                                "id-in-workflow": "hotspot-legacy",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "java": 7
+                                    }
+                                },
+                                "runs-on": "ubuntu-18.04",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/cache@v2",
+                                        "with": {
+                                            "path": "~/.m2/repository",
+                                            "key": "${{ runner.os }}-legacy-maven-${{ hashFiles('**/pom.xml') }}",
+                                            "restore-keys": "${{ runner.os }}-legacy-maven-"
+                                        }
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x64"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw -s .mvn/nossl.settings.xml -U verify -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045169,
+                            "job_name": "HotSpot (32 bit) (ubuntu-18.04, 8)",
+                            "job_num": 29,
+                            "config": {
+                                "name": "HotSpot (32 bit)",
+                                "id-in-workflow": "hotspot-32",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "ubuntu-18.04",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x86",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify \"-Djapicmp.skip=true\" -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056045182,
+                            "job_name": "HotSpot (32 bit) (windows-2019, 8)",
+                            "job_num": 30,
+                            "config": {
+                                "name": "HotSpot (32 bit)",
+                                "id-in-workflow": "hotspot-32",
+                                "strategy": {
+                                    "fail-fast": false,
+                                    "matrix": {
+                                        "os": "windows-2019",
+                                        "java": 8
+                                    }
+                                },
+                                "runs-on": "${{ matrix.os }}",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": "${{ matrix.java }}",
+                                            "distribution": "zulu",
+                                            "architecture": "x86",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw verify \"-Djapicmp.skip=true\" -Pintegration -Pjava${{ matrix.java }}"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056085675,
+                            "job_name": "Coverage",
+                            "job_num": 31,
+                            "config": {
+                                "name": "Coverage",
+                                "id-in-workflow": "coverage",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "hotspot-ea",
+                                    "hotspot-supported",
+                                    "j9-supported",
+                                    "hotspot-unsupported",
+                                    "hotspot-32",
+                                    "hotspot-legacy"
+                                ],
+                                "if": "github.event_name == 'push'",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "cache": "maven"
+                                        }
+                                    },
+                                    {
+                                        "name": "Build project",
+                                        "run": "./mvnw jacoco:prepare-agent verify jacoco:report coveralls:report -DrepoToken=${{ secrets.coveralls }} -Pintegration -Pextras -Pchecks"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        },
+                        {
+                            "job_id": 7056114090,
+                            "job_name": "Release new version",
+                            "job_num": 32,
+                            "config": {
+                                "name": "Release new version",
+                                "id-in-workflow": "release",
+                                "runs-on": "ubuntu-18.04",
+                                "needs": [
+                                    "coverage"
+                                ],
+                                "if": "github.event_name == 'push' && startsWith(github.event.head_commit.message, '[release]')",
+                                "steps": [
+                                    {
+                                        "uses": "actions/checkout@v3"
+                                    },
+                                    {
+                                        "uses": "actions/setup-java@v2",
+                                        "with": {
+                                            "java-version": 8,
+                                            "distribution": "temurin",
+                                            "architecture": "x64",
+                                            "gpg-private-key": "${{ secrets.gpg_secret }}"
+                                        }
+                                    },
+                                    {
+                                        "name": "Publish new version",
+                                        "run": "git config user.name \"${{ github.event.head_commit.committer.name }}\"\ngit config user.email \"${{ github.event.head_commit.committer.email }}\"\n./mvnw -B -s .mvn/release.settings.xml release:prepare release:perform -Drepository.url=https://${{ github.actor }}:${{ secrets.github_token }}@github.com/${{ github.repository }}.git -Dcentral.username=raphw -Dcentral.password=${{ secrets.central_password }} -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -Dgpg.keyname=B4AC8CDC141AF0AE468D16921DA784CCB5C46DD5 -Dgradle.key=${{ secrets.gradle_key }} -Dgradle.secret=${{ secrets.gradle_secret }}\n"
+                                    }
+                                ]
+                            },
+                            "language": "java",
+                            "result": "success",
+                            "failed_step_kind": null,
+                            "failed_step_index": null,
+                            "failed_step_command": null
+                        }
+                    ],
+                    "status": "passed"
+                },
+                "repo_mined_version": null,
+                "jobpairs": [],
+                "exclude_from_output": false
+            }
+        ],
+        "ght_commits": [],
+        "github_commits": [],
+        "html_commits": {},
+        "base_branch": "",
+        "pr_info": null
+    }
+}

@@ -1,0 +1,2 @@
+class StepException(Exception):
+    pass
