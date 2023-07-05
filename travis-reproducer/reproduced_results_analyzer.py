@@ -160,8 +160,8 @@ class ReproducedResultsAnalyzer(object):
                                 original_log_path = self.utils.get_orig_log_path(job_id)
                                 if not download_log(job_id, original_log_path):
                                     continue
-                                original_result = self.analyzer.analyze_single_log(original_log_path, job_id,
-                                                                                   trigger_sha, repo)
+                                original_result = self.analyzer.analyze_single_log(original_log_path, job_id, 'travis',
+                                                                                   trigger_sha=trigger_sha, repo=repo)
                                 if 'not_in_supported_language' in original_result:
                                     continue
                                 jp[job_name]['orig_result'] = original_result
@@ -182,8 +182,7 @@ class ReproducedResultsAnalyzer(object):
         for jp in all_jobpairs:
             for run in jp.match_history:
                 all_runs.append(run)
-        all_runs = list(set(all_runs))
-        all_runs.sort()
+        all_runs = sorted(set(all_runs))
         return all_jobpairs, all_runs
 
     def _visualize_match_history(self):

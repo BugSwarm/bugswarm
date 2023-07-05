@@ -1,0 +1,5127 @@
+[
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2460070687,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "7372e2e061816fedc58659f0cc142b07ace4a8bd",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-08T08:12:04Z",
+      "message": "fix checkstyle for member name.",
+      "jobs": [
+        {
+          "build_job": "1206.1",
+          "job_id": 6789523705,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1206.2",
+          "job_id": 6789523810,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1206.3",
+          "job_id": 6789523908,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2460174653,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "7fe8c535f604a64d1f2575edd217ea5d521f1414",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-08T08:31:13Z",
+      "message": "fix jdk17 dataformat issue.",
+      "jobs": [
+        {
+          "build_job": "1207.1",
+          "job_id": 6789817329,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1207.2",
+          "job_id": 6789817501,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1207.3",
+          "job_id": 6789817606,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6789523908
+        },
+        "passed_job": {
+          "job_id": 6789817606
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2460953969,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "8893222b46bf0a66dad1ad922d8d4a2469d07d6b",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-08T10:47:12Z",
+      "message": "support non-string key serialize",
+      "jobs": [
+        {
+          "build_job": "1209.1",
+          "job_id": 6791988370,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1209.2",
+          "job_id": 6791988480,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1209.3",
+          "job_id": 6791988572,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2461113332,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "9d80652f6009cebce1f4cef9be8acdfd571ceaa2",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-08T11:15:50Z",
+      "message": "bug fix for fastjson 1.x compatible",
+      "jobs": [
+        {
+          "build_job": "1210.1",
+          "job_id": 6792422481,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1210.2",
+          "job_id": 6792422605,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1210.3",
+          "job_id": 6792422705,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6791988370
+        },
+        "passed_job": {
+          "job_id": 6792422481
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6791988480
+        },
+        "passed_job": {
+          "job_id": 6792422605
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6791988572
+        },
+        "passed_job": {
+          "job_id": 6792422705
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2471281433,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "64cf29f0abaf072a4dfccbd1a744ee2706096731",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-09T21:26:32Z",
+      "message": "fix javadoc error",
+      "jobs": [
+        {
+          "build_job": "1220.1",
+          "job_id": 6821208604,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1220.2",
+          "job_id": 6821208694,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1220.3",
+          "job_id": 6821208770,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2471363635,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "35dd9924352513c5a48cbcb7d43538f821288a31",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-09T21:39:17Z",
+      "message": "fix javadoc error",
+      "jobs": [
+        {
+          "build_job": "1221.1",
+          "job_id": 6821436128,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1221.2",
+          "job_id": 6821436281,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1221.3",
+          "job_id": 6821436458,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6821208604
+        },
+        "passed_job": {
+          "job_id": 6821436128
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6821208694
+        },
+        "passed_job": {
+          "job_id": 6821436281
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6821208770
+        },
+        "passed_job": {
+          "job_id": 6821436458
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2488631013,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "5ba217f8e394eed7e54d22a3fba7f90ef3d2c3bc",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-13T13:21:58Z",
+      "message": "LocalDateTime output default format \"yyyy-MM-dd HH:mm:ss\"",
+      "jobs": [
+        {
+          "build_job": "1258.1",
+          "job_id": 6863626792,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1258.2",
+          "job_id": 6863626984,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1258.3",
+          "job_id": 6863627241,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2489194626,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "203a234de365891039130b2b1d959e488a7f2eda",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-13T14:53:01Z",
+      "message": "fix testcase",
+      "jobs": [
+        {
+          "build_job": "1259.1",
+          "job_id": 6863828230,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1259.2",
+          "job_id": 6863828365,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1259.3",
+          "job_id": 6863829441,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6863626792
+        },
+        "passed_job": {
+          "job_id": 6863828230
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6863626984
+        },
+        "passed_job": {
+          "job_id": 6863828365
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6863627241
+        },
+        "passed_job": {
+          "job_id": 6863829441
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2500531251,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "407ff8dce40969472446ccc0a56513f6ac78bc4c",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-15T07:27:54Z",
+      "message": "add dependency from parent pom.",
+      "jobs": [
+        {
+          "build_job": "1268.1",
+          "job_id": 6895050303,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1268.2",
+          "job_id": 6895050375,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "cancelled"
+        },
+        {
+          "build_job": "1268.3",
+          "job_id": 6895050473,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2500562249,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "b29369015bf5ecdb0e535660c113610a9f32505b",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-15T07:33:51Z",
+      "message": "fix: checkstyle issue.",
+      "jobs": [
+        {
+          "build_job": "1269.1",
+          "job_id": 6895127288,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1269.2",
+          "job_id": 6895127418,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1269.3",
+          "job_id": 6895127574,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6895050303
+        },
+        "passed_job": {
+          "job_id": 6895127288
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6895050473
+        },
+        "passed_job": {
+          "job_id": 6895127574
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2501074906,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "875ec14f41d69611f8852e947014ff051121db5e",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-15T09:06:50Z",
+      "message": "fix: checkstyle issue.",
+      "jobs": [
+        {
+          "build_job": "1272.1",
+          "job_id": 6896559539,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1272.2",
+          "job_id": 6896559632,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1272.3",
+          "job_id": 6896559722,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2501126988,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "3bbf51ee7529b8a3a5d46929e93ac6dd52ea934f",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-15T09:15:22Z",
+      "message": "fix: testcase issue.",
+      "jobs": [
+        {
+          "build_job": "1273.1",
+          "job_id": 6896707283,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1273.2",
+          "job_id": 6896707431,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1273.3",
+          "job_id": 6896707600,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6896559539
+        },
+        "passed_job": {
+          "job_id": 6896707283
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6896559632
+        },
+        "passed_job": {
+          "job_id": 6896707431
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6896559722
+        },
+        "passed_job": {
+          "job_id": 6896707600
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2518220459,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "0ea9c1f01530f481490fd8b86e40d0b0e8a9aab0",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-17T22:10:23Z",
+      "message": "code style",
+      "jobs": [
+        {
+          "build_job": "1289.1",
+          "job_id": 6943482913,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1289.2",
+          "job_id": 6943482973,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1289.3",
+          "job_id": 6943483029,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2518290330,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "6589241bc92a414e54e78a7aa589e28617ec9239",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-17T22:13:07Z",
+      "message": "fix testcase",
+      "jobs": [
+        {
+          "build_job": "1290.1",
+          "job_id": 6943659678,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1290.2",
+          "job_id": 6943659734,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1290.3",
+          "job_id": 6943659781,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6943483029
+        },
+        "passed_job": {
+          "job_id": 6943659781
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2529148046,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "37559bbe2e715784a900775ea3c16d46fad47d28",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-20T13:06:53Z",
+      "message": "add testcase & refactor",
+      "jobs": [
+        {
+          "build_job": "1309.1",
+          "job_id": 6967454718,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1309.2",
+          "job_id": 6967454864,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1309.3",
+          "job_id": 6967455003,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2532379008,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "112f61b4cdcb14acaf0e3c09430259d5b8b617d0",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-21T01:00:28Z",
+      "message": "fix check style",
+      "jobs": [
+        {
+          "build_job": "1310.1",
+          "job_id": 6976357902,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1310.2",
+          "job_id": 6976357960,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1310.3",
+          "job_id": 6976358029,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 6967454718
+        },
+        "passed_job": {
+          "job_id": 6976357902
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6967454864
+        },
+        "passed_job": {
+          "job_id": 6976357960
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 6967455003
+        },
+        "passed_job": {
+          "job_id": 6976358029
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2559355261,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "34e9f06d8b3445d5a18cccbde22fd466033e45cd",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-25T03:58:57Z",
+      "message": "add testcase for issue #504",
+      "jobs": [
+        {
+          "build_job": "1328.1",
+          "job_id": 7051430297,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1328.2",
+          "job_id": 7051430356,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1328.3",
+          "job_id": 7051430415,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2559389597,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "372a7e4e505cd2b39c067ab8c2c917395f24f4eb",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-25T04:09:47Z",
+      "message": "add testcase",
+      "jobs": [
+        {
+          "build_job": "1329.1",
+          "job_id": 7051505319,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1329.2",
+          "job_id": 7051505351,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1329.3",
+          "job_id": 7051505385,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7051430297
+        },
+        "passed_job": {
+          "job_id": 7051505319
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7051430356
+        },
+        "passed_job": {
+          "job_id": 7051505351
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7051430415
+        },
+        "passed_job": {
+          "job_id": 7051505385
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2560543300,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "1beed57e1377254cccb32fa8b6e168444f9fa0bf",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-25T11:55:48Z",
+      "message": "add testcase for issue #502",
+      "jobs": [
+        {
+          "build_job": "1345.1",
+          "job_id": 7053679423,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1345.2",
+          "job_id": 7053679440,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1345.3",
+          "job_id": 7053679457,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2560574926,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "78c0f98b7622a46d76b286abd3fb5abfd23e39ab",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-25T12:07:12Z",
+      "message": "check style",
+      "jobs": [
+        {
+          "build_job": "1346.1",
+          "job_id": 7053742753,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1346.2",
+          "job_id": 7053742794,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1346.3",
+          "job_id": 7053742830,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7053679423
+        },
+        "passed_job": {
+          "job_id": 7053742753
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7053679440
+        },
+        "passed_job": {
+          "job_id": 7053742794
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7053679457
+        },
+        "passed_job": {
+          "job_id": 7053742830
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2580060559,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "26eef512e833c1fa65c9703568366bd08c83731c",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-29T00:55:34Z",
+      "message": "support Feature.AllowUnQuotedFieldNames, bug fix for issue #478",
+      "jobs": [
+        {
+          "build_job": "1351.1",
+          "job_id": 7103741089,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1351.2",
+          "job_id": 7103741176,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1351.3",
+          "job_id": 7103741242,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2580330486,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "e3d7022b8f7531f6c879ea040eb72cfc6c3055ac",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-06-29T02:23:31Z",
+      "message": "support Feature.AllowUnQuotedFieldNames, bug fix for issue #478",
+      "jobs": [
+        {
+          "build_job": "1352.1",
+          "job_id": 7104478683,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1352.2",
+          "job_id": 7104478732,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1352.3",
+          "job_id": 7104478776,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7103741089
+        },
+        "passed_job": {
+          "job_id": 7104478683
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7103741176
+        },
+        "passed_job": {
+          "job_id": 7104478732
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7103741242
+        },
+        "passed_job": {
+          "job_id": 7104478776
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2626105183,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "6a996eb89f2b0ea0248b951d68a7595abc3a82d8",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-06T22:53:48Z",
+      "message": "add testcase for issue #529",
+      "jobs": [
+        {
+          "build_job": "1375.1",
+          "job_id": 7224214757,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1375.2",
+          "job_id": 7224214801,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1375.3",
+          "job_id": 7224214852,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2626132297,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "89cd8a3abde321b94d8c6d77ff21c2c712c35733",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-06T23:03:36Z",
+      "message": "fix check style",
+      "jobs": [
+        {
+          "build_job": "1376.1",
+          "job_id": 7224285523,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1376.2",
+          "job_id": 7224285596,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1376.3",
+          "job_id": 7224285675,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7224214757
+        },
+        "passed_job": {
+          "job_id": 7224285523
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7224214801
+        },
+        "passed_job": {
+          "job_id": 7224285596
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7224214852
+        },
+        "passed_job": {
+          "job_id": 7224285675
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2636574838,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "6fb9a6853cbff4a4df585d29079f9cf0a33d2c39",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-08T14:02:00Z",
+      "message": "fix:File format standard",
+      "jobs": [
+        {
+          "build_job": "1378.1",
+          "job_id": 7253244264,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1378.2",
+          "job_id": 7253244375,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1378.3",
+          "job_id": 7253244485,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2636764379,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "7baea90b43f911a6e0b111101b1a3f22f62bf47a",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-08T14:16:11Z",
+      "message": "bug fix for read none-public class, for issue #531",
+      "jobs": [
+        {
+          "build_job": "1379.1",
+          "job_id": 7253343611,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1379.2",
+          "job_id": 7253343718,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1379.3",
+          "job_id": 7253343831,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7253244264
+        },
+        "passed_job": {
+          "job_id": 7253343611
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7253244375
+        },
+        "passed_job": {
+          "job_id": 7253343718
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7253244485
+        },
+        "passed_job": {
+          "job_id": 7253343831
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2660369895,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "48658ffe2a250b7a991c8a689db3857478557e72",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-13T01:08:55Z",
+      "message": "bug fix for getter method order, fix issue #549",
+      "jobs": [
+        {
+          "build_job": "1426.1",
+          "job_id": 7312797241,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1426.2",
+          "job_id": 7312797274,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1426.3",
+          "job_id": 7312797316,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2660382885,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "c62b81973a9a05af97369df295b111f0897c1580",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-13T01:13:46Z",
+      "message": "fix testcase",
+      "jobs": [
+        {
+          "build_job": "1427.1",
+          "job_id": 7312835189,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1427.2",
+          "job_id": 7312835224,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1427.3",
+          "job_id": 7312835269,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7312797241
+        },
+        "passed_job": {
+          "job_id": 7312835189
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  },
+  {
+    "repo": "alibaba/fastjson2",
+    "repo_mined_version": "efba7c3ca96d0a2ff914db5f95c517ef02768f11",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "main",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 2664782598,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "238b7070a656da9b67e7487b12262f576c3374c4",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-13T16:11:19Z",
+      "message": "JSONPath.eval support String input, fix issue #553",
+      "jobs": [
+        {
+          "build_job": "1435.1",
+          "job_id": 7324997463,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1435.2",
+          "job_id": 7324997694,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        },
+        {
+          "build_job": "1435.3",
+          "job_id": 7324997843,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "failure"
+        }
+      ]
+    },
+    "passed_build": {
+      "build_id": 2664810936,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "3f5ed402b1b959345890e40b3908dbb157c8a6ee",
+      "github_archived": false,
+      "resettable": true,
+      "committed_at": "2022-07-13T16:14:39Z",
+      "message": "fix testcase",
+      "jobs": [
+        {
+          "build_job": "1436.1",
+          "job_id": 7325082068,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 8
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1436.2",
+          "job_id": 7325082183,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 11
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        },
+        {
+          "build_job": "1436.3",
+          "job_id": 7325082316,
+          "config": {
+            "runs-on": "${{ matrix.os }}",
+            "strategy": {
+              "matrix": {
+                "os": "ubuntu-18.04",
+                "java": 17
+              },
+              "fail-fast": false,
+              "max-parallel": 16
+            },
+            "name": "Test JDK ${{ matrix.java }}, ${{ matrix.os }}",
+            "steps": [
+              {
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Set up JDK",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "zulu",
+                  "java-version": "${{ matrix.java }}",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build with Maven",
+                "run": "./mvnw -Pgen-javadoc -Pgen-dokka clean package -B"
+              },
+              {
+                "name": "Generate code coverage",
+                "run": "./mvnw -Pgen-code-cov clean test"
+              },
+              {
+                "uses": "codecov/codecov-action@v3",
+                "with": {
+                  "name": "codecov-umbrella",
+                  "token": "${{ secrets.CODECOV_TOKEN }}"
+                }
+              }
+            ]
+          },
+          "language": "java",
+          "result": "success"
+        }
+      ]
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 7324997463
+        },
+        "passed_job": {
+          "job_id": 7325082068
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      },
+      {
+        "failed_job": {
+          "job_id": 7324997694
+        },
+        "passed_job": {
+          "job_id": 7325082183
+        },
+        "build_system": "NA",
+        "filtered_reason": null
+      }
+    ]
+  }
+]

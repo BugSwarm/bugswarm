@@ -51,8 +51,8 @@ def main(argv):
 
     cached_image_tags = set()
     for task in tasks:
-        if os.path.isfile('../cache-dependency/output/{}'.format(task)):
-            with open('../cache-dependency/output/{}.csv'.format(task)) as f:
+        if os.path.isfile('../travis-cacher/output/{}'.format(task)):
+            with open('../travis-cacher/output/{}.csv'.format(task)) as f:
                 for row in f:
                     row_list = row.split(', ')
                     if row_list[1] == 'succeed':

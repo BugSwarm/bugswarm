@@ -21,6 +21,7 @@ class GitHubWrapper(object):
     - automatically choosing another available GitHub token when the current token's quota is exceeded
     - automatically waiting until any token's quota is reset when all tokens exceeded their quota.
     """
+
     def __init__(self, tokens: List[str]):
         """
         :param tokens: A list of GitHub tokens.
@@ -51,6 +52,7 @@ class GitHubWrapper(object):
 
         retry_back_off = 5  # Seconds.
         retry_count = 0
+        max_retry = 5  # Return (None, None) when retry_count >= max_retry
         while True:
             response = None
             try:
@@ -79,6 +81,9 @@ class GitHubWrapper(object):
                 else:
                     log.error('Request for url failed:', url)
                     log.error('Exception:', e)
+                    if retry_count >= max_retry:
+                        log.error('Stop retrying after {} retry failures'.format(retry_count))
+                        return None, None
 
                 # If the status code is 403 (Forbidden), then we may have exceeded our GitHub API quota.
                 # In this case, we should verify that the quota was exceeded and, if so, wait until the quota is reset.

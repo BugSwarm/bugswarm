@@ -17,3 +17,7 @@ NOT_RESETTABLE = 'not resettable'  # Deprecated.
 NOT_ACQUIRABLE = 'not acquirable'  # Deprecated.
 NOT_AVAILABLE = 'not available'
 SAME_COMMIT_PAIR = 'failed build has same sha with passed build'
+UNAVAILABLE_RUNNER = 'do not have github runner'
+UNRESETTABLE_WITH_SUBMODULES = 'repo is non-resettable and has submodules'
+UNREDACTED_TOKEN = 'job config includes unredacted/cleartext tokens'
+UNSUPPORTED_WORKFLOW = 'job workflow file uses unsupported syntax'

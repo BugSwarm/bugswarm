@@ -2,23 +2,21 @@ import json
 import logging
 import os
 import sys
-
+from copy import deepcopy
 from os import path
 from typing import List
 
+from bugswarm.common import filter_reasons as reasons
 from bugswarm.common import log
+from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.json import read_json
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common.utils import get_current_component_version_message
-from bugswarm.common import filter_reasons as reasons
-from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
-from pair_filter import filters
-from pair_filter import utils
-from pair_filter.constants import FILTERED_REASON_KEY
-from pair_filter.constants import IS_FILTERED_KEY
-from pair_filter.constants import PARSED_IMAGE_TAG_KEY
-from pair_filter.constants import OUTPUT_FILE_DIR
-from pair_filter.constants import DOCKERHUB_IMAGES_JSON
+
+from pair_filter import filters, utils
+from pair_filter.constants import (DOCKERHUB_IMAGES_JSON, FILTERED_REASON_KEY,
+                                   IGNORED_BUILDPAIR_KEYS, IS_FILTERED_KEY,
+                                   OUTPUT_FILE_DIR, PARSED_IMAGE_TAG_KEY)
 
 
 class PairFilter(object):
@@ -46,6 +44,19 @@ class PairFilter(object):
 
     @staticmethod
     def _insert_buildpairs(repo: str, buildpairs: List):
+        buildpairs = deepcopy(buildpairs)
+
+        for bp in buildpairs:
+            for key in IGNORED_BUILDPAIR_KEYS:
+                parts = key.split('.')
+                target = bp
+                try:
+                    for part in parts[:-1]:
+                        target = target[part]
+                    del target[parts[-1]]
+                except KeyError:
+                    continue
+
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
         if not bugswarmapi.bulk_insert_mined_build_pairs(buildpairs):
             log.error('Could not bulk insert mined build pairs for {}. Exiting.'.format(repo))
@@ -63,11 +74,10 @@ class PairFilter(object):
         log.info('Done writing output file.')
 
     @staticmethod
-    def _update_mined_project(repo: str, buildpairs: List):
+    def _update_mined_project(repo: str, ci_service: str, orig_metrics_dir: str, buildpairs: List):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-        file_name = utils.canonical_repo(repo)
-        file_path = os.path.join(os.path.dirname(os.path.realpath('.')),
-                                 'pair-finder/output/original_metrics/{}.json'.format(file_name))
+        file_name = utils.canonical_repo(repo) + '.json'
+        file_path = os.path.join(orig_metrics_dir, file_name)
         original_d = read_json(file_path)
 
         def _key(filter_name: str, pr: bool):
@@ -119,12 +129,12 @@ class PairFilter(object):
                 metric_value = metric_value + original_d['progression_metrics'][metric_name]
             except KeyError:
                 pass
-            if not bugswarmapi.set_mined_project_progression_metric(repo, 'travis', metric_name, metric_value):
+            if not bugswarmapi.set_mined_project_progression_metric(repo, ci_service, metric_name, metric_value):
                 log.error('Encountered an error while setting a progression metric. Exiting.')
                 sys.exit(1)
 
     @staticmethod
-    def run(repo: str, dir_of_jsons: str):
+    def run(repo: str, ci_service: str, dir_of_jsons: str):
         utils.create_dirs()
 
         try:
@@ -144,7 +154,15 @@ class PairFilter(object):
         filters.filter_no_sha(buildpairs)
         filters.filter_same_commit(buildpairs)
         filters.filter_unavailable(buildpairs)
-        filters.filter_non_exact_images(buildpairs)
+        filters.filter_unresettable_with_submodules(buildpairs)
+
+        if ci_service == 'github':
+            filters.filter_unavailable_github_runner(buildpairs)
+            filters.filter_unredacted_tokens(buildpairs)
+            filters.filter_unsupported_workflow(buildpairs)
+            filters.filter_expired_logs(buildpairs)
+        elif ci_service == 'travis':
+            filters.filter_non_exact_images(buildpairs)
         log.info('Finished filtering.')
 
         PairFilter._set_is_filtered(buildpairs)
@@ -153,30 +171,38 @@ class PairFilter(object):
 
         log.info('Writing build pairs to the database.')
         PairFilter._insert_buildpairs(repo, buildpairs)
+
         log.info('Updating mined project in the database.')
-        PairFilter._update_mined_project(repo, buildpairs)
+        orig_metrics_dir = os.path.join(dir_of_jsons, '..', 'original_metrics')
+        PairFilter._update_mined_project(repo, ci_service, orig_metrics_dir, buildpairs)
 
         log.info('Done! After filtering,', utils.count_unfiltered_jobpairs(buildpairs), 'jobpairs remain.')
 
 
 def _print_usage():
-    log.info('Usage: python3 pair-filter.py <repo> <dir_of_jsons>')
+    log.info('Usage: python3 pair-filter.py <repo> <ci_service> <dir_of_jsons>')
     log.info('repo:         The GitHub slug for the project whose pairs are being filtered.')
+    log.info('ci_service:   The CI service used by the mined project. One of "github" or "travis".')
     log.info('dir_of_jsons: Input directory containing JSON files of pairs. This directory is often be within the '
              'PairFinder output directory.')
 
 
 def _validate_input(argv):
-    if len(argv) != 3:
+    if len(argv) != 4:
         _print_usage()
         sys.exit(1)
     repo = argv[1]
-    dir_of_jsons = argv[2]
+    ci_service = argv[2]
+    if ci_service not in ['github', 'travis']:
+        log.error('The ci_service argument must be one of "github" or "travis". Exiting.')
+        _print_usage()
+        sys.exit(1)
+    dir_of_jsons = argv[3]
     if not os.path.isdir(dir_of_jsons):
         log.error('The dir_of_jsons argument is not a directory or does not exist. Exiting.')
         _print_usage()
         sys.exit(1)
-    return repo, dir_of_jsons
+    return repo, ci_service, dir_of_jsons
 
 
 def main(argv=None):
@@ -189,8 +215,8 @@ def main(argv=None):
     if not path.exists(DOCKERHUB_IMAGES_JSON):
         log.info('File dockerhub_image.json not found. Please run gen_image_list.py')
 
-    repo, dir_of_jsons = _validate_input(argv)
-    PairFilter.run(repo, dir_of_jsons)
+    repo, ci_service, dir_of_jsons = _validate_input(argv)
+    PairFilter.run(repo, ci_service, dir_of_jsons)
 
 
 if __name__ == '__main__':

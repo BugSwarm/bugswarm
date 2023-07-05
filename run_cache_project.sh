@@ -6,27 +6,33 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Include common functions and constants.
 source "${SCRIPT_DIR}"/common.sh
 
-TOTAL_STEPS=$((3))
-# CacheDependency, MetadataPackager, ArtifactLogPackager.
 STAGE='Cache Project'
 
-USAGE='Usage: bash run_cache_project.sh [-r <repo-slug>] [-t <threads>] [-c <component-directory>] [-ca "<caching-args>"]'
+USAGE='Usage: bash run_cache_project.sh --ci <ci> -r <repo-slug> [-t <threads>] [-c <component-directory>] [--no-push] [-a "<caching-args>"]'
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:ca --long component-directory:,repo:,threads:,caching-args 'run-cache-project' -- "$@")
+OPTS=$(getopt -o c:r:t:a: --long component-directory:,repo:,threads:,no-push,caching-args:,ci: -n 'run-cache-project' -- "$@")
+eval set -- "$OPTS"
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
       -c | --component-directory ) component_directory="$2"; shift; shift ;;
       -r | --repo                ) repo="$2";                shift; shift ;;
       -t | --threads             ) threads="$2";             shift; shift ;;
-      -ca | --caching-args       ) caching_args="$2";        shift; shift ;;
+           --no-push             ) no_push='--no-push';      shift ;;
+      -a | --caching-args        ) caching_args="$2";        shift; shift ;;
+           --ci                  ) ci_service="$2";          shift; shift ;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
 done
 
 # Perform checks and set defaults for command line arguments.
+
+if [[ ${ci_service} != 'travis' && ${ci_service} != 'github' ]]; then
+    echo '--ci must be one of "travis" or "github". Exiting.'
+    exit 1
+fi
 
 if [ -z "${repo}" ]; then
     echo "${USAGE}"
@@ -43,7 +49,7 @@ if [[ -z "${component_directory}" ]]; then
 fi
 
 if [[ ${repo} != *"/"* ]]; then
-    echo '[   ERROR] --- The repo slug must be in the form <username>/<project> (e.g. google/guice). Exiting.'
+    echo 'The repo slug must be in the form <username>/<project> (e.g. google/guice). Exiting.'
     exit 1
 fi
 
@@ -56,39 +62,51 @@ if [[ -z "${caching_args}" ]]; then
     caching_args=""
 fi
 
-reproducer_dir="${component_directory}"/reproducer
-cache_dep_dir="${component_directory}"/cache-dependency
+if [[ ${no_push} ]]; then
+    TOTAL_STEPS=1  # CacheDependency only
+else
+    TOTAL_STEPS=3  # CacheDependency, MetadataPackager, ArtifactLogPackager.
+fi
+
+reproducer_dir="${component_directory}/${ci_service}-reproducer"
+cache_dep_dir="${component_directory}/${ci_service}-cacher"
 
 # Check for existence of the required repositories.
-check_repo_exists ${reproducer_dir} 'reproducer'
-check_repo_exists ${cache_dep_dir} 'cache-dependency'
+check_repo_exists "${reproducer_dir}" 'reproducer'
+check_repo_exists "${cache_dep_dir}" 'cache-dependency'
 
 print_step "${STAGE}" ${TOTAL_STEPS} 'CacheDependency'
-cd ${reproducer_dir}
-echo "[    INFO] --- Running: python3 get_reproducer_output.py -i output/result_json/$task_name.json -o $task_name"
-python3 get_reproducer_output.py -i output/result_json/${task_name}.json -o ${task_name}
-cd ${cache_dep_dir}
+cd "${reproducer_dir}"
+echo "Running: python3 get_reproducer_output.py -i output/result_json/$task_name.json -o $task_name"
+python3 get_reproducer_output.py -i "output/result_json/${task_name}.json" -o "${task_name}"
 
 if [ ! -s ${reproducer_dir}/input/${task_name} ]; then
-    echo "[   ERROR] --- ${reproducer_dir}/input/${task_name} does not exist, which should be created by get_reproducer_output.py."
-    echo '[   ERROR] --- Either all reproducible artifacts have been cached, or there were no reproducible artifacts to begin with.'
+    print_red "${reproducer_dir}/input/${task_name} does not exist or is empty, which should be created by get_reproducer_output.py."
+    print_red 'Either all reproducible artifacts have been cached, or there were no reproducible artifacts to begin with.'
     exit 1
 fi
 
+echo
 echo 'Attempting to cache the following artifacts:'
-cat ${reproducer_dir}/input/${task_name}
-echo "[    INFO] --- Running: python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}"
-python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${caching_args}
+cat "${reproducer_dir}/input/${task_name}"
+
+cd "${cache_dep_dir}"
+echo
+echo "Running: python3 CacheMaven.py ${reproducer_dir}/input/${task_name} ${task_name} --workers ${threads} --task_json ${reproducer_dir}/output/result_json/${task_name}.json ${no_push} ${caching_args}"
+python3 CacheMaven.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task_json "${reproducer_dir}/output/result_json/${task_name}.json" ${no_push} ${caching_args}
 exit_if_failed 'CacheDependency encountered an error.'
 
-# MetadataPackager (push artifact metadata to the database)
-print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
-cd ${reproducer_dir}
-python3 packager.py -i output/result_json/${task_name}.json
-exit_if_failed 'MetadataPackager encountered an error.'
+if [[ ! ${no_push} ]]; then
+    cd "${reproducer_dir}"
 
-print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'
-python3 add_artifact_logs.py ${task_name}
-exit_if_failed 'ArtifactLogPackager encountered an error.'
+    # MetadataPackager (push artifact metadata to the database)
+    print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
+    python3 packager.py -i "output/result_json/${task_name}.json"
+    exit_if_failed 'MetadataPackager encountered an error.'
+
+    print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'
+    python3 add_artifact_logs.py "${task_name}"
+    exit_if_failed 'ArtifactLogPackager encountered an error.'
+fi
 
 print_stage_done "${STAGE}"

@@ -1,109 +1,131 @@
 import getopt
 import json
 import logging
+import math
 import os
+import re
 import sys
-
-from concurrent.futures import as_completed
-from concurrent.futures import ThreadPoolExecutor
-from typing import List
-from typing import Optional
-from typing import Set
-from typing import Tuple
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from typing import List, Optional, Set, Tuple
 
 import dateutil.parser
 from bugswarm.common import log
 from bugswarm.common import utils as bugswarmutils
-from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
+from bugswarm.common.rest_api.database_api import DatabaseAPI
+from bugswarm.common.unsupported_actions import SPECIAL_ACTIONS, UNSUPPORTED_ACTIONS
 from bugswarm.common.utils import get_diff_stats
+
+
+@dataclass
+class Options:
+    include_attempted: bool = False
+    include_archived: bool = False
+    include_resettable: bool = False
+    include_only_test_failures: bool = False
+    include_only_compile_failures: bool = False
+    include_different_base_image: bool = False
+    restrict_classified_build: bool = False
+    restrict_classified_code: bool = False
+    restrict_classified_test: bool = False
+    exclude_classified_build: bool = False
+    exclude_classified_code: bool = False
+    exclude_classified_test: bool = False
+    restrict_classified_exclusive: bool = False
+    restrict_classified_exception: str = ''
+    restrict_build_system: str = ''
+    restrict_os_version: str = ''
+    restrict_diff_size: str = ''
+    restrict_ci_service: str = ''
+    restrict_valid_failed_step: bool = True
+    restrict_custom_failed_step: bool = False
+    restrict_earliest_mine_date: datetime = None
+    restrict_language: str = ''
+    restrict_max_runtime: int = None
+    restrict_non_docker: bool = False
 
 
 class JobPairSelector(object):
     @staticmethod
-    def select(buildpairs: List,
-               repo: str,
-               include_attempted: bool,
-               include_archived: bool,
-               include_resettable: bool,
-               include_only_test_failures: bool,
-               include_different_base_image: bool,
-               restrict_classified_build: bool,
-               restrict_classified_code: bool,
-               restrict_classified_test: bool,
-               restrict_classified_exclusive: bool,
-               restrict_classified_exception: str,
-               restrict_build_system: str,
-               restrict_os_version: str,
-               restrict_diff_size: str) -> List:
+    def select(buildpairs: List, repo: str, opts: Options) -> List:
         """
-        Select job pairs from `buildpairs`. The `include_*` parameters are used to decide which job pairs to include.
+        Select job pairs from `buildpairs` using the specified filters.
 
         :param buildpairs: A list of build pairs that were mined from `repo`.
         :param repo: A repository slug.
-        :param include_attempted: Whether to include pairs that we have previously atttempted to reproduce
-                                  (reproduce_attempts > 0).
-        :param include_archived: Whether to include pairs that are archived by GitHub but not resettable.
-        :param include_resettable: Whether to include pairs that are resettable.
-        :param include_only_test_failures
-        :param include_different_base_image: Whether to include pairs that have different base images
-        :param restrict_classified_build: bool,
-        :param restrict_classified_code: bool,
-        :param restrict_classified_test: bool,
-        :param restrict_classified_exclusive: bool,
-        :param restrict_classified_exception: str,
-        :param restrict_build_system: str,
-        :param restrict_os_version: str,
-        :param restrict_diff_size: str,
+        :param opts: An `Options` object containing the filters to select by.
         :return: A list of job pairs.
         """
         final = set()
-        archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only, \
-            classified_code_only, classified_test_only, classified_exception_only, build_system, os_version, \
-            different_base_image \
-            = JobPairSelector._bin_jobpairs(repo, buildpairs, include_only_test_failures,
-                                            restrict_classified_exception, restrict_build_system,
-                                            restrict_os_version)
+        (archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only,
+         classified_code_only, classified_test_only, classified_exception_only, build_system, os_version,
+         different_base_image, ci_service, valid_failed_step_only, custom_failed_step_only, within_time_range,
+         failed_compile_step_only, has_target_language, within_max_runtime, non_docker
+         ) = JobPairSelector._bin_jobpairs(repo, buildpairs, opts)
 
-        if include_archived:
+        if opts.include_archived:
             # Include archived-only job pairs.
             final = final.union(archived_only)
-        if include_resettable:
+        if opts.include_resettable:
             # Include resettable job pairs.
             final = final.union(resettable)
-        if not include_attempted:
+        if not opts.include_attempted:
             # Exclude already attempted job pairs.
             final = final.difference(attempted)
-        if not include_different_base_image:
+        if not opts.include_different_base_image:
             # Exclude job pairs with different base images.
             final = final.difference(different_base_image)
-        if include_only_test_failures:
+        if opts.include_only_test_failures:
             final = final.intersection(test_failures_only)
-        if restrict_classified_build:
+        if opts.restrict_classified_build:
             final = final.intersection(classified_build_only)
-        if restrict_classified_test:
+        if opts.restrict_classified_test:
             final = final.intersection(classified_test_only)
-        if restrict_classified_code:
+        if opts.restrict_classified_code:
             final = final.intersection(classified_code_only)
-        if restrict_classified_exclusive:
-            if not restrict_classified_build:
+        if opts.exclude_classified_build:
+            final = final.difference(classified_build_only)
+        if opts.exclude_classified_test:
+            final = final.difference(classified_test_only)
+        if opts.exclude_classified_code:
+            final = final.difference(classified_code_only)
+        if opts.restrict_classified_exclusive:
+            if not opts.restrict_classified_build:
                 final = final.difference(classified_build_only)
-            if not restrict_classified_test:
+            if not opts.restrict_classified_test:
                 final = final.difference(classified_test_only)
-            if not restrict_classified_code:
+            if not opts.restrict_classified_code:
                 final = final.difference(classified_code_only)
-        if restrict_classified_exception != '':
+        if opts.restrict_classified_exception != '':
             final = final.intersection(classified_exception_only)
-        if restrict_build_system != '':
+        if opts.restrict_build_system != '':
             final = final.intersection(build_system)
-        if restrict_os_version != '':
+        if opts.restrict_os_version != '':
             final = final.intersection(os_version)
+        if opts.restrict_ci_service != '':
+            final = final.intersection(ci_service)
+        if opts.restrict_valid_failed_step:
+            final = final.intersection(valid_failed_step_only)
+        if opts.restrict_custom_failed_step:
+            final = final.intersection(custom_failed_step_only)
+        if opts.restrict_earliest_mine_date:
+            final = final.intersection(within_time_range)
+        if opts.include_only_compile_failures:
+            final = final.intersection(failed_compile_step_only)
+        if opts.restrict_language:
+            final = final.intersection(has_target_language)
+        if opts.restrict_max_runtime:
+            final = final.intersection(within_max_runtime)
+        if opts.restrict_non_docker:
+            final = final.intersection(non_docker)
         # Always remove filtered job pairs.
         final = final.difference(filtered)
 
-        if restrict_diff_size:
-            diff_min, diff_max = map(int, restrict_diff_size.split('~'))
+        if opts.restrict_diff_size:
+            diff_min, diff_max = map(int, opts.restrict_diff_size.split('~'))
             final = JobPairSelector._filter_diff_size(final, diff_min, diff_max)
 
         jobpairs = [JobPairSelector._str2jp(jp) for jp in final]
@@ -124,13 +146,7 @@ class JobPairSelector(object):
         return result
 
     @staticmethod
-    def _bin_jobpairs(repo,
-                      buildpairs,
-                      include_only_test_failures,
-                      restrict_classified_exception,
-                      restrict_build_system,
-                      restrict_os_version) -> Tuple[Set, Set, Set, Set, Set, Set, Set, Set, Set, Set, Set, Set]:
-
+    def _bin_jobpairs(repo, buildpairs, opts: Options) -> Tuple[Set, ...]:
         archived_only = set()
         resettable = set()
         attempted = set()
@@ -143,14 +159,23 @@ class JobPairSelector(object):
         build_system = set()
         os_version = set()
         different_base_image = set()
+        ci_service = set()
+        valid_failed_step_only = set()
+        custom_failed_step_only = set()
+        within_time_range = set()
+        failed_compile_step_only = set()
+        has_target_language = set()
+        within_max_runtime = set()
+        non_docker = set()
+
         start_time = end_time = None
-        if restrict_os_version == '12.04':
+        if opts.restrict_os_version == '12.04':
             start_time = dateutil.parser.parse('2014-12-01T00:00:00Z').replace(tzinfo=None)
             end_time = dateutil.parser.parse('2017-09-30T23:59:59Z').replace(tzinfo=None)
-        elif restrict_os_version == '14.04':
+        elif opts.restrict_os_version == '14.04':
             start_time = dateutil.parser.parse('2017-07-01T00:00:00Z').replace(tzinfo=None)
             end_time = dateutil.parser.parse('2018-12-31T23:59:59Z').replace(tzinfo=None)
-        elif restrict_os_version == '16.04':
+        elif opts.restrict_os_version == '16.04':
             start_time = dateutil.parser.parse('2018-12-01T00:00:00Z').replace(tzinfo=None)
             end_time = dateutil.parser.parse('2999-09-30T12:59:59Z').replace(tzinfo=None)
 
@@ -158,6 +183,7 @@ class JobPairSelector(object):
         attempted_result = bugswarmapi.filter_artifacts(
             '{{"repo": "{}", "reproduce_attempts": {{"$gt": 0}}}}'.format(repo))
         attempted_image_tags = list(map(lambda a: a['image_tag'], attempted_result))
+
         for bp in buildpairs:
             for jp in bp['jobpairs']:
                 jp['repo'] = bp['repo']
@@ -165,6 +191,13 @@ class JobPairSelector(object):
                     'travis_merge_sha'] else bp['failed_build']['head_sha']
                 jp['passed_job']['travis_merge_sha'] = bp['passed_build']['travis_merge_sha'] if bp['passed_build'][
                     'travis_merge_sha'] else bp['passed_build']['head_sha']
+
+                failed_job = next(job for job in bp['failed_build']['jobs']
+                                  if job['job_id'] == jp['failed_job']['job_id'])
+                passed_job = next(job for job in bp['passed_build']['jobs']
+                                  if job['job_id'] == jp['passed_job']['job_id'])
+                failed_config = failed_job['config']
+
                 s = JobPairSelector._jp2str(jp)
                 if (
                         (bp['failed_build']['github_archived'] and not bp['failed_build']['resettable']) or
@@ -173,9 +206,12 @@ class JobPairSelector(object):
                     archived_only.add(s)
                 if bp['failed_build']['resettable'] and bp['passed_build']['resettable']:
                     resettable.add(s)
-                if jp['failed_job']['heuristically_parsed_image_tag'] != jp['passed_job'][
-                        'heuristically_parsed_image_tag']:
+                if jp['failed_job'].get('heuristically_parsed_image_tag') != \
+                        jp['passed_job'].get('heuristically_parsed_image_tag'):
                     different_base_image.add(s)
+                if bp['ci_service'] == opts.restrict_ci_service:
+                    ci_service.add(s)
+
                 image_tag = bugswarmutils.get_image_tag(repo, jp['failed_job']['job_id'])
                 if image_tag in attempted_image_tags:
                     attempted.add(s)
@@ -190,29 +226,99 @@ class JobPairSelector(object):
                             classified_code_only.add(s)
                         if classification_dict['test'] != 'No':
                             classified_test_only.add(s)
-                        if restrict_classified_exception in classification_dict['exceptions']:
+                        if opts.restrict_classified_exception in classification_dict['exceptions']:
                             classified_exception_only.add(s)
-                        if include_only_test_failures:
+                        if opts.include_only_test_failures:
                             if jp['classification']['tr_log_num_tests_failed'] > 0:
                                 test_failures_only.add(s)
                     except KeyError:
                         log.info('{} does not have classification.'.format(image_tag))
                 try:
-                    if jp['build_system'] == restrict_build_system:
+                    if jp['build_system'] == opts.restrict_build_system:
                         build_system.add(s)
                 except KeyError:
                     log.info('{} does not have build system info'.format(image_tag))
 
-                if restrict_os_version != '':
-                    if bp['failed_build']['committed_at'] is not None:
+                if opts.restrict_os_version != '':
+                    if bp['ci_service'] == 'travis' and bp['failed_build']['committed_at'] is not None:
                         time_stamp = dateutil.parser.parse(bp['failed_build']['committed_at']).replace(tzinfo=None)
                         if start_time < time_stamp < end_time:
                             os_version.add(s)
+                    elif bp['ci_service'] == 'github' and isinstance(failed_config['runs-on'], str):
+                        # PairFinder ensures that config is always the same between jobs in pairs
+                        failed_os = failed_config['runs-on']
 
-        return \
-            archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only, \
-            classified_code_only, classified_test_only, classified_exception_only, build_system, os_version, \
-            different_base_image
+                        # Handle matrix params
+                        # TODO Add the ability to handle more complicated replacements.
+                        # According to
+                        # https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability,
+                        # jobs.<job-id>.runs-on can access the `github`, `needs`, `strategy`,
+                        # `matrix`, and `inputs` contexts. This only handles the `matrix` context.
+                        failed_os = re.sub(r'\${{\s*matrix\.([^\s}]+)\s*}}',
+                                           lambda m: JobPairSelector._replace_matrix_param(m[1], failed_config),
+                                           failed_os)
+
+                        if failed_os == 'ubuntu-latest':
+                            # https://github.blog/changelog/2022-11-09-github-actions-ubuntu-latest-workflows-will-use-ubuntu-22-04/
+                            to_2204 = dateutil.parser.parse('2022-10-01T00:00:00Z').replace(tzinfo=None)
+                            time_stamp = dateutil.parser.parse(bp['failed_build']['committed_at']).replace(tzinfo=None)
+
+                            if time_stamp > to_2204:
+                                failed_os = 'ubuntu-22.04'
+                            else:
+                                failed_os = 'ubuntu-20.04'
+                        if failed_os == opts.restrict_os_version:
+                            os_version.add(s)
+
+                invalids = UNSUPPORTED_ACTIONS | SPECIAL_ACTIONS
+                # If the failed step is NOT within the UNSUPPORTED_ACTIONS & SPECIAL_ACTIONS set, marks it as valid.
+                try:
+                    if jp['failed_step_kind'] != 'uses' or not [s in jp['failed_step_command'] for s in invalids]:
+                        valid_failed_step_only.add(s)
+                    if jp['failed_step_kind'] == 'run':
+                        custom_failed_step_only.add(s)
+
+                    # Matches 'mvn compile' or 'mvn install -DskipTests'
+                    # TODO similar searches for other build systems
+                    maven_compile_regex = r'(mvn|\./mvnw)( \S*)*' \
+                        r'( compile| test-compile| install( \\S*)* -DskipTests(?!=false))'
+                    if jp['failed_step_kind'] == 'run' and re.search(maven_compile_regex, jp['failed_step_command']):
+                        failed_compile_step_only.add(s)
+                except KeyError:
+                    log.info('{} does not have failed_step_kind/command.'.format(image_tag))
+
+                mine_date = dateutil.parser.parse(bp['_created'])
+                if opts.restrict_earliest_mine_date and mine_date >= opts.restrict_earliest_mine_date:
+                    within_time_range.add(s)
+
+                if opts.restrict_language and failed_job['language'].lower() == opts.restrict_language:
+                    has_target_language.add(s)
+
+                if opts.restrict_max_runtime:
+                    failed_job_runtime = failed_job.get('run_time_seconds', math.inf)
+                    passed_job_runtime = passed_job.get('run_time_seconds', math.inf)
+                    if (failed_job_runtime < opts.restrict_max_runtime and
+                            passed_job_runtime < opts.restrict_max_runtime):
+                        within_max_runtime.add(s)
+
+                if opts.restrict_non_docker:
+                    contains_docker = False
+                    if 'services' in failed_config and failed_config['services']:
+                        contains_docker = True
+
+                    regex = r'^[^#]*docker\s+(build|exec|image|login|pull|push|rmi|run|start|compose|buildx|tag)\s+'
+                    for step in failed_config['steps']:
+                        if 'run' in step:
+                            if re.search(regex, step['run']):
+                                contains_docker = True
+                                break
+                    if not contains_docker:
+                        non_docker.add(s)
+
+        return (archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only,
+                classified_code_only, classified_test_only, classified_exception_only, build_system, os_version,
+                different_base_image, ci_service, valid_failed_step_only, custom_failed_step_only, within_time_range,
+                failed_compile_step_only, has_target_language, within_max_runtime, non_docker)
 
     @staticmethod
     def _jp2str(jp) -> str:
@@ -222,6 +328,17 @@ class JobPairSelector(object):
     def _str2jp(s):
         return json.loads(s)
 
+    @staticmethod
+    def _replace_matrix_param(param: str, config: dict):
+        try:
+            result = config['strategy']['matrix']
+        except KeyError:
+            return ''
+
+        for key in param.split('.'):
+            result = result[key] if isinstance(result, dict) and key in result else ''
+        return result
+
 
 def main(argv=None):
     argv = argv or sys.argv
@@ -229,11 +346,7 @@ def main(argv=None):
     # Configure logging.
     log.config_logging(getattr(logging, 'INFO', None))
 
-    repo_list, output_path, include_attempted, include_archived_only, include_resettable, include_test_failures_only, \
-        include_different_base_image, restrict_classified_build, restrict_classified_code, restrict_classified_test, \
-        restrict_classified_exclusive, restrict_classified_exception, restrict_build_system, restrict_os_version, \
-        restrict_diff_size = \
-        _validate_input(argv)
+    repo_list, output_path, flags = _validate_input(argv)
 
     # create tmp folder to store logs
     os.makedirs('tmp/', exist_ok=True)
@@ -250,47 +363,55 @@ def main(argv=None):
 
     # Print some context for the upcoming operation.
     log.info('Choosing pairs from {}.'.format(_pluralize(len(repo_list))))
-    log.info('{} pairs with at least one reproduce attempt.'.format(_including_or_excluding(include_attempted)))
-    log.info('{} pairs that are only archived by GitHub.'.format(_including_or_excluding(include_archived_only)))
-    log.info('{} pairs that are resettable.'.format(_including_or_excluding(include_resettable)))
-    log.info('{} pairs that have different base images'.format(_including_or_excluding(include_different_base_image)))
+    log.info('{} pairs with at least one reproduce attempt.'.format(_including_or_excluding(flags.include_attempted)))
+    log.info('{} pairs that are only archived by GitHub.'.format(_including_or_excluding(flags.include_archived)))
+    log.info('{} pairs that are resettable.'.format(_including_or_excluding(flags.include_resettable)))
+    log.info('{} pairs that have different base images'.format(
+        _including_or_excluding(flags.include_different_base_image)))
     log.info('Excluding pairs that were filtered by PairFilter.')
-    if include_test_failures_only:
-        log.info('Restricted to test_failures')
-    if restrict_classified_build:
+    if flags.include_only_test_failures:
+        log.info('Restricted to test failures')
+    if flags.include_only_compile_failures:
+        log.info('Restricted to compile failures')
+    if flags.restrict_classified_build:
         log.info('Restricted to classified build')
-    if restrict_classified_test:
+    if flags.restrict_classified_test:
         log.info('Restricted to classified test')
-    if restrict_classified_code:
+    if flags.restrict_classified_code:
         log.info('Restricted to classified code')
-    if restrict_classified_exclusive:
+    if flags.exclude_classified_build:
+        log.info('Excluding classified build')
+    if flags.exclude_classified_test:
+        log.info('Excluding classified test')
+    if flags.exclude_classified_code:
+        log.info('Excluding classified code')
+    if flags.restrict_classified_exclusive:
         log.info('Restricted to exclusively classified build/test/code')
-    if restrict_classified_exception != '':
-        log.info('Restricted to classified exception: {}'.format(restrict_classified_exception))
-    if restrict_build_system != '':
-        log.info('Restricted to build system: {}'.format(restrict_build_system))
-    if restrict_os_version != '':
-        log.info('Restricted OS version to: {}'.format(restrict_os_version))
-    if restrict_diff_size != '':
-        log.info('Restricted diff size: {}'.format(restrict_diff_size))
+    if flags.restrict_classified_exception != '':
+        log.info('Restricted to classified exception: {}'.format(flags.restrict_classified_exception))
+    if flags.restrict_build_system != '':
+        log.info('Restricted to build system: {}'.format(flags.restrict_build_system))
+    if flags.restrict_os_version != '':
+        log.info('Restricted OS version to: {}'.format(flags.restrict_os_version))
+    if flags.restrict_diff_size != '':
+        log.info('Restricted diff size: {}'.format(flags.restrict_diff_size))
+    if flags.restrict_ci_service != '':
+        log.info('Restricted CI service: {}'.format(flags.restrict_ci_service))
+    if flags.restrict_valid_failed_step:
+        log.info('Restricted to valid failed step')
+    if flags.restrict_custom_failed_step:
+        log.info('Restricted to custom action failed step')
+    if flags.restrict_earliest_mine_date:
+        log.info('Restricted to pairs mined before {}'.format(
+            flags.restrict_earliest_mine_date.strftime('%Y-%m-%d %H:%M:%S')))
+    if flags.restrict_max_runtime:
+        log.info('Restricted to jobs with runtime under {}'.format(timedelta(seconds=flags.restrict_max_runtime)))
+    if flags.restrict_non_docker:
+        log.info('Restricted to non-Docker')
     log.info()
 
     with ThreadPoolExecutor(max_workers=min(len(repo_list), 64)) as executor:
-        future_to_repo = {executor.submit(_choose_pairs_from_repo,
-                                          repo,
-                                          include_attempted,
-                                          include_archived_only,
-                                          include_resettable,
-                                          include_test_failures_only,
-                                          include_different_base_image,
-                                          restrict_classified_build,
-                                          restrict_classified_code,
-                                          restrict_classified_test,
-                                          restrict_classified_exclusive,
-                                          restrict_classified_exception,
-                                          restrict_build_system,
-                                          restrict_os_version,
-                                          restrict_diff_size): repo for repo in repo_list}
+        future_to_repo = {executor.submit(_choose_pairs_from_repo, repo, flags): repo for repo in repo_list}
 
     errored = 0
     all_lines = []
@@ -327,20 +448,7 @@ def main(argv=None):
     log.info('Done!')
 
 
-def _choose_pairs_from_repo(repo: str,
-                            include_attempted: bool,
-                            include_archived: bool,
-                            include_resettable: bool,
-                            include_only_test_failures: bool,
-                            include_different_base_image: bool,
-                            restrict_classified_build: bool,
-                            restrict_classified_code: bool,
-                            restrict_classified_test: bool,
-                            restrict_classified_exclusive: bool,
-                            restrict_classified_exception: str,
-                            build_system: str,
-                            restrict_os_version: str,
-                            restrict_diff_size: str) -> Tuple[List, Optional[str]]:
+def _choose_pairs_from_repo(repo: str, opts: Options) -> Tuple[List, Optional[str]]:
     """
     Returns a 2-tuple. The first element is a list of job pairs. The second element is a repository slug if the project
     was skipped or None.
@@ -355,12 +463,7 @@ def _choose_pairs_from_repo(repo: str,
     buildpairs = bugswarmapi.filter_mined_build_pairs_for_repo(repo)
     log.info('Read {} unfiltered job pairs for {}.'.format(_count_unfiltered_jobpairs(buildpairs), repo))
 
-    jobpairs = JobPairSelector.select(buildpairs, repo, include_attempted, include_archived, include_resettable,
-                                      include_only_test_failures, include_different_base_image,
-                                      restrict_classified_build, restrict_classified_code, restrict_classified_test,
-                                      restrict_classified_exclusive,
-                                      restrict_classified_exception, build_system, restrict_os_version,
-                                      restrict_diff_size)
+    jobpairs = JobPairSelector.select(buildpairs, repo, opts)
     lines = []
     for jp in jobpairs:
         failed_job_id = jp['failed_job']['job_id']
@@ -396,12 +499,34 @@ def _jobpair_satisfies_filters(jp, failed_job_id, passed_job_id):
     return False
 
 
+def _seconds_from_runtimestr(s: str) -> int:
+    if not s:
+        raise ValueError
+
+    # e.g. 2h3m1s
+    match = re.match(r'^((?P<hour>\d+)h)?((?P<min>\d+)m)?((?P<sec>\d+)s)?$', s)
+    if not match:
+        # e.g. 02:03:01
+        match = re.match(r'^((?P<hour>\d+):)?((?P<min>\d+):(?P<sec>\d+))$', s)
+    if not match:
+        raise ValueError
+
+    hours = int(match.group('hour') or 0)
+    minutes = int(match.group('min') or 0)
+    seconds = int(match.group('sec') or 0)
+
+    return seconds + 60 * minutes + 3600 * hours
+
+
 def _validate_input(argv):
     # Parse command line arguments.
     short_opts = 'r:o:'
-    long_opts = 'repo= repo-file= output-path= include-attempted include-archived-only include-resettable ' \
-                'include-test-failures-only include-different-base-image classified-build classified-code ' \
-                'classified-test exclusive-classify classified-exception= build-system= os-version= diff-size='.split()
+    long_opts = ('repo= repo-file= output-path= include-attempted include-archived-only include-resettable '
+                 'include-test-failures-only include-different-base-image classified-build classified-code '
+                 'classified-test exclusive-classify classified-exception= build-system= os-version= diff-size= '
+                 'ci-service= allow-invalid-step exclude-predefined-actions include-compile-failures-only '
+                 'no-classified-build no-classified-code no-classified-test earliest-mine-date= language= '
+                 'max-job-runtime= exclude-docker').split()
 
     try:
         optlist, args = getopt.getopt(argv[1:], short_opts, long_opts)
@@ -412,19 +537,8 @@ def _validate_input(argv):
     repo = None
     repo_file_path = None
     output_path = None
-    include_attempted = False
-    include_archived_only = False
-    include_resettable = False
-    include_test_failures_only = False
-    include_different_base_image = False
-    restrict_classified_build = False
-    restrict_classified_code = False
-    restrict_classified_test = False
-    restrict_classified_exclusive = False
-    restrict_classified_exception = ''
-    restrict_build_system = ''
-    restrict_os_version = ''
-    restrict_diff_size = ''
+
+    flags = Options()
 
     for opt, arg in optlist:
         if opt in ('-r', '--repo'):
@@ -434,37 +548,73 @@ def _validate_input(argv):
         if opt in ('-o', '--output-path'):
             output_path = os.path.abspath(arg)
         if opt == '--include-attempted':
-            include_attempted = True
+            flags.include_attempted = True
         if opt == '--include-archived-only':
-            include_archived_only = True
+            flags.include_archived = True
         if opt == '--include-resettable':
-            include_resettable = True
+            flags.include_resettable = True
         if opt == '--include-test-failures-only':
-            include_test_failures_only = True
+            flags.include_only_test_failures = True
         if opt == '--include-different-base-image':
-            include_different_base_image = True
+            flags.include_different_base_image = True
         if opt == '--classified-build':
-            restrict_classified_build = True
+            flags.restrict_classified_build = True
         if opt == '--classified-code':
-            restrict_classified_code = True
+            flags.restrict_classified_code = True
         if opt == '--classified-test':
-            restrict_classified_test = True
+            flags.restrict_classified_test = True
+        if opt == '--no-classified-build':
+            flags.exclude_classified_build = True
+        if opt == '--no-classified-code':
+            flags.exclude_classified_code = True
+        if opt == '--no-classified-test':
+            flags.exclude_classified_test = True
         if opt == '--exclusive-classify':
-            restrict_classified_exclusive = True
+            flags.restrict_classified_exclusive = True
         if opt == '--classified-exception':
-            restrict_classified_exception = arg
+            flags.restrict_classified_exception = arg
             if arg is None:
                 _print_usage(msg='Missing exception argument. Exiting.')
                 sys.exit(2)
         if opt == '--build-system':
-            restrict_build_system = arg
+            flags.restrict_build_system = arg
         if opt == '--os-version':
-            restrict_os_version = arg
+            flags.restrict_os_version = arg
         if opt == '--diff-size':
             if not arg or '~' not in arg or len(arg.split('~')) != 2:
                 _print_usage(msg='Diff size argument should be MIN~MAX. Exiting.')
                 sys.exit(2)
-            restrict_diff_size = arg
+            flags.restrict_diff_size = arg
+        if opt == '--ci-service':
+            if arg is None:
+                _print_usage('Missing CI service argument. Exiting.')
+                sys.exit(2)
+            if arg.lower() not in ['github', 'travis']:
+                _print_usage('CI service argument must be either "github" or "travis". Exiting.')
+                sys.exit(2)
+            flags.restrict_ci_service = arg.lower()
+        if opt == '--allow-invalid-step':
+            flags.restrict_valid_failed_step = False
+        if opt == '--exclude-predefined-actions':
+            flags.restrict_custom_failed_step = True
+        if opt == '--include-compile-failures-only':
+            flags.include_only_compile_failures = True
+        if opt == '--earliest-mine-date':
+            try:
+                flags.restrict_earliest_mine_date = dateutil.parser.parse(arg).astimezone()
+            except dateutil.parser.ParserError:
+                _print_usage('Invalid date: {}'.format(arg))
+                sys.exit(2)
+        if opt == '--language':
+            flags.restrict_language = arg.lower()
+        if opt == '--max-job-runtime':
+            try:
+                flags.restrict_max_runtime = _seconds_from_runtimestr(arg.lower())
+            except ValueError:
+                _print_usage('Invalid duration: {}'.format(arg))
+                sys.exit(2)
+        if opt == '--exclude-docker':
+            flags.restrict_non_docker = True
 
     if repo and repo_file_path:
         _print_usage(msg='The --repo and --repo-file arguments are mutually exclusive.')
@@ -483,11 +633,7 @@ def _validate_input(argv):
         _print_usage(msg='Missing output file argument. Exiting.')
         sys.exit(2)
 
-    return \
-        repo_list, output_path, include_attempted, include_archived_only, include_resettable, \
-        include_test_failures_only, include_different_base_image, restrict_classified_build, restrict_classified_code, \
-        restrict_classified_test, restrict_classified_exclusive, restrict_classified_exception, restrict_build_system, \
-        restrict_os_version, restrict_diff_size
+    return repo_list, output_path, flags
 
 
 def _print_usage(msg=None):
@@ -513,6 +659,8 @@ def _print_usage(msg=None):
     log.info('{:>6}  {:<31}{}'.format('', '--include-test-failures-only', 'Include job pairs that have a test failure '
                                                                           'according to the Analyzer. Defaults to '
                                                                           'false.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--include-compile-failures-only', 'Include job pairs whose failed step was '
+                                                                             'a compilation step. Defaults to false.'))
     log.info('{:>6}  {:<31}{}'.format('', '--include-different-base-image', 'Include job pairs that passed and failed '
                                                                             'job have different base images. Defaults '
                                                                             'to false.'))
@@ -522,14 +670,36 @@ def _print_usage(msg=None):
                                                                'according to classifier Defaults to false.'))
     log.info('{:>6}  {:<31}{}'.format('', '--classified-test', 'Restrict job pairs that have been classified as test '
                                                                'according to classifier Defaults to false.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--no-classified-build', 'Exclude job pairs that have been classified as '
+                                                                   'build according to the classifier. Defaults to '
+                                                                   'false.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--no-classified-code', 'Exclude job pairs that have been classified as code '
+                                                                  'according to the classifier. Defaults to false.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--no-classified-test', 'Exclude job pairs that have been classified as test '
+                                                                  'according to the classifier. Defaults to false.'))
     log.info('{:>6}  {:<31}{}'.format('', '--exclusive-classify', 'Restrict to job pairs that have been exclusively '
                                                                   'classified as build/code/test, as specified by '
                                                                   'their respective options. Defaults to false.'))
     log.info('{:>6}  {:<31}{}'.format('', '--classified-exception', 'Restrict job pairs that have been classified as '
                                                                     'contain certain exception'))
-    log.info('{:>6}  {:<31}{}'.format('', '--build-system', 'Restricted to certain build system'))
-    log.info('{:>6}  {:<31}{}'.format('', '--os-version', 'Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)'))
-    log.info('{:>6}  {:<31}{}'.format('', '--diff-size', 'Restricted to certain diff size MIN~MAX(e.g. 0~5)'))
+    log.info('{:>6}  {:<31}{}'.format('', '--build-system <SYSTEM>', 'Restricted to certain build system'))
+    log.info('{:>6}  {:<31}{}'.format('', '--os-version <OS>', 'Restricted to certain OS version (e.g. 12.04, 14.04, '
+                                                               '16.04 for Travis, ubuntu-18.04 for Github)'))
+    log.info('{:>6}  {:<31}{}'.format('', '--diff-size <MIN>~<MAX>', 'Restricted to certain diff size MIN~MAX '
+                                                                     '(e.g. 0~5)'))
+    log.info('{:>6}  {:<31}{}'.format('', '--ci-service <CI>', 'Restricted to certain CI service (either "travis" or '
+                                                               '"github")'))
+    log.info('{:>6}  {:<31}{}'.format('', '--allow-invalid-step', 'Include job pairs that have invalid failed step. '
+                                                                  'Note: They are excluded by default because '
+                                                                  'reproducer cannot reproduce them.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--exclude-predefined-actions', 'Exclude job pairs that have predefined '
+                                                                          'action as the failed step.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--earliest-mine-date', 'Restrict to CI runs mined on or after the given '
+                                                                  'date.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--language <LANG>', 'Restrict to a given language.'))
+    log.info('{:>6}  {:<31}{}'.format('', '--max-job-runtime <TIME>', 'Restrict to jobs that took at most <TIME> to run'
+                                                                      ' (e.g. "20m"/"20:00" or "1h30m5s"/"1:30:05").'))
+    log.info('{:>6}  {:<31}{}'.format('', '--exclude-docker', 'Exclude job pairs that used Docker command'))
 
 
 if __name__ == '__main__':

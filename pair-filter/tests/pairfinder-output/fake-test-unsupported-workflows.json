@@ -1,0 +1,452 @@
+[
+    {
+        "repo": "oracle/graal",
+        "ci_service": "github",
+        "repo_mined_version": "b6e1c8d0844c475c97ad7ef52796b192b59ef2fc",
+        "pr_num": -1,
+        "merged_at": null,
+        "branch": "master",
+        "base_branch": "",
+        "is_error_pass": false,
+        "failed_build": {
+            "build_id": 3594712279,
+            "travis_merge_sha": null,
+            "base_sha": "",
+            "head_sha": "e7adb7137bc43dda97cae35ae77038c61de4c0b7",
+            "github_archived": true,
+            "resettable": true,
+            "committed_at": "2022-12-01T14:58:09Z",
+            "message": "[GR-42709] Update held_monitor_count in monitor snippets\n\nPullRequest: graal/13275",
+            "jobs": [
+                {
+                    "build_job": "10313.3",
+                    "job_id": 9827741071,
+                    "config": {
+                        "name": "/${{ matrix.env.PRIMARY }} ${{ matrix.env.GATE_TAGS }} JDK${{ matrix.env.JDK_VERSION }}",
+                        "runs-on": "ubuntu-20.04",
+                        "strategy": {
+                            "fail-fast": false,
+                            "matrix": {
+                                "env": {
+                                    "jdk_version": "17",
+                                    "gate_tags": "style,fullbuild",
+                                    "primary": "espresso"
+                                }
+                            }
+                        },
+                        "env": {
+                            "MX_RUNS_DEBUG": "${{ contains(matrix.env.GATE_TAGS, 'debug') || matrix.env.GATE_TAGS == '' }}",
+                            "MX_RUNS_STYLE": "${{ contains(matrix.env.GATE_TAGS, 'style') || matrix.env.GATE_TAGS == '' }}"
+                        },
+                        "steps": [
+                            {
+                                "name": "Checkout oracle/graal",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "ref": "${{ github.ref }}",
+                                    "fetch-depth": "${{ env.MX_RUNS_STYLE && '0' || '1' }}"
+                                }
+                            },
+                            {
+                                "name": "Determine mx version",
+                                "run": "echo \"MX_VERSION=$(jq -r '.mx_version' common.json)\" >> ${GITHUB_ENV}"
+                            },
+                            {
+                                "name": "Checkout graalvm/mx",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "repository": "graalvm/mx.git",
+                                    "ref": "${{ env.MX_VERSION }}",
+                                    "fetch-depth": 1,
+                                    "path": "${{ env.MX_PATH }}"
+                                }
+                            },
+                            {
+                                "name": "Set up Python",
+                                "uses": "actions/setup-python@v4",
+                                "with": {
+                                    "python-version": "3.8"
+                                }
+                            },
+                            {
+                                "name": "Update mx cache",
+                                "uses": "actions/cache@v3",
+                                "with": {
+                                    "path": "~/.mx",
+                                    "key": "${{ runner.os }}-mx-${{ hashFiles('**/suite.py') }}",
+                                    "restore-keys": "${{ runner.os }}-mx-"
+                                }
+                            },
+                            {
+                                "name": "Fetch LabsJDK",
+                                "env": "${{ matrix.env }}",
+                                "run": "mkdir jdk-dl\n${MX_PATH}/mx --java-home= fetch-jdk --jdk-id labsjdk-ce-${JDK_VERSION} --to jdk-dl --alias ${JAVA_HOME}\n"
+                            },
+                            {
+                                "name": "Update dependency cache",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' || env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt update"
+                            },
+                            {
+                                "name": "Install debug dependencies",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' }}",
+                                "run": "sudo apt install gdb"
+                            },
+                            {
+                                "name": "Install style dependencies",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt install python3-pip python-setuptools\njq -r '.deps.common.packages | to_entries[] | select(.key | startswith(\"pip:\")) | (.key | split(\":\")[1]) + .value' common.json |\n  xargs sudo pip install\n${MX_PYTHON} -m pip install jsonschema==4.6.1\n"
+                            },
+                            {
+                                "name": "Download Eclipse",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "ECLIPSE_TAR=eclipse.tar.gz\nECLIPSE_ORG_VERSION=$(jq -r '.downloads.eclipse.eclipse_org.version' common.json)\nECLIPSE_ORG_TIMESTAMP=$(jq -r '.downloads.eclipse.eclipse_org.timestamp' common.json)\nwget --no-verbose https://archive.eclipse.org/eclipse/downloads/drops4/R-${ECLIPSE_ORG_VERSION}-${ECLIPSE_ORG_TIMESTAMP}/eclipse-SDK-${ECLIPSE_ORG_VERSION}-linux-gtk-x86_64.tar.gz -O $ECLIPSE_TAR\ntar -xzf ${ECLIPSE_TAR}\necho \"ECLIPSE_EXE=${PWD}/eclipse/eclipse\" >> $GITHUB_ENV\n"
+                            },
+                            {
+                                "name": "Remove .git directory",
+                                "if": "${{ matrix.env.WITHOUT_VCS }}",
+                                "run": "rm -rf .git"
+                            },
+                            {
+                                "name": "Build GraalVM and run gate with tags",
+                                "env": "${{ matrix.env }}",
+                                "run": "${MX_PATH}/mx --primary-suite-path ${PRIMARY} --java-home=${JAVA_HOME} gate --strict-mode --tags ${GATE_TAGS}",
+                                "if": "${{ matrix.env.GATE_TAGS != '' }}"
+                            },
+                            {
+                                "name": "Build GraalVM and run gate without tags",
+                                "env": "${{ matrix.env }}",
+                                "run": "${MX_PATH}/mx --primary-suite-path ${PRIMARY} --java-home=${JAVA_HOME} gate --strict-mode",
+                                "if": "${{ matrix.env.GATE_TAGS == '' }}"
+                            }
+                        ],
+                        "id-in-workflow": "build-graalvm"
+                    },
+                    "language": "java"
+                },
+                {
+                    "build_job": "10313.10",
+                    "job_id": 9827742348,
+                    "config": {
+                        "name": "/${{ matrix.env.PRIMARY }} ${{ matrix.env.GATE_TAGS }} JDK${{ matrix.env.JDK_VERSION }}",
+                        "runs-on": "ubuntu-20.04",
+                        "strategy": {
+                            "fail-fast": false,
+                            "matrix": {
+                                "env": {
+                                    "jdk_version": "19",
+                                    "gate_tags": "",
+                                    "primary": "truffle"
+                                }
+                            }
+                        },
+                        "env": {
+                            "MX_RUNS_DEBUG": "${{ contains(matrix.env.GATE_TAGS, 'debug') || matrix.env.GATE_TAGS == '' }}",
+                            "MX_RUNS_STYLE": "${{ contains(matrix.env.GATE_TAGS, 'style') || matrix.env.GATE_TAGS == '' }}"
+                        },
+                        "steps": [
+                            {
+                                "name": "Checkout oracle/graal",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "ref": "${{ github.ref }}",
+                                    "fetch-depth": "${{ env.MX_RUNS_STYLE && '0' || '1' }}"
+                                }
+                            },
+                            {
+                                "name": "Determine mx version",
+                                "run": "echo \"MX_VERSION=$(jq -r '.mx_version' common.json)\" >> ${GITHUB_ENV}"
+                            },
+                            {
+                                "name": "Checkout graalvm/mx",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "repository": "graalvm/mx.git",
+                                    "ref": "${{ env.MX_VERSION }}",
+                                    "fetch-depth": 1,
+                                    "path": "${{ env.MX_PATH }}"
+                                }
+                            },
+                            {
+                                "name": "Set up Python",
+                                "uses": "actions/setup-python@v4",
+                                "with": {
+                                    "python-version": "3.8"
+                                }
+                            },
+                            {
+                                "name": "Update mx cache",
+                                "uses": "actions/cache@v3",
+                                "with": {
+                                    "path": "~/.mx",
+                                    "key": "${{ runner.os }}-mx-${{ hashFiles('**/suite.py') }}",
+                                    "restore-keys": "${{ runner.os }}-mx-"
+                                }
+                            },
+                            {
+                                "name": "Update dependency cache",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' || env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt update"
+                            },
+                            {
+                                "name": "Install debug dependencies",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' }}",
+                                "run": "sudo apt install gdb"
+                            },
+                            {
+                                "name": "Install style dependencies",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt install python3-pip python-setuptools\njq -r '.deps.common.packages | to_entries[] | select(.key | startswith(\"pip:\")) | (.key | split(\":\")[1]) + .value' common.json |\n  xargs sudo pip install\n${MX_PYTHON} -m pip install jsonschema==4.6.1\n"
+                            },
+                            {
+                                "name": "Download Eclipse",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "ECLIPSE_TAR=eclipse.tar.gz\nECLIPSE_ORG_VERSION=$(jq -r '.downloads.eclipse.eclipse_org.version' common.json)\nECLIPSE_ORG_TIMESTAMP=$(jq -r '.downloads.eclipse.eclipse_org.timestamp' common.json)\nwget --no-verbose https://archive.eclipse.org/eclipse/downloads/drops4/R-${ECLIPSE_ORG_VERSION}-${ECLIPSE_ORG_TIMESTAMP}/eclipse-SDK-${ECLIPSE_ORG_VERSION}-linux-gtk-x86_64.tar.gz -O $ECLIPSE_TAR\ntar -xzf ${ECLIPSE_TAR}\necho \"ECLIPSE_EXE=${PWD}/eclipse/eclipse\" >> $GITHUB_ENV\n"
+                            },
+                            {
+                                "name": "Remove .git directory",
+                                "if": "${{ matrix.env.WITHOUT_VCS }}",
+                                "run": "rm -rf .git"
+                            }
+                        ],
+                        "id-in-workflow": "build-graalvm"
+                    },
+                    "language": "java"
+                }
+            ],
+            "has_submodules": false
+        },
+        "passed_build": {
+            "build_id": 3595416385,
+            "travis_merge_sha": null,
+            "base_sha": "",
+            "head_sha": "318bccbb8e421e64ac112da19699597e435d3bf1",
+            "github_archived": true,
+            "resettable": true,
+            "committed_at": "2022-12-01T16:45:15Z",
+            "message": "[GR-42012] Run truffle loom tests in subprocesses.\n\nPullRequest: graal/13222",
+            "jobs": [
+                {
+                    "build_job": "10314.3",
+                    "job_id": 9829800318,
+                    "config": {
+                        "name": "/${{ matrix.env.PRIMARY }} ${{ matrix.env.GATE_TAGS }} JDK${{ matrix.env.JDK_VERSION }}",
+                        "runs-on": "ubuntu-20.04",
+                        "strategy": {
+                            "fail-fast": false,
+                            "matrix": {
+                                "env": {
+                                    "jdk_version": "17",
+                                    "gate_tags": "style,fullbuild",
+                                    "primary": "espresso"
+                                }
+                            }
+                        },
+                        "env": {
+                            "MX_RUNS_DEBUG": "${{ contains(matrix.env.GATE_TAGS, 'debug') || matrix.env.GATE_TAGS == '' }}",
+                            "MX_RUNS_STYLE": "${{ contains(matrix.env.GATE_TAGS, 'style') || matrix.env.GATE_TAGS == '' }}"
+                        },
+                        "steps": [
+                            {
+                                "name": "Checkout oracle/graal",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "ref": "${{ github.ref }}",
+                                    "fetch-depth": "${{ env.MX_RUNS_STYLE && '0' || '1' }}"
+                                }
+                            },
+                            {
+                                "name": "Determine mx version",
+                                "run": "echo \"MX_VERSION=$(jq -r '.mx_version' common.json)\" >> ${GITHUB_ENV}"
+                            },
+                            {
+                                "name": "Checkout graalvm/mx",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "repository": "graalvm/mx.git",
+                                    "ref": "${{ env.MX_VERSION }}",
+                                    "fetch-depth": 1,
+                                    "path": "${{ env.MX_PATH }}"
+                                }
+                            },
+                            {
+                                "name": "Set up Python",
+                                "uses": "actions/setup-python@v4",
+                                "with": {
+                                    "python-version": "3.8"
+                                }
+                            },
+                            {
+                                "name": "Update mx cache",
+                                "uses": "actions/cache@v3",
+                                "with": {
+                                    "path": "~/.mx",
+                                    "key": "${{ runner.os }}-mx-${{ hashFiles('**/suite.py') }}",
+                                    "restore-keys": "${{ runner.os }}-mx-"
+                                }
+                            },
+                            {
+                                "name": "Fetch LabsJDK",
+                                "env": "${{ matrix.env }}",
+                                "run": "mkdir jdk-dl\n${MX_PATH}/mx --java-home= fetch-jdk --jdk-id labsjdk-ce-${JDK_VERSION} --to jdk-dl --alias ${JAVA_HOME}\n"
+                            },
+                            {
+                                "name": "Update dependency cache",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' || env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt update"
+                            },
+                            {
+                                "name": "Install debug dependencies",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' }}",
+                                "run": "sudo apt install gdb"
+                            },
+                            {
+                                "name": "Install style dependencies",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt install python3-pip python-setuptools\njq -r '.deps.common.packages | to_entries[] | select(.key | startswith(\"pip:\")) | (.key | split(\":\")[1]) + .value' common.json |\n  xargs sudo pip install\n${MX_PYTHON} -m pip install jsonschema==4.6.1\n"
+                            },
+                            {
+                                "name": "Download Eclipse",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "ECLIPSE_TAR=eclipse.tar.gz\nECLIPSE_ORG_VERSION=$(jq -r '.downloads.eclipse.eclipse_org.version' common.json)\nECLIPSE_ORG_TIMESTAMP=$(jq -r '.downloads.eclipse.eclipse_org.timestamp' common.json)\nwget --no-verbose https://archive.eclipse.org/eclipse/downloads/drops4/R-${ECLIPSE_ORG_VERSION}-${ECLIPSE_ORG_TIMESTAMP}/eclipse-SDK-${ECLIPSE_ORG_VERSION}-linux-gtk-x86_64.tar.gz -O $ECLIPSE_TAR\ntar -xzf ${ECLIPSE_TAR}\necho \"ECLIPSE_EXE=${PWD}/eclipse/eclipse\" >> $GITHUB_ENV\n"
+                            },
+                            {
+                                "name": "Remove .git directory",
+                                "if": "${{ matrix.env.WITHOUT_VCS }}",
+                                "run": "rm -rf .git"
+                            },
+                            {
+                                "name": "Build GraalVM and run gate with tags",
+                                "env": "${{ matrix.env }}",
+                                "run": "${MX_PATH}/mx --primary-suite-path ${PRIMARY} --java-home=${JAVA_HOME} gate --strict-mode --tags ${GATE_TAGS}",
+                                "if": "${{ matrix.env.GATE_TAGS != '' }}"
+                            },
+                            {
+                                "name": "Build GraalVM and run gate without tags",
+                                "env": "${{ matrix.env }}",
+                                "run": "${MX_PATH}/mx --primary-suite-path ${PRIMARY} --java-home=${JAVA_HOME} gate --strict-mode",
+                                "if": "${{ matrix.env.GATE_TAGS == '' }}"
+                            }
+                        ],
+                        "id-in-workflow": "build-graalvm"
+                    },
+                    "language": "java"
+                },
+                {
+                    "build_job": "10314.10",
+                    "job_id": 9829803226,
+                    "config": {
+                        "name": "/${{ matrix.env.PRIMARY }} ${{ matrix.env.GATE_TAGS }} JDK${{ matrix.env.JDK_VERSION }}",
+                        "runs-on": "ubuntu-20.04",
+                        "strategy": {
+                            "fail-fast": false,
+                            "matrix": {
+                                "env": {
+                                    "jdk_version": "19",
+                                    "gate_tags": "",
+                                    "primary": "truffle"
+                                }
+                            }
+                        },
+                        "env": {
+                            "MX_RUNS_DEBUG": "${{ contains(matrix.env.GATE_TAGS, 'debug') || matrix.env.GATE_TAGS == '' }}",
+                            "MX_RUNS_STYLE": "${{ contains(matrix.env.GATE_TAGS, 'style') || matrix.env.GATE_TAGS == '' }}"
+                        },
+                        "steps": [
+                            {
+                                "name": "Checkout oracle/graal",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "ref": "${{ github.ref }}",
+                                    "fetch-depth": "${{ env.MX_RUNS_STYLE && '0' || '1' }}"
+                                }
+                            },
+                            {
+                                "name": "Determine mx version",
+                                "run": "echo \"MX_VERSION=$(jq -r '.mx_version' common.json)\" >> ${GITHUB_ENV}"
+                            },
+                            {
+                                "name": "Checkout graalvm/mx",
+                                "uses": "actions/checkout@v3",
+                                "with": {
+                                    "repository": "graalvm/mx.git",
+                                    "ref": "${{ env.MX_VERSION }}",
+                                    "fetch-depth": 1,
+                                    "path": "${{ env.MX_PATH }}"
+                                }
+                            },
+                            {
+                                "name": "Set up Python",
+                                "uses": "actions/setup-python@v4",
+                                "with": {
+                                    "python-version": "3.8"
+                                }
+                            },
+                            {
+                                "name": "Update mx cache",
+                                "uses": "actions/cache@v3",
+                                "with": {
+                                    "path": "~/.mx",
+                                    "key": "${{ runner.os }}-mx-${{ hashFiles('**/suite.py') }}",
+                                    "restore-keys": "${{ runner.os }}-mx-"
+                                }
+                            },
+                            {
+                                "name": "Update dependency cache",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' || env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt update"
+                            },
+                            {
+                                "name": "Install debug dependencies",
+                                "if": "${{ env.MX_RUNS_DEBUG == 'true' }}",
+                                "run": "sudo apt install gdb"
+                            },
+                            {
+                                "name": "Install style dependencies",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "sudo apt install python3-pip python-setuptools\njq -r '.deps.common.packages | to_entries[] | select(.key | startswith(\"pip:\")) | (.key | split(\":\")[1]) + .value' common.json |\n  xargs sudo pip install\n${MX_PYTHON} -m pip install jsonschema==4.6.1\n"
+                            },
+                            {
+                                "name": "Download Eclipse",
+                                "if": "${{ env.MX_RUNS_STYLE == 'true' }}",
+                                "run": "ECLIPSE_TAR=eclipse.tar.gz\nECLIPSE_ORG_VERSION=$(jq -r '.downloads.eclipse.eclipse_org.version' common.json)\nECLIPSE_ORG_TIMESTAMP=$(jq -r '.downloads.eclipse.eclipse_org.timestamp' common.json)\nwget --no-verbose https://archive.eclipse.org/eclipse/downloads/drops4/R-${ECLIPSE_ORG_VERSION}-${ECLIPSE_ORG_TIMESTAMP}/eclipse-SDK-${ECLIPSE_ORG_VERSION}-linux-gtk-x86_64.tar.gz -O $ECLIPSE_TAR\ntar -xzf ${ECLIPSE_TAR}\necho \"ECLIPSE_EXE=${PWD}/eclipse/eclipse\" >> $GITHUB_ENV\n"
+                            },
+                            {
+                                "name": "Remove .git directory",
+                                "if": "${{ matrix.env.WITHOUT_VCS }}",
+                                "run": "rm -rf .git"
+                            }
+                        ],
+                        "id-in-workflow": "build-graalvm"
+                    },
+                    "language": "java"
+                }
+            ],
+            "has_submodules": false
+        },
+        "jobpairs": [
+            {
+                "failed_job": {
+                    "job_id": 9827741071
+                },
+                "passed_job": {
+                    "job_id": 9829800318
+                },
+                "failed_step_kind": "run",
+                "failed_step_command": "sudo apt install python3-pip python-setuptools\njq -r '.deps.common.packages | to_entries[] | select(.key | startswith(\"pip:\")) | (.key | split(\":\")[1]) + .value' common.json |\n  xargs sudo pip install\n${MX_PYTHON} -m pip install jsonschema==4.6.1\n",
+                "build_system": "NA"
+            },
+            {
+                "failed_job": {
+                    "job_id": 9827742348
+                },
+                "passed_job": {
+                    "job_id": 9829803226
+                },
+                "failed_step_kind": "run",
+                "failed_step_command": "sudo apt install gdb",
+                "build_system": "NA"
+            }
+        ]
+    }
+]

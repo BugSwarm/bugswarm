@@ -1,16 +1,17 @@
 import json
 import os
+import re
 import subprocess
-
 from builtins import FileNotFoundError
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
+import requests
 from bugswarm.common import log
+from bugswarm.common.credentials import GITHUB_TOKENS
+from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.json import read_json
 
-from .constants import FILTERED_REASON_KEY
-from .constants import ORIGINAL_LOG_DIR
+from .constants import FILTERED_REASON_KEY, ORIGINAL_LOG_DIR
 
 
 def create_dirs():
@@ -109,6 +110,125 @@ def log_filter_count(filtered_count: int, reason: str):
 
 def canonical_repo(repo: str) -> str:
     return repo.replace('/', '-')
+
+
+def download_github_log(repo, job_id, destination):
+    """
+    Downloads the log for a specific GHA job to the given destination. Drop-in
+    replacement for `bugswarm.common.log_downloader.download_log`, with the
+    caveat that the repo is required by the GitHub API. This should probably be
+    replaced by an update to `log_downloader` in the near future.
+    """
+
+    # Assume the first token works
+    headers = {'Authorization': 'token {}'.format(GITHUB_TOKENS[0])}
+    api_url = 'https://api.github.com/repos/{}/actions/jobs/{}/logs'.format(repo, job_id)
+    response = requests.get(api_url, headers=headers)
+
+    if not response.ok:
+        if response.status_code in [410, 500]:  # Log is gone
+            log.error('Log for job', job_id, 'in repo', repo, 'has expired.')
+        return False
+
+    with open(destination, 'w') as f:
+        f.write(response.text)
+    return True
+
+
+def get_matrix_param(param: str, config: dict):
+    def dict_key_to_lower(d):
+        return dict((k.lower(), dict_key_to_lower(v)) for k, v in d.items()) if isinstance(d, dict) else d
+
+    param = param.lower()
+    config = dict_key_to_lower(config)  # Convert all keys to lowercase first.
+
+    try:
+        result = config['strategy']['matrix']
+    except KeyError:
+        return ''
+
+    for key in param.split('.'):
+        result = result[key] if isinstance(result, dict) and key in result else ''
+    return result
+
+
+def build_uses_submodules(repo: str, build: dict) -> bool:
+    """
+    If a build has the `has_submodules` key, returns that. Otherwise, queries the GitHub API.
+
+    :returns: Whether the given build uses submodules.
+    :raises: `RuntimeError` if there was an error querying the API.
+    """
+    try:
+        return build['has_submodules']
+    except KeyError:
+        log.error('Build does not have "has_submodules" key. Fetching info from GitHub API.')
+
+    gh = GitHubWrapper(GITHUB_TOKENS)
+
+    # Get commit object
+    head_sha = build['head_sha']
+    commit_url = 'https://api.github.com/repos/{}/commits/{}'.format(repo, head_sha)
+    _, commit = gh.get(commit_url)
+    if commit is None:
+        # Using RuntimeError because defining a new exception class is overkill.
+        raise RuntimeError('Could not get a commit object from the URL "{}".'.format(commit_url))
+
+    # Get root tree of repo
+    tree_url = commit['commit']['tree_url']
+    _, tree = gh.get(tree_url)
+    if tree is None:
+        raise RuntimeError('Could not get a tree object from the URL "{}".'.format(tree_url))
+
+    # Look for a .gitmodules file in the repo root
+    for item in tree['tree']:
+        if item['type'] == 'blob' and item['path'] == '.gitmodules':
+            return True
+    return False
+
+
+def find_cleartext_tokens(target_dict: dict, redact=False):
+    """
+    Given a dict taken from a job's config, return all keys that (a)
+    seem to be tokens/passwords, and (b) do not use the secrets context
+    (i.e., have the token stored in clear text).
+
+    :param target_dict: The dict to examine.
+    :param redact: If `True`, replace all cleartext tokens with the
+        string "**REDACTED**".
+    :returns: The list of keys that have cleartext tokens.
+    """
+    if not isinstance(target_dict, dict):
+        return []
+
+    # Matches anything in ${{ }}, as long as it has "secrets.*" in it
+    secrets_re = re.compile(r'\${{[^}]*(secrets\.\w+|github\.token|env\.GITHUB_TOKEN)[^}]*}}', flags=re.I)
+    # Suspicious token names
+    token_re = re.compile(r'token|password|passwd?', flags=re.I)
+    # Test for empty tokens or dummy tokens a la "testDBPassword", "dummy_token", etc
+    false_positive_re = re.compile(r'token|password|dummy|^\s*$', flags=re.I)
+    matched_keys = []
+    for varname, value in target_dict.items():
+        # Coerce the value to a string using GHA's rules
+        # Doesn't correctly handle dict or list, but afaik GHA doesn't allow those types in envs or inputs.
+        if value is None:
+            value = ''
+        elif isinstance(value, bool):
+            value = str(value).lower()
+        else:
+            value = str(value)
+
+        # Search the entire token string for a secret. It's fine if part of the value is exposed, as long as there's
+        # some part that's hidden.
+        if token_re.search(varname) and not secrets_re.search(value) and not false_positive_re.search(value):
+            log.debug('Key', varname, 'seems to contain a cleartext token!')
+            matched_keys.append(varname)
+
+    if redact:
+        for key in matched_keys:
+            target_dict[key] = '**REDACTED**'
+
+    return matched_keys
 
 
 def _registry_tags_list(repo_name):

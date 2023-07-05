@@ -12,11 +12,12 @@ REPRODUCER_RUNS=5
 # MetadataPackager, and CacheDependency.
 STAGE='Reproduce Pair'
 
-USAGE='Usage: bash run_reproduce_pair.sh -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>] [-s]'
+USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> -r <repo-slug> -f <failed-job-id> -p <passed-job-id> [-t <threads>] [-c <component-directory>] [-s]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci: -n 'run-reproduce-pair' -- "$@")
+eval set -- "$OPTS"
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
@@ -27,12 +28,18 @@ while true; do
       -p | --passed-job-id       ) passed_job_id="$2";       shift; shift ;;
            --reproducer-runs     ) REPRODUCER_RUNS="$2";     shift; shift ;;
       -s | --skip-check-disk     ) skip_check_disk="-s";     shift;;
+           --ci                  ) ci_service="$2";          shift; shift ;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
 done
 
 # Perform checks and set defaults for command line arguments.
+
+if [[ ${ci_service} != 'travis' && ${ci_service} != 'github' ]]; then
+    echo '--ci must be one of "travis" or "github". Exiting.'
+    exit 1
+fi
 
 if [ -z "${repo}" ]; then
     echo ${USAGE}
@@ -68,37 +75,36 @@ if [ ${repo} ]; then
     task_name="$(echo ${repo} | tr / -)"
 fi
 
-reproducer_dir="${component_directory}"/reproducer
-cache_dep_dir="${component_directory}"/cache-dependency
+reproducer_dir="${component_directory}/${ci_service}-reproducer"
 TOTAL_STEPS=$((${REPRODUCER_RUNS} + 3))
 
 # Check for existence of the required repositories.
-check_repo_exists ${reproducer_dir} 'reproducer'
+check_repo_exists "${reproducer_dir}" 'reproducer'
 
 # Create a file containing all pairs mined from the project.
-cd ${reproducer_dir}
+cd "${reproducer_dir}"
 print_step "${STAGE}" ${TOTAL_STEPS} "PairChooser"
 
 # failed-job-id is used for unique identifier for each job pair since different job pairs could has the same task name
-pair_file_path=${reproducer_dir}/input/json/${failed_job_id}/${task_name}.json
-python3 pair_chooser.py -o ${pair_file_path} -r ${repo} -f ${failed_job_id} -p ${passed_job_id}
+pair_file_path="${reproducer_dir}/input/json/${failed_job_id}/${task_name}.json"
+python3 pair_chooser.py -o "${pair_file_path}" -r "${repo}" -f "${failed_job_id}" -p "${passed_job_id}"
 exit_if_failed 'PairChooser encountered an error.'
 
 # Reproducer
 for i in $(seq ${REPRODUCER_RUNS}); do
     print_step "${STAGE}" ${TOTAL_STEPS} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
-    python3 entry.py -i ${pair_file_path} -k -t ${threads} -o ${task_name}_${failed_job_id}_run${i} ${skip_check_disk}
+    python3 entry.py -i "${pair_file_path}" -k -t "${threads}" -o "${task_name}_${failed_job_id}_run${i}" ${skip_check_disk}
     exit_if_failed 'Reproducer encountered an error.'
 done
 
 # ReproducedResultsAnalyzer
 print_step "${STAGE}" ${TOTAL_STEPS} "ReproducedResultsAnalyzer"
-python3 reproduced_results_analyzer.py -i ${pair_file_path} -n ${REPRODUCER_RUNS} --task-name ${task_name}_${failed_job_id}
+python3 reproduced_results_analyzer.py -i "${pair_file_path}" -n "${REPRODUCER_RUNS}" --task-name "${task_name}_${failed_job_id}"
 exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i output/result_json/${task_name}_${failed_job_id}.json --package -k -t ${threads} -o ${task_name}_${failed_job_id}_run${REPRODUCER_RUNS} ${skip_check_disk}
+python3 entry.py -i "output/result_json/${task_name}_${failed_job_id}.json" --package -k -t "${threads}" -o "${task_name}_${failed_job_id}_pkg" ${skip_check_disk}
 exit_if_failed 'ImagePackager encountered an error.'
 
 print_stage_done "${STAGE}"

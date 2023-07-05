@@ -70,6 +70,20 @@ class PairClassifier(object):
         return category_confidence
 
     @staticmethod
+    def _dl_log_if_not_present(ci_service, repo, job_id, log_dir):
+        os.makedirs(os.path.dirname(log_dir), exist_ok=True)
+        log_path = os.path.join(log_dir, '{}-orig.log'.format(job_id))
+
+        if os.path.exists(log_path):
+            return True
+        if ci_service == 'travis' and download_log(job_id, log_path):
+            return True
+        if ci_service == 'github' and download_log(job_id, log_path, repo=repo):
+            return True
+
+        return False
+
+    @staticmethod
     def run(repo: str, dir_of_jsons: str, args: dict):
         task_name = repo.replace('/', '-')
         analyzer = Analyzer()
@@ -83,12 +97,10 @@ class PairClassifier(object):
 
         for bp in buildpairs:
             bp_id = bp['_id']
+            ci_service = bp['ci_service'] if 'ci_service' in bp else 'travis'
 
             if bp['jobpairs']:
-                jp = bp['jobpairs'][0]
-                _ = jp.setdefault('build_system', "NA")
-                files_changed = []
-                if jp['is_filtered']:
+                if all((jp['is_filtered'] for jp in bp['jobpairs'])):
                     continue
 
                 failed_sha = bp['failed_build']['travis_merge_sha'] if bp['failed_build']['travis_merge_sha'] else \
@@ -97,76 +109,90 @@ class PairClassifier(object):
                     bp['passed_build']['head_sha']
                 url = get_github_url(failed_sha, passed_sha, repo)
                 image_tag_info = gather_info(url)
-                jp['metrics'] = image_tag_info['metrics']
 
-                for file in image_tag_info['changed_paths']:
-                    files_changed.append(file)
+                files_changed = image_tag_info['changed_paths']
 
-                failed_job_id = jp['failed_job']['job_id']
-                passed_job_id = jp['passed_job']['job_id']
-
-                file_list = ['{}-orig.log'.format(failed_job_id), '{}-orig.log'.format(passed_job_id)]
-
-                origin_log_dir = args.get('log_path')
-
-                # origin_log_dir is not provided, then download the log
-                if origin_log_dir is None:
-                    origin_log_dir = 'original-logs/'
-                    os.makedirs(os.path.dirname(origin_log_dir), exist_ok=True)
-                    if not download_log(failed_job_id, '{}/{}-orig.log'.format(origin_log_dir, failed_job_id)) \
-                            or not download_log(passed_job_id, '{}/{}-orig.log'.format(origin_log_dir, passed_job_id)):
-                        print("Error: Log cannot be download for {}".format(failed_job_id))
+                for jp in bp['jobpairs']:
+                    if jp['is_filtered']:
                         continue
 
-                failed_log = process_logs(origin_log_dir, file_list)
-                if failed_log is None:
-                    continue
-                try:
-                    language = bp['failed_build']['jobs'][0]['language']
-                except KeyError:
-                    log.info("Language not detected")
-                    continue
-                if language not in ['python', 'java']:
-                    print('Lang is :{}'.format(language))
-                    continue
-
-                # CLASSIFICATION
-                files_modified = []
-                files_modified.extend(files_changed)
-                files_modified = list(filter(lambda x: '.git' not in x, files_modified))
-                is_test, test_confidence, remain_files = classify_test(files_modified)
-                is_build, build_confidence, remain_files = classify_build(remain_files, files_modified)
-                is_code, code_confidence = classify_code(remain_files, files_modified)
-                error_dict, userdefined, _ = process_error(language, failed_log)
-                test_confidence = PairClassifier._get_category_confidence(test_confidence)
-                build_confidence = PairClassifier._get_category_confidence(build_confidence)
-                code_confidence = PairClassifier._get_category_confidence(code_confidence)
-
-                # default to be -1
-                num_tests_failed = -1
-
-                try:
-                    result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id),
-                                                         failed_job_id, trigger_sha=failed_sha, repo=repo)
-                except BaseException:
-                    log.error('Error analyzing log for {}'.format(failed_job_id))
-                    continue
-                if 'tr_log_num_tests_failed' in result and not result['tr_log_num_tests_failed'] == 'NA':
-                    num_tests_failed = result['tr_log_num_tests_failed']
-
-                classification = {'code': code_confidence, 'test': test_confidence, 'build': build_confidence,
-                                  'exceptions': list(error_dict.keys()), 'tr_log_num_tests_failed': num_tests_failed}
-                jp['classification'] = classification
-
-                # Propagate classification and metrics for the rest of the jobpairs.
-                for jp in bp['jobpairs'][1:]:
-                    jp['classification'] = classification
+                    jp.setdefault('build_system', "NA")
                     jp['metrics'] = image_tag_info['metrics']
+
+                    failed_job_id = jp['failed_job']['job_id']
+                    passed_job_id = jp['passed_job']['job_id']
+
+                    file_list = ['{}-orig.log'.format(failed_job_id), '{}-orig.log'.format(passed_job_id)]
+
+                    origin_log_dir = args.get('log_path')
+
+                    # origin_log_dir is not provided, then download the log
+                    if origin_log_dir is None:
+                        origin_log_dir = 'original-logs/'
+                        if not PairClassifier._dl_log_if_not_present(ci_service, repo, failed_job_id, origin_log_dir):
+                            log.error('Error: log cannot be downloaded for', failed_job_id)
+                            continue
+                        if not PairClassifier._dl_log_if_not_present(ci_service, repo, passed_job_id, origin_log_dir):
+                            log.error('Error: log cannot be downloaded for', passed_job_id)
+                            continue
+
+                    failed_log = process_logs(origin_log_dir, file_list, ci_service)
+                    if failed_log is None:
+                        log.error('Error processing logs for job pair ({}, {}). Skipping.'.format(
+                            failed_job_id, passed_job_id))
+                        continue
+                    try:
+                        language = bp['failed_build']['jobs'][0]['language']
+                    except KeyError:
+                        log.info("Language not detected")
+                        continue
+                    if language not in ['python', 'java']:
+                        log.info('Lang is :{}'.format(language))
+                        continue
+
+                    # CLASSIFICATION
+                    files_modified = []
+                    files_modified.extend(files_changed)
+                    files_modified = list(filter(lambda x: '.git' not in x, files_modified))
+                    is_test, test_confidence, remain_files = classify_test(files_modified)
+                    is_build, build_confidence, remain_files = classify_build(remain_files, files_modified)
+                    is_code, code_confidence = classify_code(remain_files, files_modified)
+                    error_dict, userdefined, _ = process_error(language, failed_log)
+                    if error_dict == -1:
+                        log.error(
+                            'Error finding error dict for job pair ({}, {}). Skipping.'.format(
+                                failed_job_id, passed_job_id))
+                        continue
+
+                    test_confidence = PairClassifier._get_category_confidence(test_confidence)
+                    build_confidence = PairClassifier._get_category_confidence(build_confidence)
+                    code_confidence = PairClassifier._get_category_confidence(code_confidence)
+
+                    # default to be -1
+                    num_tests_failed = -1
+
+                    try:
+                        result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id),
+                                                             failed_job_id, ci_service, trigger_sha=failed_sha,
+                                                             repo=repo)
+                    except BaseException:
+                        log.error('Error analyzing log for {}'.format(failed_job_id))
+                        continue
+                    if 'tr_log_num_tests_failed' in result and not result['tr_log_num_tests_failed'] == 'NA':
+                        num_tests_failed = result['tr_log_num_tests_failed']
+
+                    classification = {
+                        'code': code_confidence,
+                        'test': test_confidence,
+                        'build': build_confidence,
+                        'exceptions': list(error_dict.keys()),
+                        'tr_log_num_tests_failed': num_tests_failed}
+                    jp['classification'] = classification
 
             log.info('patching job pairs to the database.')
             resp = bugswarmapi.patch_job_pairs(bp_id, bp['jobpairs'])
             if not resp.ok:
-                print(resp)
+                log.error(resp)
 
         log.info('Finished classification.')
         log.info('Writing build pairs to the database.')

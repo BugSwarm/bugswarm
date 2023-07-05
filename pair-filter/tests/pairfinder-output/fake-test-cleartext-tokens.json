@@ -1,0 +1,1415 @@
+[
+  {
+    "repo": "ClickHouse/clickhouse-jdbc",
+    "ci_service": "github",
+    "repo_mined_version": "42b1b2193931dc68b86cb5dfc86392d4c6d6601b",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "develop",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 3493192052,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "f588fb1a3b7e2b3dea2403f8930f65d5b33906af",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-11-18T00:38:34Z",
+      "message": "Merge pull request #1127 from gaaraG/fix-loss-precision\n\n[Bug] Write time field data loss precision.",
+      "jobs": [
+        {
+          "build_job": "754.6",
+          "job_id": 9564558775,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "latest"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "env": {
+              "COMMENT": "Not a real token. Don't try anything funny, it won't work :)",
+              "MY_TOKEN": "neu56beEyhbaylDdCMW5SFYdAqXrjd2bF5v"
+            },
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "passed_build": {
+      "build_id": 3506125707,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "9b826558fa6ea94a9f4307bfa41622f14a09b20d",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-11-20T02:33:36Z",
+      "message": "Merge pull request #1129 from zhicwu/develop\n\nFix security warning mentioned in #1128 and discard two sonar issues",
+      "jobs": [
+        {
+          "build_job": "757.25",
+          "job_id": 9596703570,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "latest"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 9564558775
+        },
+        "passed_job": {
+          "job_id": 9596703570
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n",
+        "build_system": "Maven"
+      }
+    ]
+  },
+  {
+    "repo": "ClickHouse/clickhouse-jdbc",
+    "ci_service": "github",
+    "repo_mined_version": "42b1b2193931dc68b86cb5dfc86392d4c6d6601b",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "develop",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 3438028951,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "a1b63872a112579b6d3e9450ca6e5cf85eb9e02f",
+      "github_archived": true,
+      "resettable": false,
+      "committed_at": "2022-11-10T15:15:31Z",
+      "message": "Fix test failure",
+      "jobs": [
+        {
+          "build_job": "746.3",
+          "job_id": 9415526223,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8"
+              },
+              "fail-fast": false
+            },
+            "env": {
+              "MY_TOKEN": "testDBPassword"
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "746.4",
+          "job_id": 9415526453,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''",
+                "env": {
+                  "MY_PASSWORD": "neu56beEyhbaylDdCMW5SFYdAqXrjd2bF5v"
+                }
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "746.6",
+          "job_id": 9415526924,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "latest"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''",
+                "env": {
+                  "MY_PASSWORD": "dummyToken"
+                }
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "passed_build": {
+      "build_id": 3438171407,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "876870994c4ced46a4624655f0589bb8226c583e",
+      "github_archived": true,
+      "resettable": false,
+      "committed_at": "2022-11-10T15:35:01Z",
+      "message": "Fix incorrect asserts",
+      "jobs": [
+        {
+          "build_job": "747.3",
+          "job_id": 9415961162,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "747.4",
+          "job_id": 9415961463,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "747.6",
+          "job_id": 9415962066,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "latest"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "Java client against ClickHouse ${{ matrix.clickhouse }}",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Test Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-java-client"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 9415526223
+        },
+        "passed_job": {
+          "job_id": 9415961162
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 9415526453
+        },
+        "passed_job": {
+          "job_id": 9415961463
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 9415526924
+        },
+        "passed_job": {
+          "job_id": 9415962066
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} verify\n",
+        "build_system": "Maven"
+      }
+    ]
+  },
+  {
+    "repo": "ClickHouse/clickhouse-jdbc",
+    "ci_service": "github",
+    "repo_mined_version": "42b1b2193931dc68b86cb5dfc86392d4c6d6601b",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "develop",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 3506333400,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "e799fcb269fe9239051909085a73b12fe0c9f1d5",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-11-20T03:45:12Z",
+      "message": "Add missing change",
+      "jobs": [
+        {
+          "build_job": "759.1",
+          "job_id": 9597106472,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "timeout-minutes": 10,
+            "name": "Compile using JDK 8",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": 8,
+                  "cache": "maven",
+                  "some-passwd": "neu56beEyhbaylDdCMW5SFYdAqXrjd2bF5v"
+                }
+              },
+              {
+                "name": "Build and install libraries",
+                "run": "mvn --batch-mode --show-version --strict-checksums --threads C1 -Dmaven.wagon.rto=30000 -DskipITs install"
+              },
+              {
+                "name": "Compile examples",
+                "run": "for d in $(ls -d `pwd`/examples/*/); do cd $d && mvn clean compile; done"
+              }
+            ],
+            "id-in-workflow": "compile"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "passed_build": {
+      "build_id": 3506771530,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "42b6d15da3f41a57f630a28b747987190a54f93f",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-11-20T06:16:30Z",
+      "message": "Add missing import",
+      "jobs": [
+        {
+          "build_job": "760.1",
+          "job_id": 9597938610,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "timeout-minutes": 10,
+            "name": "Compile using JDK 8",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": 8,
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Build and install libraries",
+                "run": "mvn --batch-mode --show-version --strict-checksums --threads C1 -Dmaven.wagon.rto=30000 -DskipITs install"
+              },
+              {
+                "name": "Compile examples",
+                "run": "for d in $(ls -d `pwd`/examples/*/); do cd $d && mvn clean compile; done"
+              }
+            ],
+            "id-in-workflow": "compile"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 9597106472
+        },
+        "passed_job": {
+          "job_id": 9597938610
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --show-version --strict-checksums --threads C1 -Dmaven.wagon.rto=30000 -DskipITs install",
+        "build_system": "Maven"
+      }
+    ]
+  },
+  {
+    "repo": "ClickHouse/clickhouse-jdbc",
+    "ci_service": "github",
+    "repo_mined_version": "42b1b2193931dc68b86cb5dfc86392d4c6d6601b",
+    "pr_num": -1,
+    "merged_at": null,
+    "branch": "develop",
+    "base_branch": "",
+    "is_error_pass": false,
+    "failed_build": {
+      "build_id": 3709931478,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "b83ba218dc9c4070e70c7b5f2894d1365df4aa56",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-12-16T03:08:39Z",
+      "message": "Fix issue of parsing insert with settings",
+      "jobs": [
+        {
+          "build_job": "785.15",
+          "job_id": 10131809360,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8",
+                "protocol": "http"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven",
+                  "some-passwd": "testDBPassword"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "785.16",
+          "job_id": 10131809444,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8",
+                "protocol": "http2"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "785.17",
+          "job_id": 10131809529,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "http"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "785.18",
+          "job_id": 10131809613,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "http2"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "785.19",
+          "job_id": 10131809703,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "grpc"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "passed_build": {
+      "build_id": 3710087448,
+      "travis_merge_sha": null,
+      "base_sha": "",
+      "head_sha": "55061aebd6f35221bca451c1852abf986352a0a1",
+      "github_archived": true,
+      "resettable": true,
+      "committed_at": "2022-12-16T03:42:32Z",
+      "message": "Skip the new test before 22.5",
+      "jobs": [
+        {
+          "build_job": "786.7",
+          "job_id": 10132149810,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8",
+                "protocol": "http"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "786.8",
+          "job_id": 10132149872,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "21.8",
+                "protocol": "http2"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "786.9",
+          "job_id": 10132149947,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "http"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "786.10",
+          "job_id": 10132150003,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "http2"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        },
+        {
+          "build_job": "786.11",
+          "job_id": 10132150067,
+          "config": {
+            "runs-on": "ubuntu-latest",
+            "needs": "compile",
+            "strategy": {
+              "matrix": {
+                "clickhouse": "22.3",
+                "protocol": "grpc"
+              },
+              "fail-fast": false
+            },
+            "timeout-minutes": 15,
+            "name": "JDBC driver against ClickHouse ${{ matrix.clickhouse }} (${{ matrix.protocol }})",
+            "steps": [
+              {
+                "name": "Check out repository",
+                "uses": "actions/checkout@v3"
+              },
+              {
+                "name": "Check out PR",
+                "run": "git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 \\\n  origin pull/${{ github.event.inputs.pr }}/merge:merged-pr && git checkout merged-pr\n",
+                "if": "github.event.inputs.pr != ''"
+              },
+              {
+                "name": "Install JDK 8 and Maven",
+                "uses": "actions/setup-java@v3",
+                "with": {
+                  "distribution": "temurin",
+                  "java-version": "8\n11\n",
+                  "cache": "maven"
+                }
+              },
+              {
+                "name": "Setup Toolchain",
+                "shell": "bash",
+                "run": "mkdir -p $HOME/.m2 \\\n&& cat << EOF > $HOME/.m2/toolchains.xml\n<?xml version=\"1.0\" encoding=\"UTF8\"?>\n<toolchains>\n  <toolchain>\n    <type>jdk</type>\n    <provides>\n      <version>11</version>\n    </provides>\n    <configuration>\n      <jdkHome>${{ env.JAVA_HOME }}</jdkHome>\n    </configuration>\n  </toolchain>\n</toolchains>\nEOF\n"
+              },
+              {
+                "name": "Install Java client",
+                "run": "mvn --also-make --batch-mode --projects clickhouse-cli-client,clickhouse-grpc-client,clickhouse-http-client -Drelease -DskipTests install"
+              },
+              {
+                "name": "Test JDBC driver",
+                "run": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n"
+              },
+              {
+                "name": "Upload test results",
+                "uses": "actions/upload-artifact@v2",
+                "if": "failure()",
+                "with": {
+                  "name": "result ${{ github.job }}",
+                  "path": "**/target/failsafe-reports\n**/target/surefire-reports\n"
+                }
+              }
+            ],
+            "id-in-workflow": "test-jdbc-driver"
+          },
+          "language": "java"
+        }
+      ],
+      "has_submodules": false
+    },
+    "jobpairs": [
+      {
+        "failed_job": {
+          "job_id": 10131809360
+        },
+        "passed_job": {
+          "job_id": 10132149810
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 10131809444
+        },
+        "passed_job": {
+          "job_id": 10132149872
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 10131809529
+        },
+        "passed_job": {
+          "job_id": 10132149947
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 10131809613
+        },
+        "passed_job": {
+          "job_id": 10132150003
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n",
+        "build_system": "Maven"
+      },
+      {
+        "failed_job": {
+          "job_id": 10131809703
+        },
+        "passed_job": {
+          "job_id": 10132150067
+        },
+        "failed_step_kind": "run",
+        "failed_step_command": "mvn --batch-mode --projects clickhouse-jdbc -Drelease -DclickhouseVersion=${{ matrix.clickhouse }} -Dprotocol=${{ matrix.protocol }} verify\n",
+        "build_system": "Maven"
+      }
+    ]
+  }
+]

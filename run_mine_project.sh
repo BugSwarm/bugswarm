@@ -10,10 +10,11 @@ source "${SCRIPT_DIR}"/common.sh
 TOTAL_STEPS=3
 STAGE='Mine Project'
 
-USAGE='Usage: bash run_mine_project.sh (-r <repo-slug> | -f <repo-slug-file>) [-t <threads>] [-c <component-directory>]'
+USAGE='Usage: bash run_mine_project.sh --ci <ci> (-r <repo-slug> | -f <repo-slug-file>) [-t <threads>] [-c <component-directory>]'
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:f:t: --long component-directory:,repo:,repo-file:,threads: -n 'run-mine-project' -- "$@")
+OPTS=$(getopt -o c:r:f:t: --long component-directory:,repo:,repo-file:,threads:,ci: -n 'run-mine-project' -- "$@")
+eval set -- "$OPTS"
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
@@ -21,6 +22,7 @@ while true; do
       -r | --repo                ) repo="$2";                shift; shift ;;
       -f | --repo-file           ) repo_file="$2";           shift; shift ;;
       -t | --threads             ) threads="$2";             shift; shift ;;
+           --ci                  ) ci_service="$2";          shift; shift ;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -43,6 +45,11 @@ fi
 
 if [ ${repo_flag} == ${repo_file_flag} ]; then
     echo ${USAGE}
+    exit 1
+fi
+
+if [[ ${ci_service} != 'travis' && ${ci_service} != 'github' ]]; then
+    echo '--ci must be one of "travis" or "github". Exiting.'
     exit 1
 fi
 
@@ -71,7 +78,7 @@ if [ ${repo} ]; then
 fi
 
 json_name=${task_name}.json
-pair_finder_dir="${component_directory}"/pair-finder
+pair_finder_dir="${component_directory}/${ci_service}-pair-finder"
 pair_filter_dir="${component_directory}"/pair-filter
 pair_classifier_dir="${component_directory}"/pair-classifier
 
@@ -97,12 +104,12 @@ print_step "${STAGE}" ${TOTAL_STEPS} 'PairFilter'
 cd ${pair_filter_dir}
 
 if ${repo_flag}; then
-    python3 pair-filter.py ${repo} ${pair_finder_dir}/output/${task_name}
+    python3 pair-filter.py ${repo} github ${pair_finder_dir}/output/${task_name}
     exit_if_failed 'PairFilter encountered an error.'
 else
     task_name="$(echo $(basename ${file_path}) | cut -f 1 -d '.')"
     while read repo; do
-        python3 pair-filter.py ${repo} ${pair_finder_dir}/output/${task_name}
+        python3 pair-filter.py ${repo} github ${pair_finder_dir}/output/${task_name}
         exit_if_failed 'PairFilter encountered an error.'
     done <${file_path}
 fi

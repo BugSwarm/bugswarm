@@ -1,20 +1,17 @@
 import os
-from typing import List
-from typing import Tuple
+import re
+from typing import List, Tuple
 
+from bugswarm.common import filter_reasons as reasons
 from bugswarm.common import log
 from bugswarm.common.json import read_json
 from bugswarm.common.log_downloader import download_log
-from bugswarm.common import filter_reasons as reasons
 
 from . import utils
-from .constants import FILTERED_REASON_KEY
-from .constants import PARSED_IMAGE_TAG_KEY
-from .constants import TRAVIS_IMAGES_JSON
-from .constants import DOCKERHUB_IMAGES_JSON
-from .image_chooser import ExactImageChooserByTime
-from .image_chooser import ExactImageChooserByTag
-from .image_chooser import ExactImageChooserByCommitSHA
+from .constants import (DOCKERHUB_IMAGES_JSON, FILTERED_REASON_KEY,
+                        PARSED_IMAGE_TAG_KEY, TRAVIS_IMAGES_JSON)
+from .image_chooser import (ExactImageChooserByCommitSHA,
+                            ExactImageChooserByTag, ExactImageChooserByTime)
 
 
 def filter_no_sha(pairs) -> int:
@@ -27,6 +24,45 @@ def filter_no_sha(pairs) -> int:
                     filtered += 1
                     jp[FILTERED_REASON_KEY] = reasons.NO_HEAD_SHA
     utils.log_filter_count(filtered, 'jobpairs that have no head SHA')
+    return filtered
+
+
+def filter_expired_logs(pairs) -> int:
+    log.debug('Filtering jobs with expired logs.')
+
+    MAX_UNAVAILABLE_COUNT = 5
+
+    filtered = 0
+    repo = pairs[0]['repo'] if pairs else None
+    sorted_job_ids = sorted(
+        [(j['job_id'], jp) for p in pairs for jp in p['jobpairs'] for j in [jp['failed_job'], jp['passed_job']]],
+        reverse=True,
+        key=lambda tup: tup[0])
+
+    running_unavailable_count = 0
+    for job_id, jp in sorted_job_ids:
+        if utils.jobpair_is_filtered(jp):
+            continue
+
+        if running_unavailable_count == MAX_UNAVAILABLE_COUNT:
+            filtered += 1
+            jp[FILTERED_REASON_KEY] = reasons.NO_ORIGINAL_LOG
+            continue
+
+        orig_log_path = utils.get_orig_log_path(job_id)
+        if not os.path.exists(orig_log_path) and not utils.download_github_log(repo, job_id, orig_log_path):
+            filtered += 1
+            running_unavailable_count += 1
+            jp[FILTERED_REASON_KEY] = reasons.NO_ORIGINAL_LOG
+        else:
+            running_unavailable_count = 0
+
+        if running_unavailable_count == MAX_UNAVAILABLE_COUNT:
+            log.info(
+                MAX_UNAVAILABLE_COUNT,
+                'jobs in a row have unavailable logs. Assuming the rest are also unavailable.')
+
+    utils.log_filter_count(filtered, 'jobpairs with at least one expired log')
     return filtered
 
 
@@ -202,4 +238,154 @@ def filter_same_commit(pairs) -> int:
                     # log.debug(p['failed_build']['build_id'],
                     #           p['passed_build']['build_id'], p['failed_build']['head_sha'])
     utils.log_filter_count(filtered, 'jobpairs that are same-commit pairs')
+    return filtered
+
+
+def filter_unavailable_github_runner(pairs) -> int:
+    MATRIX_VALUE_REGEX = re.compile(r'\${{\s*matrix\.([^\s}]+)\s*}}')
+    SUPPORTED_RUNNERS = ['ubuntu-latest', 'ubuntu-22.04', 'ubuntu-20.04', 'ubuntu-18.04']
+    filtered = 0
+
+    for p in pairs:
+        job_id_to_config = {j['job_id']: j['config'] for j in p['failed_build']['jobs'] + p['passed_build']['jobs']}
+        for jp in p['jobpairs']:
+            if utils.jobpair_is_filtered(jp):
+                continue
+            for job in (jp['failed_job'], jp['passed_job']):
+                config = job_id_to_config[job['job_id']]
+                runners = config['runs-on']
+
+                if isinstance(runners, str):
+                    m = re.match(MATRIX_VALUE_REGEX, runners)
+                    if m and isinstance(utils.get_matrix_param(m[1], config), list):
+                        runners = utils.get_matrix_param(m[1], config)
+                    else:
+                        runners = [runners]
+
+                # TODO Add the ability to handle more complicated replacements.
+                # According to https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability,
+                # jobs.<job-id>.runs-on can access the `github`, `needs`, `strategy`,
+                # `matrix`, and `inputs` contexts. This only handles the `matrix` context.
+                runners = [re.sub(MATRIX_VALUE_REGEX,
+                                  lambda m: utils.get_matrix_param(m[1], config),
+                                  runner).lower() for runner in runners]
+
+                should_filter = False
+                if 'self-hosted' in runners:
+                    # TODO: determine whether the container is (1) accessible and (2) can be run on linux
+                    # (use `docker manifest inspect`?)
+                    should_filter = 'container' not in config or 'windows' in runners or 'macos' in runners
+                else:
+                    should_filter = any(runner not in SUPPORTED_RUNNERS for runner in runners)
+
+                if should_filter:
+                    jp[FILTERED_REASON_KEY] = reasons.UNAVAILABLE_RUNNER
+                    filtered += 1
+                    break
+
+    utils.log_filter_count(filtered, 'jobpairs using an unsupported github actions runner')
+    return filtered
+
+
+def filter_unresettable_with_submodules(pairs) -> int:
+    filtered = 0
+
+    for p in pairs:
+        repo = p['repo']
+        for build in (p['failed_build'], p['passed_build']):
+            try:
+                should_be_filtered = (not build['resettable'] and build['github_archived']
+                                      and utils.build_uses_submodules(repo, build))
+                if should_be_filtered:
+                    for jp in p['jobpairs']:
+                        if not utils.jobpair_is_filtered(jp):
+                            filtered += 1
+                            jp[FILTERED_REASON_KEY] = reasons.UNRESETTABLE_WITH_SUBMODULES
+                    break
+            except KeyError as e:
+                log.error('KeyError in build {}: {}'.format(build['build_id'], e))
+            except RuntimeError as e:
+                log.error(e)
+
+    utils.log_filter_count(filtered, 'jobpairs for un-resettable commits with submodules')
+
+    return filtered
+
+
+def filter_unredacted_tokens(pairs) -> int:
+    filtered = 0
+
+    for p in pairs:
+        redacted_job_ids = set()
+        # Technically we only need to iterate the failed build, since each job in a pair has identical config,
+        # but this doesn't hurt.
+        for build in (p['failed_build'], p['passed_build']):
+            for job in build['jobs']:
+                job_id = job['job_id']
+
+                # TODO: This does not currently search workflow-level envs.
+                if utils.find_cleartext_tokens(job['config'].get('env', {}), redact=True):
+                    redacted_job_ids.add(job_id)
+
+                for step in job['config'].get('steps', []):
+                    if utils.find_cleartext_tokens(step.get('env', {}), redact=True):
+                        redacted_job_ids.add(job_id)
+                    if utils.find_cleartext_tokens(step.get('with', {}), redact=True):
+                        redacted_job_ids.add(job_id)
+
+        for jp in p['jobpairs']:
+            if not utils.jobpair_is_filtered(jp) and (
+                jp['failed_job']['job_id'] in redacted_job_ids
+                or jp['passed_job']['job_id'] in redacted_job_ids
+            ):
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.UNREDACTED_TOKEN
+
+    utils.log_filter_count(filtered, 'jobpairs that seem to use cleartext tokens/passwords')
+    return filtered
+
+
+def filter_unsupported_workflow(pairs) -> int:
+    filtered = 0
+
+    for p in pairs:
+        redacted_job_ids = set()
+        # Technically we only need to iterate the failed build, since each job in a pair has identical config,
+        # but this doesn't hurt.
+        for build in (p['failed_build'], p['passed_build']):
+            for job in build['jobs']:
+                job_id = job['job_id']
+                config = job['config']
+
+                # job.env is a dictionary
+                if not isinstance(config.get('env', {}), dict):
+                    redacted_job_ids.add(job_id)
+                    continue
+
+                # job.defaults is a dictionary & job.defaults.run is a dictionary
+                if not isinstance(config.get('defaults', {}), dict):
+                    redacted_job_ids.add(job_id)
+                    continue
+                elif 'run' in config.get('defaults', {}) and not isinstance(config.get('defaults', {})['run'], dict):
+                    redacted_job_ids.add(job_id)
+                    continue
+
+                # job.steps.env and job.steps.with are dictionaries.
+                for step in job['config'].get('steps', []):
+                    if not isinstance(step.get('env', {}), dict):
+                        redacted_job_ids.add(job_id)
+                        break
+                    if not isinstance(step.get('with', {}), dict):
+                        redacted_job_ids.add(job_id)
+                        break
+
+        for jp in p['jobpairs']:
+            if not utils.jobpair_is_filtered(jp) and (
+                jp['failed_job']['job_id'] in redacted_job_ids
+                or jp['passed_job']['job_id'] in redacted_job_ids
+            ):
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.UNSUPPORTED_WORKFLOW
+
+    utils.log_filter_count(filtered, 'jobpairs using unsupported workflow syntax')
     return filtered

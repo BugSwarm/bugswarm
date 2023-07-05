@@ -121,7 +121,14 @@ def is_dependency(files_changed, all_files_changed):
     :param all_files_changed: all filenames that been modified
     :return: confidence, files_relevant, files_not_relevant
     """
-    build_config_files = ['pom.xml', 'travis.yml', 'build.gradle', '.travis/', 'build.xml']
+    build_config_files = [
+        'pom.xml',
+        'travis.yml',
+        'build.gradle',
+        'build.gradle.kts',
+        '.travis/',
+        'build.xml',
+        '.github/workflows/']
     count = 0
     files_relevant = list()
     files_not_relevant = list()
@@ -235,42 +242,47 @@ def classify_code(remain_files=None, file_modified=None):
         return True, confidence
 
 
-def process_logs(root, file_list):
+def process_logs(root, file_list, ci_service='travis'):
     """
     Returns contents of the failed log as a list
     :param root: directory
     :param file_list: [failed log, passed log]
+    :param ci_service: 'travis' or 'github'
     :return: list
     """
-    file_list.sort()
+
+    timestamp_length = 29 if ci_service == 'github' else 0
+    # file_list.sort()
     try:
         with open(os.path.join(root, file_list[1])) as passed_file:
             passed = passed_file.readlines()
-        passed = list(filter(None, [line.strip() for line in passed]))
+        passed = list(filter(None, [line.strip()[timestamp_length:] for line in passed]))
         with open(os.path.join(root, file_list[0])) as failed_file:
             failed = failed_file.readlines()
-        failed = list(filter(None, [line.strip() for line in failed]))
+        failed = list(filter(None, [line.strip()[timestamp_length:] for line in failed]))
     except OSError as e:
         log.error(e)
         return None
 
-    if "Done. Your build exited with 0." not in passed[-1]:
-        # error-condition, skip classification
-        if "Done. Your build exited with 0." not in failed[-1]:
-            return None
-        else:
-            # passed and failed got interchanged
-            return passed
+    if ci_service == 'travis':
+        if "Done. Your build exited with 0." not in passed[-1]:
+            # error-condition, skip classification
+            if "Done. Your build exited with 0." not in failed[-1]:
+                return None
+            else:
+                # passed and failed got interchanged
+                return passed
+
     return failed
 
 
 def detect_lang(failed_log, quiet):
     build_lang = None
     py_version = None
-    if type(failed_log) is not list:
+    if not isinstance(failed_log, list):
         print(failed_log)
     for line in failed_log:
-        if type(line) is not str:
+        if not isinstance(line, str):
             print(line)
             continue
         if "Build language: java" in line:
@@ -579,7 +591,7 @@ def process_error(build_lang: str = None, failed_log: list = None):
     See get_java_error_data() or get_python_error_data() for specifics.
     """
     if not build_lang or not failed_log:
-        return -1, -1
+        return -1, -1, -1
 
     exception_dict = {
         'python': [python_exceptions, python_nonstd],

@@ -29,11 +29,14 @@ def _log_string(*args):
     return ' '.join(str_args)
 
 
-def config_logging(log_level: int, log_file_path: Optional[str] = None):
+def config_logging(log_level: int, log_file_path: Optional[str] = None, show_thread_name=False):
     logger = logging.getLogger()
     logger.handlers = []  # Remove previously added handlers before adding new ones.
 
-    formatter = logging.Formatter('[%(levelname)8s] --- %(message)s')
+    if show_thread_name:
+        formatter = logging.Formatter('[%(levelname)8s] --- %(threadName)s %(message)s')
+    else:
+        formatter = logging.Formatter('[%(levelname)8s] --- %(message)s')
 
     if log_file_path:
         file_handler = logging.FileHandler(log_file_path, mode='w')
