@@ -228,7 +228,7 @@ class PatchArtifactTask:
             # For Java
             bs = build_system.lower()
             assert bs in ['maven', 'gradle', 'ant']
-        compare_result = analyzer.compare_single_log(log_path, orig_log_path, 'github', orig_job_id, bs)
+        compare_result = analyzer.compare_single_log(log_path, orig_log_path, orig_job_id, 'github', bs)
         with open(log_path + '.cmp', 'w') as f:
             print(repr(compare_result), file=f)
         if not compare_result[0]:
