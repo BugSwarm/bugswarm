@@ -13,7 +13,6 @@ from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 _COPY_DIR = 'from_host'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
-_TOOLCACHE_SCRIPT = 'cache_toolcache.sh'
 _FAILED_BUILD_SCRIPT = '/usr/local/bin/run_failed.sh'
 _PASSED_BUILD_SCRIPT = '/usr/local/bin/run_passed.sh'
 _GITHUB_DIR = '/home/github'
@@ -73,14 +72,15 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         for fail_or_pass in ['failed', 'passed']:
             container_id = self.create_container(docker_image_tag, 'cache', fail_or_pass)
             self._run_patch_script(container_id, repo, ['add-mvn-local-repo'])
-            self._pre_cache_toolcache(container_id)
+            self.pre_cache_toolcache(container_id)
             build_result = self.run_build_script(container_id, fail_or_pass, caching_build_log_path[fail_or_pass],
-                                                 job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system)
+                                                 job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system,
+                                                 repo=self.repo)
             if not build_result and not self.args.ignore_cache_error:
                 raise CachingScriptError('Run build script not reproducible for caching {}'.format(fail_or_pass))
 
             cached_files.extend(self._cache_and_copy_files(container_id, fail_or_pass))
-            cached_files_always_unpack.extend(self._cache_toolcache(container_id, fail_or_pass))
+            cached_files_always_unpack.extend(self.cache_toolcache(container_id, fail_or_pass))
 
             self.remove_container(container_id)
 
@@ -176,38 +176,6 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             cached_files.append((name, fail_or_pass, host_tar, cont_tar))
         return cached_files
 
-    def _pre_cache_toolcache(self, container_id):
-        if self.args.no_copy_actions_toolcache:
-            return
-
-        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _TOOLCACHE_SCRIPT)
-        script = os.path.join(_GITHUB_DIR, _TOOLCACHE_SCRIPT)
-        pre_cache = '/tmp/pre-cache.txt'
-        cont_path = '/opt/hostedtoolcache'
-
-        self.copy_file_to_container(container_id, src, script)
-        self.run_command('docker exec {} {} {} {}'.format(container_id, script, cont_path, pre_cache))
-
-    def _cache_toolcache(self, container_id, fail_or_pass):
-        if self.args.no_copy_actions_toolcache:
-            self.logger.info('Skipping actions-toolcache because of command line arguments')
-            return
-
-        script = os.path.join(_GITHUB_DIR, _TOOLCACHE_SCRIPT)
-        post_cache = '/tmp/post-cache.txt'
-        pre_cache = '/tmp/pre-cache.txt'
-        cont_path = '/opt/hostedtoolcache'
-        cont_tar = os.path.join(_GITHUB_DIR, 'actions-toolcache.tgz')
-        host_tar = os.path.join(self.workdir, 'actions-toolcache-{}.tgz'.format(fail_or_pass))
-
-        self.run_command('docker exec {} {} {} {} {} {}'.format(
-            container_id, script, cont_path, post_cache, pre_cache, cont_tar))
-        _, _, _, ok = self.run_command('docker exec {} ls {}'.format(container_id, cont_tar))
-        if ok:
-            self.copy_file_out_of_container(container_id, cont_tar, host_tar)
-            return [('actions-toolcache', fail_or_pass, host_tar, cont_tar)]
-        return []
-
     def _test_cached_image(self, image_tag, fail_or_pass, repr_log_path, orig_log_path, job_id):
         if self.args.disconnect_network_during_test:
             container_id = self.create_container(
@@ -223,7 +191,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             self._run_patch_script(container_id, self.repo, ['offline-all-maven', 'offline-all-gradle'])
 
         build_result = self.run_build_script(container_id, fail_or_pass, repr_log_path, orig_log_path, job_id,
-                                             self.build_system)
+                                             self.build_system, repo=self.repo)
         if not build_result:
             raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
 

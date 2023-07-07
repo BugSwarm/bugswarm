@@ -116,7 +116,7 @@ class CacheMavenUnitTests(unittest.TestCase):
         try:
             # Run pre-cache
             task = PatchArtifactNoDockerTask(ArtifactRunnerShim(), subdir)
-            task._pre_cache_toolcache(container_id)
+            task.pre_cache_toolcache(container_id)
 
             # Simulate a run by adding a directory to the toolcache
             if IN_CONTAINER:
@@ -128,7 +128,7 @@ class CacheMavenUnitTests(unittest.TestCase):
                 container.put_archive('/opt/hostedtoolcache', tar_data)
 
             # Run cache
-            task._cache_toolcache(container_id, 'failed')
+            task.cache_toolcache(container_id, 'failed')
         finally:
             if not IN_CONTAINER:
                 container.stop()

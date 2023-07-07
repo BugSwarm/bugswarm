@@ -101,7 +101,8 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # If we are running in container image, then we need to install the following tools:
         # cat (for build script), node (for custom actions), python3 (for expression handling)
         lines += [
-            'RUN apt-get update && apt-get -y install sudo curl coreutils python3',
+            'RUN apt-get update && apt-get -y install sudo curl coreutils python3 vim',
+            'RUN apt-get install -y python-is-python3 || sudo ln -s /usr/bin/python3 /usr/bin/python',
             'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
             'RUN apt-get install -y nodejs'
         ]
@@ -114,9 +115,11 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev',
+        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev vim',
 
         'RUN echo "TERM=dumb" >> /etc/environment',
+        # Hooks can set environment variable using /etc/reproducer-environment
+        'RUN touch /etc/reproducer-environment && chmod 777 /etc/reproducer-environment',
 
         # Otherwise: docker: Error response from daemon: unable to find user GitHub: no matching entries in passwd file.
         'RUN useradd -ms /bin/bash github',
