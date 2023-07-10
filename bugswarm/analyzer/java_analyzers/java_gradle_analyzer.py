@@ -30,12 +30,10 @@ class JavaGradleAnalyzer(LogAnalyzerABC):
 
         for line in get_job_lines(self.folds):
             line = ansi_escape.sub('', line)
-            # We cannot tell when the test started, so we assume test started when we have the first task.
-            if re.search(r'^:.+', line, re.M):
+            # We cannot tell when the test started, so we start looking when we have the first task.
+            if re.search(r'^:[^/\\:<>"?*|]', line, re.M):
                 line_marker = 1
                 test_section_started = True
-                self.tests_run = True
-                self.add_framework('JUnit')
             elif re.search(r'^:', line, re.M) and line_marker == 1:
                 line_marker = 0
                 test_section_started = False

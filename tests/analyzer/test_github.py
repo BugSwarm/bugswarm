@@ -1193,6 +1193,23 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_frameworks(gradle10, 'JUnit')
         self.compare_tr_t_failed(gradle10, 'ThemeManagerTest.installThemeOnScene()')
 
+    def test_gradle_11(self):
+        # Compilation failure; no failed tests
+        log = '7801445827-orig.log'
+        job_id = 7801445827
+        file_path = join(self.gradle, log)
+        gradle11 = self.dispatcher.analyze(file_path, job_id, build_system='gradle')
+        self.compare_status(gradle11, 'broken')
+        self.compare_analyzer(gradle11, 'java-gradle')
+        self.compare_num_t_run(gradle11, 0)
+        self.compare_num_t_ok(gradle11, 'NA')
+        self.compare_num_t_failed(gradle11, 0)
+        self.compare_num_t_skipped(gradle11, 'NA')
+        self.compare_bool_t_ran(gradle11, False)
+        self.compare_bool_t_failed(gradle11, False)
+        self.compare_frameworks(gradle11, '')
+        self.compare_tr_t_failed(gradle11, '')
+
     def test_ant_0(self):
         log = '2420748513-orig.log'
         job_id = 2420748513
