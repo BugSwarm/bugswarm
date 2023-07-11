@@ -1,0 +1,84 @@
+name: 'Generate build pairs'
+description: 'Create a failed/passed job pair for both push and pull_request jobs.'
+
+inputs:
+  token:
+    description: 'GitHub Token'
+    required: true
+  email:
+    description: 'Email for BugSwarm Bot'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Generate job pair (push)
+      run: |
+        echo "::add-mask::$GH_TOKEN"
+        echo "::add-mask::$GH_EMAIL"
+
+        rm -rf repo
+
+        git clone -b main https://$GH_TOKEN@github.com/BugSwarm/actions-pipeline-testing.git repo
+        cd repo
+        git config --local user.email "$GH_EMAIL"
+        git config --local user.name "BugSwarm Bot"
+        git remote set-url origin https://$GH_TOKEN@github.com/BugSwarm/actions-pipeline-testing.git
+
+        FAILED_STATUS=$RANDOM
+        while [[ $(cat status.txt) == $FAILED_STATUS ]]
+        do
+          FAILED_STATUS=$RANDOM
+        done
+
+        echo $FAILED_STATUS > status.txt
+        git add .
+        git commit -m "Generated failed run"
+        git push
+        sleep 20
+
+        echo '0' > status.txt
+        git add .
+        git commit -m "Generated passed run"
+        git push
+        sleep 20
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        GH_EMAIL: ${{ inputs.email }}
+    - name: Generate job pair (pull_request)
+      run: |
+        rm -rf repo
+
+        git clone -b pull_request https://$GH_TOKEN@github.com/BugSwarm/actions-pipeline-testing.git repo
+        cd repo
+        git config --local user.email "$GH_EMAIL"
+        git config --local user.name "BugSwarm Bot"
+        git remote set-url origin https://$GH_TOKEN@github.com/BugSwarm/actions-pipeline-testing.git
+
+        FAILED_STATUS=$RANDOM
+        while [[ $(cat pr-status.txt) == $FAILED_STATUS ]]
+        do
+          FAILED_STATUS=$RANDOM
+        done
+
+        echo $FAILED_STATUS > pr-status.txt
+        git add .
+        git commit -m "Generated failed run"
+        git push
+        sleep 20
+
+        echo '0' > pr-status.txt
+        git add .
+        git commit -m "Generated passed run"
+        git push
+        sleep 20
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        GH_EMAIL: ${{ inputs.email }}
+    - name: Wait for workflows to finish
+      run: python3 tests/ci/test_jobpairs_generation.py
+      env:
+        token: ${{ inputs.token }}
+      shell: bash

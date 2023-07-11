@@ -1,0 +1,38 @@
+name: Run Pipeline Tests
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        required: true
+        default: master
+
+env:
+  CPU: 8
+  DISK: 100G
+  MEMORY: 16G
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  TOKEN_USERNAME: BugSwarmDummy
+  REPOSITORY: ${{ github.repository }}
+  BRANCH: ${{ inputs.branch || github.ref_name }}
+
+jobs:
+  test-pipeline:
+    name: Test Pipeline
+    if: ${{ github.repository == 'BugSwarm/bugswarm-dev' }}
+    runs-on: [self-hosted, codlet]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate failed and passed build pairs
+        uses: ./.github/actions/generate_buildpairs
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          email: ${{ secrets.GH_ACCOUNT_EMAIL }}
+      - name: Launch VM and test pipeline
+        run: |
+          multipass launch focal --name test --cpus $CPU --disk $DISK --memory $MEMORY --cloud-init tests/ci/cloud-init.yml
+          multipass transfer tests/ci/run.sh test:/home/ubuntu
+          multipass exec test -- chmod u+x run.sh
+          multipass exec test -- bash run.sh $GH_TOKEN $TOKEN_USERNAME $REPOSITORY $BRANCH
+      - name: Clean up
+        if: ${{ always() }}
+        run: multipass delete -p test
