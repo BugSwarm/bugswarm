@@ -182,9 +182,9 @@ class Packager(object):
 
         today = str(date.today())
         status = 'Unreproducible'
-        if reproduce_successes == 5:
+        if reproduce_successes == reproduce_attempts:
             status = 'Reproducible'
-        elif 0 < reproduce_successes < 5:
+        elif 0 < reproduce_successes < reproduce_attempts:
             status = 'Flaky'
         reproducibility_status = {
             'time_stamp': today,

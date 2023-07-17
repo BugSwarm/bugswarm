@@ -71,6 +71,13 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs, working_dir):
     if 'shell' in step:
         shell = expressions.substitute_expressions(step['shell'], job_id, contexts)
 
+    if shell:
+        # This prevent "No such file or directory" error, substitute_expressions will put command in quotes
+        # If shell is bash -l {0}
+        # Wrong: env CI=true 'bash -l test.script'
+        # Correct: env CI=true bash -l test.script
+        shell = ' '.join(shlex.split(shell))
+
     if shell is None:
         filename = 'bugswarm_{}.sh'.format(step_number)
         exec_template = 'bash -e {}'
