@@ -1,10 +1,13 @@
 # Artifact Structure
 
 ## Overview
+
 BugSwarm artifacts consist of two discrete parts: the artifact metadata and the artifact Docker image.
 
 ## Metadata schema
+
 Each artifact is associated with a subset of the following attributes. The attributes are described in more detail in the table that follows.
+
 ```bash
 '_id':         ObjectId(string)             # Set by MongoDB
 'base_branch': string                       # e.g. 'master'
@@ -62,8 +65,9 @@ Each artifact is associated with a subset of the following attributes. The attri
 'status':             string                # e.g. 'active'
 'added_version':      string                # e.g. '1.1.2'
 'deprecated_version': string                # e.g. '1.2.0'
+'ci_service':         string                # Either 'travis' or 'github'
 ```
- 
+
 | Attribute                                      | Type        | Description                    |
 | ---------------------------------------------- | ----------- | ------------------------------ |
 | `base_branch`                                  | `string`    | The branch into which pull request changes are merged. Only valid on pairs from pull requests. |
@@ -104,47 +108,56 @@ Each artifact is associated with a subset of the following attributes. The attri
 | `status`                                       | `string`    | The artifact's status in the dataset. One of `active` (an official artifact), `candidate` (not officially added to the dataset), or `deprecated` (removed from the dataset).
 | `added_version`                                | `string`    | The version of the dataset that this artifact was officially added in. Null if `status` == `candidate`.
 | `deprecated_version`                           | `string`    | The version of the dataset that this artifact was deprecated in, or null if the artifact has not been deprecated.
+| `ci_service`                                   | `string`    | The CI service the artifact was mined from. Either `travis` or `github`.
 
 ## Updating metadata schema
+
 To add, remove, or change a field in the artifact schema, one must update code in multiple places:
+
 1. Add or update the key in `_flatten_keys` in `reproducer/packager.py`.
 1. Set the appropriate value for the key in `_structure_artifact_data` in `reproducer/packager.py`.
 1. Add or update the key in `artifact_schema.py` in the `database` repository.
 1. Add or update the key in the table above.
 1. If changing or removing a key, update code that uses the old key.
 
-
 ## Artifact Docker image
+
 Each artifact is associated with a Docker image, which is capable of building the environment needed to reproduce both jobs in a job pair.
 
 ### Important files in the Docker container
+
 - Failing repository: `/home/travis/build/failed`
 - Passing repository: `/home/travis/build/passed`
 - Script to run failed build: `/usr/local/bin/run_failed.sh`
 - Script to run passed build: `/usr/local/bin/run_passed.sh`
 
 ### Running artifacts using BugSwarm Client
-To learn more, see the BugSwarm client repository [README](https://github.com/BugSwarm/client).
+
+To learn more, see the BugSwarm client [README](/bugswarm/client/README.md).
 
 > Requirements: [Docker](https://www.docker.com) and Python 3.
-> 
-```
-$ pip3 install bugswarm-client
+
+```console
+pip3 install bugswarm-client
 ```
 
-```shell
-$ bugswarm run --image-tag <image_tag>
+```console
+bugswarm run --image-tag <image_tag>
 ```
+
 > `<image_tag>` is the image tag for BugSwarm artifact.
 
 For example, `$ bugswarm run --image-tag Abjad-abjad-316134246` pulls the job pair image from Docker Hub, spawns a Docker container, and starts a shell for that container.
 
 - Run the build
   - Run the failed build
+
+    ```console
+    bash /usr/local/bin/run_failed.sh
     ```
-    $ bash /usr/local/bin/run_failed.sh
-    ```
+
   - Run the passed build
-    ```
-    $ bash /usr/local/bin/run_passed.sh
+
+    ```console
+    bash /usr/local/bin/run_passed.sh
     ```
