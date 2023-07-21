@@ -1,10 +1,11 @@
 import os
-import docker
 import shutil
-import unittest
 import subprocess
+import unittest
+import warnings
 from os.path import dirname, join
 
+import docker
 
 DATA_DIR = join(dirname(__file__), 'data')
 SANDBOX_DIR = join(dirname(__file__), 'test-sandbox')
@@ -20,6 +21,7 @@ class CacheGitTest(unittest.TestCase):
         shutil.copytree(FROM_HOST, join(SANDBOX_DIR, 'from_host'))
 
     def setUp(self):
+        warnings.simplefilter("ignore", ResourceWarning)
         if IN_CONTAINER:
             self.run_command(['sudo', 'mkdir', '-p', '/home/github'])
             self.run_command(['sudo', 'mv', '/usr/bin/git', '/usr/bin/git_original'])
