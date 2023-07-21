@@ -160,8 +160,10 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # Set the user to use when running the image.
         'USER github',
 
-        # Need bash, otherwise: Syntax error: redirection unexpected
-        'ENTRYPOINT ["/bin/bash"]',
+        # Override ENTRYPOINT so `docker run` works as expected
+        'ENTRYPOINT []',
+        # Default command: run a shell
+        'CMD ["/bin/bash"]',
     ]
     # Append a newline to each line and then concatenate all the lines.
     content = ''.join(map(lambda l: l + '\n', lines))
