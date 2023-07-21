@@ -19,7 +19,7 @@ _STEP_START_SCRIPT = 'cache_toolcache_python.sh'
 _CACHE_SERVER_SCRIPT = 'python_cache_server.py'
 _CACHE_SERVER_SETUP_SCRIPT = 'setup_python_cache_server.sh'
 _WRAPPER_SCRIPT_DIR = 'wrapper_scripts'
-_WRAPPER_SCRIPTS = [('git', 'git.py'), ('wget', 'wget.py')]
+_WRAPPER_SCRIPTS = [('git', 'git.py'), ('wget', 'wget.py'), ('poetry.sh', 'poetry.sh')]
 _GITHUB_DIR = '/home/github'
 
 bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
@@ -104,20 +104,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             self.copy_file_to_container(container_id, src, des)
 
             # Wrapper scripts
-            for script in _WRAPPER_SCRIPTS:
-                # (program_name, script_name)
-                if self.args.no_cache_git:
-                    if script[0] == 'git':
-                        continue
-                elif self.args.no_cache_wget:
-                    if script[0] == 'wget':
-                        continue
-                _, stdout, stderr, ok = self.run_command('docker exec {} sudo mv /usr/bin/{} /usr/bin/{}_original'
-                                                         .format(container_id, script[0], script[0]))
-
-                src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
-                des = os.path.join('usr', 'bin', script[0])
-                self.copy_file_to_container(container_id, src, des)
+            self.add_wrapper_scripts_reproducing(container_id)
 
             # Set up and run cache server
             _, stdout, stderr, ok = self.run_command('docker exec {} bash {} run'
@@ -143,13 +130,13 @@ class PatchArtifactPythonTask(PatchArtifactTask):
                 log.error('Unable to cache toolcache.')
 
             _, stdout, stderr, ok = self.run_command(
-                'docker exec {} bash -c "tar -cvf {}/requirements.tar {}/cacher"'
+                'docker exec {} bash -c "tar -czf {}/requirements.tgz {}/cacher"'
                 .format(container_id, _GITHUB_DIR, _GITHUB_DIR)
             )
 
             # Copy dependency tar out of container
-            tar_file_host = '{}/requirements-{}.tar'.format(self.workdir, fail_or_pass)
-            self.copy_file_out_of_container(container_id, _GITHUB_DIR + '/requirements.tar', tar_file_host)
+            tar_file_host = '{}/requirements-{}.tgz'.format(self.workdir, fail_or_pass)
+            self.copy_file_out_of_container(container_id, _GITHUB_DIR + '/requirements.tgz', tar_file_host)
 
             self.remove_container(container_id)
 
@@ -171,22 +158,12 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         des = os.path.join('usr', 'local', 'bin', _JOB_START_SCRIPT)
         self.copy_file_to_container(container_id, src, des)
 
-        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _JOB_COMPLETE_SCRIPT)
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _JOB_COMPLETE_SCRIPT)
         des = os.path.join('usr', 'local', 'bin', _JOB_COMPLETE_SCRIPT)
         self.copy_file_to_container(container_id, src, des)
 
-        for script in _WRAPPER_SCRIPTS:
-            # (program name, script_name)
-            if self.args.no_cache_git:
-                if script[0] == 'git':
-                    continue
-            elif self.args.no_cache_wget:
-                if script[0] == 'wget':
-                    continue
-
-            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
-            des = os.path.join('usr', 'bin', script[1])
-            self.copy_file_to_container(container_id, src, des)
+        # Put wrapper scripts to /usr/bin
+        self.add_wrapper_scripts_packing(container_id)
 
         cached_tag, cached_id = self.docker_commit(
             self.image_tag, container_id, env_str='ACTIONS_RUNNER_HOOK_JOB_STARTED=/usr/local/bin/{} '
@@ -216,19 +193,10 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             if not build_result:
                 raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
 
-            self._verify_tests_result(container_id, fail_or_pass, 'pip', 'output.log')
-            self._verify_tests_result(container_id, fail_or_pass, 'git', 'git-output.log')
-            self._verify_tests_result(container_id, fail_or_pass, 'wget', 'wget-output.log')
-
-    def _verify_tests_result(self, container_id, fail_or_pass, program_name, log_name):
-        _, stdout, _, _ = self.run_command(
-                'docker exec {} cat {}/build/{}/cacher/{} | grep ": Cache miss" | wc -l'
-                .format(container_id, _GITHUB_DIR, fail_or_pass, log_name)
-            )
-
-        if stdout != '0':
-            raise CachingScriptError('Unable to cache {} job because cacher didn\'t cache {} {} commands'
-                                     .format(fail_or_pass, stdout, program_name))
+            self.verify_tests_result(container_id, fail_or_pass, 'pip', 'output.log')
+            self.verify_tests_result(container_id, fail_or_pass, 'git', 'git-output.log')
+            self.verify_tests_result(container_id, fail_or_pass, 'wget', 'wget-output.log')
+            self._check_poetry(container_id, fail_or_pass)
 
     def move_dependencies_into_container(self, container_id, f_or_p):
         for name in os.listdir(self.workdir):
@@ -237,8 +205,25 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             tar_file_host = '{}/{}'.format(self.workdir, name)
             tar_file_container = '/{}'.format(name)
             self.copy_file_to_container(container_id, tar_file_host, tar_file_container)
-            self.run_command('docker exec {} tar xvf {} -C /'.format(container_id, tar_file_container))
-            self.remove_file_from_container(container_id, tar_file_container)
+
+    def _check_poetry(self, container_id, fail_or_pass):
+        # Search all pyproject.toml files (2 levels max), then check if the file contains [tool.poetry]
+        _, stdout, _, _ = self.run_command(
+            'docker exec {} find {} -maxdepth 2 -name pyproject.toml -exec cat {{}} \\; | grep "\\[tool.poetry\\]"'
+            ' | wc -l'
+            .format(container_id, os.path.join(_GITHUB_DIR, 'build', fail_or_pass, self.repo))
+        )
+        if stdout != '0':
+            # project contains poetry settings
+            log.debug('{} job contains {} pyproject.toml that use poetry'.format(fail_or_pass, stdout))
+
+            _, stdout, _, _ = self.run_command(
+                'docker exec {} cat /etc/reproducer-environment | grep "POETRY_ADDED_REPOSITORY=1" | wc -l'
+                .format(container_id)
+            )
+
+            if stdout == '0':
+                log.warning('Project\'s pyproject.toml contains poetry, but cacher didn\'t find any poetry command!')
 
 
 def main(argv=None):

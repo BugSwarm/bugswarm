@@ -22,6 +22,8 @@ _HOME_DIR = str(Path.home())
 _SANDBOX_DIR = '{}/bugswarm-sandbox'.format(_HOME_DIR)
 _GITHUB_DIR = '/home/github'
 _TOOLCACHE_SCRIPT = 'cache_toolcache.sh'
+_WRAPPER_SCRIPT_DIR = 'wrapper_scripts'
+_WRAPPER_SCRIPTS = [('git', 'git.py'), ('wget', 'wget.py'), ('poetry.sh', 'poetry.sh')]
 
 
 class CachingScriptError(Exception):
@@ -248,7 +250,7 @@ class PatchArtifactTask:
             self.logger.error('Original log: {}'.format(orig_log_path))
         return compare_result[0]
 
-    def docker_commit(self, image_tag, container_id, env_str):
+    def docker_commit(self, image_tag, container_id, env_str=''):
         if env_str != '':
             env_str = '--change "ENV {}"'.format(env_str)
 
@@ -309,6 +311,50 @@ class PatchArtifactTask:
             self.copy_file_out_of_container(container_id, cont_tar, host_tar)
             return [('actions-toolcache', fail_or_pass, host_tar, cont_tar)]
         return []
+
+    def add_wrapper_scripts_reproducing(self, container_id):
+        for script in _WRAPPER_SCRIPTS:
+            # (program_name, script_name)
+            if self.args.no_cache_git:
+                if script[0] == 'git':
+                    continue
+            elif self.args.no_cache_wget:
+                if script[0] == 'wget':
+                    continue
+
+            if script[0] != 'poetry.sh':
+                _, stdout, stderr, ok = self.run_command(
+                    'docker exec {} sudo mv /usr/bin/{} /usr/bin/{}_original'
+                    .format(container_id, script[0], script[0]))
+
+            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
+            des = os.path.join('usr', 'bin', script[0])
+            self.copy_file_to_container(container_id, src, des)
+
+    def add_wrapper_scripts_packing(self, container_id):
+        for script in _WRAPPER_SCRIPTS:
+            # (program name, script_name)
+            if self.args.no_cache_git:
+                if script[0] == 'git':
+                    continue
+            elif self.args.no_cache_wget:
+                if script[0] == 'wget':
+                    continue
+
+            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
+            des = os.path.join('usr', 'bin', script[1])
+            self.copy_file_to_container(container_id, src, des)
+
+    def verify_tests_result(self, container_id, fail_or_pass, program_name, log_name):
+        # Make sure wrapper scripts don't have cache misses
+        _, stdout, _, _ = self.run_command(
+            'docker exec {} cat {}/build/{}/cacher/{} | grep ": Cache miss" | wc -l'
+            .format(container_id, _GITHUB_DIR, fail_or_pass, log_name)
+        )
+
+        if stdout != '0':
+            log.info('{} cacher: failed to cache {} commands during testing'.format(program_name, stdout))
+            raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
 
 
 def validate_input(argv, artifact_type):

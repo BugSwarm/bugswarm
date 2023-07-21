@@ -12,9 +12,10 @@ from bugswarm.common.log_downloader import download_log
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 
 _COPY_DIR = 'from_host'
+_COPY_DIR_JAVA = 'from_host/java'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
-_FAILED_BUILD_SCRIPT = '/usr/local/bin/run_failed.sh'
-_PASSED_BUILD_SCRIPT = '/usr/local/bin/run_passed.sh'
+_JOB_START_SCRIPT = 'patch_and_cache_java.sh'
+_JOB_COMPLETE_SCRIPT = 'remove_wrapper_scripts.sh'
 _GITHUB_DIR = '/home/github'
 
 bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
@@ -69,9 +70,11 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         }
         cached_files = []
         cached_files_always_unpack = []
+        wrapper_scripts_status = {'failed': False, 'passed': False}
         for fail_or_pass in ['failed', 'passed']:
             container_id = self.create_container(docker_image_tag, 'cache', fail_or_pass)
             self._run_patch_script(container_id, repo, ['add-mvn-local-repo'])
+            self.add_wrapper_scripts_reproducing(container_id)
             self.pre_cache_toolcache(container_id)
             build_result = self.run_build_script(container_id, fail_or_pass, caching_build_log_path[fail_or_pass],
                                                  job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system,
@@ -81,6 +84,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
 
             cached_files.extend(self._cache_and_copy_files(container_id, fail_or_pass))
             cached_files_always_unpack.extend(self.cache_toolcache(container_id, fail_or_pass))
+            wrapper_scripts_status[fail_or_pass] = self._cache_wrapper_scripts(container_id, fail_or_pass)
 
             self.remove_container(container_id)
 
@@ -88,6 +92,17 @@ class PatchArtifactMavenTask(PatchArtifactTask):
         container_id = self.create_container(docker_image_tag, 'pack')
         # Run patching script (add localRepository and offline)
         self._run_patch_script(container_id, repo, ['add-mvn-local-repo', 'offline-maven', 'offline-gradle'])
+
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_JAVA, _JOB_START_SCRIPT)
+        des = os.path.join('usr', 'local', 'bin', _JOB_START_SCRIPT)
+        self.copy_file_to_container(container_id, src, des)
+
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _JOB_COMPLETE_SCRIPT)
+        des = os.path.join('usr', 'local', 'bin', _JOB_COMPLETE_SCRIPT)
+        self.copy_file_to_container(container_id, src, des)
+
+        # Put wrapper scripts to /usr/bin
+        self.add_wrapper_scripts_packing(container_id)
 
         # Copy files to the new container
         for fail_or_pass in ['failed', 'passed']:
@@ -110,11 +125,18 @@ class PatchArtifactMavenTask(PatchArtifactTask):
                 # Without --no-separate-passed-failed: untar the tar file at the start of build script
                 # This can fix some caching errors when failed and passed caches conflict (e.g. in ~/.gradle/)
                 self._add_untar_to_build_script(container_id, fail_or_pass, container_tar_files)
+
+            if wrapper_scripts_status[fail_or_pass]:
+                self._move_cached_wrapper_scripts_from_host_to_pack_container(container_id, fail_or_pass)
+
         if not self.args.no_remove_maven_repositories:
             self._remove_container_maven_repositories(container_id, '/home/github/.m2/')
 
         # Commit cached image
-        cached_tag, cached_id = self.docker_commit(self.image_tag, container_id)
+        cached_tag, cached_id = self.docker_commit(
+            self.image_tag, container_id,
+            env_str='ACTIONS_RUNNER_HOOK_JOB_STARTED=/usr/local/bin/{} '
+            'ACTIONS_RUNNER_HOOK_JOB_COMPLETED=/usr/local/bin/{}'.format(_JOB_START_SCRIPT, _JOB_COMPLETE_SCRIPT))
         self.remove_container(container_id)
 
         # Start two runs to test cached image
@@ -176,6 +198,27 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             cached_files.append((name, fail_or_pass, host_tar, cont_tar))
         return cached_files
 
+    def _cache_wrapper_scripts(self, container_id, fail_or_pass):
+        cont_tar = '{}/cacher-{}.tgz'.format(_GITHUB_DIR, fail_or_pass)
+        host_tar = '{}/cacher-{}.tgz'.format(self.workdir, fail_or_pass)
+        cont_path = '{}/cacher'.format(_GITHUB_DIR)
+
+        _, _, _, path_exists = self.run_command(
+            'docker exec {} ls -d {}'.format(container_id, cont_path), fail_on_error=False, print_on_error=False)
+        if not path_exists:
+            return False
+
+        self.run_command('docker exec {} tar -czf {} {}'.format(container_id, cont_tar, cont_path))
+        self.copy_file_out_of_container(container_id, cont_tar, host_tar)
+        return True
+
+    def _move_cached_wrapper_scripts_from_host_to_pack_container(self, container_id, fail_or_pass):
+        # Cached wrapper scripts, time to move them back to the container
+        # 1: Move file from host to container
+        cont_tar = '{}/cacher-{}.tgz'.format(_GITHUB_DIR, fail_or_pass)
+        host_tar = '{}/cacher-{}.tgz'.format(self.workdir, fail_or_pass)
+        self.copy_file_to_container(container_id, host_tar, cont_tar)
+
     def _test_cached_image(self, image_tag, fail_or_pass, repr_log_path, orig_log_path, job_id):
         if self.args.disconnect_network_during_test:
             container_id = self.create_container(
@@ -194,6 +237,9 @@ class PatchArtifactMavenTask(PatchArtifactTask):
                                              self.build_system, repo=self.repo)
         if not build_result:
             raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
+
+        self.verify_tests_result(container_id, fail_or_pass, 'git', 'git-output.log')
+        self.verify_tests_result(container_id, fail_or_pass, 'wget', 'wget-output.log')
 
     def _run_patch_script(self, container_id, repo, actions):
         src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)

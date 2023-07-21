@@ -166,14 +166,21 @@ def offline_all_gradle():
 
 def offline_maven():
     """Traditional way to add offline mode to Maven"""
-    mvn_regex = re.compile(r'\b(mvnw?)\b')  # the words 'mvn' or 'mvnw'
+    mvn_regex = re.compile(r'(?<![\w] )\b(mvnw?)\b')  # the words 'mvn' or 'mvnw'
     for f_or_p in ['failed', 'passed']:
+        is_user_command = False
         for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
+            if is_user_command and re.match(r'^chmod u\+x /home/github/', line):
+                is_user_command = False
+            elif not is_user_command and re.match(r'^echo \"##\[group\]\"Run', line):
+                is_user_command = True
+
             # line = line.strip()
 
             # Replace every instance of mvn or mvnw with 'mvn -o' and 'mvnw -o' respectively
             # This is a very coarse method; a better method may be possible.
-            line = mvn_regex.sub(r'\1 -o', line)
+            if is_user_command:
+                line = mvn_regex.sub(r'\1 -o', line)
             print(line, end='')
     fileinput.close()
 
@@ -186,8 +193,15 @@ def offline_gradle():
     """
 
     for f_or_p in ('failed', 'passed'):
+        is_user_command = False
         for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
-            line = re.sub(r'\b(gradlew?)\b', r'\1 --offline', line)
+            if is_user_command and re.match(r'^chmod u\+x /home/github/', line):
+                is_user_command = False
+            elif not is_user_command and re.match(r'^echo \"##\[group\]\"Run', line):
+                is_user_command = True
+
+            if is_user_command:
+                line = re.sub(r'(?<![\w] )\b(gradlew?)\b', r'\1 --offline', line)
             print(line, end='')
         fileinput.close()
 

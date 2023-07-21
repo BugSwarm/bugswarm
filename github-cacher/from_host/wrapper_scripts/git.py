@@ -45,18 +45,25 @@ def main(args, unknown, command):
         if cacher_status == 'error':
             sys.exit(1)
 
-    # Run the actual git command
-    _, out, err, return_code = run_command('{} {} 2>&1'.format(git_path, git_command))
-    logger.debug(out)
-    logger.info('Return code: {}'.format(return_code))
-    print(out)
+        # Run the actual git command
+        try:
+            _, out, err, return_code = run_command('{} {} 2>&1'.format(git_path, git_command))
+            logger.debug(out)
+            logger.info('Return code: {}'.format(return_code))
+            print(out)
 
-    if return_code != 0:
-        sys.exit(return_code)
+            if return_code != 0:
+                sys.exit(return_code)
 
-    # Parse git command's output for caching
-    if cache_command(args, unknown, command, out):
-        logger.info('Cached!')
+            # Parse git command's output for caching
+            if cache_command(args, unknown, command, str(out)):
+                logger.info('Cached!')
+        except Exception as e:
+            logger.error(repr(e))
+    else:
+        command = '{} {}'.format(git_path, git_command)
+        logger.debug('Running command using subprocess.run: {}'.format(command))
+        sys.exit(subprocess.run(command, shell=True).returncode)
 
 
 def check_for_cache(args, unknown, command):
