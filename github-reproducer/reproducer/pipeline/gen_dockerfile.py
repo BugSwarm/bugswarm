@@ -47,7 +47,8 @@ def _write_dockerfile(destination: str, job: Job, resettable: bool):
             lines.append('COPY --from={} /opt/hostedtoolcache /opt/hostedtoolcache'.format(bugswarm_base_image))
 
         lines += [
-            'RUN apt-get update && apt-get -y install sudo curl coreutils python3',
+            'RUN apt-get update && apt-get -y install sudo curl coreutils python3 vim',
+            'RUN apt-get install -y python-is-python3 || sudo ln -s /usr/bin/python3 /usr/bin/python',
             'RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -',
             'RUN apt-get install -y nodejs'
         ]
@@ -62,9 +63,11 @@ def _write_dockerfile(destination: str, job: Job, resettable: bool):
 
         # Update OpenSSL and libssl to avoid using deprecated versions of TLS (TLSv1.0 and TLSv1.1).
         # TODO: Do we actually only want to do this when deriving from an image that has an out-of-date version of TLS?
-        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev',
+        'RUN sudo apt-get update && sudo apt-get -y install --only-upgrade openssl libssl-dev vim',
 
         'RUN echo "TERM=dumb" >> /etc/environment',
+        # Hooks can set environment variable using /etc/reproducer-environment
+        'RUN touch /etc/reproducer-environment && chmod 777 /etc/reproducer-environment',
 
         # Otherwise: docker: Error response from daemon: unable to find user github: no matching entries in passwd file.
         'RUN useradd -ms /bin/bash github',

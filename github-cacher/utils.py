@@ -8,6 +8,7 @@ import threading
 import time
 from pathlib import Path
 
+from bugswarm.common.artifact_processing import utils as procutils
 from bugswarm.common.json import read_json
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common import log
@@ -16,8 +17,13 @@ from bugswarm.common.credentials import DOCKER_HUB_REPO, DOCKER_HUB_CACHED_REPO
 from bugswarm.common import utils as bugswarmutils
 import traceback
 
+_COPY_DIR = 'from_host'
 _HOME_DIR = str(Path.home())
 _SANDBOX_DIR = '{}/bugswarm-sandbox'.format(_HOME_DIR)
+_GITHUB_DIR = '/home/github'
+_TOOLCACHE_SCRIPT = 'cache_toolcache.sh'
+_WRAPPER_SCRIPT_DIR = 'wrapper_scripts'
+_WRAPPER_SCRIPTS = [('git', 'git.py'), ('wget', 'wget.py'), ('poetry.sh', 'poetry.sh')]
 
 
 class CachingScriptError(Exception):
@@ -114,6 +120,7 @@ class PatchArtifactTask:
                                  fail_on_error=False)
             if not self.args.keep_tars:
                 self.run_command('rm -f {}/*.tar'.format(self.workdir), fail_on_error=False)
+                self.run_command('rm -f {}/*.tgz'.format(self.workdir), fail_on_error=False)
         t_end = time.time()
         self.logger.info('Running patch for {} took {}s'.format(self.image_tag, t_end - t_start))
 
@@ -208,10 +215,16 @@ class PatchArtifactTask:
 
         return latest_layer_size
 
-    def run_build_script(self, container_id, f_or_p, log_path, orig_log_path, orig_job_id, build_system):
+    def run_build_script(self, container_id, f_or_p, log_path, orig_log_path, orig_job_id, build_system,
+                         repo=None, envs=[]):
         """Run build script and compare logs. Return whether log compare is passed"""
+        env_str = ''
+        if envs:
+            for env in envs:
+                env_str += '-e {} '.format(env)
         _, stdout, stderr, ok = self.run_command(
-            'docker exec {} bash /usr/local/bin/run_{}.sh 2>&1'.format(container_id, f_or_p), fail_on_error=False,
+            'docker exec {} {} bash /usr/local/bin/run_{}.sh 2>&1'
+            .format(env_str, container_id, f_or_p), fail_on_error=False,
             print_on_error=False, timeout=7200)
         if stderr == 'subprocess.TimeoutExpired':
             with open(log_path, 'w') as f:
@@ -228,7 +241,7 @@ class PatchArtifactTask:
             # For Java
             bs = build_system.lower()
             assert bs in ['maven', 'gradle', 'ant']
-        compare_result = analyzer.compare_single_log(log_path, orig_log_path, orig_job_id, 'github', bs)
+        compare_result = analyzer.compare_single_log(log_path, orig_log_path, orig_job_id, 'github', bs, repo=repo)
         with open(log_path + '.cmp', 'w') as f:
             print(repr(compare_result), file=f)
         if not compare_result[0]:
@@ -237,9 +250,12 @@ class PatchArtifactTask:
             self.logger.error('Original log: {}'.format(orig_log_path))
         return compare_result[0]
 
-    def docker_commit(self, image_tag, container_id):
+    def docker_commit(self, image_tag, container_id, env_str=''):
+        if env_str != '':
+            env_str = '--change "ENV {}"'.format(env_str)
+
         new_repo = '{}:{}'.format(self.args.task_name.lower(), image_tag)
-        _, stdout, stderr, ok = self.run_command('docker commit {} {}'.format(container_id, new_repo))
+        _, stdout, stderr, ok = self.run_command('docker commit {} {} {}'.format(env_str, container_id, new_repo))
         image_id = re.fullmatch('sha256:([0-9a-f]{64})', stdout.strip()).groups()
         return new_repo, image_id
 
@@ -264,6 +280,82 @@ class PatchArtifactTask:
         _, stdout, stderr, ok = self.run_command(
             'docker exec {} sudo rm -rf {}'.format(container_id, file_path))
 
+    def pre_cache_toolcache(self, container_id):
+        if self.args.no_copy_actions_toolcache:
+            return
+
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _TOOLCACHE_SCRIPT)
+        script = os.path.join(_GITHUB_DIR, _TOOLCACHE_SCRIPT)
+        pre_cache = '/tmp/pre-cache.txt'
+        cont_path = '/opt/hostedtoolcache'
+
+        self.copy_file_to_container(container_id, src, script)
+        self.run_command('docker exec {} {} {} {}'.format(container_id, script, cont_path, pre_cache))
+
+    def cache_toolcache(self, container_id, fail_or_pass):
+        if self.args.no_copy_actions_toolcache:
+            self.logger.info('Skipping actions-toolcache because of command line arguments')
+            return
+
+        script = os.path.join(_GITHUB_DIR, _TOOLCACHE_SCRIPT)
+        post_cache = '/tmp/post-cache.txt'
+        pre_cache = '/tmp/pre-cache.txt'
+        cont_path = '/opt/hostedtoolcache'
+        cont_tar = os.path.join(_GITHUB_DIR, 'actions-toolcache.tgz')
+        host_tar = os.path.join(self.workdir, 'actions-toolcache-{}.tgz'.format(fail_or_pass))
+
+        self.run_command('docker exec {} {} {} {} {} {}'.format(
+            container_id, script, cont_path, post_cache, pre_cache, cont_tar))
+        _, _, _, ok = self.run_command('docker exec {} ls {}'.format(container_id, cont_tar))
+        if ok:
+            self.copy_file_out_of_container(container_id, cont_tar, host_tar)
+            return [('actions-toolcache', fail_or_pass, host_tar, cont_tar)]
+        return []
+
+    def add_wrapper_scripts_reproducing(self, container_id):
+        for script in _WRAPPER_SCRIPTS:
+            # (program_name, script_name)
+            if self.args.no_cache_git:
+                if script[0] == 'git':
+                    continue
+            elif self.args.no_cache_wget:
+                if script[0] == 'wget':
+                    continue
+
+            if script[0] != 'poetry.sh':
+                _, stdout, stderr, ok = self.run_command(
+                    'docker exec {} sudo mv /usr/bin/{} /usr/bin/{}_original'
+                    .format(container_id, script[0], script[0]))
+
+            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
+            des = os.path.join('usr', 'bin', script[0])
+            self.copy_file_to_container(container_id, src, des)
+
+    def add_wrapper_scripts_packing(self, container_id):
+        for script in _WRAPPER_SCRIPTS:
+            # (program name, script_name)
+            if self.args.no_cache_git:
+                if script[0] == 'git':
+                    continue
+            elif self.args.no_cache_wget:
+                if script[0] == 'wget':
+                    continue
+
+            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _WRAPPER_SCRIPT_DIR, script[1])
+            des = os.path.join('usr', 'bin', script[1])
+            self.copy_file_to_container(container_id, src, des)
+
+    def verify_tests_result(self, container_id, fail_or_pass, program_name, log_name):
+        # Make sure wrapper scripts don't have cache misses
+        _, stdout, _, _ = self.run_command(
+            'docker exec {} cat {}/build/{}/cacher/{} | grep ": Cache miss" | wc -l'
+            .format(container_id, _GITHUB_DIR, fail_or_pass, log_name)
+        )
+
+        if stdout != '0':
+            log.info('{} cacher: failed to cache {} commands during testing'.format(program_name, stdout))
+            raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
+
 
 def validate_input(argv, artifact_type):
     assert artifact_type in ['maven', 'python']
@@ -286,6 +378,12 @@ def validate_input(argv, artifact_type):
                         help='Keep tar files in order to debug.')
     parser.add_argument('--disconnect-network-during-test', action='store_true',
                         help='When testing, disconnect the docker container from the network.')
+    parser.add_argument('--no-copy-actions-toolcache', action='store_true',
+                        help='Do not copy /opt/hostedtoolcache/ directory.')
+    parser.add_argument('--no-cache-git', action='store_true',
+                        help='Do not cache git clone and git submodule.')
+    parser.add_argument('--no-cache-wget', action='store_true',
+                        help='Do not cache wget.')
     if artifact_type == 'maven':
         parser.add_argument('--no-copy-home-m2', action='store_true',
                             help='Do not copy /home/github/.m2/ directory.')
@@ -299,8 +397,6 @@ def validate_input(argv, artifact_type):
                             help='Do not copy /home/github/build/*/*/gradle/wrapper directory.')
         parser.add_argument('--no-copy-proj-maven', action='store_true',
                             help='Do not copy /home/github/build/*/*/.mvn directory.')
-        parser.add_argument('--no-copy-actions-toolcache', action='store_true',
-                            help='Do not copy /opt/hostedtoolcache/ directory.')
         parser.add_argument('--no-remove-maven-repositories', action='store_true',
                             help='Do not remove `_remote.repositories` and `_maven.repositories`.')
         parser.add_argument('--ignore-cache-error', action='store_true',
@@ -310,12 +406,6 @@ def validate_input(argv, artifact_type):
         parser.add_argument('--no-separate-passed-failed', action='store_false', dest='separate_passed_failed',
                             help='Do not separate passed and failed cached files (may decrease artifact size, but may '
                                  'also cause errors).')
-    if artifact_type == 'python':
-        parser.add_argument('--parse-original-log', action='store_true',
-                            help='Parse the artifacts original log for list of packages to download')
-        parser.add_argument('--parse-new-log', action='store_true',
-                            help='Run build script on the artifact and parse this log for list of packages '
-                            'to download')
 
     args = parser.parse_args(argv[1:])
 

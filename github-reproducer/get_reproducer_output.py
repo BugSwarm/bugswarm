@@ -26,13 +26,19 @@ def main(argv):
             continue
 
         # Make sure language is Java
+        # Or Python
         java_jobs = []
+        python_jobs = []
         for job in bp['failed_build']['jobs']:
             if job['language'] == 'java':
                 java_jobs.append(job['job_id'])
+            if job['language'] == 'python':
+                python_jobs.append(job['job_id'])
         for job in bp['passed_build']['jobs']:
             if job['language'] == 'java':
                 java_jobs.append(job['job_id'])
+            if job['language'] == 'python':
+                python_jobs.append(job['job_id'])
 
         # Cache all reproducible & unfiltered job pairs that use Java & Maven
         prefix = bp['repo'].replace('/', '-') + '-'
@@ -43,6 +49,14 @@ def main(argv):
                                 jp['passed_job']['job_id'] in java_jobs)
             if should_be_cached:
                 to_be_cached.append(prefix + str(jp['failed_job']['job_id']))
+                continue
+
+            should_be_cached = (not jp['is_filtered'] and
+                                jp['failed_job']['job_id'] in python_jobs and
+                                jp['passed_job']['job_id'] in python_jobs)
+            if should_be_cached:
+                to_be_cached.append(prefix + str(jp['failed_job']['job_id']))
+                continue
 
     try:
         os.mkdir('input')

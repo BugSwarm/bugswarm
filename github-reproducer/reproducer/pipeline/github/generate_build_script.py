@@ -14,6 +14,24 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             '#!/usr/bin/env bash',
             'export GITHUB_WORKSPACE={}'.format(github_builder.build_path),
             '',
+            # Pre-job script
+            # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/running-scripts-before-or-after-a-job
+            'if [[ ! -z "$ACTIONS_RUNNER_HOOK_JOB_STARTED" ]]; then',
+            '   echo "A job started hook has been configured by the self-hosted runner administrator"',
+            '   echo "##[group]Run \'$ACTIONS_RUNNER_HOOK_JOB_STARTED\'"',
+            '   echo "##[endgroup]"',
+            '   bash -e $ACTIONS_RUNNER_HOOK_JOB_STARTED {} {}'
+            .format(github_builder.job.job_id, github_builder.job.is_failed),
+            '   EXIT_CODE=$?',
+            '   if [[ $EXIT_CODE != 0 ]]; then',
+            '       echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
+            '       exit $EXIT_CODE',
+            '   fi',
+            '   set -o allexport',
+            '   source /etc/reproducer-environment',
+            '   set +o allexport',
+            'fi',
+            '',
             'set -o allexport',
             'source /etc/environment',
             'set +o allexport',
@@ -202,6 +220,14 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
                 'STEP_CONDITION=' + resolve_exprs(s.envs, s.step_if),
                 'if [[ "$STEP_CONDITION" = "true" ]]; then',
                 '',
+                # Run script when step started
+                'if [[ ! -z "$ACTIONS_RUNNER_HOOK_STEP_STARTED" ]]; then',
+                run_with_envs(s.envs, 'bash -e $ACTIONS_RUNNER_HOOK_STEP_STARTED'),
+                '   set -o allexport',
+                '   source /etc/reproducer-environment',
+                '   set +o allexport',
+                'fi',
+                ''
             ]
 
             lines.append('echo {}'.format('"##[group]"{}'.format(s.name)))
@@ -214,7 +240,15 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
                 lines += [
                     'echo ' + s.setup_cmd + ' > ' + filepath,
                     'chmod u+x ' + filepath,
-                    run_with_envs(s.envs, s.exec_template.format(filepath))
+                    run_with_envs(s.envs, s.exec_template.format(filepath)),
+                    # Run script when pre-step completed
+                    'if [[ ! -z "$ACTIONS_RUNNER_HOOK_PRE_STEP_COMPLETED" ]]; then',
+                    run_with_envs(s.envs, 'bash -e $ACTIONS_RUNNER_HOOK_PRE_STEP_COMPLETED'),
+                    '   set -o allexport',
+                    '   source /etc/reproducer-environment',
+                    '   set +o allexport',
+                    'fi',
+                    ''
                 ]
 
             lines += [
@@ -260,6 +294,15 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
 
             lines += [
                 'fi',  # if [[ $EXIT_CODE != 0 ]]
+                '',
+                # Run script when step completed
+                'if [[ ! -z "$ACTIONS_RUNNER_HOOK_STEP_COMPLETED" ]]; then',
+                run_with_envs(s.envs, 'bash -e $ACTIONS_RUNNER_HOOK_STEP_COMPLETED'),
+                '   set -o allexport',
+                '   source /etc/reproducer-environment',
+                '   set +o allexport',
+                'fi',
+                '',
                 'fi',  # if [[ "$STEP_CONDITION" = "true" ]]
             ]
 
@@ -271,6 +314,29 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
                 'echo "{}" >> /home/github/workflow/output.txt'.format(value),
                 'echo "delimiter" >> /home/github/workflow/output.txt'
             ]
+
+    if setup:
+        lines += [
+            '',
+            # Post-job script
+            # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/running-scripts-before-or-after-a-job
+            'if [[ ! -z "$ACTIONS_RUNNER_HOOK_JOB_COMPLETED" ]]; then',
+            '   echo "A job completed hook has been configured by the self-hosted runner administrator"',
+            '   echo "##[group]Run \'$ACTIONS_RUNNER_HOOK_JOB_COMPLETED\'"',
+            '   echo "##[endgroup]"',
+            '   bash -e $ACTIONS_RUNNER_HOOK_JOB_COMPLETED {} {}'
+            .format(github_builder.job.job_id, github_builder.job.is_failed),
+            '   EXIT_CODE=$?',
+            '   if [[ $EXIT_CODE != 0 ]]; then',
+            '       echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
+            '       exit $EXIT_CODE',
+            '   fi',
+            '   set -o allexport',
+            '   source /etc/reproducer-environment',
+            '   set +o allexport',
+            'fi',
+            '',
+        ]
 
     lines += [
         '',

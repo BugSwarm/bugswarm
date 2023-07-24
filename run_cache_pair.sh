@@ -13,11 +13,11 @@ REPRODUCER_RUNS=5
 STAGE='Cache Pair'
 
 # Only need failed-job-id
-USAGE='Usage: bash run_cache_pair.sh --ci <ci> -r <repo-slug> -f <failed-job-id> [-c <component-directory>] [--no-push] [-a <caching-args>]'
+USAGE='Usage: bash run_cache_pair.sh --ci <ci> -r <repo-slug> -f <failed-job-id> [-c <component-directory>] [-l <language>] [--no-push] [-a <caching-args>]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:f:a: --long component-directory:,repo:,failed-job-id:,caching-args:,no-push,ci: -n 'run-cache-pair' -- "$@")
+OPTS=$(getopt -o c:r:f:a:l: --long component-directory:,repo:,failed-job-id:,caching-args:,no-push,ci:,language: -n 'run-cache-pair' -- "$@")
 eval set -- "$OPTS"
 while true; do
     case "$1" in
@@ -25,6 +25,7 @@ while true; do
       -c | --component-directory ) component_directory="$2"; shift; shift ;;
       -r | --repo                ) repo="$2";                shift; shift ;;
       -f | --failed-job-id       ) failed_job_id="$2";       shift; shift ;;
+      -l | --language            ) language="$2";            shift; shift ;;
            --no-push             ) no_push='--no-push';      shift ;;
       -a | --caching-args        ) caching_args="$2";        shift; shift ;;
            --ci                  ) ci_service="$2";          shift; shift ;;
@@ -68,6 +69,16 @@ if [[ -z "${caching_args}" ]]; then
     caching_args=""
 fi
 
+if [[ -z "${language}" ]]; then
+     echo "Artifacts' language is not specified. Defaulting to Java."
+    language="java"
+fi
+
+if [[ $language != 'java' && $language != 'python' ]]; then
+    echo '--language must be one of "java" or "python". Exiting.'
+    exit 1
+fi
+
 if [[ ${no_push} ]]; then
     TOTAL_STEPS=1
 else
@@ -99,8 +110,13 @@ cat "${reproducer_dir}/input/${task_name}_${failed_job_id}"
 
 cd "${cache_dep_dir}"
 echo
-echo "Running: python3 CacheMaven.py ${reproducer_dir}/input/${task_name}_${failed_job_id} ${task_name}_${failed_job_id} --task_json ${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json ${no_push} ${caching_args}"
-python3 CacheMaven.py "${reproducer_dir}/input/${task_name}_${failed_job_id}" "${task_name}_${failed_job_id}" --task_json "${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json" ${no_push} ${caching_args}
+if [[ $language == 'java' ]]; then
+    echo "Running: python3 CacheMaven.py ${reproducer_dir}/input/${task_name}_${failed_job_id} ${task_name}_${failed_job_id} --task_json ${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json ${no_push} ${caching_args}"
+    python3 CacheMaven.py "${reproducer_dir}/input/${task_name}_${failed_job_id}" "${task_name}_${failed_job_id}" --task_json "${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json" ${no_push} ${caching_args}
+else
+    echo "Running: python3 CachePython.py ${reproducer_dir}/input/${task_name}_${failed_job_id} ${task_name}_${failed_job_id} --task_json ${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json ${no_push} ${caching_args}"
+    python3 CachePython.py "${reproducer_dir}/input/${task_name}_${failed_job_id}" "${task_name}_${failed_job_id}" --task_json "${reproducer_dir}/output/result_json/${task_name}_${failed_job_id}.json" ${no_push} ${caching_args}
+fi
 exit_if_failed 'CacheDependency encountered an error.'
 
 if [[ ! ${no_push} ]]; then

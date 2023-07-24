@@ -96,13 +96,12 @@ class GitHubBuilder:
         if 'defaults' in self.job.config and 'run' in self.job.config['defaults']:
             if 'shell' in self.job.config['defaults']['run']:
                 # Not supposed to use contexts/expressions but GitHub will still handle it so we will also handle it.
-                # Need to remove the quote.
                 self.SHELL = expressions.substitute_expressions(
-                    self.job.config['defaults']['run']['shell'], '', self.contexts
-                ).strip('\'')
+                    self.job.config['defaults']['run']['shell'], self.job.job_id, self.contexts
+                )
             if 'working-directory' in self.job.config['defaults']['run']:
                 self.WORKING_DIR = expressions.substitute_expressions(
-                    self.job.config['defaults']['run']['working-directory'], '', self.contexts
+                    self.job.config['defaults']['run']['working-directory'], self.job.job_id, self.contexts
                 )
 
         # step is None or (Step number: str, Step name: str, Custom command: bool, Command to set up: str,
