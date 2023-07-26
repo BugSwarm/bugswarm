@@ -1,5 +1,5 @@
 name: Build
-on: [push,pull_request]
+on: [push, pull_request]
 
 jobs:
   bugswarm_dev:
@@ -59,6 +59,10 @@ jobs:
           python3.8 -m unittest discover
       - name: Test PairFilter
         working-directory: ./pair-filter
+        run: |
+          python3.8 -m unittest discover
+      - name: Test GHA PairFinder
+        working-directory: ./github-pair-finder
         run: |
           python3.8 -m unittest discover
       - name: Test Reproducer - PairChooser
@@ -146,6 +150,10 @@ jobs:
         working-directory: ./pair-filter
         run: |
           python -m unittest discover
+      - name: Test PairFinder
+        working-directory: ./github-pair-finder
+        run: |
+          python3.8 -m unittest discover
       - name: Test Reproducer - PairChooser
         working-directory: ./travis-reproducer/tests
         run: |

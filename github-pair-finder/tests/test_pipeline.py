@@ -563,9 +563,9 @@ class TestPipeline(unittest.TestCase):
     def test_get_build_system_info(self, mock):
         params = {
             'maven': {
-                'repo': 'raphw/byte-buddy', 'inpath':
-                'step5-output.json', 'outpath':
-                'step7-output.json'},
+                'repo': 'raphw/byte-buddy',
+                'inpath': 'step5-output.json',
+                'outpath': 'step7-output.json'},
             'gradle': {
                 'repo': 'spring-projects/spring-kafka',
                 'inpath': 'step6-output.json',
@@ -578,6 +578,10 @@ class TestPipeline(unittest.TestCase):
                 'repo': 'django/django',
                 'inpath': 'step6-output.json',
                 'outpath': 'step7-output.json'},
+            'maven (not in tree)': {
+                'repo': 'geoserver/geoserver',
+                'inpath': 'checkresettable_output.json',
+                'outpath': 'getbuildsystem_output.json'}
         }
 
         for title, params in params.items():
