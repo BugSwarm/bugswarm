@@ -143,7 +143,7 @@ def _get_log_from_url(log_url: str, max_retries: int, retry_count: int = 0, need
             log.error('Could not download log from {}, unexpected status code: {}'.format(log_url, e.code))
         return None
     except URLError as e:
-        log.error('Could not download log from {}.'.format(log_url, e.reason))
+        log.error('Could not download log from {}: {}.'.format(log_url, e.reason))
         return None
     except ConnectionResetError:
         if retry_count == max_retries:

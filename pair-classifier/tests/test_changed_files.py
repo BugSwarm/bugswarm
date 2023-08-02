@@ -10,7 +10,7 @@ from get_changed_files import get_changed_files, get_changed_files_metrics  # no
 
 class Test(unittest.TestCase):
 
-    def _mock_response(self, status=200, content="CONTENT", json_data=None, raise_for_status=None):
+    def _mock_response(self, status=200, content='CONTENT', json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()
         # mock raise_for_status call w/ optional error
         mock_resp.raise_for_status = mock.Mock()

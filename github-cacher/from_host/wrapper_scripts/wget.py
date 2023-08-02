@@ -52,7 +52,7 @@ def main(args, unknown, command):
         # Get file_name from console output of wget command
         file_name = get_file_name(args, out)
         if (not file_name):
-            logger.error("Unable to get file name from wget output. Skipping cache")
+            logger.error('Unable to get file name from wget output. Skipping cache')
         # Copy the file in the local directory to the cacher directory and update cache
         shutil.copy(file_name, os.path.join(cacher_directory, 'wget_cache'))
 
@@ -61,8 +61,8 @@ def main(args, unknown, command):
 
 
 def check_cache(command, args):
-    '''Function to check if the file exists in the cache
-    and update file path as per flags -O or -P'''
+    """Function to check if the file exists in the cache
+    and update file path as per flags -O or -P"""
     result = False
     current_cache_result = get_cache_result()
     if current_cache_result:
@@ -84,8 +84,8 @@ def check_cache(command, args):
                     shutil.copy(os.path.join(cacher_directory, 'wget_cache', src_file), file_name)
                     file_timestamp = os.path.getmtime(os.path.join(cacher_directory, 'wget_cache', src_file))
                     current_time = time.time()
-                    logger.info("Cached file timestamp:{0}".format(file_timestamp))
-                    logger.info("Current time:{0}".format(current_time))
+                    logger.info('Cached file timestamp:{0}'.format(file_timestamp))
+                    logger.info('Current time:{0}'.format(current_time))
                     result = True
                 except Exception as error:
                     logger.exception(error)
@@ -131,10 +131,10 @@ def parse_argv(argv):
 
 
 def get_file_name(args, out):
-    '''Takes command as input and returns the filename'''
+    """Takes command as input and returns the filename"""
     file_name = ''
     match = None
-    pattern = r"Saving to: ‘(.*?)’"
+    pattern = r'Saving to: ‘(.*?)’'
     match = re.search(pattern, out)
     if match:
         file_name = match.group(1)
@@ -172,7 +172,7 @@ def read_env():
             for line in f.readlines():
                 line = line.strip()
                 if line:
-                    key, _, val = line.partition("=")
+                    key, _, val = line.partition('=')
                     if key and val:
                         envs[key] = val
     except FileNotFoundError:

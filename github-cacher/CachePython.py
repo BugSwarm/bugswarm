@@ -223,7 +223,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             )
 
             if stdout == '0':
-                log.warning('Project\'s pyproject.toml contains poetry, but cacher didn\'t find any poetry command!')
+                log.warning("Project's pyproject.toml contains poetry, but cacher didn't find any poetry command!")
 
 
 def main(argv=None):

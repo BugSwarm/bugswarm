@@ -213,7 +213,7 @@ class Utils(object):
 
     def get_jobpair_dir(self, job, run=None):
         if run:
-            task_dir = "{}_run{}".format(self.config.current_task_dir, run)
+            task_dir = '{}_run{}'.format(self.config.current_task_dir, run)
             return os.path.join(task_dir, job.buildpair_name, job.jobpair_name)
         else:
             return os.path.join(self.config.current_task_dir, job.buildpair_name, job.jobpair_name)

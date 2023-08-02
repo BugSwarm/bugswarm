@@ -23,7 +23,7 @@ class classproperty:
         if obj is None:
             return self
         if self.fget is None:
-            raise AttributeError("unreadable attribute")
+            raise AttributeError('unreadable attribute')
         return self.fget(obj.__class__)
 
     def __set__(self, obj, value):

@@ -32,7 +32,7 @@ def gen_script(utils, job, dependence_solver):
         yaml_path = os.path.join(reproducing_dir, '.travis.yml')
         yaml_dict = job.config
         fixed_yaml_dict, pip_patch, apt_patch = fix_dict(reproducing_dir, yaml_dict, commit_time)
-        with open(yaml_path, "w+") as f:
+        with open(yaml_path, 'w+') as f:
             yaml.dump(fixed_yaml_dict, f)
 
         if pip_patch:

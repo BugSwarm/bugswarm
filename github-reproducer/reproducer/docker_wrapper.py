@@ -91,9 +91,9 @@ class DockerWrapper(object):
             result = result.splitlines()
             result = result[-1]
             dictionary = ast.literal_eval(result)
-            if "error" in dictionary.keys():
+            if 'error' in dictionary.keys():
                 log.error('Error: ', dictionary.get('error'))
-            elif "status" in dictionary.keys():
+            elif 'status' in dictionary.keys():
                 log.info('Status: ', dictionary.get('status'))
 
         except docker.errors.APIError:
@@ -112,9 +112,9 @@ class DockerWrapper(object):
             result = result.splitlines()
             result = result[-1]
             dictionary = ast.literal_eval(result)
-            if "error" in dictionary.keys():
+            if 'error' in dictionary.keys():
                 log.error('Error: ', dictionary.get('error'))
-            elif "status" in dictionary.keys():
+            elif 'status' in dictionary.keys():
                 log.info('Status: ', dictionary.get('status'))
 
         except docker.errors.APIError:

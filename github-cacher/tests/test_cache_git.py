@@ -21,7 +21,7 @@ class CacheGitTest(unittest.TestCase):
         shutil.copytree(FROM_HOST, join(SANDBOX_DIR, 'from_host'))
 
     def setUp(self):
-        warnings.simplefilter("ignore", ResourceWarning)
+        warnings.simplefilter('ignore', ResourceWarning)
         if IN_CONTAINER:
             self.run_command(['sudo', 'mkdir', '-p', '/home/github'])
             self.run_command(['sudo', 'mv', '/usr/bin/git', '/usr/bin/git_original'])

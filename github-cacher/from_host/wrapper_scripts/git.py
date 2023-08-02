@@ -344,7 +344,7 @@ def read_env():
             for line in f.readlines():
                 line = line.strip()
                 if line:
-                    key, _, val = line.partition("=")
+                    key, _, val = line.partition('=')
                     if key and val:
                         envs[key] = val
     except FileNotFoundError:

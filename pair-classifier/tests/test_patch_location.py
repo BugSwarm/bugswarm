@@ -11,7 +11,7 @@ import sys
 from os import listdir
 from os.path import join
 
-sys.path.append("../")
+sys.path.append('../')
 from pair_classifier.classify_bugs import process_logs  # noqa: E402
 from pair_classifier.classify_bugs import process_error  # noqa: E402
 from pair_classifier.classify_bugs import detect_lang  # noqa: E402
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -90,7 +90,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -118,7 +118,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -144,7 +144,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -170,7 +170,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -200,7 +200,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -227,7 +227,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -260,7 +260,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -288,7 +288,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -320,7 +320,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -353,7 +353,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -384,7 +384,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -411,7 +411,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -438,7 +438,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -467,7 +467,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -501,7 +501,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -528,7 +528,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)
@@ -556,7 +556,7 @@ class Test(unittest.TestCase):
         # get classification for this test
         testcase_results = self.classify_diff_location(conf_code, conf_build, conf_test)
 
-        artifacts_folder = "artifacts/"
+        artifacts_folder = 'artifacts/'
         for found_tag in listdir(artifacts_folder):
             if found_tag == image_tag:
                 file_path = join(artifacts_folder, found_tag)

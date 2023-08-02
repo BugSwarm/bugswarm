@@ -61,7 +61,7 @@ class GitHubAnalyzerTest(unittest.TestCase):
                 w = l[i_start:i_curr]
                 arr.append(w)
                 i_start = i_curr + 1
-            elif l[i_curr] == '\'':
+            elif l[i_curr] == "'":
                 if in_quote:
                     in_quote = 0
                 else:
@@ -75,7 +75,7 @@ class GitHubAnalyzerTest(unittest.TestCase):
     def remove_quote(s):
         if isinstance(s, str):
             if len(s) > 2:
-                if s[0] == '\'' and s[len(s) - 1] == '\'':
+                if s[0] == "'" and s[len(s) - 1] == "'":
                     return s[1:len(s) - 1]
         return s
 
@@ -1829,7 +1829,7 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_frameworks(jsa, 'jest')
         self.compare_tr_t_failed(jsa, 'Test suite failed to run#ComponentStructure › should have expected DOM#'
                                       'ComponentStructure › should move focus along tabs when pressing arrow keys#'
-                                      'ComponentStructure › should not have tabs if there\'s only one platform')
+                                      "ComponentStructure › should not have tabs if there's only one platform")
 
     def test_javascript_21(self):
         # marko-js/marko, contains failing as expected test

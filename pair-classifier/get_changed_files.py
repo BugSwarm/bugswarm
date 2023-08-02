@@ -172,7 +172,7 @@ def main():
 
     t_stop = time.time()
     total_time = t_stop - t_start
-    print("total time:", total_time)
+    print('total time:', total_time)
 
     with open('changed_paths_info.tsv', 'w') as f:
         # write information from all_info list into the file
@@ -186,8 +186,8 @@ def main():
     with open('artifact_info.json', 'w') as file:
         json.dump(all_info, file)
 
-    print("total amount:", len(all_info))
+    print('total amount:', len(all_info))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main())

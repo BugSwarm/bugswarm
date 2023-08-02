@@ -23,8 +23,8 @@ def _print_usage():
 
 
 def download_artifact_log(artifact):
-    failed_job_id = artifact["failed_job"]["job_id"]
-    passed_job_id = artifact["passed_job"]["job_id"]
+    failed_job_id = artifact['failed_job']['job_id']
+    passed_job_id = artifact['passed_job']['job_id']
 
     mkdir('{}/{}'.format(_TMP_DIR, failed_job_id))
     mkdir('{}/{}'.format(_TMP_DIR, passed_job_id))
@@ -54,14 +54,14 @@ def download_artifact_log(artifact):
 def check_pip_version(log_path):
     res = parse_log(log_path)
     for python_version, value in res.items():
-        if "default" in value:
-            default_pip_version = value["default"].split("==")[1]
-            if version.parse(default_pip_version) < version.parse("8.0.0"):
+        if 'default' in value:
+            default_pip_version = value['default'].split('==')[1]
+            if version.parse(default_pip_version) < version.parse('8.0.0'):
                 return False
-            for package in value["packages"]:
-                name, v = package.split("==")
-                if name == "pip":
-                    if version.parse(v) < version.parse("8.0.0"):
+            for package in value['packages']:
+                name, v = package.split('==')
+                if name == 'pip':
+                    if version.parse(v) < version.parse('8.0.0'):
                         return False
 
     return True
@@ -76,7 +76,7 @@ def python_filter(artifact):
 
 
 def java_filter(artifact):
-    if int(artifact["reproduce_successes"]) > 0:
+    if int(artifact['reproduce_successes']) > 0:
         return True
     return False
 
@@ -85,21 +85,21 @@ def main(argv=None):
     argv = argv or sys.argv
     image_tags_file, output_file = validate_input(argv, _print_usage)
     artifact_list = list()
-    with open(image_tags_file, "r") as file:
+    with open(image_tags_file, 'r') as file:
         for line in file:
             image_tag = line.strip()
             artifact = bugswarmapi.find_artifact(image_tag).json()
             res = False
-            if artifact["lang"] == "Python":
+            if artifact['lang'] == 'Python':
                 res = python_filter(artifact)
-            elif artifact["lang"] == "Java":
+            elif artifact['lang'] == 'Java':
                 res = java_filter(artifact)
             if res:
                 artifact_list.append(image_tag)
 
-    with open(output_file, "w+") as file:
+    with open(output_file, 'w+') as file:
         for art in artifact_list:
-            file.write("{}\n".format(art))
+            file.write('{}\n'.format(art))
 
 
 if __name__ == '__main__':

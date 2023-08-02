@@ -138,8 +138,8 @@ class JavaGradleAnalyzer(LogAnalyzerABC):
         return 0
 
     def bool_tests_failed(self):
-        if hasattr(self, "tests_failed") and self.tests_failed:
+        if hasattr(self, 'tests_failed') and self.tests_failed:
             return True
-        if hasattr(self, "num_tests_failed") and self.num_tests_failed > 0:
+        if hasattr(self, 'num_tests_failed') and self.num_tests_failed > 0:
             return True
         return False

@@ -204,11 +204,11 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
                 '   done <<< "$(cat /home/github/workflow/paths.txt)"',
                 'else',
                 # We don't have paths file, create one
-                '  echo -n \'\' > /home/github/workflow/paths.txt',
+                '  echo -n "" > /home/github/workflow/paths.txt',
                 'fi',
                 '',
                 'if [ ! -f /home/github/workflow/event.json ]; then',
-                '  echo -n \'{}\' > /home/github/workflow/event.json',
+                '  echo -n "{}" > /home/github/workflow/event.json',
                 'fi',
                 ''
             ]
@@ -356,5 +356,5 @@ def run_with_envs(envs, command):
 
 
 def resolve_exprs(envs, value):
-    command = "echo {}".format(value)
+    command = 'echo {}'.format(value)
     return '$({})'.format(run_with_envs(envs, command))

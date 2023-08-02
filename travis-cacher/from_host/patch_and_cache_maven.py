@@ -88,7 +88,7 @@ def add_mvn_local_repo(repo):
     travis_xml_setting_file_path = '/home/travis/.m2/settings.xml'
     if not os.path.exists(travis_xml_setting_file_path):
         if found != 2:
-            raise Exception("Cannot modify Maven settings correctly")
+            raise Exception('Cannot modify Maven settings correctly')
         print('Warning: ~/.m2/settings.xml not found')
     else:
         travis_xml_setting_file_path = '/home/travis/.m2/settings.xml'

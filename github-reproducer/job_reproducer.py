@@ -75,7 +75,7 @@ class JobReproducer(JobDispatcher):
 
         # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's safe
         # to remove the workspace job dir.
-        log.info('[THREAD {}] Cleaning workspace.'.format(tid, job))
+        log.info('[THREAD {}] Cleaning workspace.'.format(tid))
         self.utils.clean_workspace_job_dir(job)
         if not self.keep:
             log.info('[THREAD {}] Removing reproduction image.'.format(tid))

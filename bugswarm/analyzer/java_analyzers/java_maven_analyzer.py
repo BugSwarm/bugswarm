@@ -126,7 +126,7 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
     def analyze_tests(self):
         failed_tests_started = False
         running_test = False
-        curr_test = ""
+        curr_test = ''
 
         for line in self.test_lines:
             if re.search(r'(Failed tests:)|(Tests in error:)', line, re.M):

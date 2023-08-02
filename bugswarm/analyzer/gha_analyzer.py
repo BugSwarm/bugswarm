@@ -33,7 +33,7 @@ class GitHubLogFileAnalyzer(LogAnalyzerABC):
     def get_connection_lines(self):
         terms_to_catch = [
             'getRepositorySession()',
-            'Can\'t get http',
+            "Can't get http",
             '404 Not Found',
             'Failed to fetch',
             'MockWebServer',

@@ -188,13 +188,13 @@ def project_based_match_rate(projects, local_javas):
     print('total_builds_with_all_jobs_match = ', total_builds_with_all_jobs_match)
     print('total_builds_with_all_jobs_mismatch = ', total_builds_with_all_jobs_mismatch)
     print('total_builds_with_all_jobs_not_reproduced = ', total_builds_with_all_jobs_not_reproduced)
-    pr_job_mismatch = float(total_jobs_mismatch)/float(total_jobs)
+    pr_job_mismatch = float(total_jobs_mismatch) / float(total_jobs)
     print('P(job_mismatch) = ', pr_job_mismatch)
     pr_build_mismatch = float(total_builds_with_all_jobs_mismatch) / float(total_builds)
     print('P(build_mismatch) = ', pr_build_mismatch)
-    print('P(build_all_jobs_mismatch | job_mismatch) = ', to_percent(pr_build_mismatch/pr_job_mismatch))
+    print('P(build_all_jobs_mismatch | job_mismatch) = ', to_percent(pr_build_mismatch / pr_job_mismatch))
     print('out of all builds with mixed_matching), how many are image diff = ',
-          to_percent(total_mixed_matching_image_diff/total_mixed_matching))
+          to_percent(total_mixed_matching_image_diff / total_mixed_matching))
     print('----------------------------------------------------\n\n\n')
 
 
@@ -347,13 +347,13 @@ def project_based_match_rate_new(pairs):
     print('total_builds_with_all_jobs_match = ', total_builds_with_all_jobs_match)
     print('total_builds_with_all_jobs_mismatch = ', total_builds_with_all_jobs_mismatch)
     print('total_builds_with_all_jobs_not_reproduced = ', total_builds_with_all_jobs_not_reproduced)
-    pr_job_mismatch = float(total_jobs_mismatch)/float(total_jobs)
+    pr_job_mismatch = float(total_jobs_mismatch) / float(total_jobs)
     print('P(job_mismatch) = ', pr_job_mismatch)
     pr_build_mismatch = float(total_builds_with_all_jobs_mismatch) / float(total_builds)
     print('P(build_mismatch) = ', pr_build_mismatch)
-    print('P(build_all_jobs_mismatch | job_mismatch) = ', to_percent(pr_build_mismatch/pr_job_mismatch))
+    print('P(build_all_jobs_mismatch | job_mismatch) = ', to_percent(pr_build_mismatch / pr_job_mismatch))
     print('out of all builds with mixed_matching), how many are image diff = ',
-          to_percent(total_mixed_matching_image_diff/total_mixed_matching))
+          to_percent(total_mixed_matching_image_diff / total_mixed_matching))
     print('----------------------------------------------------\n\n\n')
 
 
@@ -413,7 +413,7 @@ def yearly_match_rate(local_javas):
             print(y,
                   '{0:5}'.format(matched_count),
                   '{0:6}'.format(len(jobs_in_year)),
-                  '{0:>5}'.format(to_percent(float(matched_count)/float(len(jobs_in_year)))),
+                  '{0:>5}'.format(to_percent(float(matched_count) / float(len(jobs_in_year)))),
                   '{0:6}'.format(bb_in_year),
                   '{0:6}'.format(gce_in_year),
                   '{0:6}'.format(trusty_in_year),
@@ -602,7 +602,7 @@ def get_pairs_all_matching(pairs, build_ids, builds_all_matching):
         if prev_b in build_ids and b in build_ids:
             total_pairs += 1
     print('pairs with both builds all matching = ', len(pairs_all_matching), 'out of', total_pairs, '=',
-          to_percent(float(len(pairs_all_matching))/total_pairs))
+          to_percent(float(len(pairs_all_matching)) / total_pairs))
     return pairs_all_matching
 
 
@@ -746,7 +746,7 @@ def print_dict_pq(d):
 
 def connection_lines_analytics(local_javas):
     print('\n-------------connection lines analytics--------------')
-    terms_to_catch = ['getRepositorySession()', 'Can\'t get http', '404 Not Found', 'Failed to fetch', 'MockWebServer',
+    terms_to_catch = ['getRepositorySession()', "Can't get http", '404 Not Found', 'Failed to fetch', 'MockWebServer',
                       'ssl.SSL', 'Received request:', 'Unauthorized.', 'Failed to connect', 'Connection refused',
                       'SocketTimeOut', 'failed to upload', 'the requested URL returned error', 'unknown host']
     print('terms to catch:')
@@ -892,7 +892,7 @@ def find_missing_images(local_javas):
                             bb += 1
 
     print('excluding GCE Jobs:')
-    print('image_missing = ', set(image_missing)-set(quay))
+    print('image_missing = ', set(image_missing) - set(quay))
     print('image_error (datetime is Quay, why mapped different? )  = ', image_error)
     print('jobs of missing images:', jobs_of_missing_images)
     print('len(jobs of missing images) = ', len(jobs_of_missing_images), 'of these, bb =', bb)

@@ -182,7 +182,7 @@ class TestPipeline(unittest.TestCase):
             expected_output = json.load(f)
 
         step = ConstructJobConfig()
-        output = to_dict(step.process(input, {"repo": repo}))
+        output = to_dict(step.process(input, {'repo': repo}))
 
         for group_id in output:
             for i in range(len(output[group_id]['pairs'])):

@@ -19,7 +19,7 @@ class Build(object):
         # The jobs for the build.
         self.jobs = []
         self.virtual_commit_info = None
-        self.status = "passed"
+        self.status = 'passed'
         self.resettable = False
         self.github_archived = False
         self.squashed = False
@@ -39,9 +39,9 @@ class Build(object):
         statuses_of_jobs = [j.result for j in self.jobs]
         # print(statuses_of_jobs)
         if None in statuses_of_jobs:
-            self.status = "errored"
+            self.status = 'errored'
         elif 1 in statuses_of_jobs:
-            self.status = "failed"
+            self.status = 'failed'
 
     def passed(self) -> bool:
         return self.status == 'passed'

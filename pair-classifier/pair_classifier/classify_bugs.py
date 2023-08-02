@@ -45,14 +45,14 @@ def process_diff(diff_file):
     count = 0
     for line in diff:
         count = count + 1
-        matches_change = re.match(r"Files (passed|failed)\/(?P<file_pass>" + re_filename +
-                                  r") and (passed|failed)\/(?P<file_fail>" + re_filename + ") differ", line)
+        matches_change = re.match(r'Files (passed|failed)\/(?P<file_pass>' + re_filename +
+                                  r') and (passed|failed)\/(?P<file_fail>' + re_filename + ') differ', line)
         if matches_change:
             matches = matches_change.groupdict()
             if matches.get('file_pass', 'default_pass') == matches.get('file_fail', 'default_fail'):
                 files_changed.append(matches.get('file_pass', ''))
-        matches_add_del = re.match(r"Only in (?P<fail_or_pass>(passed|failed))\/(?P<file_path>" +
-                                   re_filename + r"): (?P<filename>[\w.]+)$", line)
+        matches_add_del = re.match(r'Only in (?P<fail_or_pass>(passed|failed))\/(?P<file_path>' +
+                                   re_filename + r'): (?P<filename>[\w.]+)$', line)
         if matches_add_del:
             matches = matches_add_del.groupdict()
             if matches.get('fail_or_pass', '') == 'passed':
@@ -95,7 +95,7 @@ def is_test(files_changed):
     files_test = list()
     files_not_test = list()
     if len(files_changed) < 1:
-        log.error("No files changed")
+        log.error('No files changed')
         return None, list(), list()
     for filename in files_changed:
         if re.search(r'tests?\/', filename):
@@ -133,7 +133,7 @@ def is_dependency(files_changed, all_files_changed):
     files_relevant = list()
     files_not_relevant = list()
     if len(files_changed) < 1:
-        log.error("No files changed")
+        log.error('No files changed')
         return None, list(), list()
     for filename in files_changed:
         if any([x in filename for x in build_config_files]):
@@ -151,12 +151,12 @@ def is_dependency(files_changed, all_files_changed):
 
 def generate_report(all_info=None):
     all_info = [] if not all_info else all_info
-    report = "\n----------------------------------------------------------------\n"
+    report = '\n----------------------------------------------------------------\n'
     for tag, data in all_info:
         if isinstance(data, list):
-            report = report + "\n" + tag + ": \n\t" + '\n\t'.join(map(str, data))
+            report = report + '\n' + tag + ': \n\t' + '\n\t'.join(map(str, data))
         else:
-            report = report + "\n" + tag + ": " + str(data)
+            report = report + '\n' + tag + ': ' + str(data)
     return report
 
 
@@ -171,7 +171,7 @@ def is_code(files_changed, all_files_changed):
     files_code = list()
     files_not_code = list()
     if len(files_changed) < 1:
-        log.error("No files changed")
+        log.error('No files changed')
         return None, list(), list()
     for filename in files_changed:
         # cannot contain 'test' or 'tests' in path
@@ -265,9 +265,9 @@ def process_logs(root, file_list, ci_service='travis'):
         return None
 
     if ci_service == 'travis':
-        if "Done. Your build exited with 0." not in passed[-1]:
+        if 'Done. Your build exited with 0.' not in passed[-1]:
             # error-condition, skip classification
-            if "Done. Your build exited with 0." not in failed[-1]:
+            if 'Done. Your build exited with 0.' not in failed[-1]:
                 return None
             else:
                 # passed and failed got interchanged
@@ -285,37 +285,37 @@ def detect_lang(failed_log, quiet):
         if not isinstance(line, str):
             print(line)
             continue
-        if "Build language: java" in line:
+        if 'Build language: java' in line:
             build_lang = 'java'
             break
-        elif "Build language: python" in line:
+        elif 'Build language: python' in line:
             build_lang = 'python'
             py_version = None
-        if build_lang == 'python' and re.search(r"Python ([\d\.]+)", line):
-            py_version = re.search(r"Python ([\d\.]+)", line).groups()[0]
+        if build_lang == 'python' and re.search(r'Python ([\d\.]+)', line):
+            py_version = re.search(r'Python ([\d\.]+)', line).groups()[0]
             break
     if build_lang == 'java':
         if not quiet:
-            print("Lang is java")
+            print('Lang is java')
         # java processing
-        return 0, {'language': "java"}
+        return 0, {'language': 'java'}
     elif build_lang == 'python':
         # python processing
         if not quiet:
-            print("Lang is python")
+            print('Lang is python')
         if py_version:
             if not quiet:
-                print("Version is ", py_version)
-            return 0, {'language': "python", "version": py_version}
-        return 0, {'language': "python"}
+                print('Version is ', py_version)
+            return 0, {'language': 'python', 'version': py_version}
+        return 0, {'language': 'python'}
     else:
         if not quiet:
-            print("Error: build language not retrieved. Exiting")
+            print('Error: build language not retrieved. Exiting')
         return -1, None
 
 
 def update_error_dict(build_lang, err, regex, line, error_list, user_defined, non_std_list, error_dict):
-    if build_lang == "python" and re.search(r"except " + regex, line):
+    if build_lang == 'python' and re.search(r'except ' + regex, line):
         # Adding exception for python
         return
 
@@ -350,18 +350,18 @@ def get_java_error_data(failed_log: list, error_list: list, non_std_list: list):
     error_dict = dict()
     user_defined = set()
     std_error = common_error = user_error = 0
-    basic_err_regex = r"[\w\.\$]+(\.|\$)(\w+)(: |; |:$|\s*$| at )"
-    err_indicator = [r"<<< ERROR!\s*\Z",
-                     r"<<< FAILURE!\s*\Z",
-                     r"\S+ FAILED\s*\Z",
-                     r"\[junit\]\s+Caused an ERROR\s*\Z",
-                     r"\[junit\]\s+FAILED\s*\Z",
-                     r"An exception has occurred in the compiler"]
-    err_regex = [r"^\s*" + basic_err_regex,
-                 r"(ThreadDeath)([^\w\.]|$)",
-                 r"^\s*Caused by: " + basic_err_regex,
-                 r"\[[A-Za-z]+\]\s*" + basic_err_regex,
-                 r"\[[A-Za-z]+\]\s*Caused by: " + basic_err_regex]
+    basic_err_regex = r'[\w\.\$]+(\.|\$)(\w+)(: |; |:$|\s*$| at )'
+    err_indicator = [r'<<< ERROR!\s*\Z',
+                     r'<<< FAILURE!\s*\Z',
+                     r'\S+ FAILED\s*\Z',
+                     r'\[junit\]\s+Caused an ERROR\s*\Z',
+                     r'\[junit\]\s+FAILED\s*\Z',
+                     r'An exception has occurred in the compiler']
+    err_regex = [r'^\s*' + basic_err_regex,
+                 r'(ThreadDeath)([^\w\.]|$)',
+                 r'^\s*Caused by: ' + basic_err_regex,
+                 r'\[[A-Za-z]+\]\s*' + basic_err_regex,
+                 r'\[[A-Za-z]+\]\s*Caused by: ' + basic_err_regex]
 
     count_causedbys = False
     saved_err = []
@@ -415,7 +415,7 @@ def get_java_error_data(failed_log: list, error_list: list, non_std_list: list):
 
             # Count errors preceded by "Caused by:",
             # but only if they are part of a stacktrace headed by an error indicator
-            if count_causedbys and re.search(r"Caused by:", line):
+            if count_causedbys and re.search(r'Caused by:', line):
                 # Special case: Gradle puts the "Caused by:" on its own line, and the actual exception on the next line
                 if not e and line_idx + 1 < len(failed_log):
                     e = re.search(regex, failed_log[line_idx + 1])
@@ -489,21 +489,21 @@ def get_python_error_data(failed_log: list, error_list: list, non_std_list: list
 
     # This regex matches any valid Python identifier: any string of word characters
     # (alphanumerics and the underscore) that does not start with a digit
-    identifier_regex = r"(?!\d)\w+"
+    identifier_regex = r'(?!\d)\w+'
 
-    err_indicator = [r"^ERROR: ",
-                     r"^FAIL: ",
-                     r"E\s+Traceback \(most recent call last\):",
-                     r"data: .*\.test:\d+:\Z",
-                     r"^>\s+.+$\Z",
-                     r"^\.?Traceback \(most recent call last\):"]
-    sameline_err_indicator = [r"\S*\.[a-z]+:\d+: " + identifier_regex + r"\Z"]
-    err_collecting_indicator = [r"^(E\s+)?([A-Za-z]+Error)"]
+    err_indicator = [r'^ERROR: ',
+                     r'^FAIL: ',
+                     r'E\s+Traceback \(most recent call last\):',
+                     r'data: .*\.test:\d+:\Z',
+                     r'^>\s+.+$\Z',
+                     r'^\.?Traceback \(most recent call last\):']
+    sameline_err_indicator = [r'\S*\.[a-z]+:\d+: ' + identifier_regex + r'\Z']
+    err_collecting_indicator = [r'^(E\s+)?([A-Za-z]+Error)']
 
-    err_regex = [r"^(" + identifier_regex + r"\.)*(" + identifier_regex + r")(: |:?\Z)",
-                 r"^E\s+(" + identifier_regex + r"\.)*(" + identifier_regex + r")(: |\Z)",
-                 r":\d+: ()(" + identifier_regex + r")\Z",
-                 r"^()(ImportError) while importing"]
+    err_regex = [r'^(' + identifier_regex + r'\.)*(' + identifier_regex + r')(: |:?\Z)',
+                 r'^E\s+(' + identifier_regex + r'\.)*(' + identifier_regex + r')(: |\Z)',
+                 r':\d+: ()(' + identifier_regex + r')\Z',
+                 r'^()(ImportError) while importing']
 
     look_for_err = False
     sameline_err = False
@@ -521,12 +521,12 @@ def get_python_error_data(failed_log: list, error_list: list, non_std_list: list
             found_err = True
 
         if not failed_tests_started and not found_err:
-            failed_tests_started = bool(re.search(r"={35}( FAILURES |= ERRORS =)?={35}", line))
+            failed_tests_started = bool(re.search(r'={35}( FAILURES |= ERRORS =)?={35}', line))
             continue
 
         # This regex indicates the start of a failed pytest test. There is a specific error indicator that we should
         # only consider if no errors have been found in a specific test; otherwise, that error is redundant.
-        if re.search(r"^_* (\[doctest\] )?(?!summary)[\w\.\/]+(\[.+\])?\s?_*\Z", line):
+        if re.search(r'^_* (\[doctest\] )?(?!summary)[\w\.\/]+(\[.+\])?\s?_*\Z', line):
             err_found_this_test = False
             err_collecting = False
             continue
@@ -536,7 +536,7 @@ def get_python_error_data(failed_log: list, error_list: list, non_std_list: list
         # The errors listed in this part of a log use some special syntax, and the regex that captures them (found in
         # err_collecting_indicator) is too broad to be used elsewhere, so it is only considered if err_collecting is
         # True.
-        if re.search(r"^_* ERROR collecting [\w\.\/]+(\[.+\])?\s?_*\Z", line):
+        if re.search(r'^_* ERROR collecting [\w\.\/]+(\[.+\])?\s?_*\Z', line):
             err_collecting = True
             continue
 
@@ -663,24 +663,24 @@ def main(args=None):
     filtered_tags = [tag.strip() for tag in filtered_tags]
 
     for root, dirs, files in os.walk(bugswarm_sandbox_path):
-        if not root.count("/") == 4:  # checking depth
+        if not root.count('/') == 4:  # checking depth
             if not args.get('quiet'):
-                print("Incorrect depth: {} not processed".format(root))
+                print('Incorrect depth: {} not processed'.format(root))
             continue
         if not files:
             if not args.get('quiet'):
                 print("{} doesn't contain files ".format(root))
             continue
-        elif "diff.txt" not in files:
+        elif 'diff.txt' not in files:
             if not args.get('quiet'):
                 print("{} doesn't contain diff.txt".format(root))
             continue
-        elif "cloc.csv" not in files:
+        elif 'cloc.csv' not in files:
             if not args.get('quiet'):
                 print("{} doesn't contain cloc.csv".format(root))
             continue
 
-        image_tag = re.sub(bugswarm_sandbox_path + "/", '', root)
+        image_tag = re.sub(bugswarm_sandbox_path + '/', '', root)
 
         # Filter out tags outside of list
         if image_tag not in filtered_tags:
@@ -689,14 +689,14 @@ def main(args=None):
         processed_count += 1
 
         # Extract data from files
-        files_changed, files_deleted, files_added = process_diff(root + "/diff.txt")
+        files_changed, files_deleted, files_added = process_diff(root + '/diff.txt')
         failed_log = process_logs(root, files)
         if not failed_log:
             if not args.get('quiet'):
-                print(image_tag + " not processed, no failed log detected.")
+                print(image_tag + ' not processed, no failed log detected.')
             continue
         error, build_lang = detect_lang(failed_log, quiet=args.get('quiet'))
-        main_sloc, sloc, num_main_files, num_files = process_loc(root + "/cloc.csv",
+        main_sloc, sloc, num_main_files, num_files = process_loc(root + '/cloc.csv',
                                                                  lang=build_lang.get('language', None))
 
         # CLASSIFICATION
@@ -742,7 +742,7 @@ def main(args=None):
                                                                    'errors': error_dict}
 
     t_end = time.time()
-    print("{} tags filtered out and {} tags processed".format(filter_count, processed_count))
+    print('{} tags filtered out and {} tags processed'.format(filter_count, processed_count))
     print('Running all images took {}s'.format(t_end - t_start))
 
     # Write all results to file
@@ -760,30 +760,30 @@ def main(args=None):
     with open('final_results/errors_artifact.tsv', 'w') as f:
         for lang in final_error_artifact:
             for e in final_error_artifact[lang]:
-                f.write("{}\t{}\t{}\n".format(lang, e, final_error_artifact[lang][e]))
+                f.write('{}\t{}\t{}\n'.format(lang, e, final_error_artifact[lang][e]))
 
     # only standard errors
     with open('final_results/errors_artifact_standard.tsv', 'w') as f:
         for lang in final_error_artifact:
             for e in final_error_artifact[lang]:
                 if e in python_exceptions or e in java_all:
-                    f.write("{}\t{}\t{}\n".format(lang, e, final_error_artifact[lang][e]))
+                    f.write('{}\t{}\t{}\n'.format(lang, e, final_error_artifact[lang][e]))
 
     # Only userdefined/non-standard errors
     with open('final_results/userdefined_errors.tsv', 'w') as f:
         for lang in all_user_defined:
             for e in all_user_defined[lang]:
-                f.write("{}\t{}\t{}\n".format(lang, e, all_user_defined[lang][e]))
+                f.write('{}\t{}\t{}\n'.format(lang, e, all_user_defined[lang][e]))
 
     # Final overall results
     with open('final_results/results.tsv', 'w') as f:
-        f.write("IMAGE_TAG\tCATEGORY")
+        f.write('IMAGE_TAG\tCATEGORY')
         for image_tag in final_classification:
             classes = list(filter(None, [category for category in final_classification[image_tag]['type']]))
-            f.write("\n{}\t{}".format(image_tag, ','.join(classes)))
+            f.write('\n{}\t{}'.format(image_tag, ','.join(classes)))
 
     with open('final_results/results_details.tsv', 'w') as f:
-        f.write("IMAGE_TAG\tLanguage\tTEST\tBUILD\tCODE\t")
+        f.write('IMAGE_TAG\tLanguage\tTEST\tBUILD\tCODE\tEXCEPTIONS')
         for image_tag in final_classification:
             test_confidence = 0
             build_confidence = 0
@@ -799,21 +799,22 @@ def main(args=None):
                     code_confidence = category.get('value')
                     exception_list = category.get('errors', list())
             f.write(
-                "\n{}\t{}\t{}\t{}\t{}".format(image_tag, final_classification[image_tag]['language'], test_confidence,
-                                              build_confidence, code_confidence, ', '.join(exception_list)))
+                '\n{}\t{}\t{}\t{}\t{}\t{}'.format(image_tag, final_classification[image_tag]['language'],
+                                                  test_confidence, build_confidence, code_confidence,
+                                                  ', '.join(exception_list)))
 
-    print("All results written to file. Exiting. ")
+    print('All results written to file. Exiting. ')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--exclude-test', action='store_true', default=False,
-                        help="Excludes 100%% test results from code")
+                        help='Excludes 100%% test results from code')
     parser.add_argument('-b', '--exclude-build', action='store_true', default=False,
-                        help="Excludes 100%% build results from code")
-    parser.add_argument('-o', '--output', default=None, help="Specify name of output file")
-    parser.add_argument('-f', '--filter', default=None, help="File containing all filtered tags.")
+                        help='Excludes 100%% build results from code')
+    parser.add_argument('-o', '--output', default=None, help='Specify name of output file')
+    parser.add_argument('-f', '--filter', default=None, help='File containing all filtered tags.')
     parser.add_argument('-q', '--quiet', action='store_true', default=False,
-                        help=" Will suppress all outputs except running time")
+                        help=' Will suppress all outputs except running time')
     args = parser.parse_args()
     sys.exit(main(vars(args)))

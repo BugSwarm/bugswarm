@@ -11,10 +11,10 @@ class Test(unittest.TestCase):
 
         count = 0
         while count < 1:
-            ua = {"User-Agent": "Mozilla/5.0"}
+            ua = {'User-Agent': 'Mozilla/5.0'}
             url = (
-                "https://github.com/raphw/byte-buddy/compare/5a2cc59b4bc18b778047c0b3775953155491cecc.."
-                "61eb2bc5248803e2f1efa24cf5589a41ba435a14"
+                'https://github.com/raphw/byte-buddy/compare/5a2cc59b4bc18b778047c0b3775953155491cecc..'
+                '61eb2bc5248803e2f1efa24cf5589a41ba435a14'
             )
             page = requests.get(url, headers=ua)
             soup = BeautifulSoup(page.text, 'lxml')

@@ -9,52 +9,52 @@ from python_log_parser import (parse_log, extract_python_from_pip_version,  # no
 class TestFunctions(unittest.TestCase):
     def test_extract_python_from_pip_version(self):
         for line, expected in [
-                    ('pip 6.0.7 from /home/travis/virtualenv/pypy-2.5.0/site-packages (python 2.7)\n',
-                     ('', 'pip==6.0.7')),
-                    ('pip 6.0.7 from /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (python 2.7)\n',
-                     ('python2.7', 'pip==6.0.7')),
-                    ('pip 6.0.7 from /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (python 3.4)\n',
-                     ('python3.4', 'pip==6.0.7')),
-                    ('pip 9.0.1 from /home/travis/virtualenv/python2.7.13/lib/python2.7/site-packages (python 2.7)\n',
-                     ('python2.7', 'pip==9.0.1')),
-                    ('pip 9.0.1 from /home/travis/virtualenv/python3.4.6/lib/python3.4/site-packages (python 3.4)\n',
-                     ('python3.4', 'pip==9.0.1')),
-                    ('pip 9.0.1 from /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages (python 3.6)\n',
-                     ('python3.6', 'pip==9.0.1')),
-                    ('Python 2.7.13\n', ('', '')),
-                ]:
+            ('pip 6.0.7 from /home/travis/virtualenv/pypy-2.5.0/site-packages (python 2.7)\n',
+             ('', 'pip==6.0.7')),
+            ('pip 6.0.7 from /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages (python 2.7)\n',
+             ('python2.7', 'pip==6.0.7')),
+            ('pip 6.0.7 from /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages (python 3.4)\n',
+             ('python3.4', 'pip==6.0.7')),
+            ('pip 9.0.1 from /home/travis/virtualenv/python2.7.13/lib/python2.7/site-packages (python 2.7)\n',
+             ('python2.7', 'pip==9.0.1')),
+            ('pip 9.0.1 from /home/travis/virtualenv/python3.4.6/lib/python3.4/site-packages (python 3.4)\n',
+             ('python3.4', 'pip==9.0.1')),
+            ('pip 9.0.1 from /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages (python 3.6)\n',
+             ('python3.6', 'pip==9.0.1')),
+            ('Python 2.7.13\n', ('', '')),
+        ]:
             self.assertEqual(extract_python_from_pip_version(line), expected)
 
     def test_extract_python_from_virtual_env(self):
         for line, expected in [
-                    ('$ source ~/virtualenv/pypy/bin/activate\n', None),
-                    ('$ source ~/virtualenv/python2.7/bin/activate\n', 'python2.7'),
-                    ('$ source ~/virtualenv/python3.4/bin/activate\n', 'python3.4'),
-                    ('$ source ~/virtualenv/python3.6/bin/activate\n', 'python3.6'),
-                    ("      adding 'build/src.linux-x86_64-3.6/numpy/core/include/numpy/config.h' to sources.\n",
-                     None),
-                    ('    building data_files sources\n', None),
-                    ('Changing directory to /home/travis/build/Abjad/abjad/abjad/docs/source ...\n', None),
-                    ('    compiling C sources\n', None),
-                    ('    copying numpy/lib/_datasource.py -> build/lib.linux-x86_64-3.6/numpy/lib\n', None),
-                    ('    Cythonizing sources\n', None),
-                    ('Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,\n', None),
-                    ('No source for /home/travis/build/Abjad/abjad/abjad/cli/test/test_score/test_score/__init__.py\n',
-                     None),
-                    ('      - `pip install .`       (from a git repo or downloaded source\n', None),
-                    ('Rebuilding documentation source ...\n', None),
-                    ('removed â€˜/etc/apt/sources.list.d/basho_riak.listâ€™\n', None),
-                    ('  Removing source in /tmp/pip-e9h6x4yy-build\n', None),
-                    ('    Running from numpy source directory.\n', None),
-                    ('+source builds/venv/bin/activate\n', None),
-                    ('│ │   │ ├─┬ source-map@0.4.4 \n', None),
-                    ('│ │   │   ├── source-map@0.5.7 \n', None),
-                    ('│ ├── source-map@0.5.7 \n', None),
-                    ('Subversion is open source software, see http://subversion.apache.org/\n', None),
-                    ('This is free software; see the source for copying conditions.  There is NO\n', None),
-                    ('This is free software; see the source for copying conditions. There is NO\n', None),
-                    ('\tin both source and object forms from any country, including\n', None),
-                ]:
+            ('$ source ~/virtualenv/pypy/bin/activate\n', None),
+            ('$ source ~/virtualenv/python2.7/bin/activate\n', 'python2.7'),
+            ('$ source ~/virtualenv/python3.4/bin/activate\n', 'python3.4'),
+            ('$ source ~/virtualenv/python3.6/bin/activate\n', 'python3.6'),
+            ("      adding 'build/src.linux-x86_64-3.6/numpy/core/include/numpy/config.h' to sources.\n",
+             None),
+            ('    building data_files sources\n', None),
+            ('Changing directory to /home/travis/build/Abjad/abjad/abjad/docs/source ...\n', None),
+            ('    compiling C sources\n', None),
+            ('    copying numpy/lib/_datasource.py -> build/lib.linux-x86_64-3.6/numpy/lib\n', None),
+            ('    Cythonizing sources\n', None),
+            ('Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,\n', None),
+            ('No source for /home/travis/build/Abjad/abjad/abjad/cli/test/test_score/test_score/__init__.py\n',
+             None),
+            ('      - `pip install .`       (from a git repo or downloaded source\n', None),
+            ('Rebuilding documentation source ...\n', None),
+            ('removed â€˜/etc/apt/sources.list.d/basho_riak.listâ€™\n', None),
+            ('  Removing source in /tmp/pip-e9h6x4yy-build\n', None),
+            ('    Running from numpy source directory.\n', None),
+            ('+source builds/venv/bin/activate\n', None),
+            ('│ │   │ ├─┬ source-map@0.4.4 \n', None),
+            ('│ │   │   ├── source-map@0.5.7 \n', None),
+            ('│ ├── source-map@0.5.7 \n', None),
+            ('Subversion is open source software, see http://subversion.apache.org/\n', None),
+            ('This is free software; see the source for copying conditions.  There is NO\n', None),
+            ('This is free software; see the source for copying conditions. There is NO\n', None),
+            ('\tin both source and object forms from any country, including\n', None),
+        ]:
             result = None
             matched = VIRTUAL_ENV_REGEX.search(line)
             if matched:
@@ -178,7 +178,7 @@ class TestEntireLogs(unittest.TestCase):
         self.assertEqual(result, expect)
 
     def test_whl1(self):
-        "django_taggit_templatetags2 comes from a local .whl file"
+        """django_taggit_templatetags2 comes from a local .whl file"""
         log_path = 'logs/ccnmtl-dmt-287718761'
         result = parse_log(log_path)
         expect = {'python2.7': {'default': 'pip==9.0.1',

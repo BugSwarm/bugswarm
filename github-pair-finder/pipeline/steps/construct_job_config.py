@@ -307,7 +307,7 @@ def get_failed_step(failed_step_index: int, job_config: dict, api_steps: list):
     index -= len(build_steps)
 
     if steps and steps[0].get('name', '').startswith('Pre '):
-        log.warning('Unable to check for pre steps (First step\'s name starts with \'Pre\')')
+        log.warning("Unable to check for pre steps (First step's name starts with 'Pre')")
     else:
         first_step_index = failed_step_index - index
         if index >= 0 and len(api_step_names) > first_step_index:

@@ -151,7 +151,7 @@ class TravisDispatcher(object):
                 build_system = result['build_system']
                 return build_system if build_system == 'NA' else build_system.lower()
         except Exception as e:
-            log.error('Unable to get build system from BugSwarm\'s API due to {}'.format(repr(e)))
+            log.error("Unable to get build system from BugSwarm's API due to {}".format(repr(e)))
         # We call this function in analyzer.py, it expects 'None' if we cannot get build system from BugSwarm API.
         return None
 

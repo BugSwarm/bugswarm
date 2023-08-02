@@ -6,7 +6,7 @@ from bugswarm.common.json import read_json
 
 sys.path.append('../')
 from pair_filter.constants import DOCKERHUB_IMAGES_JSON, TRAVIS_IMAGES_JSON  # noqa: E402
-from pair_filter.image_chooser import (ExactImageChooserByCommitSHA, ExactImageChooserByTag,
+from pair_filter.image_chooser import (ExactImageChooserByCommitSHA, ExactImageChooserByTag,  # noqa: E402
                                        ExactImageChooserByTime)  # noqa: E402
 
 

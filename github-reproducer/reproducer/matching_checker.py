@@ -18,8 +18,8 @@ class MatchChecker(object):
             return False
         failed_job_result = jobpair.jobs[0].reproduced_result
         passed_job_result = jobpair.jobs[1].reproduced_result
-        failed_job_failed = failed_job_result["tr_log_status"] != "ok"
-        passed_job_passed = passed_job_result["tr_log_status"] == "ok"
+        failed_job_failed = failed_job_result['tr_log_status'] != 'ok'
+        passed_job_passed = passed_job_result['tr_log_status'] == 'ok'
         return failed_job_failed and passed_job_passed
 
     # Match Type 3: The pair is neither a fail-pass nor an error-pass pair, but the failed job has at least one failing
@@ -32,13 +32,13 @@ class MatchChecker(object):
         passed_job_result = jobpair.jobs[1].reproduced_result
         # Check if the failed job has failed tests.
         failed_job_has_failed_tests = False
-        if failed_job_result["tr_log_num_tests_failed"] != "NA" and failed_job_result["tr_log_num_tests_failed"] > 0:
+        if failed_job_result['tr_log_num_tests_failed'] != 'NA' and failed_job_result['tr_log_num_tests_failed'] > 0:
             failed_job_has_failed_tests = True
         # Check if the passed job has no failed tests.
         # Use a try-except block becuase values might be 'NA', which would raise an exception when comparing.
         try:
-            passed_job_num_tests_run = passed_job_result["tr_log_num_tests_run"]
-            passed_job_num_tests_failed = passed_job_result["tr_log_num_tests_failed"]
+            passed_job_num_tests_run = passed_job_result['tr_log_num_tests_run']
+            passed_job_num_tests_failed = passed_job_result['tr_log_num_tests_failed']
             passed_job_has_no_failed_tests = passed_job_num_tests_run > 0 and passed_job_num_tests_failed == 0
         except TypeError:
             return False
@@ -69,12 +69,12 @@ class MatchChecker(object):
         failed_build_failed = False
         for j in buildpair.builds[0].jobs:
             if j.reproduced_result and j.job_name:
-                if j.reproduced_result["tr_log_status"] != "ok":
+                if j.reproduced_result['tr_log_status'] != 'ok':
                     failed_build_failed = True
         passed_build_passed = True
         for j in buildpair.builds[1].jobs:
             if j.reproduced_result and j.job_name:
-                if j.reproduced_result["tr_log_status"] != "ok":
+                if j.reproduced_result['tr_log_status'] != 'ok':
                     passed_build_passed = False
         return failed_build_failed and passed_build_passed
 
@@ -89,8 +89,8 @@ class MatchChecker(object):
         failed_build_has_failed_tests = False
         for j in buildpair.builds[0].jobs:
             if j.reproduced_result and j.job_name:
-                failed_build_num_tests_failed = j.reproduced_result["tr_log_num_tests_failed"]
-                if failed_build_num_tests_failed != "NA" and failed_build_num_tests_failed > 0:
+                failed_build_num_tests_failed = j.reproduced_result['tr_log_num_tests_failed']
+                if failed_build_num_tests_failed != 'NA' and failed_build_num_tests_failed > 0:
                     failed_build_has_failed_tests = True
         # Check if passed build has no failed tests.
         # Use a try-except block becuase values might be 'NA', which would raise error when comparing.
@@ -98,8 +98,8 @@ class MatchChecker(object):
         for j in buildpair.builds[1].jobs:
             if j.reproduced_result and j.job_name:
                 try:
-                    passed_build_num_tests_run = j.reproduced_result["tr_log_num_tests_run"]
-                    passed_build_num_tests_failed = j.reproduced_result["tr_log_num_tests_failed"]
+                    passed_build_num_tests_run = j.reproduced_result['tr_log_num_tests_run']
+                    passed_build_num_tests_failed = j.reproduced_result['tr_log_num_tests_failed']
                     if not (passed_build_num_tests_run > 0 and passed_build_num_tests_failed == 0):
                         passed_build_has_no_failed_tests = False
                 except TypeError:

@@ -222,7 +222,7 @@ class Utils(object):
 
     def get_jobpair_dir(self, job, run=None):
         if run:
-            task_dir = "{}_run{}".format(self.config.current_task_dir, run)
+            task_dir = '{}_run{}'.format(self.config.current_task_dir, run)
             return os.path.join(task_dir, job.buildpair_name, job.jobpair_name)
         else:
             return os.path.join(self.config.current_task_dir, job.buildpair_name, job.jobpair_name)
@@ -553,10 +553,10 @@ class Utils(object):
                         if next_line_is_sha:
                             next_line_is_sha = False
                             is_checking_out = False
-                            sha = line[29:].rstrip('\n').strip('\'')
+                            sha = line[29:].rstrip('\n').strip("'")
                             if len(sha) == 40:
                                 all_checkout_sha.append(sha)
-                        elif is_checking_out and line[29:].startswith('[command]/usr/bin/git log -1 --format=\'%H\''):
+                        elif is_checking_out and line[29:].startswith("[command]/usr/bin/git log -1 --format='%H'"):
                             next_line_is_sha = True
                         elif line[29:].startswith('##[group]Run actions/checkout'):
                             is_checking_out = True
@@ -565,7 +565,7 @@ class Utils(object):
 
         if len(all_checkout_sha) > 0:
             if all_checkout_sha.pop(0) != job.sha:
-                log.warning('Job\'s SHA is not the first checkout sha (This is normal for PR job pair).')
+                log.warning("Job's SHA is not the first checkout sha (This is normal for PR job pair).")
         return all_checkout_sha
 
     def get_pr_from_original_log(self, job) -> Optional[str]:

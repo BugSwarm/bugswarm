@@ -64,7 +64,7 @@ class TravisAnalyzerTests(unittest.TestCase):
                 w = l[i_start:i_curr]
                 arr.append(w)
                 i_start = i_curr + 1
-            elif l[i_curr] == '\'':
+            elif l[i_curr] == "'":
                 if in_quote:
                     in_quote = 0
                 else:
@@ -78,7 +78,7 @@ class TravisAnalyzerTests(unittest.TestCase):
     def remove_quote(s):
         if isinstance(s, str):
             if len(s) > 2:
-                if s[0] == '\'' and s[len(s) - 1] == '\'':
+                if s[0] == "'" and s[len(s) - 1] == "'":
                     return s[1:len(s) - 1]
         return s
 
@@ -861,7 +861,7 @@ class TravisAnalyzerTests(unittest.TestCase):
         self.compare_frameworks(python17, 'unittest')
         self.compare_tr_t_failed(
             python17,
-            'test_repository_package_names(\'./repository/m.json\', ...) (tests.test.DefaultRepositoryTests)')
+            "test_repository_package_names('./repository/m.json', ...) (tests.test.DefaultRepositoryTests)")
 
     def test_python_18(self):
         log = '65721530-orig.log'
@@ -878,7 +878,7 @@ class TravisAnalyzerTests(unittest.TestCase):
         self.compare_frameworks(python18, 'unittest')
         self.compare_tr_t_failed(
             python18,
-            'sklearn.tests.test_common.test_all_estimators(\'GMM\', <class \'sklearn.mixture.gmm.GMM\'>)')
+            "sklearn.tests.test_common.test_all_estimators('GMM', <class 'sklearn.mixture.gmm.GMM'>)")
 
     def test_python_19(self):
         log = '309853010-orig.log'

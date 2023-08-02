@@ -9,7 +9,7 @@ from pair_chooser import is_jp_unique, should_include_jobpair  # noqa: E402
 
 class Test(unittest.TestCase):
 
-    def _mock_response(self, status=200, content="CONTENT", json_data=None, raise_for_status=None):
+    def _mock_response(self, status=200, content='CONTENT', json_data=None, raise_for_status=None):
         mock_resp = mock.Mock()
         # mock raise_for_status call w/ optional error
         mock_resp.raise_for_status = mock.Mock()

@@ -53,7 +53,7 @@ def get_action_data(github_builder: GitHubBuilder, step):
         action_path = action_repo_path
     else:
         # uses: {unknown}@{ref}
-        log.error('The \'uses\' attribute has invalid value: {}'.format(name))
+        log.error("The 'uses' attribute has invalid value: {}".format(name))
         return None, None, None, None, None
 
     action_dir = '@'.join((action_repo.replace('/', '-'), tag)) if tag != '' else action_repo.replace('/', '-')
@@ -96,7 +96,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
     # Action in the same repository as the workflow
 
     if action_repo_path.startswith('docker'):
-        log.error('The \'uses\' attribute has invalid value: {}'.format(name))
+        log.error("The 'uses' attribute has invalid value: {}".format(name))
         GitHubBuilder.raise_error('Workflow file contains unsupported action in step {}'.format(step_number), 1)
         return
 
@@ -207,7 +207,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                     for key, content in action_file['outputs'].items():
                         if 'value' in content:
                             outputs[key] = expressions.substitute_expressions(
-                                content['value'], job_id, contexts).strip('\'')
+                                content['value'], job_id, contexts).strip("'")
                             log.debug('Key {}: {}'.format(key, outputs[key]))
 
                 log.debug('Generating build script for composite action... ({} steps)'.format(len(sub_steps)))
@@ -220,7 +220,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
                 run_command = '{}/bugswarm_{}_composite.sh'.format(github_builder.steps_dir, step_number)
                 filename = 'bugswarm_{}.sh'.format(step_number)
             else:
-                log.error('The \'using\' attribute has invalid value: {}'.format(runs_using))
+                log.error("The 'using' attribute has invalid value: {}".format(runs_using))
                 GitHubBuilder.raise_error('Predefined action in step {} is invalid'.format(step_number), 1)
                 return
 
@@ -261,7 +261,7 @@ def process_input_env(github_builder, action_repo, step, action_file, env_str):
     if action_repo == 'actions/checkout':
         if github_builder.checkout_sha:
             sha = github_builder.checkout_sha.pop(0)
-            log.debug('Use sha {} for actions/checkout\'s ref'.format(sha))
+            log.debug("Use sha {} for actions/checkout's ref".format(sha))
 
             action_inputs['INPUT_REF'] = sha
             env_str += '{}={} '.format('INPUT_REF', sha)

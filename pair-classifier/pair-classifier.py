@@ -116,7 +116,7 @@ class PairClassifier(object):
                     if jp['is_filtered']:
                         continue
 
-                    jp.setdefault('build_system', "NA")
+                    jp.setdefault('build_system', 'NA')
                     jp['metrics'] = image_tag_info['metrics']
 
                     failed_job_id = jp['failed_job']['job_id']
@@ -144,7 +144,7 @@ class PairClassifier(object):
                     try:
                         language = bp['failed_build']['jobs'][0]['language']
                     except KeyError:
-                        log.info("Language not detected")
+                        log.info('Language not detected')
                         continue
                     if language not in ['python', 'java']:
                         log.info('Lang is :{}'.format(language))
@@ -215,7 +215,7 @@ def _print_usage():
 
 def generate_build_pair_json(repo, orig_file=None):
     log.info('Getting build_pair from Database')
-    dir_of_jsons = "input/"
+    dir_of_jsons = 'input/'
     task_name = repo.replace('/', '-')
     bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
     buildpairs = bugswarmapi.filter_mined_build_pairs_for_repo(repo)
@@ -299,9 +299,9 @@ def main(args=dict()):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--repo', default=None, help="Specify repo-slug")
-    parser.add_argument('--file', default=None, help="repo-slug file")
-    parser.add_argument('--log-path', default=None, help="original logs directory")
+    parser.add_argument('-r', '--repo', default=None, help='Specify repo-slug')
+    parser.add_argument('--file', default=None, help='repo-slug file')
+    parser.add_argument('--log-path', default=None, help='original logs directory')
     parser.add_argument('-p', '--pipeline', default=None, help='pipeline run through')
     args = parser.parse_args()
     sys.exit(main(vars(args)))
