@@ -27,7 +27,6 @@ class PairCenter(JobCenter):
         self.queue = Queue()
         self._load_jobs_from_pairs_for_repo(input_file)
         self.utils = utils
-        self.thread_workloads = None
         self.total_buildpairs = 0
         self.total_jobpairs = 0
 
@@ -257,32 +256,22 @@ class PairCenter(JobCenter):
                         remaining_jobpairs += 1
         return remaining_jobpairs
 
-    def init_queues_for_threads(self, threads_num, package_mode=False):
-        num_of_items_per_thread = int(self.get_num_remaining_items(package_mode) / threads_num)
-        self.thread_workloads = []
-        q = Queue()
+    def init_queue_for_threads(self, package_mode=False):
+        self.queue = Queue()
         if package_mode:
             for r in self.repos:
                 for bp in self.repos[r].buildpairs:
                     for jp in bp.jobpairs:
                         if not jp.reproduced.value:
-                            q.put(jp)
-                            if q.qsize() >= num_of_items_per_thread:
-                                self.thread_workloads.append(q)
-                                q = Queue()
+                            self.queue.put_nowait(jp)
         else:
             for r in self.repos:
                 for bp in self.repos[r].buildpairs:
                     for jp in bp.jobpairs:
                         for j in jp.jobs:
                             if not j.reproduced.value and not j.skip.value and j.job_id != '0':
-                                q.put(j)
-                                if q.qsize() >= num_of_items_per_thread:
-                                    self.thread_workloads.append(q)
-                                    q = Queue()
-        log.info('Finished initializing queues for all threads.')
-        for i in range(len(self.thread_workloads)):
-            log.debug('tid =', i, ', qsize =', self.thread_workloads[i].qsize())
+                                self.queue.put_nowait(j)
+        log.info('Finished initializing job queue.')
 
     def _init_queue_of_repos(self):
         for r in self.repos:

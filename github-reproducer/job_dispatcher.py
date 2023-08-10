@@ -1,10 +1,11 @@
 import os
+import queue
 import time
 
 from multiprocessing import Lock
 from multiprocessing import Manager
-from multiprocessing import Process
 from multiprocessing import Value
+from threading import Thread
 from typing import Optional
 
 from bugswarm.common import log
@@ -16,6 +17,27 @@ from reproducer.docker_wrapper import DockerWrapper
 from reproducer.pair_center import PairCenter
 from reproducer.reproduce_exception import ReproduceError
 from reproducer.utils import Utils
+
+
+class ThreadWithException(Thread):
+    """
+    `Thread` subclass with some basic error reporting.
+    If the thread has an unhandled exception, then `self.exception` is
+    set to that exception. `self.exited` is set to `True` when the
+    thread finishes, whether it errors or not."""
+
+    def __init__(self, *args, **kws):
+        super().__init__(*args, **kws)
+        self.exception = None
+        self.exited = False
+
+    def run(self):
+        try:
+            super().run()
+        except BaseException as e:
+            self.exception = e
+        finally:
+            self.exited = True
 
 
 class JobDispatcher(object):
@@ -92,7 +114,7 @@ class JobDispatcher(object):
             log.info(self.progress_str())
 
     def _spawn(self, tid):
-        t = Process(target=self._thread_main, args=(tid,))
+        t = ThreadWithException(target=self._thread_main, args=(tid,))
         thread = {'process': t, 'exit_reason': ''}
         self.threads[tid] = thread
         t.start()
@@ -122,17 +144,17 @@ class JobDispatcher(object):
                 if p.is_alive():
                     alive_threads += 1
                 else:
-                    if p.exitcode is None:  # Not finished and not running.
+                    if not p.exited:  # Not finished and not running.
                         # Do error handling and restarting here assigning the new process to processes[n].
                         self.threads[tid]['exit_reason'] = 'not finished and not running'
                         self._spawn(tid)
-                    elif p.exitcode != 0:
+                    elif p.exception is not None:
+                        log.error('Exception in thread {}: {}'.format(tid, p.exception))
                         self.threads[tid]['exit_reason'] = 'errored or terminated'
                         # Handle this either by restarting or deleting the entry so it is removed from list.
                         self._spawn(tid)
                     else:
                         self.threads[tid]['exit_reason'] = 'finished'
-                        self.terminate.value = 1
                         p.join()  # Allow cleanup.
 
             self.alive_threads = alive_threads
@@ -159,7 +181,7 @@ class JobDispatcher(object):
             log.info('No remaining items. Exiting.')
             return 0
         self.thread_num = min(self.thread_num, num_remaining_items)
-        self.job_center.init_queues_for_threads(self.thread_num, self.package_mode)
+        self.job_center.init_queue_for_threads(self.package_mode)
         # Begin initializing threads.
         for tid in range(self.thread_num):
             self._spawn(tid)
@@ -172,12 +194,17 @@ class JobDispatcher(object):
         For each item, it calls self.process_item() to run.
         :param tid: Thread ID
         """
-        workload = self.job_center.thread_workloads[tid]
+        workload = self.job_center.queue
         while not workload.empty():
             # Break out of the loop if the terminate flag is set.
             if self.terminate.value:
                 return 0
-            item = workload.get()
+
+            try:
+                item = workload.get_nowait()
+            except queue.Empty:
+                # No items left to process -- exit the thread.
+                break
 
             # Intentionally catch ReproduceError but allow KeyboardInterrupt to propagate.
             try:
