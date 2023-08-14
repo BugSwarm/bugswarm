@@ -476,14 +476,22 @@ def get_repr_metadata_dict(task_json_path, repr_metadata_dict):
             failed_job = jp['failed_job']
             passed_job = jp['passed_job']
             jobs = [failed_job, passed_job]
+
             tag_metadata = dict()
             tag_metadata['repo'] = bp['repo']
+
             build_system = failed_job['orig_result']['tr_build_system'] if \
                 failed_job['orig_result'] and 'tr_build_system' in failed_job['orig_result'] else ''
             if not build_system or build_system == 'NA':
                 build_system = jp['build_system']
             tag_metadata['build_system'] = build_system
+
             tag_metadata['failed_job'] = {'job_id': jobs[0]['job_id']}
             tag_metadata['passed_job'] = {'job_id': jobs[1]['job_id']}
+
+            failed_job_extended = next(job for job in bp['failed_build']['jobs']
+                                       if job['job_id'] == failed_job['job_id'])
+            tag_metadata['language'] = failed_job_extended['language']
+
             repr_metadata_dict[image_tag] = tag_metadata
     return repr_metadata_dict

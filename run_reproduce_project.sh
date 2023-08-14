@@ -17,6 +17,7 @@ USAGE='Usage: bash run_reproduce_project.sh --ci <ci> -r <repo-slug> [-t <thread
 
 # Extract command line arguments.
 OPTS=$(getopt -o c:r:t:s --long component-directory:,repo:,threads:,skip-check-disk,ci: -n 'run-reproduce-project' -- "$@")
+exit_if_failed 'Unrecognized command-line options.'
 eval set -- "$OPTS"
 while true; do
     case "$1" in

@@ -7,7 +7,8 @@ Steps:
 4: Write filtered build pairs into a file.
 """
 
-import getopt
+import argparse
+import csv
 import logging
 import os
 import sys
@@ -25,16 +26,9 @@ def main(argv=None):
     # Configure logging.
     log.config_logging(getattr(logging, 'INFO', None))
 
-    output_path, repo, failed_job_id, passed_job_id = _validate_input(argv)
-
-    log.info('Choosing pairs from {}.'.format(repo))
+    output_path, pair_file, repo, failed_job_id, passed_job_id = _validate_input(argv)
 
     bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-    buildpairs = bugswarmapi.filter_mined_build_pairs_for_repo(repo)
-    if not buildpairs:
-        log.error('No mined build pairs exist in the database for {}. Exiting.'.format(repo))
-        return 1
-
     filename = 'artifacts_for_comparing.json'
     if not os.path.isfile(filename):
         artifacts = bugswarmapi.list_artifacts()
@@ -42,6 +36,26 @@ def main(argv=None):
     with open(filename, 'r') as file:
         # artifacts -> [failed job id: artifact]
         artifacts = json.load(file)
+
+    try:
+        if pair_file:
+            buildpairs, jobpair_count = handle_pair_file(pair_file, artifacts)
+        else:
+            buildpairs, jobpair_count = handle_single_repo(repo, failed_job_id, passed_job_id, artifacts)
+    except Exception as e:
+        log.error('{}'.format(e))
+        return 1
+
+    write_output_file(output_path, buildpairs, jobpair_count)
+
+
+def handle_single_repo(repo, failed_job_id, passed_job_id, artifacts):
+    log.info('Choosing pairs from {}.'.format(repo))
+
+    bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
+    buildpairs = bugswarmapi.filter_mined_build_pairs_for_repo(repo)
+    if not buildpairs:
+        raise Exception('No mined build pairs exist in the database for {}. Exiting.'.format(repo))
 
     filtered_buildpairs = []
     filtered_jobpair_count = 0
@@ -62,6 +76,74 @@ def main(argv=None):
             bp['jobpairs'] = filtered_jobpairs
             filtered_buildpairs.append(bp)
 
+    return filtered_buildpairs, filtered_jobpair_count
+
+
+def handle_pair_file(pair_file, artifacts):
+    log.info('Choosing pairs from pair file {}.'.format(pair_file))
+    with open(pair_file) as f:
+        try:
+            # job_pairs is a list of (str, int, int) tuples
+            job_id_pairs = [(fields[0], *map(int, fields[1:])) for fields in csv.reader(f)]
+            print(job_id_pairs)
+        except Exception:
+            raise Exception('{} is improperly formatted. Exiting.'.format(pair_file))
+
+    found_buildpairs = {}
+    found_jobpairs = {}
+    filtered_jobpair_count = 0
+
+    bugswarmapi = DatabaseAPI(DATABASE_PIPELINE_TOKEN)
+    for repo, failed_id, passed_id in job_id_pairs:
+        log.info('Processing job pair ({}, {}, {})'.format(repo, failed_id, passed_id))
+
+        if failed_id not in found_jobpairs:
+            # Failed job ID is not in the cache, so we have to query the database.
+
+            # Get the build pair with a specific job pair.
+            flt = {
+                'repo': repo,
+                'jobpairs': {
+                    '$elemMatch': {
+                        'failed_job.job_id': failed_id,
+                        'passed_job.job_id': passed_id
+                    }
+                },
+                'ci_service': 'github'
+            }
+            try:
+                # Assumes that each repo-failed_id-passed_id combination is unique.
+                # (If it isn't, something's gone wrong.)
+                bp = bugswarmapi.filter_mined_build_pairs(json.dumps(flt))[0]
+            except IndexError:
+                log.warning('The job pair ({}, {}, {}) is not in the database or is not a GitHub Actions pair.'
+                            'Skipping.')
+                continue
+
+            # Cache the BP.
+            failed_build_id = bp['failed_build']['build_id']
+            found_buildpairs[failed_build_id] = bp
+
+            # Cache all the JPs in this BP, so we don't have to query the database for each JP.
+            for jp in bp['jobpairs']:
+                found_jobpairs[jp['failed_job']['job_id']] = (failed_build_id, jp)
+
+            # Empty the JP list so we can add back in the ones we want.
+            bp['jobpairs'] = []
+
+        # Get buildpair ID and jobpair from the cache.
+        failed_build_id, jp = found_jobpairs[failed_id]
+        if is_jp_unique(repo, jp, artifacts):
+            # Add this JP back to its BP's list.
+            found_buildpairs[failed_build_id]['jobpairs'].append(jp)
+            filtered_jobpair_count += 1
+
+    # Discard BPs with empty JP lists.
+    filtered_buildpairs = [bp for bp in found_buildpairs.values() if bp['jobpairs']]
+    return filtered_buildpairs, filtered_jobpair_count
+
+
+def write_output_file(output_path, filtered_buildpairs, filtered_jobpair_count):
     # Create any missing path components to the output file.
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     # Write the output file.
@@ -103,8 +185,8 @@ def should_include_jobpair(jp, failed_job_id, passed_job_id):
     f_id_matches = jp['failed_job']['job_id'] == failed_job_id
     p_id_matches = jp['passed_job']['job_id'] == passed_job_id
     # Include if both job ID filters are provided and satisfied.
-    if failed_job_id and passed_job_id and f_id_matches and p_id_matches:
-        return True
+    if failed_job_id and passed_job_id:
+        return f_id_matches and p_id_matches
     # Include if the failed job ID filter is provided and satisfied.
     if failed_job_id and f_id_matches:
         return True
@@ -116,78 +198,41 @@ def should_include_jobpair(jp, failed_job_id, passed_job_id):
 
 
 def _validate_input(argv):
-    # Parse command line arguments.
-    short_opts = 'o:r:f:p:'
-    long_opts = 'output-path= repo= failed-job-id= passed-job-id='.split()
-    try:
-        optlist, args = getopt.getopt(argv[1:], short_opts, long_opts)
-    except getopt.GetoptError as err:
-        _print_usage(msg=err.msg)
-        sys.exit(2)
+    epilog = """
+PairChooser has 5 modes, which will determine the pairs included in the output file.
+1. Choose all pairs from a project.
+     Input: --repo
+2. Choose pairs from a project s.t. the failed job has a specific ID.
+     Input: --repo and --failed-job-id
+3. Choose pairs from a project s.t. the passed job has a specific ID.
+     Input: --repo and --passed-job-id
+4. Choose pairs from a project s.t. the failed and passed jobs have specific IDs.
+     Input: --repo, --failed-job-id, and --passed-job-id
+5. Choose pairs from an input CSV file.
+     Input: --pair-file
+"""
+    p = argparse.ArgumentParser(argv[0], description='Creates an input file for the reproducer.',
+                                formatter_class=argparse.RawDescriptionHelpFormatter, epilog=epilog)
 
-    repo = None
-    output_path = None
-    failed_job_id = 0
-    passed_job_id = 0
-    for opt, arg in optlist:
-        if opt in ('-o', '--output-path'):
-            output_path = os.path.abspath(arg)
-        if opt in ('-r', '--repo'):
-            repo = arg
-        if opt in ('-f', '--failed-job-id'):
-            try:
-                failed_job_id = int(arg)
-            except ValueError:
-                _print_usage(msg='The failed_job_id argument must be an integer. Exiting.')
-                sys.exit(2)
-        if opt in ('-p', '--passed-job-id'):
-            try:
-                passed_job_id = int(arg)
-            except ValueError:
-                _print_usage(msg='The passed_job_id argument must be an integer. Exiting.')
-                sys.exit(2)
+    p.add_argument('-o', '--output-path', required=True, type=os.path.abspath,
+                   help='Path to the file where chosen pairs will be written.')
+    p.add_argument('--pair-file', type=os.path.abspath,
+                   help='Path to a file generated by generate_pair_input.py. Cannot be used with -r, -f, or -p.')
+    p.add_argument('-r', '--repo', help='Repo slug for which to choose mined build pairs.')
+    p.add_argument('-f', '--failed-job-id', type=int, help='Failed job ID. See discussion below about modes.')
+    p.add_argument('-p', '--passed-job-id', type=int, help='Passed job ID. See discussion below about modes.')
+    args = p.parse_args(argv[1:])
 
-    if not output_path:
-        _print_usage(msg='Missing output file argument. Exiting.')
-        sys.exit(2)
-    if not repo:
-        _print_usage(msg='Missing repo argument. Exiting.')
-        sys.exit(2)
-    f_id_given = failed_job_id != 0
-    p_id_given = passed_job_id != 0
-    # TODO: Fix this or fix the usage: mode 2 and 3 in usage don't work due to this assertion.
-    # Assert that exactly neither or both of the job ID arguments were provided. In other words, if exactly one job ID
-    # argument was provided, then exit. Logically, the condition is equivalent to f_id_given XOR p_id_given.
-    if f_id_given is not p_id_given:
-        _print_usage(msg='Provide exactly neither or both of the job ID arguments. Exiting.')
-        sys.exit(2)
-    # Assert that, if either or both of the job ID arguments was provided, they are not the same.
-    if (f_id_given or p_id_given) and failed_job_id == passed_job_id:
-        _print_usage(msg='The passed and failed job ID arguments cannot be the same. Exiting.')
-        sys.exit(2)
+    if not args.repo and not args.pair_file:
+        p.error('One of --repo or --pair-file must be provided.')
+    if args.pair_file and (args.repo or args.failed_job_id or args.passed_job_id):
+        p.error('--pair-file cannot be used with -r, -f, or -p.')
+    if args.failed_job_id == args.passed_job_id is not None:
+        p.error('The passed and failed job ID arguments cannot be the same.')
+    if not os.path.isfile(args.pair_file):
+        p.error('"{}" does not exist or is not a file.'.format(args.pair_file))
 
-    return output_path, repo, failed_job_id, passed_job_id
-
-
-def _print_usage(msg=None):
-    if msg:
-        log.info(msg)
-    log.info('Usage: python3 pair_chooser.py -o <output-path> -r <repo> [-f <failed-job-id> -p <passed-job-id>]')
-    log.info('{:>6}, {:<20}{}'.format('-o', '--output-path', 'Path to the file where chosen pairs will be written.'))
-    log.info('{:>6}, {:<20}{}'.format('-r', '--repo', 'Repo slug for which to choose mined build pairs.'))
-    log.info('{:>6}, {:<20}{}'.format('-f', '--failed-job-id', 'Failed job ID. See discussion below about modes.'))
-    log.info('{:>6}, {:<20}{}'.format('-p', '--passed-job-id', 'Passed job ID. See discussion below about modes.'))
-    log.info('The output path and repository slug are required.')
-    log.info('PairFileCreator has four modes, which will determine the pairs included in the output file.')
-    log.info('1. Choose all pairs from a project.')
-    log.info('     Input:  repo')
-    log.info('2. Choose pairs from a project s.t. the failed job has a specific ID.')
-    log.info('     Input:  repo, failed job ID')
-    log.info('3. Choose pairs from a project s.t. the passed job has a specific ID.')
-    log.info('     Input:  repo, passed job ID')
-    # TODO: Current behavior is OR, not AND. Bug or feature?
-    log.info('4. Choose pairs from a project s.t. the failed and passed jobs have specific IDs.')
-    log.info('     Input:  repo, failed job ID, passed job ID')
+    return args.output_path, args.pair_file, args.repo, args.failed_job_id, args.passed_job_id
 
 
 if __name__ == '__main__':
