@@ -16,7 +16,7 @@ USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> (--pair-file <pair-file> | -r
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:skip-cacher -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:,skip-cacher -n 'run-reproduce-pair' -- "$@")
 exit_if_failed 'Unrecognized command-line options.'
 eval set -- "$OPTS"
 while true; do
