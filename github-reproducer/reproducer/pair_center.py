@@ -24,7 +24,7 @@ class PairCenter(JobCenter):
         self.skip_filtered = skip_filtered
         self.repos = {}
         self.uninitialized_repos = Queue()
-        self.queue = Queue()
+        self.queue = None
         self._load_jobs_from_pairs_for_repo(input_file)
         self.utils = utils
         self.total_buildpairs = 0
@@ -256,22 +256,38 @@ class PairCenter(JobCenter):
                         remaining_jobpairs += 1
         return remaining_jobpairs
 
-    def init_queue_for_threads(self, package_mode=False):
-        self.queue = Queue()
+    def init_queue_for_threads(self, manager, package_mode=False):
+        # Because our job/jobpair models use shared objects (e.g. multiprocessing.Value), we can't
+        # put them in a shared queue; doing so causes a RuntimeError. Instead, we put the jobs/pairs
+        # in a (non-shared) list, and the index of each job in the shared queue.
+        self.queue = manager.Queue()
+        self.items = []
+
         if package_mode:
             for r in self.repos:
                 for bp in self.repos[r].buildpairs:
                     for jp in bp.jobpairs:
                         if not jp.reproduced.value:
-                            self.queue.put_nowait(jp)
+                            self.items.append(jp)
         else:
             for r in self.repos:
                 for bp in self.repos[r].buildpairs:
                     for jp in bp.jobpairs:
                         for j in jp.jobs:
                             if not j.reproduced.value and not j.skip.value and j.job_id != '0':
-                                self.queue.put_nowait(j)
+                                self.items.append(j)
+
+        for i in range(len(self.items)):
+            self.queue.put_nowait(i)
+
         log.info('Finished initializing job queue.')
+
+    def dequeue_item(self):
+        i = self.queue.get_nowait()
+        return self.items[i]
+
+    def item_queue_is_empty(self):
+        return self.queue.empty()
 
     def _init_queue_of_repos(self):
         for r in self.repos:
