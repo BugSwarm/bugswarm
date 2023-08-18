@@ -16,15 +16,15 @@ _COPY_DIR = 'from_host'
 
 
 class DynamicPatchArtifactTask(PatchArtifactTask):
-    def __init__(self, runner: PatchArtifactRunner, image_tag: str, lang_override: str = None):
+    def __init__(self, runner: PatchArtifactRunner, image_tag: str):
         super().__init__(runner, image_tag)
         self.runner = runner
-        self.lang_override = lang_override
+        self.lang_override = runner.args.language
 
-    def cache_artifact_dependency(self):
+    def run(self):
         lang = self.lang_override or self.repr_metadata[self.image_tag]['language']
         task = self._get_task_for_language(lang)
-        return task.cache_artifact_dependency()
+        return task.run()
 
     def _get_task_for_language(self, lang):
         if lang == 'java':
@@ -135,7 +135,7 @@ def validate_input():
     if not os.path.isfile(args.image_tags_file):
         parser.error('{} is not a file or does not exist. Exiting.'.format(args.image_tags_file))
 
-    if args.task_json is not None and not os.path.isfile(args.task_json):
+    if args.task_json and not os.path.isfile(args.task_json):
         parser.error('{} is not a file or does not exist. Exiting.'.format(args.task_json))
 
     if not re.fullmatch(r'[\w-]+', args.task_name):

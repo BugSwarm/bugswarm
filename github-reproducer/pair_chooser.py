@@ -229,7 +229,7 @@ PairChooser has 5 modes, which will determine the pairs included in the output f
         p.error('--pair-file cannot be used with -r, -f, or -p.')
     if args.failed_job_id == args.passed_job_id is not None:
         p.error('The passed and failed job ID arguments cannot be the same.')
-    if not os.path.isfile(args.pair_file):
+    if args.pair_file and not os.path.isfile(args.pair_file):
         p.error('"{}" does not exist or is not a file.'.format(args.pair_file))
 
     return args.output_path, args.pair_file, args.repo, args.failed_job_id, args.passed_job_id

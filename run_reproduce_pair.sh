@@ -130,16 +130,17 @@ python3 entry.py -i "output/result_json/${task_name}.json" --package -t "${threa
 exit_if_failed 'ImagePackager encountered an error.'
 
 if [[ ! $skip_cacher ]]; then
+    task_json_path="${reproducer_dir}/output/result_json/${task_name}.json"
     print_step "${STAGE}" ${TOTAL_STEPS} 'Cacher'
-    python3 get_reproducer_output.py -i "output/result_json/${task_name}.json" -o "${task_name}"
+    python3 get_reproducer_output.py -i "${task_json_path}" -o "${task_name}"
     exit_if_failed 'get_reproducer_output.py encountered an error.'
 
     cd "${cacher_dir}"
-    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "output/result_json/${task_name}.json" --disconnect-network-during-test
+    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" --disconnect-network-during-test
 
     cd "${reproducer_dir}"
     print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
-    python3 packager.py -i "output/result_json/${task_name}.json"
+    python3 packager.py -i "${task_json_path}"
     exit_if_failed 'MetadataPackager encountered an error.'
 
     print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'

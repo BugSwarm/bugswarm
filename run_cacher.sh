@@ -53,9 +53,9 @@ if [[ -z "${component_directory}" ]]; then
 fi
 
 if [[ ${no_push} ]]; then
-    TOTAL_STEPS=2  # CacheDependency for each language
+    TOTAL_STEPS=1  # CacheDependency
 else
-    TOTAL_STEPS=6  # CacheDependency, MetadataPackager, ArtifactLogPackager for each language
+    TOTAL_STEPS=3  # CacheDependency, MetadataPackager, ArtifactLogPackager
 fi
 
 # The task name is the basename of the input JSON file, without the extension.
@@ -78,8 +78,8 @@ cacher_input_file="${reproducer_dir}/input/${task_name}"
 if [[ ! -s $cacher_input_file ]]; then
     print_red "$cacher_input_file does not exist or is empty."
     print_red "Either all reproducible artifacts have been cached, or there were no reproducible artifacts to begin with."
-    print_red "Skipping."
-    continue
+    print_red "Exiting."
+    exit
 fi
 
 echo
