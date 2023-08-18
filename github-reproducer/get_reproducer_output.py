@@ -21,12 +21,7 @@ def main(argv):
 
     to_be_cached = []
     for bp in buildpairs:
-        # Only accept reproducible build pairs
-        if 'match' not in bp or bp['match'] != 1:
-            continue
-
-        # Make sure language is Java
-        # Or Python
+        # Make sure language is Java or Python
         java_jobs = []
         python_jobs = []
         for job in bp['failed_build']['jobs']:
@@ -43,6 +38,10 @@ def main(argv):
         # Cache all reproducible & unfiltered job pairs that use Java & Maven
         prefix = bp['repo'].replace('/', '-') + '-'
         for jp in bp['jobpairs']:
+            # Skip unreproducible job pairs (flaky pairs are fine)
+            if not any(match == 1 for match in jp['match_history'].values()):
+                continue
+
             should_be_cached = (not jp['is_filtered'] and
                                 jp['build_system'] in {'Maven', 'Gradle'} and
                                 jp['failed_job']['job_id'] in java_jobs and
