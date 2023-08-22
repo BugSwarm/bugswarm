@@ -55,7 +55,12 @@ class GetBuildSystemInfo:
         # Otherwise, choose the most common referenced build system
         build_system_counter = Counter()
         for step in job.steps:
-            step_kind = 'uses' if 'uses' in step else 'run'
+            if 'uses' in step:
+                step_kind = 'uses'
+            elif 'run' in step:
+                step_kind = 'run'
+            else:
+                continue
             # Adding `Counter`s together sums each element
             build_system_counter += self.get_step_build_systems(self, step_kind, step[step_kind])
 

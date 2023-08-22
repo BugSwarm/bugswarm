@@ -164,10 +164,14 @@ class GetJobsFromGitHubAPI:
                         else:
                             job_info['branch_owner'] = repo.split('/')[0]
 
+                        should_skip_job = False
                         for k, v in job_info.items():
                             if k != 'failed_step_number' and v is None:
-                                log.warning('job_info["{}"] is None. Skipping the job.'.format(k))
-                                continue
+                                log.warning('job_info["{}"] is None. Skipping job {}.'.format(k, job['id']))
+                                should_skip_job = True
+                                break
+                        if should_skip_job:
+                            continue
 
                         if run not in filtered_runs:
                             filtered_runs.append(run)
