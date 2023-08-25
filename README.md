@@ -167,10 +167,14 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
 
 1. If you are using the spawner container, continue the following commands in the containers. If you are using the host, continue with the host.
 
-1. Mongo should now be up and running, test the connection by opening a new Terminal and use:
+1. Mongo should now be up and running. Test the connection by running the following commands and checking that the output matches:
 
     ```console
-    mongosh
+    $ curl localhost:27017  # MongoDB check -- you can also run `mongosh` if it's installed on the host
+    It looks like you are trying to access MongoDB over HTTP on the native driver port.
+    
+    $ curl -H 'Authorization: token testDBPassword' localhost:5000  # Local API check
+    {"_items": [], "_links": {"next": {"href": "artifacts?page=2", "title": "next page"}, "parent": {"href": "/", "title": "home"}, "self": {"href": "artifacts", "title": "artifacts"}}, "_meta": {"max_results": 250, "page": 1}}
     ```
 
 1. Step into initial BugSwarm directory and configure necessary credentials:
