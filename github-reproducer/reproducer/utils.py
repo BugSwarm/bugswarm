@@ -417,6 +417,9 @@ class Utils(object):
                 break
             except PermissionError:
                 pass
+            except FileNotFoundError:
+                # We might be running in the spawner; check the normal disk space.
+                return self.check_disk_space_available()
         else:
             message = 'Could not get disk space for Docker storage path: {}'.format(docker_storage_path)
             log.error(message)
