@@ -164,8 +164,8 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             return job_orig_log
 
         job_orig_log = {
-            'failed': '{}/orig-failed-{}.log'.format(self.workdir, job_id['failed']),
-            'passed': '{}/orig-passed-{}.log'.format(self.workdir, job_id['passed']),
+            'failed': '{}/orig-failed-{}.log'.format(self.workdir, self.job_id['failed']),
+            'passed': '{}/orig-passed-{}.log'.format(self.workdir, self.job_id['passed']),
         }
         for f_or_p in ['failed', 'passed']:
             job_id = str(self.job_id[f_or_p])

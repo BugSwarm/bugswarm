@@ -9,7 +9,6 @@ import shutil
 import json
 import time
 import uuid
-import shlex
 import logging
 
 wget_path = '/usr/bin/wget_original'
@@ -28,45 +27,47 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main(args, unknown, command):
-    wget_command = shlex.join(command)
-
-    if check_cache(wget_command, args):
+    if check_cache(command, args):
         logger.info('Cache hit')
         return
+
     # If file has not been cached, then run wget utility without any options
-    logger.info('{}: Cache miss'.format(wget_command))
+    logger.info('{}: Cache miss'.format(command))
 
     if args.get('output_document') == '-':
         # Output to stdout
-        _, out, err, return_code = run_command('{} {} 2>&1'.format(wget_path, wget_command))
+        _, out, _, return_code = run_command([wget_path, *command], echo=True, decode_bytes=False)
 
         file_name = str(uuid.uuid4())
-        with open(os.path.join(cacher_directory, 'wget_cache', file_name), 'w') as f:
+        with open(os.path.join(cacher_directory, 'wget_cache', file_name), 'wb') as f:
             f.write(out)
 
-        print(out)
     else:
-        mod_wget_command = shlex.join(filter(lambda x: x not in {'-q', '--quiet', '-nv', '--no-verbose'}, command))
-        _, out, err, return_code = run_command('{} {} 2>&1'.format(wget_path, mod_wget_command))
+        mod_wget_command = [x for x in command if x not in {'-q', '--quiet', '-nv', '--no-verbose'}]
+        # wget writes messages to stderr by default
+        _, _, err, return_code = run_command([wget_path, *mod_wget_command], echo=True)
 
         # Get file_name from console output of wget command
-        file_name = get_file_name(args, out)
+        file_name = get_file_name(args, err)
         if (not file_name):
             logger.error('Unable to get file name from wget output. Skipping cache')
         # Copy the file in the local directory to the cacher directory and update cache
         shutil.copy(file_name, os.path.join(cacher_directory, 'wget_cache'))
 
-    update_cache_result(wget_command, file_name, 0)
+    update_cache_result(command, file_name, 0)
     sys.exit(return_code)
 
 
 def check_cache(command, args):
     """Function to check if the file exists in the cache
     and update file path as per flags -O or -P"""
+
+    command_str = json.dumps(command)
     result = False
     current_cache_result = get_cache_result()
+
     if current_cache_result:
-        value = current_cache_result.get(command)
+        value = current_cache_result.get(command_str)
         if value:
             file_name = value['file_name']
             if args.get('output_document') == '-':
@@ -94,11 +95,13 @@ def check_cache(command, args):
 
 
 def update_cache_result(command, file_name, flag):
+    command_str = json.dumps(command)
     current_cache_result = get_cache_result()
-    if (flag):
-        current_cache_result[command]['count'] += 1
+
+    if flag:
+        current_cache_result[command_str]['count'] += 1
     else:
-        current_cache_result[command] = {
+        current_cache_result[command_str] = {
             'file_name': file_name,
             'count': 0,
         }
@@ -141,12 +144,22 @@ def get_file_name(args, out):
     return file_name
 
 
-def run_command(command):
-    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                               shell=True)
+def run_command(command, separate_stderr=True, echo=False, decode_bytes=True):
+    logger.debug('Running command {}'.format(command))
+
+    stderr_dest = subprocess.PIPE if separate_stderr else subprocess.STDOUT
+    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=stderr_dest)
     stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8').strip()
-    stderr = stderr.decode('utf-8').strip()
+    stdout = stdout or b''
+    stderr = stderr or b''
+
+    if echo:
+        sys.stdout.buffer.write(stdout)
+        sys.stderr.buffer.write(stderr)
+
+    if decode_bytes:
+        stdout = stdout.decode('utf-8').strip()
+        stderr = stderr.decode('utf-8').strip()
     return_code = process.returncode
     return process, stdout, stderr, return_code
 

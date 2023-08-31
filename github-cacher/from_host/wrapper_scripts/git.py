@@ -5,7 +5,6 @@ import os
 import sys
 import uuid
 import json
-import shlex
 import logging
 import argparse
 import subprocess
@@ -28,11 +27,11 @@ class ArgumentParser(argparse.ArgumentParser):
 
 def main(args, unknown, command):
     # Need to remove --quiet for git clone and git submodule caching
-    git_command = shlex.join(filter(lambda x: x != '-q' and x != '--quiet', command))
+    git_command = [x for x in command if x not in ('-q', '--quiet')]
     logger.info('> Running git command: {}'.format(git_command))
     logger.debug('Current directory is: {}'.format(os.getcwd()))
 
-    if check_for_cache(args, unknown, command):
+    if check_for_cache(args, git_command):
         logger.info('Cache hit')
         return
 
@@ -47,10 +46,8 @@ def main(args, unknown, command):
 
         # Run the actual git command
         try:
-            _, out, err, return_code = run_command('{} {} 2>&1'.format(git_path, git_command))
-            logger.debug(out)
+            _, out, _, return_code = run_command([git_path, *git_command], separate_stderr=False, echo=True)
             logger.info('Return code: {}'.format(return_code))
-            print(out)
 
             if return_code != 0:
                 sys.exit(return_code)
@@ -61,14 +58,13 @@ def main(args, unknown, command):
         except Exception as e:
             logger.error(repr(e))
     else:
-        command = '{} {}'.format(git_path, git_command)
+        command = [git_path, *git_command]
         logger.debug('Running command using subprocess.run: {}'.format(command))
-        sys.exit(subprocess.run(command, shell=True).returncode)
+        sys.exit(subprocess.run(command).returncode)
 
 
-def check_for_cache(args, unknown, command):
+def check_for_cache(args, git_command):
     current_cache_result = get_cache_result()  # Read git.json
-    git_command = shlex.join(filter(lambda x: x != '-q' and x != '--quiet', command))
 
     for cache_dir_id, value in current_cache_result.items():
         # Same git command
@@ -91,7 +87,7 @@ def check_for_cache(args, unknown, command):
                 dir = os.path.join(dir, args.get('directory'))
             if dir.endswith('/'):
                 dir = dir[:-1]
-            _, origin, _, _ = run_command('{} -C {} ls-remote --get-url'.format(git_path, dir))
+            _, origin, _, _ = run_command([git_path, '-C', dir, 'ls-remote', '--get-url'])
             if value['origin'] == origin:
                 # Same command, same repo, different directory
                 for src, dest in value['copy'].items():
@@ -118,9 +114,9 @@ def check_for_cache(args, unknown, command):
                 if args.get('directory'):
                     directory = args.get('directory')
                 else:
-                    _, out, err, return_code = run_command(
-                        '{} -C {} ls-remote --get-url | xargs basename -s .git'.format(git_path, src)
-                    )
+                    _, ref_urls, _, _ = run_command([git_path, '-C', src, 'ls-remote', '--get-url'])
+                    ref_urls = ref_urls.splitlines()
+                    _, out, _, return_code = run_command(['basename', '-s', '.git', *ref_urls])
                     if return_code != 0:
                         continue
                     else:
@@ -190,7 +186,7 @@ def cache_fetch_pull(args, unknown, command, output):
         cache_dir_dest = os.path.join(cache_dir_path, '.git')
         copy(location, cache_dir_dest)
 
-        _, origin, _, _ = run_command('{} -C {} ls-remote --get-url'.format(git_path, dir))
+        _, origin, _, _ = run_command([git_path, '-C', dir, 'ls-remote', '--get-url'])
         update_cache_result(cache_dir_id, args, unknown, command, {cache_dir_dest: location}, None, origin=origin)
 
 
@@ -199,7 +195,7 @@ def cache_submodule(args, unknown, command, output):
     if dir.endswith('/'):
         dir = dir[:-1]
 
-    _, origin, _, _ = run_command('{} -C {} ls-remote --get-url'.format(git_path, dir))
+    _, origin, _, _ = run_command([git_path, '-C', dir, 'ls-remote', '--get-url'])
 
     regex = r"Cloning into (bare repository )?'(([^/ ]*)(/[^/ ]*)*/?)'\.\.\."
     locations = []
@@ -237,7 +233,7 @@ def cache_submodule(args, unknown, command, output):
 def update_cache_result(cache_dir_id, args, unknown, command, source_dict, is_relative, origin=None):
     current_cache_result = get_cache_result()
     current_cache_result[cache_dir_id] = {
-        'git_command': shlex.join(filter(lambda x: x != '-q' and x != '--quiet', command)),
+        'git_command': [x for x in command if x not in ('-q', '--quiet')],
         'copy': source_dict,
         'is_relative': is_relative,
         'cwd': os.getcwd(),
@@ -261,7 +257,8 @@ def copy(src, dest, exact_dest=True):
     # Copy directory from src to dest using sudo
     # Use -a to keep the same owner
     os.makedirs(dest, exist_ok=True)
-    run_command('sudo cp -{} {} {}'.format('Ta' if exact_dest else 'a', src, dest))
+    flags = '-Ta' if exact_dest else '-a'
+    run_command(['sudo', 'cp', flags, src, dest])
 
 
 def parse_argv(argv):
@@ -313,11 +310,20 @@ def parse_argv(argv):
     return args, unknown, argv
 
 
-def run_command(command):
+def run_command(command, separate_stderr=True, echo=False):
     logger.debug('Running command {}'.format(command))
-    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                               shell=True)
+
+    stderr_dest = subprocess.PIPE if separate_stderr else subprocess.STDOUT
+    process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=stderr_dest)
     stdout, stderr = process.communicate()
+
+    stdout = stdout or b''
+    stderr = stderr or b''
+
+    if echo:
+        sys.stdout.buffer.write(stdout)
+        sys.stderr.buffer.write(stderr)
+
     stdout = stdout.decode('utf-8').strip()
     stderr = stderr.decode('utf-8').strip()
     return_code = process.returncode
