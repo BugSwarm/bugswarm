@@ -69,20 +69,21 @@ class JobReproducer(JobDispatcher):
         start_time = time.time()
         log.info('[THREAD {}] Running {}'.format(tid, job))
 
-        gen_files_for_job(self, job, self.keep, self.dependency_solver)
-        self.docker.build_and_run(job)
-        copy_log(self, job)
+        try:
+            gen_files_for_job(self, job, self.keep, self.dependency_solver)
+            self.docker.build_and_run(job)
+            copy_log(self, job)
+        finally:
+            # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's
+            # safe to remove the workspace job dir.
+            log.info('[THREAD {}] Cleaning workspace.'.format(tid))
+            self.utils.clean_workspace_job_dir(job)
+            if not self.keep:
+                log.info('[THREAD {}] Removing reproduction image.'.format(tid))
+                self.docker.remove_image('job_id:{}'.format(job.job_id), err_on_not_found=False)
 
-        # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's safe
-        # to remove the workspace job dir.
-        log.info('[THREAD {}] Cleaning workspace.'.format(tid))
-        self.utils.clean_workspace_job_dir(job)
-        if not self.keep:
-            log.info('[THREAD {}] Removing reproduction image.'.format(tid))
-            self.docker.remove_image('job_id:{}'.format(job.job_id))
-
-        elapsed = time.time() - start_time
-        self.job_time_acc += elapsed
+            elapsed = time.time() - start_time
+            self.job_time_acc += elapsed
         log.info('Done running job', job.job_name, 'after', elapsed, 'seconds.')
 
     def record_error_reason(self, item, message):

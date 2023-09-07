@@ -157,12 +157,12 @@ class DockerWrapper(object):
         container.remove(force=True)
         # TODO: Future improvement, delete job image after we finished a job.
 
-    def remove_image(self, image_name):
-        self.client.images.remove(image=image_name, force=True, noprune=True)
-        # NOTE: We cannot run prune at this step. It will cause race condition.
-        # Perhaps run this after we finished running all jobs?
-        # filters = {'dangling': True}
-        # self.client.images.prune(filters)
+    def remove_image(self, image_name, err_on_not_found=True):
+        try:
+            self.client.images.remove(image=image_name, force=True, noprune=False)
+        except docker.errors.ImageNotFound:
+            if err_on_not_found:
+                raise
 
     def setup_docker_storage_path(self):
         try:

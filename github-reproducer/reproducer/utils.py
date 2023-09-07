@@ -55,6 +55,9 @@ class Utils(object):
         log.debug(self.get_jobpair_dir(job))
         os.makedirs(self.get_jobpair_dir(job), exist_ok=True)
 
+    def setup_jobpair_workspace(self, jobpair):
+        os.makedirs(self.get_jobpair_workspace_dir(jobpair), exist_ok=True)
+
     # --------------------------------------------
     # ------ Subprocess helper functions ---------
     # --------------------------------------------
@@ -141,6 +144,9 @@ class Utils(object):
     def get_reproducing_repo_dir(self, job):
         return os.path.join(self.config.workspace_dir, job.job_id, job.sha, job.repo)
 
+    def get_jobpair_workspace_dir(self, jobpair):
+        return os.path.join(self.config.workspace_dir, jobpair.jobpair_name)
+
     def get_reproduce_tmp_dir(self, job):
         return os.path.join(self.get_workspace_sha_dir(job), self.config.reproduce_tmp_dir)
 
@@ -171,6 +177,10 @@ class Utils(object):
     def get_repo_tar_path_in_task(self, job):
         filename = 'failed.tar' if job.is_failed == 'failed' else 'passed.tar'
         return os.path.join(self.get_tar_file_storage_dir_in_task(job), filename)
+
+    def get_repo_tar_path_in_pair_workspace(self, jobpair, job):
+        filename = 'failed.tar' if job.is_failed == 'failed' else 'passed.tar'
+        return os.path.join(self.get_jobpair_workspace_dir(jobpair), filename)
 
     def copy_repo_from_task_into_workspace(self, job):
         shutil.copy(self.get_repo_tar_path_in_task(job), self.get_repo_tar_path(job))
@@ -214,7 +224,7 @@ class Utils(object):
 
     def get_abs_jobpair_dockerfile_path(self, jobpair):
         dockerfile_name = '{}-Dockerfile'.format(jobpair.jobpair_name)
-        return os.path.abspath(os.path.join(self.get_jobpair_dir(jobpair.jobs[0]), dockerfile_name))
+        return os.path.abspath(os.path.join(self.get_jobpair_workspace_dir(jobpair), dockerfile_name))
 
     def get_orig_travis_log_path(self, job):
         filename = '{}-orig.log'.format(job.job_id)
@@ -308,6 +318,25 @@ class Utils(object):
     def copy_reproducing_repo_dir(self, job, dest):
         # Copy reproducing repo directory into dest, but ignore reproduce_tmp directory.
         shutil.copytree(self.get_reproducing_repo_dir(job), dest, ignore=shutil.ignore_patterns('reproduce_tmp'))
+
+    def move_build_dirs_into_pair_workspace_dir(self, jobpair):
+        for job in jobpair.jobs:
+            dest = os.path.join(self.get_jobpair_workspace_dir(jobpair), job.job_id)
+            if os.path.exists(dest):
+                shutil.rmtree(dest)
+            shutil.move(self.get_build_dir_path(job), dest)
+
+    def move_dockerfiles_into_pair_workspace_dir(self, jobpair):
+        for job in jobpair.jobs:
+            shutil.move(self.get_dockerfile_path(job), self.get_jobpair_workspace_dir(jobpair))
+
+    def move_repo_tars_into_pair_workspace_dir(self, jobpair):
+        for job in jobpair.jobs:
+            shutil.move(self.get_repo_tar_path(job), self.get_repo_tar_path_in_pair_workspace(jobpair, job))
+
+    def copy_orig_logs_into_pair_workspace_dir(self, jobpair):
+        for job in jobpair.jobs:
+            shutil.copy(self.get_orig_log_path(job.job_id), self.get_jobpair_workspace_dir(jobpair))
 
     # --------------------------------------------
     # ---------- Other helper functions ----------
@@ -437,9 +466,13 @@ class Utils(object):
         ShellWrapper.run_commands(command, shell=True)
 
     def clean_workspace_job_dir(self, job):
-        log.info('cleaning workspace job directory.')
+        log.info('Cleaning workspace job directory.')
         command = 'rm -rf {}'.format(self.get_workspace_sha_dir(job))
         ShellWrapper.run_commands(command, shell=True)
+
+    def clean_workspace_jobpair_dir(self, jobpair):
+        log.info('Cleaning workspace jobpair directory.')
+        shutil.rmtree(self.get_jobpair_workspace_dir(jobpair), ignore_errors=True)
 
     def remove_workspace_dir(self):
         log.info('Removing workspace directory.')

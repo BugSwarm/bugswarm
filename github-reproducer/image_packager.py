@@ -85,12 +85,21 @@ class ImagePackager(JobDispatcher):
     def _package_jobpair(self, jobpair, tid):
         log.info('[THREAD {}] Running {}'.format(tid, jobpair.full_name))
         start_time = time.time()
-        for j in jobpair.jobs:
-            self.utils.setup_jobpair_dir(j)
-            # We will skip this step if we already had the files in our output/tasks directory.
-            gen_files_for_job(self, j, True)
-        # Create and push a Docker image to Docker Hub.
-        package_jobpair_image(self.utils, self.docker, jobpair)
+
+        try:
+            for j in jobpair.jobs:
+                self.utils.setup_jobpair_dir(j)
+                # We will skip this step if we already had the files in our output/tasks directory.
+                gen_files_for_job(self, j)
+
+            # Create and push a Docker image to Docker Hub.
+            self.utils.setup_jobpair_workspace(jobpair)
+            package_jobpair_image(self.utils, self.docker, jobpair, self.keep)
+        finally:
+            log.info('[THREAD {}] Cleaning workspace.'.format(tid))
+            for j in jobpair.jobs:
+                self.utils.clean_workspace_job_dir(j)
+            self.utils.clean_workspace_jobpair_dir(jobpair)
         elapsed = time.time() - start_time
         image_tag = self.utils.construct_jobpair_image_tag(jobpair)
         log.info(colored('[THREAD {}] Finished creating and pushing Docker image {} in {} seconds.'
