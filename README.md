@@ -173,7 +173,7 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
     $ curl localhost:27017  # MongoDB check -- you can also run `mongosh` if it's installed on the host
     It looks like you are trying to access MongoDB over HTTP on the native driver port.
     
-    $ curl -H 'Authorization: token testDBPassword' localhost:5000  # Local API check
+    $ curl -H 'Authorization: token testDBPassword' localhost:5000/v1/artifacts  # Local API check
     {"_items": [], "_links": {"next": {"href": "artifacts?page=2", "title": "next page"}, "parent": {"href": "/", "title": "home"}, "self": {"href": "artifacts", "title": "artifacts"}}, "_meta": {"max_results": 250, "page": 1}}
     ```
 
@@ -206,7 +206,12 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
     ./provision.sh
     ```
 
-   > The `provision.sh` will provision the environment to utilize the BugSwarm pipeline
+    This will provision the environment to use the BugSwarm pipeline.
+    If you only want to produce GitHub Actions artifacts, you can use the `--github-actions-only` switch to skip installing the extra components needed to produce TravisCI artifacts.
+
+    ```console
+    ./provision.sh --github-actions-only
+    ```
 
 ## Miner
 
