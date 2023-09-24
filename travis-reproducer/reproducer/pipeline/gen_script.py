@@ -6,7 +6,7 @@ from bugswarm.common.json import write_json
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.shell_wrapper import ShellWrapper
 
-from bugswarm.common.credentials import GITHUB_TOKENS
+from bugswarm.common.credentials import GITHUB_TOKENS, TRAVIS_TOKENS
 
 from reproducer.reproduce_exception import ReproduceError
 
@@ -45,6 +45,14 @@ def gen_script(utils, job, dependence_solver):
     cd_command = 'cd {}'.format(reproducing_dir)
     _, stderr, returncode = ShellWrapper.run_commands(cd_command, travis_command,
                                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+    if returncode != 0 and 'resource not found' in stderr and TRAVIS_TOKENS:
+        # Recent changes to the Travis API break the current version of travis-build.
+        # Workaround: use the .com endpoint, use the build ID instead of the build number, and pass an API token.
+        travis_command = '~/.travis/travis-build/bin/travis compile --com --token {} {}.{} > {}'.format(
+                TRAVIS_TOKENS[0], job.build.build_id, job.build_job.split('.')[1], build_sh)
+        _, stderr, returncode = ShellWrapper.run_commands(cd_command, travis_command,
+                                                          stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
     if returncode != 0:
         raise ReproduceError(

@@ -104,12 +104,12 @@ print_step "${STAGE}" ${TOTAL_STEPS} 'PairFilter'
 cd ${pair_filter_dir}
 
 if ${repo_flag}; then
-    python3 pair-filter.py ${repo} github ${pair_finder_dir}/output/${task_name}
+    python3 pair-filter.py "${repo}" "${ci_service}" "${pair_finder_dir}/output/${task_name}"
     exit_if_failed 'PairFilter encountered an error.'
 else
     task_name="$(echo $(basename ${file_path}) | cut -f 1 -d '.')"
     while read repo; do
-        python3 pair-filter.py ${repo} github ${pair_finder_dir}/output/${task_name}
+        python3 pair-filter.py "${repo}" "${ci_service}" "${pair_finder_dir}/output/${task_name}"
         exit_if_failed 'PairFilter encountered an error.'
     done <${file_path}
 fi

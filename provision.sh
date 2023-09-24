@@ -143,8 +143,8 @@ if [[ $TRAVIS_INSTALL ]]; then
     # Pin travis-build to a version that forces all maven repos to use https instead of http, which aids reproducibility.
     # See https://github.com/travis-ci/travis-build/pull/1842
     print_green 'Reset travis-build'
-    # commit sha of MASTER branch 8/14/2020
-    travis_build_sha=bf094c42837ceb4e02e68c79e1355b786a4d1333
+    # commit sha of MASTER branch 8/21/2023
+    travis_build_sha=4d03828cbca68f4296c2dda118b61796365e2b2e
     cd ~/.travis/travis-build && git reset --hard ${travis_build_sha}
     exit_if_failed 'Resetting travis-build failed.'
     yes | gem install bundler -v 2.3.26
