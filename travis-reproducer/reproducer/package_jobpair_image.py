@@ -11,7 +11,7 @@ from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError
 
 
-def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair):
+def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, push=True):
     _copy_repo_tar(utils, jobpair)
     _copy_original_log(utils, jobpair)
     _modify_script(utils, jobpair)
@@ -23,7 +23,9 @@ def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair)
     docker.build_image(utils.get_abs_jobpair_dir(jobpair.jobs[0]),
                        utils.get_abs_jobpair_dockerfile_path(jobpair),
                        full_image_name)
-    docker.push_image(image_tag)
+
+    if push:
+        docker.push_image(image_tag)
 
     _clean_after_package(utils, docker, jobpair, full_image_name)
 

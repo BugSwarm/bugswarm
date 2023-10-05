@@ -10,7 +10,7 @@ from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError
 
 
-def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, copy_files=False):
+def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, copy_files=False, push=True):
     _move_build_files(utils, jobpair)
     _copy_original_logs(utils, jobpair)
     _modify_script(utils, jobpair)
@@ -23,7 +23,8 @@ def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair,
                        utils.get_abs_jobpair_dockerfile_path(jobpair),
                        full_image_name)
 
-    docker.push_image(image_tag)
+    if push:
+        docker.push_image(image_tag)
 
     if copy_files:
         _copy_workspace_files(utils, jobpair)

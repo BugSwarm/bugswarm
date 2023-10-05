@@ -12,11 +12,11 @@ REPRODUCER_RUNS=5
 TOTAL_STEPS=$((${REPRODUCER_RUNS} + 3))
 STAGE='Reproduce Project'
 
-USAGE='Usage: bash run_reproduce_project.sh --ci <ci> -r <repo-slug> [-t <threads>] [-c <component-directory>] [-s]'
+USAGE='Usage: bash run_reproduce_project.sh --ci <ci> -r <repo-slug> [-t <threads>] [-c <component-directory>] [--reproducer-runs <runs>] [--skip-cacher] [-s]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:s --long component-directory:,repo:,threads:,skip-check-disk,ci: -n 'run-reproduce-project' -- "$@")
+OPTS=$(getopt -o c:r:t:s --long component-directory:,repo:,threads:,skip-check-disk,ci:,reproducer-runs:,skip-cacher,no-push -n 'run-reproduce-project' -- "$@")
 exit_if_failed 'Unrecognized command-line options.'
 eval set -- "$OPTS"
 while true; do
@@ -27,6 +27,9 @@ while true; do
       -t | --threads             ) threads="$2";             shift; shift ;;
       -s | --skip-check-disk     ) skip_check_disk="-s";     shift;;
            --ci                  ) ci_service="$2";          shift; shift ;;
+           --skip-cacher         ) skip_cacher='true';       shift;;
+           --reproducer-runs     ) REPRODUCER_RUNS="$2";     shift; shift ;;
+           --no-push             ) no_push='--no-push';      shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -64,9 +67,16 @@ if [ ${repo} ]; then
 fi
 
 reproducer_dir="${component_directory}/${ci_service}-reproducer"
+cacher_dir="${component_directory}/${ci_service}-cacher"
 
-# Check for existence of the required repositories.
-check_repo_exists "${reproducer_dir}" 'reproducer'
+if [[ $skip_cacher ]]; then
+    check_repo_exists "${reproducer_dir}" 'reproducer'
+    TOTAL_STEPS=$((REPRODUCER_RUNS + 3))
+else
+    check_repo_exists "${reproducer_dir}" 'reproducer'
+    check_repo_exists "${cacher_dir}" 'cacher'
+    TOTAL_STEPS=$((REPRODUCER_RUNS + 6))
+fi
 
 # Create a file containing all pairs mined from the project.
 cd "${reproducer_dir}"
@@ -78,7 +88,7 @@ exit_if_failed 'PairChooser encountered an error.'
 # Reproducer
 for i in $(seq ${REPRODUCER_RUNS}); do
     print_step "${STAGE}" ${TOTAL_STEPS} "Reproducer (run ${i} of ${REPRODUCER_RUNS})"
-    python3 entry.py -i "${pair_file_path}" -k -t "${threads}" -o "${task_name}_run${i}" "${skip_check_disk}"
+    python3 entry.py -i "${pair_file_path}" -t "${threads}" -o "${task_name}_run${i}" "${skip_check_disk}"
     exit_if_failed 'Reproducer encountered an error.'
 done
 
@@ -89,7 +99,26 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i "output/result_json/${task_name}.json" --package -k -t "${threads}" -o "${task_name}_pkg" ${skip_check_disk}
+python3 entry.py -i "output/result_json/${task_name}.json" --package -t "${threads}" -o "${task_name}_pkg" ${skip_check_disk} ${no_push} 
 exit_if_failed 'ImagePackager encountered an error.'
+
+if [[ ! $skip_cacher ]]; then
+    task_json_path="${reproducer_dir}/output/result_json/${task_name}.json"
+    print_step "${STAGE}" ${TOTAL_STEPS} 'Cacher'
+    python3 get_reproducer_output.py -i "${task_json_path}" -o "${task_name}"
+    exit_if_failed 'get_reproducer_output.py encountered an error.'
+
+    cd "${cacher_dir}"
+    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} --disconnect-network-during-test
+
+    cd "${reproducer_dir}"
+    print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
+    python3 packager.py -i "${task_json_path}"
+    exit_if_failed 'MetadataPackager encountered an error.'
+
+    print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'
+    python3 add_artifact_logs.py "${task_name}"
+    exit_if_failed 'ArtifactLogPackager encountered an error.'
+fi
 
 print_stage_done "${STAGE}"

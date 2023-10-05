@@ -267,7 +267,11 @@ scripts to run every command that was run in the original build.
 We match the reproduced build log, which is a transcript of everything that happens at the command line during build and testing, with the historical build log from the target CI service.
 We do this three times to account for reproducibility and flakiness.
 Reproducible pairs are then pushed as an Artifact to `DOCKER_HUB_REPO` as specified in `credentials.py`, as a temporary repo.
-Metadata is not pushed to the MongoDB until the [Cacher](#cacher) step, which pushes the Artifact with cached dependencies to the final repo.
+The reproducer automatically runs the [Cacher](#cacher) step afterwards, unless the `--skip-cacher` flag is passed to the script.
+
+**Note:** Before running the Reproducer, log in to Docker using `docker login`.
+Otherwise, the Reproducer and Cacher will not be able to push artifact images to DockerHub.
+Alternatively, you can run the reproducer scripts with the `--no-push` flag to avoid pushing images altogether.
 
 ### Reproduce a Project
 
@@ -284,8 +288,13 @@ Additional Options:
 * `-t, --threads <THREADS>`: The number of worker threads to reproduce with.
 * `-c, --component-directory <DIR>`: The directory where the Reproducer is located.
     Defaults to the directory where the script is located.
+* `--reproducer-runs <RUNS>`: The number of times to run the reproducer.
+    Use more to be more certain about whether a run is reprodcible.
+    Defaults to 5.
 * `-s, --skip-disk-check`: If set, do not verify whether there is adequate disk space (50 GiB by default) for reproducing before running.
     Possibly useful if you're low on disk space.
+* `--skip-cacher`: Do not cache the job pairs after reproducing them.
+* `--no-push`: Do not push any images to DockerHub.
 
 *Example*:
 
@@ -297,7 +306,9 @@ The example will attempt to reproduce all job-pairs mined from the "alibaba/spri
 We add the "-c" argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline successfully.
 We use 4 threads to run the process.
 
-### Generate Pair Input
+### Reproduce a Pair or Pairs
+
+#### Generate Pair Input
 
 `generate_pair_input.py`: Generate job pairs from the given repo slug or file containing a list of repos. This allows
  the user to be selective in which job pairs they'd want to reproduce through the optional argument filters. The output
@@ -338,7 +349,7 @@ the "IllegalAccessError".
 
 The output file of this script can then be used to define the repo slug, failed job ID, and passed job ID arguments of the below step, Reproduce a Pair.
 
-### Reproduce a Pair or Pairs
+#### Reproduce the Pairs
 
 `run_reproduce_pair.sh`: Reproduces a single job pair given the slug for the project from which the job pair was mined, the failed Job ID, and the passed job ID.
 
@@ -367,6 +378,7 @@ Additional Options:
 * `-s, --skip-disk-check`: If set, do not verify whether there is adequate disk space (50 GiB by default) for reproducing before running.
     Possibly useful if you're low on disk space.
 * `--skip-cacher`: Do not cache the job pairs after reproducing them.
+* `--no-push`: Do not push any images to DockerHub.
 
 *Example*:
 

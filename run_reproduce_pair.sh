@@ -16,7 +16,7 @@ USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> (--pair-file <pair-file> | -r
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:,skip-cacher -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:,skip-cacher,no-push -n 'run-reproduce-pair' -- "$@")
 exit_if_failed 'Unrecognized command-line options.'
 eval set -- "$OPTS"
 while true; do
@@ -32,6 +32,7 @@ while true; do
       -s | --skip-check-disk     ) skip_check_disk="-s";      shift;;
            --ci                  ) ci_service="$2";           shift; shift ;;
            --skip-cacher         ) skip_cacher='true';        shift;;
+           --no-push             ) no_push='--no-push';       shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -126,7 +127,7 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i "output/result_json/${task_name}.json" --package -t "${threads}" -o "${task_name}_pkg" ${skip_check_disk}
+python3 entry.py -i "output/result_json/${task_name}.json" --package -t "${threads}" -o "${task_name}_pkg" ${skip_check_disk} ${no_push}
 exit_if_failed 'ImagePackager encountered an error.'
 
 if [[ ! $skip_cacher ]]; then
@@ -136,7 +137,7 @@ if [[ ! $skip_cacher ]]; then
     exit_if_failed 'get_reproducer_output.py encountered an error.'
 
     cd "${cacher_dir}"
-    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" --disconnect-network-during-test
+    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} --disconnect-network-during-test
 
     cd "${reproducer_dir}"
     print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'

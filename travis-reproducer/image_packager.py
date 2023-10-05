@@ -23,10 +23,12 @@ class ImagePackager(JobDispatcher):
     Subclass of JobDispatcher that packages Docker images for jobs.
     """
 
-    def __init__(self, input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk):
+    def __init__(self, input_file, task_name, threads, keep, package_mode,
+                 dependency_solver, skip_check_disk, push=True):
         super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk)
         self.jobpairs_packaged = Value('i', 0)
         self.dockerhub = DockerHub()
+        self.push = push
 
     def progress_str(self):
         return colored(
@@ -88,8 +90,8 @@ class ImagePackager(JobDispatcher):
         for j in jobpair.jobs:
             self.utils.setup_jobpair_dir(j)
             gen_files_for_job(self, j, True)
-        # Create and push a Docker image to Docker Hub.
-        package_jobpair_image(self.utils, self.docker, jobpair)
+        # Create and optionally push a Docker image to Docker Hub.
+        package_jobpair_image(self.utils, self.docker, jobpair, push=self.push)
         elapsed = time.time() - start_time
         image_tag = self.utils.construct_jobpair_image_tag(jobpair)
         log.info(colored('[THREAD {}] Finished creating and pushing Docker image {} in {} seconds.'

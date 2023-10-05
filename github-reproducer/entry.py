@@ -21,7 +21,7 @@ def main(argv=None):
 
     # Parse input.
     shortopts = 'i:t:o:kpds'
-    longopts = 'input-file= threads= task-name= keep package skip-check-disk'.split()
+    longopts = 'input-file= threads= task-name= keep package skip-check-disk no-push'.split()
     input_file = None
     threads = 1
     task_name = None
@@ -29,6 +29,7 @@ def main(argv=None):
     package_mode = False
     dependency_solver = False
     skip_check_disk = False
+    push = True
     try:
         optlist, args = getopt.getopt(argv[1:], shortopts, longopts)
     except getopt.GetoptError:
@@ -50,6 +51,8 @@ def main(argv=None):
             dependency_solver = True
         if opt in ['-s', '--skip-check-disk']:
             skip_check_disk = True
+        if opt == '--no-push':
+            push = False
 
     if not input_file:
         print_usage()
@@ -68,7 +71,7 @@ def main(argv=None):
     # Pipeline will run JobReproducer (5 times) first, then it will run ImagePackager.
     if package_mode:
         reproducer = ImagePackager(input_file, task_name, threads, keep, package_mode, dependency_solver,
-                                   skip_check_disk)
+                                   skip_check_disk, push=push)
     else:
         reproducer = JobReproducer(input_file, task_name, threads, keep, package_mode, dependency_solver,
                                    skip_check_disk)
@@ -80,9 +83,11 @@ def print_usage():
     log.info('{:<30}{:<30}'.format('-i, --input-file', 'Path to a JSON file containing fail-pass pairs to reproduce.'))
     log.info('{:<30}{:<30}'.format('-o, --task-name', 'Name of task folder.'))
     log.info('OPTIONS:')
+    log.info('{:<30}{:<30}'.format('-p, --package', 'Package mode: package the fail-pass pair as an artifact.'))
     log.info('{:<30}{:<30}'.format('-t, --threads', 'Number of threads to use, defaults to 1.'))
     log.info('{:<30}{:<30}'.format('-k, --keep', 'Whether to skip deletion of repo files after running.'))
     log.info('{:<30}{:<30}'.format('-s, --skip-check-disk', 'Whether to check for free disk space.'))
+    log.info('{:<30}{:<30}'.format('--no-push', '(Package mode only) Do not push images to DockerHub.'))
 
 
 if __name__ == '__main__':
