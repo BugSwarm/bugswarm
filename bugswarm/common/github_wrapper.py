@@ -1,14 +1,11 @@
+import copy
 import time
 from collections import deque
-
-from typing import List
-from typing import Optional
-from typing import Tuple
+from typing import List, Literal, Optional, Tuple
 from urllib.parse import urlparse
 
 import cachecontrol
 import requests
-import copy
 
 from bugswarm.common import log
 
@@ -36,7 +33,7 @@ class GitHubWrapper(object):
         # Start with the first token. We lazily switch tokens as each hits its quota limit.
         self._session.headers['Authorization'] = 'token %s' % self._tokens[0]
 
-    def get(self, url: str):
+    def get(self, url: str, response_format: Literal['json', 'text', 'bytes'] = 'json', max_retry: int = 5):
         """
         Request a URL from the GitHub API.
         Handles retrying, waiting for quota to reset, and token switching.
@@ -45,22 +42,32 @@ class GitHubWrapper(object):
         :return: A 2-tuple of the resulting response and the JSON representation of the response body. If there was a
                  problem, the returned tuple is (None, None).
         """
+
         if not isinstance(url, str):
             raise TypeError('The provided URL must be a string.')
+        if response_format not in ['json', 'text', 'bytes']:
+            raise ValueError('The response format must be one of "json", "text", or "bytes".')
         if urlparse(url).netloc != 'api.github.com':
             raise ValueError('The provided URL is not for the GitHub API.')
 
         retry_back_off = 5  # Seconds.
         retry_count = 0
-        max_retry = 5  # Return (None, None) when retry_count >= max_retry
         while True:
             response = None
             try:
                 response = self._session.get(url)
                 response.raise_for_status()
-                if not response.text:
-                    return None, None
-                return response, response.json()
+
+                if response_format == 'json':
+                    if not response.text:
+                        return response, None
+                    return response, response.json()
+
+                if response_format == 'text':
+                    return response, response.text
+
+                if response_format == 'bytes':
+                    return response, response.content
             except Exception as e:
                 # If the exception is a connection error, the server may have dropped the connection.
                 # In this case, we should try resetting the session.
@@ -68,22 +75,25 @@ class GitHubWrapper(object):
                     log.info('Recreating session.')
                     self._create_session()
 
-                if response.status_code == 404:
-                    return None, None
+                if response.status_code == 404:  # Not found
+                    log.error('URL not found:', url)
+                    return response, None
                 elif response.status_code == 451:  # Repository access blocked.
                     log.error('Repository access blocked:', url)
-                    return None, None
+                    return response, None
                 elif response.status_code == 401:  # Not authorized.
                     log.error('Invalid GitHub API token: ', self._session.headers['Authorization'])
-                    return None, None
-                elif response.status_code == 422:
-                    return None, None
+                    return response, None
+                elif response.status_code == 422:  # Unprocessable Content
+                    return response, None
+                elif response.status_code == 410:  # Gone (e.g. expired logs)
+                    return response, None
                 else:
                     log.error('Request for url failed:', url)
                     log.error('Exception:', e)
                     if retry_count >= max_retry:
                         log.error('Stop retrying after {} retry failures'.format(retry_count))
-                        return None, None
+                        return response, None
 
                 # If the status code is 403 (Forbidden), then we may have exceeded our GitHub API quota.
                 # In this case, we should verify that the quota was exceeded and, if so, wait until the quota is reset.
@@ -95,7 +105,7 @@ class GitHubWrapper(object):
                             log.warning('Triggered the GitHub abuse detection mechanism. Sleeping for 1 minute.')
                             time.sleep(60)
                         if 'Not Found' == result['message']:
-                            return None, None
+                            return response, None
 
                     quota_exceeded, sleep_duration = self._exceeded_api_quota()
                     if quota_exceeded:

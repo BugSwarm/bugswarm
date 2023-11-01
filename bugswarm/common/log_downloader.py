@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 
 from bugswarm.common import log
 from bugswarm.common.credentials import GITHUB_TOKENS
+from bugswarm.common.github_wrapper import GitHubWrapper
 
 _DEFAULT_RETRIES = 3
 
@@ -18,7 +19,8 @@ _DEFAULT_RETRIES = 3
 def download_log(job_id: Union[str, int],
                  destination: str,
                  overwrite: bool = True,
-                 retries: int = _DEFAULT_RETRIES, repo: str = '') -> bool:
+                 retries: int = _DEFAULT_RETRIES,
+                 repo: str = '') -> bool:
     """
     Downloads a Travis/GitHub job log and stores it at destination.
 
@@ -58,7 +60,7 @@ def download_log(job_id: Union[str, int],
     else:
         # GitHub log
         github_log_link = 'https://api.github.com/repos/{}/actions/jobs/{}/logs'.format(repo, job_id)
-        content = _get_log_from_url(github_log_link, retries, need_auth=True)
+        content = _get_github_log_from_url(github_log_link, retries)
         if not content:
             return False
 
@@ -126,12 +128,10 @@ def download_logs(job_ids: List[Union[str, int]],
     return succeeded == len(job_ids)
 
 
-def _get_log_from_url(log_url: str, max_retries: int, retry_count: int = 0, need_auth: bool = False):
+def _get_log_from_url(log_url: str, max_retries: int, retry_count: int = 0):
     sleep_duration = 3  # Seconds.
     try:
-        headers = {'Authorization': 'token {}'.format(GITHUB_TOKENS[0])} if need_auth else {}
-        # TODO: if need_auth, switch token when we reached the rate limit.
-        req = urllib.request.Request(log_url, headers=headers)
+        req = urllib.request.Request(log_url)
         with urllib.request.urlopen(req) as url:
             result = url.read()
             log.info('Downloaded log from {}.'.format(log_url))
@@ -151,4 +151,17 @@ def _get_log_from_url(log_url: str, max_retries: int, retry_count: int = 0, need
             return None
         log.warning('The server reset the connection. Retrying after', sleep_duration, 'seconds.')
         time.sleep(sleep_duration)
-        _get_log_from_url(log_url, max_retries, retry_count + 1, need_auth)
+        _get_log_from_url(log_url, max_retries, retry_count + 1)
+
+
+def _get_github_log_from_url(log_url: str, max_retries: int):
+    github_wrapper = GitHubWrapper(GITHUB_TOKENS)
+
+    response, log_text = github_wrapper.get(log_url, response_format='bytes', max_retry=max_retries)
+    if not response.ok:
+        if response.status_code in [410, 500]:
+            log.error('The log ({}) for this job has expired.'.format(log_url))
+        else:
+            log.error('Could not download log from {}: status code {}'.format(log_url, response.status_code))
+        return None
+    return log_text
