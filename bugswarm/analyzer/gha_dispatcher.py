@@ -50,22 +50,19 @@ class GHADispatcher(object):
 
     def get_build_system_from_build_command(self, lines):
         for line in lines:
-            maven1 = re.search(r'(\[0K\$ )?mvn.*install.*', line, re.M)
-            maven2 = re.search(r'(\[0K\$ )?mvn.*compile test', line, re.M)
-            maven3 = re.search(r'The command "mvn .*', line, re.M)
-            gradle1 = re.search(r'(\[0K\$ )?.*(./)?gradle(w)?.*assemble', line, re.M)
-            gradle2 = re.search(r'(\[0K\$ )?.*(./)?gradle(w)?.*(check|test).*', line, re.M)
-            gradle3 = re.search(r'\* Get more help at https://help\.gradle\.org', line, re.M)
-            ant1 = re.search(r'(\[0K\$ )?ant build-all.*', line, re.M)
-            ant2 = re.search(r'(\[0K\$ )?ant test.*', line, re.M)
-            ant3 = re.search(r'The command "ant .*', line, re.M)
-            play1 = re.search(r'(\[0K\$ )?(./)?activator-\${ACTIVATOR_VERSION}.*', line, re.M)
-            play2 = re.search(r'(\$ )?export ACTIVATOR_VERSION=.*', line, re.M)
-            if maven1 or maven2 or maven3:
+            maven1 = re.search(r'mvn.*(install|compile|test)', line, re.M)
+            maven2 = re.search(r'The command "mvn ', line, re.M)
+            gradle1 = re.search(r'gradle(w)?.*(assemble|check|test)', line, re.M)
+            gradle2 = re.search(r'\* Get more help at https://help\.gradle\.org', line, re.M)
+            ant1 = re.search(r'ant (build-all|test)', line, re.M)
+            ant2 = re.search(r'The command "ant ', line, re.M)
+            play1 = re.search(r'activator-\${ACTIVATOR_VERSION}', line, re.M)
+            play2 = re.search(r'export ACTIVATOR_VERSION=', line, re.M)
+            if maven1 or maven2:
                 return 'maven'
-            elif gradle1 or gradle2 or gradle3:
+            elif gradle1 or gradle2:
                 return 'gradle'
-            elif ant1 or ant2 or ant3:
+            elif ant1 or ant2:
                 return 'ant'
             elif play1 or play2:
                 return 'play'
