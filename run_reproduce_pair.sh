@@ -22,17 +22,17 @@ eval set -- "$OPTS"
 while true; do
     case "$1" in
       # Shift twice for options that take an argument.
-      -c | --component-directory ) component_directory="$2";  shift; shift ;;
-      -r | --repo                ) repo="$2";                 shift; shift ;;
-           --pair-file           ) gpi_file="$(realpath $2)"; shift; shift ;;
-      -t | --threads             ) threads="$2";              shift; shift ;;
-      -f | --failed-job-id       ) failed_job_id="$2";        shift; shift ;;
-      -p | --passed-job-id       ) passed_job_id="$2";        shift; shift ;;
-           --reproducer-runs     ) REPRODUCER_RUNS="$2";      shift; shift ;;
-      -s | --skip-check-disk     ) skip_check_disk="-s";      shift;;
-           --ci                  ) ci_service="$2";           shift; shift ;;
-           --skip-cacher         ) skip_cacher='true';        shift;;
-           --no-push             ) no_push='--no-push';       shift;;
+      -c | --component-directory ) component_directory="$2";    shift; shift ;;
+      -r | --repo                ) repo="$2";                   shift; shift ;;
+           --pair-file           ) gpi_file="$(realpath "$2")"; shift; shift ;;
+      -t | --threads             ) threads="$2";                shift; shift ;;
+      -f | --failed-job-id       ) failed_job_id="$2";          shift; shift ;;
+      -p | --passed-job-id       ) passed_job_id="$2";          shift; shift ;;
+           --reproducer-runs     ) REPRODUCER_RUNS="$2";        shift; shift ;;
+      -s | --skip-check-disk     ) skip_check_disk="-s";        shift;;
+           --ci                  ) ci_service="$2";             shift; shift ;;
+           --skip-cacher         ) skip_cacher='true';          shift;;
+           --no-push             ) no_push='--no-push';         shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -77,6 +77,11 @@ fi
 
 if [[ -z "${component_directory}" ]]; then
     component_directory="$SCRIPT_DIR"
+elif [[ -d "${component_directory}" ]]; then
+    component_directory="$(realpath "${component_directory}")"
+else
+    echo "The path '${component_directory}' does not exist or is not a directory. Exiting."
+    exit 1
 fi
 
 if [ "${gpi_file}" ]; then

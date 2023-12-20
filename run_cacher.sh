@@ -50,6 +50,11 @@ fi
 
 if [[ -z "${component_directory}" ]]; then
     component_directory="$SCRIPT_DIR"
+elif [[ -d "${component_directory}" ]]; then
+    component_directory="$(realpath "${component_directory}")"
+else
+    echo "The path '${component_directory}' does not exist or is not a directory. Exiting."
+    exit 1
 fi
 
 if [[ ${no_push} ]]; then
