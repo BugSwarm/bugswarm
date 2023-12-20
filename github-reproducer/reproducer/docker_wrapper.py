@@ -10,7 +10,7 @@ import ast
 from bugswarm.common import log
 from bugswarm.common.shell_wrapper import ShellWrapper
 
-from reproducer.reproduce_exception import ReproduceError
+from reproducer.reproduce_exception import ReproductionTimeout, DockerError
 
 
 class DockerWrapper(object):
@@ -74,9 +74,9 @@ class DockerWrapper(object):
                                              forcerm=True)
         except docker.errors.BuildError as e:
             log.debug(e)
-            raise ReproduceError('Encountered a build error while building a Docker image: {}'.format(e))
+            raise DockerError('Encountered a build error while building a Docker image: {!r}'.format(e))
         except docker.errors.APIError as e:
-            raise ReproduceError('Encountered a Docker API error while building a Docker image: {}'.format(e))
+            raise DockerError('Encountered a Docker API error while building a Docker image: {!r}'.format(e))
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while building a Docker image.')
         return image
@@ -96,8 +96,9 @@ class DockerWrapper(object):
             elif 'status' in dictionary.keys():
                 log.info('Status: ', dictionary.get('status'))
 
-        except docker.errors.APIError:
-            raise ReproduceError('Encountered a Docker API error while pushing a Docker image to Docker Hub.')
+        except docker.errors.APIError as e:
+            raise DockerError('Encountered a Docker API error while pushing a Docker image to Docker Hub: '
+                              '{}'.format(e))
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Hub.')
         # Push to Registry
@@ -117,8 +118,9 @@ class DockerWrapper(object):
             elif 'status' in dictionary.keys():
                 log.info('Status: ', dictionary.get('status'))
 
-        except docker.errors.APIError:
-            raise ReproduceError('Encountered a Docker API error while pushing a Docker image to Docker Registry.')
+        except docker.errors.APIError as e:
+            raise DockerError('Encountered a Docker API error while pushing a Docker image to Docker Registry: '
+                              '{!r}'.format(e))
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while pushing a Docker image to Docker Registry.')
 
@@ -132,37 +134,38 @@ class DockerWrapper(object):
                                                    tty=False)  # privileged=True
         except docker.errors.ImageNotFound:
             log.error('Docker image not found.')
-            return 1
-        except docker.errors.APIError:
+            raise DockerError('Docker image {} not found'.format(image))
+        except docker.errors.APIError as e:
             log.error('Encountered a Docker API error while spawning a container.')
-            raise
+            raise DockerError('Encountered a Docker API error while spawning a container: {}'.format(e))
 
-        to_kill = False
-        while container.status != 'exited':
-            container.reload()
-            container_runtime += 5
-            if container_runtime > 1800:
-                to_kill = True
-                break
-            time.sleep(5)
+        logs = None
+        try:
+            while container.status != 'exited':
+                container.reload()
+                container_runtime += 5
+                if container_runtime > 1800:
+                    log.error('Timed out after 30 minutes. Killing the container.')
+                    logs = container.logs()
+                    container.kill()
+                    raise ReproductionTimeout('Reproduce attempt timed out after 30m')
+                time.sleep(5)
 
-        logs = container.logs()
-        if to_kill:
-            log.error('Timed out after 30 minutes. Killing the container.')
-            container.kill()
+        finally:
+            if logs is None:
+                logs = container.logs()
+            with open(reproduced_log_destination, 'wb') as f:
+                f.write(logs)
 
-        with open(reproduced_log_destination, 'wb') as f:
-            f.write(logs)
-
-        container.remove(force=True)
-        # TODO: Future improvement, delete job image after we finished a job.
+            container.remove(force=True)
+            # TODO: Future improvement, delete job image after we finished a job.
 
     def remove_image(self, image_name, err_on_not_found=True):
         try:
             self.client.images.remove(image=image_name, force=True, noprune=False)
         except docker.errors.ImageNotFound:
             if err_on_not_found:
-                raise
+                raise DockerError('Image {} not found'.format(image_name))
 
     def setup_docker_storage_path(self):
         try:
@@ -171,9 +174,9 @@ class DockerWrapper(object):
             storage_driver = docker_dict['Driver']
             path = os.path.join(docker_root_dir, storage_driver)
             return path
-        except docker.errors.APIError:
+        except docker.errors.APIError as e:
             log.error('Encountered a Docker API error while gathering the Docker environment info.')
-            raise
+            raise DockerError(e)
 
     @staticmethod
     def remove_image_in_shell(full_image_name):

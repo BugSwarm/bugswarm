@@ -184,9 +184,9 @@ class JobDispatcher(object):
             try:
                 self.process_item(item, tid)
             except ReproduceError as e:
-                log.info(colored('[THREAD {}] {} {}'.format(tid, item, e), 'red'))
+                log.error(colored('[THREAD {}] {} {}'.format(tid, item, e), 'red'))
                 self.reproduce_err.value += 1
-                self.record_error_reason(item, str(e))
+                self.record_error_reason(item, e)
                 # Optionally handle failed reproducing here.
         log.info('[THREAD {}] Workload complete. Exiting thread.'.format(tid))
 

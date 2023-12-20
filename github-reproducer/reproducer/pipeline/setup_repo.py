@@ -8,7 +8,7 @@ import zipfile
 
 from bugswarm.common import log
 
-from reproducer.reproduce_exception import ReproduceError
+from reproducer.reproduce_exception import GitError, RepoSetupError
 
 
 def setup_repo(job, utils, job_dispatcher):
@@ -20,10 +20,10 @@ def setup_repo(job, utils, job_dispatcher):
 
     if job.repo in job_dispatcher.cloned_repos and job_dispatcher.cloned_repos[job.repo] == -1:
         # Already tried cloning this repository and failed. So skip it.
-        raise ReproduceError('Previously encountered an error while cloning a repository. Skipping.')
+        raise RepoSetupError('Previously encountered an error while cloning a repository. Skipping.')
     if job_id in job_dispatcher.workspace_locks and job_dispatcher.workspace_locks[job_id] == -1:
         # Already tried setting up this repository and failed. So skip it.
-        raise ReproduceError('Previously encountered an error while setting up a repository. Skipping.')
+        raise RepoSetupError('Previously encountered an error while setting up a repository. Skipping.')
 
     # ------------ Clone repository -----------
 
@@ -31,9 +31,8 @@ def setup_repo(job, utils, job_dispatcher):
     if job.repo not in job_dispatcher.cloned_repos:
         job_dispatcher.cloned_repos[job.repo] = 0
         clone_repo = True
-    else:
-        if job_dispatcher.cloned_repos[job.repo] == 0:
-            wait_for_repo_cloned = True
+    elif job_dispatcher.cloned_repos[job.repo] == 0:
+        wait_for_repo_cloned = True
     job_dispatcher.lock.release()
 
     if wait_for_repo_cloned:
@@ -41,18 +40,23 @@ def setup_repo(job, utils, job_dispatcher):
             time.sleep(3)
 
         if job_dispatcher.cloned_repos[job.repo] == -1:
-            raise ReproduceError('already error in cloning repo')
+            raise RepoSetupError('Another process failed to clone the repo {}'.format(job.repo))
 
     if clone_repo:
         try:
             clone_project_repo_if_not_exists(utils, job)
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while cloning a repository.')
-        except Exception:
+            raise
+        except Exception as e:
             job_dispatcher.cloned_repos[job.repo] = -1
             job_dispatcher.job_center.repos[job.repo].clone_error = True
             job_dispatcher.job_center.repos[job.repo].set_all_jobs_in_repo_to_skip()
-            raise ReproduceError('Encountered an error while cloning a repository.')
+
+            if isinstance(e, git.GitError):
+                raise GitError('Encountered an error while cloning a repository: {!r}'.format(e))
+            else:
+                raise RepoSetupError('Encountered an error while cloning a repository: {!r}'.format(e))
         else:
             job_dispatcher.cloned_repos[job.repo] = 1
             job_dispatcher.job_center.repos[job.repo].has_repo = True
@@ -72,7 +76,7 @@ def setup_repo(job, utils, job_dispatcher):
         while job_dispatcher.workspace_locks[job_id] == 0:
             time.sleep(3)
         if job_dispatcher.workspace_locks[job_id] == -1:
-            raise ReproduceError('already error in setup_repo')
+            raise RepoSetupError('Another process failed to set up the repo {}'.format(job.repo))
 
     if to_setup_repo:
         try:
@@ -81,13 +85,17 @@ def setup_repo(job, utils, job_dispatcher):
             elif job.resettable is True:
                 copy_and_reset_repo(job, utils)
             else:
-                raise ReproduceError('Job is neither resettable nor GitHub archived.')
+                raise RepoSetupError('Job is neither resettable nor GitHub archived.')
         except KeyboardInterrupt:
             log.error('Caught a KeyboardInterrupt while setting up a repository.')
             raise
         except Exception as e:
             job_dispatcher.workspace_locks[job_id] = -1
-            raise ReproduceError('Encountered an error while setting up a repository: {}'.format(e))
+            if isinstance(e, RepoSetupError):
+                raise
+            if isinstance(e, git.GitError):
+                raise GitError('Encountered an error while setting up a repository: {!r}'.format(e))
+            raise RepoSetupError('Encountered an error while setting up a repository: {!r}'.format(e))
         else:
             job_dispatcher.workspace_locks[job_id] = 1
     else:
@@ -113,10 +121,11 @@ def copy_and_reset_repo(job, utils):
     log.info('Copying and resetting the repository.')
     retry_count = 0
     max_retries = 3
+    last_error = None
 
     while True:
         if retry_count > max_retries:
-            raise ReproduceError('copy_and_reset_repo cannot retry anymore.')
+            raise RepoSetupError('Max retries exceeded for untarring repo {}: {}.'.format(job.repo, repr(last_error)))
 
         try:
             # Copy repository from stored project repositories to the workspace repository directory by untar-ing the
@@ -127,6 +136,7 @@ def copy_and_reset_repo(job, utils):
             repo_tar_obj.extractall(utils.get_workspace_sha_dir(job))
             break
         except Exception as e:
+            last_error = e
             log.info('Failed to extract the repository due to {}'.format(repr(e)))
             retry_count += 1
             time.sleep(5)
@@ -150,10 +160,12 @@ def download_repo(job, utils):
     os.makedirs(job_archive_dir, exist_ok=True)
     retry_count = 0
     max_retries = 3
+    last_error = None
 
     while True:
         if retry_count > max_retries:
-            raise ReproduceError('download_repo cannot retry anymore.')
+            raise RepoSetupError(
+                'Max retries exceeded for downloading zip file for repo {}: {}.'.format(job.repo, last_error))
 
         try:
             # Download the repository.
@@ -168,6 +180,7 @@ def download_repo(job, utils):
             repo_zip_obj.extractall(job_archive_dir)
             break
         except Exception as e:
+            last_error = e
             log.info('Failed to download the repository due to {}'.format(repr(e)))
             retry_count += 1
 

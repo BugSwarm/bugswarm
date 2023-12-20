@@ -7,27 +7,33 @@ from bugswarm.common.log_downloader import download_log
 from reproducer.docker_wrapper import DockerWrapper
 from reproducer.model.jobpair import JobPair
 from reproducer.utils import Utils
-from reproducer.reproduce_exception import ReproduceError
+from reproducer.reproduce_exception import ReproduceError, wrap_errors
 
 
 def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, copy_files=False, push=True):
-    _move_build_files(utils, jobpair)
-    _copy_original_logs(utils, jobpair)
-    _modify_script(utils, jobpair)
-    _write_package_dockerfile(utils, jobpair)
+    with wrap_errors('Move build files'):
+        _move_build_files(utils, jobpair)
+    with wrap_errors('Copy orig logs'):
+        _copy_original_logs(utils, jobpair)
+    with wrap_errors('Modify build script'):
+        _modify_script(utils, jobpair)
+    with wrap_errors('Write dockerfile'):
+        _write_package_dockerfile(utils, jobpair)
 
     image_tag = utils.construct_jobpair_image_tag(jobpair)
     full_image_name = utils.construct_full_image_name(image_tag)
 
-    docker.build_image(utils.get_jobpair_workspace_dir(jobpair),
-                       utils.get_abs_jobpair_dockerfile_path(jobpair),
-                       full_image_name)
+    with wrap_errors('Build and push artifact image'):
+        docker.build_image(utils.get_jobpair_workspace_dir(jobpair),
+                           utils.get_abs_jobpair_dockerfile_path(jobpair),
+                           full_image_name)
 
-    if push:
-        docker.push_image(image_tag)
+        if push:
+            docker.push_image(image_tag)
 
-    if copy_files:
-        _copy_workspace_files(utils, jobpair)
+    with wrap_errors('Copy workspace files'):
+        if copy_files:
+            _copy_workspace_files(utils, jobpair)
 
 
 def _move_build_files(utils: Utils, jobpair: JobPair):
@@ -41,7 +47,7 @@ def _copy_original_logs(utils: Utils, jobpair: JobPair):
     for j in jobpair.jobs:
         original_log_path = utils.get_orig_log_path(j.job_id)
         if not isfile(original_log_path) and not download_log(j.job_id, original_log_path, repo=j.repo):
-            raise ReproduceError('Error while copying the original log for {}.'.format(j.job_id))
+            raise ReproduceError('Could not download the log for job {}.'.format(j.job_id))
     utils.copy_orig_logs_into_pair_workspace_dir(jobpair)
 
 
@@ -66,7 +72,8 @@ def _modify_script(utils: Utils, jobpair: JobPair):
                     lines.append(line)
 
             if not found_build_path:
-                raise ReproduceError('found_build_path is False for {}'.format(j.job_id))
+                raise ReproduceError(
+                    'Could not find where GITHUB_WORKSPACE was set in the script for job {}.'.format(j.job_id))
 
         with open(script_path, 'w') as f:
             for l in lines:

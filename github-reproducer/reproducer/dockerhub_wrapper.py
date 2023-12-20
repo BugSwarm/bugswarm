@@ -31,6 +31,8 @@ import requests
 
 from bugswarm.common import log
 
+from reproducer.reproduce_exception import DockerHubError
+
 
 class DockerHub(object):
     def __init__(self, url=None, version='v2'):
@@ -63,9 +65,9 @@ class DockerHub(object):
         try:
             resp = self._session.get(address, params=kwargs)
         except requests.exceptions.Timeout as e:
-            raise TimeoutError('Connection Timeout. Download failed: {0}'.format(e))
+            raise DockerHubError('Connection Timeout. Download failed due to: {!r}'.format(e))
         except requests.exceptions.RequestException as e:
-            raise ConnectionError('Connection Error. Download failed: {0}'.format(e))
+            raise DockerHubError('Connection Error. Download failed due to: {!r}'.format(e))
         else:
             return resp
 

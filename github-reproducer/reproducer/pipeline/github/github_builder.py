@@ -89,8 +89,8 @@ class GitHubBuilder:
 
         # Create build script for GitHub job
         if 'steps' not in self.job.config or not isinstance(self.job.config['steps'], list):
-            GitHubBuilder.raise_error(
-                'Encountered an error while generating the build script: steps attribute is missing from config.', 1)
+            raise ReproduceError(
+                'Encountered an error while generating the build script: steps attribute is missing from config.')
 
         # Set job's shell and working directory based on job['defaults']['run']
         if 'defaults' in self.job.config and 'run' in self.job.config['defaults']:
@@ -258,11 +258,6 @@ class GitHubBuilder:
 
         # Update env context
         self.contexts.env.update_env(self.ENVS, self.job, parent_step, step, self.contexts)
-
-    @staticmethod
-    def raise_error(message, return_code):
-        if return_code:
-            raise ReproduceError(message)
 
     @staticmethod
     def get_env_str(github_envs, envs):

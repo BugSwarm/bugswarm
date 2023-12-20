@@ -3,7 +3,7 @@ JobReproducer is a JobDispatcher subclass responsible for reproducing jobs.
 """
 
 import time
-
+from collections import Counter, defaultdict
 from multiprocessing import Value
 
 from bugswarm.common import log
@@ -13,6 +13,7 @@ from termcolor import colored
 from job_dispatcher import JobDispatcher
 from reproducer.pipeline.gen_files_for_job import gen_files_for_job
 from reproducer.pipeline.copy_log import copy_log
+from reproducer.reproduce_exception import wrap_errors
 from reproducer.utils import Utils
 
 
@@ -71,8 +72,10 @@ class JobReproducer(JobDispatcher):
 
         try:
             gen_files_for_job(self, job, self.keep, self.dependency_solver)
-            self.docker.build_and_run(job)
-            copy_log(self, job)
+            with wrap_errors('Build/run container'):
+                self.docker.build_and_run(job)
+            with wrap_errors('Copy files to task dir'):
+                copy_log(self, job)
         finally:
             # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's
             # safe to remove the workspace job dir.
@@ -87,7 +90,12 @@ class JobReproducer(JobDispatcher):
         log.info('Done running job', job.job_name, 'after', elapsed, 'seconds.')
 
     def record_error_reason(self, item, message):
-        self.error_reasons[item.job_id] = message
+        self.error_reasons[item.job_id] = {
+            'category': type(message).__name__,
+            'category_long': message.CATEGORY,
+            'pipeline_stage': message.pipeline_stage,
+            'message': message.message
+        }
 
     def handle_failed_reproduce(self, job):
         if self.utils.check_if_travis_build_log_exist(job) and not self.utils.check_if_log_exist(job):
@@ -98,6 +106,9 @@ class JobReproducer(JobDispatcher):
         """
         Called when all jobs are done reproducing.
         """
+        self.update_local_files()
+        self._print_error_breakdown()
+
         elapsed = time.time() - self.start_time
         log.debug('total elapsed =', elapsed)
         # If jobs were reproduced during this run, print the average processing time.
@@ -108,3 +119,37 @@ class JobReproducer(JobDispatcher):
 
     def update_local_files(self):
         write_json(self.utils.get_error_reason_file_path(), Utils.deep_copy(self.error_reasons))
+
+    def _print_error_breakdown(self):
+        if not self.error_reasons:
+            log.info('No errors encountered.')
+            return
+
+        def print_table(counter: Counter):
+            total = sum(n for n in counter.values())
+            left_col_size = max(len('TOTAL'), *(len(key) for key in counter.keys()))
+            right_col_size = max(len(str(total)), *(len(str(n)) for n in counter.values()))
+
+            for key, count in counter.items():
+                log.info('  {key:<{keysize}}  {val:<{valsize}}'.format(
+                    key=key, val=count, keysize=left_col_size, valsize=right_col_size
+                ))
+            log.info('  {key:<{keysize}}  {val:<{valsize}}'.format(
+                key='TOTAL', val=total, keysize=left_col_size, valsize=right_col_size
+            ))
+            log.info('')
+
+        reason_counter = Counter()
+        per_stage_counter = defaultdict(Counter)
+        for err_reason in self.error_reasons.values():
+            category = err_reason['category_long']
+            reason_counter[category] += 1
+            per_stage_counter[err_reason['pipeline_stage']][category] += 1
+
+        log.info('ERROR BREAKDOWN')
+        print_table(reason_counter)
+
+        log.info('PER-STAGE BREAKDOWN')
+        for pipeline_stage, counter in per_stage_counter.items():
+            log.info(str(pipeline_stage))
+            print_table(counter)

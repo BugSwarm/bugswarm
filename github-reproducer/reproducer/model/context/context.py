@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any, Tuple
 
+from reproducer.reproduce_exception import ContextError
+
 from bugswarm.common import log
 
 
@@ -35,7 +37,7 @@ class Context(ABC):
         except KeyError as e:
             log.warning('Path "{}" not present in context'.format(path))
             if err_if_not_present:
-                raise e
+                raise ContextError(e.args) from e
             return '', False
 
         if make_string:

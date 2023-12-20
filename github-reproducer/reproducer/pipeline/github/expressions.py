@@ -6,7 +6,7 @@ import pyparsing as pp
 
 
 from bugswarm.common import log
-from reproducer.reproduce_exception import ReproduceError
+from reproducer.reproduce_exception import ExpressionParseError
 
 
 class Token:
@@ -47,7 +47,7 @@ class Token:
         elif self.kind == 'par':
             prefix = 'p'
         else:
-            raise Exception('Unsupported token type "{}"'.format(self.kind))
+            raise ValueError('Unsupported token type "{}"'.format(self.kind))
 
         val, dyn = self.stringify(root_context)
         if not dyn:
@@ -62,7 +62,7 @@ def parse_expression(expression_string: str, job_id, root_context, quote_result=
     try:
         parsed = EXPRESSION_GRAMMAR.parse_string(expression_string, True).as_list()
     except pp.ParseException as e:
-        raise ReproduceError('Could not parse expression: {}'.format(expression_string)) from e
+        raise ExpressionParseError('Could not parse expression: {}'.format(expression_string)) from e
     flattened = _flatten_token_list(parsed)
 
     if len(flattened) == 1 and flattened[0].kind in ['string', 'number', 'literal', 'context']:

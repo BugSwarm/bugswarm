@@ -109,8 +109,12 @@ class ImagePackager(JobDispatcher):
         self.jobpairs_packaged.value += 1
 
     def record_error_reason(self, item, message):
-        log.error('Encountered an error while creating an image and pushing it to Docker Hub:', message)
-        self.error_reasons[item.full_name] = message
+        self.error_reasons[item.full_name] = {
+            'category': type(message).__name__,
+            'category_long': message.CATEGORY,
+            'pipeline_stage': message.pipeline_stage,
+            'message': repr(message)
+        }
 
     def update_local_files(self):
         write_json(self.utils.get_error_reason_file_path(), Utils.deep_copy(self.error_reasons))
