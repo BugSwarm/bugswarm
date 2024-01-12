@@ -100,18 +100,23 @@ class GitHubWrapper(object):
                 if response is not None and response.status_code == 403:
                     result = response.json()
                     # Check whether GitHub's abuse detection mechanism was triggered.
-                    if 'message' in result:
-                        if 'abuse detection mechanism' in result['message']:
-                            log.warning('Triggered the GitHub abuse detection mechanism. Sleeping for 1 minute.')
-                            time.sleep(60)
-                        if 'Not Found' == result['message']:
-                            return response, None
+                    if 'Retry-After' in response.headers:
+                        retry_after = int(response.headers['Retry-After'])
+                        log.warning(
+                            "Triggered GitHub's secondary rate limit. Sleeping for {} seconds.".format(retry_after))
+                        time.sleep(retry_after)
+                    else:
+                        quota_exceeded, sleep_duration = self._exceeded_api_quota()
+                        if quota_exceeded:
+                            # Pick another token.
+                            self._create_session()
+                        else:
+                            log.error('GitHub API quota not exceeded, but 403 error encountered.')
+                            log.error('Headers: {}'.format(response.headers))
+                            log.error('Result: {}'.format(result))
 
-                    quota_exceeded, sleep_duration = self._exceeded_api_quota()
-                    if quota_exceeded:
-                        # Pick another token.
-                        self._create_session()
                 time.sleep(retry_back_off)
+                retry_back_off *= 2
                 retry_count += 1
 
     def get_all_pages(self, url: str):

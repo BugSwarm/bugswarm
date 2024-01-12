@@ -1,5 +1,6 @@
 import argparse
 import os
+import random
 import sys
 import traceback
 import threading
@@ -156,6 +157,10 @@ def thread_main(repo, task_name, args):
         log.info('Output file for', repo, 'already exists. Skipping.')
         return
 
+    # Shuffle the GitHub tokens so we don't hit the secondary rate limit as often
+    # (Too many concurrent requests on the same token can trigger the secondary rate limit)
+    gh_tokens = random.sample(GITHUB_TOKENS, len(GITHUB_TOKENS))
+
     pipeline = Pipeline(
         [
             Preflight(),
@@ -172,7 +177,7 @@ def thread_main(repo, task_name, args):
     in_context = {
         'repo': repo,
         'keep_clone': args['keep_clone'],
-        'github_api': GitHubWrapper(GITHUB_TOKENS),
+        'github_api': GitHubWrapper(gh_tokens),
         'mined_project_builder': MinedProjectBuilder(),
         'original_mined_project_metrics': MinedProjectBuilder.query_current_metrics(repo, ci_service),
         'utils': None,
