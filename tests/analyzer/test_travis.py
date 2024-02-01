@@ -2329,6 +2329,27 @@ class TravisAnalyzerTests(unittest.TestCase):
             r_path, o_path, job_id, 'travis', trigger_sha=trigger_sha, repo=repo)
         self.compare_rc_match(rc3, True)
 
+    def test_result_comparer_4(self):
+        job_id = 319848591
+        o_path = join(self.result_comparer, '{}-orig.log'.format(job_id))
+        r_path = join(self.result_comparer, '{}-repr.log'.format(job_id))
+        rc4 = self.analyzer.compare_single_log(r_path, o_path, job_id, 'travis', build_system='NA')
+        self.compare_rc_match(rc4, True)
+
+    def test_result_comparer_5(self):
+        job_id = 1
+        o_path = join(self.result_comparer, 'nose-orig.log')
+        r_path = join(self.result_comparer, 'nose-repr-1.log')
+        rc5 = self.analyzer.compare_single_log(r_path, o_path, job_id, 'travis', build_system='NA')
+        self.compare_rc_match(rc5, True)
+
+    def test_result_comparer_6(self):
+        job_id = 1
+        o_path = join(self.result_comparer, 'nose-orig.log')
+        r_path = join(self.result_comparer, 'nose-repr-2.log')
+        rc6 = self.analyzer.compare_single_log(r_path, o_path, job_id, 'travis', build_system='NA')
+        self.compare_rc_match(rc6, True)
+
 
 if __name__ == '__main__':
     unittest.main()
