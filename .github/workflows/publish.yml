@@ -15,6 +15,9 @@ jobs:
         artifact-name:
           - bugswarm-common-build
           - bugswarm-client-build
+    permissions:
+      # Permission to publish with a Trusted Publisher: https://docs.pypi.org/trusted-publishers/using-a-publisher/#the-easy-way
+      id-token: write
 
     steps:
       # Because actions/download-artifact can only download artifacts from the same workflow run,
@@ -55,15 +58,8 @@ jobs:
         if: github.repository == 'BugSwarm/bugswarm-dev' && steps.get-download-url.outcome == 'success'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: bugswarm
-          password: ${{ secrets.PYPI_TEST_PASSWD }}
           repository_url:  https://test.pypi.org/legacy/
 
       - name: Upload to PyPI
         if: github.repository == 'BugSwarm/bugswarm' && steps.get-download-url.outcome == 'success'
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: bugswarm
-          password: ${{ secrets.PYPI_LIVE_PASSWD }}
-
-
