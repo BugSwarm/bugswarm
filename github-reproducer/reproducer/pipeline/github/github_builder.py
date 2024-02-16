@@ -6,10 +6,12 @@ import yaml
 from bugswarm.common import log
 from bugswarm.common.credentials import GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
+
 from reproducer.model.context.root_context import RootContext
 from reproducer.model.job import Job
 from reproducer.reproduce_exception import ReproduceError
 from reproducer.utils import Utils
+
 from .job_image_utils import JobImageUtils
 from . import expressions
 
@@ -197,15 +199,16 @@ class GitHubBuilder:
 
     def init_contexts(self):
         # Init github_context
-        self.contexts.github.actor = self.ACTOR.get('login', '')
-        self.contexts.github.ref = self.GITHUB_REF
-        self.contexts.github.triggering_actor = self.TRIGGERING_ACTOR.get('login', '')
-        self.contexts.github.workflow = self.WORKFLOW_NAME  # Workflow name = workflow path if we don't give it a name.
-        self.contexts.github.head_ref = self.GITHUB_HEAD_REF
-        self.contexts.github.base_ref = self.GITHUB_BASE_REF
-        self.contexts.github.ref_name = self.GITHUB_REF_NAME
-        self.contexts.github.event_name = 'pull_request' if self.is_pr else 'push'
-        self.contexts.github.event = self.event_builder.event
+        self.contexts.github.set('actor', self.ACTOR.get('login', ''))
+        self.contexts.github.set('ref', self.GITHUB_REF)
+        self.contexts.github.set('triggering_actor', self.TRIGGERING_ACTOR.get('login', ''))
+        # Workflow name = workflow path if we don't give it a name.
+        self.contexts.github.set('workflow', self.WORKFLOW_NAME)
+        self.contexts.github.set('head_ref', self.GITHUB_HEAD_REF)
+        self.contexts.github.set('base_ref', self.GITHUB_BASE_REF)
+        self.contexts.github.set('ref_name', self.GITHUB_REF_NAME)
+        self.contexts.github.set('event_name', 'pull_request' if self.is_pr else 'push')
+        self.contexts.github.set('event', self.event_builder.event)
 
     def update_contexts(self, step_number, step, parent_step=None, update_composite=True, reset_input=True):
         # We set update_composite to False when we call update_contexts in composite action parser.

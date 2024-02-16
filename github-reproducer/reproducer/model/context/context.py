@@ -7,6 +7,8 @@ from bugswarm.common import log
 
 
 class Context(ABC):
+    def __init__(self):
+        self.case_sensitive = False
 
     @abstractmethod
     def as_dict(self) -> dict:
@@ -26,6 +28,9 @@ class Context(ABC):
 
         try:
             for i, key in enumerate(parts):
+                if not self.case_sensitive:
+                    key = key.lower()
+
                 if isinstance(result, dict):
                     result = result[key]
                 elif isinstance(result, Context):

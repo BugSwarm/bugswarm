@@ -10,4 +10,4 @@ class JobContext(Context):
         return {'status': self.status}
 
     def is_dynamic(self, key) -> bool:
-        return key == 'status'
+        return key.lower() == 'status'

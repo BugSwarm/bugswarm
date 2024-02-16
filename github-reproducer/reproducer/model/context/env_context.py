@@ -13,6 +13,7 @@ class EnvContext(Context):
         self.env = {}  # Environment variables that get overrided by $GITHUB_ENV.
         self.step_env = {}  # Environment variables that override $GITHUB_ENV.
         self.updating = False
+        self.case_sensitive = True  # ${{ env.* }} is the only context that's case sensitive.
 
     def update_env(self, workflow_env, job, parent_step, step, root_context):
         # Parent step: the step that triggered the composite action, None for non-composite action.

@@ -7,6 +7,7 @@ import pyparsing as pp
 
 from bugswarm.common import log
 from reproducer.reproduce_exception import ExpressionParseError
+from reproducer.model.context.context import Context
 
 
 class Token:
@@ -114,6 +115,8 @@ def to_str(val) -> str:
         return ''
     if isinstance(val, str):
         return val
+    if isinstance(val, Context):
+        return json.dumps(val.as_dict())
     return json.dumps(val)
 
 

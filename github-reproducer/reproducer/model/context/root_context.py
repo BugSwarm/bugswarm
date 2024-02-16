@@ -7,6 +7,7 @@ from .runner_context import RunnerContext
 from .steps_context import StepsContext
 from .strategy_context import StrategyContext
 from .inputs_context import InputsContext
+from .matrix_context import MatrixContext
 
 
 class RootContext(Context):
@@ -19,7 +20,16 @@ class RootContext(Context):
         self.runner = RunnerContext()
         self.strategy = StrategyContext(job)
         self.inputs = InputsContext()
-        self.matrix = job.config.get('strategy', {}).get('matrix', {})
+        self.matrix = MatrixContext(job)
 
     def as_dict(self):
-        return vars(self)
+        return {
+            'github': self.github,
+            'env': self.env,
+            'job': self.job,
+            'steps': self.steps,
+            'runner': self.runner,
+            'strategy': self.strategy,
+            'inputs': self.inputs,
+            'matrix': self.matrix,
+        }
