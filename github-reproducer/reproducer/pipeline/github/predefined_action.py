@@ -167,7 +167,7 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
 
         env_str = process_input_env(github_builder, action_repo, step, action_file, env_str)
 
-        if runs_using == 'node12' or runs_using == 'node16':
+        if runs_using in ['node12', 'node16', 'node20']:
             # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions
             runs_main = action_file['runs']['main']
             runs_pre = action_file['runs'].get('pre', None)
