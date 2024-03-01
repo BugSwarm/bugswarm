@@ -63,7 +63,7 @@ class JobPairSelector(object):
         (archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only,
          classified_code_only, classified_test_only, classified_exception_only, build_system, os_version,
          different_base_image, ci_service, valid_failed_step_only, custom_failed_step_only, within_time_range,
-         failed_compile_step_only, has_target_language, within_max_runtime, non_docker
+         failed_compile_step_only, has_target_language, within_max_runtime, non_docker, within_diff_size
          ) = JobPairSelector._bin_jobpairs(repo, buildpairs, opts)
 
         if opts.include_archived:
@@ -121,12 +121,10 @@ class JobPairSelector(object):
             final = final.intersection(within_max_runtime)
         if opts.restrict_non_docker:
             final = final.intersection(non_docker)
+        if opts.restrict_diff_size:
+            final = final.intersection(within_diff_size)
         # Always remove filtered job pairs.
         final = final.difference(filtered)
-
-        if opts.restrict_diff_size:
-            diff_min, diff_max = map(int, opts.restrict_diff_size.split('~'))
-            final = JobPairSelector._filter_diff_size(final, diff_min, diff_max)
 
         jobpairs = [JobPairSelector._str2jp(jp) for jp in final]
         return jobpairs
@@ -167,6 +165,7 @@ class JobPairSelector(object):
         has_target_language = set()
         within_max_runtime = set()
         non_docker = set()
+        within_diff_size = set()
 
         start_time = end_time = None
         if opts.restrict_os_version == '12.04':
@@ -307,7 +306,7 @@ class JobPairSelector(object):
                         contains_docker = True
 
                     regex = r'^[^#]*docker\s+(build|exec|image|login|pull|push|rmi|run|start|compose|buildx|tag)\s+'
-                    for step in failed_config['steps']:
+                    for step in failed_config.get('steps', []):
                         if 'run' in step:
                             if re.search(regex, step['run']):
                                 contains_docker = True
@@ -315,10 +314,16 @@ class JobPairSelector(object):
                     if not contains_docker:
                         non_docker.add(s)
 
+                if opts.restrict_diff_size:
+                    min_size, max_size = map(int, opts.restrict_diff_size.split('~'))
+                    num_changed_lines = jp.get('metrics', {}).get('changes')
+                    if num_changed_lines is not None and min_size <= num_changed_lines <= max_size:
+                        within_diff_size.add(s)
+
         return (archived_only, resettable, attempted, filtered, test_failures_only, classified_build_only,
                 classified_code_only, classified_test_only, classified_exception_only, build_system, os_version,
                 different_base_image, ci_service, valid_failed_step_only, custom_failed_step_only, within_time_range,
-                failed_compile_step_only, has_target_language, within_max_runtime, non_docker)
+                failed_compile_step_only, has_target_language, within_max_runtime, non_docker, within_diff_size)
 
     @staticmethod
     def _jp2str(jp) -> str:
