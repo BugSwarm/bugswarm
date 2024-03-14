@@ -10,13 +10,14 @@ Later in the pipeline for Reproducer, `generate_pair_input.py` can be used to se
 ```
 $ Usage: python3 pair-classifier.py (-r <repo-slug> | --repo-file <repo-file>) [OPTION]
 
-    -r, --repo          Repo slug. Cannot be used with --repo-file.
-    --repo-file         Path to file containing a newline-separated list of repo slugs. Cannot be used with --repo.
+    -r, --repo <repo>      Repo slug. Cannot be used with --repo-file.
+    -f, --repo-file <file> Path to file containing a newline-separated list of repo slugs. Cannot be used with --repo.
 
     OPTION:
-        --log-path      Path to the directory where original logs were stored. If not provided, classifier
-                        will try to download the logs.
-        --pipeline      Flag set to true for when script is ran with run_mine_project.sh for processing.
+        --log-path <dir>   Path to the directory where original logs were stored. If not provided, classifier
+                           will try to download the logs.
+        --pipeline         Flag set to true for when script is ran with run_mine_project.sh for processing.
+        --workers <int>    Number of processes to run pair-classifier with.
 ```
 _Example:_
 ```

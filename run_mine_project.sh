@@ -80,9 +80,10 @@ fi
 # The task name is the repo slug after replacing slashes with hypens.
 if [ ${repo} ]; then
     task_name="$(echo ${repo} | tr / -)"
+else
+    task_name="$(echo $(basename ${file_path}) | cut -f 1 -d '.')"
 fi
 
-json_name=${task_name}.json
 pair_finder_dir="${component_directory}/${ci_service}-pair-finder"
 pair_filter_dir="${component_directory}"/pair-filter
 pair_classifier_dir="${component_directory}"/pair-classifier
@@ -109,28 +110,23 @@ print_step "${STAGE}" ${TOTAL_STEPS} 'PairFilter'
 cd ${pair_filter_dir}
 
 if ${repo_flag}; then
-    python3 pair-filter.py "${repo}" "${ci_service}" "${pair_finder_dir}/output/${task_name}"
-    exit_if_failed 'PairFilter encountered an error.'
+    python3 pair-filter.py -r "${repo}" --ci "${ci_service}" -d "${pair_finder_dir}/output/${task_name}"
 else
-    task_name="$(echo $(basename ${file_path}) | cut -f 1 -d '.')"
-    while read repo; do
-        python3 pair-filter.py "${repo}" "${ci_service}" "${pair_finder_dir}/output/${task_name}"
-        exit_if_failed 'PairFilter encountered an error.'
-    done <${file_path}
+    python3 pair-filter.py -f "${file_path}" --ci "${ci_service}" -d "${pair_finder_dir}/output/${task_name}" -w "${threads}"
 fi
+
+exit_if_failed 'PairFilter encountered an error.'
 
 # PairClassifier
 print_step "${STAGE}" ${TOTAL_STEPS} 'Classifier'
 cd ${pair_classifier_dir}
 
 if ${repo_flag}; then
-    python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs --pipeline true
-    exit_if_failed 'PairClassifier encountered an error.'
+    python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs --pipeline
 else
-    while read repo; do
-        python3 pair-classifier.py --repo ${repo} --log-path ${pair_filter_dir}/original-logs --pipeline true
-        exit_if_failed 'PairClassifier encountered an error.'
-    done <${file_path}
+    python3 pair-classifier.py --repo-file "${file_path}" --log-path "${pair_filter_dir}/original-logs" --workers "${threads}" --pipeline
 fi
+
+exit_if_failed 'PairClassifier encountered an error.'
 
 print_stage_done "${STAGE}"

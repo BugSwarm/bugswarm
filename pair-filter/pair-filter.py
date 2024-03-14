@@ -2,6 +2,9 @@ import json
 import logging
 import os
 import sys
+import threading
+from argparse import ArgumentParser
+from concurrent.futures import ProcessPoolExecutor, wait
 from copy import deepcopy
 from os import path
 from typing import List
@@ -60,7 +63,7 @@ class PairFilter(object):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
         if not bugswarmapi.bulk_insert_mined_build_pairs(buildpairs):
             log.error('Could not bulk insert mined build pairs for {}. Exiting.'.format(repo))
-            sys.exit(1)
+            raise RuntimeError
 
     @staticmethod
     def _save_to_file(repo: str, output_dir: str, output_pairs: list):
@@ -131,17 +134,17 @@ class PairFilter(object):
                 pass
             if not bugswarmapi.set_mined_project_progression_metric(repo, ci_service, metric_name, metric_value):
                 log.error('Encountered an error while setting a progression metric. Exiting.')
-                sys.exit(1)
+                raise RuntimeError
 
     @staticmethod
     def run(repo: str, ci_service: str, dir_of_jsons: str):
-        utils.create_dirs()
+        threading.current_thread().name = '[{}]'.format(repo)
 
         try:
             buildpairs = utils.load_buildpairs(dir_of_jsons, repo)
         except json.decoder.JSONDecodeError:
             log.error('At least one JSON file in {} contains invalid JSON. Exiting.'.format(dir_of_jsons))
-            sys.exit(1)
+            raise RuntimeError
 
         if not buildpairs:
             return None
@@ -179,44 +182,60 @@ class PairFilter(object):
         log.info('Done! After filtering,', utils.count_unfiltered_jobpairs(buildpairs), 'jobpairs remain.')
 
 
-def _print_usage():
-    log.info('Usage: python3 pair-filter.py <repo> <ci_service> <dir_of_jsons>')
-    log.info('repo:         The GitHub slug for the project whose pairs are being filtered.')
-    log.info('ci_service:   The CI service used by the mined project. One of "github" or "travis".')
-    log.info('dir_of_jsons: Input directory containing JSON files of pairs. This directory is often be within the '
-             'PairFinder output directory.')
+def _validate_input(argv=None):
+    p = ArgumentParser()
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument('-r', '--repo', help='The GitHub slug for the project whose pairs are being filtered.')
+    g.add_argument('-f', '--repo-file', help='A file containing a list of GitHub repo slugs to filter.')
 
+    p.add_argument('-d', '--json-dir', required=True,
+                   help='Input directory containing the JSON files for build pairs. Often within the PairFinder output '
+                   'directory.')
+    p.add_argument('-c', '--ci', choices=['travis', 'github'], required=True,
+                   help='The CI service used by the mined project.')
+    p.add_argument('-w', '--workers', type=int, default=1,
+                   help='The number of worker processes to spawn. Defaults to 1 process.')
 
-def _validate_input(argv):
-    if len(argv) != 4:
-        _print_usage()
-        sys.exit(1)
-    repo = argv[1]
-    ci_service = argv[2]
-    if ci_service not in ['github', 'travis']:
-        log.error('The ci_service argument must be one of "github" or "travis". Exiting.')
-        _print_usage()
-        sys.exit(1)
-    dir_of_jsons = argv[3]
-    if not os.path.isdir(dir_of_jsons):
-        log.error('The dir_of_jsons argument is not a directory or does not exist. Exiting.')
-        _print_usage()
-        sys.exit(1)
-    return repo, ci_service, dir_of_jsons
+    args = p.parse_args(argv[1:] if argv else None)
+
+    if args.workers <= 0:
+        p.error('-w/--workers must be at least 1.')
+    if args.repo_file is not None and not os.path.isfile(args.repo_file):
+        p.error('-f/--repo-file "{}" is not a file or does not exist.'.format(args.repo_file))
+    if not os.path.isdir(args.json_dir):
+        p.error('-d/--json-dir "{}" is not a directory or does not exist.'.format(args.json_dir))
+
+    return args
 
 
 def main(argv=None):
     argv = argv or sys.argv
 
     # Configure logging.
-    log.config_logging(getattr(logging, 'INFO', None))
+    log.config_logging(getattr(logging, 'INFO', None), show_thread_name=True)
+    threading.current_thread().name = '[main]'
+
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('PairFilter'))
     if not path.exists(DOCKERHUB_IMAGES_JSON):
         log.info('File dockerhub_image.json not found. Please run gen_image_list.py')
 
-    repo, ci_service, dir_of_jsons = _validate_input(argv)
-    PairFilter.run(repo, ci_service, dir_of_jsons)
+    args = _validate_input(argv)
+    if args.repo_file:
+        with open(args.repo_file) as f:
+            repos = f.read().splitlines()
+    else:
+        repos = [args.repo]
+
+    utils.create_dirs()
+    with ProcessPoolExecutor(max_workers=args.workers) as excecutor:
+        futures = [excecutor.submit(PairFilter.run, repo, args.ci, args.json_dir) for repo in repos]
+        wait(futures)
+
+        errored_futures = [future for future in futures if future.exception()]
+        if errored_futures:
+            log.error('{} repo(s) encountered an error. Check the logs for details.'.format(len(errored_futures)))
+            return 1
 
 
 if __name__ == '__main__':

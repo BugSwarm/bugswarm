@@ -9,16 +9,21 @@ Later in the pipeline, `pair-classifier` and `reproducer` will handle skipping t
 
 ## Usage
 ```
-$ python3 pair-filter.py <repo> <ci_service> <dir_of_jsons>
+$ pair-filter.py (-r REPO | -f REPO_FILE) -d JSON_DIR -c {travis,github} [-t THREADS]
 
-    <repo>          The GitHub slug for the project whose pairs are being filtered. Used when updating the mined projects collection in the database.
-    <ci_service>    The CI service used by the mined project. One of "github" or "travis".
-    <dir_of_jsons>  Input directory containing JSON files of pairs. This directory could be within the
-                    PairFinder output directory.
+  -r REPO, --repo REPO  The GitHub slug for the project whose pairs are being filtered.
+  -f REPO_FILE, --repo-file REPO_FILE
+                        A file containing a list of GitHub repo slugs to filter.
+  -d JSON_DIR, --json-dir JSON_DIR
+                        Input directory containing the JSON files for build pairs. Often within the PairFinder output directory.
+  -c {travis,github}, --ci {travis,github}
+                        The CI service used by the mined project.
+  -w WORKERS, --workers WORKERS
+                        The number of worker processes to spawn. Defaults to 1 process.
 ```
 _Example:_
 ```
-$ python3 pair-filter.py Flipkart/foxtrot travis ~/bugswarm/pair-finder/output/
+$ python3 pair-filter.py -r Flipkart/foxtrot --ci travis -d ~/bugswarm/pair-finder/output/
 ```
 
 ## Filters

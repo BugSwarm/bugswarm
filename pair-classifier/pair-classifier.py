@@ -4,7 +4,8 @@ import logging
 import os
 import os.path
 import sys
-
+import threading
+from concurrent.futures import ProcessPoolExecutor, wait
 from typing import List
 
 from bugswarm.common import log
@@ -47,7 +48,7 @@ class PairClassifier(object):
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
         if not bugswarmapi.replace_mined_build_pairs_for_repo(repo, buildpairs):
             log.error('Could not replace filtered build pairs for {}. Exiting.'.format(repo))
-            sys.exit(1)
+            raise RuntimeError
 
     @staticmethod
     def _save_output(repo: str, output_pairs: list):
@@ -85,6 +86,8 @@ class PairClassifier(object):
 
     @staticmethod
     def run(repo: str, dir_of_jsons: str, args: dict):
+        threading.current_thread().name = '[{}]'.format(repo)
+
         task_name = repo.replace('/', '-')
         analyzer = Analyzer()
         bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
@@ -93,7 +96,7 @@ class PairClassifier(object):
             buildpairs = PairClassifier.load_buildpairs(dir_of_jsons, '{}.json'.format(task_name))
         except json.decoder.JSONDecodeError:
             log.error('{} contains invalid JSON. Exiting.'.format(dir_of_jsons))
-            sys.exit(1)
+            raise RuntimeError
 
         for bp in buildpairs:
             bp_id = bp['_id']
@@ -201,18 +204,6 @@ class PairClassifier(object):
         log.info('Finished')
 
 
-def _print_usage():
-    log.info('Usage: python3 pair_classifier.py (-r <repo-slug> | --file <repo-file>) '
-             '[--log-path <origin_log_dir>] [--pipeline true]')
-    log.info('repo:         The GitHub slug for the project whose pairs were filtered.')
-    log.info('file:    file contains newline-separated list of repo.')
-    log.info('dir-of-jsons: Input directory containing JSON files of filtered pairs. '
-             'Often be the PairFilter output directory. If not provided, will generate from DB')
-    log.info('log-path: Input directory containing original logs of filtered job pairs. This directory is '
-             'often be within the PairFilter directory. If not provide will download the log')
-    log.info('pipeline: Flag set to true for when script is ran with run_mine_project.sh for processing.')
-
-
 def generate_build_pair_json(repo, orig_file=None):
     log.info('Getting build_pair from Database')
     dir_of_jsons = 'input/'
@@ -236,54 +227,52 @@ def _build_pair_id_tuple(bp):
     return (bp['failed_build']['build_id'], bp['passed_build']['build_id'])
 
 
-def _validate_input(args):
-    repo = args.get('repo')
-    origin_log = args.get('log-path')
-    repo_file = args.get('file')
-    pipeline = args.get('pipeline')
-    if repo and repo_file:
-        log.error('The repo-slug and repo-file is mutual exclusive. Exiting.')
-        _print_usage()
-        sys.exit(1)
+def _validate_input():
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-r', '--repo', help='The repo slug of the repo to classify.')
+    group.add_argument('-f', '--file', '--repo-file', help='A file containing a list of repo slugs.')
+    parser.add_argument('--log-path', help='Directory containing original job logs.')
+    parser.add_argument('-p', '--pipeline', action='store_true', help='Run in pipeline mode.')
+    parser.add_argument('-w', '--workers', default=1, type=int, help='Number of worker processes to spawn.')
 
-    if not repo and not repo_file:
-        log.error('The repo-slug or repo-file is not provided. Exiting.')
-        _print_usage()
-        sys.exit(1)
+    args = parser.parse_args()
 
     repo_list = list()
 
-    if repo:
-        repo_list.append(repo)
-
-    if repo_file:
-        with open(repo_file) as file:
+    if args.repo is not None:
+        repo_list.append(args.repo)
+    else:
+        with open(args.file) as file:
             for line in file:
                 repo_list.append(line.rstrip())
 
-    if origin_log is not None and not os.path.isdir(origin_log):
-        log.error('The log-path argument is not a directory or does not exist. Exiting.')
-        _print_usage()
-        sys.exit(1)
-    return repo_list, pipeline
+    if args.log_path is not None and not os.path.isdir(args.log_path):
+        parser.error('--log-path "{}" is not a directory or does not exist.'.format(args.log_path))
+
+    if args.workers <= 0:
+        parser.error('--workers must be at least 1.')
+
+    return repo_list, args
 
 
-def main(args=dict()):
-    log.config_logging(getattr(logging, 'INFO', None))
+def main():
+    log.config_logging(getattr(logging, 'INFO', None), show_thread_name=True)
+    threading.current_thread().name = '[main]'
 
     # Log the current version of this BugSwarm component.
     log.info(get_current_component_version_message('Classifier'))
 
-    repo_list, pipeline = _validate_input(args)
+    repo_list, args = _validate_input()
     filter_output_dir = os.path.join(os.path.dirname(__file__), '../pair-filter/output-json/')
 
-    if pipeline and not os.path.exists(filter_output_dir):
+    if args.pipeline and not os.path.exists(filter_output_dir):
         log.error('pipeline == true, but output_file_path ({}) does not exist. '
                   'Exiting PairClassifier.'.format(filter_output_dir))
         return
 
     for repo in repo_list:
-        if pipeline:
+        if args.pipeline:
             task_name = repo.replace('/', '-')
             json_path = os.path.join(filter_output_dir, task_name + '.json')
             if not os.path.exists(json_path):
@@ -294,14 +283,16 @@ def main(args=dict()):
         else:
             # Get the input json from the DB.
             dir_of_jsons = generate_build_pair_json(repo)
-        PairClassifier.run(repo, dir_of_jsons, args)
+
+    with ProcessPoolExecutor(max_workers=args.workers) as executor:
+        futures = [executor.submit(PairClassifier.run, repo, dir_of_jsons, vars(args)) for repo in repo_list]
+        wait(futures)
+
+        errored_futures = [future for future in futures if future.exception()]
+        if errored_futures:
+            log.error('{} repo(s) encountered an error. Check the logs for details.'.format(len(errored_futures)))
+            return 1
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--repo', default=None, help='Specify repo-slug')
-    parser.add_argument('--file', default=None, help='repo-slug file')
-    parser.add_argument('--log-path', default=None, help='original logs directory')
-    parser.add_argument('-p', '--pipeline', default=None, help='pipeline run through')
-    args = parser.parse_args()
-    sys.exit(main(vars(args)))
+    sys.exit(main())
