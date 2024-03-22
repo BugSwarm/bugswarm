@@ -127,10 +127,12 @@ class DockerWrapper(object):
     def spawn_container(self, image, container_name, reproduced_log_destination):
         container_runtime = 0
         try:
-            # TODO: Find out why we use CPU_COUNT = 2?
-            # TODO: Find a good memory limit
             # TTY: https://github.com/actions/runner/issues/241
-            container = self.client.containers.run(image, detach=True, cpu_count=2, mem_limit='32g',
+            nano_cpu_share = int(self.utils.config.container_cpu_share * 1e9)
+            container = self.client.containers.run(image,
+                                                   detach=True,
+                                                   nano_cpus=nano_cpu_share,
+                                                   mem_limit=self.utils.config.container_mem_limit,
                                                    tty=False)  # privileged=True
         except docker.errors.ImageNotFound:
             log.error('Docker image not found.')

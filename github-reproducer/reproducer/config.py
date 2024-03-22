@@ -28,6 +28,8 @@ class Config(object):
         self.docker_registry_user = DOCKER_REGISTRY_USERNAME
         self.docker_registry_pass = DOCKER_REGISTRY_PASSWORD
         self.docker_registry_repo = DOCKER_REGISTRY_REPO
+        self.container_cpu_share = 4  # Equivalent to the '--cpus' flag in 'docker run'. 0 for no limit.
+        self.container_mem_limit = '16g'
         self.tar_repo_sh = 'reproducer/pipeline/tar_repo.sh'
         self.copy_and_reset_sh = 'reproducer/pipeline/copy_and_reset.sh'
         self.travis_build_sh = 'reproducer/pipeline/travis_build.sh'
