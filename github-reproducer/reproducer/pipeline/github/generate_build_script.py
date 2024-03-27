@@ -56,6 +56,7 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             'echo -n > /home/github/workflow/envs.txt',
             'echo -n > /home/github/workflow/paths.txt',
             'echo -n > /home/github/workflow/output.txt',
+            'echo -n > /home/github/workflow/state.txt',
             '',
             'CURRENT_ENV=()',
             'LAST_JOB_NAME=UNKNOWN',

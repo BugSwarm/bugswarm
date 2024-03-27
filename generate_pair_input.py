@@ -16,7 +16,7 @@ from bugswarm.common import utils as bugswarmutils
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN, GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
 from bugswarm.common.rest_api.database_api import DatabaseAPI
-from bugswarm.common.unsupported_actions import SPECIAL_ACTIONS, UNSUPPORTED_ACTIONS
+from bugswarm.common.unsupported_actions import SKIPPED_ACTIONS, SPECIAL_ACTIONS, UNSUPPORTED_ACTIONS
 from bugswarm.common.utils import get_diff_stats
 
 
@@ -269,7 +269,7 @@ class JobPairSelector(object):
                         if failed_os == opts.restrict_os_version:
                             os_version.add(s)
 
-                invalids = UNSUPPORTED_ACTIONS | SPECIAL_ACTIONS
+                invalids = SKIPPED_ACTIONS | SPECIAL_ACTIONS
                 # If the failed step is NOT within the UNSUPPORTED_ACTIONS & SPECIAL_ACTIONS set, marks it as valid.
                 try:
                     if jp['failed_step_kind'] != 'uses' or not [s in jp['failed_step_command'] for s in invalids]:
@@ -310,7 +310,11 @@ class JobPairSelector(object):
                         if 'run' in step:
                             if re.search(regex, step['run']):
                                 contains_docker = True
-                                break
+
+                        # TODO: Add a new filter to specifically allow unsupported actions, instead of
+                        # wrapping it in --allow-failed-step?
+                        elif 'uses' in step and any(s in step['uses'] for s in UNSUPPORTED_ACTIONS):
+                            valid_failed_step_only.remove(s)
                     if not contains_docker:
                         non_docker.add(s)
 

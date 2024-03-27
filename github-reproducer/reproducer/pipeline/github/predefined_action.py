@@ -7,6 +7,7 @@ import importlib.resources
 import git
 import yaml
 from bugswarm.common import log
+from bugswarm.common.unsupported_actions import SKIPPED_ACTIONS, SPECIAL_ACTIONS
 from reproducer.model.step import Step
 from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError, UnsupportedWorkflowError, InvalidPredefinedActionError
@@ -14,11 +15,6 @@ import reproducer.resources as resources
 
 from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
-
-IGNORE_ACTIONS = {'codecov/codecov-action', 'actions/upload-artifact', 'actions/download-artifact',
-                  'actions/cache', 'gradle/wrapper-validation-action', 'styfle/cancel-workflow-action',
-                  'github/codeql-action/init', 'peaceiris/actions-gh-pages', 's0/git-publish-subdir-action'}
-SPECIAL_ACTIONS = {'actions/checkout'}
 
 
 def get_action_data(github_builder: GitHubBuilder, step):
@@ -100,9 +96,6 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
         log.error("The 'uses' attribute has invalid value: {}".format(name))
         raise UnsupportedWorkflowError('Workflow file contains unsupported action in step {}'.format(step_number))
 
-    if action_repo_path.lower() in IGNORE_ACTIONS:
-        return
-
     if action_repo_path == 'actions/checkout' and github_builder.first_checkout:
         if 'with' in step and ('repository' in step['with'] or 'path' in step['with']):
             raise UnsupportedWorkflowError('First checkout action uses unsupported parameters repository/path')
@@ -111,12 +104,17 @@ def parse(github_builder: GitHubBuilder, step_number, step, envs):
         github_builder.first_checkout = False
         return
 
-    log.debug('Setting up build code for predefined_action {}(#{})'.format(name, step_number))
+    log.debug('Setting up build code for predefined_action {} (#{})'.format(name, step_number))
 
     action_repo, action_ref, action_path, action_path_abs, action_dir, action_name = get_action_data(github_builder,
                                                                                                      step)
     if action_repo is None:
         raise UnsupportedWorkflowError('Workflow file contains unsupported action in step {}'.format(step_number))
+
+    if action_repo.lower() in SKIPPED_ACTIONS:
+        log.warning('The action in step #{} ({}) is unsupported and will be skipped.'.format(step_number,
+                                                                                             action_repo_path))
+        return
 
     # Download action source code
     clone_action_repo_if_not_exists(github_builder, action_dir, action_repo, tag, action_name)
