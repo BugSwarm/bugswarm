@@ -111,7 +111,6 @@ def clone_project_repo_if_not_exists(utils, job):
             cw.add_section('user')
             cw.set('user', 'name', 'BugSwarm')
             cw.set('user', 'email', 'dev.bugswarm@gmail.com')
-        utils.fetch_pr_data(job)
 
     with tarfile.open(utils.get_project_storage_repo_tar_path(job), 'w') as tar:
         tar.add(utils.get_repo_storage_dir(job), arcname=job.repo)
@@ -144,8 +143,34 @@ def copy_and_reset_repo(job, utils):
 
     # git reset the workspace repository.
     repo = git.Repo(utils.get_reproducing_repo_dir(job))
-    # GitHub pipeline doesn't need to reset and merge PR jobs.
-    repo.git.reset('--hard', job.sha)
+
+    if job.is_pr:
+        # We're in a PR job pair; reset to the merge SHA
+        try:
+            # git fetch origin <merge-sha>
+            # git reset --hard <merge-sha>
+            log.info('Resetting to merge SHA {}'.format(job.travis_merge_sha))
+            repo.remote().fetch(job.travis_merge_sha)
+            repo.head.reset(job.travis_merge_sha, index=True, working_tree=True)
+        except git.GitCommandError:
+            # Fallback: reset to the  base SHA and merge the head SHA
+            # git fetch origin <head-sha>
+            # git fetch origin <base-sha>
+            # git reset --hard <base-sha>
+            # git merge <head-sha>
+            log.info('Cannot reset to merge SHA. Resetting to base {} and merging head {}'.format(
+                job.base_sha, job.sha))
+            repo.remote().fetch(job.sha)
+            repo.remote().fetch(job.base_sha)
+            repo.head.reset(job.base_sha, index=True, working_tree=True)
+            repo.git.merge(job.sha)
+    else:
+        # git fetch origin <head-sha>
+        # git reset --hard <head-sha>
+        log.info('Resetting to head SHA {}'.format(job.sha))
+        repo.remote().fetch(job.sha)
+        repo.head.reset(job.sha, index=True, working_tree=True)
+
     # Check out all the submodules.
     repo.git.submodule('update', '--init')
 
@@ -170,7 +195,10 @@ def download_repo(job, utils):
         try:
             # Download the repository.
             if not os.path.exists(repo_zip_path):
-                src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
+                if job.is_pr:
+                    src = utils.construct_github_archive_repo_sha_url(job.repo, job.travis_merge_sha)
+                else:
+                    src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
                 log.debug('Downloading the repository from the GitHub archive at {}.'.format(src))
                 urllib.request.urlretrieve(src, repo_zip_path)
 

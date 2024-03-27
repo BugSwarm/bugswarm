@@ -21,12 +21,13 @@ class GroupJobs:
             branch_owner = job['branch_owner']
             build_id = job['build_id']
             job_id = job['job_id']
+            event_type = job['event_type']
 
             started_at = datetime.strptime(job['started_at'], '%Y-%m-%dT%H:%M:%SZ')
             finished_at = datetime.strptime(job['finished_at'], '%Y-%m-%dT%H:%M:%SZ')
             duration = finished_at - started_at
 
-            group_id = '{}~{}~{}'.format(workflow_id, branch_owner, branch_id)
+            group_id = '{}~{}~{}~{}'.format(workflow_id, branch_owner, branch_id, event_type)
 
             if group_id not in groups:
                 groups[group_id] = BuildGroup(branch_id, branch_owner, workflow_id, job['workflow_path'])

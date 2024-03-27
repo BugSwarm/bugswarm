@@ -163,7 +163,9 @@ class PairFilter(object):
             filters.filter_unavailable_github_runner(buildpairs)
             filters.filter_unredacted_tokens(buildpairs)
             filters.filter_unsupported_workflow(buildpairs)
+            filters.filter_first_step_not_checkout_action(buildpairs)
             filters.filter_expired_logs(buildpairs)
+            filters.filter_jobs_not_from_same_pr(buildpairs)
         elif ci_service == 'travis':
             filters.filter_non_exact_images(buildpairs)
         log.info('Finished filtering.')

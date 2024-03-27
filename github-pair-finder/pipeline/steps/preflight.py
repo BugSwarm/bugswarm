@@ -3,15 +3,13 @@ import os
 from bugswarm.common import log
 from git import GitDB, Repo
 
-
-def repo_clone_path(repo):
-    return os.path.abspath('./intermediates/repos/{}'.format(repo.replace('/', '-')))
+from .. import utils
 
 
 class Preflight:
     def process(self, data, context):
         repo = context['repo']
-        repo_path = repo_clone_path(repo)
+        repo_path = utils.repo_clone_path(repo)
 
         # Clone repo
         if os.path.isdir(repo_path):
@@ -25,12 +23,8 @@ class Preflight:
             repo_obj = Repo.clone_from('https://github.com/{}'.format(repo), repo_path, odbt=GitDB)
             log.info('Cloning done.')
 
-        # Fetch refs for all pulls and PRs
-        repo_obj.remote('origin').fetch('refs/pull/*/head:refs/remotes/origin/pr/*')
-
-        # Get all shas
-        shas = [commit.hexsha for commit in repo_obj.iter_commits(branches='', remotes='')]
-        context['shas'] = shas
+        # Pull latest changes from origin
+        repo_obj.remote('origin').pull()
 
         # Get head commit
         context['head_commit'] = repo_obj.head.commit.hexsha

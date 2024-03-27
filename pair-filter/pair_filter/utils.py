@@ -231,6 +231,36 @@ def find_cleartext_tokens(target_dict: dict, redact=False):
     return matched_keys
 
 
+def get_github_actions_pr_data(job_id):
+    path = get_orig_log_path(job_id)
+    with open(path) as f:
+        # Remove timestamp from the start of each line
+        log_lines = [line[29:] for line in f.read().splitlines()]
+
+    flag = False
+    pr_num = base_sha = head_sha = merge_sha = None
+
+    for lineno, line in enumerate(log_lines):
+        if line == '##[group]Checking out the ref':
+            flag = True
+            continue
+        elif not flag:
+            continue
+        elif line == '##[endgroup]':
+            break
+
+        if m := re.match(r"Note: switching to 'refs/remotes/pull/(\d+)/merge'", line):
+            pr_num = int(m.group(1))
+        elif m := re.match(r'HEAD is now at \S+ Merge (\S+) into (\S+)', line):
+            head_sha = m.group(1)
+            base_sha = m.group(2)
+
+    if pr_num is not None:
+        merge_sha = log_lines[lineno + 2][1:-1]
+
+    return pr_num, base_sha, head_sha, merge_sha
+
+
 def _registry_tags_list(repo_name):
     list_of_tags = []
     _, basic_auth, _, _ = _basic_auth()

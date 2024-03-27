@@ -389,3 +389,85 @@ def filter_unsupported_workflow(pairs) -> int:
 
     utils.log_filter_count(filtered, 'jobpairs using unsupported workflow syntax')
     return filtered
+
+
+def filter_first_step_not_checkout_action(pairs) -> int:
+    filtered = 0
+
+    for p in pairs:
+        redacted_job_ids = set()
+        for build in (p['failed_build'], p['passed_build']):
+            for job in build['jobs']:
+                job_id = job['job_id']
+                if len(job['config']['steps']) == 0:
+                    redacted_job_ids.add(job_id)
+                    continue
+
+                first_step: dict = job['config']['steps'][0]
+                if not first_step.get('uses', '').startswith('actions/checkout'):
+                    # First step is not a checkout action
+                    redacted_job_ids.add(job_id)
+                    continue
+
+                if 'with' in first_step:
+                    params = first_step['with']
+                    if 'path' in params:
+                        # The job checks out the repo at a specific path; we don't support this
+                        redacted_job_ids.add(job_id)
+                        continue
+                    if 'repository' in params and params['repository'] != p['repo']:
+                        # The first checkout action is for a repo other than the pair's repo
+                        redacted_job_ids.add(job_id)
+                        continue
+
+        for jp in p['jobpairs']:
+            if not utils.jobpair_is_filtered(jp) and (
+                jp['failed_job']['job_id'] in redacted_job_ids
+                or jp['passed_job']['job_id'] in redacted_job_ids
+            ):
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.FIRST_STEP_NOT_CHECKOUT
+
+    utils.log_filter_count(filtered, 'jobpairs whose first step is not actions/checkout or uses unsupported params')
+    return filtered
+
+
+def filter_jobs_not_from_same_pr(pairs) -> int:
+    """
+    The GitHub Actions API does not reveal what PR a job is associated with if that PR has been
+    closed. Therefore, while the Travis miner can automatically group jobs together by PR number,
+    the GitHub Actions miner can only approximate that by grouping jobs from the same branch that
+    were triggered by a PR. Once we have a job's log, however, we can scan through it to get its PR
+    info, and ensure that the failed and passed jobs come from the same PR.
+    """
+    filtered = 0
+
+    for p in pairs:
+        for jp in p['jobpairs']:
+            if utils.jobpair_is_filtered(jp):
+                continue
+
+            # (pr_num, base_sha, head_sha, merge_sha)
+            failed_pr_data = utils.get_github_actions_pr_data(jp['failed_job']['job_id'])
+            passed_pr_data = utils.get_github_actions_pr_data(jp['passed_job']['job_id'])
+            f_pr_num, f_base_sha, _, f_merge_sha = failed_pr_data
+            p_pr_num, p_base_sha, _, p_merge_sha = passed_pr_data
+
+            if f_pr_num is None and p_pr_num is None:
+                # Not a PR job.
+                continue
+            if f_pr_num != p_pr_num:
+                # Jobs from different PRs! Filter the pair.
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.JOBS_FROM_DIFFERENT_PRS
+            else:
+                # Jobs are from the same PR, so set the PR data for the build pair.
+                # (I know this is beyond the scope of the PairFilter, but it's easiest to do this here.)
+                p['pr_num'] = f_pr_num
+                p['failed_build']['base_sha'] = f_base_sha
+                p['passed_build']['base_sha'] = p_base_sha
+                p['failed_build']['travis_merge_sha'] = f_merge_sha
+                p['passed_build']['travis_merge_sha'] = p_merge_sha
+
+    utils.log_filter_count(filtered, 'jobpairs where the failed and passed jobs are from different PRs')
+    return filtered
