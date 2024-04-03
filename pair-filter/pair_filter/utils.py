@@ -244,9 +244,10 @@ def get_github_actions_pr_data(job_id):
         if line == '##[group]Checking out the ref':
             flag = True
             continue
-        elif not flag:
+        if not flag:
             continue
-        elif line == '##[endgroup]':
+        if line.startswith('##[group] Run'):
+            # actions/checkout has finished
             break
 
         if m := re.match(r"Note: switching to 'refs/remotes/pull/(\d+)/merge'", line):
@@ -254,9 +255,25 @@ def get_github_actions_pr_data(job_id):
         elif m := re.match(r'HEAD is now at \S+ Merge (\S+) into (\S+)', line):
             head_sha = m.group(1)
             base_sha = m.group(2)
+        elif pr_num is not None and line == "[command]/usr/bin/git log -1 --format='%H'":
+            merge_sha = log_lines[lineno + 1][1:-1]
 
-    if pr_num is not None:
-        merge_sha = log_lines[lineno + 2][1:-1]
+    result = (pr_num, base_sha, head_sha, merge_sha)
+
+    # Sanity check: either no elements in `result` are None (PR job), or all are None (push job)
+    if any(result) and not all(result):
+        raise RuntimeError(
+            'Job {}: GHA PR data is invalid: (PR, base SHA, head SHA, merge SHA) == {}'.format(job_id, result))
+
+    # Check that the SHAs are all actual SHAs
+    if pr_num:
+        sha_regex = r'[0-9a-f]{40}$'
+        if not re.match(sha_regex, base_sha):
+            raise RuntimeError('Job {}: base SHA is invalid: {!r}'.format(job_id, base_sha))
+        if not re.match(sha_regex, head_sha):
+            raise RuntimeError('Job {}: head SHA is invalid: {!r}'.format(job_id, head_sha))
+        if not re.match(sha_regex, merge_sha):
+            raise RuntimeError('Job {}: merge SHA is invalid: {!r}'.format(job_id, merge_sha))
 
     return pr_num, base_sha, head_sha, merge_sha
 

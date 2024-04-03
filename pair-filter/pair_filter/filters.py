@@ -399,11 +399,12 @@ def filter_first_step_not_checkout_action(pairs) -> int:
         for build in (p['failed_build'], p['passed_build']):
             for job in build['jobs']:
                 job_id = job['job_id']
-                if len(job['config']['steps']) == 0:
+                steps = job['config'].get('steps', [])
+                if len(steps) == 0:
                     redacted_job_ids.add(job_id)
                     continue
 
-                first_step: dict = job['config']['steps'][0]
+                first_step = steps[0]
                 if not first_step.get('uses', '').startswith('actions/checkout'):
                     # First step is not a checkout action
                     redacted_job_ids.add(job_id)
