@@ -353,7 +353,7 @@ def get_java_error_data(failed_log: list, error_list: list, non_std_list: list):
     basic_err_regex = r'[\w\.\$]+(\.|\$)(\w+)(: |; |:$|\s*$| at )'
     err_indicator = [r'<<< ERROR!\s*\Z',
                      r'<<< FAILURE!\s*\Z',
-                     r'\S+ FAILED\s*\Z',
+                     r'\S FAILED\s*\Z',
                      r'\[junit\]\s+Caused an ERROR\s*\Z',
                      r'\[junit\]\s+FAILED\s*\Z',
                      r'An exception has occurred in the compiler']
@@ -497,7 +497,7 @@ def get_python_error_data(failed_log: list, error_list: list, non_std_list: list
                      r'data: .*\.test:\d+:\Z',
                      r'^>\s+.+$\Z',
                      r'^\.?Traceback \(most recent call last\):']
-    sameline_err_indicator = [r'\S*\.[a-z]+:\d+: ' + identifier_regex + r'\Z']
+    sameline_err_indicator = [r'\.[a-z]+:\d+: ' + identifier_regex + r'\Z']
     err_collecting_indicator = [r'^(E\s+)?([A-Za-z]+Error)']
 
     err_regex = [r'^(' + identifier_regex + r'\.)*(' + identifier_regex + r')(: |:?\Z)',
