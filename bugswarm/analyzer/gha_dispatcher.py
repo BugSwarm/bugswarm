@@ -206,12 +206,17 @@ class GHADispatcher(object):
 
     @staticmethod
     def read_log_into_lines(log_file):
-        lines = []
-        time_lines = []  # an array of date string
         with open(log_file, encoding='utf-8') as f:
-            for l in f:
-                lines.append(str(l.rstrip('\n')))
-        if len(lines) > 0 and re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{7}Z ', lines[0], re.M):
+            log_text = f.read()
+
+        if len(log_text) > 0 and log_text[0] == '\ufeff':
+            # Some, but not all, logs from GitHub use UTF-8-BOM (ick) instead of plain UTF-8.
+            # It messes up the time_lines check, so strip it out.
+            log_text = log_text[1:]
+
+        lines = log_text.splitlines()
+        time_lines = []  # an array of date string
+        if len(lines) > 0 and re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{7}Z ', lines[0], re.M):
             # Log comes from GitHub, we need to remove the date/time.
             # First line will look like this: 2022-05-09T15:18:04.1058603Z Requested labels: ubuntu-18.04
             time_lines = [line[:26] for line in lines]
