@@ -137,12 +137,22 @@ exit_if_failed 'ImagePackager encountered an error.'
 
 if [[ ! $skip_cacher ]]; then
     task_json_path="${reproducer_dir}/output/result_json/${task_name}.json"
+    cacher_input_file="${reproducer_dir}/input/${task_name}"
+
     print_step "${STAGE}" ${TOTAL_STEPS} 'Cacher'
     python3 get_reproducer_output.py -i "${task_json_path}" -o "${task_name}"
     exit_if_failed 'get_reproducer_output.py encountered an error.'
 
+    if [[ ! -s $cacher_input_file ]]; then
+        print_red "$cacher_input_file does not exist or is empty."
+        print_red "Either all reproducible artifacts have already been cached, or there were no reproducible artifacts to begin with."
+        print_red "Exiting."
+        exit
+    fi
+
     cd "${cacher_dir}"
-    python3 entry.py "${reproducer_dir}/input/${task_name}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} --disconnect-network-during-test
+    python3 entry.py "${cacher_input_file}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} --disconnect-network-during-test
+    exit_if_failed "CacheDependency encountered an error."
 
     cd "${reproducer_dir}"
     print_step "${STAGE}" ${TOTAL_STEPS} 'MetadataPackager'
