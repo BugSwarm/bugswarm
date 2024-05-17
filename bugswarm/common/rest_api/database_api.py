@@ -902,6 +902,10 @@ class DatabaseAPI(object):
                 if bp_exists:
                     continue
                 list_for_insertion.append(data)
+            if len(list_for_insertion) == 0:
+                # Don't yield an error if all pairs exist already.
+                continue
+
             resp = self._post(endpoint, list_for_insertion)
             if resp.status_code == 422:
                 log.error('The', plural_entity_name, 'were not inserted because they failed validation.')
