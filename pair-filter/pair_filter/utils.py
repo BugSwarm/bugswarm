@@ -5,7 +5,6 @@ import subprocess
 from builtins import FileNotFoundError
 from typing import List, Optional
 
-import requests
 from bugswarm.common import log
 from bugswarm.common.credentials import GITHUB_TOKENS
 from bugswarm.common.github_wrapper import GitHubWrapper
@@ -110,29 +109,6 @@ def log_filter_count(filtered_count: int, reason: str):
 
 def canonical_repo(repo: str) -> str:
     return repo.replace('/', '-')
-
-
-def download_github_log(repo, job_id, destination):
-    """
-    Downloads the log for a specific GHA job to the given destination. Drop-in
-    replacement for `bugswarm.common.log_downloader.download_log`, with the
-    caveat that the repo is required by the GitHub API. This should probably be
-    replaced by an update to `log_downloader` in the near future.
-    """
-
-    # Assume the first token works
-    headers = {'Authorization': 'token {}'.format(GITHUB_TOKENS[0])}
-    api_url = 'https://api.github.com/repos/{}/actions/jobs/{}/logs'.format(repo, job_id)
-    response = requests.get(api_url, headers=headers)
-
-    if not response.ok:
-        if response.status_code in [410, 500]:  # Log is gone
-            log.error('Log for job', job_id, 'in repo', repo, 'has expired.')
-        return False
-
-    with open(destination, 'w') as f:
-        f.write(response.text)
-    return True
 
 
 def get_matrix_param(param: str, config: dict):

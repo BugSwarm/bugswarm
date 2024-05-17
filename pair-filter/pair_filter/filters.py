@@ -50,7 +50,7 @@ def filter_expired_logs(pairs) -> int:
             continue
 
         orig_log_path = utils.get_orig_log_path(job_id)
-        if not os.path.exists(orig_log_path) and not utils.download_github_log(repo, job_id, orig_log_path):
+        if not os.path.exists(orig_log_path) and not download_log(job_id, orig_log_path, repo=repo):
             filtered += 1
             running_unavailable_count += 1
             jp[FILTERED_REASON_KEY] = reasons.NO_ORIGINAL_LOG

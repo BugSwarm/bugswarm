@@ -113,14 +113,14 @@ class TestFilters(unittest.TestCase):
                 passed_id = jp['passed_job']['job_id']
 
                 if i % 4 == 0:
-                    mock.register_uri(requests_mock.ANY, template_url.format(failed_id), status_code=410)
-                    mock.register_uri(requests_mock.ANY, template_url.format(passed_id))
+                    mock.get(template_url.format(failed_id), status_code=410)
+                    mock.get(template_url.format(passed_id), content=b'foo')
                 elif i % 4 == 2:
-                    mock.register_uri(requests_mock.ANY, template_url.format(failed_id))
-                    mock.register_uri(requests_mock.ANY, template_url.format(passed_id), status_code=410)
+                    mock.get(template_url.format(failed_id), content=b'foo')
+                    mock.get(template_url.format(passed_id), status_code=410)
                 else:
-                    mock.register_uri(requests_mock.ANY, template_url.format(failed_id))
-                    mock.register_uri(requests_mock.ANY, template_url.format(passed_id))
+                    mock.get(template_url.format(failed_id), content=b'foo')
+                    mock.get(template_url.format(passed_id), content=b'foo')
 
         num_filtered = filters.filter_expired_logs(pairs)
         self.assertEqual(num_filtered, 18)
