@@ -168,6 +168,7 @@ class PairFilter(object):
             filters.filter_jobs_not_from_same_pr(buildpairs)
         elif ci_service == 'travis':
             filters.filter_non_exact_images(buildpairs)
+        filters.filter_logs_too_large(buildpairs)
         log.info('Finished filtering.')
 
         PairFilter._set_is_filtered(buildpairs)

@@ -257,3 +257,45 @@ class TestFilters(unittest.TestCase):
             else:
                 self.assertIsNone(jp['filtered_reason'], 'job {}'.format(jp['failed_job']['job_id']))
         self.assertEqual(num_filtered, 1)
+
+    @patch('pair_filter.utils.get_orig_log_path', lambda id: f'/tmp/{id}-orig.log')
+    def test_filter_logs_too_large(self):
+        pairs = read_json(os.path.join(DATADIR, 'fake-output.json'))
+        set_attribute_defaults(pairs)
+        jobpairs = pairs[0]['jobpairs']
+
+        too_large_size = 16 * 2 ** 20  # 16 MiB
+        small_enough_size = 15 * 2 ** 20  # 15 MiB
+        log_file_paths = []
+
+        def write_dummy_log(job_id, size):
+            filepath = f'/tmp/{job_id}-orig.log'
+            contents = ' ' * size  # Fill the file with {size} space chars
+            with open(filepath, 'w') as f:
+                f.write(contents)
+            log_file_paths.append(filepath)
+
+        try:
+            # 1. failed log too large
+            write_dummy_log(jobpairs[0]['failed_job']['job_id'], too_large_size)
+            write_dummy_log(jobpairs[0]['passed_job']['job_id'], small_enough_size)
+
+            # 2. passed log too large
+            write_dummy_log(jobpairs[1]['failed_job']['job_id'], small_enough_size)
+            write_dummy_log(jobpairs[1]['passed_job']['job_id'], too_large_size)
+
+            # 3. neither too large
+            write_dummy_log(jobpairs[2]['failed_job']['job_id'], small_enough_size)
+            write_dummy_log(jobpairs[2]['passed_job']['job_id'], small_enough_size)
+
+            filters.filter_logs_too_large(pairs)
+
+            self.assertEqual(jobpairs[0][FILTERED_REASON_KEY], reasons.ORIGINAL_LOG_TOO_LARGE)
+            self.assertEqual(jobpairs[1][FILTERED_REASON_KEY], reasons.ORIGINAL_LOG_TOO_LARGE)
+            self.assertIsNone(jobpairs[2][FILTERED_REASON_KEY])
+        finally:
+            for filepath in log_file_paths:
+                try:
+                    os.remove(filepath)
+                except FileNotFoundError:
+                    pass

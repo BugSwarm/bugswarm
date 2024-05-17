@@ -66,6 +66,28 @@ def filter_expired_logs(pairs) -> int:
     return filtered
 
 
+def filter_logs_too_large(pairs) -> int:
+    SIZE_LIMIT = 16 * 2 ** 20  # 16 MiB; largest that can be stored in a MongoDB BSON document
+    SIZE_LIMIT_STR = '16 MiB'  # Just used for logging
+
+    filtered = 0
+    for p in pairs:
+        for jp in p['jobpairs']:
+            if utils.jobpair_is_filtered(jp):
+                continue
+
+            # Assumes the logs have already been downloaded
+            failed_log_path = utils.get_orig_log_path(jp['failed_job']['job_id'])
+            passed_log_path = utils.get_orig_log_path(jp['passed_job']['job_id'])
+
+            if os.path.getsize(failed_log_path) >= SIZE_LIMIT or os.path.getsize(passed_log_path) >= SIZE_LIMIT:
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.ORIGINAL_LOG_TOO_LARGE
+
+    utils.log_filter_count(filtered, 'jobpairs with an original log over {} in size'.format(SIZE_LIMIT_STR))
+    return filtered
+
+
 def filter_non_exact_images(pairs: List) -> Tuple[int, int, int, int]:
     """
     Check if all jobs in this pair (from both the failed and passed build) used images that are available.
