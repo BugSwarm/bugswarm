@@ -9,9 +9,10 @@ from .mined_build_pair_schema import (MinedBuildPairSchema, _MinedBuildJobSchema
 from .mined_project_schema import MinedProjectSchema
 from .reproducibility_test_schema import ReproducibilityTestEntrySchema, ReproducibilityTestSchema
 from .role_schema import Role, RoleInfo
+from .diff_schema import DiffSchema
 
 __all__ = [_ClassificationSchema, _JobSchema, ArtifactSchema, MinedBuildPairSchema, _MinedJobPairSchema,
            _MinedBuildPairClassificationSchema, _MinedJobPairJobSchema, _MinedBuildSchema, _MinedBuildJobSchema,
-           MinedProjectSchema, EmailSubscriberSchema, AccountSchema, Role, RoleInfo, Ability, LogSchema,
+           MinedProjectSchema, EmailSubscriberSchema, AccountSchema, Role, RoleInfo, Ability, LogSchema, DiffSchema,
            ReproducibilityTestSchema, ReproducibilityTestEntrySchema,
            ]

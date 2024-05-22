@@ -48,6 +48,7 @@ class DatabaseAPI(object):
     _LOGS_RESOURCE = 'logs'
     _REPRODUCIBILITY_TESTS_RESOURCE = 'reproducibilityTests'
     _REPRODUCIBILITY_ENTRIES_RESOURCE = 'reproducibilityTestEntries'
+    _DIFFS_RESOURCE = 'diffs'
 
     def __init__(self, token=None):
         """
@@ -353,6 +354,61 @@ class DatabaseAPI(object):
             raise ValueError
         log_object = self._get(DatabaseAPI._logs_job_id_endpoint(job_id), error_if_not_found).json()
         return log_object['build_log']
+
+    ###################################
+    # Diffs REST methods
+    ###################################
+    def set_diff(self, image_tag: str, failed_sha: str, passed_sha: str, patches: list) -> Response:
+        """
+        Add the diffs for the artifact to the diffs collection.
+        :param image_tag: The image_tag corresponding to the diff.
+        :param failed_commit_sha: The commit_sha of the failed commit.
+        :param passed_commit_sha: The commit_sha of the passed commit.
+        :param diff_patch: diff patch list containing file_name and content.
+        :return: The response object.
+        """
+        if not isinstance(image_tag, str):
+            raise TypeError
+        if not image_tag:
+            raise ValueError
+        if not isinstance(failed_sha, str):
+            raise TypeError
+        if not failed_sha:
+            raise ValueError
+        if not isinstance(passed_sha, str):
+            raise TypeError
+        if not passed_sha:
+            raise ValueError
+        if not isinstance(patches, list):
+            raise TypeError
+        if not patches:
+            raise ValueError
+        diff_ = []
+        for d in patches:
+            diff_dict = {}
+            diff_dict['file_name'] = d['file_name']
+            diff_dict['content'] = d['content']
+            diff_.append(diff_dict)
+        diff_entry = {
+            'image_tag': image_tag,
+            'failed_sha': failed_sha,
+            'passed_sha': passed_sha,
+            'patches': diff_
+        }
+        return self._insert(DatabaseAPI._diffs_endpoint(), diff_entry, 'diffs')
+
+    def get_diff(self, image_tag: str, error_if_not_found: bool = True) -> dict:
+        """
+        Get artifact diffs based on image tag.
+        :param image_tag: The image_tag corresponding to the diff.
+        :return: The response object, here it is dict.
+        """
+        if not isinstance(image_tag, str):
+            raise TypeError
+        if not image_tag:
+            raise ValueError
+        diff_object = self._get(DatabaseAPI._diffs_image_tag_endpoint(image_tag), error_if_not_found).json()
+        return diff_object
 
     ###################################
     # Mined Build Pair REST methods
@@ -1100,6 +1156,18 @@ class DatabaseAPI(object):
         if not job_id:
             raise ValueError
         return '/'.join([DatabaseAPI._logs_endpoint(), job_id])
+
+    @staticmethod
+    def _diffs_endpoint() -> Endpoint:
+        return DatabaseAPI._endpoint(DatabaseAPI._DIFFS_RESOURCE)
+
+    @staticmethod
+    def _diffs_image_tag_endpoint(image_tag: str) -> Endpoint:
+        if not isinstance(image_tag, str):
+            raise TypeError
+        if not image_tag:
+            raise ValueError
+        return '/'.join([DatabaseAPI._diffs_endpoint(), image_tag])
 
     @staticmethod
     def _reproducibility_tests_endpoint() -> Endpoint:

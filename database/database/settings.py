@@ -188,6 +188,16 @@ logs = {
     'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
 }
 
+diffs = {
+    'schema': schema.DiffSchema,
+    'allow_unknown': True,
+    'id_field': 'image_tag',
+    'item_lookup_field': 'image_tag',
+    'item_url': 'regex(".+")',
+    'allowed_write_roles': ALLOWED_WRITE_ROLES,
+    'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
+}
+
 reproducibilitySummary = {
     'schema': schema.ReproducibilityTestSchema,
 
@@ -220,4 +230,5 @@ DOMAIN = {
     'reproducibilityTests': reproducibilitySummary,
     'reproducibilityTestEntries': reproducibilityEntries,
     'logs': logs,
+    'diffs': diffs
 }
