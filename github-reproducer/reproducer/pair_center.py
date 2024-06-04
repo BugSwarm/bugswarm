@@ -103,12 +103,14 @@ class PairCenter(JobCenter):
             # TODO: Find out why we need to set image_tag here?
             # failed_job.image_tag = jp['failed_job']['heuristically_parsed_image_tag']
             # failed_job.image_tag = failed_job.config['runs-on']
+            failed_job.build_system = jp['build_system'].lower() if jp.get('build_system', 'NA') != 'NA' else None
 
             passed_job_id = jp['passed_job']['job_id']
             passed_job = [passed_job for passed_job in buildpair_obj.builds[1].jobs
                           if passed_job.job_id == str(passed_job_id)][0]
             # passed_job.image_tag = jp['passed_job']['heuristically_parsed_image_tag']
             # passed_job.image_tag = passed_job.config['runs-on']
+            passed_job.build_system = jp['build_system'].lower() if jp.get('build_system', 'NA') != 'NA' else None
 
             if 'match_history' in jp:
                 buildpair_obj.jobpairs.append(JobPair(repo,

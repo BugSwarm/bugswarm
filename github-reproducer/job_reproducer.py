@@ -12,7 +12,7 @@ from termcolor import colored
 
 from job_dispatcher import JobDispatcher
 from reproducer.pipeline.gen_files_for_job import gen_files_for_job
-from reproducer.pipeline.copy_log import copy_log
+from reproducer.pipeline.copy_output_files import copy_job_files_to_output_dir
 from reproducer.reproduce_exception import wrap_errors
 from reproducer.utils import Utils
 
@@ -75,7 +75,7 @@ class JobReproducer(JobDispatcher):
             with wrap_errors('Build/run container'):
                 self.docker.build_and_run(job)
             with wrap_errors('Copy files to task dir'):
-                copy_log(self, job)
+                copy_job_files_to_output_dir(self, job)
         finally:
             # If --keep is specified, gen_files_for_job copies the build directory into the output directory, so it's
             # safe to remove the workspace job dir.

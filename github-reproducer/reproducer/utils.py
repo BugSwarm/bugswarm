@@ -125,6 +125,9 @@ class Utils(object):
     def check_if_dockerfile_exist(self, job):
         return os.path.isfile(self.get_dockerfile_path(job))
 
+    def check_if_reproduced_job_info_exist(self, job):
+        return os.path.isfile(self.get_reproduced_job_info_path(job))
+
     # --------------------------------------------
     # -------- Get path helper functions ---------
     # --------------------------------------------
@@ -155,11 +158,18 @@ class Utils(object):
         return '{}.log'.format(job.job_id)
 
     @staticmethod
+    def construct_job_info_name(job):
+        return '{}-info.json'.format(job.job_id)
+
+    @staticmethod
     def construct_patch_name(job):
         return '{}-pip-patch.json'.format(job.job_id)
 
     def get_log_path(self, job):
         return os.path.join(self.get_reproduce_tmp_dir(job), Utils.construct_log_name(job))
+
+    def get_reproduced_job_info_path(self, job):
+        return os.path.join(self.get_reproduce_tmp_dir(job), Utils.construct_job_info_name(job))
 
     def get_travis_build_log_path(self, job):
         filename = '{}-travis.log'.format(job.job_id)
@@ -243,6 +253,9 @@ class Utils(object):
     def get_log_path_in_task(self, job, run=None):
         return os.path.join(self.get_jobpair_dir(job, run), Utils.construct_log_name(job))
 
+    def get_reproduced_job_info_path_in_task(self, job, run=None):
+        return os.path.join(self.get_jobpair_dir(job, run), Utils.construct_job_info_name(job))
+
     def get_patch_path_in_task(self, job, run=None):
         return os.path.join(self.get_jobpair_dir(job, run), Utils.construct_patch_name(job))
 
@@ -302,6 +315,9 @@ class Utils(object):
     def copy_repo_tar_into_current_task_dir(self, job):
         os.makedirs(self.get_tar_file_storage_dir_in_task(job), exist_ok=True)
         shutil.copy(self.get_repo_tar_path(job), self.get_repo_tar_path_in_task(job))
+
+    def copy_reproduced_job_info_into_current_task_dir(self, job):
+        shutil.copy(self.get_reproduced_job_info_path(job), self.get_jobpair_dir(job))
 
     def copy_repo_tar_from_storage_into_jobpair_dir(self, job):
         shutil.copy(self.get_repo_tar_path_in_task(job), self.get_jobpair_dir(job))

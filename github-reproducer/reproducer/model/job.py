@@ -31,6 +31,7 @@ class Job(object):
         self.mismatch_attrs = []
         self.job_name = ''  # Initialized in pair center function.
 
+        self.build_system = None  # Used when analyzing results.
         self.reproduced_result = None
         self.orig_result = None
 
