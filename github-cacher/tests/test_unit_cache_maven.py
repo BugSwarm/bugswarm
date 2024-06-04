@@ -108,8 +108,8 @@ class CacheMavenUnitTests(unittest.TestCase):
             container_id = 'dummy-container-id'
         else:
             client = docker.from_env()
-            container = client.containers.run('bugswarm/githubactionsjobrunners:ubuntu-20.04',
-                                              tty=True, detach=True, remove=True)
+            container = client.containers.run('bugswarm/githubactionsjobrunners:ubuntu-20.04', 'tail -f /dev/null',
+                                              entrypoint=[], tty=True, detach=True, remove=True)
             container.exec_run(['mkdir', '-p', '/home/github'])
             container_id = container.id
 
