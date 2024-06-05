@@ -185,11 +185,11 @@ class Utils(object):
         return os.path.join(self.get_reproduce_tmp_dir(job), self.config.tarfile_name)
 
     def get_repo_tar_path_in_task(self, job):
-        filename = 'failed.tar' if job.is_failed == 'failed' else 'passed.tar'
+        filename = '{}.tar'.format(job.f_or_p)
         return os.path.join(self.get_tar_file_storage_dir_in_task(job), filename)
 
     def get_repo_tar_path_in_pair_workspace(self, jobpair, job):
-        filename = 'failed.tar' if job.is_failed == 'failed' else 'passed.tar'
+        filename = '{}.tar'.format(job.f_or_p)
         return os.path.join(self.get_jobpair_workspace_dir(jobpair), filename)
 
     def copy_repo_from_task_into_workspace(self, job):
@@ -267,7 +267,7 @@ class Utils(object):
         return os.path.join(self.config.current_task_dir, job.buildpair_name, 'repo_tarfiles')
 
     def get_tar_file_in_jobpair_dir(self, job):
-        filename = 'failed.tar' if job.is_failed == 'failed' else 'passed.tar'
+        filename = '{}.tar'.format(job.f_or_p)
         return os.path.join(self.get_jobpair_dir(job), filename)
 
     def get_orig_log_path(self, job_id):

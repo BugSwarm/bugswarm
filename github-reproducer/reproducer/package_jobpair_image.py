@@ -65,7 +65,7 @@ def _modify_script(utils: Utils, jobpair: JobPair):
                 if not found_build_path and line.startswith('export GITHUB_WORKSPACE='):
                     # Usually is the second line.
                     lines.append('export GITHUB_WORKSPACE={}\n'.format(
-                        '/home/github/build/{}/{}'.format(j.is_failed, j.repo))
+                        '/home/github/build/{}/{}'.format(j.f_or_p, j.repo))
                     )
                     found_build_path = True
                 else:

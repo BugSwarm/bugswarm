@@ -21,7 +21,7 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             '   echo "##[group]Run \'$ACTIONS_RUNNER_HOOK_JOB_STARTED\'"',
             '   echo "##[endgroup]"',
             '   bash -e $ACTIONS_RUNNER_HOOK_JOB_STARTED {} {}'
-            .format(github_builder.job.job_id, github_builder.job.is_failed),
+            .format(github_builder.job.job_id, github_builder.job.f_or_p),
             '   EXIT_CODE=$?',
             '   if [[ $EXIT_CODE != 0 ]]; then',
             '       echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
@@ -326,7 +326,7 @@ def generate(github_builder: GitHubBuilder, steps: 'list[Step]', output_path, se
             '   echo "##[group]Run \'$ACTIONS_RUNNER_HOOK_JOB_COMPLETED\'"',
             '   echo "##[endgroup]"',
             '   bash -e $ACTIONS_RUNNER_HOOK_JOB_COMPLETED {} {}'
-            .format(github_builder.job.job_id, github_builder.job.is_failed),
+            .format(github_builder.job.job_id, github_builder.job.f_or_p),
             '   EXIT_CODE=$?',
             '   if [[ $EXIT_CODE != 0 ]]; then',
             '       echo "" && echo "##[error]Process completed with exit code $EXIT_CODE."',
