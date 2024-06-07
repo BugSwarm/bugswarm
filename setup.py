@@ -20,7 +20,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'wheel==0.33.6',
-        'requests>=2.20.0',
+        'requests>=2.20.0,<=2.31',
         'CacheControl==0.12.3',
         'requests-cache==0.4.13',
         'requests-mock==1.8.0',

@@ -25,7 +25,7 @@ setup(
     zip_safe=False,
     packages=find_packages(include=['bugswarm.common*']),
     install_requires=[
-        'requests>=2.20.0',
+        'requests>=2.20.0,<=2.31',
         'CacheControl==0.12.3',
         'requests-cache==0.4.13',
     ],
