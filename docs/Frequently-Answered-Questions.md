@@ -3,7 +3,7 @@
 ## What accounts do I need to sign up to generate the credentials?
 
 * [GitHub](https://github.com/join) (even if mining Travis)
-* [Travis CI](https://travis-ci.org/signup) (only if mining Travis)
+* [Travis CI](https://travis-ci.com/signup) (only if mining Travis)
 * [Docker Hub](https://hub.docker.com/signup)
 
 ## What credentials do I input?

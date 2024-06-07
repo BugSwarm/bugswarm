@@ -1,17 +1,20 @@
 # BugSwarm Overview
 
-BugSwarm is a framework that enables the creation of scalable, diverse, real-world, continuously
-growing set of reproducible build failures and fixes from open-source projects.
+BugSwarm is a large-scale software defect **dataset** with its mining **infrastructure**.
 
-The framework consists of three major components: [Miner](#miner), [Reproducer](#reproducer), and [Cacher](#cacher).
+The **dataset** provides [thousands of Java & Python software defect artifacts](https://www.bugswarm.org/dataset/) mined from real-world GitHub Actions and Travis CI builds. To facilitate the use of the dataset, it comes with [BugSwarm CLI](https://www.bugswarm.org/docs/toolset/bugswarm-cli/) and [BugSwarm REST API](https://www.bugswarm.org/docs/toolset/bugswarm-rest-api/).
 
-<!--![bugswarm-image-overview](https://user-images.githubusercontent.com/24599782/70661354-e9787580-1c18-11ea-855e-53e26426c261.png)
-*Datasets play an important role in the advancement of software tools and facilitate their evaluation. BugSwarm is an infrastructure to automatically create a large dataset of real-world reproducible failures and fixes*-->
+The **infrastructure** consists of three major components: [Miner](#miner), [Reproducer](#reproducer), and [Cacher](#cacher).
+
+![bugswarm-image-overview](docs/assets/bugswarm-pipeline-white.png)
+*Datasets play an important role in the advancement of software tools and facilitate their evaluation. BugSwarm is an infrastructure to automatically create a large dataset of real-world reproducible failures and fixes*
 
 For more details:
 
 * **Website**: <http://www.bugswarm.org>
-* **DockerHub Repository for BugSwarm Dataset**: <https://hub.docker.com/r/bugswarm/images/tags>
+* **BugSwarm Dataset**: <http://www.bugswarm.org/dataset>
+* **DockerHub Repository for BugSwarm Dataset**: <https://hub.docker.com/r/bugswarm/cached-images/tags>
+* **Reproducibility of BugSwarm Dataset (~97%)**: <https://www.bugswarm.org/statistics/>
 * **ICSE-2019 Paper**: [BugSwarm: Mining and Continuously Growing a Dataset of Reproducible Failures and Fixes](https://web.cs.ucdavis.edu/~rubio/includes/icse19.pdf)
 * **ICSE-Companion 2023 Paper**: [ActionsRemaker: Reproducing GitHub Actions](https://web.cs.ucdavis.edu/~rubio/includes/icse23-demo.pdf)
 
@@ -55,8 +58,9 @@ Our second paper concerning the GitHub Actions segment of the pipeline can be ci
 
 ## Setting up BugSwarm
 
-**You only have to follow the steps below if you want to produce your own artifacts.
-If you only want to use BugSwarm artifact dataset, follow the [client](https://github.com/BugSwarm/client) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.**
+> [!NOTE]
+> You only have to follow the steps below if you want to produce your own artifacts.
+If you only want to use BugSwarm artifact dataset, follow the [client](https://www.bugswarm.org/docs/toolset/bugswarm-cli/) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.
 
 1. System requirements:
 
@@ -111,8 +115,7 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
         docker run -itd -p 27017:27017 -p 5000:5000 bugswarm-db
         ```
 
-        > Note: If multiple instances of MongoDB are running on the system, you must change the port accordingly.
-        > Please see the [FAQ](docs/Frequently-Answered-Questions.md)
+        > **NOTE:** If multiple instances of MongoDB are running on the system, you must change the port accordingly. Please see the [FAQ](docs/Frequently-Answered-Questions.md).
         >
         > In some operating systems, this command will expose ports so that everyone from the outside world will be able to connect.
         > To stop this, replace `-p 27017:27017 -p 5000:5000` with `-p 127.0.0.1:27017:27017 -p 127.0.0.1:5000:5000`
@@ -197,10 +200,9 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
         COMMON_HOSTNAME=<LOCAL-IPADDRESS>:5000
         ```
 
-       > The following values are required for authentication, accessing components and APIs used within
-       > the BugSwarm pipeline. Please see the [FAQ](docs/Frequently-Answered-Questions.md) for details regarding the credentials.
+        > The credentials are required for authentication, accessing components and APIs used within the BugSwarm pipeline. Please see the [FAQ](docs/Frequently-Answered-Questions.md) for details regarding the credentials.
 
-1. Run the provision script:
+2. Run the provision script:
 
     ```console
     ./provision.sh
@@ -215,7 +217,7 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://g
 
 ## Miner
 
-BugSwarm mines builds from projects on GitHub that use the continuous integration (CI) services [Travis CI](https://travis-ci.org/) and [GitHub Actions](https://github.com/features/actions).
+BugSwarm mines builds from projects on GitHub that use the continuous integration (CI) services [Travis CI](https://travis-ci.com/) and [GitHub Actions](https://github.com/features/actions).
 We mine fail-pass build pairs such that the first build of the pair fails and the second, which is next chronologically in Git history on each branch, passes.
 
 The Miner component consists of the `PairFinder`, `PairFilter`, and `PairClassifier`.

@@ -65,7 +65,7 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
       all the packages on the list, and then copy the files out.
         * For Python artifacts using the `parse-original-log` or `parse-new-log` 
           options, parse the build log (either the original build log 
-          downloaded from Travis-CI or a newly reproduced build log from running the
+          downloaded from GitHub or a newly reproduced build log from running the
           build script, depending upon which option is used) to determine the list
           of packages to be downloaded, and then download the files using a Python
           container (e.g. `python:3.7-slim`).
@@ -98,7 +98,7 @@ image-tag, "succeed" or error message, original-size, increased-size
 ## Workspace directory
 Temporary files will be stored in `~/bugswram-sandbox/<task-name>/<image-tag>/`
 * `log.txt`: Log for only this image-tag (should be looked at first for debugging).
-* `orig-{failed,passed}-<travis-job-id>.log`: Original log downloaded.
+* `orig-{failed,passed}-<job-id>.log`: Original log downloaded.
 * `cache-{failed,passed}.log`: For Java, log in caching stage (step 1 in the algorithm).
 * `test-{failed,passed}.log`: Log in testing stage (step 3 in the algorithm).
 * `*.log.cmp`: Result of running `compare_single_log()` on `*.log` with the original log.
@@ -212,11 +212,11 @@ The following workflow is just a recommendation
    1. If a virtualenv was downloaded (the download file is still around), then copy the tar file it came from into the folder also before copying it out.
 1. Copy the dependencies into a fresh instance of the artifact(`failed/requirements/`, `passed/requirements/`).
 1. Patch build script with `--no-index --find-link` to utilize the download dependencies.
-   1. If a virtualenv is downloaded by build script then place the cached tar file in the `/home/travis/build` directory and comment out the line to download it from the build script.
+   1. If a virtualenv is downloaded by build script then place the cached tar file in the `/home/github/build` directory and comment out the line to download it from the build script.
 
 #### Parsing Method (activated with `--parse-original-log` or `--parse-new-log`)
 1. Parse the passed or failed job logs to get a list of dependencies and versions.
-   1. `--parse-original-log` will download then parse the original Travis-CI logs.
+   1. `--parse-original-log` will download then parse the original GitHub Actions logs.
    1. `--parse-new-log` will reproduce the artifact then parse the log of that run.
 1. Based on python/pip version, we initiate a docker container with same `python version` to download packages via `pip download`.
 1. Copy them into the artifact(`failed/requirements/`, `passed/requirements/`).

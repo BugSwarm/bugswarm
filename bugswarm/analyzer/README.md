@@ -1,16 +1,7 @@
 # Analyzer
 
 ## Description
-`analyzer` extracts information from Travis build logs.
-
-The BugSwarm build log analyzer is derived from the [TravisTorrent build log analyzer](https://github.com/TestRoots/travistorrent-tools). Before extending the TravisTorrent analyzer, we ported it to Python.
-
-The BugSwarm analyzer fixes some problems present in the TravisTorrent analyzer and also supports additional features.
-
-## Motivation
-We implemented a new build log analyzer because
-- some features of the TravisTorrent analyzer were unreliable in some cases. For example, the TravisTorrent analyzer sometimes used the wrong build system-specific analyzer, failed to capture the number of tests, and failed to capture the names of failing tests correctly
-- we wanted the flexibility to add features
+The BugSwarm build log analyzer is a Python-based tool that extracts information from build logs of Java and Python projects from both Travis CI and GitHub Actions. It was initially derived from the [TravisTorrent build log analyzer](https://github.com/TestRoots/travistorrent-tools) by porting it to Python. Since then, it has undergone significant refactoring, bug fixing, and feature additions.
 
 ## Java Log Analyzer
 - Supports build log from Ant, Maven, and Gradle.
@@ -37,14 +28,14 @@ Example: `$ python3 entry.py -l 23434234.log -j 23434234`
 
 This example will run the Python analyzer on `23434234.log`. `23434234.log` is the path to the log you want to analyze and `23434234` is the job id of the log.
 
-### Comparing reproduced logs with original Travis logs
+### Comparing reproduced logs with original logs
 ```
 $ python3 entry.py -r <path_to_single_reproduced_log> \
                    -o <path_to_orig_log> -j <job_id> \
                    (-t <trigger_sha> --repo <repo_slug> |  -b <build_system>) \
                    --mining <true/false>
 ```
-> Log filenames should be the job ID of the Travis job.
+> Log filenames should be the job ID of the job.
 
 Example: `$ python3 entry.py -r 45123523.log -o 45123523-orig.log -j 45123523`
 

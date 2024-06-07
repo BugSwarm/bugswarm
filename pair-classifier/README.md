@@ -1,5 +1,5 @@
 # Pair Classifier
-`pair-classifier` classifies and labels Travis CI job pairs in different categories so that we can be selective during the
+`pair-classifier` classifies and labels job pairs in different categories so that we can be selective during the
 reproducing stage.
 
 `pair-classifier` populate the classification attributes of each job pair with [build classification](#classifier), [test classification](#classifier), [code classification](#classifier) and [list of exceptions](#classifier).

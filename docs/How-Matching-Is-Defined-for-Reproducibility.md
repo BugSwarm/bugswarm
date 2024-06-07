@@ -1,7 +1,7 @@
 # How Matching Is Defined for Reproducibility
 
 ## Overview
-The term **matching** describes whether the attributes extracted from the reproduced build log are equivalent to those extracted from the original Travis build log.
+The term **matching** describes whether the attributes extracted from the reproduced build log are equivalent to those extracted from the original build log.
 
 ## Compared Attributes
 The following is a subset of attributes compared to decide matching.

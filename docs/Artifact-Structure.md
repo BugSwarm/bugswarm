@@ -75,25 +75,25 @@ Each artifact is associated with a subset of the following attributes. The attri
 | `filtered_reason`                              | `string`    | If the pair was marked as not suitable for reproducing by `pair-filter`, then this attribute contains a human-readable reason for `pair-filter`'s decision. |
 | `image_tag`                                    | `string`    | The tag identifying the Docker image associated with this artifact. |
 | `is_error_pass`                                | `bool`      | Whether the artifact contains an error-pass pair (rather than a fail-pass pair). |
-| `lang`                                         | `string`    | The language of the build, as indicated by a project's travis.yml file. |
+| `lang`                                         | `string`    | The language of the build, as indicated by a project's travis.yml file or the main language of its GitHub repository. |
 | `match`                                        | `integer`   | The match type for the pair. Only valid if `reproduced` is `true`. Otherwise, the default value is empty string ''. |
 | `merged_at`                                    | `timestamp` | The time when the pull request associated with the pair was merged. Only valid on pairs from pull requests. |
 | `pr_num`                                       | `integer`   | The number uniquely identifying the pull request within this project. Only valid on pairs from pull requests. The default value is `-1` if pairs are not from pull requests. |
 | `repo`                                         | `string`    | The repository slug that identifies a project on GitHub. |
 | `reproduced`                                   | `bool`      | Whether `reproducer` attempted to build the pair. This attribute will be `false` if a pair was marked as not suitable for reproducing by `pair-filter`. |
-| `tag`                                          | `string`    | This attribute is the same as the `image_tag` attribute. |
-| `[failed\|passed]_job.base_sha`                | `string`    | The SHA of the commit that was merged with `trigger_sha` to create the Travis virtual commit used for the Travis build. |
-| `[failed\|passed]_job.build_id`                | `integer`   | The number uniquely identifying the build on Travis. |
-| `[failed\|passed]_job.build_job`               | `string`    | The dot-separated pair of numbers uniquely identifying the job within this Travis project. |
+| `current_image_tag`                                          | `string`    | This attribute is the same as the `image_tag` attribute. |
+| `[failed\|passed]_job.base_sha`                | `string`    | In artifacts triggered by pull requests, the SHA of the commit that `trigger_sha` was merged into to create the commit used for the build.|
+| `[failed\|passed]_job.build_id`                | `integer`   | The number uniquely identifying the build on Travis or GitHub Actions. |
+| `[failed\|passed]_job.build_job`               | `string`    | The dot-separated pair of numbers uniquely identifying the job within this project. |
 | `[failed\|passed]_job.committed_at`            | `timestamp` | The timestamp associated with `base_sha` (i.e. when the virtual commit was created). |
 | `[failed\|passed]_job.failed_tests`            | `string`    | A pound symbol-separated list of failed test names. This attribute is not reliable at this time. |
-| `[failed\|passed]_job.job_id`                  | `integer`   | The number uniquely identifying the job on Travis. |
+| `[failed\|passed]_job.job_id`                  | `integer`   | The number uniquely identifying the job on Travis or GitHub Actions. |
 | `[failed\|passed]_job.message`                 | `string`    | The commit message associated with `trigger_sha`. |
 | `[failed\|passed]_job.mismatch_attrs`          | `[string]`  | The attributes, if any, that did not match when extracted from the original build log and the reproduced build log. |
-| `[failed\|passed]_job.num_tests_failed`        | `integer`   | The number of tests failed during the Travis build. |
-| `[failed\|passed]_job.num_tests_run`           | `integer`   | The number of tests executed during the Travis build. |
+| `[failed\|passed]_job.num_tests_failed`        | `integer`   | The number of tests failed during the build. |
+| `[failed\|passed]_job.num_tests_run`           | `integer`   | The number of tests executed during the build. |
 | `[failed\|passed]_job.reproducer_error_reason` | `string`    | If `reproducer` encounters an error, this attribute contains a human-readable reason for the error. |
-| `[failed\|passed]_job.trigger_sha`             | `string`    | The SHA of the commit that, after being pushed to GitHub, triggered the Travis build. |
+| `[failed\|passed]_job.trigger_sha`             | `string`    | The SHA of the commit that, after being pushed to GitHub, triggered the build. |
 | `test_framework`                               | `string`    | The test framework for both jobs. Empty string if the `analyzer` failed to find the framework. |
 | `reproduce_attempts`                           | `integer`   | The number of times the reproducer ran. |
 | `reproduce_successes`                          | `integer`   | The number of times the job was completed as expected. |
@@ -103,7 +103,7 @@ Each artifact is associated with a subset of the following attributes. The attri
 | `classification.code`                          | `string`    | The patch classification for code related files.
 | `classification.build`                         | `string`    | The patch classification for build related files.
 | `classification.test`                          | `string`    | The patch classification for test related files.
-| `classification.exceptions`                    | `[string]`  | The list of exceptions thrown during the failed Travis CI Job.
+| `classification.exceptions`                    | `[string]`  | The list of exceptions thrown during the failed Job.
 | `cached`                                       | `bool`      | Whether the artifact has been cached. If true, the artifact is present in the `bugswarm/cached-images` Docker repository.
 | `status`                                       | `string`    | The artifact's status in the dataset. One of `active` (an official artifact), `candidate` (not officially added to the dataset), or `deprecated` (removed from the dataset).
 | `added_version`                                | `string`    | The version of the dataset that this artifact was officially added in. Null if `status` == `candidate`.
@@ -126,8 +126,8 @@ Each artifact is associated with a Docker image, which is capable of building th
 
 ### Important files in the Docker container
 
-- Failing repository: `/home/travis/build/failed`
-- Passing repository: `/home/travis/build/passed`
+- Failing repository: `/home/{travis,github}/build/failed`
+- Passing repository: `/home/{travis,github}/build/passed`
 - Script to run failed build: `/usr/local/bin/run_failed.sh`
 - Script to run passed build: `/usr/local/bin/run_passed.sh`
 
