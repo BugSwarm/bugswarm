@@ -1,11 +1,14 @@
-from .common_schema import (RequiredStr, NonEmptyStr)
+from .common_schema import (RequiredStr, NonEmptyStr, RequiredInt)
 
 
 _patchSchema = {
     'type': 'dict',
     'schema': {
-        'file_name': RequiredStr,
+        'old_file': RequiredStr,
+        'new_file': RequiredStr,
         'content': NonEmptyStr,
+        'added_code_size': RequiredInt,
+        'deleted_code_size': RequiredInt
     },
 }
 
@@ -16,5 +19,8 @@ DiffSchema = {
     'patches': {
         'type': 'list',
         'schema': _patchSchema
-    }
+    },
+    'total_added_code': RequiredInt,
+    'total_deleted_code': RequiredInt,
+    'diff_size': RequiredInt
 }
