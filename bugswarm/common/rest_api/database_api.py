@@ -394,8 +394,6 @@ class DatabaseAPI(object):
             raise ValueError
         if not isinstance(patches, list):
             raise TypeError
-        if not patches:
-            raise ValueError
         if not isinstance(diff_size, int):
             raise TypeError
         if not isinstance(total_added_size, int):
