@@ -28,7 +28,7 @@ setup(
         'docker==2.5.1',
         'gitpython==3.0.8',
         'python-dateutil==2.8.1',
-        'PyYAML==5.4',
+        'PyYAML==6.0.1',
         'beautifulsoup4==4.8.2',
         'lxml==4.6.5',
         'packaging==20.7',

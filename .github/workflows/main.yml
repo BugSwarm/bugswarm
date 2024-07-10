@@ -11,8 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         container:
-          - bugswarm/images:ubuntu-18.04
-          - bugswarm/images:ubuntu-20.04
+          - bugswarm/githubactionsjobrunners:ubuntu-20.04
+          - bugswarm/githubactionsjobrunners:ubuntu-22.04
     env:
       IN_CONTAINER: true
 
@@ -30,20 +30,17 @@ jobs:
           sed -i "s~COMMON_HOSTNAME = ''~COMMON_HOSTNAME = 'www.api.bugswarm.org'~g" bugswarm/common/credentials.py
           sed -i "s~DATABASE_PIPELINE_TOKEN = ''~DATABASE_PIPELINE_TOKEN = '${bugswarm_api_token}'~g" bugswarm/common/credentials.py
           sed -i "s~''~'#'~g" bugswarm/common/credentials.py
-      - name: Installing Python 3.8
-        if: matrix.container == 'bugswarm/images:ubuntu-18.04'
+      - name: Install Dependencies
         run: |
-          sudo add-apt-repository ppa:deadsnakes/ppa
-          sudo apt-get update
-          sudo apt-get install -y python3.8
-      - name: Installing Dependencies
-        run: |
-          sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
-          python3.8 -m pip install --upgrade pip==21.3.1
-          pip3 install .
+          if ! which python3.8; then
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt-get update
+            sudo apt-get install -y python3.8-distutils
+            sudo apt-get install -y python3.8
+          fi
+          python3.8 -m pip install . flake8==5.0.4 flake8-quotes==3.3.2
       - name: Lint with flake8
         run: |
-          pip3 install flake8==5.0.4 flake8-quotes==3.3.2
           flake8 . --count --statistics
       - name: Test Analyzer
         working-directory: ./tests/analyzer
@@ -71,7 +68,8 @@ jobs:
           python3.8 -m unittest discover
       - name: Test GitHub Cacher
         working-directory: ./github-cacher/tests
-        run: python3.8 -m unittest discover
+        run: |
+          python3.8 -m unittest discover
 
   bugswarm_dev_build_common:
     name: Build bugswarm/common
@@ -107,8 +105,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04]
-
+        os:
+          - ubuntu-20.04
+          - ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
