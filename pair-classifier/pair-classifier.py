@@ -16,8 +16,9 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from pair_classifier.classify_bugs import classify_build, classify_code, classify_test, process_error, process_logs
-from get_changed_files import get_github_url, gather_info
+from get_changed_files import get_github_url
 from bugswarm.analyzer.analyzer import Analyzer
+from bugswarm.common.diff_calculator import gather_diff_info
 
 
 class PairClassifier(object):
@@ -111,7 +112,7 @@ class PairClassifier(object):
                 passed_sha = bp['passed_build']['travis_merge_sha'] if bp['passed_build']['travis_merge_sha'] else \
                     bp['passed_build']['head_sha']
                 url = get_github_url(failed_sha, passed_sha, repo)
-                image_tag_info = gather_info(url)
+                image_tag_info = gather_diff_info(failed_sha, passed_sha, repo, url)
 
                 files_changed = image_tag_info['changed_paths']
 
@@ -291,6 +292,7 @@ def main():
 
         errored_futures = [future for future in futures if future.exception()]
         if errored_futures:
+            log.error(errored_futures)
             log.error('{} repo(s) encountered an error. Check the logs for details.'.format(len(errored_futures)))
             return 1
 
