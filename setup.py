@@ -34,6 +34,7 @@ setup(
         'packaging==20.7',
         'urllib3==1.26.5',
         'pyparsing==3.0.9',
+        'charset-normalizer>=2,<4',
         'click==6.7',  # For bugswarm.client
     ],
 )

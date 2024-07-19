@@ -28,5 +28,6 @@ setup(
         'requests>=2.20.0,<=2.31',
         'CacheControl==0.12.3',
         'requests-cache==0.4.13',
+        'charset-normalizer>=2,<4',
     ],
 )

@@ -7,6 +7,8 @@ import subprocess
 import shutil
 import re
 
+import charset_normalizer
+
 from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common import log
 from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
@@ -82,9 +84,9 @@ def _get_diff_list(passed_commit, failed_commit, passed_path):
     diff_list = []
     df = []
 
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
-    res_stdout = result.stdout
-    res_stderr = result.stderr
+    result = subprocess.run(cmd, shell=True, capture_output=True, check=True)
+    res_stdout = str(charset_normalizer.from_bytes(result.stdout).best())
+    res_stderr = str(charset_normalizer.from_bytes(result.stderr).best())
     ok = result.returncode == 0
 
     if ok:
@@ -125,23 +127,23 @@ def _create_patches(diff_list):
         old_file = match.group(1)
         new_file = match.group(2)
         compare_line_index = 1
-        mode_changed = False
-        is_mode_changed = re.search(r'old mode', diff[compare_line_index])
-        if is_mode_changed is not None:
-            old_mode = 1
-            new_mode = 2
+
+        if diff[compare_line_index].startswith('old mode'):
             compare_line_index = 3
-            mode_changed = True
+            content += '{}\n{}\n'.format(diff[1], diff[2])
+
+        # can happen if e.g. a file's mode was changed but its contents weren't
+        if len(diff) <= compare_line_index:
+            p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
+
         # modified files
-        if diff[compare_line_index].startswith('index'):
+        elif diff[compare_line_index].startswith('index'):
             plus_per_file = 0
             minus_per_file = 0
             tripple_minus_or_binary_idx = compare_line_index + 1
             tripple_plus_idx = compare_line_index + 2
             content_start_idx = compare_line_index + 3
             if diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
-                if mode_changed:
-                    content = content + diff[old_mode] + '\n' + diff[new_mode] + '\n'
                 content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
                 for i in range(content_start_idx, len(diff)):
                     content = content + diff[i] + '\n'
@@ -158,6 +160,7 @@ def _create_patches(diff_list):
                 p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
             else:
                 raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
+
         # added files
         elif diff[compare_line_index].startswith('new file'):
             plus_per_file = 0
@@ -185,6 +188,7 @@ def _create_patches(diff_list):
                     p = _fill_up_patch(p, '/dev/null', new_file, content, 0, 0)
                 else:
                     raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
+
         # deleted files
         elif diff[compare_line_index].startswith('deleted'):
             plus_per_file = 0
@@ -207,10 +211,11 @@ def _create_patches(diff_list):
                     p = _fill_up_patch(p, old_file, '/dev/null', content, 0, minus_per_file)
                 elif diff[tripple_minus_or_binary_idx].startswith('Binary'):
                     # Binary files /dev/null and b/po.zip differ
-                    content = 'Binary file {} deleted'.format(p['old_file'])
+                    content = 'Binary file {} deleted'.format(old_file)
                     p = _fill_up_patch(p, old_file, '/dev/null', content, 0, 0)
                 else:
                     raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
+
         # renaming
         elif diff[compare_line_index].startswith('similarity'):
             # similarity index 100%
@@ -231,8 +236,6 @@ def _create_patches(diff_list):
                     content = 'File renamed from {} to {}'.format(o, n)
                     p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
                 else:
-                    if mode_changed:
-                        content = content + diff[old_mode] + '\n' + diff[new_mode] + '\n'
                     content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
                     for i in range(content_start_idx, len(diff)):
                         content = content + diff[i] + '\n'
@@ -243,9 +246,12 @@ def _create_patches(diff_list):
                             minus_count = minus_count + 1
                             minus_per_file = minus_per_file + 1
                     p = _fill_up_patch(p, old_file, new_file, content, plus_per_file, minus_per_file)
+
         else:
             raise Exception('This diff is invalid due to {}'.format(diff[compare_line_index]))
+
         diff_data.append(p)
+
     return diff_data, plus_count, minus_count
 
 
@@ -350,5 +356,6 @@ def gather_diff_info(failed_sha, passed_sha, repo, url):
             'additions': 0,
             'deletions': 0
         }
-        log.logging.exception('Could not gather info of repo {} due to an error:'.format(repo))
+        log.logging.exception('Could not gather info of {} {}..{} due to an error:'.format(repo, failed_sha,
+                                                                                           passed_sha))
     return info
