@@ -494,3 +494,25 @@ def filter_jobs_not_from_same_pr(pairs) -> int:
 
     utils.log_filter_count(filtered, 'jobpairs where the failed and passed jobs are from different PRs')
     return filtered
+
+
+def filter_failed_during_checkout_action(pairs) -> int:
+    """
+    Filters out jobpairs that failed during their checkout action. Since we handle checkouts
+    manually in the GitHub Actions Reproducer, we aren't able to replicate these correctly. Plus,
+    they sometimes trip up the `filter_jobs_not_from_same_pr` filter (since the checkout log is
+    incomplete).
+    """
+    filtered = 0
+
+    for p in pairs:
+        for jp in p['jobpairs']:
+            if utils.jobpair_is_filtered(jp):
+                continue
+
+            if jp['failed_step_kind'] == 'uses' and jp['failed_step_command'].startswith('actions/checkout'):
+                filtered += 1
+                jp[FILTERED_REASON_KEY] = reasons.JOB_FAILED_DURING_CHECKOUT
+
+    utils.log_filter_count(filtered, 'jobpairs where the failed job failed during the checkout action')
+    return filtered

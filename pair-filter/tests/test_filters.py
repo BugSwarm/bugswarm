@@ -299,3 +299,17 @@ class TestFilters(unittest.TestCase):
                     os.remove(filepath)
                 except FileNotFoundError:
                     pass
+
+    def test_filter_failed_during_checkout_action(self):
+        pairs = read_json(os.path.join(DATADIR, 'apache-dolphinscheduler.json'))
+        set_attribute_defaults(pairs)
+        num_filtered = filters.filter_failed_during_checkout_action(pairs)
+
+        self.assertEqual(num_filtered, 7)
+        self.assertEqual(pairs[7]['jobpairs'][0][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[7]['jobpairs'][1][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[8]['jobpairs'][0][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[8]['jobpairs'][1][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[9]['jobpairs'][0][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[11]['jobpairs'][0][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
+        self.assertEqual(pairs[12]['jobpairs'][0][FILTERED_REASON_KEY], reasons.JOB_FAILED_DURING_CHECKOUT)
