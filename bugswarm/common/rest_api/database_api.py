@@ -364,8 +364,8 @@ class DatabaseAPI(object):
         failed_sha: str,
         passed_sha: str,
         patches: list,
-        total_added_size: int,
-        total_deleted_size: int,
+        total_added_code: int,
+        total_deleted_code: int,
         diff_size: int
     ) -> Response:
         """
@@ -375,8 +375,8 @@ class DatabaseAPI(object):
         :param passed_commit_sha: The commit_sha of the passed commit.
         :param patches: diff patch list containing old_file, new_file, content,
             added_code_size and deleted_code_size.
-        :param total_added_size: size of added codes on the particular artifact.
-        :param total_deleted_size: size of deleted codes on the particular artifact.
+        :param total_added_code: size of added codes on the particular artifact.
+        :param total_deleted_code: size of deleted codes on the particular artifact.
         :param diff_size: diff size of the particular artifact
         :return: The response object.
         """
@@ -396,29 +396,20 @@ class DatabaseAPI(object):
             raise TypeError
         if not isinstance(diff_size, int):
             raise TypeError
-        if not isinstance(total_added_size, int):
+        if not isinstance(total_added_code, int):
             raise TypeError
-        if not isinstance(total_deleted_size, int):
+        if not isinstance(total_deleted_code, int):
             raise TypeError
-        diff_ = []
-        for d in patches:
-            diff_dict = {}
-            diff_dict['old_file'] = d['old_file']
-            diff_dict['new_file'] = d['new_file']
-            diff_dict['content'] = d['content']
-            diff_dict['added_code_size'] = d['added_code_size']
-            diff_dict['deleted_code_size'] = d['deleted_code_size']
-            diff_.append(diff_dict)
         diff_entry = {
             'image_tag': image_tag,
             'failed_sha': failed_sha,
             'passed_sha': passed_sha,
-            'patches': diff_,
-            'total_added_code': total_added_size,
-            'total_deleted_code': total_deleted_size,
+            'patches': patches,
+            'total_added_code': total_added_code,
+            'total_deleted_code': total_deleted_code,
             'diff_size': diff_size
         }
-        return self._insert(DatabaseAPI._diffs_endpoint(), diff_entry, 'diffs')
+        return self._upsert(DatabaseAPI._diffs_image_tag_endpoint(image_tag), diff_entry, 'diffs')
 
     def get_diff(self, image_tag: str, error_if_not_found: bool = True) -> dict:
         """

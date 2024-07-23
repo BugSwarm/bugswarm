@@ -190,10 +190,15 @@ logs = {
 
 diffs = {
     'schema': schema.DiffSchema,
-    'allow_unknown': True,
+
     'id_field': 'image_tag',
     'item_lookup_field': 'image_tag',
     'item_url': 'regex(".+")',
+
+    # PUT: Allow overwriting artifact diffs
+    'item_methods': ITEM_METHODS + ['PUT'],
+    # Disable reading from the /v1/diffs endpoint; only allow /v1/diffs/<image-tag>
+    'resource_methods': [],
     'allowed_write_roles': ALLOWED_WRITE_ROLES,
     'allowed_item_write_roles': ALLOWED_WRITE_ROLES,
 }
