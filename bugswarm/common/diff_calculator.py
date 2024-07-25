@@ -75,36 +75,33 @@ def _git_reset_and_fetch(folder_path, commit_sha):
         raise Exception
 
 
+def _normalize_bytes(b: bytes):
+    norm_matches = charset_normalizer.from_bytes(b)
+    if not norm_matches:
+        # Couldn't guess the encoding; fall back to latin1 (guaranteed to not raise an exception)
+        # TODO possibly automatically treat these files as binary instead?
+        first_line = b.split(b'\n')[0]
+        log.warning("Couldn't guess encoding for bytes (first line {}); falling back to 'latin1'".format(first_line))
+        return str(b, encoding='latin1')
+    return str(norm_matches.best())
+
+
 def _get_diff_list(passed_commit, failed_commit, passed_path):
     cmd = 'cd {} && git diff {} {}'.format(
         passed_path,
         failed_commit,
         passed_commit
     )
-    diff_list = []
-    df = []
-
     result = subprocess.run(cmd, shell=True, capture_output=True, check=True)
-    res_stdout = str(charset_normalizer.from_bytes(result.stdout).best())
-    res_stderr = str(charset_normalizer.from_bytes(result.stderr).best())
-    ok = result.returncode == 0
 
-    if ok:
-        result_lines = res_stdout.splitlines()
-        for i in range(len(result_lines)):
-            line = result_lines[i]
-            if line.startswith('diff --git'):
-                if i != 0:
-                    diff_list.append(df)
-                    df = []
-            df.append(line)
-            if i == len(result_lines) - 1:
-                diff_list.append(df)
-        return diff_list
-    else:
-        log.info('Could not fetch failed commit')
-        log.error(res_stderr)
-        return []
+    diff_bytes_list = []
+    for i, line_bytes in enumerate(result.stdout.splitlines(keepends=True)):
+        if i == 0 or line_bytes.startswith(b'diff --git'):
+            diff_bytes_list.append(b'')
+        diff_bytes_list[-1] += line_bytes
+
+    diff_list = [_normalize_bytes(b).splitlines() for b in diff_bytes_list]
+    return diff_list
 
 
 def _fill_up_patch(patch, old_file, new_file, content, added_code_size, deleted_code_size):
@@ -114,6 +111,10 @@ def _fill_up_patch(patch, old_file, new_file, content, added_code_size, deleted_
     patch['added_code_size'] = added_code_size
     patch['deleted_code_size'] = deleted_code_size
     return patch
+
+
+def _should_force_binary(filename: str):
+    return filename.endswith('.pdf')
 
 
 def _create_patches(diff_list):
@@ -126,6 +127,7 @@ def _create_patches(diff_list):
         match = re.match(r'diff --git a/(.*) b/(.*)', diff[0])
         old_file = match.group(1)
         new_file = match.group(2)
+        force_binary = _should_force_binary(old_file) or _should_force_binary(new_file)
         compare_line_index = 1
 
         if diff[compare_line_index].startswith('old mode'):
@@ -143,7 +145,11 @@ def _create_patches(diff_list):
             tripple_minus_or_binary_idx = compare_line_index + 1
             tripple_plus_idx = compare_line_index + 2
             content_start_idx = compare_line_index + 3
-            if diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
+
+            if force_binary or diff[tripple_minus_or_binary_idx].startswith('Binary'):
+                content = 'Binary file {} modified'.format(old_file)
+                p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
+            elif diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
                 content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
                 for i in range(content_start_idx, len(diff)):
                     content = content + diff[i] + '\n'
@@ -154,10 +160,6 @@ def _create_patches(diff_list):
                         minus_count = minus_count + 1
                         minus_per_file = minus_per_file + 1
                 p = _fill_up_patch(p, old_file, new_file, content, plus_per_file, minus_per_file)
-            # Binary Files - modified
-            elif diff[tripple_minus_or_binary_idx].startswith('Binary'):
-                content = 'Binary file {} modified'.format(old_file)
-                p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
             else:
                 raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
 
@@ -175,7 +177,11 @@ def _create_patches(diff_list):
                 tripple_minus_or_binary_idx = 3
                 tripple_plus_idx = 4
                 content_start_idx = 5
-                if diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
+
+                if force_binary or diff[tripple_minus_or_binary_idx].startswith('Binary'):
+                    content = 'Binary file {} added'.format(new_file)
+                    p = _fill_up_patch(p, '/dev/null', new_file, content, 0, 0)
+                elif diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
                     content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
                     for i in range(content_start_idx, len(diff)):
                         content = content + diff[i] + '\n'
@@ -183,9 +189,6 @@ def _create_patches(diff_list):
                             plus_count = plus_count + 1
                             plus_per_file = plus_per_file + 1
                     p = _fill_up_patch(p, '/dev/null', new_file, content, plus_per_file, 0)
-                elif diff[tripple_minus_or_binary_idx].startswith('Binary'):
-                    content = 'Binary file {} added'.format(new_file)
-                    p = _fill_up_patch(p, '/dev/null', new_file, content, 0, 0)
                 else:
                     raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
 
@@ -200,7 +203,12 @@ def _create_patches(diff_list):
                 tripple_minus_or_binary_idx = 3
                 tripple_plus_idx = 4
                 content_start_idx = 5
-                if diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
+
+                if force_binary or diff[tripple_minus_or_binary_idx].startswith('Binary'):
+                    # Binary files /dev/null and b/po.zip differ
+                    content = 'Binary file {} deleted'.format(old_file)
+                    p = _fill_up_patch(p, old_file, '/dev/null', content, 0, 0)
+                elif diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
                     # deleted files with contents
                     content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
                     for i in range(content_start_idx, len(diff)):
@@ -209,10 +217,6 @@ def _create_patches(diff_list):
                             minus_count = minus_count + 1
                             minus_per_file = minus_per_file + 1
                     p = _fill_up_patch(p, old_file, '/dev/null', content, 0, minus_per_file)
-                elif diff[tripple_minus_or_binary_idx].startswith('Binary'):
-                    # Binary files /dev/null and b/po.zip differ
-                    content = 'Binary file {} deleted'.format(old_file)
-                    p = _fill_up_patch(p, old_file, '/dev/null', content, 0, 0)
                 else:
                     raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
 
@@ -228,24 +232,23 @@ def _create_patches(diff_list):
             tripple_minus_or_binary_idx = compare_line_index + 4
             tripple_plus_idx = compare_line_index + 5
             content_start_idx = compare_line_index + 6
-            if match_percentage == 100:
+
+            if match_percentage == 100 or force_binary or diff[tripple_minus_or_binary_idx].startswith('Binary'):
                 content = 'File renamed from {} to {}'.format(o, n)
                 p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
+            elif diff[tripple_minus_or_binary_idx].startswith('---') and diff[tripple_plus_idx].startswith('+++'):
+                content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
+                for i in range(content_start_idx, len(diff)):
+                    content = content + diff[i] + '\n'
+                    if diff[i].startswith('+'):
+                        plus_count = plus_count + 1
+                        plus_per_file = plus_per_file + 1
+                    elif diff[i].startswith('-'):
+                        minus_count = minus_count + 1
+                        minus_per_file = minus_per_file + 1
+                p = _fill_up_patch(p, old_file, new_file, content, plus_per_file, minus_per_file)
             else:
-                if diff[tripple_minus_or_binary_idx].startswith('Binary'):
-                    content = 'File renamed from {} to {}'.format(o, n)
-                    p = _fill_up_patch(p, old_file, new_file, content, 0, 0)
-                else:
-                    content = content + diff[tripple_minus_or_binary_idx] + '\n' + diff[tripple_plus_idx] + '\n'
-                    for i in range(content_start_idx, len(diff)):
-                        content = content + diff[i] + '\n'
-                        if diff[i].startswith('+'):
-                            plus_count = plus_count + 1
-                            plus_per_file = plus_per_file + 1
-                        elif diff[i].startswith('-'):
-                            minus_count = minus_count + 1
-                            minus_per_file = minus_per_file + 1
-                    p = _fill_up_patch(p, old_file, new_file, content, plus_per_file, minus_per_file)
+                raise Exception('This diff is invalid due to {}'.format(diff[tripple_minus_or_binary_idx]))
 
         else:
             raise Exception('This diff is invalid due to {}'.format(diff[compare_line_index]))
