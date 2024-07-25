@@ -272,7 +272,7 @@ class JobPairSelector(object):
                 invalids = SKIPPED_ACTIONS | SPECIAL_ACTIONS
                 # If the failed step is NOT within the UNSUPPORTED_ACTIONS & SPECIAL_ACTIONS set, marks it as valid.
                 try:
-                    if jp['failed_step_kind'] != 'uses' or not [s in jp['failed_step_command'] for s in invalids]:
+                    if jp['failed_step_kind'] != 'uses' or not any(s in jp['failed_step_command'] for s in invalids):
                         valid_failed_step_only.add(s)
                     if jp['failed_step_kind'] == 'run':
                         custom_failed_step_only.add(s)
@@ -307,13 +307,16 @@ class JobPairSelector(object):
 
                     regex = r'^[^#]*docker\s+(build|exec|image|login|pull|push|rmi|run|start|compose|buildx|tag)\s+'
                     for step in failed_config.get('steps', []):
-                        if 'run' in step:
-                            if re.search(regex, step['run']):
-                                contains_docker = True
+                        if 'run' in step and re.search(regex, str(step['run'])):
+                            contains_docker = True
 
                         # TODO: Add a new filter to specifically allow unsupported actions, instead of
                         # wrapping it in --allow-failed-step?
-                        elif 'uses' in step and any(s in step['uses'] for s in UNSUPPORTED_ACTIONS):
+                        elif (
+                                'uses' in step and
+                                any(action in step['uses'] for action in UNSUPPORTED_ACTIONS) and
+                                s in valid_failed_step_only
+                        ):
                             valid_failed_step_only.remove(s)
                     if not contains_docker:
                         non_docker.add(s)
