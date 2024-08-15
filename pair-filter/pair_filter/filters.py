@@ -463,7 +463,8 @@ def filter_jobs_not_from_same_pr(pairs) -> int:
     were triggered by a PR. Once we have a job's log, however, we can scan through it to get its PR
     info, and ensure that the failed and passed jobs come from the same PR.
     """
-    filtered = 0
+    filtered_diff_prs = 0
+    filtered_invalid = 0
 
     for p in pairs:
         for jp in p['jobpairs']:
@@ -471,8 +472,16 @@ def filter_jobs_not_from_same_pr(pairs) -> int:
                 continue
 
             # (pr_num, base_sha, head_sha, merge_sha)
-            failed_pr_data = utils.get_github_actions_pr_data(jp['failed_job']['job_id'])
-            passed_pr_data = utils.get_github_actions_pr_data(jp['passed_job']['job_id'])
+            try:
+                failed_pr_data = utils.get_github_actions_pr_data(jp['failed_job']['job_id'])
+                passed_pr_data = utils.get_github_actions_pr_data(jp['passed_job']['job_id'])
+            except RuntimeError as e:
+                # Sanity check failed; filter it out and move on.
+                log.warning(e)
+                filtered_invalid += 1
+                jp[FILTERED_REASON_KEY] = reasons.COULD_NOT_GET_PR_DATA
+                continue
+
             f_pr_num, f_base_sha, _, f_merge_sha = failed_pr_data
             p_pr_num, p_base_sha, _, p_merge_sha = passed_pr_data
 
@@ -481,7 +490,7 @@ def filter_jobs_not_from_same_pr(pairs) -> int:
                 continue
             if f_pr_num != p_pr_num:
                 # Jobs from different PRs! Filter the pair.
-                filtered += 1
+                filtered_diff_prs += 1
                 jp[FILTERED_REASON_KEY] = reasons.JOBS_FROM_DIFFERENT_PRS
             else:
                 # Jobs are from the same PR, so set the PR data for the build pair.
@@ -492,8 +501,9 @@ def filter_jobs_not_from_same_pr(pairs) -> int:
                 p['failed_build']['travis_merge_sha'] = f_merge_sha
                 p['passed_build']['travis_merge_sha'] = p_merge_sha
 
-    utils.log_filter_count(filtered, 'jobpairs where the failed and passed jobs are from different PRs')
-    return filtered
+    utils.log_filter_count(filtered_diff_prs, 'jobpairs where the failed and passed jobs are from different PRs')
+    utils.log_filter_count(filtered_invalid, 'jobpairs where the PR data could not be deduced from the log')
+    return filtered_diff_prs, filtered_invalid
 
 
 def filter_failed_during_checkout_action(pairs) -> int:
