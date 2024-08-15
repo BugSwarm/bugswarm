@@ -16,7 +16,6 @@ from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
 from bugswarm.common.json import read_json
 from bugswarm.common.json import write_json
 from pair_classifier.classify_bugs import classify_build, classify_code, classify_test, process_error, process_logs
-from get_changed_files import get_github_url
 from bugswarm.analyzer.analyzer import Analyzer
 from bugswarm.common.diff_calculator import gather_diff_info
 
@@ -107,12 +106,24 @@ class PairClassifier(object):
                 if all((jp['is_filtered'] for jp in bp['jobpairs'])):
                     continue
 
-                failed_sha = bp['failed_build']['travis_merge_sha'] if bp['failed_build']['travis_merge_sha'] else \
-                    bp['failed_build']['head_sha']
-                passed_sha = bp['passed_build']['travis_merge_sha'] if bp['passed_build']['travis_merge_sha'] else \
-                    bp['passed_build']['head_sha']
-                url = get_github_url(failed_sha, passed_sha, repo)
-                image_tag_info = gather_diff_info(failed_sha, passed_sha, repo, url)
+                failed_head_sha = bp['failed_build']['head_sha']
+                failed_base_sha = bp['failed_build']['base_sha'] or None
+                passed_head_sha = bp['passed_build']['head_sha']
+                passed_base_sha = bp['passed_build']['base_sha'] or None
+                failed_trigger_sha = bp['failed_build']['travis_merge_sha'] or failed_head_sha
+
+                # Use the repo clone from the PairFinder if present; otherwise put them in an intermediate dir
+                cur_file_dir = os.path.dirname(os.path.abspath(__file__))
+                clone_dir = os.path.join(cur_file_dir, '..', '{}-pair-finder'.format(ci_service), 'intermediates',
+                                         'repos', repo.replace('/', '-'))
+                if not os.path.isdir(clone_dir):
+                    intermediate_dir = os.path.join('intermediates', 'repos')
+                    clone_dir = os.path.join(intermediate_dir, repo.replace('/', '-'))
+                    os.makedirs(intermediate_dir, exist_ok=True)
+
+                # Get diff metrics for this build pair
+                image_tag_info = gather_diff_info(failed_head_sha, passed_head_sha, repo, clone_dir, failed_base_sha,
+                                                  passed_base_sha)
 
                 files_changed = image_tag_info['changed_paths']
 
@@ -177,7 +188,7 @@ class PairClassifier(object):
 
                     try:
                         result = analyzer.analyze_single_log('{}/{}-orig.log'.format(origin_log_dir, failed_job_id),
-                                                             failed_job_id, ci_service, trigger_sha=failed_sha,
+                                                             failed_job_id, ci_service, trigger_sha=failed_trigger_sha,
                                                              repo=repo)
                     except BaseException:
                         log.error('Error analyzing log for {}'.format(failed_job_id))

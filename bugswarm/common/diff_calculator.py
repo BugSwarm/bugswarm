@@ -75,6 +75,23 @@ def _git_reset_and_fetch(folder_path, commit_sha):
         raise Exception
 
 
+def _create_merge_commit(repo_path, base_sha, head_sha):
+    try:
+        log.info('Merging {} into {}'.format(head_sha, base_sha))
+        repo = git.Repo(repo_path)
+        base = repo.commit(base_sha)
+        head = repo.commit(head_sha)
+
+        # Check out base sha and merge head sha into it
+        repo.head.reset(base, index=True, working_tree=True)
+        repo.git.merge(head)
+
+        return repo.head.commit.hexsha
+    except git.GitCommandError as e:
+        log.error('Error while merging {} into {}: {!r}'.format(head_sha, base_sha, e))
+        raise
+
+
 def _normalize_bytes(b: bytes):
     norm_matches = charset_normalizer.from_bytes(b)
     if not norm_matches:
@@ -321,20 +338,23 @@ def _generate_diff_input(image_tag, input_file, json_file_path, project_clone_pa
         f.write('\n'.join(errored_tags) + '\n')
 
 
-def gather_diff_info(failed_sha, passed_sha, repo, url):
+def gather_diff_info(failed_sha, passed_sha, repo, repo_clone_path, failed_base_sha=None, passed_base_sha=None):
     user = repo.split('/')[0]
     project = repo.split('/')[1]
-    repo_clone_path = os.path.join(os.path.dirname(os.getcwd()), 'github-pair-finder', 'intermediates', 'repos',
-                                   repo.replace('/', '-'))
-    log.info(repo_clone_path)
     if not os.path.exists(repo_clone_path):
         _git_clone_to_folder(repo_clone_path, user, project)
 
     info = {}
-    info['url'] = url
     try:
         _git_reset_and_fetch(repo_clone_path, passed_sha)
         _git_reset_and_fetch(repo_clone_path, failed_sha)
+        if failed_base_sha:
+            _git_reset_and_fetch(repo_clone_path, failed_base_sha)
+            failed_sha = _create_merge_commit(repo_clone_path, failed_base_sha, failed_sha)
+        if passed_base_sha:
+            _git_reset_and_fetch(repo_clone_path, passed_base_sha)
+            passed_sha = _create_merge_commit(repo_clone_path, passed_base_sha, passed_sha)
+
         diffs = _get_diff_list(passed_sha, failed_sha, repo_clone_path)
         diff_, plus, minus = _create_patches(diffs)
         changed_files = []
