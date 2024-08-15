@@ -68,13 +68,20 @@ class GitHubWrapper(object):
 
                 if response_format == 'bytes':
                     return response, response.content
-            except Exception as e:
-                # If the exception is a connection error, the server may have dropped the connection.
-                # In this case, we should try resetting the session.
-                if e is requests.ConnectionError:
-                    log.info('Recreating session.')
-                    self._create_session()
 
+            except requests.ConnectionError:
+                if retry_count >= max_retry:
+                    log.error('Stop retrying after {} retry failures'.format(retry_count))
+                    return None, None
+
+                log.warning('Connection dropped. Recreating session.')
+                self._create_session()
+
+                time.sleep(retry_back_off)
+                retry_back_off *= 2
+                retry_count += 1
+
+            except Exception as e:
                 if response.status_code == 404:  # Not found
                     log.error('URL not found:', url)
                     return response, None
