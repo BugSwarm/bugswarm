@@ -1,7 +1,4 @@
-import json
-import sys
 import os
-import argparse
 import git
 import subprocess
 import shutil
@@ -9,35 +6,7 @@ import re
 
 import charset_normalizer
 
-from bugswarm.common.rest_api.database_api import DatabaseAPI
 from bugswarm.common import log
-from bugswarm.common.credentials import DATABASE_PIPELINE_TOKEN
-
-
-def _get_input_parser():
-    parser = argparse.ArgumentParser(description='Calculate diff from BugSwarm aritfacts')
-    required = parser.add_argument_group('required arguments')
-    parser.add_argument('-t', '--image-tag',
-                        default=None, help='image tag of the target BugSwarm artifact')
-    parser.add_argument('-f', '--input-file',
-                        default=None, help='Provide the input-file')
-    required.add_argument('-j', '--json-path',
-                          required=True, help='Please provide data json path')
-    required.add_argument('-p', '--project-clone-path',
-                          required=True, help='Please provide project clone path')
-    args = parser.parse_args()
-    image_tag = args.image_tag
-    input_file = args.input_file
-    project_clone_path = args.project_clone_path
-    json_path = args.json_path
-
-    if not os.path.exists(project_clone_path):
-        os.makedirs(project_clone_path)
-
-    if image_tag is not None and input_file is not None:
-        print('Please provide image tag or input file which contains image tags')
-        sys.exit(1)
-    return image_tag, input_file, json_path, project_clone_path
 
 
 # Cloning repo from github to a folder
@@ -275,67 +244,71 @@ def _create_patches(diff_list):
     return diff_data, plus_count, minus_count
 
 
-# generate diff entry for the schema
-def _generate_diff_input(image_tag, input_file, json_file_path, project_clone_path):
-    os.environ['GIT_TERMINAL_PROMPT'] = '0'  # So commands that normally ask for credentials auto-fail.
-    image_tag_list = []
+def gather_diff(failed_sha, passed_sha, repo, repo_clone_path, failed_base_sha=None, passed_base_sha=None):
+    """
+    Computes `git diff <failed_sha>..<passed_sha>` for the given repo.
 
-    if image_tag is None:
-        with open(input_file, 'r') as f:
-            lines = f.readlines()
+    If `failed_base_sha` or `passed_base_sha` are not None, then this function
+    will merge those commits into `failed_sha` or `passed_sha` respectively
+    before performing the diff. (This is meant to imitate GitHub's PR merge base
+    behavior -- see https://github.com/readthedocs/readthedocs.org/issues/6958.)
 
-        for line in lines:
-            image_tag_list.append(line.split('\n')[0])
+    :param failed_sha: The failed commit.
+    :param passed_sha: The passed commit.
+    :param repo: The repo the commits are from.
+    :param repo_clone_path: A path on disk to clone the repo to before
+        performing the diff. If the path already exists, this function assumes
+        the repo has already been cloned there.
+    :param failed_base_sha: If not `None`, the commit to merge `failed_sha`
+        into before diffing.
+    :param passed_base_sha: If not `None`, the commit to merge `passed_sha`
+        into before diffing.
+    :return:  A dict in the following format::
 
-    elif input_file is None:
-        image_tag_list.append(image_tag)
+            {
+                'failed_sha': str,
+                'passed_sha': str,
+                'total_added_code': int,
+                'total_deleted_code': int,
+                'diff_size': int,
+                'patches': [
+                    {
+                        'old_file': str,
+                        'new_file': str,
+                        'added_code_size': int,
+                        'deleted_code_size': int,
+                        'content': str,
+                    },
+                    ...
+                ]
+            }
+    """
+    user, project = repo.split('/')
 
-    bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
-    diff_data = []
-    errored_tags = []
-    for image_tag in image_tag_list:
-        response = bugswarmapi.find_artifact(image_tag)
-        if not response.ok:
-            log.error('Artifact not found: {}'.format(image_tag))
-            continue
+    if not os.path.exists(repo_clone_path):
+        _git_clone_to_folder(repo_clone_path, user, project)
 
-        diff_entry = {}
-        artifact = response.json()
-        diff_entry['image_tag'] = artifact['image_tag']
-        diff_entry['failed_sha'] = artifact['failed_job']['trigger_sha']
-        diff_entry['passed_sha'] = artifact['passed_job']['trigger_sha']
-        user = artifact['repo'].split('/')[0]
-        project = artifact['repo'].split('/')[1]
-        passed_path = os.path.join(project_clone_path, 'passed', project)
+    _git_reset_and_fetch(repo_clone_path, passed_sha)
+    _git_reset_and_fetch(repo_clone_path, failed_sha)
+    if failed_base_sha:
+        _git_reset_and_fetch(repo_clone_path, failed_base_sha)
+        failed_sha = _create_merge_commit(repo_clone_path, failed_base_sha, failed_sha)
+    if passed_base_sha:
+        _git_reset_and_fetch(repo_clone_path, passed_base_sha)
+        passed_sha = _create_merge_commit(repo_clone_path, passed_base_sha, passed_sha)
 
-        try:
-            _git_clone_to_folder(project_clone_path, user, project)
-            _create_pass_fail_folder(project_clone_path, project)
+    diffs = _get_diff_list(passed_sha, failed_sha, repo_clone_path)
 
-            _git_reset_and_fetch(passed_path, diff_entry['passed_sha'])
-            _git_reset_and_fetch(passed_path, diff_entry['failed_sha'])
-            diffs = _get_diff_list(diff_entry['passed_sha'], diff_entry['failed_sha'], passed_path)
+    patches, plus, minus = _create_patches(diffs)
 
-            diff_, plus, minus = _create_patches(diffs)
-            diff_size = plus + minus
-            diff_entry['patches'] = diff_
-            diff_entry['diff_size'] = diff_size
-            diff_entry['total_added_code'] = plus
-            diff_entry['total_deleted_code'] = minus
-            diff_data.append(diff_entry)
-
-        except Exception as e:
-            log.logging.exception('Skipping {} due to an error {}:'.format(image_tag, e))
-            errored_tags.append(image_tag)
-
-        shutil.rmtree(passed_path, ignore_errors=True)
-        project_path_to_del = os.path.join(project_clone_path, project)
-        shutil.rmtree(project_path_to_del, ignore_errors=True)
-
-    with open(json_file_path, 'w') as f:
-        json.dump(diff_data, f)
-    with open('error_image.txt', 'w') as f:
-        f.write('\n'.join(errored_tags) + '\n')
+    return {
+        'failed_sha': failed_sha,
+        'passed_sha': passed_sha,
+        'total_added_code': plus,
+        'total_deleted_code': minus,
+        'diff_size': plus + minus,
+        'patches': patches,
+    }
 
 
 def gather_diff_info(failed_sha, passed_sha, repo, repo_clone_path, failed_base_sha=None, passed_base_sha=None):

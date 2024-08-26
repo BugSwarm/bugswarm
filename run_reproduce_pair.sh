@@ -8,8 +8,6 @@ source "${SCRIPT_DIR}"/common.sh
 
 # Increase REPRODUCER_RUNS to be more confident about pair stability at the cost of throughput.
 REPRODUCER_RUNS=5
-# Steps for Reproducer runs plus one step each for PairChooser, ReproducedResultsAnalyzer, ImagePackager,
-# MetadataPackager, and CacheDependency.
 STAGE='Reproduce Pair'
 
 USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> (--pair-file <pair-file> | -r <repo-slug> -f <failed-job-id> -p <passed-job-id>) [-t <threads>] [-c <component-directory>] [--reproducer-runs <reproducer-runs>] [--skip-cacher] [-s]'
@@ -101,7 +99,7 @@ if [[ $skip_cacher ]]; then
 else
     check_repo_exists "${reproducer_dir}" 'reproducer'
     check_repo_exists "${cacher_dir}" 'cacher'
-    TOTAL_STEPS=$((REPRODUCER_RUNS + 6))
+    TOTAL_STEPS=$((REPRODUCER_RUNS + 7))
 fi
 
 # Create a file containing all pairs mined from the project.
@@ -138,6 +136,8 @@ exit_if_failed 'ImagePackager encountered an error.'
 if [[ ! $skip_cacher ]]; then
     task_json_path="${reproducer_dir}/output/result_json/${task_name}.json"
     cacher_input_file="${reproducer_dir}/input/${task_name}"
+    repo_clone_path="${reproducer_dir}/intermediates/project_repos"
+    cacher_output_path="${cacher_dir}/output/${task_name}.csv"
 
     print_step "${STAGE}" ${TOTAL_STEPS} 'Cacher'
     python3 get_reproducer_output.py -i "${task_json_path}" -o "${task_name}"
@@ -162,6 +162,10 @@ if [[ ! $skip_cacher ]]; then
     print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'
     python3 add_artifact_logs.py "${task_name}"
     exit_if_failed 'ArtifactLogPackager encountered an error.'
+
+    print_step "${STAGE}" ${TOTAL_STEPS}, 'ArtifactDiffAdder'
+    python3 add_artifact_diffs.py -j "${task_json_path}" -c "${cacher_output_path}" -p "${repo_clone_path}"
+    exit_if_failed 'ArtifactDiffAdder encountered an error.'
 fi
 
 print_stage_done "${STAGE}"

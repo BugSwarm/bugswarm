@@ -60,7 +60,7 @@ fi
 if [[ ${no_push} ]]; then
     TOTAL_STEPS=1  # CacheDependency
 else
-    TOTAL_STEPS=3  # CacheDependency, MetadataPackager, ArtifactLogPackager
+    TOTAL_STEPS=4  # CacheDependency, MetadataPackager, ArtifactLogPackager, ArtifactDiffAdder
 fi
 
 # The task name is the basename of the input JSON file, without the extension.
@@ -109,6 +109,10 @@ if [[ ! ${no_push} ]]; then
     print_step "${STAGE}" ${TOTAL_STEPS} 'ArtifactLogPackager'
     python3 add_artifact_logs.py "${task_name}"
     exit_if_failed 'ArtifactLogPackager encountered an error.'
+
+    print_step "${STAGE}" ${TOTAL_STEPS}, 'ArtifactDiffAdder'
+    python3 add_artifact_diffs.py -j "${input_json}" -c "${cacher_output_path}" -p "${repo_clone_path}"
+    exit_if_failed 'ArtifactDiffAdder encountered an error.'
 fi
 
 print_stage_done "${STAGE}"
