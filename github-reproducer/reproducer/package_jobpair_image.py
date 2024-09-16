@@ -82,9 +82,7 @@ def _modify_script(utils: Utils, jobpair: JobPair):
 
 def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
     failed_job_id = jobpair.jobs[0].job_id
-    failed_resettable = jobpair.jobs[0].resettable
     passed_job_id = jobpair.jobs[1].job_id
-    passed_resettable = jobpair.jobs[1].resettable
 
     failed_dockerfile_path = join(utils.get_jobpair_workspace_dir(jobpair), failed_job_id + '-Dockerfile')
     passed_dockerfile_path = join(utils.get_jobpair_workspace_dir(jobpair), passed_job_id + '-Dockerfile')
@@ -140,8 +138,6 @@ def _write_package_dockerfile(utils: Utils, jobpair: JobPair):
         # Add the repositories.
         'ADD failed.tar /home/github/build/failed/',
         'ADD passed.tar /home/github/build/passed/',
-        'RUN chmod -R 777 /home/github/build/failed/' if not failed_resettable else '',
-        'RUN chmod -R 777 /home/github/build/passed/' if not passed_resettable else '',
 
         # Add the original logs.
         'ADD {}-orig.log /home/github/build/'.format(failed_job_id),

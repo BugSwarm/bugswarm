@@ -23,11 +23,11 @@ def gen_dockerfile(job: Job, destination: str = None):
     log.info('Use Docker image {} for job runner.'.format(job.image_tag))
 
     destination = destination or job.job_id + '-Dockerfile'
-    _write_dockerfile(destination, job, job.resettable)
+    _write_dockerfile(destination, job)
     log.debug('Wrote Dockerfile to {}'.format(destination))
 
 
-def _write_dockerfile(destination: str, job: Job, resettable: bool):
+def _write_dockerfile(destination: str, job: Job):
     job_id = job.job_id
     bugswarm_job_runner = job.container is None
 
@@ -78,7 +78,6 @@ def _write_dockerfile(destination: str, job: Job, resettable: bool):
 
         # Add the repository.
         'ADD repo-to-docker.tar /home/github/build/',
-        'RUN chmod -R 777 /home/github/build' if not resettable else '',
 
         # Add the build script and predefined actions.
         'ADD --chown=github:github {}/run.sh /usr/local/bin/'.format(job_id),

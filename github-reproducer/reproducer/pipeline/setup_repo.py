@@ -4,7 +4,6 @@ import os
 import tarfile
 import time
 import urllib.request
-import zipfile
 
 from bugswarm.common import log
 
@@ -179,8 +178,9 @@ def download_repo(job, utils):
     # Make the workspace repository directory.
     # Note: We have no way to check out the correct version of submodule!
     job_archive_dir = utils.get_stored_repo_archives_path(job)
-    repo_unzip_name = job.repo.split('/')[1] + '-' + job.sha
-    repo_zip_path = utils.get_project_storage_repo_zip_path(job)
+    repo_untar_name = utils.get_job_archive_extracted_filename(job)
+    repo_tar_path = utils.get_project_storage_repo_archive_path(job)
+    target_sha = job.travis_merge_sha if job.is_pr else job.sha
 
     os.makedirs(job_archive_dir, exist_ok=True)
     retry_count = 0
@@ -190,37 +190,43 @@ def download_repo(job, utils):
     while True:
         if retry_count > max_retries:
             raise RepoSetupError(
-                'Max retries exceeded for downloading zip file for repo {}: {}.'.format(job.repo, last_error))
+                'Max retries exceeded for downloading tar.gz file for repo {}: {}.'.format(job.repo, last_error))
 
         try:
             # Download the repository.
-            if not os.path.exists(repo_zip_path):
-                if job.is_pr:
-                    src = utils.construct_github_archive_repo_sha_url(job.repo, job.travis_merge_sha)
-                else:
-                    src = utils.construct_github_archive_repo_sha_url(job.repo, job.sha)
+            if not os.path.exists(repo_tar_path):
+                src = utils.construct_github_archive_repo_sha_url(job.repo, target_sha)
                 log.debug('Downloading the repository from the GitHub archive at {}.'.format(src))
-                urllib.request.urlretrieve(src, repo_zip_path)
+                urllib.request.urlretrieve(src, repo_tar_path)
 
             # Copy repository from stored project repositories to the workspace repository directory by
             # untar-ing the storage repository tar file into the workspace directory.
-            repo_zip_obj = zipfile.ZipFile(repo_zip_path)
-            repo_zip_obj.extractall(job_archive_dir)
+            with tarfile.open(repo_tar_path) as repo_tar_obj:
+                repo_tar_obj.extractall(job_archive_dir)
             break
         except Exception as e:
             last_error = e
             log.info('Failed to download the repository due to {}'.format(repr(e)))
             retry_count += 1
 
-            if os.path.exists(repo_zip_path):
-                os.remove(repo_zip_path)
+            if os.path.exists(repo_tar_path):
+                os.remove(repo_tar_path)
             time.sleep(5)
             continue
 
-    distutils.dir_util.copy_tree(os.path.join(job_archive_dir, repo_unzip_name),
+    distutils.dir_util.copy_tree(os.path.join(job_archive_dir, repo_untar_name),
                                  utils.get_reproducing_repo_dir(job))
+
+    # Copy the .git dir so we're still in a git repository
     distutils.dir_util.copy_tree(os.path.join(utils.get_repo_storage_dir(job), '.git'),
                                  os.path.join(utils.get_reproducing_repo_dir(job), '.git'))
+
+    # Make a commit so "git diff" outputs what you'd expect
+    # Slight inconsistency: if the repo has `.git_archival.txt` in the root, that will differ from the version in the
+    # actual commit. Unavoidable when downloading repo archives, unfortunately.
+    repo = git.Repo(utils.get_reproducing_repo_dir(job))
+    repo.git.add(all=True)
+    repo.git.commit(message='Dummy commit reflecting sha {}'.format(target_sha))
 
 
 def tar_repo(job, utils, dir_to_be_tar=None):

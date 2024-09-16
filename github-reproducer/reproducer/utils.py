@@ -68,7 +68,7 @@ class Utils(object):
 
     @staticmethod
     def construct_github_archive_repo_sha_url(repo, sha):
-        return 'https://github.com/{}/archive/{}.zip'.format(repo, sha)
+        return 'https://github.com/{}/archive/{}.tar.gz'.format(repo, sha)
 
     def get_repo_storage_dir(self, job):
         return os.path.join(self.config.stored_repos_dir, job.repo)
@@ -179,7 +179,16 @@ class Utils(object):
         return os.path.join(self.get_stored_repo_path(job), 'repo.tar')
 
     def get_project_storage_repo_zip_path(self, job):
-        return os.path.join(self.get_stored_repo_archives_path(job), 'repo-' + job.sha + '.zip')
+        sha = job.travis_merge_sha if job.is_pr else job.sha
+        return os.path.join(self.get_stored_repo_archives_path(job), 'repo-' + sha + '.zip')
+
+    def get_project_storage_repo_archive_path(self, job):
+        sha = job.travis_merge_sha if job.is_pr else job.sha
+        return os.path.join(self.get_stored_repo_archives_path(job), 'repo-' + sha + '.tar.gz')
+
+    def get_job_archive_extracted_filename(self, job):
+        sha = job.travis_merge_sha if job.is_pr else job.sha
+        return '{}-{}'.format(job.repo.split('/')[1], sha)
 
     def get_repo_tar_path(self, job):
         return os.path.join(self.get_reproduce_tmp_dir(job), self.config.tarfile_name)

@@ -8,7 +8,6 @@ from reproducer.pipeline.setup_repo import tar_repo
 # from reproducer.pipeline.modify_build_sh import patch_build_script
 from reproducer.pipeline.gen_dockerfile import gen_dockerfile
 from reproducer.pipeline.gen_script import gen_script
-from reproducer.pipeline.apply_patching import modify_deprecated_links
 from reproducer.reproduce_exception import wrap_errors
 
 
@@ -57,10 +56,6 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
         reproduce_tmp_path = job_dispatcher.utils.get_reproduce_tmp_dir(job)
         os.makedirs(reproduce_tmp_path, exist_ok=True)
 
-        # Apply patching on project's pom.xml
-        reproducer_repo_dir = job_dispatcher.utils.get_reproducing_repo_dir(job)
-        modify_deprecated_links(reproducer_repo_dir)
-
     # STEP 2: Download the original log if we do not yet have it.
     with wrap_errors('Download orig log'):
         original_log_path = job_dispatcher.utils.get_orig_log_path(job.job_id)
@@ -72,17 +67,6 @@ def gen_files_for_job(job_dispatcher, job, copy_files=False, dependency_solver=F
         build_sh_path = job_dispatcher.utils.get_build_sh_path(job)
         if not isfile(build_sh_path):
             gen_script(job_dispatcher.utils, job, dependency_solver)
-            # Attempt to patch any deprecated links in build script
-            modify_deprecated_links(build_sh_path)
-
-            # TODO: This section doesn't actually do anything. Should it be removed?
-            # Check if job is java and is jdk7. If so, then patch the build.sh file by adding flags to mvn command to
-            # use TLSv1.2 instead of the default TLSv1.0.
-            for step in job.config.get('steps', []):
-                if 'uses' in step and 'with' in step:
-                    if step.get('uses').startswith('actions/setup-java') and step.get('with').get('java-version') == 7:
-                        # patch_build_script(build_sh_path)
-                        pass
 
     # STEP 3.5: Tar the repository.
     with wrap_errors('Create repo .tar'):
