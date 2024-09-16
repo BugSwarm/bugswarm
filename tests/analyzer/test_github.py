@@ -179,8 +179,11 @@ class GitHubAnalyzerTest(unittest.TestCase):
     def compare_num_t_skipped(self, result, should_be):
         self.assertEqual(result['tr_log_num_tests_skipped'], should_be)
 
-    def compare_t_failed(self, result, should_be):
-        self.assertEqual(result['tr_log_tests_failed'], should_be)
+    def compare_num_t_xfailed(self, result, should_be):
+        self.assertEqual(result['tr_log_num_tests_xfailed'], should_be)
+
+    def compare_num_t_xpassed(self, result, should_be):
+        self.assertEqual(result['tr_log_num_tests_xpassed'], should_be)
 
     def compare_tr_t_failed(self, result, should_be):
         self.assertEqual(result['tr_log_tests_failed'], should_be)
@@ -577,8 +580,10 @@ class GitHubAnalyzerTest(unittest.TestCase):
         python4 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python4, 'broken')
         self.compare_analyzer(python4, 'python')
-        self.compare_num_t_run(python4, 1957)
+        self.compare_num_t_run(python4, 1968)
         self.compare_num_t_ok(python4, 1956)
+        self.compare_num_t_xfailed(python4, 10)
+        self.compare_num_t_xpassed(python4, 1)
         self.compare_num_t_failed(python4, 1)
         self.compare_num_t_skipped(python4, 0)
         self.compare_bool_t_ran(python4, True)
@@ -594,8 +599,10 @@ class GitHubAnalyzerTest(unittest.TestCase):
         python5 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python5, 'broken')
         self.compare_analyzer(python5, 'python')
-        self.compare_num_t_run(python5, 1098)
+        self.compare_num_t_run(python5, 1106)
         self.compare_num_t_ok(python5, 1062)
+        self.compare_num_t_xfailed(python5, 8)
+        self.compare_num_t_xpassed(python5, 0)
         self.compare_num_t_failed(python5, 36)
         self.compare_num_t_skipped(python5, 544)
         self.compare_bool_t_ran(python5, True)
@@ -801,8 +808,10 @@ class GitHubAnalyzerTest(unittest.TestCase):
         python15 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python15, 'broken')
         self.compare_analyzer(python15, 'python')
-        self.compare_num_t_run(python15, 803)
+        self.compare_num_t_run(python15, 805)
         self.compare_num_t_ok(python15, 802)
+        self.compare_num_t_xfailed(python15, 1)
+        self.compare_num_t_xpassed(python15, 1)
         self.compare_num_t_failed(python15, 1)
         self.compare_num_t_skipped(python15, 66)
         self.compare_bool_t_ran(python15, True)
@@ -900,8 +909,10 @@ class GitHubAnalyzerTest(unittest.TestCase):
         python20 = self.dispatcher.analyze(file_path, job_id)
         self.compare_status(python20, 'broken')
         self.compare_analyzer(python20, 'python')
-        self.compare_num_t_run(python20, 43)
+        self.compare_num_t_run(python20, 48)
         self.compare_num_t_ok(python20, 40)
+        self.compare_num_t_xfailed(python20, 5)
+        self.compare_num_t_xpassed(python20, 0)
         self.compare_num_t_failed(python20, 3)
         self.compare_num_t_skipped(python20, 0)
         self.compare_bool_t_ran(python20, True)
@@ -935,22 +946,69 @@ class GitHubAnalyzerTest(unittest.TestCase):
                                            '(test.unittests.tts.test_mimic2_tts)#(test.unittests.tts.test_mimic_tts)#'
                                            '(test.unittests.tts.test_tts)#(test.unittests.util.test_plugins)')
 
-    """
     def test_python_22(self):
-        log = '327327997-latest.log'
-        job_id = 3327327997
+        log = '27666867032-orig.log'
+        job_id = 27666867032
         file_path = join(self.python, log)
         python22 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_status(python22, 'broken')
         self.compare_analyzer(python22, 'python')
-        self.compare_num_t_ok(python22, 212)
-        self.compare_num_t_failed(python22, 0)
-        self.compare_num_t_skipped(python22, 14)
+        self.compare_num_t_run(python22, 165)
+        self.compare_num_t_ok(python22, 164)
+        self.compare_num_t_failed(python22, 1)
+        self.compare_num_t_skipped(python22, 13)
         self.compare_bool_t_ran(python22, True)
-        self.compare_bool_t_failed(python22, False)
-        self.compare_t_duration(python22, 114.16)
-        self.compare_num_t_run(python22, 212)
+        self.compare_bool_t_failed(python22, True)
+        self.compare_t_duration(python22, 99.88)
         self.compare_frameworks(python22, 'pytest')
-    """
+        self.compare_tr_t_failed(python22, 'TestCubicSupercellTransformation.test_apply_transformation')
+
+    def test_python_23(self):
+        log = '25839918303-orig.log'
+        job_id = 25839918303
+        file_path = join(self.python, log)
+        python23 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_status(python23, 'broken')
+        self.compare_analyzer(python23, 'python')
+        self.compare_num_t_run(python23, 12)
+        self.compare_num_t_ok(python23, 0)
+        self.compare_num_t_failed(python23, 12)
+        self.compare_num_t_skipped(python23, 1)
+        self.compare_bool_t_ran(python23, True)
+        self.compare_bool_t_failed(python23, True)
+        self.compare_t_duration(python23, 22.35)
+        self.compare_frameworks(python23, 'pytest')
+        self.compare_tr_t_failed(python23, '(tests.alchemy.test_filters)#'
+                                           '(tests.alchemy.test_materials)#'
+                                           '(tests.alchemy.test_transmuters)#'
+                                           '(tests.analysis.interfaces.test_substrate_analyzer)#'
+                                           '(tests.analysis.structure_prediction.test_substitutor)#'
+                                           '(tests.analysis.test_pourbaix_diagram)#'
+                                           '(tests.entries.test_compatibility)#'
+                                           '(tests.entries.test_computed_entries)#'
+                                           '(tests.entries.test_mixing_scheme)#'
+                                           '(tests.ext.test_matproj)#'
+                                           '(tests.io.vasp.test_outputs)#'
+                                           '(tests.io.vasp.test_sets)')
+
+    def test_python_24(self):
+        log = '27403903613-orig.log'
+        job_id = 27403903613
+        file_path = join(self.python, log)
+        python24 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_status(python24, 'ok')
+        self.compare_analyzer(python24, 'python')
+        self.compare_num_t_run(python24, 47)
+        self.compare_num_t_ok(python24, 45)
+        self.compare_num_t_xfailed(python24, 2)
+        self.compare_num_t_xpassed(python24, 0)
+        self.compare_num_t_failed(python24, 0)
+        self.compare_num_t_skipped(python24, 2)
+        self.compare_bool_t_ran(python24, True)
+        self.compare_bool_t_failed(python24, False)
+        self.compare_t_duration(python24, 30.85)
+        self.compare_frameworks(python24, 'pytest')
+        self.compare_tr_t_failed(python24, '')
 
     def test_gradle_0(self):
         log = '2085562467-orig.log'

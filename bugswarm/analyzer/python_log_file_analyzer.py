@@ -61,16 +61,38 @@ class PythonLogFileAnalyzer(LogAnalyzerABC):
             self.force_tests_passed = False
             self.force_tests_failed = False
 
+            # Pytest has a concept of "expected failures" -- tests that are run, but where the test's outcome shouldn't
+            # affect the entire suite's outcome (e.g., tests for unimplemented features). xfailed == the test failed
+            # (as expected); xpassed == the test passed (unexpected, but not an error).
+            self.num_tests_xfailed = 0
+            self.num_tests_xpassed = 0
+
+    def uninit_ok_tests(self):
+        if hasattr(self, 'num_tests_ok'):
+            super().uninit_ok_tests()
+            self.num_tests_ok -= self.num_tests_xfailed + self.num_tests_xpassed
+
     def analyze_pytest_status_info_list(self, s):
         if not s:
             return
         additional_information = s.split(', ')
         for a in additional_information:
-            val, key = a.split(' ')
+            try:
+                val, key = a.split(' ')
+            except ValueError:
+                # Can happen when pytest outputs a "no tests ran" message
+                return
+
             if key.lower() == 'passed':
                 self.num_tests_run += int(val)
             elif key.lower() == 'failed' or key.lower()[:5] == 'error':  # errored, errors, or error
                 self.num_tests_failed += int(val)
+                self.num_tests_run += int(val)
+            elif key.lower() == 'xfailed':
+                self.num_tests_xfailed += int(val)
+                self.num_tests_run += int(val)
+            elif key.lower() == 'xpassed':
+                self.num_tests_xpassed += int(val)
                 self.num_tests_run += int(val)
             elif key.lower() == 'skipped':
                 self.num_tests_skipped += int(val)
@@ -89,7 +111,8 @@ class PythonLogFileAnalyzer(LogAnalyzerABC):
     def analyze_tests(self):
         summary_seen = False
         short_summary_seen = False
-        ignore_pytest_failures = False
+        # Ignore the verbose failures in pytest logs unless we see the "===== FAILURES =====" line.
+        ignore_pytest_failures = True
         pytest_test_files = []
         summary_tests_failed = []
         last_pytest_file = ''
@@ -100,8 +123,14 @@ class PythonLogFileAnalyzer(LogAnalyzerABC):
                 self.add_framework('pytest')
                 continue
 
-            if re.search(r'==+ FAILURES ==+', line, re.M):
-                ignore_pytest_failures = len(self.tests_failed) > 0
+            if re.search(r'==+ (FAILURES|ERRORS) ==+', line, re.M) and len(self.tests_failed) == 0:
+                ignore_pytest_failures = False
+                continue
+
+            if re.search(r'==+ XFAILURES ==+', line, re.M):
+                # Pytest xfailures use the same traceback format as failures, but since they're
+                # expected to fail we shouldn't count them.
+                ignore_pytest_failures = True
                 continue
 
             match_obj = re.search(r'Ran (\d+) tests? in (.+s)', line, re.M)
@@ -119,6 +148,22 @@ class PythonLogFileAnalyzer(LogAnalyzerABC):
                 # Matches the pytest test summary, now compatible with pytest 6 formatting
                 # i.e. '==================== 442 passed, 2 xpassed in 50.65 seconds ===================='
                 # OR '==== 20 failed, 9721 passed, 23 skipped, 1908 warnings in 541.28s (0:09:01) ====
+                self.setup_python_tests()
+                self.add_framework('pytest')
+                self.analyze_pytest_status_info_list(match_obj.group(1))
+                self.test_duration += float(match_obj.group(2))
+                self.has_summary = True
+                summary_seen = True
+                short_summary_seen = False
+                if len(self.tests_failed) <= len(summary_tests_failed):
+                    # Prefer summary_tests_failed if it contains more failed tests because summary is more accurate.
+                    self.tests_failed = summary_tests_failed
+                continue
+            match_obj = re.search(r'^((?:\d+ [a-z]+)(?:, \d+ [a-z]+)*) in ([0-9\.]+)(?:s( \([0-9:]+\))?| seconds)$',
+                                  line, re.M)
+            if match_obj:
+                # Matches the pytest test summary when run with the --quiet switch
+                # e.g. '1 failed, 164 passed, 13 skipped, 2781 deselected in 99.88s (0:01:39)'
                 self.setup_python_tests()
                 self.add_framework('pytest')
                 self.analyze_pytest_status_info_list(match_obj.group(1))

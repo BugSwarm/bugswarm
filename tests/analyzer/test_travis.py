@@ -265,8 +265,11 @@ class TravisAnalyzerTests(unittest.TestCase):
     def compare_num_t_skipped(self, result, should_be):
         self.assertEqual(result['tr_log_num_tests_skipped'], should_be)
 
-    def compare_t_failed(self, result, should_be):
-        self.assertEqual(result['tr_log_tests_failed'], should_be)
+    def compare_num_t_xfailed(self, result, should_be):
+        self.assertEqual(result['tr_log_num_tests_xfailed'], should_be)
+
+    def compare_num_t_xpassed(self, result, should_be):
+        self.assertEqual(result['tr_log_num_tests_xpassed'], should_be)
 
     def compare_tr_t_failed(self, result, should_be):
         self.assertEqual(result['tr_log_tests_failed'], should_be)
@@ -967,11 +970,13 @@ class TravisAnalyzerTests(unittest.TestCase):
         self.compare_analyzer(python23, 'python')
         self.compare_num_t_ok(python23, 1958)
         self.compare_num_t_failed(python23, 1)
+        self.compare_num_t_xfailed(python23, 13)
+        self.compare_num_t_xpassed(python23, 4)
         self.compare_num_t_skipped(python23, 37)
         self.compare_bool_t_ran(python23, True)
         self.compare_bool_t_failed(python23, True)
         self.compare_t_duration(python23, 111.05)
-        self.compare_num_t_run(python23, 1959)
+        self.compare_num_t_run(python23, 1976)
         self.compare_frameworks(python23, 'pytest')
         self.compare_tr_t_failed(
             python23, 'tests.test_rio_merge::test_merge_tiny_res_bounds')

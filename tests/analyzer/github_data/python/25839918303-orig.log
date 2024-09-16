@@ -1,0 +1,1250 @@
+﻿2024-06-05T12:45:27.3080205Z Current runner version: '2.316.1'
+2024-06-05T12:45:27.3103226Z ##[group]Operating System
+2024-06-05T12:45:27.3103933Z Ubuntu
+2024-06-05T12:45:27.3104235Z 22.04.4
+2024-06-05T12:45:27.3104698Z LTS
+2024-06-05T12:45:27.3105037Z ##[endgroup]
+2024-06-05T12:45:27.3105396Z ##[group]Runner Image
+2024-06-05T12:45:27.3105900Z Image: ubuntu-22.04
+2024-06-05T12:45:27.3106296Z Version: 20240526.1.0
+2024-06-05T12:45:27.3107279Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240526.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-06-05T12:45:27.3108781Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240526.1
+2024-06-05T12:45:27.3109652Z ##[endgroup]
+2024-06-05T12:45:27.3110066Z ##[group]Runner Image Provisioner
+2024-06-05T12:45:27.3110581Z 2.0.370.1
+2024-06-05T12:45:27.3110920Z ##[endgroup]
+2024-06-05T12:45:27.3111845Z ##[group]GITHUB_TOKEN Permissions
+2024-06-05T12:45:27.3113367Z Contents: read
+2024-06-05T12:45:27.3113774Z Metadata: read
+2024-06-05T12:45:27.3114544Z ##[endgroup]
+2024-06-05T12:45:27.3117611Z Secret source: None
+2024-06-05T12:45:27.3118278Z Prepare workflow directory
+2024-06-05T12:45:27.4129827Z Prepare all required actions
+2024-06-05T12:45:27.4285840Z Getting action download info
+2024-06-05T12:45:27.5590544Z Download action repository 'actions/checkout@v4' (SHA:a5ac7e51b41094c92402da3b24376905380afc29)
+2024-06-05T12:45:27.8663865Z Download action repository 'mamba-org/setup-micromamba@main' (SHA:a1ad40c22e5377cab6624ae0863a34f7d3e78671)
+2024-06-05T12:45:28.3406528Z Complete job name: test (ubuntu-latest, 3.12, lowest-direct, ci,optional, 1)
+2024-06-05T12:45:28.4216374Z ##[group]Run actions/checkout@v4
+2024-06-05T12:45:28.4216983Z with:
+2024-06-05T12:45:28.4217384Z   repository: materialsproject/pymatgen
+2024-06-05T12:45:28.4217953Z   token: ***
+2024-06-05T12:45:28.4218388Z   ssh-strict: true
+2024-06-05T12:45:28.4218738Z   ssh-user: git
+2024-06-05T12:45:28.4219044Z   persist-credentials: true
+2024-06-05T12:45:28.4219492Z   clean: true
+2024-06-05T12:45:28.4219872Z   sparse-checkout-cone-mode: true
+2024-06-05T12:45:28.4220246Z   fetch-depth: 1
+2024-06-05T12:45:28.4220646Z   fetch-tags: false
+2024-06-05T12:45:28.4221008Z   show-progress: true
+2024-06-05T12:45:28.4221310Z   lfs: false
+2024-06-05T12:45:28.4221712Z   submodules: false
+2024-06-05T12:45:28.4222070Z   set-safe-directory: true
+2024-06-05T12:45:28.4222389Z env:
+2024-06-05T12:45:28.4222772Z   PMG_MAPI_KEY: 
+2024-06-05T12:45:28.4223236Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:45:28.4223716Z ##[endgroup]
+2024-06-05T12:45:28.6056884Z Syncing repository: materialsproject/pymatgen
+2024-06-05T12:45:28.6059286Z ##[group]Getting Git version info
+2024-06-05T12:45:28.6060405Z Working directory is '/home/runner/work/pymatgen/pymatgen'
+2024-06-05T12:45:28.6061659Z [command]/usr/bin/git version
+2024-06-05T12:45:28.6062210Z git version 2.45.1
+2024-06-05T12:45:28.6086344Z ##[endgroup]
+2024-06-05T12:45:28.6099419Z Temporarily overriding HOME='/home/runner/work/_temp/163586c2-6774-4dbd-8877-5f37df6cfd35' before making global git config changes
+2024-06-05T12:45:28.6100778Z Adding repository directory to the temporary git global config as a safe directory
+2024-06-05T12:45:28.6103804Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pymatgen/pymatgen
+2024-06-05T12:45:28.6139052Z Deleting the contents of '/home/runner/work/pymatgen/pymatgen'
+2024-06-05T12:45:28.6145394Z ##[group]Initializing the repository
+2024-06-05T12:45:28.6149933Z [command]/usr/bin/git init /home/runner/work/pymatgen/pymatgen
+2024-06-05T12:45:28.6226744Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-06-05T12:45:28.6228138Z hint: is subject to change. To configure the initial branch name to use in all
+2024-06-05T12:45:28.6229492Z hint: of your new repositories, which will suppress this warning, call:
+2024-06-05T12:45:28.6230588Z hint:
+2024-06-05T12:45:28.6231290Z hint: 	git config --global init.defaultBranch <name>
+2024-06-05T12:45:28.6232065Z hint:
+2024-06-05T12:45:28.6233014Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-06-05T12:45:28.6233790Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-06-05T12:45:28.6234352Z hint:
+2024-06-05T12:45:28.6234801Z hint: 	git branch -m <name>
+2024-06-05T12:45:28.6235377Z Initialized empty Git repository in /home/runner/work/pymatgen/pymatgen/.git/
+2024-06-05T12:45:28.6243877Z [command]/usr/bin/git remote add origin https://github.com/materialsproject/pymatgen
+2024-06-05T12:45:28.6281334Z ##[endgroup]
+2024-06-05T12:45:28.6281999Z ##[group]Disabling automatic garbage collection
+2024-06-05T12:45:28.6287286Z [command]/usr/bin/git config --local gc.auto 0
+2024-06-05T12:45:28.6318180Z ##[endgroup]
+2024-06-05T12:45:28.6319080Z ##[group]Setting up auth
+2024-06-05T12:45:28.6326092Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-06-05T12:45:28.6360955Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-06-05T12:45:28.6679297Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-06-05T12:45:28.6712647Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-06-05T12:45:28.6957216Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-06-05T12:45:28.6997142Z ##[endgroup]
+2024-06-05T12:45:28.6997908Z ##[group]Fetching the repository
+2024-06-05T12:45:28.7009837Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9fc9fe6bb22608c3adbdd3f172f697232cfa8425:refs/remotes/pull/3863/merge
+2024-06-05T12:45:38.4890503Z From https://github.com/materialsproject/pymatgen
+2024-06-05T12:45:38.4891868Z  * [new ref]         9fc9fe6bb22608c3adbdd3f172f697232cfa8425 -> pull/3863/merge
+2024-06-05T12:45:38.4913226Z ##[endgroup]
+2024-06-05T12:45:38.4913993Z ##[group]Determining the checkout info
+2024-06-05T12:45:38.4915938Z ##[endgroup]
+2024-06-05T12:45:38.4922315Z [command]/usr/bin/git sparse-checkout disable
+2024-06-05T12:45:38.4965539Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2024-06-05T12:45:38.4993375Z ##[group]Checking out the ref
+2024-06-05T12:45:38.4998895Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/3863/merge
+2024-06-05T12:45:39.5546852Z Updating files:  63% (1638/2593)
+2024-06-05T12:45:39.5749850Z Updating files:  64% (1660/2593)
+2024-06-05T12:45:39.5844366Z Updating files:  65% (1686/2593)
+2024-06-05T12:45:39.5879743Z Updating files:  66% (1712/2593)
+2024-06-05T12:45:39.5898232Z Updating files:  67% (1738/2593)
+2024-06-05T12:45:39.5951558Z Updating files:  68% (1764/2593)
+2024-06-05T12:45:39.6023646Z Updating files:  69% (1790/2593)
+2024-06-05T12:45:39.6303980Z Updating files:  70% (1816/2593)
+2024-06-05T12:45:39.6348171Z Updating files:  71% (1842/2593)
+2024-06-05T12:45:39.6550669Z Updating files:  72% (1867/2593)
+2024-06-05T12:45:39.7723563Z Updating files:  73% (1893/2593)
+2024-06-05T12:45:40.0507898Z Updating files:  74% (1919/2593)
+2024-06-05T12:45:40.1409679Z Updating files:  75% (1945/2593)
+2024-06-05T12:45:40.1814395Z Updating files:  76% (1971/2593)
+2024-06-05T12:45:40.1915882Z Updating files:  77% (1997/2593)
+2024-06-05T12:45:40.3063839Z Updating files:  78% (2023/2593)
+2024-06-05T12:45:40.3811634Z Updating files:  79% (2049/2593)
+2024-06-05T12:45:40.3962397Z Updating files:  80% (2075/2593)
+2024-06-05T12:45:40.3985851Z Updating files:  81% (2101/2593)
+2024-06-05T12:45:40.4034192Z Updating files:  82% (2127/2593)
+2024-06-05T12:45:40.4487954Z Updating files:  83% (2153/2593)
+2024-06-05T12:45:40.4753443Z Updating files:  84% (2179/2593)
+2024-06-05T12:45:40.4963666Z Updating files:  85% (2205/2593)
+2024-06-05T12:45:40.5066735Z Updating files:  86% (2230/2593)
+2024-06-05T12:45:40.5383414Z Updating files:  86% (2236/2593)
+2024-06-05T12:45:40.7000880Z Updating files:  87% (2256/2593)
+2024-06-05T12:45:40.7137953Z Updating files:  88% (2282/2593)
+2024-06-05T12:45:40.7170038Z Updating files:  89% (2308/2593)
+2024-06-05T12:45:40.7344845Z Updating files:  90% (2334/2593)
+2024-06-05T12:45:40.7959154Z Updating files:  91% (2360/2593)
+2024-06-05T12:45:40.7974357Z Updating files:  92% (2386/2593)
+2024-06-05T12:45:40.7994387Z Updating files:  93% (2412/2593)
+2024-06-05T12:45:40.8005965Z Updating files:  94% (2438/2593)
+2024-06-05T12:45:40.8019274Z Updating files:  95% (2464/2593)
+2024-06-05T12:45:40.8040700Z Updating files:  96% (2490/2593)
+2024-06-05T12:45:40.8059241Z Updating files:  97% (2516/2593)
+2024-06-05T12:45:40.8081715Z Updating files:  98% (2542/2593)
+2024-06-05T12:45:40.8097062Z Updating files:  99% (2568/2593)
+2024-06-05T12:45:40.8097622Z Updating files: 100% (2593/2593)
+2024-06-05T12:45:40.8098164Z Updating files: 100% (2593/2593), done.
+2024-06-05T12:45:40.8128844Z Note: switching to 'refs/remotes/pull/3863/merge'.
+2024-06-05T12:45:40.8129606Z 
+2024-06-05T12:45:40.8131455Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-06-05T12:45:40.8132536Z changes and commit them, and you can discard any commits you make in this
+2024-06-05T12:45:40.8133569Z state without impacting any branches by switching back to a branch.
+2024-06-05T12:45:40.8134179Z 
+2024-06-05T12:45:40.8134610Z If you want to create a new branch to retain commits you create, you may
+2024-06-05T12:45:40.8136007Z do so (now or later) by using -c with the switch command. Example:
+2024-06-05T12:45:40.8136611Z 
+2024-06-05T12:45:40.8136875Z   git switch -c <new-branch-name>
+2024-06-05T12:45:40.8137242Z 
+2024-06-05T12:45:40.8137429Z Or undo this operation with:
+2024-06-05T12:45:40.8137757Z 
+2024-06-05T12:45:40.8137905Z   git switch -
+2024-06-05T12:45:40.8138144Z 
+2024-06-05T12:45:40.8138608Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-06-05T12:45:40.8139306Z 
+2024-06-05T12:45:40.8140046Z HEAD is now at 9fc9fe6 Merge d96b7eae478dc68a6f198d9286bc1860e2fdc87b into 163cc01e0251525f5ab8f48776511411754012a9
+2024-06-05T12:45:40.8263262Z ##[endgroup]
+2024-06-05T12:45:40.8307510Z [command]/usr/bin/git log -1 --format='%H'
+2024-06-05T12:45:40.8335318Z '9fc9fe6bb22608c3adbdd3f172f697232cfa8425'
+2024-06-05T12:45:40.8616211Z ##[group]Run mamba-org/setup-micromamba@main
+2024-06-05T12:45:40.8616579Z with:
+2024-06-05T12:45:40.8616815Z env:
+2024-06-05T12:45:40.8617018Z   PMG_MAPI_KEY: 
+2024-06-05T12:45:40.8617396Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:45:40.8617814Z ##[endgroup]
+2024-06-05T12:45:40.9966506Z Will download micromamba to /home/runner/micromamba-bin/micromamba
+2024-06-05T12:45:40.9973809Z ##[group]Install micromamba
+2024-06-05T12:45:41.2180618Z micromamba installed to /home/runner/micromamba-bin/micromamba
+2024-06-05T12:45:41.2181780Z ##[endgroup]
+2024-06-05T12:45:41.2182715Z Adding conda-forge to condarc channels ...
+2024-06-05T12:45:41.2211755Z ##[group]Initialize micromamba for bash.
+2024-06-05T12:45:41.2232046Z [command]/home/runner/micromamba-bin/micromamba shell init -s bash -r /home/runner/micromamba --log-level warning --rc-file /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:45:41.2341617Z Modifying RC file "/home/runner/.bashrc"
+2024-06-05T12:45:41.2342704Z Generating config for root prefix [1m"/home/runner/micromamba"[0m
+2024-06-05T12:45:41.2343929Z Setting mamba executable to: [1m"/home/runner/micromamba-bin/micromamba"[0m
+2024-06-05T12:45:41.2345058Z Adding (or replacing) the following in your "/home/runner/.bashrc" file
+2024-06-05T12:45:41.2345745Z 
+2024-06-05T12:45:41.2345995Z # >>> mamba initialize >>>
+2024-06-05T12:45:41.2346762Z # !! Contents within this block are managed by 'mamba init' !!
+2024-06-05T12:45:41.2347747Z export MAMBA_EXE='/home/runner/micromamba-bin/micromamba';
+2024-06-05T12:45:41.2348658Z export MAMBA_ROOT_PREFIX='/home/runner/micromamba';
+2024-06-05T12:45:41.2350471Z __mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+2024-06-05T12:45:41.2351616Z if [ $? -eq 0 ]; then
+2024-06-05T12:45:41.2352101Z     eval "$__mamba_setup"
+2024-06-05T12:45:41.2352556Z else
+2024-06-05T12:45:41.2353194Z     alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+2024-06-05T12:45:41.2353976Z fi
+2024-06-05T12:45:41.2354324Z unset __mamba_setup
+2024-06-05T12:45:41.2354789Z # <<< mamba initialize <<<
+2024-06-05T12:45:41.2355125Z 
+2024-06-05T12:45:41.2361507Z Moving mamba initialize block to .bash_profile
+2024-06-05T12:45:41.2376001Z ##[endgroup]
+2024-06-05T12:45:41.2388232Z Set environment variables.
+2024-06-05T12:45:41.2390610Z ##[group]micromamba info
+2024-06-05T12:45:41.2392170Z [command]/home/runner/micromamba-bin/micromamba info -r /home/runner/micromamba
+2024-06-05T12:45:41.2628351Z 
+2024-06-05T12:45:41.2628632Z        libmamba version : 1.5.8
+2024-06-05T12:45:41.2629265Z      micromamba version : 1.5.8
+2024-06-05T12:45:41.2629996Z            curl version : libcurl/8.6.0 OpenSSL/3.2.1 zlib/1.2.13 zstd/1.5.5 libssh2/1.11.0 nghttp2/1.58.0
+2024-06-05T12:45:41.2630889Z      libarchive version : libarchive 3.7.2 zlib/1.2.13 bz2lib/1.0.8 libzstd/1.5.5
+2024-06-05T12:45:41.2631553Z        envs directories : /home/runner/micromamba/envs
+2024-06-05T12:45:41.2632094Z           package cache : /home/runner/micromamba/pkgs
+2024-06-05T12:45:41.2632572Z                           /home/runner/.mamba/pkgs
+2024-06-05T12:45:41.2633034Z             environment : None (not found)
+2024-06-05T12:45:41.2633451Z            env location : -
+2024-06-05T12:45:41.2633835Z       user config files : /home/runner/.mambarc
+2024-06-05T12:45:41.2634613Z  populated config files : /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:45:41.2635222Z        virtual packages : __unix=0=0
+2024-06-05T12:45:41.2635619Z                           __linux=6.5.0=0
+2024-06-05T12:45:41.2636020Z                           __glibc=2.35=0
+2024-06-05T12:45:41.2636512Z                           __archspec=1=x86_64-v3
+2024-06-05T12:45:41.2637088Z                channels : https://conda.anaconda.org/conda-forge/linux-64
+2024-06-05T12:45:41.2637672Z                           https://conda.anaconda.org/conda-forge/noarch
+2024-06-05T12:45:41.2638131Z        base environment : /home/runner/micromamba
+2024-06-05T12:45:41.2638841Z                platform : linux-64
+2024-06-05T12:45:41.2643838Z ##[endgroup]
+2024-06-05T12:45:41.2776068Z ##[group]Run micromamba create -n pmg python=3.12 --yes
+2024-06-05T12:45:41.2776617Z [36;1mmicromamba create -n pmg python=3.12 --yes[0m
+2024-06-05T12:45:41.2848683Z shell: /usr/bin/bash -l {0}
+2024-06-05T12:45:41.2848980Z env:
+2024-06-05T12:45:41.2849189Z   PMG_MAPI_KEY: 
+2024-06-05T12:45:41.2849564Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:45:41.2850043Z   MAMBA_ROOT_PREFIX: /home/runner/micromamba
+2024-06-05T12:45:41.2850436Z   MAMBA_EXE: /home/runner/micromamba-bin/micromamba
+2024-06-05T12:45:41.2850902Z   CONDARC: /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:45:41.2851294Z ##[endgroup]
+2024-06-05T12:45:49.0587723Z 
+2024-06-05T12:45:49.0592629Z Transaction
+2024-06-05T12:45:49.0592998Z 
+2024-06-05T12:45:49.0593246Z   Prefix: /home/runner/micromamba/envs/pmg
+2024-06-05T12:45:49.0593699Z 
+2024-06-05T12:45:49.0593851Z   Updating specs:
+2024-06-05T12:45:49.0594109Z 
+2024-06-05T12:45:49.0594493Z    - python=3.12
+2024-06-05T12:45:49.0597896Z 
+2024-06-05T12:45:49.0597919Z 
+2024-06-05T12:45:49.0610584Z   Package              Version  Build               Channel          Size
+2024-06-05T12:45:49.0612474Z ───────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:49.0613232Z   Install:
+2024-06-05T12:45:49.0615059Z ───────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:49.0615680Z 
+2024-06-05T12:45:49.0616193Z   + _libgcc_mutex          0.1  conda_forge         conda-forge       3kB
+2024-06-05T12:45:49.0617663Z   + ld_impl_linux-64      2.40  hf3520f5_2          conda-forge     708kB
+2024-06-05T12:45:49.0618792Z   + ca-certificates   2024.6.2  hbcca054_0          conda-forge     156kB
+2024-06-05T12:45:49.0619857Z   + libgomp             13.2.0  h77fa898_7          conda-forge     422kB
+2024-06-05T12:45:49.0620868Z   + _openmp_mutex          4.5  2_gnu               conda-forge      24kB
+2024-06-05T12:45:49.0621935Z   + libgcc-ng           13.2.0  h77fa898_7          conda-forge     776kB
+2024-06-05T12:45:49.0622946Z   + openssl              3.3.1  h4ab18f5_0          conda-forge       3MB
+2024-06-05T12:45:49.0623945Z   + libxcrypt           4.4.36  hd590300_1          conda-forge     100kB
+2024-06-05T12:45:49.0624942Z   + libzlib              1.3.1  h4ab18f5_1          conda-forge      62kB
+2024-06-05T12:45:49.0625906Z   + libffi               3.4.2  h7f98852_5          conda-forge      58kB
+2024-06-05T12:45:49.0626863Z   + bzip2                1.0.8  hd590300_5          conda-forge     254kB
+2024-06-05T12:45:49.0627834Z   + ncurses                6.5  h59595ed_0          conda-forge     887kB
+2024-06-05T12:45:49.0628842Z   + libuuid             2.38.1  h0b41bf4_0          conda-forge      34kB
+2024-06-05T12:45:49.0629823Z   + libnsl               2.0.1  hd590300_0          conda-forge      33kB
+2024-06-05T12:45:49.0630760Z   + libexpat             2.6.2  h59595ed_0          conda-forge      74kB
+2024-06-05T12:45:49.0631757Z   + xz                   5.2.6  h166bdaf_0          conda-forge     418kB
+2024-06-05T12:45:49.0632743Z   + tk                  8.6.13  noxft_h4845f30_101  conda-forge       3MB
+2024-06-05T12:45:49.0633766Z   + libsqlite           3.45.3  h2797004_0          conda-forge     860kB
+2024-06-05T12:45:49.0634815Z   + readline               8.2  h8228510_1          conda-forge     281kB
+2024-06-05T12:45:49.0635819Z   + tzdata               2024a  h0c530f3_0          conda-forge     120kB
+2024-06-05T12:45:49.0636864Z   + python              3.12.3  hab00c5b_0_cpython  conda-forge      32MB
+2024-06-05T12:45:49.0637965Z   + wheel               0.43.0  pyhd8ed1ab_1        conda-forge      58kB
+2024-06-05T12:45:49.0638994Z   + setuptools          70.0.0  pyhd8ed1ab_0        conda-forge     483kB
+2024-06-05T12:45:49.0639989Z   + pip                   24.0  pyhd8ed1ab_0        conda-forge       1MB
+2024-06-05T12:45:49.0640525Z 
+2024-06-05T12:45:49.0640676Z   Summary:
+2024-06-05T12:45:49.0640882Z 
+2024-06-05T12:45:49.0641034Z   Install: 24 packages
+2024-06-05T12:45:49.0641678Z 
+2024-06-05T12:45:49.0641877Z   Total download: 45MB
+2024-06-05T12:45:49.0642182Z 
+2024-06-05T12:45:49.0642643Z ───────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:49.0643044Z 
+2024-06-05T12:45:49.0643051Z 
+2024-06-05T12:45:49.0643057Z 
+2024-06-05T12:45:49.0643230Z Transaction starting
+2024-06-05T12:45:50.2829255Z Linking _libgcc_mutex-0.1-conda_forge
+2024-06-05T12:45:50.2831846Z Linking ld_impl_linux-64-2.40-hf3520f5_2
+2024-06-05T12:45:50.2838722Z Linking ca-certificates-2024.6.2-hbcca054_0
+2024-06-05T12:45:50.2842773Z Linking libgomp-13.2.0-h77fa898_7
+2024-06-05T12:45:50.2848607Z Linking _openmp_mutex-4.5-2_gnu
+2024-06-05T12:45:50.2859996Z Linking libgcc-ng-13.2.0-h77fa898_7
+2024-06-05T12:45:50.2870811Z Linking openssl-3.3.1-h4ab18f5_0
+2024-06-05T12:45:50.3089100Z Linking libxcrypt-4.4.36-hd590300_1
+2024-06-05T12:45:50.3101326Z Linking libzlib-1.3.1-h4ab18f5_1
+2024-06-05T12:45:50.3105189Z Linking libffi-3.4.2-h7f98852_5
+2024-06-05T12:45:50.3115515Z Linking bzip2-1.0.8-hd590300_5
+2024-06-05T12:45:50.3131231Z Linking ncurses-6.5-h59595ed_0
+2024-06-05T12:45:52.1167662Z Linking libuuid-2.38.1-h0b41bf4_0
+2024-06-05T12:45:52.1174248Z Linking libnsl-2.0.1-hd590300_0
+2024-06-05T12:45:52.1183517Z Linking libexpat-2.6.2-h59595ed_0
+2024-06-05T12:45:52.1187449Z Linking xz-5.2.6-h166bdaf_0
+2024-06-05T12:45:52.1332100Z Linking tk-8.6.13-noxft_h4845f30_101
+2024-06-05T12:45:52.1643285Z Linking libsqlite-3.45.3-h2797004_0
+2024-06-05T12:45:52.1651146Z Linking readline-8.2-h8228510_1
+2024-06-05T12:45:52.1667886Z Linking tzdata-2024a-h0c530f3_0
+2024-06-05T12:45:52.1947538Z Linking python-3.12.3-hab00c5b_0_cpython
+2024-06-05T12:45:52.4395471Z Linking wheel-0.43.0-pyhd8ed1ab_1
+2024-06-05T12:45:52.4688672Z Linking setuptools-70.0.0-pyhd8ed1ab_0
+2024-06-05T12:45:52.4855413Z Linking pip-24.0-pyhd8ed1ab_0
+2024-06-05T12:45:53.0583611Z 
+2024-06-05T12:45:53.0584057Z Transaction finished
+2024-06-05T12:45:53.0584433Z 
+2024-06-05T12:45:53.0586061Z To activate this environment, use:
+2024-06-05T12:45:53.0586614Z 
+2024-06-05T12:45:53.0586806Z     micromamba activate pmg
+2024-06-05T12:45:53.0587130Z 
+2024-06-05T12:45:53.0587434Z Or to execute a single command in this environment, use:
+2024-06-05T12:45:53.0587968Z 
+2024-06-05T12:45:53.0588388Z     micromamba run -n pmg mycommand
+2024-06-05T12:45:53.0588763Z 
+2024-06-05T12:45:53.0829087Z ##[group]Run micromamba run -n pmg pip install uv
+2024-06-05T12:45:53.0829600Z [36;1mmicromamba run -n pmg pip install uv[0m
+2024-06-05T12:45:53.0886331Z shell: /usr/bin/bash -l {0}
+2024-06-05T12:45:53.0886642Z env:
+2024-06-05T12:45:53.0886853Z   PMG_MAPI_KEY: 
+2024-06-05T12:45:53.0887227Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:45:53.0887702Z   MAMBA_ROOT_PREFIX: /home/runner/micromamba
+2024-06-05T12:45:53.0888097Z   MAMBA_EXE: /home/runner/micromamba-bin/micromamba
+2024-06-05T12:45:53.0888554Z   CONDARC: /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:45:53.0888963Z ##[endgroup]
+2024-06-05T12:45:53.8144603Z Collecting uv
+2024-06-05T12:45:53.8434487Z   Downloading uv-0.2.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (32 kB)
+2024-06-05T12:45:53.8592948Z Downloading uv-0.2.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.5 MB)
+2024-06-05T12:45:53.9596397Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.5/10.5 MB 119.4 MB/s eta 0:00:00
+2024-06-05T12:45:54.0001376Z Installing collected packages: uv
+2024-06-05T12:45:54.1457336Z Successfully installed uv-0.2.6
+2024-06-05T12:45:54.3161630Z ##[group]Run micromamba install -n pmg -c conda-forge enumlib packmol bader openbabel openff-toolkit --yes
+2024-06-05T12:45:54.3162613Z [36;1mmicromamba install -n pmg -c conda-forge enumlib packmol bader openbabel openff-toolkit --yes[0m
+2024-06-05T12:45:54.3219972Z shell: /usr/bin/bash -l {0}
+2024-06-05T12:45:54.3220264Z env:
+2024-06-05T12:45:54.3220475Z   PMG_MAPI_KEY: 
+2024-06-05T12:45:54.3220850Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:45:54.3221336Z   MAMBA_ROOT_PREFIX: /home/runner/micromamba
+2024-06-05T12:45:54.3221749Z   MAMBA_EXE: /home/runner/micromamba-bin/micromamba
+2024-06-05T12:45:54.3222220Z   CONDARC: /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:45:54.3222617Z ##[endgroup]
+2024-06-05T12:45:54.4431157Z conda-forge/linux-64                                        Using cache
+2024-06-05T12:45:54.4432351Z conda-forge/noarch                                          Using cache
+2024-06-05T12:45:55.5487059Z 
+2024-06-05T12:45:55.5487795Z Pinned packages:
+2024-06-05T12:45:55.5488442Z   - python 3.12.*
+2024-06-05T12:45:55.5488649Z 
+2024-06-05T12:45:56.8297111Z 
+2024-06-05T12:45:56.8297770Z Transaction
+2024-06-05T12:45:56.8298118Z 
+2024-06-05T12:45:56.8298396Z   Prefix: /home/runner/micromamba/envs/pmg
+2024-06-05T12:45:56.8298969Z 
+2024-06-05T12:45:56.8299490Z   Updating specs:
+2024-06-05T12:45:56.8299962Z 
+2024-06-05T12:45:56.8300466Z    - enumlib
+2024-06-05T12:45:56.8300954Z    - packmol
+2024-06-05T12:45:56.8301416Z    - bader
+2024-06-05T12:45:56.8301878Z    - openbabel
+2024-06-05T12:45:56.8302393Z    - openff-toolkit
+2024-06-05T12:45:56.8302710Z 
+2024-06-05T12:45:56.8302719Z 
+2024-06-05T12:45:56.8466799Z   Package                                 Version  Build                Channel          Size
+2024-06-05T12:45:56.8468117Z ───────────────────────────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:56.8468912Z   Install:
+2024-06-05T12:45:56.8469786Z ───────────────────────────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:56.8470871Z 
+2024-06-05T12:45:56.8471420Z   + python_abi                               3.12  4_cp312              conda-forge       6kB
+2024-06-05T12:45:56.8472568Z   + xorg-libice                             1.1.1  hd590300_0           conda-forge      58kB
+2024-06-05T12:45:56.8473688Z   + expat                                   2.6.2  h59595ed_0           conda-forge     138kB
+2024-06-05T12:45:56.8474734Z   + zlib                                    1.3.1  h4ab18f5_1           conda-forge      93kB
+2024-06-05T12:45:56.8475859Z   + xorg-xextproto                          7.3.0  h0b41bf4_1003        conda-forge      30kB
+2024-06-05T12:45:56.8477040Z   + libstdcxx-ng                           13.2.0  hc0a3c3a_7           conda-forge       4MB
+2024-06-05T12:45:56.8478188Z   + libpng                                 1.6.43  h2797004_0           conda-forge     288kB
+2024-06-05T12:45:56.8479307Z   + keyutils                                1.6.1  h166bdaf_0           conda-forge     118kB
+2024-06-05T12:45:56.8480431Z   + yaml                                    0.2.5  h7f98852_2           conda-forge      89kB
+2024-06-05T12:45:56.8481534Z   + libjpeg-turbo                           3.0.0  hd590300_1           conda-forge     619kB
+2024-06-05T12:45:56.8482679Z   + libdeflate                               1.20  hd590300_0           conda-forge      72kB
+2024-06-05T12:45:56.8483825Z   + libwebp-base                            1.4.0  hd590300_0           conda-forge     439kB
+2024-06-05T12:45:56.8485254Z   + libgfortran5                           13.2.0  hca663fb_7           conda-forge       1MB
+2024-06-05T12:45:56.8486393Z   + libiconv                                 1.17  hd590300_2           conda-forge     706kB
+2024-06-05T12:45:56.8487508Z   + xorg-libxau                            1.0.11  hd590300_0           conda-forge      14kB
+2024-06-05T12:45:56.8489090Z   + libbrotlicommon                         1.1.0  hd590300_1           conda-forge      69kB
+2024-06-05T12:45:56.8490273Z   + pcre2                                   10.43  hcad00b1_0           conda-forge     951kB
+2024-06-05T12:45:56.8491371Z   + perl                                   5.32.1  7_hd590300_perl5     conda-forge      13MB
+2024-06-05T12:45:56.8492420Z   + lzo                                      2.10  hd590300_1001        conda-forge     171kB
+2024-06-05T12:45:56.8493465Z   + zlib-ng                                 2.0.7  h0b41bf4_0           conda-forge      95kB
+2024-06-05T12:45:56.8494538Z   + libssh2                                1.11.0  h0841786_0           conda-forge     271kB
+2024-06-05T12:45:56.8495608Z   + libzip                                 1.10.1  h2629f0a_3           conda-forge     107kB
+2024-06-05T12:45:56.8496657Z   + libev                                    4.33  hd590300_2           conda-forge     113kB
+2024-06-05T12:45:56.8497689Z   + c-ares                                 1.28.1  hd590300_0           conda-forge     169kB
+2024-06-05T12:45:56.8498806Z   + libsodium                              1.0.18  h36c2ea0_1           conda-forge     375kB
+2024-06-05T12:45:56.8499938Z   + xorg-kbproto                            1.0.7  h7f98852_1002        conda-forge      27kB
+2024-06-05T12:45:56.8501112Z   + xorg-xproto                            7.0.31  h7f98852_1007        conda-forge      75kB
+2024-06-05T12:45:56.8502293Z   + xorg-renderproto                       0.11.1  h7f98852_1002        conda-forge      10kB
+2024-06-05T12:45:56.8503457Z   + ocl-icd                                 2.3.2  hd590300_1           conda-forge     136kB
+2024-06-05T12:45:56.8504580Z   + pthread-stubs                             0.4  h36c2ea0_1001        conda-forge       6kB
+2024-06-05T12:45:56.8505740Z   + xorg-libxdmcp                           1.1.3  h7f98852_0           conda-forge      19kB
+2024-06-05T12:45:56.8506898Z   + libedit                          3.1.20191231  he28a2e2_2           conda-forge     124kB
+2024-06-05T12:45:56.8508036Z   + chardet                                 5.2.0  py312h7900ff3_1      conda-forge     260kB
+2024-06-05T12:45:56.8509408Z   + psutil                                  5.9.8  py312h98912ed_0      conda-forge     486kB
+2024-06-05T12:45:56.8510511Z   + markupsafe                              2.1.5  py312h98912ed_0      conda-forge      27kB
+2024-06-05T12:45:56.8511619Z   + rpds-py                                0.18.1  py312h4413252_0      conda-forge     922kB
+2024-06-05T12:45:56.8512723Z   + jsonpointer                               2.4  py312h7900ff3_3      conda-forge      18kB
+2024-06-05T12:45:56.8513803Z   + tornado                                   6.4  py312h98912ed_0      conda-forge     841kB
+2024-06-05T12:45:56.8514886Z   + xorg-libsm                              1.2.4  h7391055_0           conda-forge      27kB
+2024-06-05T12:45:56.8516007Z   + cudatoolkit                            11.8.0  h4ba93d1_13          conda-forge     716MB
+2024-06-05T12:45:56.8517121Z   + libaec                                  1.1.3  h59595ed_0           conda-forge      35kB
+2024-06-05T12:45:56.8518205Z   + greenlet                                3.0.3  py312h30efb56_0      conda-forge     233kB
+2024-06-05T12:45:56.8519352Z   + brotli-python                           1.1.0  py312h30efb56_1      conda-forge     351kB
+2024-06-05T12:45:56.8520459Z   + lz4-c                                   1.9.4  hcb278e6_0           conda-forge     143kB
+2024-06-05T12:45:56.8521499Z   + pixman                                 0.43.2  h59595ed_0           conda-forge     387kB
+2024-06-05T12:45:56.8522559Z   + zstd                                    1.5.6  ha6fb4c9_0           conda-forge     555kB
+2024-06-05T12:45:56.8523605Z   + snappy                                  1.2.0  hdb0a2a9_1           conda-forge      42kB
+2024-06-05T12:45:56.8524647Z   + lerc                                    4.0.0  h27087fc_0           conda-forge     282kB
+2024-06-05T12:45:56.8525964Z   + kiwisolver                              1.4.5  py312h8572e83_1      conda-forge      72kB
+2024-06-05T12:45:56.8527391Z   + debugpy                                 1.8.1  py312h30efb56_0      conda-forge       2MB
+2024-06-05T12:45:56.8528497Z   + icu                                      73.2  h59595ed_0           conda-forge      12MB
+2024-06-05T12:45:56.8529558Z   + freetype                               2.12.1  h267a509_2           conda-forge     635kB
+2024-06-05T12:45:56.8530657Z   + pyyaml                                  6.0.1  py312h98912ed_1      conda-forge     197kB
+2024-06-05T12:45:56.8531806Z   + hdf4                                   4.2.15  h2a13503_7           conda-forge     757kB
+2024-06-05T12:45:56.8532935Z   + libgfortran-ng                         13.2.0  h69a702a_7           conda-forge      24kB
+2024-06-05T12:45:56.8534098Z   + libbrotlienc                            1.1.0  hd590300_1           conda-forge     283kB
+2024-06-05T12:45:56.8535225Z   + libbrotlidec                            1.1.0  hd590300_1           conda-forge      33kB
+2024-06-05T12:45:56.8536343Z   + libglib                                2.80.2  hf974151_0           conda-forge       4MB
+2024-06-05T12:45:56.8537471Z   + libnghttp2                             1.58.0  h47da74e_1           conda-forge     632kB
+2024-06-05T12:45:56.8538618Z   + ocl-icd-system                          1.0.0  1                    conda-forge       4kB
+2024-06-05T12:45:56.8539727Z   + libxcb                                   1.15  h0b41bf4_0           conda-forge     384kB
+2024-06-05T12:45:56.8540781Z   + krb5                                   1.21.2  h659d440_0           conda-forge       1MB
+2024-06-05T12:45:56.8541913Z   + c-blosc2                               2.14.4  hb4ffafa_1           conda-forge     337kB
+2024-06-05T12:45:56.8543036Z   + blosc                                  1.21.5  hc2324a3_1           conda-forge      49kB
+2024-06-05T12:45:56.8544098Z   + libtiff                                 4.6.0  h1dd3fc0_3           conda-forge     283kB
+2024-06-05T12:45:56.8545176Z   + libxml2                                2.12.7  hc051c1a_1           conda-forge     705kB
+2024-06-05T12:45:56.8546533Z   + libboost                               1.82.0  h6fcfa73_6           conda-forge       3MB
+2024-06-05T12:45:56.8547644Z   + fontconfig                             2.14.2  h14ed4e7_0           conda-forge     272kB
+2024-06-05T12:45:56.8548698Z   + fftw                                   3.3.10  nompi_hc118613_109   conda-forge       2MB
+2024-06-05T12:45:56.8549812Z   + libopenblas                            0.3.27  pthreads_h413a1c8_0  conda-forge       6MB
+2024-06-05T12:45:56.8550921Z   + bader                                   1.0.4  h1990efc_1           conda-forge     115kB
+2024-06-05T12:45:56.8551969Z   + packmol                               20.14.4  ha36c22a_0           conda-forge     128kB
+2024-06-05T12:45:56.8553080Z   + enumlib                                 2.0.6  hdb1a99f_0           conda-forge     161kB
+2024-06-05T12:45:56.8554167Z   + brotli-bin                              1.1.0  hd590300_1           conda-forge      19kB
+2024-06-05T12:45:56.8555280Z   + xorg-libx11                             1.8.9  h8ee46fc_0           conda-forge     828kB
+2024-06-05T12:45:56.8556375Z   + libcurl                                 8.8.0  hca28451_0           conda-forge     406kB
+2024-06-05T12:45:56.8557429Z   + zeromq                                  4.3.5  h75354e8_4           conda-forge     353kB
+2024-06-05T12:45:56.8558493Z   + openjpeg                                2.5.2  h488ebb8_0           conda-forge     342kB
+2024-06-05T12:45:56.8559564Z   + lcms2                                    2.16  hb7c19ff_0           conda-forge     245kB
+2024-06-05T12:45:56.8560632Z   + libblas                                 3.9.0  22_linux64_openblas  conda-forge      15kB
+2024-06-05T12:45:56.8561699Z   + brotli                                  1.1.0  hd590300_1           conda-forge      19kB
+2024-06-05T12:45:56.8562800Z   + xorg-libxext                            1.3.4  h0b41bf4_2           conda-forge      50kB
+2024-06-05T12:45:56.8564102Z   + xorg-libxt                              1.3.0  hd590300_1           conda-forge     379kB
+2024-06-05T12:45:56.8565489Z   + xorg-libxrender                        0.9.11  hd590300_0           conda-forge      38kB
+2024-06-05T12:45:56.8566654Z   + hdf5                                   1.14.3  nompi_hdf9ad27_105   conda-forge       4MB
+2024-06-05T12:45:56.8567725Z   + pyzmq                                  26.0.3  py312h8fd38d8_0      conda-forge     462kB
+2024-06-05T12:45:56.8568823Z   + pillow                                 10.3.0  py312hdcec9eb_0      conda-forge      42MB
+2024-06-05T12:45:56.8569945Z   + libcblas                                3.9.0  22_linux64_openblas  conda-forge      14kB
+2024-06-05T12:45:56.8571067Z   + liblapack                               3.9.0  22_linux64_openblas  conda-forge      14kB
+2024-06-05T12:45:56.8572194Z   + libnetcdf                               4.9.2  nompi_h9612171_113   conda-forge     849kB
+2024-06-05T12:45:56.8573306Z   + numpy                                  1.26.4  py312heda63a1_0      conda-forge       7MB
+2024-06-05T12:45:56.8574397Z   + arpack                                  3.8.0  nompi_h0baa96a_101   conda-forge     219kB
+2024-06-05T12:45:56.8575578Z   + netcdf-fortran                          4.6.1  nompi_hacb5139_103   conda-forge     432kB
+2024-06-05T12:45:56.8576741Z   + contourpy                               1.2.1  py312h8572e83_0      conda-forge     257kB
+2024-06-05T12:45:56.8577827Z   + scipy                                  1.13.1  py312hc2bc53b_0      conda-forge      17MB
+2024-06-05T12:45:56.8578959Z   + libboost-python                        1.82.0  py312hfb10629_6      conda-forge     121kB
+2024-06-05T12:45:56.8580110Z   + openmm                                  8.1.1  py312hce710af_1      conda-forge      11MB
+2024-06-05T12:45:56.8581329Z   + font-ttf-dejavu-sans-mono                2.37  hab24e00_0           conda-forge     397kB
+2024-06-05T12:45:56.8582615Z   + smirnoff99frosst                        1.1.0  pyh44b312d_0         conda-forge      35kB
+2024-06-05T12:45:56.8583865Z   + openff-amber-ff-ports                   0.0.4  pyhca7485f_0         conda-forge     186kB
+2024-06-05T12:45:56.8585332Z   + cachetools                              5.3.3  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8586460Z   + packaging                                24.0  pyhd8ed1ab_0         conda-forge      50kB
+2024-06-05T12:45:56.8587629Z   + python-constraint                       1.4.0  py_0                 conda-forge      21kB
+2024-06-05T12:45:56.8588926Z   + typing_extensions                      4.12.1  pyha770c72_0         conda-forge      40kB
+2024-06-05T12:45:56.8590090Z   + xmltodict                              0.13.0  pyhd8ed1ab_0         conda-forge      14kB
+2024-06-05T12:45:56.8591214Z   + networkx                                  3.3  pyhd8ed1ab_1         conda-forge       1MB
+2024-06-05T12:45:56.8592395Z   + openff-forcefields                  2024.04.0  pyhca7485f_0         conda-forge      92kB
+2024-06-05T12:45:56.8593671Z   + jupyterlab_widgets                     3.0.11  pyhd8ed1ab_0         conda-forge     186kB
+2024-06-05T12:45:56.8594904Z   + widgetsnbextension                     4.0.11  pyhd8ed1ab_0         conda-forge       1MB
+2024-06-05T12:45:56.8596087Z   + mda-xdrlib                              0.2.0  pyhd8ed1ab_0         conda-forge      16kB
+2024-06-05T12:45:56.8597175Z   + json5                                  0.9.25  pyhd8ed1ab_0         conda-forge      28kB
+2024-06-05T12:45:56.8598264Z   + traitlets                              5.14.3  pyhd8ed1ab_0         conda-forge     110kB
+2024-06-05T12:45:56.8599353Z   + tomli                                   2.0.1  pyhd8ed1ab_0         conda-forge      16kB
+2024-06-05T12:45:56.8600485Z   + prometheus_client                      0.20.0  pyhd8ed1ab_0         conda-forge      49kB
+2024-06-05T12:45:56.8601687Z   + websocket-client                        1.8.0  pyhd8ed1ab_0         conda-forge      47kB
+2024-06-05T12:45:56.8603132Z   + typing_utils                            0.1.0  pyhd8ed1ab_0         conda-forge      14kB
+2024-06-05T12:45:56.8604338Z   + rfc3986-validator                       0.1.1  pyh9f0ad1d_0         conda-forge       8kB
+2024-06-05T12:45:56.8605763Z   + send2trash                              1.8.3  pyh0d859eb_0         conda-forge      23kB
+2024-06-05T12:45:56.8606970Z   + python-json-logger                      2.0.7  pyhd8ed1ab_0         conda-forge      13kB
+2024-06-05T12:45:56.8608110Z   + idna                                      3.7  pyhd8ed1ab_0         conda-forge      53kB
+2024-06-05T12:45:56.8609194Z   + uri-template                            1.3.0  pyhd8ed1ab_0         conda-forge      24kB
+2024-06-05T12:45:56.8610347Z   + webcolors                                1.13  pyhd8ed1ab_0         conda-forge      18kB
+2024-06-05T12:45:56.8611547Z   + pkgutil-resolve-name                   1.3.10  pyhd8ed1ab_1         conda-forge      11kB
+2024-06-05T12:45:56.8612712Z   + attrs                                  23.2.0  pyh71513ae_0         conda-forge      55kB
+2024-06-05T12:45:56.8613838Z   + pickleshare                             0.7.5  py_1003              conda-forge       9kB
+2024-06-05T12:45:56.8614985Z   + decorator                               5.1.1  pyhd8ed1ab_0         conda-forge      12kB
+2024-06-05T12:45:56.8616151Z   + exceptiongroup                          1.2.0  pyhd8ed1ab_2         conda-forge      21kB
+2024-06-05T12:45:56.8617319Z   + pygments                               2.18.0  pyhd8ed1ab_0         conda-forge     879kB
+2024-06-05T12:45:56.8618449Z   + nest-asyncio                            1.6.0  pyhd8ed1ab_0         conda-forge      12kB
+2024-06-05T12:45:56.8619578Z   + zipp                                   3.17.0  pyhd8ed1ab_0         conda-forge      19kB
+2024-06-05T12:45:56.8620657Z   + certifi                              2024.2.2  pyhd8ed1ab_0         conda-forge     161kB
+2024-06-05T12:45:56.8621756Z   + sniffio                                 1.3.1  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8622845Z   + hpack                                   4.0.0  pyh9f0ad1d_0         conda-forge      25kB
+2024-06-05T12:45:56.8624194Z   + pytz                                   2024.1  pyhd8ed1ab_0         conda-forge     189kB
+2024-06-05T12:45:56.8625250Z   + six                                    1.16.0  pyh6c4a22f_0         conda-forge      14kB
+2024-06-05T12:45:56.8626339Z   + hyperframe                              6.0.1  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8627534Z   + font-ttf-inconsolata                    3.000  h77eed37_0           conda-forge      97kB
+2024-06-05T12:45:56.8628820Z   + font-ttf-source-code-pro                2.038  h77eed37_0           conda-forge     701kB
+2024-06-05T12:45:56.8630098Z   + font-ttf-ubuntu                          0.83  h77eed37_2           conda-forge       2MB
+2024-06-05T12:45:56.8631286Z   + cached_property                         1.5.2  pyha770c72_1         conda-forge      11kB
+2024-06-05T12:45:56.8632466Z   + python-tzdata                          2024.1  pyhd8ed1ab_0         conda-forge     144kB
+2024-06-05T12:45:56.8633648Z   + pyparsing                               3.1.2  pyhd8ed1ab_0         conda-forge      89kB
+2024-06-05T12:45:56.8634753Z   + cycler                                 0.12.1  pyhd8ed1ab_0         conda-forge      13kB
+2024-06-05T12:45:56.8635877Z   + platformdirs                            4.2.2  pyhd8ed1ab_0         conda-forge      21kB
+2024-06-05T12:45:56.8636999Z   + munkres                                 1.1.4  pyh9f0ad1d_0         conda-forge      12kB
+2024-06-05T12:45:56.8638082Z   + joblib                                  1.4.2  pyhd8ed1ab_0         conda-forge     220kB
+2024-06-05T12:45:56.8639206Z   + ptyprocess                              0.7.0  pyhd3deb0d_0         conda-forge      17kB
+2024-06-05T12:45:56.8640310Z   + executing                               2.0.1  pyhd8ed1ab_0         conda-forge      28kB
+2024-06-05T12:45:56.8641433Z   + pure_eval                               0.2.2  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8642748Z   + pysocks                                 1.7.1  pyha2e5f31_6         conda-forge      19kB
+2024-06-05T12:45:56.8643951Z   + charset-normalizer                      3.3.2  pyhd8ed1ab_0         conda-forge      47kB
+2024-06-05T12:45:56.8645307Z   + wcwidth                                0.2.13  pyhd8ed1ab_0         conda-forge      33kB
+2024-06-05T12:45:56.8646566Z   + python-fastjsonschema                  2.19.1  pyhd8ed1ab_0         conda-forge     225kB
+2024-06-05T12:45:56.8647772Z   + defusedxml                              0.7.1  pyhd8ed1ab_0         conda-forge      24kB
+2024-06-05T12:45:56.8648891Z   + entrypoints                               0.4  pyhd8ed1ab_0         conda-forge       9kB
+2024-06-05T12:45:56.8650035Z   + pandocfilters                           1.5.0  pyhd8ed1ab_0         conda-forge      12kB
+2024-06-05T12:45:56.8651160Z   + mistune                                 3.0.2  pyhd8ed1ab_0         conda-forge      66kB
+2024-06-05T12:45:56.8652227Z   + parso                                   0.8.4  pyhd8ed1ab_0         conda-forge      75kB
+2024-06-05T12:45:56.8653351Z   + webencodings                            0.5.1  pyhd8ed1ab_2         conda-forge      16kB
+2024-06-05T12:45:56.8654472Z   + soupsieve                                 2.5  pyhd8ed1ab_1         conda-forge      37kB
+2024-06-05T12:45:56.8655716Z   + types-python-dateutil          2.9.0.20240316  pyhd8ed1ab_0         conda-forge      22kB
+2024-06-05T12:45:56.8656901Z   + nomkl                                     1.0  h5ca1d4c_0           conda-forge       4kB
+2024-06-05T12:45:56.8657983Z   + py-cpuinfo                              9.0.0  pyhd8ed1ab_0         conda-forge      25kB
+2024-06-05T12:45:56.8659113Z   + pycparser                                2.22  pyhd8ed1ab_0         conda-forge     105kB
+2024-06-05T12:45:56.8660227Z   + colorama                                0.4.6  pyhd8ed1ab_0         conda-forge      25kB
+2024-06-05T12:45:56.8661318Z   + jinja2                                  3.1.4  pyhd8ed1ab_0         conda-forge     112kB
+2024-06-05T12:45:56.8662707Z   + freetype-py                             2.3.0  pyhd8ed1ab_0         conda-forge      59kB
+2024-06-05T12:45:56.8663796Z   + pint                                     0.23  pyhd8ed1ab_1         conda-forge     237kB
+2024-06-05T12:45:56.8664830Z   + h11                                    0.14.0  pyhd8ed1ab_0         conda-forge      48kB
+2024-06-05T12:45:56.8665900Z   + async-lru                               2.0.4  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8667064Z   + typing-extensions                      4.12.1  hd8ed1ab_0           conda-forge      10kB
+2024-06-05T12:45:56.8668298Z   + matplotlib-inline                       0.1.7  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8669423Z   + comm                                    0.2.2  pyhd8ed1ab_0         conda-forge      12kB
+2024-06-05T12:45:56.8670476Z   + overrides                               7.7.0  pyhd8ed1ab_0         conda-forge      30kB
+2024-06-05T12:45:56.8671607Z   + referencing                            0.35.1  pyhd8ed1ab_0         conda-forge      42kB
+2024-06-05T12:45:56.8672830Z   + jupyterlab_pygments                     0.3.0  pyhd8ed1ab_1         conda-forge      19kB
+2024-06-05T12:45:56.8674104Z   + importlib_resources                     6.4.0  pyhd8ed1ab_0         conda-forge      33kB
+2024-06-05T12:45:56.8675385Z   + importlib-metadata                      7.1.0  pyha770c72_0         conda-forge      27kB
+2024-06-05T12:45:56.8676486Z   + anyio                                   4.3.0  pyhd8ed1ab_0         conda-forge     102kB
+2024-06-05T12:45:56.8677545Z   + babel                                  2.14.0  pyhd8ed1ab_0         conda-forge       8MB
+2024-06-05T12:45:56.8678693Z   + asttokens                               2.4.1  pyhd8ed1ab_0         conda-forge      29kB
+2024-06-05T12:45:56.8679870Z   + astunparse                              1.6.3  pyhd8ed1ab_0         conda-forge      16kB
+2024-06-05T12:45:56.8681366Z   + python-dateutil                         2.9.0  pyhd8ed1ab_0         conda-forge     223kB
+2024-06-05T12:45:56.8682168Z   + rfc3339-validator                       0.1.4  pyhd8ed1ab_0         conda-forge       8kB
+2024-06-05T12:45:56.8682832Z   + h2                                      4.1.0  pyhd8ed1ab_0         conda-forge      47kB
+2024-06-05T12:45:56.8683954Z   + fonts-conda-forge                           1  0                    conda-forge       4kB
+2024-06-05T12:45:56.8685379Z   + cached-property                         1.5.2  hd8ed1ab_1           conda-forge       4kB
+2024-06-05T12:45:56.8686591Z   + pexpect                                 4.9.0  pyhd8ed1ab_0         conda-forge      54kB
+2024-06-05T12:45:56.8687818Z   + terminado                              0.18.1  pyh0d859eb_0         conda-forge      22kB
+2024-06-05T12:45:56.8688951Z   + urllib3                                 2.2.1  pyhd8ed1ab_0         conda-forge      95kB
+2024-06-05T12:45:56.8689967Z   + prompt-toolkit                         3.0.46  pyha770c72_0         conda-forge     270kB
+2024-06-05T12:45:56.8690603Z   + jedi                                   0.19.1  pyhd8ed1ab_0         conda-forge     841kB
+2024-06-05T12:45:56.8691266Z   + tinycss2                                1.3.0  pyhd8ed1ab_0         conda-forge      25kB
+2024-06-05T12:45:56.8691879Z   + bleach                                  6.1.0  pyhd8ed1ab_0         conda-forge     131kB
+2024-06-05T12:45:56.8692500Z   + beautifulsoup4                         4.12.3  pyha770c72_0         conda-forge     118kB
+2024-06-05T12:45:56.8693117Z   + tqdm                                   4.66.4  pyhd8ed1ab_0         conda-forge      89kB
+2024-06-05T12:45:56.8693731Z   + annotated-types                         0.7.0  pyhd8ed1ab_0         conda-forge      18kB
+2024-06-05T12:45:56.8694431Z   + jsonschema-specifications           2023.12.1  pyhd8ed1ab_0         conda-forge      16kB
+2024-06-05T12:45:56.8695130Z   + openff-utilities                       0.1.12  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8695803Z   + importlib_metadata                      7.1.0  hd8ed1ab_0           conda-forge       9kB
+2024-06-05T12:45:56.8696640Z   + stack_data                              0.6.2  pyhd8ed1ab_0         conda-forge      26kB
+2024-06-05T12:45:56.8697234Z   + arrow                                   1.3.0  pyhd8ed1ab_0         conda-forge     100kB
+2024-06-05T12:45:56.8697797Z   + bson                                    0.5.9  py_0                 conda-forge      14kB
+2024-06-05T12:45:56.8698360Z   + httpcore                                1.0.5  pyhd8ed1ab_0         conda-forge      46kB
+2024-06-05T12:45:56.8698991Z   + fonts-conda-ecosystem                       1  0                    conda-forge       4kB
+2024-06-05T12:45:56.8699607Z   + fqdn                                    1.5.1  pyhd8ed1ab_0         conda-forge      14kB
+2024-06-05T12:45:56.8700250Z   + jupyter_server_terminals                0.5.3  pyhd8ed1ab_0         conda-forge      20kB
+2024-06-05T12:45:56.8700918Z   + requests                               2.32.3  pyhd8ed1ab_0         conda-forge      59kB
+2024-06-05T12:45:56.8701513Z   + pyedr                                   0.8.0  pyhd8ed1ab_0         conda-forge     342kB
+2024-06-05T12:45:56.8702101Z   + jsonschema                             4.22.0  pyhd8ed1ab_0         conda-forge      74kB
+2024-06-05T12:45:56.8702705Z   + openff-units                            0.2.2  pyhca7485f_0         conda-forge      23kB
+2024-06-05T12:45:56.8703304Z   + ipython                                8.25.0  pyh707e725_0         conda-forge     599kB
+2024-06-05T12:45:56.8703899Z   + isoduration                           20.11.0  pyhd8ed1ab_0         conda-forge      17kB
+2024-06-05T12:45:56.8704490Z   + httpx                                  0.27.0  pyhd8ed1ab_0         conda-forge      65kB
+2024-06-05T12:45:56.8705106Z   + openff-toolkit-base                    0.16.0  pyhd8ed1ab_1         conda-forge       8MB
+2024-06-05T12:45:56.8705890Z   + ipywidgets                              8.1.3  pyhd8ed1ab_0         conda-forge     114kB
+2024-06-05T12:45:56.8706585Z   + jsonschema-with-format-nongpl          4.22.0  pyhd8ed1ab_0         conda-forge       7kB
+2024-06-05T12:45:56.8707276Z   + jupyter_events                         0.10.0  pyhd8ed1ab_0         conda-forge      21kB
+2024-06-05T12:45:56.8707900Z   + jupyter_core                            5.7.2  py312h7900ff3_0      conda-forge      93kB
+2024-06-05T12:45:56.8708621Z   + fonttools                              4.53.0  py312h9a8786e_0      conda-forge       3MB
+2024-06-05T12:45:56.8709220Z   + numexpr                                2.10.0  py312hf412c99_100    conda-forge     158kB
+2024-06-05T12:45:56.8709799Z   + cffi                                   1.16.0  py312hf06ca03_0      conda-forge     295kB
+2024-06-05T12:45:56.8710379Z   + sqlalchemy                             2.0.30  py312h9a8786e_0      conda-forge       3MB
+2024-06-05T12:45:56.8711008Z   + pydantic-core                          2.18.4  py312h4413252_0      conda-forge       2MB
+2024-06-05T12:45:56.8711611Z   + pandas                                  2.1.4  py312hfb8ada1_0      conda-forge      15MB
+2024-06-05T12:45:56.8712185Z   + cairo                                  1.18.0  h3faef2a_0           conda-forge     982kB
+2024-06-05T12:45:56.8712801Z   + matplotlib-base                         3.8.4  py312h20ab3a6_2      conda-forge       8MB
+2024-06-05T12:45:56.8713420Z   + pytables                                3.9.2  py312h96d95ec_2      conda-forge       2MB
+2024-06-05T12:45:56.8714067Z   + argon2-cffi-bindings                   21.2.0  py312h98912ed_4      conda-forge      35kB
+2024-06-05T12:45:56.8714715Z   + parmed                                  4.2.2  py312h30efb56_1      conda-forge      19MB
+2024-06-05T12:45:56.8715318Z   + pycairo                                1.26.0  py312he48a392_0      conda-forge     116kB
+2024-06-05T12:45:56.8715930Z   + openbabel                               3.1.1  py312hbfe4552_9      conda-forge       5MB
+2024-06-05T12:45:56.8716529Z   + mdtraj                                 1.10.0  py312h0b8b674_0      conda-forge       1MB
+2024-06-05T12:45:56.8717296Z   + ambertools                               23.3  py312h1577c9a_6      conda-forge      94MB
+2024-06-05T12:45:56.8717909Z   + nbformat                               5.10.4  pyhd8ed1ab_0         conda-forge     101kB
+2024-06-05T12:45:56.8718542Z   + jupyter_client                          8.6.2  pyhd8ed1ab_0         conda-forge     106kB
+2024-06-05T12:45:56.8719165Z   + pydantic                                2.7.3  pyhd8ed1ab_0         conda-forge     283kB
+2024-06-05T12:45:56.8719751Z   + panedr                                  0.8.0  pyhd8ed1ab_0         conda-forge      30kB
+2024-06-05T12:45:56.8720353Z   + argon2-cffi                            23.1.0  pyhd8ed1ab_0         conda-forge      19kB
+2024-06-05T12:45:56.8720951Z   + rlpycairo                               0.2.0  pyhd8ed1ab_0         conda-forge      15kB
+2024-06-05T12:45:56.8721561Z   + nbclient                               0.10.0  pyhd8ed1ab_0         conda-forge      28kB
+2024-06-05T12:45:56.8722162Z   + ipykernel                              6.29.3  pyhd33586a_0         conda-forge     119kB
+2024-06-05T12:45:56.8722775Z   + openff-models                           0.1.2  pyhca7485f_0         conda-forge      15kB
+2024-06-05T12:45:56.8723400Z   + nbconvert-core                         7.16.4  pyhd8ed1ab_0         conda-forge     189kB
+2024-06-05T12:45:56.8724074Z   + openff-interchange-base                0.3.27  pyhd8ed1ab_0         conda-forge     671kB
+2024-06-05T12:45:56.8724737Z   + jupyter_server                         2.14.1  pyhd8ed1ab_0         conda-forge     324kB
+2024-06-05T12:45:56.8725606Z   + jupyter-lsp                             2.2.5  pyhd8ed1ab_0         conda-forge      56kB
+2024-06-05T12:45:56.8726240Z   + jupyterlab_server                      2.27.2  pyhd8ed1ab_0         conda-forge      49kB
+2024-06-05T12:45:56.8727230Z   + notebook-shim                           0.2.4  pyhd8ed1ab_0         conda-forge      17kB
+2024-06-05T12:45:56.8727876Z   + jupyterlab                              4.2.1  pyhd8ed1ab_0         conda-forge       8MB
+2024-06-05T12:45:56.8728480Z   + notebook                                7.2.0  pyhd8ed1ab_0         conda-forge       4MB
+2024-06-05T12:45:56.8729068Z   + reportlab                               4.1.0  py312h98912ed_0      conda-forge       3MB
+2024-06-05T12:45:56.8729659Z   + rdkit                               2023.09.6  py312hd93e07f_1      conda-forge      39MB
+2024-06-05T12:45:56.8730264Z   + openff-toolkit                         0.16.0  pyhd8ed1ab_1         conda-forge       9kB
+2024-06-05T12:45:56.8730914Z   + openff-interchange                     0.3.27  pyhd8ed1ab_0         conda-forge       7kB
+2024-06-05T12:45:56.8731277Z 
+2024-06-05T12:45:56.8731367Z   Summary:
+2024-06-05T12:45:56.8731494Z 
+2024-06-05T12:45:56.8731594Z   Install: 255 packages
+2024-06-05T12:45:56.8731760Z 
+2024-06-05T12:45:56.8731851Z   Total download: 1GB
+2024-06-05T12:45:56.8732016Z 
+2024-06-05T12:45:56.8732367Z ───────────────────────────────────────────────────────────────────────────────────────────────
+2024-06-05T12:45:56.8732728Z 
+2024-06-05T12:45:56.8732732Z 
+2024-06-05T12:45:56.8732736Z 
+2024-06-05T12:45:56.8732835Z Transaction starting
+2024-06-05T12:46:15.3934185Z Linking python_abi-3.12-4_cp312
+2024-06-05T12:46:15.3937388Z Linking xorg-libice-1.1.1-hd590300_0
+2024-06-05T12:46:15.3947317Z Linking expat-2.6.2-h59595ed_0
+2024-06-05T12:46:15.3960779Z Linking zlib-1.3.1-h4ab18f5_1
+2024-06-05T12:46:15.3968709Z Linking xorg-xextproto-7.3.0-h0b41bf4_1003
+2024-06-05T12:46:15.3988178Z Linking libstdcxx-ng-13.2.0-hc0a3c3a_7
+2024-06-05T12:46:15.3994018Z Linking libpng-1.6.43-h2797004_0
+2024-06-05T12:46:15.4011623Z Linking keyutils-1.6.1-h166bdaf_0
+2024-06-05T12:46:15.4050867Z Linking yaml-0.2.5-h7f98852_2
+2024-06-05T12:46:15.4057730Z Linking libjpeg-turbo-3.0.0-hd590300_1
+2024-06-05T12:46:15.4084361Z Linking libdeflate-1.20-hd590300_0
+2024-06-05T12:46:15.4094901Z Linking libwebp-base-1.4.0-hd590300_0
+2024-06-05T12:46:15.4123327Z Linking libgfortran5-13.2.0-hca663fb_7
+2024-06-05T12:46:15.4128771Z Linking libiconv-1.17-hd590300_2
+2024-06-05T12:46:15.4168754Z Linking xorg-libxau-1.0.11-hd590300_0
+2024-06-05T12:46:15.4175572Z Linking libbrotlicommon-1.1.0-hd590300_1
+2024-06-05T12:46:15.4182050Z Linking pcre2-10.43-hcad00b1_0
+2024-06-05T12:46:15.4298664Z Linking perl-5.32.1-7_hd590300_perl5
+2024-06-05T12:46:15.6244139Z Linking lzo-2.10-hd590300_1001
+2024-06-05T12:46:15.6263617Z Linking zlib-ng-2.0.7-h0b41bf4_0
+2024-06-05T12:46:15.6272065Z Linking libssh2-1.11.0-h0841786_0
+2024-06-05T12:46:15.6378824Z Linking libzip-1.10.1-h2629f0a_3
+2024-06-05T12:46:15.6456147Z Linking libev-4.33-hd590300_2
+2024-06-05T12:46:15.6462245Z Linking c-ares-1.28.1-hd590300_0
+2024-06-05T12:46:15.6545034Z Linking libsodium-1.0.18-h36c2ea0_1
+2024-06-05T12:46:15.6582391Z Linking xorg-kbproto-1.0.7-h7f98852_1002
+2024-06-05T12:46:15.6588594Z Linking xorg-xproto-7.0.31-h7f98852_1007
+2024-06-05T12:46:15.6603345Z Linking xorg-renderproto-0.11.1-h7f98852_1002
+2024-06-05T12:46:15.6608391Z Linking ocl-icd-2.3.2-hd590300_1
+2024-06-05T12:46:15.6644187Z Linking pthread-stubs-0.4-h36c2ea0_1001
+2024-06-05T12:46:15.6648359Z Linking xorg-libxdmcp-1.1.3-h7f98852_0
+2024-06-05T12:46:15.6654904Z Linking libedit-3.1.20191231-he28a2e2_2
+2024-06-05T12:46:15.6697372Z Linking chardet-5.2.0-py312h7900ff3_1
+2024-06-05T12:46:15.6759585Z Linking psutil-5.9.8-py312h98912ed_0
+2024-06-05T12:46:15.6798849Z Linking markupsafe-2.1.5-py312h98912ed_0
+2024-06-05T12:46:15.6810962Z Linking rpds-py-0.18.1-py312h4413252_0
+2024-06-05T12:46:15.6820992Z Linking jsonpointer-2.4-py312h7900ff3_3
+2024-06-05T12:46:15.6831119Z Linking tornado-6.4-py312h98912ed_0
+2024-06-05T12:46:15.6927649Z Linking xorg-libsm-1.2.4-h7391055_0
+2024-06-05T12:46:15.6935726Z Linking cudatoolkit-11.8.0-h4ba93d1_13
+2024-06-05T12:46:15.7512392Z By downloading and using the CUDA Toolkit conda packages, you accept the terms and conditions of the CUDA End User License Agreement (EULA): https://docs.nvidia.com/cuda/eula/index.html
+2024-06-05T12:46:15.7513311Z 
+2024-06-05T12:46:15.9730469Z Linking libaec-1.1.3-h59595ed_0
+2024-06-05T12:46:15.9739520Z Linking greenlet-3.0.3-py312h30efb56_0
+2024-06-05T12:46:15.9808187Z Linking brotli-python-1.1.0-py312h30efb56_1
+2024-06-05T12:46:15.9817389Z Linking lz4-c-1.9.4-hcb278e6_0
+2024-06-05T12:46:15.9831375Z Linking pixman-0.43.2-h59595ed_0
+2024-06-05T12:46:15.9839506Z Linking zstd-1.5.6-ha6fb4c9_0
+2024-06-05T12:46:15.9857240Z Linking snappy-1.2.0-hdb0a2a9_1
+2024-06-05T12:46:15.9866860Z Linking lerc-4.0.0-h27087fc_0
+2024-06-05T12:46:15.9872490Z Linking kiwisolver-1.4.5-py312h8572e83_1
+2024-06-05T12:46:15.9884050Z Linking debugpy-1.8.1-py312h30efb56_0
+2024-06-05T12:46:16.0215969Z Linking icu-73.2-h59595ed_0
+2024-06-05T12:46:16.0381549Z Linking freetype-2.12.1-h267a509_2
+2024-06-05T12:46:16.0419547Z Linking pyyaml-6.0.1-py312h98912ed_1
+2024-06-05T12:46:16.0446907Z Linking hdf4-4.2.15-h2a13503_7
+2024-06-05T12:46:16.0495889Z Linking libgfortran-ng-13.2.0-h69a702a_7
+2024-06-05T12:46:16.0498204Z Linking libbrotlienc-1.1.0-hd590300_1
+2024-06-05T12:46:16.0504400Z Linking libbrotlidec-1.1.0-hd590300_1
+2024-06-05T12:46:16.0510281Z Linking libglib-2.80.2-hf974151_0
+2024-06-05T12:46:16.0720365Z Linking libnghttp2-1.58.0-h47da74e_1
+2024-06-05T12:46:16.0753648Z Linking ocl-icd-system-1.0.0-1
+2024-06-05T12:46:16.1264739Z By downloading and using the CUDA Toolkit conda packages, you accept the terms and conditions of the CUDA End User License Agreement (EULA): https://docs.nvidia.com/cuda/eula/index.html
+2024-06-05T12:46:16.1265741Z 
+2024-06-05T12:46:16.1266396Z Linking libxcb-1.15-h0b41bf4_0
+2024-06-05T12:46:16.1392966Z Linking krb5-1.21.2-h659d440_0
+2024-06-05T12:46:16.1566340Z Linking c-blosc2-2.14.4-hb4ffafa_1
+2024-06-05T12:46:16.1584353Z Linking blosc-1.21.5-hc2324a3_1
+2024-06-05T12:46:16.1591363Z Linking libtiff-4.6.0-h1dd3fc0_3
+2024-06-05T12:46:16.1604727Z Linking libxml2-2.12.7-hc051c1a_1
+2024-06-05T12:46:16.1675399Z Linking libboost-1.82.0-h6fcfa73_6
+2024-06-05T12:46:16.1741685Z Linking fontconfig-2.14.2-h14ed4e7_0
+2024-06-05T12:46:16.1823073Z Linking fftw-3.3.10-nompi_hc118613_109
+2024-06-05T12:46:16.1866607Z Linking libopenblas-0.3.27-pthreads_h413a1c8_0
+2024-06-05T12:46:16.1870629Z Linking bader-1.0.4-h1990efc_1
+2024-06-05T12:46:16.1873629Z Linking packmol-20.14.4-ha36c22a_0
+2024-06-05T12:46:16.1876667Z Linking enumlib-2.0.6-hdb1a99f_0
+2024-06-05T12:46:16.1880774Z Linking brotli-bin-1.1.0-hd590300_1
+2024-06-05T12:46:16.1883794Z Linking xorg-libx11-1.8.9-h8ee46fc_0
+2024-06-05T12:46:16.2048975Z Linking libcurl-8.8.0-hca28451_0
+2024-06-05T12:46:16.2081888Z Linking zeromq-4.3.5-h75354e8_4
+2024-06-05T12:46:16.2126428Z Linking openjpeg-2.5.2-h488ebb8_0
+2024-06-05T12:46:16.2138436Z Linking lcms2-2.16-hb7c19ff_0
+2024-06-05T12:46:16.2150716Z Linking libblas-3.9.0-22_linux64_openblas
+2024-06-05T12:46:16.2680883Z Linking brotli-1.1.0-hd590300_1
+2024-06-05T12:46:16.2687216Z Linking xorg-libxext-1.3.4-h0b41bf4_2
+2024-06-05T12:46:16.2701899Z Linking xorg-libxt-1.3.0-hd590300_1
+2024-06-05T12:46:16.2745015Z Linking xorg-libxrender-0.9.11-hd590300_0
+2024-06-05T12:46:16.2752787Z Linking hdf5-1.14.3-nompi_hdf9ad27_105
+2024-06-05T12:46:16.3027746Z Linking pyzmq-26.0.3-py312h8fd38d8_0
+2024-06-05T12:46:16.3161342Z Linking pillow-10.3.0-py312hdcec9eb_0
+2024-06-05T12:46:16.3277025Z Linking libcblas-3.9.0-22_linux64_openblas
+2024-06-05T12:46:16.3808705Z Linking liblapack-3.9.0-22_linux64_openblas
+2024-06-05T12:46:16.4338579Z Linking libnetcdf-4.9.2-nompi_h9612171_113
+2024-06-05T12:46:16.4365850Z Linking numpy-1.26.4-py312heda63a1_0
+2024-06-05T12:46:16.5057397Z Linking arpack-3.8.0-nompi_h0baa96a_101
+2024-06-05T12:46:16.5074567Z Linking netcdf-fortran-4.6.1-nompi_hacb5139_103
+2024-06-05T12:46:16.5097024Z Linking contourpy-1.2.1-py312h8572e83_0
+2024-06-05T12:46:16.5125609Z Linking scipy-1.13.1-py312hc2bc53b_0
+2024-06-05T12:46:16.5790005Z Linking libboost-python-1.82.0-py312hfb10629_6
+2024-06-05T12:46:16.5797890Z Linking openmm-8.1.1-py312hce710af_1
+2024-06-05T12:46:16.6145071Z Linking font-ttf-dejavu-sans-mono-2.37-hab24e00_0
+2024-06-05T12:46:16.6150207Z Linking smirnoff99frosst-1.1.0-pyh44b312d_0
+2024-06-05T12:46:16.6488181Z Linking openff-amber-ff-ports-0.0.4-pyhca7485f_0
+2024-06-05T12:46:16.6507624Z Linking cachetools-5.3.3-pyhd8ed1ab_0
+2024-06-05T12:46:16.6518281Z Linking packaging-24.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.6536209Z Linking python-constraint-1.4.0-py_0
+2024-06-05T12:46:16.6562465Z Linking typing_extensions-4.12.1-pyha770c72_0
+2024-06-05T12:46:16.6571545Z Linking xmltodict-0.13.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.6580874Z Linking networkx-3.3-pyhd8ed1ab_1
+2024-06-05T12:46:16.6958787Z Linking openff-forcefields-2024.04.0-pyhca7485f_0
+2024-06-05T12:46:16.7005473Z Linking jupyterlab_widgets-3.0.11-pyhd8ed1ab_0
+2024-06-05T12:46:16.7029818Z Linking widgetsnbextension-4.0.11-pyhd8ed1ab_0
+2024-06-05T12:46:16.7044877Z Linking mda-xdrlib-0.2.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7056474Z Linking json5-0.9.25-pyhd8ed1ab_0
+2024-06-05T12:46:16.7070955Z Linking traitlets-5.14.3-pyhd8ed1ab_0
+2024-06-05T12:46:16.7095759Z Linking tomli-2.0.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.7105856Z Linking prometheus_client-0.20.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7136319Z Linking websocket-client-1.8.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7172124Z Linking typing_utils-0.1.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7190230Z Linking rfc3986-validator-0.1.1-pyh9f0ad1d_0
+2024-06-05T12:46:16.7222088Z Linking send2trash-1.8.3-pyh0d859eb_0
+2024-06-05T12:46:16.7251440Z Linking python-json-logger-2.0.7-pyhd8ed1ab_0
+2024-06-05T12:46:16.7266841Z Linking idna-3.7-pyhd8ed1ab_0
+2024-06-05T12:46:16.7286671Z Linking uri-template-1.3.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7325825Z Linking webcolors-1.13-pyhd8ed1ab_0
+2024-06-05T12:46:16.7327116Z Linking pkgutil-resolve-name-1.3.10-pyhd8ed1ab_1
+2024-06-05T12:46:16.7373441Z Linking attrs-23.2.0-pyh71513ae_0
+2024-06-05T12:46:16.7376153Z Linking pickleshare-0.7.5-py_1003
+2024-06-05T12:46:16.7388959Z Linking decorator-5.1.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.7407395Z Linking exceptiongroup-1.2.0-pyhd8ed1ab_2
+2024-06-05T12:46:16.7426311Z Linking pygments-2.18.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7825200Z Linking nest-asyncio-1.6.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7841970Z Linking zipp-3.17.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.7859285Z Linking certifi-2024.2.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.7878223Z Linking sniffio-1.3.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.7901552Z Linking hpack-4.0.0-pyh9f0ad1d_0
+2024-06-05T12:46:16.7921651Z Linking pytz-2024.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.8479754Z Linking six-1.16.0-pyh6c4a22f_0
+2024-06-05T12:46:16.8507298Z Linking hyperframe-6.0.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.8532264Z Linking font-ttf-inconsolata-3.000-h77eed37_0
+2024-06-05T12:46:16.8542917Z Linking font-ttf-source-code-pro-2.038-h77eed37_0
+2024-06-05T12:46:16.8562343Z Linking font-ttf-ubuntu-0.83-h77eed37_2
+2024-06-05T12:46:16.8585855Z Linking cached_property-1.5.2-pyha770c72_1
+2024-06-05T12:46:16.8606234Z Linking python-tzdata-2024.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.9192758Z Linking pyparsing-3.1.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9227686Z Linking cycler-0.12.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.9247608Z Linking platformdirs-4.2.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9276063Z Linking munkres-1.1.4-pyh9f0ad1d_0
+2024-06-05T12:46:16.9290985Z Linking joblib-1.4.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9445200Z Linking ptyprocess-0.7.0-pyhd3deb0d_0
+2024-06-05T12:46:16.9467463Z Linking executing-2.0.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.9494154Z Linking pure_eval-0.2.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9519988Z Linking pysocks-1.7.1-pyha2e5f31_6
+2024-06-05T12:46:16.9542120Z Linking charset-normalizer-3.3.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9578840Z Linking wcwidth-0.2.13-pyhd8ed1ab_0
+2024-06-05T12:46:16.9605138Z Linking python-fastjsonschema-2.19.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.9635889Z Linking defusedxml-0.7.1-pyhd8ed1ab_0
+2024-06-05T12:46:16.9667426Z Linking entrypoints-0.4-pyhd8ed1ab_0
+2024-06-05T12:46:16.9685152Z Linking pandocfilters-1.5.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.9703619Z Linking mistune-3.0.2-pyhd8ed1ab_0
+2024-06-05T12:46:16.9763544Z Linking parso-0.8.4-pyhd8ed1ab_0
+2024-06-05T12:46:16.9815945Z Linking webencodings-0.5.1-pyhd8ed1ab_2
+2024-06-05T12:46:16.9842921Z Linking soupsieve-2.5-pyhd8ed1ab_1
+2024-06-05T12:46:16.9869266Z Linking types-python-dateutil-2.9.0.20240316-pyhd8ed1ab_0
+2024-06-05T12:46:16.9900884Z Linking nomkl-1.0-h5ca1d4c_0
+2024-06-05T12:46:16.9909538Z Linking py-cpuinfo-9.0.0-pyhd8ed1ab_0
+2024-06-05T12:46:16.9933936Z Linking pycparser-2.22-pyhd8ed1ab_0
+2024-06-05T12:46:17.0100180Z Linking colorama-0.4.6-pyhd8ed1ab_0
+2024-06-05T12:46:17.0135110Z Linking jinja2-3.1.4-pyhd8ed1ab_0
+2024-06-05T12:46:17.0182282Z Linking freetype-py-2.3.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.0240759Z Linking pint-0.23-pyhd8ed1ab_1
+2024-06-05T12:46:17.0401002Z Linking h11-0.14.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.0449293Z Linking async-lru-2.0.4-pyhd8ed1ab_0
+2024-06-05T12:46:17.0469459Z Linking typing-extensions-4.12.1-hd8ed1ab_0
+2024-06-05T12:46:17.0478728Z Linking matplotlib-inline-0.1.7-pyhd8ed1ab_0
+2024-06-05T12:46:17.0503686Z Linking comm-0.2.2-pyhd8ed1ab_0
+2024-06-05T12:46:17.0524082Z Linking overrides-7.7.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.0550159Z Linking referencing-0.35.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.0587032Z Linking jupyterlab_pygments-0.3.0-pyhd8ed1ab_1
+2024-06-05T12:46:17.0616577Z Linking importlib_resources-6.4.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.0691079Z Linking importlib-metadata-7.1.0-pyha770c72_0
+2024-06-05T12:46:17.0723294Z Linking anyio-4.3.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.0787598Z Linking babel-2.14.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.1876794Z Linking asttokens-2.4.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.1904427Z Linking astunparse-1.6.3-pyhd8ed1ab_0
+2024-06-05T12:46:17.1924558Z Linking python-dateutil-2.9.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.1963409Z Linking rfc3339-validator-0.1.4-pyhd8ed1ab_0
+2024-06-05T12:46:17.1979523Z Linking h2-4.1.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.2006813Z Linking fonts-conda-forge-1-0
+2024-06-05T12:46:17.2013115Z Linking cached-property-1.5.2-hd8ed1ab_1
+2024-06-05T12:46:17.2019235Z Linking pexpect-4.9.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.2255955Z Linking terminado-0.18.1-pyh0d859eb_0
+2024-06-05T12:46:17.2279754Z Linking urllib3-2.2.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.2331560Z Linking prompt-toolkit-3.0.46-pyha770c72_0
+2024-06-05T12:46:17.2504643Z Linking jedi-0.19.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.4572581Z Linking tinycss2-1.3.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.4602174Z Linking bleach-6.1.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.4688478Z Linking beautifulsoup4-4.12.3-pyha770c72_0
+2024-06-05T12:46:17.4761265Z Linking tqdm-4.66.4-pyhd8ed1ab_0
+2024-06-05T12:46:17.4820342Z Linking annotated-types-0.7.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.4841608Z Linking jsonschema-specifications-2023.12.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.4896633Z Linking openff-utilities-0.1.12-pyhd8ed1ab_0
+2024-06-05T12:46:17.4933785Z Linking importlib_metadata-7.1.0-hd8ed1ab_0
+2024-06-05T12:46:17.4942485Z Linking stack_data-0.6.2-pyhd8ed1ab_0
+2024-06-05T12:46:17.4970072Z Linking arrow-1.3.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.4999643Z Linking bson-0.5.9-py_0
+2024-06-05T12:46:17.5022420Z Linking httpcore-1.0.5-pyhd8ed1ab_0
+2024-06-05T12:46:17.5083115Z Linking fonts-conda-ecosystem-1-0
+2024-06-05T12:46:17.5091997Z Linking fqdn-1.5.1-pyhd8ed1ab_0
+2024-06-05T12:46:17.5111841Z Linking jupyter_server_terminals-0.5.3-pyhd8ed1ab_0
+2024-06-05T12:46:17.5142526Z Linking requests-2.32.3-pyhd8ed1ab_0
+2024-06-05T12:46:17.5181517Z Linking pyedr-0.8.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.5239367Z Linking jsonschema-4.22.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.5306167Z Linking openff-units-0.2.2-pyhca7485f_0
+2024-06-05T12:46:17.5341696Z Linking ipython-8.25.0-pyh707e725_0
+2024-06-05T12:46:17.5642669Z Linking isoduration-20.11.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.5680062Z Linking httpx-0.27.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.5722431Z Linking openff-toolkit-base-0.16.0-pyhd8ed1ab_1
+2024-06-05T12:46:17.5956971Z Linking ipywidgets-8.1.3-pyhd8ed1ab_0
+2024-06-05T12:46:17.6037218Z Linking jsonschema-with-format-nongpl-4.22.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.6043814Z Linking jupyter_events-0.10.0-pyhd8ed1ab_0
+2024-06-05T12:46:17.6078564Z Linking jupyter_core-5.7.2-py312h7900ff3_0
+2024-06-05T12:46:17.6122400Z Linking fonttools-4.53.0-py312h9a8786e_0
+2024-06-05T12:46:17.6762597Z Linking numexpr-2.10.0-py312hf412c99_100
+2024-06-05T12:46:17.6799376Z Linking cffi-1.16.0-py312hf06ca03_0
+2024-06-05T12:46:17.6859220Z Linking sqlalchemy-2.0.30-py312h9a8786e_0
+2024-06-05T12:46:17.7372492Z Linking pydantic-core-2.18.4-py312h4413252_0
+2024-06-05T12:46:17.7393894Z Linking pandas-2.1.4-py312hfb8ada1_0
+2024-06-05T12:46:18.0346983Z Linking cairo-1.18.0-h3faef2a_0
+2024-06-05T12:46:18.0417665Z Linking matplotlib-base-3.8.4-py312h20ab3a6_2
+2024-06-05T12:46:18.1281614Z Linking pytables-3.9.2-py312h96d95ec_2
+2024-06-05T12:46:18.1520197Z Linking argon2-cffi-bindings-21.2.0-py312h98912ed_4
+2024-06-05T12:46:18.1544416Z Linking parmed-4.2.2-py312h30efb56_1
+2024-06-05T12:46:18.1820402Z Linking pycairo-1.26.0-py312he48a392_0
+2024-06-05T12:46:18.1845601Z Linking openbabel-3.1.1-py312hbfe4552_9
+2024-06-05T12:46:18.2230158Z Linking mdtraj-1.10.0-py312h0b8b674_0
+2024-06-05T12:46:18.2424734Z Linking ambertools-23.3-py312h1577c9a_6
+2024-06-05T12:46:18.6001033Z Linking nbformat-5.10.4-pyhd8ed1ab_0
+2024-06-05T12:46:18.6071303Z Linking jupyter_client-8.6.2-pyhd8ed1ab_0
+2024-06-05T12:46:18.6140063Z Linking pydantic-2.7.3-pyhd8ed1ab_0
+2024-06-05T12:46:18.6274380Z Linking panedr-0.8.0-pyhd8ed1ab_0
+2024-06-05T12:46:18.6300192Z Linking argon2-cffi-23.1.0-pyhd8ed1ab_0
+2024-06-05T12:46:18.6377029Z Linking rlpycairo-0.2.0-pyhd8ed1ab_0
+2024-06-05T12:46:18.6398292Z Linking nbclient-0.10.0-pyhd8ed1ab_0
+2024-06-05T12:46:18.6429542Z Linking ipykernel-6.29.3-pyhd33586a_0
+2024-06-05T12:46:18.6509065Z Linking openff-models-0.1.2-pyhca7485f_0
+2024-06-05T12:46:18.6538437Z Linking nbconvert-core-7.16.4-pyhd8ed1ab_0
+2024-06-05T12:46:18.6716145Z Linking openff-interchange-base-0.3.27-pyhd8ed1ab_0
+2024-06-05T12:46:18.7086771Z Linking jupyter_server-2.14.1-pyhd8ed1ab_0
+2024-06-05T12:46:18.7273030Z Linking jupyter-lsp-2.2.5-pyhd8ed1ab_0
+2024-06-05T12:46:18.7365394Z Linking jupyterlab_server-2.27.2-pyhd8ed1ab_0
+2024-06-05T12:46:18.7429058Z Linking notebook-shim-0.2.4-pyhd8ed1ab_0
+2024-06-05T12:46:18.7461290Z Linking jupyterlab-4.2.1-pyhd8ed1ab_0
+2024-06-05T12:46:18.8604045Z Linking notebook-7.2.0-pyhd8ed1ab_0
+2024-06-05T12:46:18.9056964Z Linking reportlab-4.1.0-py312h98912ed_0
+2024-06-05T12:46:18.9402535Z Linking rdkit-2023.09.6-py312hd93e07f_1
+2024-06-05T12:46:19.3736817Z Linking openff-toolkit-0.16.0-pyhd8ed1ab_1
+2024-06-05T12:46:19.3746641Z Linking openff-interchange-0.3.27-pyhd8ed1ab_0
+2024-06-05T12:46:19.4367824Z 
+2024-06-05T12:46:19.4368426Z Transaction finished
+2024-06-05T12:46:19.4370805Z 
+2024-06-05T12:46:19.4371482Z To activate this environment, use:
+2024-06-05T12:46:19.4372048Z 
+2024-06-05T12:46:19.4372513Z     micromamba activate pmg
+2024-06-05T12:46:19.4372905Z 
+2024-06-05T12:46:19.4373276Z Or to execute a single command in this environment, use:
+2024-06-05T12:46:19.4375393Z 
+2024-06-05T12:46:19.4376094Z     micromamba run -n pmg mycommand
+2024-06-05T12:46:19.4376502Z 
+2024-06-05T12:46:19.4775114Z ##[group]Run micromamba activate pmg
+2024-06-05T12:46:19.4775652Z [36;1mmicromamba activate pmg[0m
+2024-06-05T12:46:19.4776284Z [36;1m# TODO remove temporary fix. added since uv install torch is flaky.[0m
+2024-06-05T12:46:19.4777034Z [36;1m# track https://github.com/astral-sh/uv/issues/1921 for resolution[0m
+2024-06-05T12:46:19.4777616Z [36;1mpip install torch[0m
+2024-06-05T12:46:19.4778048Z [36;1m[0m
+2024-06-05T12:46:19.4778370Z [36;1muv pip install numpy cython[0m
+2024-06-05T12:46:19.4778948Z [36;1muv pip install --editable '.[ci,optional]' --resolution=lowest-direct[0m
+2024-06-05T12:46:19.4836524Z shell: /usr/bin/bash -l {0}
+2024-06-05T12:46:19.4836993Z env:
+2024-06-05T12:46:19.4837261Z   PMG_MAPI_KEY: 
+2024-06-05T12:46:19.4837725Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:46:19.4838389Z   MAMBA_ROOT_PREFIX: /home/runner/micromamba
+2024-06-05T12:46:19.4838893Z   MAMBA_EXE: /home/runner/micromamba-bin/micromamba
+2024-06-05T12:46:19.4839515Z   CONDARC: /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:46:19.4840081Z ##[endgroup]
+2024-06-05T12:46:20.1529788Z Collecting torch
+2024-06-05T12:46:20.1813709Z   Downloading torch-2.3.0-cp312-cp312-manylinux1_x86_64.whl.metadata (26 kB)
+2024-06-05T12:46:20.2346062Z Collecting filelock (from torch)
+2024-06-05T12:46:20.2417153Z   Downloading filelock-3.14.0-py3-none-any.whl.metadata (2.8 kB)
+2024-06-05T12:46:20.2471129Z Requirement already satisfied: typing-extensions>=4.8.0 in /home/runner/micromamba/envs/pmg/lib/python3.12/site-packages (from torch) (4.12.1)
+2024-06-05T12:46:20.2702622Z Collecting sympy (from torch)
+2024-06-05T12:46:20.2770916Z   Downloading sympy-1.12.1-py3-none-any.whl.metadata (12 kB)
+2024-06-05T12:46:20.2820408Z Requirement already satisfied: networkx in /home/runner/micromamba/envs/pmg/lib/python3.12/site-packages (from torch) (3.3)
+2024-06-05T12:46:20.2827352Z Requirement already satisfied: jinja2 in /home/runner/micromamba/envs/pmg/lib/python3.12/site-packages (from torch) (3.1.4)
+2024-06-05T12:46:20.3112335Z Collecting fsspec (from torch)
+2024-06-05T12:46:20.3182245Z   Downloading fsspec-2024.6.0-py3-none-any.whl.metadata (11 kB)
+2024-06-05T12:46:20.3425806Z Collecting nvidia-cuda-nvrtc-cu12==12.1.105 (from torch)
+2024-06-05T12:46:20.3495189Z   Downloading nvidia_cuda_nvrtc_cu12-12.1.105-py3-none-manylinux1_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.3697055Z Collecting nvidia-cuda-runtime-cu12==12.1.105 (from torch)
+2024-06-05T12:46:20.3768145Z   Downloading nvidia_cuda_runtime_cu12-12.1.105-py3-none-manylinux1_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.3971020Z Collecting nvidia-cuda-cupti-cu12==12.1.105 (from torch)
+2024-06-05T12:46:20.4041875Z   Downloading nvidia_cuda_cupti_cu12-12.1.105-py3-none-manylinux1_x86_64.whl.metadata (1.6 kB)
+2024-06-05T12:46:20.4254379Z Collecting nvidia-cudnn-cu12==8.9.2.26 (from torch)
+2024-06-05T12:46:20.4336149Z   Downloading nvidia_cudnn_cu12-8.9.2.26-py3-none-manylinux1_x86_64.whl.metadata (1.6 kB)
+2024-06-05T12:46:20.4534883Z Collecting nvidia-cublas-cu12==12.1.3.1 (from torch)
+2024-06-05T12:46:20.4603718Z   Downloading nvidia_cublas_cu12-12.1.3.1-py3-none-manylinux1_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.4812560Z Collecting nvidia-cufft-cu12==11.0.2.54 (from torch)
+2024-06-05T12:46:20.4885206Z   Downloading nvidia_cufft_cu12-11.0.2.54-py3-none-manylinux1_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.5101615Z Collecting nvidia-curand-cu12==10.3.2.106 (from torch)
+2024-06-05T12:46:20.5171888Z   Downloading nvidia_curand_cu12-10.3.2.106-py3-none-manylinux1_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.5386508Z Collecting nvidia-cusolver-cu12==11.4.5.107 (from torch)
+2024-06-05T12:46:20.5460027Z   Downloading nvidia_cusolver_cu12-11.4.5.107-py3-none-manylinux1_x86_64.whl.metadata (1.6 kB)
+2024-06-05T12:46:20.5670330Z Collecting nvidia-cusparse-cu12==12.1.0.106 (from torch)
+2024-06-05T12:46:20.5742267Z   Downloading nvidia_cusparse_cu12-12.1.0.106-py3-none-manylinux1_x86_64.whl.metadata (1.6 kB)
+2024-06-05T12:46:20.5936385Z Collecting nvidia-nccl-cu12==2.20.5 (from torch)
+2024-06-05T12:46:20.6003866Z   Downloading nvidia_nccl_cu12-2.20.5-py3-none-manylinux2014_x86_64.whl.metadata (1.8 kB)
+2024-06-05T12:46:20.6230442Z Collecting nvidia-nvtx-cu12==12.1.105 (from torch)
+2024-06-05T12:46:20.6300187Z   Downloading nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl.metadata (1.7 kB)
+2024-06-05T12:46:20.6592966Z Collecting nvidia-nvjitlink-cu12 (from nvidia-cusolver-cu12==11.4.5.107->torch)
+2024-06-05T12:46:20.6664758Z   Downloading nvidia_nvjitlink_cu12-12.5.40-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+2024-06-05T12:46:20.7311215Z Requirement already satisfied: MarkupSafe>=2.0 in /home/runner/micromamba/envs/pmg/lib/python3.12/site-packages (from jinja2->torch) (2.1.5)
+2024-06-05T12:46:21.4370938Z Collecting mpmath<1.4.0,>=1.1.0 (from sympy->torch)
+2024-06-05T12:46:21.4442861Z   Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+2024-06-05T12:46:22.3538924Z Downloading torch-2.3.0-cp312-cp312-manylinux1_x86_64.whl (779.1 MB)
+2024-06-05T12:46:31.0324010Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 779.1/779.1 MB 2.0 MB/s eta 0:00:00
+2024-06-05T12:46:31.0423492Z Downloading nvidia_cublas_cu12-12.1.3.1-py3-none-manylinux1_x86_64.whl (410.6 MB)
+2024-06-05T12:46:34.3373840Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 8.0 MB/s eta 0:00:00
+2024-06-05T12:46:34.3470785Z Downloading nvidia_cuda_cupti_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (14.1 MB)
+2024-06-05T12:46:34.4468194Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 128.4 MB/s eta 0:00:00
+2024-06-05T12:46:34.4573407Z Downloading nvidia_cuda_nvrtc_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (23.7 MB)
+2024-06-05T12:46:34.6257293Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 99.7 MB/s eta 0:00:00
+2024-06-05T12:46:34.6374044Z Downloading nvidia_cuda_runtime_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (823 kB)
+2024-06-05T12:46:34.6474275Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 98.6 MB/s eta 0:00:00
+2024-06-05T12:46:34.6547130Z Downloading nvidia_cudnn_cu12-8.9.2.26-py3-none-manylinux1_x86_64.whl (731.7 MB)
+2024-06-05T12:46:43.5420914Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 731.7/731.7 MB 3.2 MB/s eta 0:00:00
+2024-06-05T12:46:43.5519162Z Downloading nvidia_cufft_cu12-11.0.2.54-py3-none-manylinux1_x86_64.whl (121.6 MB)
+2024-06-05T12:46:44.6030811Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 31.4 MB/s eta 0:00:00
+2024-06-05T12:46:44.6124614Z Downloading nvidia_curand_cu12-10.3.2.106-py3-none-manylinux1_x86_64.whl (56.5 MB)
+2024-06-05T12:46:45.0727722Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 55.0 MB/s eta 0:00:00
+2024-06-05T12:46:45.0845383Z Downloading nvidia_cusolver_cu12-11.4.5.107-py3-none-manylinux1_x86_64.whl (124.2 MB)
+2024-06-05T12:46:46.0601519Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 31.7 MB/s eta 0:00:00
+2024-06-05T12:46:46.0681049Z Downloading nvidia_cusparse_cu12-12.1.0.106-py3-none-manylinux1_x86_64.whl (196.0 MB)
+2024-06-05T12:46:47.8310557Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 17.3 MB/s eta 0:00:00
+2024-06-05T12:46:47.8436976Z Downloading nvidia_nccl_cu12-2.20.5-py3-none-manylinux2014_x86_64.whl (176.2 MB)
+2024-06-05T12:46:49.2714639Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 176.2/176.2 MB 23.2 MB/s eta 0:00:00
+2024-06-05T12:46:49.2787152Z Downloading nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (99 kB)
+2024-06-05T12:46:49.2995543Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 22.1 MB/s eta 0:00:00
+2024-06-05T12:46:49.3064379Z Downloading filelock-3.14.0-py3-none-any.whl (12 kB)
+2024-06-05T12:46:49.3170302Z Downloading fsspec-2024.6.0-py3-none-any.whl (176 kB)
+2024-06-05T12:46:49.3225443Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 176.9/176.9 kB 42.3 MB/s eta 0:00:00
+2024-06-05T12:46:49.3336148Z Downloading sympy-1.12.1-py3-none-any.whl (5.7 MB)
+2024-06-05T12:46:49.3824296Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.7/5.7 MB 121.9 MB/s eta 0:00:00
+2024-06-05T12:46:49.3913224Z Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+2024-06-05T12:46:49.3989716Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 85.9 MB/s eta 0:00:00
+2024-06-05T12:46:49.4062474Z Downloading nvidia_nvjitlink_cu12-12.5.40-py3-none-manylinux2014_x86_64.whl (21.3 MB)
+2024-06-05T12:46:49.5711751Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.3/21.3 MB 96.9 MB/s eta 0:00:00
+2024-06-05T12:46:52.7782249Z Installing collected packages: mpmath, sympy, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, fsspec, filelock, nvidia-cusparse-cu12, nvidia-cudnn-cu12, nvidia-cusolver-cu12, torch
+2024-06-05T12:47:30.8882554Z Successfully installed filelock-3.14.0 fsspec-2024.6.0 mpmath-1.3.0 nvidia-cublas-cu12-12.1.3.1 nvidia-cuda-cupti-cu12-12.1.105 nvidia-cuda-nvrtc-cu12-12.1.105 nvidia-cuda-runtime-cu12-12.1.105 nvidia-cudnn-cu12-8.9.2.26 nvidia-cufft-cu12-11.0.2.54 nvidia-curand-cu12-10.3.2.106 nvidia-cusolver-cu12-11.4.5.107 nvidia-cusparse-cu12-12.1.0.106 nvidia-nccl-cu12-2.20.5 nvidia-nvjitlink-cu12-12.5.40 nvidia-nvtx-cu12-12.1.105 sympy-1.12.1 torch-2.3.0
+2024-06-05T12:47:32.5266452Z Resolved 2 packages in 121ms
+2024-06-05T12:47:32.6250567Z Downloaded 1 package in 97ms
+2024-06-05T12:47:32.6350435Z Installed 1 package in 9ms
+2024-06-05T12:47:32.6351138Z  + cython==3.0.10
+2024-06-05T12:47:37.3944119Z Resolved 171 packages in 4.73s
+2024-06-05T12:47:59.0160337Z Downloaded 45 packages in 21.61s
+2024-06-05T12:47:59.6646535Z Uninstalled 2 packages in 647ms
+2024-06-05T12:47:59.8983336Z Installed 45 packages in 233ms
+2024-06-05T12:47:59.8984039Z  + aiohttp==3.9.5
+2024-06-05T12:47:59.8984767Z  + aiosignal==1.3.1
+2024-06-05T12:47:59.8985374Z  + ase==3.23.0
+2024-06-05T12:47:59.8985825Z  + cftime==1.6.3
+2024-06-05T12:47:59.8986475Z  + chemview==0.6
+2024-06-05T12:47:59.8987003Z  + chgnet==0.3.5
+2024-06-05T12:47:59.8987462Z  + coverage==7.5.3
+2024-06-05T12:47:59.8988124Z  + dgl==2.1.0
+2024-06-05T12:47:59.8988625Z  + f90nml==1.1.2
+2024-06-05T12:47:59.8989083Z  + frozenlist==1.4.1
+2024-06-05T12:47:59.8989749Z  + future==1.0.0
+2024-06-05T12:47:59.8990198Z  + galore==0.6.1
+2024-06-05T12:47:59.8990708Z  + h5py==3.11.0
+2024-06-05T12:47:59.8991343Z  + iniconfig==2.0.0
+2024-06-05T12:47:59.8992231Z  + jarvis-tools==2020.7.14
+2024-06-05T12:47:59.8992763Z  + latexcodec==3.0.0
+2024-06-05T12:47:59.8993518Z  + lightning-utilities==0.11.2
+2024-06-05T12:47:59.8994117Z  + matgl==1.1.1
+2024-06-05T12:47:59.8994599Z  + monty==2024.5.24
+2024-06-05T12:47:59.8995201Z  + multidict==6.0.5
+2024-06-05T12:47:59.8995662Z  + netcdf4==1.6.5
+2024-06-05T12:47:59.8996242Z  + nvidia-ml-py3==7.352.0
+2024-06-05T12:47:59.8996933Z  - nvidia-nccl-cu12==2.20.5
+2024-06-05T12:47:59.8997501Z  + nvidia-nccl-cu12==2.19.3
+2024-06-05T12:47:59.8998066Z  + palettable==3.1.1
+2024-06-05T12:47:59.8998656Z  + phonopy==2.23.0
+2024-06-05T12:47:59.8999154Z  + plotly==4.5.0
+2024-06-05T12:47:59.8999625Z  + pluggy==1.5.0
+2024-06-05T12:47:59.9000489Z  + pybtex==0.24.0
+2024-06-05T12:47:59.9001234Z  + pymatgen==2024.6.4 (from file:///home/runner/work/pymatgen/pymatgen)
+2024-06-05T12:47:59.9002098Z  + pytest==8.0.0
+2024-06-05T12:47:59.9002769Z  + pytest-cov==4.0.0
+2024-06-05T12:47:59.9003301Z  + pytest-split==0.8.2
+2024-06-05T12:47:59.9007308Z  + pytorch-lightning==2.2.5
+2024-06-05T12:47:59.9007954Z  + retrying==1.3.4
+2024-06-05T12:47:59.9008472Z  + ruamel-yaml==0.17.2
+2024-06-05T12:47:59.9009355Z  + seekpath==2.0.1
+2024-06-05T12:47:59.9009867Z  + spglib==2.3.0
+2024-06-05T12:47:59.9010451Z  + tabulate==0.9.0
+2024-06-05T12:47:59.9011005Z  + toolz==0.12.1
+2024-06-05T12:47:59.9011594Z  - torch==2.3.0
+2024-06-05T12:47:59.9012151Z  + torch==2.2.1
+2024-06-05T12:47:59.9012547Z  + torchdata==0.7.1
+2024-06-05T12:47:59.9012917Z  + torchmetrics==1.4.0.post0
+2024-06-05T12:47:59.9013336Z  + uncertainties==3.1.4
+2024-06-05T12:47:59.9013686Z  + vapory==0.1.2
+2024-06-05T12:47:59.9014024Z  + yarl==1.9.4
+2024-06-05T12:47:59.9201487Z ##[group]Run micromamba activate pmg
+2024-06-05T12:47:59.9201946Z [36;1mmicromamba activate pmg[0m
+2024-06-05T12:47:59.9202634Z [36;1mpytest --splits 10 --group 1 --durations-path tests/files/.pytest-split-durations tests[0m
+2024-06-05T12:47:59.9270457Z shell: /usr/bin/bash -l {0}
+2024-06-05T12:47:59.9270812Z env:
+2024-06-05T12:47:59.9271254Z   PMG_MAPI_KEY: 
+2024-06-05T12:47:59.9271735Z   PMG_VASP_PSP_DIR: /home/runner/work/pymatgen/pymatgen/tests/files
+2024-06-05T12:47:59.9272275Z   MAMBA_ROOT_PREFIX: /home/runner/micromamba
+2024-06-05T12:47:59.9272856Z   MAMBA_EXE: /home/runner/micromamba-bin/micromamba
+2024-06-05T12:47:59.9273417Z   CONDARC: /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:47:59.9273870Z ##[endgroup]
+2024-06-05T12:48:22.9377001Z 
+2024-06-05T12:48:22.9377100Z 
+2024-06-05T12:48:22.9378263Z [pytest-split] Splitting tests with algorithm: duration_based_chunks
+2024-06-05T12:48:22.9379806Z [pytest-split] Running group 1/10 (estimated duration: 55.73s)
+2024-06-05T12:48:22.9380450Z 
+2024-06-05T12:48:22.9380457Z 
+2024-06-05T12:48:22.9380744Z ==================================== ERRORS ====================================
+2024-06-05T12:48:22.9382571Z [31m[1m________________ ERROR collecting tests/alchemy/test_filters.py ________________[0m
+2024-06-05T12:48:22.9383888Z [1m[31mtests/alchemy/test_filters.py[0m:14: in <module>
+2024-06-05T12:48:22.9385968Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mtransmuters[39;49;00m [94mimport[39;49;00m StandardTransmuter[90m[39;49;00m
+2024-06-05T12:48:22.9387866Z [1m[31mpymatgen/alchemy/transmuters.py[0m:17: in <module>
+2024-06-05T12:48:22.9390052Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mmaterials[39;49;00m [94mimport[39;49;00m TransformedStructure[90m[39;49;00m
+2024-06-05T12:48:22.9391925Z [1m[31mpymatgen/alchemy/materials.py[0m:19: in <module>
+2024-06-05T12:48:22.9394238Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9396328Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9397486Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9398687Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9400104Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9401354Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9403073Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9404838Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9406228Z [31m[1m_______________ ERROR collecting tests/alchemy/test_materials.py _______________[0m
+2024-06-05T12:48:22.9406986Z [1m[31mtests/alchemy/test_materials.py[0m:9: in <module>
+2024-06-05T12:48:22.9408286Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mmaterials[39;49;00m [94mimport[39;49;00m TransformedStructure[90m[39;49;00m
+2024-06-05T12:48:22.9409405Z [1m[31mpymatgen/alchemy/materials.py[0m:19: in <module>
+2024-06-05T12:48:22.9410699Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9412264Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9413024Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9413857Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9414612Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9415403Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9416460Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9417910Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9419231Z [31m[1m______________ ERROR collecting tests/alchemy/test_transmuters.py ______________[0m
+2024-06-05T12:48:22.9419968Z [1m[31mtests/alchemy/test_transmuters.py[0m:4: in <module>
+2024-06-05T12:48:22.9421255Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mtransmuters[39;49;00m [94mimport[39;49;00m CifTransmuter, PoscarTransmuter[90m[39;49;00m
+2024-06-05T12:48:22.9422636Z [1m[31mpymatgen/alchemy/transmuters.py[0m:17: in <module>
+2024-06-05T12:48:22.9423859Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mmaterials[39;49;00m [94mimport[39;49;00m TransformedStructure[90m[39;49;00m
+2024-06-05T12:48:22.9424964Z [1m[31mpymatgen/alchemy/materials.py[0m:19: in <module>
+2024-06-05T12:48:22.9426346Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9427496Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9428196Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9428973Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9429745Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9430511Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9431574Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9432571Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9433382Z [31m[1m____ ERROR collecting tests/analysis/interfaces/test_substrate_analyzer.py _____[0m
+2024-06-05T12:48:22.9434325Z [1m[31mtests/analysis/interfaces/test_substrate_analyzer.py[0m:10: in <module>
+2024-06-05T12:48:22.9435261Z     [0mVO2 = PymatgenTest.get_structure([33m"[39;49;00m[33mVO2[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9436288Z [1m[31mpymatgen/util/testing/__init__.py[0m:60: in get_structure
+2024-06-05T12:48:22.9438055Z     [0mstruct = [96mcls[39;49;00m.TEST_STRUCTURES.get(name) [95mor[39;49;00m loadfn([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mSTRUCTURES_DIR[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mname[33m}[39;49;00m[33m.json[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9439749Z [1m[31m../../../micromamba/envs/pmg/lib/python3.12/site-packages/monty/serialization.py[0m:82: in loadfn
+2024-06-05T12:48:22.9440714Z     [0m[94mreturn[39;49;00m json.load(fp, *args, **kwargs)[90m[39;49;00m
+2024-06-05T12:48:22.9441467Z [1m[31m../../../micromamba/envs/pmg/lib/python3.12/json/__init__.py[0m:293: in load
+2024-06-05T12:48:22.9442176Z     [0m[94mreturn[39;49;00m loads(fp.read(),[90m[39;49;00m
+2024-06-05T12:48:22.9443203Z [1m[31m../../../micromamba/envs/pmg/lib/python3.12/json/__init__.py[0m:359: in loads
+2024-06-05T12:48:22.9444016Z     [0m[94mreturn[39;49;00m [96mcls[39;49;00m(**kw).decode(s)[90m[39;49;00m
+2024-06-05T12:48:22.9444831Z [1m[31m../../../micromamba/envs/pmg/lib/python3.12/site-packages/monty/json.py[0m:843: in decode
+2024-06-05T12:48:22.9446076Z     [0m[94mreturn[39;49;00m [96mself[39;49;00m.process_decoded(d)[90m[39;49;00m
+2024-06-05T12:48:22.9446975Z [1m[31m../../../micromamba/envs/pmg/lib/python3.12/site-packages/monty/json.py[0m:765: in process_decoded
+2024-06-05T12:48:22.9448053Z     [0mmod = [96m__import__[39;49;00m(modname, [96mglobals[39;49;00m(), [96mlocals[39;49;00m(), [classname], [94m0[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9448989Z [1m[31mpymatgen/alchemy/materials.py[0m:19: in <module>
+2024-06-05T12:48:22.9450312Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9451471Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9452405Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9453107Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9453907Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9454712Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9455711Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9456706Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9457635Z [31m[1m___ ERROR collecting tests/analysis/structure_prediction/test_substitutor.py ___[0m
+2024-06-05T12:48:22.9458483Z [1m[31mtests/analysis/structure_prediction/test_substitutor.py[0m:5: in <module>
+2024-06-05T12:48:22.9460004Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96manalysis[39;49;00m[04m[96m.[39;49;00m[04m[96mstructure_prediction[39;49;00m[04m[96m.[39;49;00m[04m[96msubstitutor[39;49;00m [94mimport[39;49;00m Substitutor[90m[39;49;00m
+2024-06-05T12:48:22.9461445Z [1m[31mpymatgen/analysis/structure_prediction/substitutor.py[0m:14: in <module>
+2024-06-05T12:48:22.9462762Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96malchemy[39;49;00m[04m[96m.[39;49;00m[04m[96mmaterials[39;49;00m [94mimport[39;49;00m TransformedStructure[90m[39;49;00m
+2024-06-05T12:48:22.9463813Z [1m[31mpymatgen/alchemy/materials.py[0m:19: in <module>
+2024-06-05T12:48:22.9465229Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9466410Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9467106Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9467867Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9468637Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9469407Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9470480Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9471429Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9472396Z [31m[1m___________ ERROR collecting tests/analysis/test_pourbaix_diagram.py ___________[0m
+2024-06-05T12:48:22.9473269Z [1m[31mtests/analysis/test_pourbaix_diagram.py[0m:12: in <module>
+2024-06-05T12:48:22.9474753Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96manalysis[39;49;00m[04m[96m.[39;49;00m[04m[96mpourbaix_diagram[39;49;00m [94mimport[39;49;00m IonEntry, MultiEntry, PourbaixDiagram, PourbaixEntry, PourbaixPlotter[90m[39;49;00m
+2024-06-05T12:48:22.9476061Z [1m[31mpymatgen/analysis/pourbaix_diagram.py[0m:26: in <module>
+2024-06-05T12:48:22.9477324Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m MU_H2O[90m[39;49;00m
+2024-06-05T12:48:22.9478383Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9479853Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9481175Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9481872Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9482659Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9483446Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9484170Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9485478Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9486526Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9487321Z [31m[1m_____________ ERROR collecting tests/entries/test_compatibility.py _____________[0m
+2024-06-05T12:48:22.9488135Z [1m[31mtests/entries/test_compatibility.py[0m:21: in <module>
+2024-06-05T12:48:22.9489283Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+2024-06-05T12:48:22.9490337Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9491750Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9492960Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9493678Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9494435Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9495197Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9495978Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9497038Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9498007Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9498816Z [31m[1m___________ ERROR collecting tests/entries/test_computed_entries.py ____________[0m
+2024-06-05T12:48:22.9499640Z [1m[31mtests/entries/test_computed_entries.py[0m:13: in <module>
+2024-06-05T12:48:22.9501132Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m MaterialsProject2020Compatibility[90m[39;49;00m
+2024-06-05T12:48:22.9502286Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9503762Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9504964Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9505660Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9506401Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9507179Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9507943Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9508982Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9510156Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9510982Z [31m[1m_____________ ERROR collecting tests/entries/test_mixing_scheme.py _____________[0m
+2024-06-05T12:48:22.9511771Z [1m[31mtests/entries/test_mixing_scheme.py[0m:116: in <module>
+2024-06-05T12:48:22.9513053Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m Compatibility, CompatibilityError[90m[39;49;00m
+2024-06-05T12:48:22.9514246Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9515706Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9516913Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9517591Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9518341Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9519146Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9519909Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9520986Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9521991Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9522806Z [31m[1m__________________ ERROR collecting tests/ext/test_matproj.py __________________[0m
+2024-06-05T12:48:22.9523567Z [1m[31mtests/ext/test_matproj.py[0m:14: in <module>
+2024-06-05T12:48:22.9524835Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96manalysis[39;49;00m[04m[96m.[39;49;00m[04m[96mpourbaix_diagram[39;49;00m [94mimport[39;49;00m PourbaixDiagram, PourbaixEntry[90m[39;49;00m
+2024-06-05T12:48:22.9526390Z [1m[31mpymatgen/analysis/pourbaix_diagram.py[0m:26: in <module>
+2024-06-05T12:48:22.9527538Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m MU_H2O[90m[39;49;00m
+2024-06-05T12:48:22.9528614Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9530226Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9531482Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9532149Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9532918Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9533721Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9534486Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9535504Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9536513Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9537322Z [31m[1m________________ ERROR collecting tests/io/vasp/test_outputs.py ________________[0m
+2024-06-05T12:48:22.9538243Z [1m[31mtests/io/vasp/test_outputs.py[0m:23: in <module>
+2024-06-05T12:48:22.9539510Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mentries[39;49;00m[04m[96m.[39;49;00m[04m[96mcompatibility[39;49;00m [94mimport[39;49;00m MaterialsProjectCompatibility[90m[39;49;00m
+2024-06-05T12:48:22.9540676Z [1m[31mpymatgen/entries/compatibility.py[0m:31: in <module>
+2024-06-05T12:48:22.9542154Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m MITRelaxSet, MPRelaxSet, VaspInputSet[90m[39;49;00m
+2024-06-05T12:48:22.9543331Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9544035Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9544815Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9545607Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9546356Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9547414Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9548402Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9549176Z [31m[1m_________________ ERROR collecting tests/io/vasp/test_sets.py __________________[0m
+2024-06-05T12:48:22.9549926Z [1m[31mtests/io/vasp/test_sets.py[0m:22: in <module>
+2024-06-05T12:48:22.9551136Z     [0m[94mfrom[39;49;00m [04m[96mpymatgen[39;49;00m[04m[96m.[39;49;00m[04m[96mio[39;49;00m[04m[96m.[39;49;00m[04m[96mvasp[39;49;00m[04m[96m.[39;49;00m[04m[96msets[39;49;00m [94mimport[39;49;00m ([90m[39;49;00m
+2024-06-05T12:48:22.9552232Z [1m[31mpymatgen/io/vasp/sets.py[0m:1201: in <module>
+2024-06-05T12:48:22.9552969Z     [0m[94mclass[39;49;00m [04m[92mMITRelaxSet[39;49;00m(VaspInputSet):[90m[39;49;00m
+2024-06-05T12:48:22.9553657Z [1m[31mpymatgen/io/vasp/sets.py[0m:1222: in MITRelaxSet
+2024-06-05T12:48:22.9554457Z     [0mCONFIG = _load_yaml_config([33m"[39;49;00m[33mMITRelaxSet[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+2024-06-05T12:48:22.9555256Z [1m[31mpymatgen/io/vasp/sets.py[0m:74: in _load_yaml_config
+2024-06-05T12:48:22.9556259Z     [0mconfig = loadfn(MODULE_DIR / ([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.yaml[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+2024-06-05T12:48:22.9557241Z [1m[31mE   TypeError: unsupported operand type(s) for /: 'str' and 'str'[0m
+2024-06-05T12:48:22.9558164Z [36m[1m=========================== short test summary info ============================[0m
+2024-06-05T12:48:22.9558787Z [33mSKIPPED[0m [1] tests/ext/test_cod.py:14: Skipped
+2024-06-05T12:48:22.9559368Z !!!!!!!!!!!!!!!!!!! Interrupted: 12 errors during collection !!!!!!!!!!!!!!!!!!!
+2024-06-05T12:48:22.9560252Z [31m[33m1 skipped[0m, [33m2304 deselected[0m, [31m[1m12 errors[0m[31m in 22.35s[0m[0m
+2024-06-05T12:48:23.9881119Z ##[error]Process completed with exit code 2.
+2024-06-05T12:48:23.9963954Z Post job cleanup.
+2024-06-05T12:48:24.1526976Z Will use pre-installed micromamba at /home/runner/micromamba-bin/micromamba
+2024-06-05T12:48:24.1552166Z ##[group]Deinitialize micromamba for bash
+2024-06-05T12:48:24.1562325Z [command]/home/runner/micromamba-bin/micromamba shell deinit -s bash -r /home/runner/micromamba --log-level warning --rc-file /home/runner/work/_temp/setup-micromamba/.condarc
+2024-06-05T12:48:24.1666465Z Resetting RC file "/home/runner/.bashrc"
+2024-06-05T12:48:24.1667217Z Deleting config for root prefix 
+2024-06-05T12:48:24.1667935Z Clearing mamba executable environment variable
+2024-06-05T12:48:24.1672817Z Removing the following in your "/home/runner/.bashrc" file
+2024-06-05T12:48:24.1673593Z # >>> mamba initialize >>>
+2024-06-05T12:48:24.1673960Z ...
+2024-06-05T12:48:24.1674477Z # <<< mamba initialize <<<
+2024-06-05T12:48:24.1704578Z Removing mamba initialize block from .bash_profile
+2024-06-05T12:48:24.1721166Z ##[endgroup]
+2024-06-05T12:48:24.1868869Z Post job cleanup.
+2024-06-05T12:48:24.2862146Z [command]/usr/bin/git version
+2024-06-05T12:48:24.2901683Z git version 2.45.1
+2024-06-05T12:48:24.2943214Z Temporarily overriding HOME='/home/runner/work/_temp/560cf290-bd29-4d58-a7ed-e731994c0664' before making global git config changes
+2024-06-05T12:48:24.2944962Z Adding repository directory to the temporary git global config as a safe directory
+2024-06-05T12:48:24.2948755Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pymatgen/pymatgen
+2024-06-05T12:48:24.2987678Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-06-05T12:48:24.3024227Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-06-05T12:48:24.3306755Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-06-05T12:48:24.3330108Z http.https://github.com/.extraheader
+2024-06-05T12:48:24.3342462Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-06-05T12:48:24.3377521Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-06-05T12:48:24.3855972Z Cleaning up orphan processes

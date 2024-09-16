@@ -99,6 +99,10 @@ class LogAnalyzerABC(abc.ABC):
             'tr_log_num_tests_run': 'num_tests_run',
             # Number of tests that were skipped.
             'tr_log_num_tests_skipped': 'num_tests_skipped',
+            # (Pytest only) Number of tests that xfailed.
+            'tr_log_num_tests_xfailed': 'num_tests_xfailed',
+            # (Pytest only) Number of tests that xpassed.
+            'tr_log_num_tests_xpassed': 'num_tests_xpassed',
             # Names of the tests that failed.
             'tr_log_tests_failed': 'tests_failed',
             # Duration of the running the tests, in seconds.
