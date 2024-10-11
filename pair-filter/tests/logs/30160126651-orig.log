@@ -1,0 +1,148 @@
+﻿2024-09-15T07:40:01.7105816Z Current runner version: '2.319.1'
+2024-09-15T07:40:01.7128679Z ##[group]Operating System
+2024-09-15T07:40:01.7129274Z Ubuntu
+2024-09-15T07:40:01.7129757Z 22.04.4
+2024-09-15T07:40:01.7130077Z LTS
+2024-09-15T07:40:01.7130374Z ##[endgroup]
+2024-09-15T07:40:01.7130831Z ##[group]Runner Image
+2024-09-15T07:40:01.7131254Z Image: ubuntu-22.04
+2024-09-15T07:40:01.7131630Z Version: 20240908.1.0
+2024-09-15T07:40:01.7132679Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240908.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-09-15T07:40:01.7134145Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240908.1
+2024-09-15T07:40:01.7134984Z ##[endgroup]
+2024-09-15T07:40:01.7135444Z ##[group]Runner Image Provisioner
+2024-09-15T07:40:01.7135921Z 2.0.384.1
+2024-09-15T07:40:01.7136238Z ##[endgroup]
+2024-09-15T07:40:01.7150507Z ##[group]GITHUB_TOKEN Permissions
+2024-09-15T07:40:01.7152283Z Contents: read
+2024-09-15T07:40:01.7152734Z Metadata: read
+2024-09-15T07:40:01.7153351Z Packages: read
+2024-09-15T07:40:01.7153861Z ##[endgroup]
+2024-09-15T07:40:01.7156951Z Secret source: None
+2024-09-15T07:40:01.7157636Z Prepare workflow directory
+2024-09-15T07:40:01.7770317Z Prepare all required actions
+2024-09-15T07:40:01.7926105Z Getting action download info
+2024-09-15T07:40:01.9630402Z Download action repository 'actions/checkout@v4' (SHA:692973e3d937129bcbf40652eb9f2f61becf3332)
+2024-09-15T07:40:02.0779727Z Download action repository 'chartboost/ruff-action@v1' (SHA:e18ae971ccee1b2d7bbef113930f00c670b78da4)
+2024-09-15T07:40:02.4655179Z Complete job name: ruff
+2024-09-15T07:40:02.5558950Z ##[group]Run actions/checkout@v4
+2024-09-15T07:40:02.5559500Z with:
+2024-09-15T07:40:02.5560236Z   repository: TagStudioDev/TagStudio
+2024-09-15T07:40:02.5561100Z   token: ***
+2024-09-15T07:40:02.5561486Z   ssh-strict: true
+2024-09-15T07:40:02.5561839Z   ssh-user: git
+2024-09-15T07:40:02.5562330Z   persist-credentials: true
+2024-09-15T07:40:02.5562780Z   clean: true
+2024-09-15T07:40:02.5563150Z   sparse-checkout-cone-mode: true
+2024-09-15T07:40:02.5563772Z   fetch-depth: 1
+2024-09-15T07:40:02.5564153Z   fetch-tags: false
+2024-09-15T07:40:02.5564523Z   show-progress: true
+2024-09-15T07:40:02.5564999Z   lfs: false
+2024-09-15T07:40:02.5565360Z   submodules: false
+2024-09-15T07:40:02.5565733Z   set-safe-directory: true
+2024-09-15T07:40:02.5566252Z ##[endgroup]
+2024-09-15T07:40:02.7910600Z Syncing repository: TagStudioDev/TagStudio
+2024-09-15T07:40:02.7913020Z ##[group]Getting Git version info
+2024-09-15T07:40:02.7913949Z Working directory is '/home/runner/work/TagStudio/TagStudio'
+2024-09-15T07:40:02.7915092Z [command]/usr/bin/git version
+2024-09-15T07:40:02.7915682Z git version 2.46.0
+2024-09-15T07:40:02.7917402Z ##[endgroup]
+2024-09-15T07:40:02.7933456Z Temporarily overriding HOME='/home/runner/work/_temp/d647d801-f61b-45c9-8746-bc1b87fe2815' before making global git config changes
+2024-09-15T07:40:02.7935960Z Adding repository directory to the temporary git global config as a safe directory
+2024-09-15T07:40:02.7938089Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TagStudio/TagStudio
+2024-09-15T07:40:02.7970951Z Deleting the contents of '/home/runner/work/TagStudio/TagStudio'
+2024-09-15T07:40:02.7974504Z ##[group]Initializing the repository
+2024-09-15T07:40:02.7978250Z [command]/usr/bin/git init /home/runner/work/TagStudio/TagStudio
+2024-09-15T07:40:02.8111413Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-09-15T07:40:02.8112604Z hint: is subject to change. To configure the initial branch name to use in all
+2024-09-15T07:40:02.8113807Z hint: of your new repositories, which will suppress this warning, call:
+2024-09-15T07:40:02.8114540Z hint:
+2024-09-15T07:40:02.8115046Z hint: 	git config --global init.defaultBranch <name>
+2024-09-15T07:40:02.8115727Z hint:
+2024-09-15T07:40:02.8116431Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-09-15T07:40:02.8117489Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-09-15T07:40:02.8118618Z hint:
+2024-09-15T07:40:02.8119157Z hint: 	git branch -m <name>
+2024-09-15T07:40:02.8120443Z Initialized empty Git repository in /home/runner/work/TagStudio/TagStudio/.git/
+2024-09-15T07:40:02.8130719Z [command]/usr/bin/git remote add origin https://github.com/TagStudioDev/TagStudio
+2024-09-15T07:40:02.8170090Z ##[endgroup]
+2024-09-15T07:40:02.8170922Z ##[group]Disabling automatic garbage collection
+2024-09-15T07:40:02.8174273Z [command]/usr/bin/git config --local gc.auto 0
+2024-09-15T07:40:02.8204798Z ##[endgroup]
+2024-09-15T07:40:02.8206066Z ##[group]Setting up auth
+2024-09-15T07:40:02.8212292Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-09-15T07:40:02.8245278Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-09-15T07:40:02.8640993Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-09-15T07:40:02.8672354Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-09-15T07:40:02.8917287Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-09-15T07:40:02.8967965Z ##[endgroup]
+2024-09-15T07:40:02.8968949Z ##[group]Fetching the repository
+2024-09-15T07:40:02.8981216Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +29375ef141ef1aa540994dfc1b4025c0715108d2:refs/remotes/pull/378/merge
+2024-09-15T07:40:03.3939683Z From https://github.com/TagStudioDev/TagStudio
+2024-09-15T07:40:03.3941590Z  * [new ref]         29375ef141ef1aa540994dfc1b4025c0715108d2 -> pull/378/merge
+2024-09-15T07:40:03.3970728Z ##[endgroup]
+2024-09-15T07:40:03.3972528Z ##[group]Determining the checkout info
+2024-09-15T07:40:03.3974564Z ##[endgroup]
+2024-09-15T07:40:03.3979043Z [command]/usr/bin/git sparse-checkout disable
+2024-09-15T07:40:03.4024267Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2024-09-15T07:40:03.4057301Z ##[group]Checking out the ref
+2024-09-15T07:40:03.4066545Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/378/merge
+2024-09-15T07:40:03.4545675Z Note: switching to 'refs/remotes/pull/378/merge'.
+2024-09-15T07:40:03.4546635Z 
+2024-09-15T07:40:03.4547408Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-09-15T07:40:03.4548343Z changes and commit them, and you can discard any commits you make in this
+2024-09-15T07:40:03.4549276Z state without impacting any branches by switching back to a branch.
+2024-09-15T07:40:03.4549929Z 
+2024-09-15T07:40:03.4550307Z If you want to create a new branch to retain commits you create, you may
+2024-09-15T07:40:03.4551320Z do so (now or later) by using -c with the switch command. Example:
+2024-09-15T07:40:03.4552247Z 
+2024-09-15T07:40:03.4552673Z   git switch -c <new-branch-name>
+2024-09-15T07:40:03.4553414Z 
+2024-09-15T07:40:03.4553726Z Or undo this operation with:
+2024-09-15T07:40:03.4554218Z 
+2024-09-15T07:40:03.4554535Z   git switch -
+2024-09-15T07:40:03.4554871Z 
+2024-09-15T07:40:03.4555446Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-09-15T07:40:03.4556480Z 
+2024-09-15T07:40:03.4557404Z HEAD is now at 29375ef Merge 9b72f23b1b14b45bd8ccb3f1889ef20c1227c65a into 2fc0dd03aa8eb7d2f348490a11b70db04b437ddb
+2024-09-15T07:40:03.4561163Z ##[endgroup]
+2024-09-15T07:40:03.4597152Z [command]/usr/bin/git log -1 --format='%H'
+2024-09-15T07:40:03.4621943Z '29375ef141ef1aa540994dfc1b4025c0715108d2'
+2024-09-15T07:40:03.4928477Z ##[group]Run chartboost/ruff-action@v1
+2024-09-15T07:40:03.4929098Z with:
+2024-09-15T07:40:03.4929416Z   version: 0.4.2
+2024-09-15T07:40:03.4929742Z   args: format --check
+2024-09-15T07:40:03.4930174Z   src: .
+2024-09-15T07:40:03.4930707Z ##[endgroup]
+2024-09-15T07:40:03.5156601Z ##[group]Run if [ "$RUNNER_OS" == "Windows" ]; then
+2024-09-15T07:40:03.5157219Z [36;1mif [ "$RUNNER_OS" == "Windows" ]; then[0m
+2024-09-15T07:40:03.5157923Z [36;1m  python $GITHUB_ACTION_PATH/action/main.py[0m
+2024-09-15T07:40:03.5158396Z [36;1melse[0m
+2024-09-15T07:40:03.5158750Z [36;1m  python3 $GITHUB_ACTION_PATH/action/main.py[0m
+2024-09-15T07:40:03.5159289Z [36;1mfi[0m
+2024-09-15T07:40:03.5188083Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2024-09-15T07:40:03.5188780Z env:
+2024-09-15T07:40:03.5189097Z   RUFF_FORMAT: github
+2024-09-15T07:40:03.5189453Z   INPUT_ARGS: format --check
+2024-09-15T07:40:03.5189911Z   INPUT_SRC: .
+2024-09-15T07:40:03.5190301Z   INPUT_VERSION: 0.4.2
+2024-09-15T07:40:03.5190750Z   pythonioencoding: utf-8
+2024-09-15T07:40:03.5191113Z ##[endgroup]
+2024-09-15T07:40:03.7086277Z creating virtual environment...
+2024-09-15T07:40:03.7973396Z installing ruff from spec 'ruff==0.4.2'...
+2024-09-15T07:40:05.4357140Z Would reformat: tagstudio/src/qt/widgets/thumb_renderer.py
+2024-09-15T07:40:05.4358263Z 1 file would be reformatted, 63 files already formatted
+2024-09-15T07:40:05.4427904Z ##[error]Process completed with exit code 1.
+2024-09-15T07:40:05.4533102Z Post job cleanup.
+2024-09-15T07:40:05.5453957Z [command]/usr/bin/git version
+2024-09-15T07:40:05.5491854Z git version 2.46.0
+2024-09-15T07:40:05.5534952Z Temporarily overriding HOME='/home/runner/work/_temp/adc44fd4-e644-4914-998e-8deae17302c3' before making global git config changes
+2024-09-15T07:40:05.5536980Z Adding repository directory to the temporary git global config as a safe directory
+2024-09-15T07:40:05.5548238Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TagStudio/TagStudio
+2024-09-15T07:40:05.5583665Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-09-15T07:40:05.5616384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-09-15T07:40:05.5852648Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-09-15T07:40:05.5874678Z http.https://github.com/.extraheader
+2024-09-15T07:40:05.5887682Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-09-15T07:40:05.5920713Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-09-15T07:40:05.6344326Z Cleaning up orphan processes

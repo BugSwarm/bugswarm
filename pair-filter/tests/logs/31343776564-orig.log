@@ -1,0 +1,374 @@
+﻿2024-10-10T09:28:26.4126401Z Current runner version: '2.320.0'
+2024-10-10T09:28:26.4149922Z ##[group]Operating System
+2024-10-10T09:28:26.4150454Z Ubuntu
+2024-10-10T09:28:26.4150712Z 24.04.1
+2024-10-10T09:28:26.4150957Z LTS
+2024-10-10T09:28:26.4151203Z ##[endgroup]
+2024-10-10T09:28:26.4151509Z ##[group]Runner Image
+2024-10-10T09:28:26.4151859Z Image: ubuntu-24.04
+2024-10-10T09:28:26.4152168Z Version: 20241006.1.0
+2024-10-10T09:28:26.4153088Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20241006.1/images/ubuntu/Ubuntu2404-Readme.md
+2024-10-10T09:28:26.4154647Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20241006.1
+2024-10-10T09:28:26.4155875Z ##[endgroup]
+2024-10-10T09:28:26.4156266Z ##[group]Runner Image Provisioner
+2024-10-10T09:28:26.4156672Z 2.0.384.1
+2024-10-10T09:28:26.4156922Z ##[endgroup]
+2024-10-10T09:28:26.4172186Z ##[group]GITHUB_TOKEN Permissions
+2024-10-10T09:28:26.4173663Z Contents: read
+2024-10-10T09:28:26.4173997Z Metadata: read
+2024-10-10T09:28:26.4174403Z Packages: read
+2024-10-10T09:28:26.4174730Z ##[endgroup]
+2024-10-10T09:28:26.4177710Z Secret source: None
+2024-10-10T09:28:26.4178524Z Prepare workflow directory
+2024-10-10T09:28:26.4914469Z Prepare all required actions
+2024-10-10T09:28:26.5075498Z Getting action download info
+2024-10-10T09:28:26.7191506Z Download action repository 'actions/checkout@v4' (SHA:eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871)
+2024-10-10T09:28:27.1972580Z Download action repository 'actions/setup-python@v5' (SHA:f677139bbe7f9c59b41e40162b753c062f5d49a3)
+2024-10-10T09:28:27.3370544Z Download action repository 'pre-commit/action@v3.0.1' (SHA:2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd)
+2024-10-10T09:28:27.7353846Z Getting action download info
+2024-10-10T09:28:27.8775642Z Download action repository 'actions/cache@v4' (SHA:3624ceb22c1c5a301c8db4169662070a689d9ea8)
+2024-10-10T09:28:28.2891530Z Complete job name: check_code_quality (3.9)
+2024-10-10T09:28:28.3803791Z ##[group]Run actions/checkout@v4
+2024-10-10T09:28:28.3804187Z with:
+2024-10-10T09:28:28.3804424Z   fetch-depth: 0
+2024-10-10T09:28:28.3804771Z   submodules: recursive
+2024-10-10T09:28:28.3805210Z   repository: huggingface/trl
+2024-10-10T09:28:28.3805860Z   token: ***
+2024-10-10T09:28:28.3806109Z   ssh-strict: true
+2024-10-10T09:28:28.3806347Z   ssh-user: git
+2024-10-10T09:28:28.3806591Z   persist-credentials: true
+2024-10-10T09:28:28.3806863Z   clean: true
+2024-10-10T09:28:28.3807111Z   sparse-checkout-cone-mode: true
+2024-10-10T09:28:28.3807416Z   fetch-tags: false
+2024-10-10T09:28:28.3807654Z   show-progress: true
+2024-10-10T09:28:28.3807899Z   lfs: false
+2024-10-10T09:28:28.3808350Z   set-safe-directory: true
+2024-10-10T09:28:28.3808633Z env:
+2024-10-10T09:28:28.3808832Z   TQDM_DISABLE: 1
+2024-10-10T09:28:28.3809064Z ##[endgroup]
+2024-10-10T09:28:28.6792662Z Syncing repository: huggingface/trl
+2024-10-10T09:28:28.6794279Z ##[group]Getting Git version info
+2024-10-10T09:28:28.6794940Z Working directory is '/home/runner/work/trl/trl'
+2024-10-10T09:28:28.6795588Z [command]/usr/bin/git version
+2024-10-10T09:28:28.8352987Z git version 2.46.2
+2024-10-10T09:28:28.8380259Z ##[endgroup]
+2024-10-10T09:28:28.8402209Z Temporarily overriding HOME='/home/runner/work/_temp/858f42e1-f18b-40fe-b176-1ac359177b3f' before making global git config changes
+2024-10-10T09:28:28.8403959Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-10T09:28:28.8405991Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/trl/trl
+2024-10-10T09:28:28.8503810Z Deleting the contents of '/home/runner/work/trl/trl'
+2024-10-10T09:28:28.8507979Z ##[group]Initializing the repository
+2024-10-10T09:28:28.8512795Z [command]/usr/bin/git init /home/runner/work/trl/trl
+2024-10-10T09:28:28.9685597Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-10T09:28:28.9687176Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-10T09:28:28.9688866Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-10T09:28:28.9690279Z hint:
+2024-10-10T09:28:28.9690974Z hint: 	git config --global init.defaultBranch <name>
+2024-10-10T09:28:28.9691402Z hint:
+2024-10-10T09:28:28.9691874Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-10T09:28:28.9692671Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-10T09:28:28.9693202Z hint:
+2024-10-10T09:28:28.9693482Z hint: 	git branch -m <name>
+2024-10-10T09:28:28.9871010Z Initialized empty Git repository in /home/runner/work/trl/trl/.git/
+2024-10-10T09:28:28.9883463Z [command]/usr/bin/git remote add origin https://github.com/huggingface/trl
+2024-10-10T09:28:29.0077120Z ##[endgroup]
+2024-10-10T09:28:29.0077943Z ##[group]Disabling automatic garbage collection
+2024-10-10T09:28:29.0083470Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-10T09:28:29.0120017Z ##[endgroup]
+2024-10-10T09:28:29.0120786Z ##[group]Setting up auth
+2024-10-10T09:28:29.0127238Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-10T09:28:29.0162045Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-10T09:28:29.2719585Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-10T09:28:29.2755063Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-10T09:28:29.3019935Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-10T09:28:29.3061234Z ##[endgroup]
+2024-10-10T09:28:29.3061980Z ##[group]Fetching the repository
+2024-10-10T09:28:29.3075390Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +663f05ca0c78eb8a67266d6c8df3840bea16d7c3:refs/remotes/pull/2182/merge
+2024-10-10T09:28:30.4238347Z From https://github.com/huggingface/trl
+2024-10-10T09:28:30.4239841Z  * [new branch]      add-push-ci            -> origin/add-push-ci
+2024-10-10T09:28:30.4241513Z  * [new branch]      add_spin               -> origin/add_spin
+2024-10-10T09:28:30.4242515Z  * [new branch]      cli-on-gpu             -> origin/cli-on-gpu
+2024-10-10T09:28:30.4243613Z  * [new branch]      dataset-processor      -> origin/dataset-processor
+2024-10-10T09:28:30.4245996Z  * [new branch]      debug-dpo              -> origin/debug-dpo
+2024-10-10T09:28:30.4247107Z  * [new branch]      dpo-upcast-logits-fp32 -> origin/dpo-upcast-logits-fp32
+2024-10-10T09:28:30.4250452Z  * [new branch]      fix-chat-model-name    -> origin/fix-chat-model-name
+2024-10-10T09:28:30.4252987Z  * [new branch]      fix-pad-token-chat     -> origin/fix-pad-token-chat
+2024-10-10T09:28:30.4254060Z  * [new branch]      fix-vllm-eval          -> origin/fix-vllm-eval
+2024-10-10T09:28:30.4255443Z  * [new branch]      harmonize-formatting-api -> origin/harmonize-formatting-api
+2024-10-10T09:28:30.4257880Z  * [new branch]      main                   -> origin/main
+2024-10-10T09:28:30.4259014Z  * [new branch]      migration-ppo          -> origin/migration-ppo
+2024-10-10T09:28:30.4263214Z  * [new branch]      minimal_example        -> origin/minimal_example
+2024-10-10T09:28:30.4264300Z  * [new branch]      new-release            -> origin/new-release
+2024-10-10T09:28:30.4265296Z  * [new branch]      online-dpo             -> origin/online-dpo
+2024-10-10T09:28:30.4268669Z  * [new branch]      orpo-conversational    -> origin/orpo-conversational
+2024-10-10T09:28:30.4270919Z  * [new branch]      refactor-dpo-data      -> origin/refactor-dpo-data
+2024-10-10T09:28:30.4273353Z  * [new branch]      refactor-orpo          -> origin/refactor-orpo
+2024-10-10T09:28:30.4274905Z  * [new branch]      refactor-orpo-preproc  -> origin/refactor-orpo-preproc
+2024-10-10T09:28:30.4278413Z  * [new branch]      remove_deprecated_args_in_trainers -> origin/remove_deprecated_args_in_trainers
+2024-10-10T09:28:30.4280055Z  * [new branch]      score                  -> origin/score
+2024-10-10T09:28:30.4281940Z  * [new branch]      script_args            -> origin/script_args
+2024-10-10T09:28:30.4284455Z  * [new branch]      sft-refactor           -> origin/sft-refactor
+2024-10-10T09:28:30.4286946Z  * [new branch]      step-dataset           -> origin/step-dataset
+2024-10-10T09:28:30.4289274Z  * [new branch]      temp10                 -> origin/temp10
+2024-10-10T09:28:30.4291945Z  * [new branch]      v0.10-release          -> origin/v0.10-release
+2024-10-10T09:28:30.4294511Z  * [new branch]      v0.11-release          -> origin/v0.11-release
+2024-10-10T09:28:30.4296662Z  * [new branch]      vwxyzjn-patch-2        -> origin/vwxyzjn-patch-2
+2024-10-10T09:28:30.4299176Z  * [new branch]      younesbelkada-patch-1  -> origin/younesbelkada-patch-1
+2024-10-10T09:28:30.4300297Z  * [new tag]         v0.10                  -> v0.10
+2024-10-10T09:28:30.4302102Z  * [new tag]         v0.10.1                -> v0.10.1
+2024-10-10T09:28:30.4304329Z  * [new tag]         v0.11.0                -> v0.11.0
+2024-10-10T09:28:30.4305252Z  * [new tag]         v0.11.1                -> v0.11.1
+2024-10-10T09:28:30.4306786Z  * [new tag]         v0.11.2                -> v0.11.2
+2024-10-10T09:28:30.4307597Z  * [new tag]         v0.2.0                 -> v0.2.0
+2024-10-10T09:28:30.4308987Z  * [new tag]         v0.2.1                 -> v0.2.1
+2024-10-10T09:28:30.4310495Z  * [new tag]         v0.3.0                 -> v0.3.0
+2024-10-10T09:28:30.4311571Z  * [new tag]         v0.3.1                 -> v0.3.1
+2024-10-10T09:28:30.4312454Z  * [new tag]         v0.4.0                 -> v0.4.0
+2024-10-10T09:28:30.4313480Z  * [new tag]         v0.4.1                 -> v0.4.1
+2024-10-10T09:28:30.4315303Z  * [new tag]         v0.4.2                 -> v0.4.2
+2024-10-10T09:28:30.4316344Z  * [new tag]         v0.4.3                 -> v0.4.3
+2024-10-10T09:28:30.4317436Z  * [new tag]         v0.4.4                 -> v0.4.4
+2024-10-10T09:28:30.4319216Z  * [new tag]         v0.4.5                 -> v0.4.5
+2024-10-10T09:28:30.4320450Z  * [new tag]         v0.4.6                 -> v0.4.6
+2024-10-10T09:28:30.4321500Z  * [new tag]         v0.4.7                 -> v0.4.7
+2024-10-10T09:28:30.4322837Z  * [new tag]         v0.5.0                 -> v0.5.0
+2024-10-10T09:28:30.4324091Z  * [new tag]         v0.6.0                 -> v0.6.0
+2024-10-10T09:28:30.4325370Z  * [new tag]         v0.7.0                 -> v0.7.0
+2024-10-10T09:28:30.4326779Z  * [new tag]         v0.7.1                 -> v0.7.1
+2024-10-10T09:28:30.4328464Z  * [new tag]         v0.7.10                -> v0.7.10
+2024-10-10T09:28:30.4330090Z  * [new tag]         v0.7.11                -> v0.7.11
+2024-10-10T09:28:30.4331340Z  * [new tag]         v0.7.2                 -> v0.7.2
+2024-10-10T09:28:30.4332436Z  * [new tag]         v0.7.3                 -> v0.7.3
+2024-10-10T09:28:30.4333844Z  * [new tag]         v0.7.4                 -> v0.7.4
+2024-10-10T09:28:30.4335062Z  * [new tag]         v0.7.5                 -> v0.7.5
+2024-10-10T09:28:30.4336390Z  * [new tag]         v0.7.6                 -> v0.7.6
+2024-10-10T09:28:30.4337670Z  * [new tag]         v0.7.7                 -> v0.7.7
+2024-10-10T09:28:30.4338952Z  * [new tag]         v0.7.8                 -> v0.7.8
+2024-10-10T09:28:30.4340462Z  * [new tag]         v0.7.9                 -> v0.7.9
+2024-10-10T09:28:30.4341761Z  * [new tag]         v0.8.0                 -> v0.8.0
+2024-10-10T09:28:30.4343278Z  * [new tag]         v0.8.1                 -> v0.8.1
+2024-10-10T09:28:30.4344453Z  * [new tag]         v0.8.2                 -> v0.8.2
+2024-10-10T09:28:30.4345995Z  * [new tag]         v0.8.3                 -> v0.8.3
+2024-10-10T09:28:30.4347350Z  * [new tag]         v0.8.4                 -> v0.8.4
+2024-10-10T09:28:30.4348886Z  * [new tag]         v0.8.5                 -> v0.8.5
+2024-10-10T09:28:30.4350448Z  * [new tag]         v0.8.6                 -> v0.8.6
+2024-10-10T09:28:30.4351774Z  * [new tag]         v0.9.3                 -> v0.9.3
+2024-10-10T09:28:30.4353015Z  * [new tag]         v0.9.4                 -> v0.9.4
+2024-10-10T09:28:30.4354313Z  * [new tag]         v0.9.6                 -> v0.9.6
+2024-10-10T09:28:30.4358379Z  * [new ref]         663f05ca0c78eb8a67266d6c8df3840bea16d7c3 -> pull/2182/merge
+2024-10-10T09:28:30.4475773Z ##[endgroup]
+2024-10-10T09:28:30.4476589Z ##[group]Determining the checkout info
+2024-10-10T09:28:30.4477514Z ##[endgroup]
+2024-10-10T09:28:30.4483175Z [command]/usr/bin/git sparse-checkout disable
+2024-10-10T09:28:30.4612039Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2024-10-10T09:28:30.4641035Z ##[group]Checking out the ref
+2024-10-10T09:28:30.4645620Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2182/merge
+2024-10-10T09:28:30.4869542Z Note: switching to 'refs/remotes/pull/2182/merge'.
+2024-10-10T09:28:30.4870005Z 
+2024-10-10T09:28:30.4870407Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-10-10T09:28:30.4871090Z changes and commit them, and you can discard any commits you make in this
+2024-10-10T09:28:30.4871746Z state without impacting any branches by switching back to a branch.
+2024-10-10T09:28:30.4872133Z 
+2024-10-10T09:28:30.4872400Z If you want to create a new branch to retain commits you create, you may
+2024-10-10T09:28:30.4873080Z do so (now or later) by using -c with the switch command. Example:
+2024-10-10T09:28:30.4873548Z 
+2024-10-10T09:28:30.4873810Z   git switch -c <new-branch-name>
+2024-10-10T09:28:30.4874232Z 
+2024-10-10T09:28:30.4874413Z Or undo this operation with:
+2024-10-10T09:28:30.4874749Z 
+2024-10-10T09:28:30.4874917Z   git switch -
+2024-10-10T09:28:30.4875177Z 
+2024-10-10T09:28:30.4875718Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-10-10T09:28:30.4876806Z 
+2024-10-10T09:28:30.4877573Z HEAD is now at 663f05c Merge 265c7ed23859e4df234924f401e40470c79ce190 into 419791695c1cb0006a923b69092be0c61caa9f82
+2024-10-10T09:28:30.4879946Z ##[endgroup]
+2024-10-10T09:28:30.4880740Z ##[group]Setting up auth for fetching submodules
+2024-10-10T09:28:30.4886863Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-10T09:28:30.4925022Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2024-10-10T09:28:30.4954363Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2024-10-10T09:28:30.4984999Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-25720743@github.com:
+2024-10-10T09:28:30.5010303Z ##[endgroup]
+2024-10-10T09:28:30.5010793Z ##[group]Fetching submodules
+2024-10-10T09:28:30.5014420Z [command]/usr/bin/git submodule sync --recursive
+2024-10-10T09:28:30.5310829Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --recursive
+2024-10-10T09:28:30.5540164Z [command]/usr/bin/git submodule foreach --recursive git config --local gc.auto 0
+2024-10-10T09:28:30.5760158Z ##[endgroup]
+2024-10-10T09:28:30.5760990Z ##[group]Persisting credentials for submodules
+2024-10-10T09:28:30.5768488Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2024-10-10T09:28:30.6010587Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2024-10-10T09:28:30.6243710Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2024-10-10T09:28:30.6466449Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'org-25720743@github.com:'
+2024-10-10T09:28:30.6683015Z ##[endgroup]
+2024-10-10T09:28:30.6720186Z [command]/usr/bin/git log -1 --format=%H
+2024-10-10T09:28:30.6742307Z 663f05ca0c78eb8a67266d6c8df3840bea16d7c3
+2024-10-10T09:28:30.7034520Z ##[group]Run actions/setup-python@v5
+2024-10-10T09:28:30.7034886Z with:
+2024-10-10T09:28:30.7035108Z   python-version: 3.9
+2024-10-10T09:28:30.7035371Z   check-latest: false
+2024-10-10T09:28:30.7035772Z   token: ***
+2024-10-10T09:28:30.7036018Z   update-environment: true
+2024-10-10T09:28:30.7036310Z   allow-prereleases: false
+2024-10-10T09:28:30.7036565Z env:
+2024-10-10T09:28:30.7036767Z   TQDM_DISABLE: 1
+2024-10-10T09:28:30.7036992Z ##[endgroup]
+2024-10-10T09:28:30.8659549Z ##[group]Installed versions
+2024-10-10T09:28:30.8718763Z Successfully set up CPython (3.9.20)
+2024-10-10T09:28:30.8719792Z ##[endgroup]
+2024-10-10T09:28:30.8840710Z ##[group]Run pre-commit/action@v3.0.1
+2024-10-10T09:28:30.8841072Z with:
+2024-10-10T09:28:30.8841287Z   extra_args: --all-files
+2024-10-10T09:28:30.8841552Z env:
+2024-10-10T09:28:30.8841769Z   TQDM_DISABLE: 1
+2024-10-10T09:28:30.8842104Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:30.8842637Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib/pkgconfig
+2024-10-10T09:28:30.8843160Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:30.8843624Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:30.8844076Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:30.8844546Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib
+2024-10-10T09:28:30.8844939Z ##[endgroup]
+2024-10-10T09:28:30.9059752Z ##[group]Run python -m pip install pre-commit
+2024-10-10T09:28:30.9060248Z [36;1mpython -m pip install pre-commit[0m
+2024-10-10T09:28:31.0209166Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2024-10-10T09:28:31.0209773Z env:
+2024-10-10T09:28:31.0210010Z   TQDM_DISABLE: 1
+2024-10-10T09:28:31.0210393Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:31.0211013Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib/pkgconfig
+2024-10-10T09:28:31.0211616Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:31.0212148Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:31.0212672Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:31.0213203Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib
+2024-10-10T09:28:31.0213653Z ##[endgroup]
+2024-10-10T09:28:34.8013633Z Collecting pre-commit
+2024-10-10T09:28:34.8646200Z   Downloading pre_commit-4.0.1-py2.py3-none-any.whl.metadata (1.3 kB)
+2024-10-10T09:28:34.8837055Z Collecting cfgv>=2.0.0 (from pre-commit)
+2024-10-10T09:28:34.9049390Z   Downloading cfgv-3.4.0-py2.py3-none-any.whl.metadata (8.5 kB)
+2024-10-10T09:28:34.9961510Z Collecting identify>=1.0.0 (from pre-commit)
+2024-10-10T09:28:35.0180933Z   Downloading identify-2.6.1-py2.py3-none-any.whl.metadata (4.4 kB)
+2024-10-10T09:28:35.0431415Z Collecting nodeenv>=0.11.1 (from pre-commit)
+2024-10-10T09:28:35.0643259Z   Downloading nodeenv-1.9.1-py2.py3-none-any.whl.metadata (21 kB)
+2024-10-10T09:28:35.1183755Z Collecting pyyaml>=5.1 (from pre-commit)
+2024-10-10T09:28:35.1396605Z   Downloading PyYAML-6.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.1 kB)
+2024-10-10T09:28:35.2369225Z Collecting virtualenv>=20.10.0 (from pre-commit)
+2024-10-10T09:28:35.2579835Z   Downloading virtualenv-20.26.6-py3-none-any.whl.metadata (4.5 kB)
+2024-10-10T09:28:35.2805978Z Collecting distlib<1,>=0.3.7 (from virtualenv>=20.10.0->pre-commit)
+2024-10-10T09:28:35.3014461Z   Downloading distlib-0.3.9-py2.py3-none-any.whl.metadata (5.2 kB)
+2024-10-10T09:28:35.3334404Z Collecting filelock<4,>=3.12.2 (from virtualenv>=20.10.0->pre-commit)
+2024-10-10T09:28:35.3542929Z   Downloading filelock-3.16.1-py3-none-any.whl.metadata (2.9 kB)
+2024-10-10T09:28:35.3858740Z Collecting platformdirs<5,>=3.9.1 (from virtualenv>=20.10.0->pre-commit)
+2024-10-10T09:28:35.4065523Z   Downloading platformdirs-4.3.6-py3-none-any.whl.metadata (11 kB)
+2024-10-10T09:28:35.4405678Z Downloading pre_commit-4.0.1-py2.py3-none-any.whl (218 kB)
+2024-10-10T09:28:35.5068603Z Downloading cfgv-3.4.0-py2.py3-none-any.whl (7.2 kB)
+2024-10-10T09:28:35.5302689Z Downloading identify-2.6.1-py2.py3-none-any.whl (98 kB)
+2024-10-10T09:28:35.5552689Z Downloading nodeenv-1.9.1-py2.py3-none-any.whl (22 kB)
+2024-10-10T09:28:35.5783442Z Downloading PyYAML-6.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (737 kB)
+2024-10-10T09:28:35.6114810Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 737.4/737.4 kB 34.8 MB/s eta 0:00:00
+2024-10-10T09:28:35.6333906Z Downloading virtualenv-20.26.6-py3-none-any.whl (6.0 MB)
+2024-10-10T09:28:35.6949363Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.0/6.0 MB 99.0 MB/s eta 0:00:00
+2024-10-10T09:28:35.7159244Z Downloading distlib-0.3.9-py2.py3-none-any.whl (468 kB)
+2024-10-10T09:28:35.7411619Z Downloading filelock-3.16.1-py3-none-any.whl (16 kB)
+2024-10-10T09:28:35.7642729Z Downloading platformdirs-4.3.6-py3-none-any.whl (18 kB)
+2024-10-10T09:28:35.8120537Z Installing collected packages: distlib, pyyaml, platformdirs, nodeenv, identify, filelock, cfgv, virtualenv, pre-commit
+2024-10-10T09:28:36.1789034Z Successfully installed cfgv-3.4.0 distlib-0.3.9 filelock-3.16.1 identify-2.6.1 nodeenv-1.9.1 platformdirs-4.3.6 pre-commit-4.0.1 pyyaml-6.0.2 virtualenv-20.26.6
+2024-10-10T09:28:36.3181646Z ##[group]Run python -m pip freeze --local
+2024-10-10T09:28:36.3182029Z [36;1mpython -m pip freeze --local[0m
+2024-10-10T09:28:36.3230859Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2024-10-10T09:28:36.3231264Z env:
+2024-10-10T09:28:36.3231474Z   TQDM_DISABLE: 1
+2024-10-10T09:28:36.3231800Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:36.3232339Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib/pkgconfig
+2024-10-10T09:28:36.3232859Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:36.3233314Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:36.3233782Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:36.3234247Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib
+2024-10-10T09:28:36.3234631Z ##[endgroup]
+2024-10-10T09:28:36.5431207Z cfgv==3.4.0
+2024-10-10T09:28:36.5431775Z distlib==0.3.9
+2024-10-10T09:28:36.5432263Z filelock==3.16.1
+2024-10-10T09:28:36.5432745Z identify==2.6.1
+2024-10-10T09:28:36.5433276Z nodeenv==1.9.1
+2024-10-10T09:28:36.5433744Z platformdirs==4.3.6
+2024-10-10T09:28:36.5434267Z pre_commit==4.0.1
+2024-10-10T09:28:36.5434748Z PyYAML==6.0.2
+2024-10-10T09:28:36.5435198Z virtualenv==20.26.6
+2024-10-10T09:28:38.4707450Z ##[group]Run actions/cache@v4
+2024-10-10T09:28:38.4707960Z with:
+2024-10-10T09:28:38.4708539Z   path: ~/.cache/pre-commit
+2024-10-10T09:28:38.4709550Z   key: pre-commit-3|/opt/hostedtoolcache/Python/3.9.20/x64|134feabfd85d73d66a93166316c559754b96d029cb4f605abbfd7f62de0e3805
+2024-10-10T09:28:38.4710378Z   enableCrossOsArchive: false
+2024-10-10T09:28:38.4710725Z   fail-on-cache-miss: false
+2024-10-10T09:28:38.4711040Z   lookup-only: false
+2024-10-10T09:28:38.4711311Z   save-always: false
+2024-10-10T09:28:38.4711539Z env:
+2024-10-10T09:28:38.4711729Z   TQDM_DISABLE: 1
+2024-10-10T09:28:38.4712053Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:38.4712585Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib/pkgconfig
+2024-10-10T09:28:38.4713102Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:38.4713570Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:38.4714033Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:38.4714504Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib
+2024-10-10T09:28:38.4714892Z ##[endgroup]
+2024-10-10T09:28:39.4507044Z Cache Size: ~12 MB (13073586 B)
+2024-10-10T09:28:39.4536687Z [command]/usr/bin/tar -xf /home/runner/work/_temp/5c829f61-4b0f-41cb-8308-11791102a54d/cache.tzst -P -C /home/runner/work/trl/trl --use-compress-program unzstd
+2024-10-10T09:28:39.5839793Z Cache restored successfully
+2024-10-10T09:28:39.7644763Z Cache restored from key: pre-commit-3|/opt/hostedtoolcache/Python/3.9.20/x64|134feabfd85d73d66a93166316c559754b96d029cb4f605abbfd7f62de0e3805
+2024-10-10T09:28:39.7736921Z ##[group]Run pre-commit run --show-diff-on-failure --color=always --all-files
+2024-10-10T09:28:39.7737605Z [36;1mpre-commit run --show-diff-on-failure --color=always --all-files[0m
+2024-10-10T09:28:39.7787123Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2024-10-10T09:28:39.7787551Z env:
+2024-10-10T09:28:39.7787770Z   TQDM_DISABLE: 1
+2024-10-10T09:28:39.7788293Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:39.7789034Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib/pkgconfig
+2024-10-10T09:28:39.7789586Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:39.7790064Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:39.7790546Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.20/x64
+2024-10-10T09:28:39.7791029Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.20/x64/lib
+2024-10-10T09:28:39.7791426Z ##[endgroup]
+2024-10-10T09:28:40.3297646Z ruff.....................................................................[41mFailed[m
+2024-10-10T09:28:40.3298388Z [2m- hook id: ruff[m
+2024-10-10T09:28:40.3298750Z [2m- files were modified by this hook[m
+2024-10-10T09:28:40.3299002Z 
+2024-10-10T09:28:40.3299134Z Found 2 errors (2 fixed, 0 remaining).
+2024-10-10T09:28:40.3299374Z 
+2024-10-10T09:28:40.3887288Z ruff-format..............................................................[42mPassed[m
+2024-10-10T09:28:40.3888557Z pre-commit hook(s) made changes.
+2024-10-10T09:28:40.3889651Z If you are seeing this message in CI, reproduce locally with: `pre-commit run --all-files`.
+2024-10-10T09:28:40.3890942Z To run `pre-commit` as part of git workflow, use `pre-commit install`.
+2024-10-10T09:28:40.3891734Z All changes made by hooks:
+2024-10-10T09:28:40.3996068Z [1mdiff --git a/scripts/log_example_reports.py b/scripts/log_example_reports.py[m
+2024-10-10T09:28:40.3996804Z [1mindex 65cd929..10f6c9a 100644[m
+2024-10-10T09:28:40.3997437Z [1m--- a/scripts/log_example_reports.py[m
+2024-10-10T09:28:40.3998377Z [1m+++ b/scripts/log_example_reports.py[m
+2024-10-10T09:28:40.3999021Z [36m@@ -12,9 +12,9 @@[m
+2024-10-10T09:28:40.3999834Z  # See the License for the specific language governing permissions and[m
+2024-10-10T09:28:40.4000701Z  # limitations under the License.[m
+2024-10-10T09:28:40.4001287Z  import argparse[m
+2024-10-10T09:28:40.4001786Z [32m+[m[32mimport logging[m
+2024-10-10T09:28:40.4002332Z  import os[m
+2024-10-10T09:28:40.4002801Z  from datetime import date[m
+2024-10-10T09:28:40.4003347Z [31m-import logging[m
+2024-10-10T09:28:40.4003787Z  [m
+2024-10-10T09:28:40.4004205Z  from tabulate import tabulate[m
+2024-10-10T09:28:40.4004696Z  [m
+2024-10-10T09:28:40.4005380Z [36m@@ -36,7 +36,7 @@[m [mdef main(text_file_name, slack_channel_name=None):[m
+2024-10-10T09:28:40.4006225Z          final_results = {}[m
+2024-10-10T09:28:40.4006692Z  [m
+2024-10-10T09:28:40.4007049Z          try:[m
+2024-10-10T09:28:40.4007613Z [31m-            with open(text_file_name, 'r') as file:[m
+2024-10-10T09:28:40.4008660Z [32m+[m[32m            with open(text_file_name) as file:[m
+2024-10-10T09:28:40.4009392Z                  for line in file:[m
+2024-10-10T09:28:40.4010104Z                      result, config_name = line.strip().split(",")[m
+2024-10-10T09:28:40.4011035Z                      config_name = config_name.split("/")[-1].split(".yaml")[0][m
+2024-10-10T09:28:40.4174168Z ##[error]Process completed with exit code 1.
+2024-10-10T09:28:40.4242693Z Post job cleanup.
+2024-10-10T09:28:40.4302037Z Post job cleanup.
+2024-10-10T09:28:40.5255157Z [command]/usr/bin/git version
+2024-10-10T09:28:40.5299953Z git version 2.46.2
+2024-10-10T09:28:40.5342571Z Temporarily overriding HOME='/home/runner/work/_temp/4affe2e0-984a-491e-8f2f-c4ce9936a74f' before making global git config changes
+2024-10-10T09:28:40.5343836Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-10T09:28:40.5347860Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/trl/trl
+2024-10-10T09:28:40.5384358Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-10T09:28:40.5417962Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-10T09:28:40.5657325Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-10T09:28:40.5679482Z http.https://github.com/.extraheader
+2024-10-10T09:28:40.5691972Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-10-10T09:28:40.5725562Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-10T09:28:40.6188704Z Cleaning up orphan processes

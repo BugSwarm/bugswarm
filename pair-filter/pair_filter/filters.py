@@ -279,10 +279,18 @@ def filter_unavailable_github_runner(pairs) -> int:
 
                 if isinstance(runners, str):
                     m = re.match(MATRIX_VALUE_REGEX, runners)
-                    if m and isinstance(utils.get_matrix_param(m[1], config), list):
+                    if m and isinstance(utils.get_matrix_param(m[1], config), (list, dict)):
                         runners = utils.get_matrix_param(m[1], config)
                     else:
                         runners = [runners]
+
+                if isinstance(runners, dict):
+                    # Mostly happens when specifying runner groups, which as far as I can tell is only relevant for GHA
+                    # larger runners (search "larger runner" in GH docs for details). We don't support those, so filter
+                    # out the job.
+                    jp[FILTERED_REASON_KEY] = reasons.UNAVAILABLE_RUNNER
+                    filtered += 1
+                    break
 
                 # TODO Add the ability to handle more complicated replacements.
                 # According to https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability,

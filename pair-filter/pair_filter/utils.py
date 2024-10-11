@@ -233,6 +233,10 @@ def get_github_actions_pr_data(job_id):
             base_sha = m.group(2)
         elif pr_num is not None and line == "[command]/usr/bin/git log -1 --format='%H'":
             merge_sha = log_lines[lineno + 1][1:-1]
+            break
+        elif pr_num is not None and line == '[command]/usr/bin/git log -1 --format=%H':
+            merge_sha = log_lines[lineno + 1]
+            break
 
     result = (pr_num, base_sha, head_sha, merge_sha)
 
