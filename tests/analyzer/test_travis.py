@@ -480,6 +480,106 @@ class TravisAnalyzerTests(unittest.TestCase):
                                          'RequestLocalizedError(org.apache.struts2.interceptor.FileUpload'
                                          'InterceptorTest)')
 
+    def test_maven_8(self):
+        log = '475275870-orig.log'
+        job_id = 475275870
+        file_path = join(self.maven, log)
+        repo = 'ontop/ontop'
+        maven8 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven8, 'broken')
+        self.compare_analyzer(maven8, 'java-maven')
+        self.compare_num_t_run(maven8, 2108)
+        self.compare_num_t_ok(maven8, 2106)
+        self.compare_num_t_failed(maven8, 2)
+        self.compare_num_t_skipped(maven8, 60)
+        self.compare_bool_t_ran(maven8, True)
+        self.compare_bool_t_failed(maven8, True)
+        # Test that duplicate tests are removed if it makes it match the number of failed tests
+        self.compare_tr_t_failed(maven8, '(it.unibz.inf.ontop.rdf4j.general.OntopRDF4JInMemoryTest)#'
+                                         '(it.unibz.inf.ontop.rdf4j.general.RDF4JClassicABoxTest)')
+
+    def test_maven_9(self):
+        log = '692484614-orig.log'
+        job_id = 692484614
+        file_path = join(self.maven, log)
+        repo = 'ibissource/iaf'
+        maven9 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven9, 'broken')
+        self.compare_analyzer(maven9, 'java-maven')
+        self.compare_num_t_run(maven9, 2440)
+        self.compare_num_t_ok(maven9, 2433)
+        self.compare_num_t_failed(maven9, 7)
+        self.compare_num_t_skipped(maven9, 148)
+        self.compare_bool_t_ran(maven9, True)
+        self.compare_bool_t_failed(maven9, True)
+        # Test that parameterized tests are detected correctly
+        self.compare_tr_t_failed(maven9, 'doTest[0](nl.nn.adapterframework.jdbc.transformer.ToCsv)#'
+                                         'doTest[1](nl.nn.adapterframework.jdbc.transformer.ToCsv)#'
+                                         'doTest[0](nl.nn.adapterframework.jdbc.transformer.ToJson)#'
+                                         'doTest[1](nl.nn.adapterframework.jdbc.transformer.ToJson)#'
+                                         'doTest[0](nl.nn.adapterframework.jdbc.transformer.ToMap)#'
+                                         'doTest[1](nl.nn.adapterframework.jdbc.transformer.ToMap)#'
+                                         'testJson2Xml(nl.nn.adapterframework.validation.Json2XmlValidatorSmileyTest)')
+
+    def test_maven_10(self):
+        log = '99251245-orig.log'
+        job_id = 99251245
+        file_path = join(self.maven, log)
+        repo = 'owlcs/owlapi'
+        maven10 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven10, 'broken')
+        self.compare_analyzer(maven10, 'java-maven')
+        self.compare_num_t_run(maven10, 6331)
+        self.compare_num_t_ok(maven10, 6328)
+        self.compare_num_t_failed(maven10, 3)
+        self.compare_num_t_skipped(maven10, 5)
+        self.compare_bool_t_ran(maven10, True)
+        self.compare_bool_t_failed(maven10, True)
+        self.compare_tr_t_failed(maven10, 'testOBORoundTripEscapeChars(BasicsTestCase)#'
+                                          'testWriteCurlyBracesInComments(BasicsTestCase)#'
+                                          'testRoundTripOWLRO(RoundTripTestCase)')
+
+    def test_maven_11(self):
+        log = '106770373-orig.log'
+        job_id = 106770373
+        file_path = join(self.maven, log)
+        repo = 'pgjdbc/pgjdbc'
+        maven11 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven11, 'broken')
+        self.compare_analyzer(maven11, 'java-maven')
+        self.compare_num_t_run(maven11, 799)
+        self.compare_num_t_ok(maven11, 797)
+        self.compare_num_t_failed(maven11, 2)
+        self.compare_num_t_skipped(maven11, 0)
+        self.compare_bool_t_ran(maven11, True)
+        self.compare_bool_t_failed(maven11, True)
+        # Test long/complex parameterized tests
+        self.compare_tr_t_failed(maven11, 'run[5: batchTest(mode=FAIL_VIA_SELECT, position=FIRST_ROW, autoCommit=YES, '
+                                          'batchType=SIMPLE, generateKeys=YES, binary=FORCE)](org.postgresql.test.jdbc2'
+                                          '.BatchFailureTest)#'
+                                          'run[7: batchTest(mode=FAIL_VIA_SELECT, position=FIRST_ROW, autoCommit=NO, '
+                                          'batchType=SIMPLE, generateKeys=NO, binary=FORCE)](org.postgresql.test.jdbc2.'
+                                          'BatchFailureTest)')
+
+    def test_maven_12(self):
+        """(Maven) Method names with spaces in them"""
+        log = '610576045-orig.log'
+        job_id = 610576045
+        file_path = join(self.maven, log)
+        repo = 'square/moshi'
+        maven12 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven12, 'broken')
+        self.compare_analyzer(maven12, 'java-maven')
+        self.compare_num_t_run(maven12, 977)
+        self.compare_num_t_ok(maven12, 976)
+        self.compare_num_t_failed(maven12, 1)
+        self.compare_num_t_skipped(maven12, 24)
+        self.compare_bool_t_ran(maven12, True)
+        self.compare_bool_t_failed(maven12, True)
+        # Test method names with spaces in them (e.g. written in Kotlin or Groovy or using @DisplayName)
+        self.compare_tr_t_failed(maven12, 'TypeAliases with the same backing type should share the same adapter(com.'
+                                          'squareup.moshi.kotlin.codegen.JsonClassCodegenProcessorTest)')
+
     def test_status_terminated(self):
         log = '33664717.log'
         job_id = 33664717

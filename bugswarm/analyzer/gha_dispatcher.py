@@ -50,7 +50,7 @@ class GHADispatcher(object):
 
     def get_build_system_from_build_command(self, lines):
         for line in lines:
-            maven1 = re.search(r'mvn.*(install|compile|test)', line, re.M)
+            maven1 = re.search(r'mvn.*(install|compile|test|verify|package)', line, re.M)
             maven2 = re.search(r'The command "mvn ', line, re.M)
             gradle1 = re.search(r'gradle(w)?.*(assemble|check|test)', line, re.M)
             gradle2 = re.search(r'\* Get more help at https://help\.gradle\.org', line, re.M)

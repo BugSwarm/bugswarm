@@ -4,6 +4,8 @@ A Mixin for Maven build log analysis.
 
 import re
 
+from bugswarm.common import log
+
 from ..base_log_analyzer import LogAnalyzerABC
 from ..utils import get_job_lines
 
@@ -19,12 +21,13 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
     def custom_analyze(self):
         self.extract_tests()
         self.analyze_tests()
-        self.get_offending_tests()
         self.analyze_reactor()
         # Added by BugSwarm.
         self.extract_err_msg()
+        self.extract_failed_tests_from_tests_lines()
         if hasattr(self, 'tests_failed') and len(self.tests_failed) < 1:
-            self.extract_failed_tests_from_tests_lines()
+            self.get_offending_tests()
+        self.check_test_duplicates()
         super().custom_analyze()
 
     def bool_tests_failed(self):
@@ -33,6 +36,20 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
         if hasattr(self, 'num_tests_failed') and self.num_tests_failed > 0:
             return True
         return False
+
+    def check_test_duplicates(self):
+        if not hasattr(self, 'num_tests_failed') or not hasattr(self, 'tests_failed'):
+            return
+
+        if self.num_tests_failed != len(self.tests_failed):
+            # Remove duplicates while preserving order (source: https://stackoverflow.com/a/17016257)
+            without_duplicates = list(dict.fromkeys(self.tests_failed))
+            if self.num_tests_failed == len(without_duplicates):
+                log.debug('Removing duplicate tests')
+                self.tests_failed = without_duplicates
+            else:
+                log.warning('Number of failed tests is inconsistent! Expected',
+                            self.num_tests_failed, 'but got', len(self.tests_failed))
 
     def extract_tests(self):
         test_section_started = False
@@ -121,6 +138,13 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
         match = re.search(r'(\w+(\[.+\])?\([\w.$\[\]]+\))', string)
         if match:
             return match.group(1)
+
+        # Matches line: TutorialSnippetsTestCase.testModularizationWithAtomicDecomposition:642 [...]
+        # Also matches TestClass>BaseTestClass.testMethodInBaseClass:38
+        # Extracts test as: testModularizationWithAtomicDecomposition(TutorialSnippetsTestCase)
+        match = re.match(r'\s*([\w.>$]+)\.(\w+):', string)
+        if match:
+            return '{}({})'.format(match.group(2), match.group(1))
         return None
 
     def analyze_tests(self):
@@ -133,7 +157,7 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
                 failed_tests_started = True
             if failed_tests_started:
                 self.tests_failed_lines.append(line)
-                if len(line.strip()) < 1:
+                if 'tests run' in line.lower():
                     failed_tests_started = False
 
             match = re.search(r'Tests run: .*? Time elapsed: (.* s(ec)?)', line, re.M)
@@ -237,30 +261,63 @@ class JavaMavenAnalyzer(LogAnalyzerABC):
         for line in self.test_lines:
             # Matches the likes of:
             # Tests run: 11, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.1 sec <<< FAILURE! - in path.to.TestCls
-            match = re.search(r'<<< FAILURE! - in ([\w\.]+)', line, re.M)
+            match = re.search(r'<<< FAILURE! --? in ([\w\.]+)', line, re.M)
             if match:
                 cur_test_class = match.group(1)
+            elif match := re.match(r'(?:\[INFO\] )?Running ([\w\.]+)$', line, re.M):
+                cur_test_class = match.group(1)
             elif re.search(r'(<<< FAILURE!|<<< ERROR!)\s*$', line, re.M):
-                failedtest = JavaMavenAnalyzer.extract_test_method_name(line)
+                re_log_error = r'(?:(?:\d+ )?\[ERROR\] )'
+                # Matches the path to the test class.
+                # The [secure] part is an edge case; see test_maven_5 in the Travis analyzer tests.
+                re_test_class = r'(?:[\w$]+(?:\.(?:[\w$]+|\[secure\]))*)'
+                # Matches the test method's name.
+                # EDGE CASE: Some artifacts (e.g. square-moshi-610576045) write their tests in Kotlin, which allows
+                # spaces in method names.
+                re_method_name = r'(?:[\w$ ]+)'
+                # Matches parameterized test info. There are three variants depending on the test runner:
+                # junit4: methodName[1], methodName[<arbitrary string>]
+                # juint5: methodName(float, String)[1] or methodName{ArgumentsAccessor}[1]
+                # testng: methodName[3.5, foo](1)
+                re_method_params = r'(?:\[.+\]|(?:\([\w, ]*\)|\{ArgumentsAccessor\})\[\d+\]|\[.*\]\(\d+\))'
+                re_time_elapsed = r'(?:(?:--)? Time elapsed:)'
+                failedtest = None
+
+                # Matches the likes of [ERROR] testMethod(path.to.testClass)  Time elapsed: 0.022 s  <<< ERROR!
+                # Sets failedtest to 'testMethod(path.to.testClass)'
+                regex = r'{}?({}{}?\({}\)) {}'.format(re_log_error, re_method_name,
+                                                      re_method_params, re_test_class, re_time_elapsed)
+                match = re.match(regex, line, re.M)
+                if match:
+                    failedtest = match.group(1)
                 if failedtest is None:
                     # Matches the likes of [ERROR] testMethod  Time elapsed: 0.011 sec  <<< FAILURE!
-                    # Assuming that cur_test_class == 'path.to.TestCls', sets failedtest to 'testMethod(path.to.TestCls)
-                    # '
-                    match = re.search(r'^(\[ERROR\] )?(\w+)  Time elapsed:', line, re.M)
+                    # Assuming that cur_test_class == 'path.to.TestCls', sets failedtest = 'testMethod(path.to.TestCls)'
+                    regex = r'{}?({}{}?) {}'.format(re_log_error, re_method_name, re_method_params, re_time_elapsed)
+                    match = re.match(regex, line, re.M)
                     if match:
-                        failedtest = match.group(2) + '(' + cur_test_class + ')'
-                if failedtest is None and cur_test_class != '':
+                        failedtest = match.group(1) + '(' + cur_test_class + ')'
+                if failedtest is None and cur_test_class:
+                    # Matches the likes of [ERROR] path.to.TestClass  Time elapsed: 0.011 sec  <<< FAILURE!
+                    # Sets failedtest to (path.to.TestClass)
+                    regex = r'{}?{} {}'.format(re_log_error, re.escape(cur_test_class), re_time_elapsed)
+                    match = re.match(regex, line, re.M)
+                    if match:
+                        failedtest = '(' + cur_test_class + ')'
+                if failedtest is None:
                     # Matches the likes of [ERROR] path.to.TestClass.testMethod  Time elapsed: 0.011 sec  <<< FAILURE!
                     # This sets failedtest to 'testMethod(path.to.TestClass)'
-                    test_class = re.escape(cur_test_class)
-                    match = re.search(r'^(\[ERROR\] )?{}\.(\w+)  Time elapsed:'.format(test_class), line, re.M)
+                    regex = r'{}?({})\.({}{}?) {}'.format(
+                        re_log_error, re_test_class, re_method_name, re_method_params, re_time_elapsed
+                    )
+                    match = re.match(regex, line, re.M)
                     if match:
-                        failedtest = match.group(2) + '(' + cur_test_class + ')'
+                        failedtest = match.group(2) + '(' + match.group(1) + ')'
                 if failedtest is None:
                     # Matches the likes of [ERROR] path.to.TestClass  Time elapsed: 0.011 sec  <<< FAILURE!
                     # This condition is only reached if the name of the test method is not present in the log.
                     # This sets failedtest to '(path.to.TestClass)'
-                    match = re.search(r'^(\[ERROR\] )?([\w.]+)  Time elapsed:', line, re.M)
+                    match = re.search(r'^(\[ERROR\] )?([\w.]+)( --)? Time elapsed:', line, re.M)
                     if match:
                         failedtest = '(' + match.group(2) + ')'
                 if failedtest is not None:

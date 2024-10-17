@@ -1,0 +1,848 @@
+Using worker: worker-linux-docker-d0095859.prod.travis-ci.org:travis-linux-6
+
+travis_fold:start:system_info
+[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info
+[0K
+travis_fold:start:git.checkout
+[0Ktravis_time:start:14aaf5e4
+[0K$ git clone --depth=50 --branch=batch_with_errors https://github.com/pgjdbc/pgjdbc.git pgjdbc/pgjdbc
+Cloning into 'pgjdbc/pgjdbc'...
+remote: Counting objects: 2297, done.[K
+remote: Compressing objects:   0% (1/1159)   [K
+remote: Compressing objects:   1% (12/1159)   [K
+remote: Compressing objects:   2% (24/1159)   [K
+remote: Compressing objects:   3% (35/1159)   [K
+remote: Compressing objects:   4% (47/1159)   [K
+remote: Compressing objects:   5% (58/1159)   [K
+remote: Compressing objects:   6% (70/1159)   [K
+remote: Compressing objects:   7% (82/1159)   [K
+remote: Compressing objects:   8% (93/1159)   [K
+remote: Compressing objects:   9% (105/1159)   [K
+remote: Compressing objects:  10% (116/1159)   [K
+remote: Compressing objects:  11% (128/1159)   [K
+remote: Compressing objects:  12% (140/1159)   [K
+remote: Compressing objects:  13% (151/1159)   [K
+remote: Compressing objects:  14% (163/1159)   [K
+remote: Compressing objects:  15% (174/1159)   [K
+remote: Compressing objects:  16% (186/1159)   [K
+remote: Compressing objects:  17% (198/1159)   [K
+remote: Compressing objects:  18% (209/1159)   [K
+remote: Compressing objects:  19% (221/1159)   [K
+remote: Compressing objects:  20% (232/1159)   [K
+remote: Compressing objects:  21% (244/1159)   [K
+remote: Compressing objects:  22% (255/1159)   [K
+remote: Compressing objects:  23% (267/1159)   [K
+remote: Compressing objects:  24% (279/1159)   [K
+remote: Compressing objects:  25% (290/1159)   [K
+remote: Compressing objects:  26% (302/1159)   [K
+remote: Compressing objects:  27% (313/1159)   [K
+remote: Compressing objects:  28% (325/1159)   [K
+remote: Compressing objects:  29% (337/1159)   [K
+remote: Compressing objects:  30% (348/1159)   [K
+remote: Compressing objects:  31% (360/1159)   [K
+remote: Compressing objects:  32% (371/1159)   [K
+remote: Compressing objects:  33% (383/1159)   [K
+remote: Compressing objects:  34% (395/1159)   [K
+remote: Compressing objects:  35% (406/1159)   [K
+remote: Compressing objects:  36% (418/1159)   [K
+remote: Compressing objects:  37% (429/1159)   [K
+remote: Compressing objects:  38% (441/1159)   [K
+remote: Compressing objects:  39% (453/1159)   [K
+remote: Compressing objects:  40% (464/1159)   [K
+remote: Compressing objects:  41% (476/1159)   [K
+remote: Compressing objects:  42% (487/1159)   [K
+remote: Compressing objects:  43% (499/1159)   [K
+remote: Compressing objects:  44% (510/1159)   [K
+remote: Compressing objects:  45% (522/1159)   [K
+remote: Compressing objects:  46% (534/1159)   [K
+remote: Compressing objects:  47% (545/1159)   [K
+remote: Compressing objects:  48% (557/1159)   [K
+remote: Compressing objects:  49% (568/1159)   [K
+remote: Compressing objects:  50% (580/1159)   [K
+remote: Compressing objects:  51% (592/1159)   [K
+remote: Compressing objects:  52% (603/1159)   [K
+remote: Compressing objects:  53% (615/1159)   [K
+remote: Compressing objects:  54% (626/1159)   [K
+remote: Compressing objects:  55% (638/1159)   [K
+remote: Compressing objects:  56% (650/1159)   [K
+remote: Compressing objects:  57% (661/1159)   [K
+remote: Compressing objects:  58% (673/1159)   [K
+remote: Compressing objects:  59% (684/1159)   [K
+remote: Compressing objects:  60% (696/1159)   [K
+remote: Compressing objects:  61% (707/1159)   [K
+remote: Compressing objects:  62% (719/1159)   [K
+remote: Compressing objects:  63% (731/1159)   [K
+remote: Compressing objects:  64% (742/1159)   [K
+remote: Compressing objects:  65% (754/1159)   [K
+remote: Compressing objects:  66% (765/1159)   [K
+remote: Compressing objects:  67% (777/1159)   [K
+remote: Compressing objects:  68% (789/1159)   [K
+remote: Compressing objects:  69% (800/1159)   [K
+remote: Compressing objects:  70% (812/1159)   [K
+remote: Compressing objects:  71% (823/1159)   [K
+remote: Compressing objects:  72% (835/1159)   [K
+remote: Compressing objects:  73% (847/1159)   [K
+remote: Compressing objects:  74% (858/1159)   [K
+remote: Compressing objects:  75% (870/1159)   [K
+remote: Compressing objects:  76% (881/1159)   [K
+remote: Compressing objects:  77% (893/1159)   [K
+remote: Compressing objects:  78% (905/1159)   [K
+remote: Compressing objects:  79% (916/1159)   [K
+remote: Compressing objects:  80% (928/1159)   [K
+remote: Compressing objects:  81% (939/1159)   [K
+remote: Compressing objects:  82% (951/1159)   [K
+remote: Compressing objects:  83% (962/1159)   [K
+remote: Compressing objects:  84% (974/1159)   [K
+remote: Compressing objects:  85% (986/1159)   [K
+remote: Compressing objects:  86% (997/1159)   [K
+remote: Compressing objects:  87% (1009/1159)   [K
+remote: Compressing objects:  88% (1020/1159)   [K
+remote: Compressing objects:  89% (1032/1159)   [K
+remote: Compressing objects:  90% (1044/1159)   [K
+remote: Compressing objects:  91% (1055/1159)   [K
+remote: Compressing objects:  92% (1067/1159)   [K
+remote: Compressing objects:  93% (1078/1159)   [K
+remote: Compressing objects:  94% (1090/1159)   [K
+remote: Compressing objects:  95% (1102/1159)   [K
+remote: Compressing objects:  96% (1113/1159)   [K
+remote: Compressing objects:  97% (1125/1159)   [K
+remote: Compressing objects:  98% (1136/1159)   [K
+remote: Compressing objects:  99% (1148/1159)   [K
+remote: Compressing objects: 100% (1159/1159)   [K
+remote: Compressing objects: 100% (1159/1159), done.[K
+Receiving objects:   0% (1/2297)   
+Receiving objects:   1% (23/2297)   
+Receiving objects:   2% (46/2297)   
+Receiving objects:   3% (69/2297)   
+Receiving objects:   4% (92/2297)   
+Receiving objects:   5% (115/2297)   
+Receiving objects:   6% (138/2297)   
+Receiving objects:   7% (161/2297)   
+Receiving objects:   8% (184/2297)   
+Receiving objects:   9% (207/2297)   
+Receiving objects:  10% (230/2297)   
+Receiving objects:  11% (253/2297)   
+Receiving objects:  12% (276/2297)   
+Receiving objects:  13% (299/2297)   
+Receiving objects:  14% (322/2297)   
+Receiving objects:  15% (345/2297)   
+Receiving objects:  16% (368/2297)   
+Receiving objects:  17% (391/2297)   
+Receiving objects:  18% (414/2297)   
+Receiving objects:  19% (437/2297)   
+Receiving objects:  20% (460/2297)   
+Receiving objects:  21% (483/2297)   
+Receiving objects:  22% (506/2297)   
+Receiving objects:  23% (529/2297)   
+Receiving objects:  24% (552/2297)   
+Receiving objects:  25% (575/2297)   
+Receiving objects:  26% (598/2297)   
+Receiving objects:  27% (621/2297)   
+Receiving objects:  28% (644/2297)   
+Receiving objects:  29% (667/2297)   
+Receiving objects:  30% (690/2297)   
+Receiving objects:  31% (713/2297)   
+Receiving objects:  32% (736/2297)   
+Receiving objects:  33% (759/2297)   
+Receiving objects:  34% (781/2297)   
+Receiving objects:  35% (804/2297)   
+Receiving objects:  36% (827/2297)   
+Receiving objects:  37% (850/2297)   
+Receiving objects:  38% (873/2297)   
+Receiving objects:  39% (896/2297)   
+Receiving objects:  40% (919/2297)   
+Receiving objects:  41% (942/2297)   
+Receiving objects:  42% (965/2297)   
+Receiving objects:  43% (988/2297)   
+Receiving objects:  44% (1011/2297)   
+Receiving objects:  45% (1034/2297)   
+Receiving objects:  46% (1057/2297)   
+Receiving objects:  47% (1080/2297)   
+Receiving objects:  48% (1103/2297)   
+Receiving objects:  49% (1126/2297)   
+Receiving objects:  50% (1149/2297)   
+Receiving objects:  51% (1172/2297)   
+Receiving objects:  52% (1195/2297)   
+Receiving objects:  53% (1218/2297)   
+Receiving objects:  54% (1241/2297)   
+Receiving objects:  55% (1264/2297)   
+Receiving objects:  56% (1287/2297)   
+Receiving objects:  57% (1310/2297)   
+Receiving objects:  58% (1333/2297)   
+Receiving objects:  59% (1356/2297)   
+Receiving objects:  60% (1379/2297)   
+Receiving objects:  61% (1402/2297)   
+Receiving objects:  62% (1425/2297)   
+Receiving objects:  63% (1448/2297)   
+Receiving objects:  64% (1471/2297)   
+Receiving objects:  65% (1494/2297)   
+Receiving objects:  66% (1517/2297)   
+Receiving objects:  67% (1539/2297)   
+Receiving objects:  68% (1562/2297)   
+Receiving objects:  69% (1585/2297)   
+Receiving objects:  70% (1608/2297)   
+Receiving objects:  71% (1631/2297)   
+Receiving objects:  72% (1654/2297)   
+Receiving objects:  73% (1677/2297)   
+Receiving objects:  74% (1700/2297)   
+Receiving objects:  75% (1723/2297)   
+Receiving objects:  76% (1746/2297)   
+Receiving objects:  77% (1769/2297)   
+Receiving objects:  78% (1792/2297)   
+Receiving objects:  79% (1815/2297)   
+Receiving objects:  80% (1838/2297)   
+Receiving objects:  81% (1861/2297)   
+Receiving objects:  82% (1884/2297)   
+Receiving objects:  83% (1907/2297)   
+Receiving objects:  84% (1930/2297)   
+Receiving objects:  85% (1953/2297)   
+Receiving objects:  86% (1976/2297)   
+Receiving objects:  87% (1999/2297)   
+Receiving objects:  88% (2022/2297)   
+Receiving objects:  89% (2045/2297)   
+Receiving objects:  90% (2068/2297)   
+Receiving objects:  91% (2091/2297)   
+Receiving objects:  92% (2114/2297)   
+Receiving objects:  93% (2137/2297)   
+Receiving objects:  94% (2160/2297)   
+Receiving objects:  95% (2183/2297)   
+Receiving objects:  96% (2206/2297)   
+Receiving objects:  97% (2229/2297)   
+Receiving objects:  98% (2252/2297)   
+Receiving objects:  99% (2275/2297)   
+Receiving objects: 100% (2297/2297)   
+Receiving objects: 100% (2297/2297), 2.79 MiB | 0 bytes/s, done.
+remote: Total 2297 (delta 1361), reused 1687 (delta 964), pack-reused 0[K
+Resolving deltas:   0% (0/1361)   
+Resolving deltas:   3% (47/1361)   
+Resolving deltas:   4% (60/1361)   
+Resolving deltas:   5% (71/1361)   
+Resolving deltas:   6% (82/1361)   
+Resolving deltas:   7% (96/1361)   
+Resolving deltas:   8% (109/1361)   
+Resolving deltas:   9% (123/1361)   
+Resolving deltas:  10% (137/1361)   
+Resolving deltas:  11% (151/1361)   
+Resolving deltas:  12% (169/1361)   
+Resolving deltas:  13% (178/1361)   
+Resolving deltas:  14% (193/1361)   
+Resolving deltas:  15% (207/1361)   
+Resolving deltas:  16% (221/1361)   
+Resolving deltas:  17% (234/1361)   
+Resolving deltas:  18% (253/1361)   
+Resolving deltas:  19% (262/1361)   
+Resolving deltas:  20% (274/1361)   
+Resolving deltas:  21% (289/1361)   
+Resolving deltas:  22% (301/1361)   
+Resolving deltas:  23% (316/1361)   
+Resolving deltas:  24% (327/1361)   
+Resolving deltas:  25% (343/1361)   
+Resolving deltas:  26% (355/1361)   
+Resolving deltas:  27% (371/1361)   
+Resolving deltas:  28% (386/1361)   
+Resolving deltas:  29% (397/1361)   
+Resolving deltas:  30% (410/1361)   
+Resolving deltas:  31% (431/1361)   
+Resolving deltas:  32% (441/1361)   
+Resolving deltas:  33% (453/1361)   
+Resolving deltas:  34% (463/1361)   
+Resolving deltas:  35% (477/1361)   
+Resolving deltas:  36% (496/1361)   
+Resolving deltas:  38% (518/1361)   
+Resolving deltas:  39% (532/1361)   
+Resolving deltas:  40% (545/1361)   
+Resolving deltas:  41% (559/1361)   
+Resolving deltas:  42% (575/1361)   
+Resolving deltas:  43% (586/1361)   
+Resolving deltas:  44% (606/1361)   
+Resolving deltas:  45% (619/1361)   
+Resolving deltas:  46% (629/1361)   
+Resolving deltas:  47% (642/1361)   
+Resolving deltas:  48% (658/1361)   
+Resolving deltas:  49% (677/1361)   
+Resolving deltas:  50% (690/1361)   
+Resolving deltas:  51% (700/1361)   
+Resolving deltas:  52% (708/1361)   
+Resolving deltas:  53% (726/1361)   
+Resolving deltas:  54% (735/1361)   
+Resolving deltas:  55% (749/1361)   
+Resolving deltas:  56% (769/1361)   
+Resolving deltas:  57% (777/1361)   
+Resolving deltas:  58% (790/1361)   
+Resolving deltas:  59% (810/1361)   
+Resolving deltas:  60% (817/1361)   
+Resolving deltas:  61% (832/1361)   
+Resolving deltas:  62% (844/1361)   
+Resolving deltas:  63% (860/1361)   
+Resolving deltas:  64% (872/1361)   
+Resolving deltas:  65% (885/1361)   
+Resolving deltas:  66% (905/1361)   
+Resolving deltas:  67% (912/1361)   
+Resolving deltas:  68% (927/1361)   
+Resolving deltas:  69% (940/1361)   
+Resolving deltas:  70% (954/1361)   
+Resolving deltas:  71% (967/1361)   
+Resolving deltas:  72% (983/1361)   
+Resolving deltas:  73% (995/1361)   
+Resolving deltas:  74% (1008/1361)   
+Resolving deltas:  75% (1022/1361)   
+Resolving deltas:  76% (1036/1361)   
+Resolving deltas:  78% (1062/1361)   
+Resolving deltas:  79% (1078/1361)   
+Resolving deltas:  80% (1094/1361)   
+Resolving deltas:  81% (1105/1361)   
+Resolving deltas:  82% (1118/1361)   
+Resolving deltas:  83% (1131/1361)   
+Resolving deltas:  84% (1145/1361)   
+Resolving deltas:  85% (1161/1361)   
+Resolving deltas:  86% (1171/1361)   
+Resolving deltas:  87% (1189/1361)   
+Resolving deltas:  88% (1199/1361)   
+Resolving deltas:  89% (1212/1361)   
+Resolving deltas:  90% (1225/1361)   
+Resolving deltas:  91% (1239/1361)   
+Resolving deltas:  92% (1255/1361)   
+Resolving deltas:  93% (1268/1361)   
+Resolving deltas:  94% (1280/1361)   
+Resolving deltas:  95% (1293/1361)   
+Resolving deltas:  96% (1308/1361)   
+Resolving deltas:  97% (1325/1361)   
+Resolving deltas:  98% (1335/1361)   
+Resolving deltas:  99% (1348/1361)   
+Resolving deltas: 100% (1361/1361)   
+Resolving deltas: 100% (1361/1361), done.
+Checking connectivity... done.
+
+travis_time:end:14aaf5e4:start=1454515792861198449,finish=1454515793957607264,duration=1096408815
+[0K$ cd pgjdbc/pgjdbc
+$ git checkout -qf ae8fcacb5bcb027856ba643a565dd2ba34d602d3
+travis_fold:end:git.checkout
+[0Ktravis_fold:start:postgresql
+[0K[33;1mStarting PostgreSQL v9.1[0m
+travis_time:start:07d7b898
+[0K$ sudo service postgresql stop
+ * Stopping PostgreSQL 9.1 database server       [80G 
+[74G[ OK ]
+ * Stopping PostgreSQL 9.2 database server       [80G 
+[74G[ OK ]
+ * Stopping PostgreSQL 9.3 database server       [80G 
+[74G[ OK ]
+ * Stopping PostgreSQL 9.4 database server       [80G 
+[74G[ OK ]
+
+travis_time:end:07d7b898:start=1454515794009935441,finish=1454515796352118222,duration=2342182781
+[0Ktravis_time:start:0d047c46
+[0K$ sudo service postgresql start 9.1
+ * Starting PostgreSQL 9.1 database server       [80G 
+[74G[ OK ]
+
+travis_time:end:0d047c46:start=1454515796356568635,finish=1454515798545359351,duration=2188790716
+[0Ktravis_time:start:017629e7
+[0K$ sudo -u postgres createuser -s -p 5432 travis &>/dev/null
+
+travis_time:end:017629e7:start=1454515798549283345,finish=1454515799334431209,duration=785147864
+[0Ktravis_time:start:1d27cef2
+[0K$ sudo -u postgres createdb -O travis -p 5432 travis &>/dev/null
+
+travis_time:end:1d27cef2:start=1454515799338475591,finish=1454515799421253861,duration=82778270
+[0Ktravis_time:start:0bc05ca0
+[0K$ sudo -u postgres createuser -s -p 5433 travis &>/dev/null
+
+travis_time:end:0bc05ca0:start=1454515799425627573,finish=1454515799477417224,duration=51789651
+[0Ktravis_time:start:00fd0398
+[0K$ sudo -u postgres createdb -O travis -p 5433 travis &>/dev/null
+
+travis_time:end:00fd0398:start=1454515799481770649,finish=1454515799532755358,duration=50984709
+[0Ktravis_fold:end:postgresql
+[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+
+[33;1mSetting environment variables from .travis.yml[0m
+$ export SONATYPE_USERNAME=[secure]
+$ export SONATYPE_PASSWORD=[secure]
+$ export PG_VERSION=9.1
+$ export COVERAGE=Y
+
+travis_fold:start:cache.1
+[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:011ce640
+[0K$ Installing caching utilities
+
+travis_time:end:011ce640:start=1454515802715060972,finish=1454515802754175120,duration=39114148
+[0Ktravis_time:start:0e23ec8c
+[0K
+travis_time:end:0e23ec8c:start=1454515802759478081,finish=1454515802762720909,duration=3242828
+[0Ktravis_time:start:1b8ef7f1
+[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching batch_with_errors/cache--jdk-oraclejdk8.tgz[0m
+[32;1mfetching batch_with_errors/cache--jdk-oraclejdk8.tbz[0m
+[32;1mfetching master/cache--jdk-oraclejdk8.tgz[0m
+[32;1mfound cache[0m
+
+travis_time:end:1b8ef7f1:start=1454515802766682081,finish=1454515805144125775,duration=2377443694
+[0Ktravis_time:start:001b8c0d
+[0K
+travis_time:end:001b8c0d:start=1454515805149175973,finish=1454515805153766024,duration=4590051
+[0Ktravis_time:start:0116693a
+[0K[32;1madding /home/travis/.m2/repository to cache[0m
+
+travis_time:end:0116693a:start=1454515805158635539,finish=1454515807019065353,duration=1860429814
+[0Ktravis_fold:end:cache.1
+[0K$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ java -Xmx32m -version
+java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_31
+travis_fold:start:install
+[0Ktravis_time:start:35bfc0b0
+[0K$ true
+
+travis_time:end:35bfc0b0:start=1454515807631733742,finish=1454515807634990286,duration=3256544
+[0Ktravis_fold:end:install
+[0Ktravis_fold:start:before_script.1
+[0Ktravis_time:start:015e4ddc
+[0K$ test "x$XA" == 'x' || ./travis_install_dependencies.sh
+
+travis_time:end:015e4ddc:start=1454515807639323103,finish=1454515807642748677,duration=3425574
+[0Ktravis_fold:end:before_script.1
+[0Ktravis_fold:start:before_script.2
+[0Ktravis_time:start:141ef9ba
+[0K$ psql -U postgres -c "create user test with password 'test';"
+CREATE ROLE
+
+travis_time:end:141ef9ba:start=1454515807647113981,finish=1454515807657754197,duration=10640216
+[0Ktravis_fold:end:before_script.2
+[0Ktravis_fold:start:before_script.3
+[0Ktravis_time:start:0506ec50
+[0K$ psql -c 'create database test owner test;' -U postgres
+CREATE DATABASE
+
+travis_time:end:0506ec50:start=1454515807661785139,finish=1454515807900043248,duration=238258109
+[0Ktravis_fold:end:before_script.3
+[0Ktravis_fold:start:before_script.4
+[0Ktravis_time:start:0bc8f15f
+[0K$ echo "MAVEN_OPTS='-Xmx1g -Dgpg.skip=true'" > ~/.mavenrc
+
+travis_time:end:0bc8f15f:start=1454515807904789087,finish=1454515807908402995,duration=3613908
+[0Ktravis_fold:end:before_script.4
+[0Ktravis_fold:start:before_script.5
+[0Ktravis_time:start:1f2f89bc
+[0K$ test "x$PG_VERSION" == 'x' || test $PG_VERSION == '8.4' || test $PG_VERSION == '9.0' || psql test -c 'CREATE EXTENSION hstore;' -U postgres
+CREATE EXTENSION
+
+travis_time:end:1f2f89bc:start=1454515807912822548,finish=1454515807940546025,duration=27723477
+[0Ktravis_fold:end:before_script.5
+[0Ktravis_fold:start:before_script.6
+[0Ktravis_time:start:04541d54
+[0K$ test "x$PG_VERSION" == 'x' || test $PG_VERSION != '8.4' || createlang -U postgres plpgsql test
+
+travis_time:end:04541d54:start=1454515807944665958,finish=1454515807947808163,duration=3142205
+[0Ktravis_fold:end:before_script.6
+[0Ktravis_time:start:19e512eb
+[0K$ rm -rf $HOME/.m2/repository/org/postgresql || true
+
+travis_time:end:19e512eb:start=1454515807951936654,finish=1454515807955887949,duration=3951295
+[0K
+[32;1mThe command "rm -rf $HOME/.m2/repository/org/postgresql || true" exited with 0.[0m
+travis_time:start:183d3237
+[0K$ export JDK6_HOME=$(jdk_switcher home openjdk6)
+
+travis_time:end:183d3237:start=1454515807959892405,finish=1454515807963888651,duration=3996246
+[0K
+[32;1mThe command "export JDK6_HOME=$(jdk_switcher home openjdk6)" exited with 0.[0m
+travis_time:start:0f666d94
+[0K$ export JDK7_HOME=$(jdk_switcher home openjdk7)
+
+travis_time:end:0f666d94:start=1454515807967946826,finish=1454515807971973741,duration=4026915
+[0K
+[32;1mThe command "export JDK7_HOME=$(jdk_switcher home openjdk7)" exited with 0.[0m
+travis_time:start:141180c8
+[0K$ export JDK8_HOME=$(jdk_switcher home oraclejdk8)
+
+travis_time:end:141180c8:start=1454515807976379172,finish=1454515807981024156,duration=4644984
+[0K
+[32;1mThe command "export JDK8_HOME=$(jdk_switcher home oraclejdk8)" exited with 0.[0m
+travis_time:start:2850f971
+[0K$ envsubst < toolchains.xml > ~/.m2/toolchains.xml
+
+travis_time:end:2850f971:start=1454515807985672108,finish=1454515807992170172,duration=6498064
+[0K
+[32;1mThe command "envsubst < toolchains.xml > ~/.m2/toolchains.xml" exited with 0.[0m
+travis_time:start:015c69c0
+[0K$ ./travis_build.sh
++MVN_ARGS='clean package -B -V'
++MVN_PROFILES=release
++[[ Y == *\Y* ]]
++MVN_PROFILES=release,coverage
++[[ oraclejdk8 == *\j\d\k\6* ]]
++[[ oraclejdk8 == *\j\d\k\7* ]]
++'[' 9.1 == 9.4 ']'
++mvn clean package -B -V -P release,coverage
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.8.0_31, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-8-oracle/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-40-generic", arch: "amd64", family: "unix"
+[INFO] Scanning for projects...
+[INFO] Downloading: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-versions/1.0.4/pgjdbc-versions-1.0.4.pom
+[INFO] Downloaded: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-versions/1.0.4/pgjdbc-versions-1.0.4.pom (22 KB at 100.3 KB/sec)
+[INFO] Downloading: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-core-parent/1.0.4/pgjdbc-core-parent-1.0.4.pom
+[INFO] Downloaded: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-core-parent/1.0.4/pgjdbc-core-parent-1.0.4.pom (15 KB at 336.7 KB/sec)
+[INFO] Downloading: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-versions/1.0.2/pgjdbc-versions-1.0.2.pom
+[INFO] Downloaded: http://repo.maven.apache.org/maven2/org/postgresql/pgjdbc-versions/1.0.2/pgjdbc-versions-1.0.2.pom (21 KB at 340.0 KB/sec)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] PostgreSQL JDBC Driver - JDBC 4.2
+[INFO] PostgreSQL JDBC Driver - benchmarks
+[INFO] PostgreSQL JDBC Driver aggregate
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building PostgreSQL JDBC Driver - JDBC 4.2 9.4.1208-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ postgresql ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (enforce-java) @ postgresql ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- maven-toolchains-plugin:1.1:toolchain (default) @ postgresql ---
+[INFO] Required toolchain: jdk [ version='1.8' ]
+[INFO] Found matching toolchain for type jdk: JDK[/usr/lib/jvm/java-8-oracle]
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.5.201505241946:prepare-agent (default) @ postgresql ---
+[INFO] argLine set to -javaagent:/home/travis/.m2/repository/org/jacoco/org.jacoco.agent/0.7.5.201505241946/org.jacoco.agent-0.7.5.201505241946-runtime.jar=destfile=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/jacoco.exec -Xmx512m
+[INFO] 
+[INFO] --- build-helper-maven-plugin:1.5:parse-version (parse-version) @ postgresql ---
+[INFO] 
+[INFO] --- properties-maven-plugin:1.0-alpha-2:read-project-properties (default) @ postgresql ---
+[WARNING] Ignoring missing properties file: /home/travis/build/pgjdbc/pgjdbc/pgjdbc/../build.local.properties
+[INFO] 
+[INFO] --- maven-antrun-plugin:1.7:run (create-unzipjdkant.xml) @ postgresql ---
+[INFO] Executing tasks
+
+main:
+     [echo] Generating /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/unzip-jdk-ant.xml
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- exec-maven-plugin:1.4.0:exec (unzip-jdk-src) @ postgresql ---
+[INFO] skipping execute as per configuraion
+[INFO] 
+[INFO] --- jcp:6.0.1:preprocess (preprocessSources) @ postgresql ---
+[INFO] Added MAVEN property mvn.project.name=PostgreSQL JDBC Driver - JDBC 4.2
+[INFO] Added MAVEN property mvn.project.version=9.4.1208-SNAPSHOT
+[INFO] Added MAVEN property mvn.project.url=https://github.com/pgjdbc/pgjdbc
+[INFO] Added MAVEN property mvn.project.packaging=bundle
+[INFO] Added MAVEN property mvn.project.modelversion=4.0.0
+[INFO] Added MAVEN property mvn.project.inceptionyear=
+[INFO] Added MAVEN property mvn.project.id=org.postgresql:postgresql:bundle:9.4.1208-SNAPSHOT
+[INFO] Added MAVEN property mvn.project.groupid=org.postgresql
+[INFO] Added MAVEN property mvn.project.description=Java JDBC 4.2 (JRE 8+) driver for PostgreSQL database
+[INFO] Added MAVEN property mvn.project.artifact.id=org.postgresql:postgresql:bundle:9.4.1208-SNAPSHOT
+[INFO] Added MAVEN property mvn.project.artifact.artifactid=postgresql
+[INFO] Added MAVEN property mvn.project.artifact.baseversion=9.4.1208-SNAPSHOT
+[INFO] Added MAVEN property mvn.project.artifact.dependencyconflictid=org.postgresql:postgresql:bundle
+[INFO] Added MAVEN property mvn.project.artifact.downloadurl=
+[INFO] Added MAVEN property mvn.project.artifact.groupid=org.postgresql
+[INFO] Added MAVEN property mvn.project.artifact.scope=
+[INFO] Added MAVEN property mvn.project.artifact.type=bundle
+[INFO] Added MAVEN property mvn.project.artifact.version=9.4.1208-SNAPSHOT
+[INFO] Added MAVEN property mvn.project.build.directory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target
+[INFO] Added MAVEN property mvn.project.build.defaultgoal=
+[INFO] Added MAVEN property mvn.project.build.outputdirectory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/classes
+[INFO] Added MAVEN property mvn.project.build.scriptsourcedirectory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/src/main/scripts
+[INFO] Added MAVEN property mvn.project.build.sourcedirectory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/src/main/java
+[INFO] Added MAVEN property mvn.project.build.testoutputdirectory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/test-classes
+[INFO] Added MAVEN property mvn.project.build.testsourcedirectory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/src/test/java
+[INFO] Added MAVEN property mvn.project.organization.name=PostgreSQL Global Development Group
+[INFO] Added MAVEN property mvn.project.organization.url=http://jdbc.postgresql.org/
+[INFO] Added MAVEN property mvn.project.activeprofiles=standard-with-extra-repos
+[INFO] Added MAVEN property mvn.project.property.jdbc.specification.version.nodot=42
+[INFO] Added MAVEN property mvn.project.property.password=***** [hidden because may contain private info]
+[INFO] Added MAVEN property mvn.project.property.preparethreshold=5
+[INFO] Added MAVEN property mvn.project.property.parsedversion.osgiversion=9.4.1208.SNAPSHOT
+[INFO] Added MAVEN property mvn.project.property.postgresql.preprocessed.sources.directory=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/gen-src
+[INFO] Added MAVEN property mvn.project.property.postgresql.driver.fullversion=PostgreSQL JDBC4.2
+[INFO] Added MAVEN property mvn.project.property.username=test
+[INFO] Added MAVEN property mvn.project.property.parsedversion.incrementalversion=1208
+[INFO] Added MAVEN property mvn.project.property.protocolversion=0
+[INFO] Added MAVEN property mvn.project.property.parsedversion.buildnumber=0
+[INFO] Added MAVEN property mvn.project.property.javac.target=1.8
+[INFO] Added MAVEN property mvn.project.property.project.build.sourceencoding=UTF-8
+[INFO] Added MAVEN property mvn.project.property.postgresql.jdbc.spec=JDBC4.2
+[INFO] Added MAVEN property mvn.project.property.parsedversion.minorversion=4
+[INFO] Added MAVEN property mvn.project.property.port=5432
+[INFO] Added MAVEN property mvn.project.property.unzip.jdk.ant.build.xml=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/unzip-jdk-ant.xml
+[INFO] Added MAVEN property mvn.project.property.skip.assembly=false
+[INFO] Added MAVEN property mvn.project.property.database=test
+[INFO] Added MAVEN property mvn.project.property.privilegedpassword=***** [hidden because may contain private info]
+[INFO] Added MAVEN property mvn.project.property.server=localhost
+[INFO] Added MAVEN property mvn.project.property.skip.unzip-jdk-src=true
+[INFO] Added MAVEN property mvn.project.property.waffle-jna.version=1.7
+[INFO] Added MAVEN property mvn.project.property.parsedversion.majorversion=9
+[INFO] Added MAVEN property mvn.project.property.postgresql.enforce.jdk.version=1.8
+[INFO] Added MAVEN property mvn.project.property.jdbc.specification.version=4.2
+[INFO] Added MAVEN property mvn.project.property.build.properties.relative.path=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/..
+[INFO] Added MAVEN property mvn.project.property.loglevel=0
+[INFO] Added MAVEN property mvn.project.property.parsedversion.qualifier=SNAPSHOT
+[INFO] Added MAVEN property mvn.project.property.template.default.pg.port=5432
+[INFO] Added MAVEN property mvn.project.property.argline=-javaagent:/home/travis/.m2/repository/org/jacoco/org.jacoco.agent/0.7.5.201505241946/org.jacoco.agent-0.7.5.201505241946-runtime.jar=destfile=/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/jacoco.exec -Xmx512m
+[INFO] Added MAVEN property mvn.project.property.privilegeduser=postgres
+[INFO] Preprocess sources : /home/travis/build/pgjdbc/pgjdbc/pgjdbc/src/main/java
+[INFO] Preprocess destination : /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/gen-src
+[INFO] -----------------------------------------------------------------
+[INFO] Completed, preprocessed 167 files, copied 16 files, elapsed time 518ms
+[INFO] A Compile source root has been removed from the root list [/home/travis/build/pgjdbc/pgjdbc/pgjdbc/src/main/java]
+[INFO] The New compile source root has been added into the list [/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/gen-src]
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ postgresql ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 16 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ postgresql ---
+[INFO] Toolchain in maven-compiler-plugin: JDK[/usr/lib/jvm/java-8-oracle]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 167 source files to /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ postgresql ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ postgresql ---
+[INFO] Toolchain in maven-compiler-plugin: JDK[/usr/lib/jvm/java-8-oracle]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 117 source files to /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ postgresql ---
+[INFO] Toolchain in maven-surefire-plugin: JDK[/usr/lib/jvm/java-8-oracle]
+[INFO] Surefire report directory: /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Configuration file /home/travis/build/pgjdbc/pgjdbc/pgjdbc/../build.local.properties does not exist. Consider adding it to specify test db host and login
+Configuration file /home/travis/build/pgjdbc/pgjdbc/pgjdbc/../build.local.properties does not exist. Consider adding it to specify test db host and login
+Configuration file /home/travis/build/pgjdbc/pgjdbc/pgjdbc/../ssltest.local.properties does not exist. Consider adding it to specify test db host and login
+Skipping ssloff8.
+Skipping sslhostnossl8.
+Skipping ssloff9.
+Skipping sslhostnossl9.
+Skipping sslhostgh8.
+Skipping sslhostgh9.
+Skipping sslhostbh8.
+Skipping sslhostbh9.
+Skipping sslhostsslgh8.
+Skipping sslhostsslgh9.
+Skipping sslhostsslbh8.
+Skipping sslhostsslbh9.
+Skipping sslhostsslcertgh8.
+Skipping sslhostsslcertgh9.
+Skipping sslhostsslcertbh8.
+Skipping sslhostsslcertbh9.
+Skipping sslcertgh8.
+Skipping sslcertgh9.
+Skipping sslcertbh8.
+Skipping sslcertbh9.
+Skipping SingleCertSocketFactoryTests. To enable set the property testsinglecertfactory=true in the ssltest.properties file.
+Skipping XA tests because max_prepared_transactions = 0.
+Running org.postgresql.test.jdbc4.jdbc41.Jdbc41TestSuite
+Tests run: 45, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.186 sec - in org.postgresql.test.jdbc4.jdbc41.Jdbc41TestSuite
+Running org.postgresql.test.jdbc4.Jdbc4TestSuite
+Tests run: 73, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.654 sec - in org.postgresql.test.jdbc4.Jdbc4TestSuite
+Running org.postgresql.test.jdbc2.optional.OptionalTestSuite
+Tests run: 49, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.474 sec - in org.postgresql.test.jdbc2.optional.OptionalTestSuite
+Running org.postgresql.test.jdbc2.Jdbc2TestSuite
+file:/home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/classes/
+Using seed = 1454515993681 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515993681 to reproduce the test
+Using seed = 1454515994077 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515994077 to reproduce the test
+Using seed = 1454515994667 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515994667 to reproduce the test
+Using seed = 1454515995051 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515995051 to reproduce the test
+Using seed = 1454515995433 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515995433 to reproduce the test
+Using seed = 1454515998633 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515998633 to reproduce the test
+Using seed = 1454515999009 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515999009 to reproduce the test
+Using seed = 1454515999394 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515999394 to reproduce the test
+Using seed = 1454515999787 for StrangeInputStream. Set -DStrangeInputStream.seed=1454515999787 to reproduce the test
+Using seed = 1454516000298 for StrangeInputStream. Set -DStrangeInputStream.seed=1454516000298 to reproduce the test
+Tests run: 510, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 92.086 sec <<< FAILURE! - in org.postgresql.test.jdbc2.Jdbc2TestSuite
+run[5: batchTest(mode=FAIL_VIA_SELECT, position=FIRST_ROW, autoCommit=YES, batchType=SIMPLE, generateKeys=YES, binary=FORCE)](org.postgresql.test.jdbc2.BatchFailureTest)  Time elapsed: 0.027 sec  <<< ERROR!
+org.postgresql.util.PSQLException: ERROR: division by zero
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.executeBatch(PgStatement.java:976)
+	at org.postgresql.test.jdbc2.BatchFailureTest.run(BatchFailureTest.java:202)
+
+run[7: batchTest(mode=FAIL_VIA_SELECT, position=FIRST_ROW, autoCommit=NO, batchType=SIMPLE, generateKeys=NO, binary=FORCE)](org.postgresql.test.jdbc2.BatchFailureTest)  Time elapsed: 0.031 sec  <<< ERROR!
+org.postgresql.util.PSQLException: ERROR: division by zero
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.executeBatch(PgStatement.java:976)
+	at org.postgresql.test.jdbc2.BatchFailureTest.run(BatchFailureTest.java:202)
+
+Running org.postgresql.test.jdbc3.Jdbc3TestSuite
+Tests run: 89, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.525 sec - in org.postgresql.test.jdbc3.Jdbc3TestSuite
+Running org.postgresql.test.osgi.OsgiTestSuite
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.26 sec - in org.postgresql.test.osgi.OsgiTestSuite
+Running org.postgresql.test.jdbc42.Jdbc42TestSuite
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 40.115 sec - in org.postgresql.test.jdbc42.Jdbc42TestSuite
+Running org.postgresql.test.ssl.SslTestSuite
+Configuration file /home/travis/build/pgjdbc/pgjdbc/pgjdbc/../ssltest.local.properties does not exist. Consider adding it to specify test db host and login
+Skipping ssloff8.
+Skipping sslhostnossl8.
+Skipping ssloff9.
+Skipping sslhostnossl9.
+Skipping sslhostgh8.
+Skipping sslhostgh9.
+Skipping sslhostbh8.
+Skipping sslhostbh9.
+Skipping sslhostsslgh8.
+Skipping sslhostsslgh9.
+Skipping sslhostsslbh8.
+Skipping sslhostsslbh9.
+Skipping sslhostsslcertgh8.
+Skipping sslhostsslcertgh9.
+Skipping sslhostsslcertbh8.
+Skipping sslhostsslcertbh9.
+Skipping sslcertgh8.
+Skipping sslcertgh9.
+Skipping sslcertbh8.
+Skipping sslcertbh9.
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in org.postgresql.test.ssl.SslTestSuite
+Running org.postgresql.test.ssl.SingleCertValidatingFactoryTestSuite
+Skipping SingleCertSocketFactoryTests. To enable set the property testsinglecertfactory=true in the ssltest.properties file.
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in org.postgresql.test.ssl.SingleCertValidatingFactoryTestSuite
+Running org.postgresql.test.extensions.ExtensionsTestSuite
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 sec - in org.postgresql.test.extensions.ExtensionsTestSuite
+Running org.postgresql.test.hostchooser.MultiHostTestSuite
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in org.postgresql.test.hostchooser.MultiHostTestSuite
+Running org.postgresql.test.xa.XATestSuite
+Skipping XA tests because max_prepared_transactions = 0.
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in org.postgresql.test.xa.XATestSuite
+Running org.postgresql.test.socketfactory.SocketFactoryTestSuite
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in org.postgresql.test.socketfactory.SocketFactoryTestSuite
+
+Results :
+
+Tests in error: 
+  BatchFailureTest.run:202 » PSQL ERROR: division by zero
+  BatchFailureTest.run:202 » PSQL ERROR: division by zero
+
+Tests run: 799, Failures: 0, Errors: 2, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] PostgreSQL JDBC Driver - JDBC 4.2 .................. FAILURE [03:48 min]
+[INFO] PostgreSQL JDBC Driver - benchmarks ................ SKIPPED
+[INFO] PostgreSQL JDBC Driver aggregate ................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 03:51 min
+[INFO] Finished at: 2016-02-03T16:14:13+00:00
+[INFO] Final Memory: 21M/369M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.18.1:test (default-test) on project postgresql: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/travis/build/pgjdbc/pgjdbc/pgjdbc/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+travis_time:end:015c69c0:start=1454515807996646890,finish=1454516054198432462,duration=246201785572
+[0K
+[31;1mThe command "./travis_build.sh" exited with 1.[0m
+travis_fold:start:before_cache
+[0Ktravis_time:start:089c2364
+[0K$ rm -rf $HOME/.m2/repository/org/postgresql
+
+travis_time:end:089c2364:start=1454516054202589750,finish=1454516054206845904,duration=4256154
+[0Ktravis_fold:end:before_cache
+[0Ktravis_fold:start:cache.2
+[0Kstore build cache
+travis_time:start:1f6d137e
+[0K
+travis_time:end:1f6d137e:start=1454516054210834973,finish=1454516054214196517,duration=3361544
+[0Ktravis_time:start:0e2a54d9
+[0K[32;1mnothing changed, not updating cache[0m
+
+travis_time:end:0e2a54d9:start=1454516054217948354,finish=1454516054669557585,duration=451609231
+[0Ktravis_fold:end:cache.2
+[0K
+Done. Your build exited with 1.

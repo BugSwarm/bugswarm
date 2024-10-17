@@ -336,7 +336,7 @@ class PythonLogFileAnalyzer(LogAnalyzerABC):
 
             # Used to extract errored test *files* for pytest
             # class error, no method name
-            match_obj = re.search(r'_+ ERROR (\w+ )?([\w\/.]+)\.py _+', line, re.M)
+            match_obj = re.search(r'^_+ ERROR (\w+ )?([\w\/.-]+?)(\.py)? _+$', line, re.M)
             if match_obj and not summary_seen:
                 # Matches the likes of _______________ ERROR collecting test/unittests/tts/test_tts.py ________________
                 # Appends '(test.unittests.tts.test_tts)' to self.tests_failed

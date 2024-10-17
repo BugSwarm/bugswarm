@@ -241,10 +241,9 @@ class GitHubAnalyzerTest(unittest.TestCase):
         logs_folder = self.maven
         with open(logs_folder + 'test_detect_analyzer_maven.json', 'r') as f:
             data = json.load(f)
-        for log in listdir(logs_folder):
-            file_path = join(logs_folder, log)
-            if isfile(file_path) and file_path[-4:] == '.log':
-                job_id = log.split('-')[0]
+        for job_id in data:
+            file_path = join(logs_folder, '{}-orig.log'.format(job_id))
+            if isfile(file_path):
                 trigger_sha = data[job_id]['trigger_sha']
                 repo = data[job_id]['repo']
                 result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -254,10 +253,9 @@ class GitHubAnalyzerTest(unittest.TestCase):
         logs_folder = self.gradle
         with open(logs_folder + 'test_detect_analyzer_gradle.json', 'r') as f:
             data = json.load(f)
-        for log in listdir(logs_folder):
-            file_path = join(logs_folder, log)
-            if isfile(file_path) and log[-4:] == '.log':
-                job_id = log.split('-')[0]
+        for job_id in data:
+            file_path = join(logs_folder, '{}-orig.log'.format(job_id))
+            if isfile(file_path):
                 trigger_sha = data[job_id]['trigger_sha']
                 repo = data[job_id]['repo']
                 result = self.dispatcher.analyze(file_path, job_id, trigger_sha=trigger_sha, repo=repo)
@@ -348,9 +346,7 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_bool_t_ran(maven3, True)
         self.compare_bool_t_failed(maven3, True)
         self.compare_tr_t_failed(maven3, 'lifecycle(de.codecentric.boot.admin.server.cloud.AdminApplicationDiscovery'
-                                         'Test)#lifecycle(de.codecentric.boot.admin.server.cloud.AdminApplicationDis'
-                                         'coveryTest)#lifecycle(de.codecentric.boot.admin.server.cloud.AdminApplicat'
-                                         'ionDiscoveryTest)')
+                                         'Test)')
 
     def test_maven_4(self):
         log = '2320033275-orig.log'
@@ -463,6 +459,78 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_tr_t_failed(maven9, 'testArrayConvertFromStringCommandWildcardGenerics(org.scijava.command.Command'
                                          'ArrayConverterTest)#testArrayConvertFromStringCommandRaw(org.scijava.command'
                                          '.CommandArrayConverterTest)')
+
+    def test_maven_10(self):
+        """(Maven) '{ArgumentsAccessor}' in parameterized test"""
+        log = '12624254643-orig.log'
+        job_id = 12624254643
+        file_path = join(self.maven, log)
+        repo = 'dromara/hertzbeat'
+        maven10 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven10, 'broken')
+        self.compare_analyzer(maven10, 'java-maven')
+        self.compare_num_t_run(maven10, 257)
+        self.compare_num_t_ok(maven10, 227)
+        self.compare_num_t_failed(maven10, 30)
+        self.compare_num_t_skipped(maven10, 0)
+        self.compare_bool_t_ran(maven10, True)
+        self.compare_bool_t_failed(maven10, True)
+        failed_tests = [
+            'getMonitor(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'addMonitorException(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'addMonitorSuccess(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'getMonitorMetrics(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'addNewMonitorOptionalMetrics(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorParamsTextLimit(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'detectMonitorFail(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'cancelManageMonitors(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            ('validateMonitorParamsBoolean{ArgumentsAccessor}[1]' +
+             '(org.dromara.hertzbeat.manager.service.MonitorServiceTest)'),
+            ('validateMonitorParamsBoolean{ArgumentsAccessor}[2]' +
+             '(org.dromara.hertzbeat.manager.service.MonitorServiceTest)'),
+            'validateMonitorParamsHost{ArgumentsAccessor}[1](org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorParamsHost{ArgumentsAccessor}[2](org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorParamsNone{ArgumentsAccessor}[1](org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorParamsNone{ArgumentsAccessor}[2](org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorParamsType(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'getAppMonitors(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            ('validateMonitorParamsRadio{ArgumentsAccessor}[1]' +
+             '(org.dromara.hertzbeat.manager.service.MonitorServiceTest)'),
+            ('validateMonitorParamsRadio{ArgumentsAccessor}[2]' +
+             '(org.dromara.hertzbeat.manager.service.MonitorServiceTest)'),
+            'validateMonitorParamsRange(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'modifyMonitor(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'detectMonitorEmpty(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'deleteMonitor(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'getMonitorDto(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateMonitorName(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'validateRequireMonitorParams(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'getMonitors(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'updateMonitorStatus(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'deleteMonitors(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'getAllAppMonitorsCount(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+            'enableManageMonitors(org.dromara.hertzbeat.manager.service.MonitorServiceTest)',
+        ]
+        self.compare_tr_t_failed(maven10, '#'.join(failed_tests))
+
+    def test_maven_11(self):
+        """(Maven) Nested test classes"""
+        log = '16621473969-orig.log'
+        job_id = 16621473969
+        file_path = join(self.maven, log)
+        repo = 'javaparser/javaparser'
+        maven11 = self.dispatcher.analyze(file_path, job_id, build_system='maven', repo=repo)
+        self.compare_status(maven11, 'broken')
+        self.compare_analyzer(maven11, 'java-maven')
+        self.compare_num_t_run(maven11, 1943)
+        self.compare_num_t_ok(maven11, 1941)
+        self.compare_num_t_failed(maven11, 2)
+        self.compare_num_t_skipped(maven11, 7)
+        self.compare_bool_t_ran(maven11, True)
+        self.compare_bool_t_failed(maven11, True)
+        self.compare_tr_t_failed(maven11, 'noAssert(com.github.javaparser.ast.validator.Java1_3ValidatorTest)#'
+                                          'recordDeclaration(com.github.javaparser.ast.validator.Java15ValidatorTest$'
+                                          'Record$RecordDeclarationForbidden)')
 
     def test_status_terminated(self):
         log = '2026328035.log'
@@ -992,6 +1060,7 @@ class GitHubAnalyzerTest(unittest.TestCase):
                                            '(tests.io.vasp.test_sets)')
 
     def test_python_24(self):
+        """Pytest xfails"""
         log = '27403903613-orig.log'
         job_id = 27403903613
         file_path = join(self.python, log)
@@ -1009,6 +1078,28 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_t_duration(python24, 30.85)
         self.compare_frameworks(python24, 'pytest')
         self.compare_tr_t_failed(python24, '')
+
+    def test_python_25(self):
+        """Pytest collection error for a directory"""
+        log = '27530380915-orig.log'
+        job_id = 27530380915
+        file_path = join(self.python, log)
+        python24 = self.dispatcher.analyze(file_path, job_id)
+        self.compare_status(python24, 'broken')
+        self.compare_analyzer(python24, 'python')
+        self.compare_num_t_run(python24, 3)
+        self.compare_num_t_ok(python24, 0)
+        self.compare_num_t_xfailed(python24, 0)
+        self.compare_num_t_xpassed(python24, 0)
+        self.compare_num_t_failed(python24, 3)
+        self.compare_num_t_skipped(python24, 0)
+        self.compare_bool_t_ran(python24, True)
+        self.compare_bool_t_failed(python24, True)
+        self.compare_t_duration(python24, 3.18)
+        self.compare_frameworks(python24, 'pytest')
+        self.compare_tr_t_failed(python24, '(tests.unit.vizro-ai.chains.test_llm_models)#'
+                                           '(tests.unit.vizro-ai.dashboard.nodes)#'
+                                           '(tests.unit.vizro-ai.utils.test_safeguard_code)')
 
     def test_gradle_0(self):
         log = '2085562467-orig.log'
@@ -1063,20 +1154,46 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_num_t_skipped(gradle2, 213)
         self.compare_bool_t_ran(gradle2, True)
         self.compare_bool_t_failed(gradle2, True)
-        self.compare_tr_t_failed(gradle2, 'ConfigurationCacheDetectsXcodeProjectInitializationFunctionalTest.'
-                                          'initializationError#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'doesNotReuseConfigurationCacheWhenWorkspaceContentChange()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'reuseConfigurationCacheWhenWorkspaceContentChangeInNonMeaningfulWay()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'reuseConfigurationCacheWhenOnlyUserDataChanged()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'doesNotReuseConfigurationCacheWhenNewWorkspaceFound()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceInitializationFunctionalTest.'
-                                          'initializationError#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceInitializationOverriding'
-                                          'XcodeProjectFunctionalTest.initializationError')
+        failed_tests = [
+            'ConfigurationCacheDetectsXcodeProjectInitializationFunctionalTest.initializationError',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.doesNotReuseConfigurationCacheWhenWorkspaceCo'
+            'ntentChange()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.reuseConfigurationCacheWhenWorkspaceContentCh'
+            'angeInNonMeaningfulWay()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.reuseConfigurationCacheWhenOnlyUserDataChange'
+            'd()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.doesNotReuseConfigurationCacheWhenNewWorkspac'
+            'eFound()',
+            'ConfigurationCacheDetectsXcodeWorkspaceInitializationFunctionalTest.initializationError',
+            'ConfigurationCacheDetectsXcodeWorkspaceInitializationOverridingXcodeProjectFunctionalTest.initializationEr'
+            'ror',
+            'JniLibraryComposingXcodeFunctionalTest.can compose a Xcode workspace for a JNI library',
+            'JniLibraryComposingXcodeFunctionalTest.creates an indexer target for known product type',
+            'JniLibraryComposingXcodeFunctionalTest.can create multiple Xcode projects per Gradle project',
+            'JniLibraryComposingXcodeFunctionalTest.creates indexer target inside the correct Xcode project when multip'
+            'le projects',
+            'VariantAwareComponentJavaCJniLibraryFunctionalTest.can see outgoing variants created by variants when exec'
+            'uting outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaCJniLibraryFunctionalTest.can view dependency insight for configuration created b'
+            'y variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaCppJniLibraryFunctionalTest.can see outgoing variants created by variants when ex'
+            'ecuting outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaCppJniLibraryFunctionalTest.can view dependency insight for configuration created'
+            ' by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCJniLibraryFunctionalTest.can see outgoing variants created by variants '
+            'when executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCJniLibraryFunctionalTest.can view dependency insight for configuration '
+            'created by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCppJniLibraryFunctionalTest.can see outgoing variants created by variant'
+            's when executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCppJniLibraryFunctionalTest.can view dependency insight for configuratio'
+            'n created by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentKotlinCppJniLibraryFunctionalTest.can see outgoing variants created by variants when '
+            'executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentKotlinCppJniLibraryFunctionalTest.can view dependency insight for configuration creat'
+            'ed by variants when executing dependencyInsight [gcc 9.4.0]',
+        ]
+        self.compare_tr_t_failed(gradle2, '#'.join(failed_tests))
 
     def test_gradle_3(self):
         log = '2464471085-orig.log'
@@ -1114,20 +1231,46 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_num_t_skipped(gradle4, 213)
         self.compare_bool_t_ran(gradle4, True)
         self.compare_bool_t_failed(gradle4, True)
-        self.compare_tr_t_failed(gradle4, 'ConfigurationCacheDetectsXcodeProjectInitializationFunctionalTest.'
-                                          'initializationError#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'doesNotReuseConfigurationCacheWhenWorkspaceContentChange()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'reuseConfigurationCacheWhenWorkspaceContentChangeInNonMeaningfulWay()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'reuseConfigurationCacheWhenOnlyUserDataChanged()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.'
-                                          'doesNotReuseConfigurationCacheWhenNewWorkspaceFound()#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceInitializationFunctionalTest.'
-                                          'initializationError#'
-                                          'ConfigurationCacheDetectsXcodeWorkspaceInitializationOverriding'
-                                          'XcodeProjectFunctionalTest.initializationError')
+        failed_tests = [
+            'ConfigurationCacheDetectsXcodeProjectInitializationFunctionalTest.initializationError',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.doesNotReuseConfigurationCacheWhenWorkspaceCo'
+            'ntentChange()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.reuseConfigurationCacheWhenWorkspaceContentCh'
+            'angeInNonMeaningfulWay()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.reuseConfigurationCacheWhenOnlyUserDataChange'
+            'd()',
+            'ConfigurationCacheDetectsXcodeWorkspaceChangesFunctionalTest.doesNotReuseConfigurationCacheWhenNewWorkspac'
+            'eFound()',
+            'ConfigurationCacheDetectsXcodeWorkspaceInitializationFunctionalTest.initializationError',
+            'ConfigurationCacheDetectsXcodeWorkspaceInitializationOverridingXcodeProjectFunctionalTest.initializationEr'
+            'ror',
+            'JniLibraryComposingXcodeFunctionalTest.can compose a Xcode workspace for a JNI library',
+            'JniLibraryComposingXcodeFunctionalTest.creates an indexer target for known product type',
+            'JniLibraryComposingXcodeFunctionalTest.can create multiple Xcode projects per Gradle project',
+            'JniLibraryComposingXcodeFunctionalTest.creates indexer target inside the correct Xcode project when multip'
+            'le projects',
+            'VariantAwareComponentJavaCJniLibraryFunctionalTest.can see outgoing variants created by variants when exec'
+            'uting outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaCJniLibraryFunctionalTest.can view dependency insight for configuration created b'
+            'y variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaCppJniLibraryFunctionalTest.can see outgoing variants created by variants when ex'
+            'ecuting outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaCppJniLibraryFunctionalTest.can view dependency insight for configuration created'
+            ' by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCJniLibraryFunctionalTest.can see outgoing variants created by variants '
+            'when executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCJniLibraryFunctionalTest.can view dependency insight for configuration '
+            'created by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCppJniLibraryFunctionalTest.can see outgoing variants created by variant'
+            's when executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentJavaObjectiveCppJniLibraryFunctionalTest.can view dependency insight for configuratio'
+            'n created by variants when executing dependencyInsight [gcc 9.4.0]',
+            'VariantAwareComponentKotlinCppJniLibraryFunctionalTest.can see outgoing variants created by variants when '
+            'executing outgoingVariants [gcc 9.4.0]',
+            'VariantAwareComponentKotlinCppJniLibraryFunctionalTest.can view dependency insight for configuration creat'
+            'ed by variants when executing dependencyInsight [gcc 9.4.0]',
+        ]
+        self.compare_tr_t_failed(gradle4, '#'.join(failed_tests))
 
     def test_gradle_5(self):
         log = '2307899709-orig.log'
@@ -1267,6 +1410,57 @@ class GitHubAnalyzerTest(unittest.TestCase):
         self.compare_bool_t_failed(gradle11, False)
         self.compare_frameworks(gradle11, '')
         self.compare_tr_t_failed(gradle11, '')
+
+    def test_gradle_12(self):
+        log = '14294971046-orig.log'
+        job_id = 14294971046
+        file_path = join(self.gradle, log)
+        gradle12 = self.dispatcher.analyze(file_path, job_id, build_system='gradle')
+        self.compare_status(gradle12, 'broken')
+        self.compare_analyzer(gradle12, 'java-gradle')
+        self.compare_num_t_run(gradle12, 5343)
+        # NOTE: The analyzer says num tests OK is 5342, but it should be 0 since all were skipped. Apparently
+        # Junit/TestNG count skipped tests as run tests, but the analyzer assumes otherwise and calculates
+        # num OK = num run - num failed, instead of num OK = num run - num failed - num skipped. Not sure if this is a
+        # new development.
+        # self.compare_num_t_ok(gradle12, 0)
+        self.compare_num_t_failed(gradle12, 1)
+        self.compare_num_t_skipped(gradle12, 5342)
+        self.compare_bool_t_ran(gradle12, True)
+        self.compare_bool_t_failed(gradle12, True)
+        self.compare_tr_t_failed(gradle12, 'picard.sam.SamErrorMetric.CollectSamErrorMetricsTest.samMetricsProvider')
+
+    def test_gradle_13(self):
+        """(Gradle) Spaces in test method's name"""
+        log = '16166237459-orig.log'
+        job_id = 16166237459
+        file_path = join(self.gradle, log)
+        gradle13 = self.dispatcher.analyze(file_path, job_id, build_system='gradle')
+        self.compare_status(gradle13, 'broken')
+        self.compare_analyzer(gradle13, 'java-gradle')
+        self.compare_num_t_run(gradle13, 2966)
+        self.compare_num_t_ok(gradle13, 2965)
+        self.compare_num_t_failed(gradle13, 1)
+        self.compare_num_t_skipped(gradle13, 5)
+        self.compare_bool_t_ran(gradle13, True)
+        self.compare_bool_t_failed(gradle13, True)
+        self.compare_tr_t_failed(gradle13, 'EditOperationAnalyzerAppliedDirectivesTest.reproduce the null mapping case')
+
+    def test_gradle_14(self):
+        """(Gradle) Nested test classes"""
+        log = '9657915347-orig.log'
+        job_id = 9657915347
+        file_path = join(self.gradle, log)
+        gradle14 = self.dispatcher.analyze(file_path, job_id, build_system='gradle')
+        self.compare_status(gradle14, 'broken')
+        self.compare_analyzer(gradle14, 'java-gradle')
+        self.compare_num_t_run(gradle14, 556)
+        self.compare_num_t_ok(gradle14, 555)
+        self.compare_num_t_failed(gradle14, 1)
+        self.compare_num_t_skipped(gradle14, 0)
+        self.compare_bool_t_ran(gradle14, True)
+        self.compare_bool_t_failed(gradle14, True)
+        self.compare_tr_t_failed(gradle14, 'UserEndpointTest$GetUserDetail.shouldResponseErrorIfUserNotFound()')
 
     def test_ant_0(self):
         log = '2420748513-orig.log'

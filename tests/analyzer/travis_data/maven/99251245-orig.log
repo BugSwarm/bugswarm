@@ -1,0 +1,2412 @@
+Using worker: worker-linux-docker-fc701a05.prod.travis-ci.org:travis-linux-1
+
+travis_fold:start:system_info
+[0K[33;1mBuild system information[0m
+Build language: java
+Build group: stable
+Build dist: precise
+[34m[1mBuild image provisioning date and time[0m
+Thu Feb  5 15:09:33 UTC 2015
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 12.04.5 LTS
+Release:	12.04
+Codename:	precise
+[34m[1mLinux Version[0m
+3.13.0-29-generic
+[34m[1mCookbooks Version[0m
+a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
+[34m[1mGCC version[0m
+gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mLLVM version[0m
+clang version 3.4 (tags/RELEASE_34/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+[34m[1mPre-installed Ruby versions[0m
+ruby-1.9.3-p551
+[34m[1mPre-installed Node.js versions[0m
+v0.10.36
+[34m[1mPre-installed Go versions[0m
+1.4.1
+[34m[1mRedis version[0m
+redis-server 2.8.19
+[34m[1mriak version[0m
+2.0.2
+[34m[1mMongoDB version[0m
+MongoDB 2.4.12
+[34m[1mCouchDB version[0m
+couchdb 1.6.1
+[34m[1mNeo4j version[0m
+1.9.4
+[34m[1mRabbitMQ Version[0m
+3.4.3
+[34m[1mElasticSearch version[0m
+1.4.0
+[34m[1mInstalled Sphinx versions[0m
+2.0.10
+2.1.9
+2.2.6
+[34m[1mDefault Sphinx version[0m
+2.2.6
+[34m[1mInstalled Firefox version[0m
+firefox 31.0esr
+[34m[1mPhantomJS version[0m
+1.9.8
+[34m[1mant -version[0m
+Apache Ant(TM) version 1.8.2 compiled on December 3 2011
+[34m[1mmvn -version[0m
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.7.0_76, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-oracle/jre
+Default locale: en_US, platform encoding: ANSI_X3.4-1968
+OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
+travis_fold:end:system_info
+[0K
+travis_fold:start:git.checkout
+[0Ktravis_time:start:07000f2f
+[0K$ git clone --depth=50 --branch=version5 https://github.com/owlcs/owlapi.git owlcs/owlapi
+Cloning into 'owlcs/owlapi'...
+remote: Counting objects: 5399, done.[K
+remote: Compressing objects:   0% (1/2163)   [K
+remote: Compressing objects:   1% (22/2163)   [K
+remote: Compressing objects:   2% (44/2163)   [K
+remote: Compressing objects:   3% (65/2163)   [K
+remote: Compressing objects:   4% (87/2163)   [K
+remote: Compressing objects:   5% (109/2163)   [K
+remote: Compressing objects:   6% (130/2163)   [K
+remote: Compressing objects:   7% (152/2163)   [K
+remote: Compressing objects:   8% (174/2163)   [K
+remote: Compressing objects:   9% (195/2163)   [K
+remote: Compressing objects:  10% (217/2163)   [K
+remote: Compressing objects:  11% (238/2163)   [K
+remote: Compressing objects:  12% (260/2163)   [K
+remote: Compressing objects:  13% (282/2163)   [K
+remote: Compressing objects:  14% (303/2163)   [K
+remote: Compressing objects:  15% (325/2163)   [K
+remote: Compressing objects:  16% (347/2163)   [K
+remote: Compressing objects:  17% (368/2163)   [K
+remote: Compressing objects:  18% (390/2163)   [K
+remote: Compressing objects:  19% (411/2163)   [K
+remote: Compressing objects:  20% (433/2163)   [K
+remote: Compressing objects:  21% (455/2163)   [K
+remote: Compressing objects:  22% (476/2163)   [K
+remote: Compressing objects:  23% (498/2163)   [K
+remote: Compressing objects:  24% (520/2163)   [K
+remote: Compressing objects:  25% (541/2163)   [K
+remote: Compressing objects:  26% (563/2163)   [K
+remote: Compressing objects:  27% (585/2163)   [K
+remote: Compressing objects:  28% (606/2163)   [K
+remote: Compressing objects:  29% (628/2163)   [K
+remote: Compressing objects:  30% (649/2163)   [K
+remote: Compressing objects:  31% (671/2163)   [K
+remote: Compressing objects:  32% (693/2163)   [K
+remote: Compressing objects:  33% (714/2163)   [K
+remote: Compressing objects:  34% (736/2163)   [K
+remote: Compressing objects:  35% (758/2163)   [K
+remote: Compressing objects:  36% (779/2163)   [K
+remote: Compressing objects:  37% (801/2163)   [K
+remote: Compressing objects:  38% (822/2163)   [K
+remote: Compressing objects:  39% (844/2163)   [K
+remote: Compressing objects:  40% (866/2163)   [K
+remote: Compressing objects:  41% (887/2163)   [K
+remote: Compressing objects:  42% (909/2163)   [K
+remote: Compressing objects:  43% (931/2163)   [K
+remote: Compressing objects:  44% (952/2163)   [K
+remote: Compressing objects:  45% (974/2163)   [K
+remote: Compressing objects:  46% (995/2163)   [K
+remote: Compressing objects:  47% (1017/2163)   [K
+remote: Compressing objects:  48% (1039/2163)   [K
+remote: Compressing objects:  49% (1060/2163)   [K
+remote: Compressing objects:  50% (1082/2163)   [K
+remote: Compressing objects:  51% (1104/2163)   [K
+remote: Compressing objects:  52% (1125/2163)   [K
+remote: Compressing objects:  53% (1147/2163)   [K
+remote: Compressing objects:  54% (1169/2163)   [K
+remote: Compressing objects:  55% (1190/2163)   [K
+remote: Compressing objects:  56% (1212/2163)   [K
+remote: Compressing objects:  57% (1233/2163)   [K
+remote: Compressing objects:  58% (1255/2163)   [K
+remote: Compressing objects:  59% (1277/2163)   [K
+remote: Compressing objects:  60% (1298/2163)   [K
+remote: Compressing objects:  61% (1320/2163)   [K
+remote: Compressing objects:  62% (1342/2163)   [K
+remote: Compressing objects:  63% (1363/2163)   [K
+remote: Compressing objects:  64% (1385/2163)   [K
+remote: Compressing objects:  65% (1406/2163)   [K
+remote: Compressing objects:  66% (1428/2163)   [K
+remote: Compressing objects:  67% (1450/2163)   [K
+remote: Compressing objects:  68% (1471/2163)   [K
+remote: Compressing objects:  69% (1493/2163)   [K
+remote: Compressing objects:  70% (1515/2163)   [K
+remote: Compressing objects:  71% (1536/2163)   [K
+remote: Compressing objects:  72% (1558/2163)   [K
+remote: Compressing objects:  73% (1579/2163)   [K
+remote: Compressing objects:  74% (1601/2163)   [K
+remote: Compressing objects:  75% (1623/2163)   [K
+remote: Compressing objects:  76% (1644/2163)   [K
+remote: Compressing objects:  77% (1666/2163)   [K
+remote: Compressing objects:  78% (1688/2163)   [K
+remote: Compressing objects:  79% (1709/2163)   [K
+remote: Compressing objects:  80% (1731/2163)   [K
+remote: Compressing objects:  81% (1753/2163)   [K
+remote: Compressing objects:  82% (1774/2163)   [K
+remote: Compressing objects:  83% (1796/2163)   [K
+remote: Compressing objects:  84% (1817/2163)   [K
+remote: Compressing objects:  85% (1839/2163)   [K
+remote: Compressing objects:  86% (1861/2163)   [K
+remote: Compressing objects:  87% (1882/2163)   [K
+remote: Compressing objects:  88% (1904/2163)   [K
+remote: Compressing objects:  89% (1926/2163)   [K
+remote: Compressing objects:  90% (1947/2163)   [K
+remote: Compressing objects:  91% (1969/2163)   [K
+remote: Compressing objects:  92% (1990/2163)   [K
+remote: Compressing objects:  93% (2012/2163)   [K
+remote: Compressing objects:  94% (2034/2163)   [K
+remote: Compressing objects:  95% (2055/2163)   [K
+remote: Compressing objects:  96% (2077/2163)   [K
+remote: Compressing objects:  97% (2099/2163)   [K
+remote: Compressing objects:  98% (2120/2163)   [K
+remote: Compressing objects:  99% (2142/2163)   [K
+remote: Compressing objects: 100% (2163/2163)   [K
+remote: Compressing objects: 100% (2163/2163), done.[K
+Receiving objects:   0% (1/5399)   
+Receiving objects:   1% (54/5399)   
+Receiving objects:   2% (108/5399)   
+Receiving objects:   3% (162/5399)   
+Receiving objects:   4% (216/5399)   
+Receiving objects:   5% (270/5399)   
+Receiving objects:   6% (324/5399)   
+Receiving objects:   7% (378/5399)   
+Receiving objects:   8% (432/5399)   
+Receiving objects:   9% (486/5399)   
+Receiving objects:  10% (540/5399)   
+Receiving objects:  11% (594/5399)   
+Receiving objects:  12% (648/5399)   
+Receiving objects:  13% (702/5399)   
+Receiving objects:  14% (756/5399)   
+Receiving objects:  15% (810/5399)   
+Receiving objects:  16% (864/5399)   
+Receiving objects:  17% (918/5399)   
+Receiving objects:  18% (972/5399)   
+Receiving objects:  19% (1026/5399)   
+Receiving objects:  20% (1080/5399)   
+Receiving objects:  21% (1134/5399)   
+Receiving objects:  22% (1188/5399)   
+Receiving objects:  23% (1242/5399)   
+Receiving objects:  24% (1296/5399)   
+Receiving objects:  25% (1350/5399)   
+Receiving objects:  26% (1404/5399)   
+Receiving objects:  27% (1458/5399)   
+Receiving objects:  28% (1512/5399)   
+Receiving objects:  29% (1566/5399)   
+Receiving objects:  30% (1620/5399)   
+Receiving objects:  31% (1674/5399)   
+Receiving objects:  32% (1728/5399)   
+Receiving objects:  33% (1782/5399)   
+Receiving objects:  34% (1836/5399)   
+Receiving objects:  35% (1890/5399)   
+Receiving objects:  36% (1944/5399)   
+Receiving objects:  37% (1998/5399)   
+Receiving objects:  38% (2052/5399)   
+Receiving objects:  39% (2106/5399)   
+Receiving objects:  40% (2160/5399)   
+Receiving objects:  41% (2214/5399)   
+Receiving objects:  42% (2268/5399)   
+Receiving objects:  43% (2322/5399)   
+Receiving objects:  44% (2376/5399)   
+Receiving objects:  45% (2430/5399)   
+Receiving objects:  46% (2484/5399)   
+Receiving objects:  47% (2538/5399)   
+Receiving objects:  48% (2592/5399)   
+Receiving objects:  49% (2646/5399)   
+Receiving objects:  50% (2700/5399)   
+Receiving objects:  51% (2754/5399)   
+Receiving objects:  52% (2808/5399)   
+Receiving objects:  53% (2862/5399)   
+Receiving objects:  54% (2916/5399)   
+Receiving objects:  55% (2970/5399)   
+Receiving objects:  56% (3024/5399)   
+Receiving objects:  57% (3078/5399)   
+Receiving objects:  58% (3132/5399)   
+Receiving objects:  59% (3186/5399)   
+Receiving objects:  60% (3240/5399)   
+Receiving objects:  61% (3294/5399)   
+Receiving objects:  62% (3348/5399)   
+Receiving objects:  63% (3402/5399)   
+Receiving objects:  64% (3456/5399)   
+Receiving objects:  65% (3510/5399)   
+Receiving objects:  66% (3564/5399)   
+Receiving objects:  67% (3618/5399)   
+Receiving objects:  68% (3672/5399)   
+Receiving objects:  69% (3726/5399)   
+Receiving objects:  70% (3780/5399)   
+Receiving objects:  71% (3834/5399)   
+Receiving objects:  72% (3888/5399)   
+Receiving objects:  73% (3942/5399)   
+Receiving objects:  74% (3996/5399)   
+Receiving objects:  75% (4050/5399)   
+Receiving objects:  76% (4104/5399)   
+Receiving objects:  77% (4158/5399)   
+Receiving objects:  78% (4212/5399)   
+Receiving objects:  79% (4266/5399)   
+Receiving objects:  80% (4320/5399)   
+Receiving objects:  81% (4374/5399)   
+Receiving objects:  82% (4428/5399)   
+Receiving objects:  83% (4482/5399)   
+Receiving objects:  84% (4536/5399)   
+Receiving objects:  85% (4590/5399)   
+Receiving objects:  86% (4644/5399)   
+Receiving objects:  87% (4698/5399)   
+Receiving objects:  88% (4752/5399)   
+Receiving objects:  89% (4806/5399)   
+Receiving objects:  90% (4860/5399)   
+Receiving objects:  91% (4914/5399)   
+Receiving objects:  92% (4968/5399)   
+Receiving objects:  93% (5022/5399)   
+Receiving objects:  94% (5076/5399)   
+Receiving objects:  95% (5130/5399)   
+Receiving objects:  96% (5184/5399)   
+remote: Total 5399 (delta 3337), reused 4187 (delta 2522), pack-reused 0[K
+Receiving objects:  97% (5238/5399)   
+Receiving objects:  98% (5292/5399)   
+Receiving objects:  99% (5346/5399)   
+Receiving objects: 100% (5399/5399)   
+Receiving objects: 100% (5399/5399), 2.59 MiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/3337)   
+Resolving deltas:   1% (44/3337)   
+Resolving deltas:   5% (170/3337)   
+Resolving deltas:   7% (239/3337)   
+Resolving deltas:   8% (284/3337)   
+Resolving deltas:   9% (314/3337)   
+Resolving deltas:  10% (343/3337)   
+Resolving deltas:  11% (378/3337)   
+Resolving deltas:  12% (418/3337)   
+Resolving deltas:  14% (469/3337)   
+Resolving deltas:  15% (513/3337)   
+Resolving deltas:  16% (535/3337)   
+Resolving deltas:  17% (572/3337)   
+Resolving deltas:  18% (602/3337)   
+Resolving deltas:  19% (643/3337)   
+Resolving deltas:  22% (752/3337)   
+Resolving deltas:  23% (770/3337)   
+Resolving deltas:  24% (825/3337)   
+Resolving deltas:  27% (909/3337)   
+Resolving deltas:  28% (940/3337)   
+Resolving deltas:  31% (1046/3337)   
+Resolving deltas:  32% (1070/3337)   
+Resolving deltas:  34% (1141/3337)   
+Resolving deltas:  35% (1179/3337)   
+Resolving deltas:  36% (1212/3337)   
+Resolving deltas:  37% (1237/3337)   
+Resolving deltas:  39% (1310/3337)   
+Resolving deltas:  40% (1335/3337)   
+Resolving deltas:  41% (1379/3337)   
+Resolving deltas:  42% (1409/3337)   
+Resolving deltas:  43% (1448/3337)   
+Resolving deltas:  44% (1489/3337)   
+Resolving deltas:  45% (1531/3337)   
+Resolving deltas:  46% (1539/3337)   
+Resolving deltas:  47% (1577/3337)   
+Resolving deltas:  48% (1613/3337)   
+Resolving deltas:  49% (1638/3337)   
+Resolving deltas:  51% (1706/3337)   
+Resolving deltas:  53% (1776/3337)   
+Resolving deltas:  54% (1809/3337)   
+Resolving deltas:  55% (1841/3337)   
+Resolving deltas:  56% (1870/3337)   
+Resolving deltas:  57% (1904/3337)   
+Resolving deltas:  58% (1943/3337)   
+Resolving deltas:  59% (1971/3337)   
+Resolving deltas:  60% (2007/3337)   
+Resolving deltas:  61% (2039/3337)   
+Resolving deltas:  62% (2077/3337)   
+Resolving deltas:  63% (2104/3337)   
+Resolving deltas:  64% (2144/3337)   
+Resolving deltas:  65% (2172/3337)   
+Resolving deltas:  66% (2203/3337)   
+Resolving deltas:  67% (2236/3337)   
+Resolving deltas:  68% (2270/3337)   
+Resolving deltas:  69% (2303/3337)   
+Resolving deltas:  70% (2341/3337)   
+Resolving deltas:  71% (2372/3337)   
+Resolving deltas:  72% (2407/3337)   
+Resolving deltas:  73% (2437/3337)   
+Resolving deltas:  74% (2471/3337)   
+Resolving deltas:  75% (2504/3337)   
+Resolving deltas:  76% (2541/3337)   
+Resolving deltas:  77% (2570/3337)   
+Resolving deltas:  78% (2609/3337)   
+Resolving deltas:  80% (2687/3337)   
+Resolving deltas:  82% (2738/3337)   
+Resolving deltas:  83% (2785/3337)   
+Resolving deltas:  84% (2807/3337)   
+Resolving deltas:  85% (2837/3337)   
+Resolving deltas:  86% (2870/3337)   
+Resolving deltas:  87% (2910/3337)   
+Resolving deltas:  88% (2937/3337)   
+Resolving deltas:  89% (2970/3337)   
+Resolving deltas:  90% (3006/3337)   
+Resolving deltas:  91% (3040/3337)   
+Resolving deltas:  92% (3077/3337)   
+Resolving deltas:  93% (3106/3337)   
+Resolving deltas:  94% (3138/3337)   
+Resolving deltas:  95% (3172/3337)   
+Resolving deltas:  96% (3204/3337)   
+Resolving deltas:  97% (3238/3337)   
+Resolving deltas:  98% (3272/3337)   
+Resolving deltas:  99% (3309/3337)   
+Resolving deltas: 100% (3337/3337)   
+Resolving deltas: 100% (3337/3337), done.
+Checking connectivity... done.
+travis_time:end:07000f2f:start=1451392841101175413,finish=1451392842428356495,duration=1327181082
+[0K$ cd owlcs/owlapi
+$ git checkout -qf 5dd5c34b5bbb574dc7896312eff92a804d90ac9c
+travis_fold:end:git.checkout
+[0Ktravis_fold:start:apt
+[0K[33;1mInstalling APT Packages (BETA)[0m
+$ export DEBIAN_FRONTEND=noninteractive
+travis_time:start:04f315aa
+[0K$ sudo -E apt-get -yq update &>> ~/apt-get-update.log
+travis_time:end:04f315aa:start=1451392842560147621,finish=1451392847741925402,duration=5181777781
+[0Ktravis_time:start:0acacac0
+[0K$ sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install oracle-java8-installer
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  binfmt-support visualvm ttf-baekmuk ttf-unfonts ttf-unfonts-core
+  ttf-kochi-gothic ttf-sazanami-gothic ttf-kochi-mincho ttf-sazanami-mincho
+  ttf-arphic-uming
+The following packages will be upgraded:
+  oracle-java8-installer
+1 upgraded, 0 newly installed, 0 to remove and 220 not upgraded.
+Need to get 22.4 kB of archives.
+After this operation, 92.2 kB disk space will be freed.
+Get:1 http://ppa.launchpad.net/webupd8team/java/ubuntu/ precise/main oracle-java8-installer all 8u66+8u65arm-1~webupd8~1 [22.4 kB]
+Fetched 22.4 kB in 0s (95.9 kB/s)
+Preconfiguring packages ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 72019 files and directories currently installed.)
+Preparing to replace oracle-java8-installer 8u31+8u33arm-1~webupd8~1 (using .../oracle-java8-installer_8u66+8u65arm-1~webupd8~1_all.deb) ...
+oracle-license-v1-1 license has already been accepted
+Unpacking replacement oracle-java8-installer ...
+Processing triggers for shared-mime-info ...
+Setting up oracle-java8-installer (8u66+8u65arm-1~webupd8~1) ...
+Downloading Oracle Java 8...
+--2015-12-29 12:40:55--  http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz
+Resolving download.oracle.com (download.oracle.com)... 23.62.7.155, 23.62.7.139
+Connecting to download.oracle.com (download.oracle.com)|23.62.7.155|:80... connected.
+HTTP request sent, awaiting response... 302 Moved Temporarily
+Location: https://edelivery.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz [following]
+--2015-12-29 12:40:55--  https://edelivery.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz
+Resolving edelivery.oracle.com (edelivery.oracle.com)... 23.6.22.140
+Connecting to edelivery.oracle.com (edelivery.oracle.com)|23.6.22.140|:443... connected.
+HTTP request sent, awaiting response... 302 Moved Temporarily
+Location: http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz?AuthParam=1451392975_cd95a933996890672f57396f1b71dbe8 [following]
+--2015-12-29 12:40:55--  http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz?AuthParam=1451392975_cd95a933996890672f57396f1b71dbe8
+Connecting to download.oracle.com (download.oracle.com)|23.62.7.155|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 181287376 (173M) [application/x-gzip]
+Saving to: `jdk-8u66-linux-x64.tar.gz'
+
+     0K ........ ........ ........ ........ ........ ........  1% 18.8M 9s
+  3072K ........ ........ ........ ........ ........ ........  3% 17.4M 9s
+  6144K ........ ........ ........ ........ ........ ........  5% 17.3M 9s
+  9216K ........ ........ ........ ........ ........ ........  6% 17.3M 9s
+ 12288K ........ ........ ........ ........ ........ ........  8% 18.2M 9s
+ 15360K ........ ........ ........ ........ ........ ........ 10% 19.9M 9s
+ 18432K ........ ........ ........ ........ ........ ........ 12% 16.8M 8s
+ 21504K ........ ........ ........ ........ ........ ........ 13% 16.9M 8s
+ 24576K ........ ........ ........ ........ ........ ........ 15% 14.5M 8s
+ 27648K ........ ........ ........ ........ ........ ........ 17% 14.9M 8s
+ 30720K ........ ........ ........ ........ ........ ........ 19% 18.5M 8s
+ 33792K ........ ........ ........ ........ ........ ........ 20% 19.7M 8s
+ 36864K ........ ........ ........ ........ ........ ........ 22% 19.6M 8s
+ 39936K ........ ........ ........ ........ ........ ........ 24% 16.7M 7s
+ 43008K ........ ........ ........ ........ ........ ........ 26% 20.7M 7s
+ 46080K ........ ........ ........ ........ ........ ........ 27% 21.0M 7s
+ 49152K ........ ........ ........ ........ ........ ........ 29% 18.2M 7s
+ 52224K ........ ........ ........ ........ ........ ........ 31% 18.6M 7s
+ 55296K ........ ........ ........ ........ ........ ........ 32% 24.5M 6s
+ 58368K ........ ........ ........ ........ ........ ........ 34% 18.4M 6s
+ 61440K ........ ........ ........ ........ ........ ........ 36% 18.3M 6s
+ 64512K ........ ........ ........ ........ ........ ........ 38% 14.4M 6s
+ 67584K ........ ........ ........ ........ ........ ........ 39% 24.9M 6s
+ 70656K ........ ........ ........ ........ ........ ........ 41% 21.3M 6s
+ 73728K ........ ........ ........ ........ ........ ........ 43% 18.5M 5s
+ 76800K ........ ........ ........ ........ ........ ........ 45% 13.0M 5s
+ 79872K ........ ........ ........ ........ ........ ........ 46% 18.9M 5s
+ 82944K ........ ........ ........ ........ ........ ........ 48% 4.75M 5s
+ 86016K ........ ........ ........ ........ ........ ........ 50% 19.9M 5s
+ 89088K ........ ........ ........ ........ ........ ........ 52% 44.1M 5s
+ 92160K ........ ........ ........ ........ ........ ........ 53% 18.2M 5s
+ 95232K ........ ........ ........ ........ ........ ........ 55% 20.1M 5s
+ 98304K ........ ........ ........ ........ ........ ........ 57% 51.3M 4s
+101376K ........ ........ ........ ........ ........ ........ 58% 37.2M 4s
+104448K ........ ........ ........ ........ ........ ........ 60% 25.5M 4s
+107520K ........ ........ ........ ........ ........ ........ 62% 20.2M 4s
+110592K ........ ........ ........ ........ ........ ........ 64% 25.6M 3s
+113664K ........ ........ ........ ........ ........ ........ 65% 21.6M 3s
+116736K ........ ........ ........ ........ ........ ........ 67% 19.5M 3s
+119808K ........ ........ ........ ........ ........ ........ 69% 31.3M 3s
+122880K ........ ........ ........ ........ ........ ........ 71% 28.5M 3s
+125952K ........ ........ ........ ........ ........ ........ 72% 21.0M 3s
+129024K ........ ........ ........ ........ ........ ........ 74% 21.5M 2s
+132096K ........ ........ ........ ........ ........ ........ 76% 28.1M 2s
+135168K ........ ........ ........ ........ ........ ........ 78% 19.7M 2s
+138240K ........ ........ ........ ........ ........ ........ 79% 28.3M 2s
+141312K ........ ........ ........ ........ ........ ........ 81% 22.2M 2s
+144384K ........ ........ ........ ........ ........ ........ 83% 19.9M 2s
+147456K ........ ........ ........ ........ ........ ........ 85% 25.4M 1s
+150528K ........ ........ ........ ........ ........ ........ 86% 28.3M 1s
+153600K ........ ........ ........ ........ ........ ........ 88% 22.4M 1s
+156672K ........ ........ ........ ........ ........ ........ 90% 18.0M 1s
+159744K ........ ........ ........ ........ ........ ........ 91% 19.3M 1s
+162816K ........ ........ ........ ........ ........ ........ 93% 31.0M 1s
+165888K ........ ........ ........ ........ ........ ........ 95% 18.6M 0s
+168960K ........ ........ ........ ........ ........ ........ 97% 19.3M 0s
+172032K ........ ........ ........ ........ ........ ........ 98% 41.6M 0s
+175104K ........ ........ ........ ......                    100% 17.3M=8.9s
+
+2015-12-29 12:41:04 (19.5 MB/s) - `jdk-8u66-linux-x64.tar.gz' saved [181287376/181287376]
+
+Download done.
+Removing outdated cached downloads...
+Oracle JDK 8 installed
+Oracle JRE 8 browser plugin installed
+travis_time:end:0acacac0:start=1451392847746088788,finish=1451392870387582157,duration=22641493369
+[0Ktravis_fold:end:apt
+[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
+travis_fold:start:cache.1
+[0KSetting up build cache
+$ export CASHER_DIR=$HOME/.casher
+travis_time:start:0824e3f8
+[0K$ Installing caching utilities
+travis_time:end:0824e3f8:start=1451392872433691537,finish=1451392872487076930,duration=53385393
+[0Ktravis_time:start:01654519
+[0Ktravis_time:end:01654519:start=1451392872491465423,finish=1451392872494419506,duration=2954083
+[0Ktravis_time:start:026ccc31
+[0K[32;1mattempting to download cache archive[0m
+[32;1mfetching version5/cache--jdk-oraclejdk8.tgz[0m
+[32;1mfound cache[0m
+travis_time:end:026ccc31:start=1451392872498020210,finish=1451392874257898182,duration=1759877972
+[0Ktravis_time:start:18f2c7a0
+[0Ktravis_time:end:18f2c7a0:start=1451392874261873213,finish=1451392874265603802,duration=3730589
+[0Ktravis_time:start:009bf4c9
+[0K[32;1madding /home/travis/.m2 to cache[0m
+travis_time:end:009bf4c9:start=1451392874269507086,finish=1451392875983394454,duration=1713887368
+[0Ktravis_fold:end:cache.1
+[0K$ jdk_switcher use oraclejdk8
+Switching to Oracle JDK8 (java-8-oracle), JAVA_HOME will be set to /usr/lib/jvm/java-8-oracle
+$ java -Xmx32m -version
+java version "1.8.0_66"
+Java(TM) SE Runtime Environment (build 1.8.0_66-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.66-b17, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_66
+travis_fold:start:install
+[0Ktravis_time:start:15e22259
+[0K$ mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=192m; support was removed in 8.0
+Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
+Maven home: /usr/local/maven
+Java version: 1.8.0_66, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-8-oracle/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-40-generic", arch: "amd64", family: "unix"
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 13 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 13 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] OWLAPI
+[INFO] OWLAPI Model Interfaces and utilities
+[INFO] OWLAPI Default Implementation
+[INFO] tools
+[INFO] parsers
+[INFO] oboformat parser
+[INFO] OWLAPITOOLS OWL profile and fixers
+[INFO] OWLAPI :: Sesame Rio module
+[INFO] OWLAPI Binding and Config
+[INFO] compatibility
+[INFO] tests and tutorials
+[INFO] OWLAPI Distribution
+[INFO] OWLAPI OSGi and Compatibility Distribution
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parent ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-parent >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parent ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-parent <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-parent ---
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-parent ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-parent ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-parent ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-parent ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-parent/5.0.0-ALPHA-SNAPSHOT/owlapi-parent-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Model Interfaces and utilities 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-api ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/api/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 730 source files to /home/travis/build/owlcs/owlapi/api/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/api/src/main/java/org/semanticweb/owlapi/util/OWLAPIStreamUtils.java: Some input files use unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/api/src/main/java/org/semanticweb/owlapi/util/OWLAPIStreamUtils.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 8 source files to /home/travis/build/owlcs/owlapi/api/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-api ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-api >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-api ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-api <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-api ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-api ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-api ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/api/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/owlapi-api-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/owlapi-api-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Default Implementation 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-impl ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-impl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/impl/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-impl ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 173 source files to /home/travis/build/owlcs/owlapi/impl/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java: Some input files use or override a deprecated API.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/concurrent/ConcurrentPriorityCollection.java: /home/travis/build/owlcs/owlapi/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/concurrent/ConcurrentPriorityCollection.java uses unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/concurrent/ConcurrentPriorityCollection.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-impl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/impl/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-impl ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 7 source files to /home/travis/build/owlcs/owlapi/impl/target/test-classes
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java: /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java uses or overrides a deprecated API.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java: /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java uses unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/impl/src/test/java/uk/ac/manchester/cs/owl/owlapi/concurrent/OWLOntologyManager_Concurrent_TestCase.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-impl ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-impl ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/impl/target/owlapi-impl-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-impl >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-impl ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-impl <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-impl ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/impl/target/owlapi-impl-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-impl ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-impl ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-impl ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-impl ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/impl/target/owlapi-impl-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-impl/5.0.0-ALPHA-SNAPSHOT/owlapi-impl-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/impl/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-impl/5.0.0-ALPHA-SNAPSHOT/owlapi-impl-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/impl/target/owlapi-impl-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-impl/5.0.0-ALPHA-SNAPSHOT/owlapi-impl-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tools 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-tools ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-tools ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/tools/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-tools ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 75 source files to /home/travis/build/owlcs/owlapi/tools/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-tools ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/tools/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-tools ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-tools ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-tools ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/tools/target/owlapi-tools-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-tools >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-tools ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-tools <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-tools ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/tools/target/owlapi-tools-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-tools ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-tools ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-tools ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-tools ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/tools/target/owlapi-tools-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-tools/5.0.0-ALPHA-SNAPSHOT/owlapi-tools-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/tools/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-tools/5.0.0-ALPHA-SNAPSHOT/owlapi-tools-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/tools/target/owlapi-tools-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-tools/5.0.0-ALPHA-SNAPSHOT/owlapi-tools-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building parsers 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parsers ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-parsers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-parsers ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 197 source files to /home/travis/build/owlcs/owlapi/parsers/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParser.java: Some input files use or override a deprecated API.
+[INFO] /home/travis/build/owlcs/owlapi/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParser.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-parsers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/parsers/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-parsers ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/travis/build/owlcs/owlapi/parsers/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-parsers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-parsers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-parsers >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parsers ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-parsers <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-parsers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-parsers ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-parsers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-parsers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-parsers ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-parsers/5.0.0-ALPHA-SNAPSHOT/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/parsers/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-parsers/5.0.0-ALPHA-SNAPSHOT/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-parsers/5.0.0-ALPHA-SNAPSHOT/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building oboformat parser 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-oboformat ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-oboformat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-oboformat ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 41 source files to /home/travis/build/owlcs/owlapi/oboformat/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java: /home/travis/build/owlcs/owlapi/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java uses unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-oboformat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/oboformat/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-oboformat ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/travis/build/owlcs/owlapi/oboformat/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-oboformat ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-oboformat ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/oboformat/target/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-oboformat >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-oboformat ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-oboformat <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-oboformat ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/oboformat/target/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-oboformat ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-oboformat ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-oboformat ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-oboformat ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/oboformat/target/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-oboformat/5.0.0-ALPHA-SNAPSHOT/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/oboformat/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-oboformat/5.0.0-ALPHA-SNAPSHOT/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/oboformat/target/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-oboformat/5.0.0-ALPHA-SNAPSHOT/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPITOOLS OWL profile and fixers 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-fixers ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-fixers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/fixers/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-fixers ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 96 source files to /home/travis/build/owlcs/owlapi/fixers/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-fixers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/fixers/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-fixers ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 5 source files to /home/travis/build/owlcs/owlapi/fixers/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-fixers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-fixers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/fixers/target/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-fixers >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-fixers ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-fixers <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-fixers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/fixers/target/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-fixers ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-fixers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-fixers ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-fixers ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/fixers/target/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-fixers/5.0.0-ALPHA-SNAPSHOT/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/fixers/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-fixers/5.0.0-ALPHA-SNAPSHOT/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/fixers/target/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-fixers/5.0.0-ALPHA-SNAPSHOT/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI :: Sesame Rio module 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-rio ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-rio ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-rio ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 65 source files to /home/travis/build/owlcs/owlapi/rio/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-rio ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/rio/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-rio ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-rio ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-rio ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/rio/target/owlapi-rio-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-rio >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-rio ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-rio <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-rio ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/rio/target/owlapi-rio-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-rio ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-rio ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-rio ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-rio ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/rio/target/owlapi-rio-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-rio/5.0.0-ALPHA-SNAPSHOT/owlapi-rio-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/rio/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-rio/5.0.0-ALPHA-SNAPSHOT/owlapi-rio-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/rio/target/owlapi-rio-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-rio/5.0.0-ALPHA-SNAPSHOT/owlapi-rio-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Binding and Config 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-apibinding ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-apibinding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-apibinding ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to /home/travis/build/owlcs/owlapi/apibinding/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-apibinding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/apibinding/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-apibinding ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-apibinding ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-apibinding ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/apibinding/target/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-apibinding >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-apibinding ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-apibinding <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-apibinding ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/apibinding/target/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-apibinding ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-apibinding ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-apibinding ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-apibinding ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/apibinding/target/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/apibinding/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/apibinding/target/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building compatibility 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-compatibility ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-compatibility ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-compatibility ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 67 source files to /home/travis/build/owlcs/owlapi/compatibility/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/compatibility/src/main/java/de/uulm/ecs/ai/owlapi/krssparser/KRSS2OntologyFormat.java: Some input files use or override a deprecated API.
+[INFO] /home/travis/build/owlcs/owlapi/compatibility/src/main/java/de/uulm/ecs/ai/owlapi/krssparser/KRSS2OntologyFormat.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-compatibility ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/compatibility/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-compatibility ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-compatibility ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-compatibility ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/compatibility/target/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-compatibility >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-compatibility ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-compatibility <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-compatibility ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/compatibility/target/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-compatibility ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-compatibility ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-compatibility ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-compatibility ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/compatibility/target/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-compatibility/5.0.0-ALPHA-SNAPSHOT/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/compatibility/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-compatibility/5.0.0-ALPHA-SNAPSHOT/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/compatibility/target/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-compatibility/5.0.0-ALPHA-SNAPSHOT/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tests and tutorials 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-contract ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-contract ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/contract/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-contract ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 9 source files to /home/travis/build/owlcs/owlapi/contract/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-contract ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 167 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-contract ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 223 source files to /home/travis/build/owlcs/owlapi/contract/target/test-classes
+[INFO] /home/travis/build/owlcs/owlapi/contract/src/test/java/org/semanticweb/owlapi/api/test/DelegatingObjectVisitorExTestCase.java: /home/travis/build/owlcs/owlapi/contract/src/test/java/org/semanticweb/owlapi/api/test/DelegatingObjectVisitorExTestCase.java uses unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/contract/src/test/java/org/semanticweb/owlapi/api/test/DelegatingObjectVisitorExTestCase.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-contract ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-contract ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/contract/target/owlapi-contract-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-contract >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-contract ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-contract <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-contract ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/contract/target/owlapi-contract-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-contract ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-contract ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-contract ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ owlapi-contract ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/contract/target/owlapi-contract-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-contract/5.0.0-ALPHA-SNAPSHOT/owlapi-contract-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/contract/pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-contract/5.0.0-ALPHA-SNAPSHOT/owlapi-contract-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/contract/target/owlapi-contract-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-contract/5.0.0-ALPHA-SNAPSHOT/owlapi-contract-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Distribution 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-distribution ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ owlapi-distribution ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/distribution/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-distribution ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ owlapi-distribution ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/distribution/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-distribution ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-distribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-bundle-plugin:2.5.3:bundle (default-bundle) @ owlapi-distribution ---
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-distribution:bundle:5.0.0-ALPHA-SNAPSHOT : Unused Private-Package instructions, no such package(s) on the class path: [!*]
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-distribution >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-distribution ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-distribution <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-distribution ---
+[INFO] No sources in project. Archive not created.
+[INFO] 
+[INFO] --- maven-shade-plugin:2.3:shade (default) @ owlapi-distribution ---
+[INFO] Including net.sourceforge.owlapi:owlapi-apibinding:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-tools:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-impl:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-parsers:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-oboformat:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-fixers:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-rio:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-jsonld:jar:4.0.0 from the shaded jar.
+[INFO] Excluding com.github.jsonld-java:jsonld-java:jar:0.7.0 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpclient-osgi:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpclient:jar:4.2.5 from the shaded jar.
+[INFO] Excluding commons-codec:commons-codec:jar:1.6 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpmime:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpclient-cache:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:fluent-hc:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpcore-osgi:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpcore:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpcore-nio:jar:4.2.5 from the shaded jar.
+[INFO] Excluding org.slf4j:jcl-over-slf4j:jar:1.7.9 from the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-api:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-core:jar:2.6.3 from the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-databind:jar:2.6.3 from the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-annotations:jar:2.6.3 from the shaded jar.
+[INFO] Excluding net.sourceforge.owlapi:owlapi-compatibility:jar:5.0.0-ALPHA-SNAPSHOT from the shaded jar.
+[INFO] Excluding org.apache.commons:commons-rdf-api:jar:0.1.0-incubating from the shaded jar.
+[INFO] Excluding org.tukaani:xz:jar:1.5 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-model:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-util:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-api:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-languages:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-datatypes:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-binary:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-n3:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-nquads:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-ntriples:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-rdfjson:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-rdfxml:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-trix:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-turtle:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-trig:jar:4.0.0 from the shaded jar.
+[INFO] Excluding com.github.jsonld-java:jsonld-java-sesame:jar:0.5.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-sesame:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-core:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-rdfa:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-rdf:jar:0.6.1 from the shaded jar.
+[INFO] Excluding net.sf.trove4j:trove4j:jar:3.0.3 from the shaded jar.
+[INFO] Excluding com.github.ben-manes.caffeine:caffeine:jar:2.0.2 from the shaded jar.
+[INFO] Excluding com.google.guava:guava:jar:18.0 from the shaded jar.
+[INFO] Excluding com.google.inject:guice:jar:4.0 from the shaded jar.
+[INFO] Excluding javax.inject:javax.inject:jar:1 from the shaded jar.
+[INFO] Excluding aopalliance:aopalliance:jar:1.0 from the shaded jar.
+[INFO] Excluding com.google.inject.extensions:guice-assistedinject:jar:4.0 from the shaded jar.
+[INFO] Excluding com.google.inject.extensions:guice-multibindings:jar:4.0 from the shaded jar.
+[INFO] Excluding com.google.code.findbugs:jsr305:jar:2.0.1 from the shaded jar.
+[INFO] Excluding org.slf4j:slf4j-api:jar:1.7.10 from the shaded jar.
+[INFO] Excluding commons-io:commons-io:jar:2.4 from the shaded jar.
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-impl-5.0.0-ALPHA-SNAPSHOT.jar define 208 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.SWRLIndividualArgumentImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory$InitIndividualVisitor
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLDataAllValuesFromImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLSubPropertyAxiomImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLSameIndividualAxiomImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl$Buildable$1
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.Internals$RemoveAxiomVisitor
+[WARNING]   - 198 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-rio-5.0.0-ALPHA-SNAPSHOT.jar define 68 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.formats.N3DocumentFormatFactory
+[WARNING]   - org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioStorer
+[WARNING]   - org.semanticweb.owlapi.rio.RioOWLRDFParser
+[WARNING]   - org.semanticweb.owlapi.rio.OWLAPIRDFFormat
+[WARNING]   - org.semanticweb.owlapi.formats.N3DocumentFormat
+[WARNING]   - org.semanticweb.owlapi.rio.RioFunctionalSyntaxParserFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioTrigStorerFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory
+[WARNING]   - org.semanticweb.owlapi.rio.AbstractRioStorerFactory
+[WARNING]   - 58 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-tools-5.0.0-ALPHA-SNAPSHOT.jar define 86 overlappping classes: 
+[WARNING]   - com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor
+[WARNING]   - org.semanticweb.owlapi.metrics.HiddenGCICount
+[WARNING]   - com.clarkparsia.owlapi.explanation.SingleExplanationGenerator
+[WARNING]   - org.semanticweb.owlapi.metrics.GCICount
+[WARNING]   - com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator
+[WARNING]   - uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer
+[WARNING]   - uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl$AxiomMapBuilder
+[WARNING]   - org.semanticweb.owlapi.metrics.DoubleValuedMetric
+[WARNING]   - com.clarkparsia.owlapi.explanation.io.ExplanationRenderer
+[WARNING]   - com.clarkparsia.owlapi.explanation.BlackBoxExplanation
+[WARNING]   - 76 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar define 3 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.apibinding.OWLManager
+[WARNING]   - org.semanticweb.owlapi.apibinding.package-info
+[WARNING]   - org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.jar define 76 overlappping classes: 
+[WARNING]   - org.obolibrary.oboformat.parser.OBOFormatException
+[WARNING]   - org.obolibrary.obo2owl.OWLAPIOwl2Obo
+[WARNING]   - org.obolibrary.macro.MacroExpansionGCIVisitor$MacroExpansions
+[WARNING]   - org.obolibrary.oboformat.diff.Diff
+[WARNING]   - org.semanticweb.owlapi.oboformat.OBOFormatRenderer$1
+[WARNING]   - org.obolibrary.obo2owl.IdTranslator
+[WARNING]   - org.obolibrary.oboformat.model.Clause
+[WARNING]   - org.obolibrary.oboformat.parser.XrefExpander$ReverseGenusDifferentiaExpansion
+[WARNING]   - org.obolibrary.owl.LabelFunctionalSyntaxStorer
+[WARNING]   - org.obolibrary.oboformat.model.FrameStructureException
+[WARNING]   - 66 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar define 610 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl$DataPropertyExpressionListItemParser
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers$TPOneOfHandler
+[WARNING]   - org.semanticweb.owlapi.krss2.renderer.KRSS2SyntaxRenderer
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.renderer.package-info
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.parser.Translators$ObjectMinCardinalityTranslator
+[WARNING]   - org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserException
+[WARNING]   - org.semanticweb.owlapi.owlxml.parser.AbstractNaryBooleanClassExpressionElementHandler
+[WARNING]   - org.semanticweb.owlapi.latex.renderer.LatexOWLObjectRenderer
+[WARNING]   - org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl$IndividualFactsItemParser
+[WARNING]   - org.semanticweb.owlapi.rdf.turtle.parser.OWLRDFConsumerAdapter
+[WARNING]   - 600 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.jar define 96 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataHasValue
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderPropertyChain
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataExactCardinality
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderIrreflexiveObjectProperty
+[WARNING]   - org.semanticweb.owlapitools.builders.BaseAnnotationPropertyBuilder
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderAsymmetricObjectProperty
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderFacetRestriction
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderComplementOf
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataUnionOf
+[WARNING]   - 86 more...
+[WARNING] owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar define 797 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.model.OWLPropertyAssertionObject
+[WARNING]   - org.semanticweb.owlapi.model.OWLAnonymousClassExpression
+[WARNING]   - org.semanticweb.owlapi.model.HasApplyChange
+[WARNING]   - org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator
+[WARNING]   - org.semanticweb.owlapi.model.SWRLDArgument
+[WARNING]   - org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor
+[WARNING]   - org.semanticweb.owlapi.model.providers.ExistentialProvider
+[WARNING]   - org.semanticweb.owlapi.model.axiomproviders.PropertyCharacteristicAxiomProvider
+[WARNING]   - org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom
+[WARNING]   - org.semanticweb.owlapi.io.SystemOutDocumentTarget
+[WARNING]   - 787 more...
+[WARNING] maven-shade-plugin has detected that some .class files
+[WARNING] are present in two or more JARs. When this happens, only
+[WARNING] one single version of the class is copied in the uberjar.
+[WARNING] Usually this is not harmful and you can skeep these
+[WARNING] warnings, otherwise try to manually exclude artifacts
+[WARNING] based on mvn dependency:tree -Ddetail=true and the above
+[WARNING] output
+[WARNING] See http://docs.codehaus.org/display/MAVENUSER/Shade+Plugin
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing /home/travis/build/owlcs/owlapi/distribution/target/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar with /home/travis/build/owlcs/owlapi/distribution/target/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT-shaded.jar
+[INFO] Dependency-reduced POM written at: /home/travis/build/owlcs/owlapi/distribution/dependency-reduced-pom.xml
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-distribution ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadoc) @ owlapi-distribution ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-assembly-plugin:2.4:single (attach-sources) @ owlapi-distribution ---
+[INFO] Reading assembly descriptor: src/assembly/sources.xml
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/distribution/target/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-distribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-distribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ owlapi-distribution ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/distribution/target/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-distribution/5.0.0-ALPHA-SNAPSHOT/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/distribution/dependency-reduced-pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-distribution/5.0.0-ALPHA-SNAPSHOT/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/distribution/target/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-distribution/5.0.0-ALPHA-SNAPSHOT/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-bundle-plugin:2.5.3:install (default-install) @ owlapi-distribution ---
+[INFO] Installing net/sourceforge/owlapi/owlapi-distribution/5.0.0-ALPHA-SNAPSHOT/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing net/sourceforge/owlapi/owlapi-distribution/5.0.0-ALPHA-SNAPSHOT/owlapi-distribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] Writing OBR metadata
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI OSGi and Compatibility Distribution 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-osgidistribution ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ owlapi-osgidistribution ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/osgidistribution/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-osgidistribution ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/travis/build/owlcs/owlapi/osgidistribution/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ owlapi-osgidistribution ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-osgidistribution ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /home/travis/build/owlcs/owlapi/osgidistribution/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-osgidistribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-bundle-plugin:2.5.3:bundle (default-bundle) @ owlapi-osgidistribution ---
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Unused Import-Package instructions: [com.github.benmanes.*] 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.semanticweb.owlapi.formats,  has 1,  private references [org.openrdf.rio], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.semanticweb.owlapi.io,  has 2,  private references [org.apache.commons.rdf.api, org.tukaani.xz], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.semanticweb.owlapi.model,  has 1,  private references [org.apache.commons.rdf.api], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.semanticweb.owlapi.rio,  has 5,  private references [org.openrdf.rio.helpers, org.openrdf.model, info.aduna.iteration, org.openrdf.rio, org.openrdf], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.semanticweb.owlapi.rio.utils,  has 1,  private references [org.openrdf.model], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export uk.ac.manchester.cs.owl.owlapi,  has 1,  private references [com.github.benmanes.caffeine.cache], 
+[WARNING] Bundle net.sourceforge.owlapi:owlapi-osgidistribution:bundle:5.0.0-ALPHA-SNAPSHOT : Export org.obolibrary.oboformat.writer,  has 1,  private references [gnu.trove.map.hash], 
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-osgidistribution >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-osgidistribution ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-osgidistribution <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-osgidistribution ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-osgidistribution ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadoc) @ owlapi-osgidistribution ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-shade-plugin:2.3:shade (default) @ owlapi-osgidistribution ---
+[INFO] Including net.sourceforge.owlapi:owlapi-apibinding:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-tools:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-impl:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-parsers:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-oboformat:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-fixers:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-rio:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-jsonld:jar:4.0.0 from the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-api:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-core:jar:2.6.3 from the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-databind:jar:2.6.3 from the shaded jar.
+[INFO] Excluding com.fasterxml.jackson.core:jackson-annotations:jar:2.6.3 from the shaded jar.
+[INFO] Including net.sourceforge.owlapi:owlapi-compatibility:jar:5.0.0-ALPHA-SNAPSHOT in the shaded jar.
+[INFO] Excluding org.apache.commons:commons-rdf-api:jar:0.1.0-incubating from the shaded jar.
+[INFO] Excluding org.tukaani:xz:jar:1.5 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-model:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-api:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-languages:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-datatypes:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-binary:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-n3:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-nquads:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-ntriples:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-rdfjson:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-rdfxml:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-trix:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-turtle:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-rio-trig:jar:4.0.0 from the shaded jar.
+[INFO] Excluding org.openrdf.sesame:sesame-util:jar:4.0.0 from the shaded jar.
+[INFO] Excluding com.github.jsonld-java:jsonld-java-sesame:jar:0.5.1 from the shaded jar.
+[INFO] Excluding com.github.jsonld-java:jsonld-java:jar:0.5.0 from the shaded jar.
+[INFO] Excluding org.slf4j:jcl-over-slf4j:jar:1.7.7 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpclient:jar:4.5.1 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpclient-cache:jar:4.5.1 from the shaded jar.
+[INFO] Excluding org.apache.httpcomponents:httpcore:jar:4.4.3 from the shaded jar.
+[INFO] Excluding commons-codec:commons-codec:jar:1.9 from the shaded jar.
+[INFO] Excluding commons-logging:commons-logging:jar:1.2 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-sesame:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-core:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-rdfa:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.semarglproject:semargl-rdf:jar:0.6.1 from the shaded jar.
+[INFO] Excluding org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-inject:jar:1_2 from the shaded jar.
+[INFO] Excluding org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:jar:1.0_6 from the shaded jar.
+[INFO] Excluding com.github.ben-manes.caffeine:caffeine:jar:2.0.2 from the shaded jar.
+[INFO] Excluding net.sf.trove4j:trove4j:jar:3.0.3 from the shaded jar.
+[INFO] Excluding com.google.guava:guava:jar:18.0 from the shaded jar.
+[INFO] Excluding com.google.inject:guice:jar:4.0 from the shaded jar.
+[INFO] Excluding javax.inject:javax.inject:jar:1 from the shaded jar.
+[INFO] Excluding aopalliance:aopalliance:jar:1.0 from the shaded jar.
+[INFO] Excluding com.google.inject.extensions:guice-assistedinject:jar:4.0 from the shaded jar.
+[INFO] Excluding com.google.inject.extensions:guice-multibindings:jar:4.0 from the shaded jar.
+[INFO] Excluding com.google.code.findbugs:jsr305:jar:2.0.1 from the shaded jar.
+[INFO] Excluding org.slf4j:slf4j-api:jar:1.7.10 from the shaded jar.
+[INFO] Excluding commons-io:commons-io:jar:2.4 from the shaded jar.
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-fixers-5.0.0-ALPHA-SNAPSHOT.jar define 96 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataHasValue
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderPropertyChain
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataExactCardinality
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderIrreflexiveObjectProperty
+[WARNING]   - org.semanticweb.owlapitools.builders.BaseAnnotationPropertyBuilder
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderAsymmetricObjectProperty
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderFacetRestriction
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderComplementOf
+[WARNING]   - org.semanticweb.owlapitools.builders.BuilderDataUnionOf
+[WARNING]   - 86 more...
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-tools-5.0.0-ALPHA-SNAPSHOT.jar define 86 overlappping classes: 
+[WARNING]   - com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor
+[WARNING]   - org.semanticweb.owlapi.metrics.HiddenGCICount
+[WARNING]   - com.clarkparsia.owlapi.explanation.SingleExplanationGenerator
+[WARNING]   - org.semanticweb.owlapi.metrics.GCICount
+[WARNING]   - com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator
+[WARNING]   - uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer
+[WARNING]   - uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl$AxiomMapBuilder
+[WARNING]   - org.semanticweb.owlapi.metrics.DoubleValuedMetric
+[WARNING]   - com.clarkparsia.owlapi.explanation.io.ExplanationRenderer
+[WARNING]   - com.clarkparsia.owlapi.explanation.BlackBoxExplanation
+[WARNING]   - 76 more...
+[WARNING] owlapi-impl-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar define 208 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.SWRLIndividualArgumentImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory$InitIndividualVisitor
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLDataAllValuesFromImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLSubPropertyAxiomImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLSameIndividualAxiomImpl
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl$Buildable$1
+[WARNING]   - uk.ac.manchester.cs.owl.owlapi.Internals$RemoveAxiomVisitor
+[WARNING]   - 198 more...
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-rio-5.0.0-ALPHA-SNAPSHOT.jar define 68 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.formats.N3DocumentFormatFactory
+[WARNING]   - org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioStorer
+[WARNING]   - org.semanticweb.owlapi.rio.RioOWLRDFParser
+[WARNING]   - org.semanticweb.owlapi.rio.OWLAPIRDFFormat
+[WARNING]   - org.semanticweb.owlapi.formats.N3DocumentFormat
+[WARNING]   - org.semanticweb.owlapi.rio.RioFunctionalSyntaxParserFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioTrigStorerFactory
+[WARNING]   - org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory
+[WARNING]   - org.semanticweb.owlapi.rio.AbstractRioStorerFactory
+[WARNING]   - 58 more...
+[WARNING] owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar define 610 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl$DataPropertyExpressionListItemParser
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers$TPOneOfHandler
+[WARNING]   - org.semanticweb.owlapi.krss2.renderer.KRSS2SyntaxRenderer
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.renderer.package-info
+[WARNING]   - org.semanticweb.owlapi.rdf.rdfxml.parser.Translators$ObjectMinCardinalityTranslator
+[WARNING]   - org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserException
+[WARNING]   - org.semanticweb.owlapi.owlxml.parser.AbstractNaryBooleanClassExpressionElementHandler
+[WARNING]   - org.semanticweb.owlapi.latex.renderer.LatexOWLObjectRenderer
+[WARNING]   - org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl$IndividualFactsItemParser
+[WARNING]   - org.semanticweb.owlapi.rdf.turtle.parser.OWLRDFConsumerAdapter
+[WARNING]   - 600 more...
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT.jar define 76 overlappping classes: 
+[WARNING]   - org.obolibrary.oboformat.parser.OBOFormatException
+[WARNING]   - org.obolibrary.obo2owl.OWLAPIOwl2Obo
+[WARNING]   - org.obolibrary.macro.MacroExpansionGCIVisitor$MacroExpansions
+[WARNING]   - org.obolibrary.oboformat.diff.Diff
+[WARNING]   - org.semanticweb.owlapi.oboformat.OBOFormatRenderer$1
+[WARNING]   - org.obolibrary.obo2owl.IdTranslator
+[WARNING]   - org.obolibrary.oboformat.model.Clause
+[WARNING]   - org.obolibrary.oboformat.parser.XrefExpander$ReverseGenusDifferentiaExpansion
+[WARNING]   - org.obolibrary.owl.LabelFunctionalSyntaxStorer
+[WARNING]   - org.obolibrary.oboformat.model.FrameStructureException
+[WARNING]   - 66 more...
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar define 797 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.model.OWLPropertyAssertionObject
+[WARNING]   - org.semanticweb.owlapi.model.OWLAnonymousClassExpression
+[WARNING]   - org.semanticweb.owlapi.model.HasApplyChange
+[WARNING]   - org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator
+[WARNING]   - org.semanticweb.owlapi.model.SWRLDArgument
+[WARNING]   - org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor
+[WARNING]   - org.semanticweb.owlapi.model.providers.ExistentialProvider
+[WARNING]   - org.semanticweb.owlapi.model.axiomproviders.PropertyCharacteristicAxiomProvider
+[WARNING]   - org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom
+[WARNING]   - org.semanticweb.owlapi.io.SystemOutDocumentTarget
+[WARNING]   - 787 more...
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar define 3 overlappping classes: 
+[WARNING]   - org.semanticweb.owlapi.apibinding.OWLManager
+[WARNING]   - org.semanticweb.owlapi.apibinding.package-info
+[WARNING]   - org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory
+[WARNING] owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar, owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT.jar define 98 overlappping classes: 
+[WARNING]   - org.coode.owlapi.obo12.parser.OBOIdType$1
+[WARNING]   - uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxHTMLOntologyFormat
+[WARNING]   - org.coode.owl.krssparser.KRSSOntologyFormat
+[WARNING]   - org.coode.owlapi.obo12.parser.XRefTagHandler
+[WARNING]   - org.coode.owlapi.obo12.parser.IDSpaceTagValueHandler
+[WARNING]   - org.coode.owlapi.obo12.parser.OBOIdTranslator
+[WARNING]   - org.coode.owlapi.obo12.parser.OntologyTagValueHandler
+[WARNING]   - org.coode.owlapi.obo12.parser.OBOIdType$OBOIIdTranslator
+[WARNING]   - org.coode.owlapi.obo12.parser.OBO12DocumentFormat
+[WARNING]   - org.coode.owlapi.obo12.parser.PartOfTagValueHandler
+[WARNING]   - 88 more...
+[WARNING] maven-shade-plugin has detected that some .class files
+[WARNING] are present in two or more JARs. When this happens, only
+[WARNING] one single version of the class is copied in the uberjar.
+[WARNING] Usually this is not harmful and you can skeep these
+[WARNING] warnings, otherwise try to manually exclude artifacts
+[WARNING] based on mvn dependency:tree -Ddetail=true and the above
+[WARNING] output
+[WARNING] See http://docs.codehaus.org/display/MAVENUSER/Shade+Plugin
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar with /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-shaded.jar
+[INFO] Dependency-reduced POM written at: /home/travis/build/owlcs/owlapi/osgidistribution/dependency-reduced-pom.xml
+[INFO] 
+[INFO] --- maven-assembly-plugin:2.4:single (attach-sources) @ owlapi-osgidistribution ---
+[INFO] Reading assembly descriptor: src/assembly/sources.xml
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-osgidistribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-osgidistribution ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ owlapi-osgidistribution ---
+[INFO] Installing /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/osgidistribution/dependency-reduced-pom.xml to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.pom
+[INFO] Installing /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] Installing /home/travis/build/owlcs/owlapi/osgidistribution/target/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar to /home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-bundle-plugin:2.5.3:install (default-install) @ owlapi-osgidistribution ---
+[INFO] Installing net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] Installing net/sourceforge/owlapi/owlapi-osgidistribution/5.0.0-ALPHA-SNAPSHOT/owlapi-osgidistribution-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] Writing OBR metadata
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] OWLAPI ............................................. SUCCESS [  4.027 s]
+[INFO] OWLAPI Model Interfaces and utilities .............. SUCCESS [ 29.935 s]
+[INFO] OWLAPI Default Implementation ...................... SUCCESS [  7.706 s]
+[INFO] tools .............................................. SUCCESS [  1.776 s]
+[INFO] parsers ............................................ SUCCESS [  7.410 s]
+[INFO] oboformat parser ................................... SUCCESS [  1.094 s]
+[INFO] OWLAPITOOLS OWL profile and fixers ................. SUCCESS [  0.598 s]
+[INFO] OWLAPI :: Sesame Rio module ........................ SUCCESS [  0.524 s]
+[INFO] OWLAPI Binding and Config .......................... SUCCESS [  0.210 s]
+[INFO] compatibility ...................................... SUCCESS [  0.531 s]
+[INFO] tests and tutorials ................................ SUCCESS [  8.047 s]
+[INFO] OWLAPI Distribution ................................ SUCCESS [  9.212 s]
+[INFO] OWLAPI OSGi and Compatibility Distribution ......... SUCCESS [ 11.808 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:26 min
+[INFO] Finished at: 2015-12-29T12:42:45+00:00
+[INFO] Final Memory: 53M/427M
+[INFO] ------------------------------------------------------------------------
+travis_time:end:15e22259:start=1451392876318330460,finish=1451392966507281359,duration=90188950899
+[0Ktravis_fold:end:install
+[0Ktravis_time:start:076f795c
+[0K$ mvn verify
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=192m; support was removed in 8.0
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 13 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 13 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] OWLAPI
+[INFO] OWLAPI Model Interfaces and utilities
+[INFO] OWLAPI Default Implementation
+[INFO] tools
+[INFO] parsers
+[INFO] oboformat parser
+[INFO] OWLAPITOOLS OWL profile and fixers
+[INFO] OWLAPI :: Sesame Rio module
+[INFO] OWLAPI Binding and Config
+[INFO] compatibility
+[INFO] tests and tutorials
+[INFO] OWLAPI Distribution
+[INFO] OWLAPI OSGi and Compatibility Distribution
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parent ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-parent >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parent ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-parent <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-parent ---
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-parent ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-parent ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-parent ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Model Interfaces and utilities 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-api ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/api/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 730 source files to /home/travis/build/owlcs/owlapi/api/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/api/src/main/java/org/semanticweb/owlapi/util/OWLAPIStreamUtils.java: Some input files use unchecked or unsafe operations.
+[INFO] /home/travis/build/owlcs/owlapi/api/src/main/java/org/semanticweb/owlapi/util/OWLAPIStreamUtils.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-api ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-api ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/api/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Tests run: 883, Failures: 0, Errors: 0, Skipped: 4
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-api ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-api >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-api ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-api <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-api ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/api/target/owlapi-api-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-api ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-api ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-api ---
+[INFO] Failsafe report directory: /home/travis/build/owlcs/owlapi/api/target/failsafe-reports
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Default Implementation 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-impl ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-impl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/impl/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-impl ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-impl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/impl/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-impl ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-impl ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/impl/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+[main] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.
+[main] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.
+Tests run: 497, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-impl ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-impl >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-impl ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-impl <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-impl ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/impl/target/owlapi-impl-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-impl ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-impl ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-impl ---
+[INFO] Failsafe report directory: /home/travis/build/owlcs/owlapi/impl/target/failsafe-reports
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tools 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-tools ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-tools ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/tools/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-tools ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-tools ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/tools/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-tools ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-tools ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-tools ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-tools >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-tools ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-tools <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-tools ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/tools/target/owlapi-tools-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-tools ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-tools ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-tools ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building parsers 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parsers ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-parsers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-parsers ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 197 source files to /home/travis/build/owlcs/owlapi/parsers/target/classes
+[INFO] /home/travis/build/owlcs/owlapi/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParser.java: Some input files use or override a deprecated API.
+[INFO] /home/travis/build/owlcs/owlapi/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParser.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-parsers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/parsers/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-parsers ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-parsers ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/parsers/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-parsers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT.jar
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-parsers >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-parsers ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-parsers <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-parsers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/parsers/target/owlapi-parsers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-parsers ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-parsers ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-parsers ---
+[INFO] Failsafe report directory: /home/travis/build/owlcs/owlapi/parsers/target/failsafe-reports
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building oboformat parser 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-oboformat ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-oboformat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-oboformat ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-oboformat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/oboformat/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-oboformat ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-oboformat ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/oboformat/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-oboformat ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-oboformat >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-oboformat ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-oboformat <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-oboformat ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/oboformat/target/owlapi-oboformat-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-oboformat ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-oboformat ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-oboformat ---
+[INFO] Failsafe report directory: /home/travis/build/owlcs/owlapi/oboformat/target/failsafe-reports
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPITOOLS OWL profile and fixers 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-fixers ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-fixers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/fixers/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-fixers ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-fixers ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/fixers/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-fixers ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-fixers ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/fixers/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Tests run: 220, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-fixers ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-fixers >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-fixers ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-fixers <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-fixers ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/fixers/target/owlapi-fixers-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-fixers ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-fixers ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-fixers ---
+[INFO] Failsafe report directory: /home/travis/build/owlcs/owlapi/fixers/target/failsafe-reports
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI :: Sesame Rio module 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-rio ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-rio ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-rio ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-rio ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/rio/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-rio ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-rio ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-rio ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-rio >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-rio ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-rio <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-rio ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/rio/target/owlapi-rio-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-rio ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-rio ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-rio ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building OWLAPI Binding and Config 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-apibinding ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-apibinding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-apibinding ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-apibinding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/apibinding/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-apibinding ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-apibinding ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-apibinding ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-apibinding >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-apibinding ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-apibinding <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-apibinding ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/apibinding/target/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-apibinding ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-apibinding ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-apibinding ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building compatibility 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-compatibility ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-compatibility ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-compatibility ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-compatibility ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/compatibility/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-compatibility ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-compatibility ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ owlapi-compatibility ---
+[INFO] 
+[INFO] >>> maven-source-plugin:2.2.1:jar (attach-sources) > generate-sources @ owlapi-compatibility >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-compatibility ---
+[INFO] 
+[INFO] <<< maven-source-plugin:2.2.1:jar (attach-sources) < generate-sources @ owlapi-compatibility <<<
+[INFO] 
+[INFO] --- maven-source-plugin:2.2.1:jar (attach-sources) @ owlapi-compatibility ---
+[INFO] Building jar: /home/travis/build/owlcs/owlapi/compatibility/target/owlapi-compatibility-5.0.0-ALPHA-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.8.1:jar (attach-javadocs) @ owlapi-compatibility ---
+[INFO] Skipping javadoc generation
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:integration-test (default) @ owlapi-compatibility ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.18.1:verify (default) @ owlapi-compatibility ---
+[INFO] No tests to run.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tests and tutorials 5.0.0-ALPHA-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ owlapi-contract ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ owlapi-contract ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/travis/build/owlcs/owlapi/contract/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ owlapi-contract ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 9 source files to /home/travis/build/owlcs/owlapi/contract/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ owlapi-contract ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 167 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ owlapi-contract ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ owlapi-contract ---
+[INFO] Surefire report directory: /home/travis/build/owlcs/owlapi/contract/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+2015-12-29 12:45:21:297 +0000 [Time-limited test] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - OWLOntologyManagerImpl.checkForOntologyIDChange() existing:Ontology(OntologyID(OntologyIRI(<http://www.semanticweb.org/ontologies/ontologyA>) VersionIRI(<null>))) [Axioms: 1 Logical Axioms: 0] First 20 axioms: {Declaration(Class(<urn:test:testclass>)) }
+2015-12-29 12:45:21:299 +0000 [Time-limited test] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - OWLOntologyManagerImpl.checkForOntologyIDChange() new:Ontology(OntologyID(OntologyIRI(<http://www.semanticweb.org/ontologies/ontologyB>) VersionIRI(<null>))) [Axioms: 0 Logical Axioms: 0] First 20 axioms: {}
+2015-12-29 12:45:21:502 +0000 [Time-limited test] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - OWLOntologyManagerImpl.checkForOntologyIDChange() existing:Ontology(OntologyID(OntologyIRI(<http://www.semanticweb.org/ontologies/ontologyA>) VersionIRI(<null>))) [Axioms: 1 Logical Axioms: 0] First 20 axioms: {Declaration(Class(<http://www.semanticweb.org/ontologies/ontologyA#A>)) }
+2015-12-29 12:45:21:503 +0000 [Time-limited test] ERROR uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl - OWLOntologyManagerImpl.checkForOntologyIDChange() new:Ontology(OntologyID(Anonymous-9470)) [Axioms: 0 Logical Axioms: 0] First 20 axioms: {}
+roundtrip fail: KRSS2 Syntax AnnotationAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> <urn:test#iri> "false"^^xsd:boolean)
+roundtrip fail: KRSS Syntax AnnotationAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> <urn:test#iri> "false"^^xsd:boolean)
+parse fail: DL Syntax Format AnnotationAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> <urn:test#iri> "false"^^xsd:boolean)
+roundtrip fail: Manchester OWL Syntax AnnotationAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> <urn:test#iri> "false"^^xsd:boolean)
+roundtrip fail: KRSS2 Syntax AsymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax AsymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: DL Syntax Format AsymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax AnnotationPropertyDomain(<urn:test#ann> <urn:test#iri>)
+roundtrip fail: KRSS Syntax AnnotationPropertyDomain(<urn:test#ann> <urn:test#iri>)
+parse fail: DL Syntax Format AnnotationPropertyDomain(<urn:test#ann> <urn:test#iri>)
+roundtrip fail: KRSS2 Syntax AnnotationPropertyRange(<urn:test#ann> <urn:test#iri>)
+roundtrip fail: KRSS Syntax AnnotationPropertyRange(<urn:test#ann> <urn:test#iri>)
+parse fail: DL Syntax Format AnnotationPropertyRange(<urn:test#ann> <urn:test#iri>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectIntersectionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectIntersectionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectIntersectionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectUnionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectUnionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectUnionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataIntersectionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataIntersectionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataIntersectionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataUnionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataUnionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataUnionOf(<urn:test#datatype> DataOneOf("false"^^xsd:boolean ) ))
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) _:id)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) _:id)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test#c>) _:id)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectSomeValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectAllValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectAllValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectAllValuesFrom(<urn:test#op> <urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasValue(<urn:test#op> <urn:test#i>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasValue(<urn:test#op> <urn:test#i>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasValue(<urn:test#op> <urn:test#i>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMinCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMinCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMinCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectMaxCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectExactCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectExactCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectExactCardinality(1 <urn:test#op> <urn:test#c>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasSelf(<urn:test#op>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasSelf(<urn:test#op>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectHasSelf(<urn:test#op>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectOneOf(<urn:test#i>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectOneOf(<urn:test#i>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectOneOf(<urn:test#i>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataSomeValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataAllValuesFrom(<urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataHasValue(<urn:test#dp> "false"^^xsd:boolean) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataHasValue(<urn:test#dp> "false"^^xsd:boolean) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataHasValue(<urn:test#dp> "false"^^xsd:boolean) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMinCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: KRSS Syntax ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+parse fail: DL Syntax Format ClassAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>) <urn:test#i>)
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataOneOf("false"^^xsd:boolean ))
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataOneOf("false"^^xsd:boolean ))
+roundtrip fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataOneOf("false"^^xsd:boolean ))
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataComplementOf(DataOneOf("false"^^xsd:boolean )))
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataComplementOf(DataOneOf("false"^^xsd:boolean )))
+roundtrip fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataComplementOf(DataOneOf("false"^^xsd:boolean )))
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive "5.0"^^xsd:double) facetRestriction(maxExclusive "6.0"^^xsd:double)))
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive "5.0"^^xsd:double) facetRestriction(maxExclusive "6.0"^^xsd:double)))
+parse fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive "5.0"^^xsd:double) facetRestriction(maxExclusive "6.0"^^xsd:double)))
+roundtrip fail: KRSS2 Syntax DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+roundtrip fail: KRSS Syntax DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+parse fail: DL Syntax Format DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+roundtrip fail: KRSS2 Syntax DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "string"@en)
+roundtrip fail: KRSS Syntax DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "string"@en)
+parse fail: DL Syntax Format DataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "string"@en)
+roundtrip fail: KRSS2 Syntax DataPropertyDomain(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#c>)
+parse fail: KRSS Syntax DataPropertyDomain(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#c>)
+parse fail: DL Syntax Format DataPropertyDomain(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#c>)
+roundtrip fail: KRSS2 Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#datatype>)
+roundtrip fail: KRSS Syntax DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#datatype>)
+roundtrip fail: DL Syntax Format DataPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#datatype>)
+roundtrip fail: KRSS2 Syntax DatatypeDefinition(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#datatype> xsd:double)
+roundtrip fail: KRSS Syntax DatatypeDefinition(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#datatype> xsd:double)
+parse fail: DL Syntax Format DatatypeDefinition(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#datatype> xsd:double)
+roundtrip fail: KRSS2 Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Class(<urn:test#c>))
+parse fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Class(<urn:test#c>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Class(<urn:test#c>))
+parse fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectProperty(<urn:test#op>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectProperty(<urn:test#op>))
+roundtrip fail: KRSS2 Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) DataProperty(<urn:test#dp>))
+roundtrip fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) DataProperty(<urn:test#dp>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) DataProperty(<urn:test#dp>))
+roundtrip fail: KRSS2 Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Datatype(<urn:test#datatype>))
+roundtrip fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Datatype(<urn:test#datatype>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) Datatype(<urn:test#datatype>))
+roundtrip fail: KRSS2 Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) AnnotationProperty(<urn:test#ann>))
+roundtrip fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) AnnotationProperty(<urn:test#ann>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) AnnotationProperty(<urn:test#ann>))
+roundtrip fail: KRSS2 Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) NamedIndividual(<urn:test#i>))
+roundtrip fail: KRSS Syntax Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) NamedIndividual(<urn:test#i>))
+parse fail: DL Syntax Format Declaration(Annotation(<urn:test#ann> "test"^^xsd:string) NamedIndividual(<urn:test#i>))
+roundtrip fail: KRSS2 Syntax DifferentIndividuals(<urn:test#i> <urn:test#iri> )
+parse fail: KRSS Syntax DifferentIndividuals(<urn:test#i> <urn:test#iri> )
+roundtrip fail: DL Syntax Format DifferentIndividuals(<urn:test#i> <urn:test#iri> )
+roundtrip fail: KRSS2 Syntax DisjointClasses(<urn:test#c> <urn:test#iri>)
+parse fail: KRSS Syntax DisjointClasses(<urn:test#c> <urn:test#iri>)
+parse fail: DL Syntax Format DisjointClasses(<urn:test#c> <urn:test#iri>)
+roundtrip fail: KRSS2 Syntax DisjointDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+roundtrip fail: KRSS Syntax DisjointDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+parse fail: DL Syntax Format DisjointDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+roundtrip fail: KRSS2 Syntax DisjointObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+parse fail: KRSS Syntax DisjointObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+parse fail: DL Syntax Format DisjointObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+roundtrip fail: KRSS2 Syntax DisjointUnion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#c> <urn:test#iri> )
+parse fail: KRSS Syntax DisjointUnion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#c> <urn:test#iri> )
+parse fail: DL Syntax Format DisjointUnion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#c> <urn:test#iri> )
+parse fail: KRSS Syntax EquivalentClasses(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#iri> )
+parse fail: DL Syntax Format EquivalentClasses(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> <urn:test#iri> )
+roundtrip fail: KRSS2 Syntax EquivalentDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+roundtrip fail: KRSS Syntax EquivalentDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+parse fail: DL Syntax Format EquivalentDataProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#iri> )
+roundtrip fail: KRSS2 Syntax EquivalentObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+parse fail: KRSS Syntax EquivalentObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+parse fail: DL Syntax Format EquivalentObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#iri> <urn:test#op> )
+roundtrip fail: KRSS2 Syntax FunctionalDataProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp>)
+roundtrip fail: KRSS Syntax FunctionalDataProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp>)
+roundtrip fail: DL Syntax Format FunctionalDataProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp>)
+roundtrip fail: KRSS2 Syntax FunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax FunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: DL Syntax Format FunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax InverseFunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax InverseFunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: DL Syntax Format InverseFunctionalObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax InverseObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#op>)
+parse fail: KRSS Syntax InverseObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#op>)
+parse fail: DL Syntax Format InverseObjectProperties(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#op>)
+roundtrip fail: KRSS2 Syntax IrreflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax IrreflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: DL Syntax Format IrreflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax NegativeDataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+roundtrip fail: KRSS Syntax NegativeDataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+parse fail: DL Syntax Format NegativeDataPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#dp> <urn:test#i> "false"^^xsd:boolean)
+roundtrip fail: KRSS2 Syntax NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+parse fail: KRSS Syntax NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+parse fail: DL Syntax Format NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+parse fail: KRSS Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+parse fail: DL Syntax Format ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)
+parse fail: KRSS Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)
+parse fail: DL Syntax Format ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)
+roundtrip fail: KRSS2 Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)
+parse fail: KRSS Syntax ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)
+parse fail: DL Syntax Format ObjectPropertyAssertion(Annotation(<urn:test#ann> "test"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)
+parse fail: KRSS Syntax ObjectPropertyDomain(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#c>)
+parse fail: DL Syntax Format ObjectPropertyDomain(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#c>)
+parse fail: KRSS2 Syntax ObjectPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#c>)
+parse fail: KRSS Syntax ObjectPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#c>)
+parse fail: DL Syntax Format ObjectPropertyRange(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> <urn:test#c>)
+roundtrip fail: KRSS2 Syntax SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectPropertyChain( <urn:test#iri> <urn:test#op> ) <urn:test#op>)
+parse fail: KRSS Syntax SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectPropertyChain( <urn:test#iri> <urn:test#op> ) <urn:test#op>)
+parse fail: DL Syntax Format SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) ObjectPropertyChain( <urn:test#iri> <urn:test#op> ) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax ReflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax ReflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: DL Syntax Format ReflexiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax SameIndividual(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#i> <urn:test#iri> )
+parse fail: KRSS Syntax SameIndividual(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#i> <urn:test#iri> )
+parse fail: DL Syntax Format SameIndividual(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#i> <urn:test#iri> )
+roundtrip fail: KRSS2 Syntax SubAnnotationPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> rdfs:label)
+roundtrip fail: KRSS Syntax SubAnnotationPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> rdfs:label)
+parse fail: DL Syntax Format SubAnnotationPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#ann> rdfs:label)
+parse fail: KRSS Syntax SubClassOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> owl:Thing)
+parse fail: DL Syntax Format SubClassOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> owl:Thing)
+roundtrip fail: KRSS2 Syntax SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)
+roundtrip fail: KRSS Syntax SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)
+parse fail: DL Syntax Format SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)
+parse fail: KRSS2 Syntax SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> owl:topObjectProperty)
+parse fail: KRSS Syntax SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> owl:topObjectProperty)
+parse fail: DL Syntax Format SubObjectPropertyOf(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op> owl:topObjectProperty)
+roundtrip fail: KRSS2 Syntax DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )
+roundtrip fail: KRSS Syntax DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )
+parse fail: DL Syntax Format DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )
+parse fail: KRSS2 Syntax SymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax SymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: DL Syntax Format SymmetricObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS2 Syntax TransitiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: KRSS Syntax TransitiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+parse fail: DL Syntax Format TransitiveObjectProperty(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#op>)
+roundtrip fail: KRSS2 Syntax HasKey(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))
+parse fail: KRSS Syntax HasKey(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))
+parse fail: DL Syntax Format HasKey(Annotation(<urn:test#ann> "test"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))
+roundtrip fail: KRSS2 Syntax DLSafeRule(Annotation(<urn:test#ann> "test"^^xsd:string)  Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) ) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) "false"^^xsd:boolean) ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))) )
+parse fail: KRSS Syntax DLSafeRule(Annotation(<urn:test#ann> "test"^^xsd:string)  Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) ) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) "false"^^xsd:boolean) ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))) )
+parse fail: DL Syntax Format DLSafeRule(Annotation(<urn:test#ann> "test"^^xsd:string)  Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) ) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) "false"^^xsd:boolean) ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))) )
+elapsed time (ms): 8975
+Successful threads: 25	 expected: 25
+
+2015-12-29 12:45:49:907 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'xref( GO:0005623)' generated in frame: CARO:0000013
+2015-12-29 12:45:49:907 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'def( Anatomical structure that has as its parts a maximally connected cell compartment surrounded by a plasma membrane.[CARO:MAH ])' generated in frame: CARO:0000013
+2015-12-29 12:45:49:907 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( cell)' generated in frame: CARO:0000013
+2015-12-29 12:45:49:907 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( caro)' generated in frame: CARO:0000013
+2015-12-29 12:45:49:909 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'def( Anatomical structure that has as its parts two or more multi-tissue structures of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona fide boundaries from other distinct anatomical structures of different types.[CARO:MAH ])' generated in frame: CARO:0000024
+2015-12-29 12:45:49:909 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( compound organ)' generated in frame: CARO:0000024
+2015-12-29 12:45:49:909 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( caro)' generated in frame: CARO:0000024
+2015-12-29 12:45:50:071 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( test_default_namespace)' generated in frame: TEST:0003
+2015-12-29 12:45:50:071 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( test_default_namespace)' generated in frame: TEST:0003
+2015-12-29 12:45:50:185 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( argininosuccinate synthase activity)' generated in frame: GO:0004055
+2015-12-29 12:45:50:185 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( test)' generated in frame: XX:0000001
+2015-12-29 12:45:50:254 +0000 [Time-limited test] ERROR org.obolibrary.oboformat.parser.OBOFormatParser - Error: Instance frames are not supported yet. Parsing stopped at line: 425
+2015-12-29 12:45:50:315 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( argininosuccinate synthase activity)' generated in frame: GO:0004055
+2015-12-29 12:45:50:315 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( test)' generated in frame: XX:0000001
+2015-12-29 12:45:51:861 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( has part)' generated in frame: has_part
+2015-12-29 12:45:51:862 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( has part)' generated in frame: has_part
+2015-12-29 12:45:51:862 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'xref( BFO:0000051)' generated in frame: has_part
+2015-12-29 12:45:51:862 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( has part)' generated in frame: has_part
+2015-12-29 12:45:51:863 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( b)' generated in frame: TEST:b
+2015-12-29 12:45:51:863 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( a)' generated in frame: TEST:a
+2015-12-29 12:45:51:863 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( b)' generated in frame: TEST:b
+2015-12-29 12:45:51:871 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( z1)' generated in frame: Z:1
+2015-12-29 12:45:51:904 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'def( Def T1)' generated in frame: TEST:0001
+2015-12-29 12:45:52:023 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( argininosuccinate synthase activity)' generated in frame: GO:0004055
+2015-12-29 12:45:52:023 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( test)' generated in frame: XX:0000001
+2015-12-29 12:45:52:390 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'xref( GO:0005623)' generated in frame: CARO:0000013
+2015-12-29 12:45:52:391 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'def( Anatomical structure that has as its parts a maximally connected cell compartment surrounded by a plasma membrane.[CARO:MAH ])' generated in frame: CARO:0000013
+2015-12-29 12:45:52:391 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( cell)' generated in frame: CARO:0000013
+2015-12-29 12:45:52:391 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( caro)' generated in frame: CARO:0000013
+2015-12-29 12:45:52:392 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'def( Anatomical structure that has as its parts two or more multi-tissue structures of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona fide boundaries from other distinct anatomical structures of different types.[CARO:MAH ])' generated in frame: CARO:0000024
+2015-12-29 12:45:52:393 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'name( compound organ)' generated in frame: CARO:0000024
+2015-12-29 12:45:52:394 +0000 [Time-limited test] ERROR org.obolibrary.obo2owl.OWLAPIOwl2Obo - Duplicate clause 'namespace( caro)' generated in frame: CARO:0000024
+Failed tests: 
+  BasicsTestCase.testOBORoundTripEscapeChars:673 Expected no diffs. expected:<0> but was:<2>
+  BasicsTestCase.testWriteCurlyBracesInComments:206 null
+Tests in error: 
+  RoundTripTestCase.testRoundTripOWLRO:217->OboFormatTestBasics.convert:91 » OWLRuntime
+
+Tests run: 4728, Failures: 2, Errors: 1, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] OWLAPI ............................................. SUCCESS [  4.154 s]
+[INFO] OWLAPI Model Interfaces and utilities .............. SUCCESS [ 39.758 s]
+[INFO] OWLAPI Default Implementation ...................... SUCCESS [  8.157 s]
+[INFO] tools .............................................. SUCCESS [  0.323 s]
+[INFO] parsers ............................................ SUCCESS [ 12.842 s]
+[INFO] oboformat parser ................................... SUCCESS [  0.599 s]
+[INFO] OWLAPITOOLS OWL profile and fixers ................. SUCCESS [  3.196 s]
+[INFO] OWLAPI :: Sesame Rio module ........................ SUCCESS [  0.550 s]
+[INFO] OWLAPI Binding and Config .......................... SUCCESS [  0.204 s]
+[INFO] compatibility ...................................... SUCCESS [  0.345 s]
+[INFO] tests and tutorials ................................ FAILURE [01:49 min]
+[INFO] OWLAPI Distribution ................................ SKIPPED
+[INFO] OWLAPI OSGi and Compatibility Distribution ......... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 03:03 min
+[INFO] Finished at: 2015-12-29T12:45:52+00:00
+[INFO] Final Memory: 31M/283M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.18.1:test (default-test) on project owlapi-contract: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/travis/build/owlcs/owlapi/contract/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :owlapi-contract
+travis_time:end:076f795c:start=1451392966513836902,finish=1451393153203076953,duration=186689240051
+[0K
+[31;1mThe command "mvn verify" exited with 1.[0m
+travis_fold:start:cache.2
+[0Kstore build cache
+travis_time:start:05a0aec0
+[0Ktravis_time:end:05a0aec0:start=1451393153208692271,finish=1451393153212512565,duration=3820294
+[0Ktravis_time:start:0ea48d1a
+[0K[32;1mchange detected:
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/maven-metadata-local.xml
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/owlapi-api-5.0.0-ALPHA-SNAPSHOT.jar
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/owlapi-api-5.0.0-ALPHA-SNAPSHOT-sources.jar
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-api/5.0.0-ALPHA-SNAPSHOT/_remote.repositories
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/maven-metadata-local.xml
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT.jar
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/owlapi-apibinding-5.0.0-ALPHA-SNAPSHOT-sources.jar
+/home/travis/.m2/repository/net/sourceforge/owlapi/owlapi-apibinding/5.0.0-ALPHA-SNAPSHOT/_remote.repositories
+/home/travis/.m2/repository/net/sourceforge
+[0m
+[32;1m...
+[0m
+[32;1mchanges detected, packing new archive[0m
+.
+[32;1muploading archive[0m
+travis_time:end:0ea48d1a:start=1451393153216889634,finish=1451393161186734386,duration=7969844752
+[0Ktravis_fold:end:cache.2
+[0K
+Done. Your build exited with 1.

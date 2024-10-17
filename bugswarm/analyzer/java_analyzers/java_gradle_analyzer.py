@@ -50,34 +50,89 @@ class JavaGradleAnalyzer(LogAnalyzerABC):
                 self.test_lines.append(line)
 
     def match_failed_test(self, line):
+        # JUnit 4
         # Matches the likes of co.paralleluniverse.fibers.FiberTest > testSerializationWithThreadLocals[0] FAILED
-        # and DownloadExtensionTest > downloadSingleFileError() FAILED
         # Appends 'co.paralle.universe.fibers.FiberTest.testSerializationWithThreadLocals[0]' to self.tests_failed
-        match = re.search(r'([^\s]+) > ([^\s\.\[\(]+(\[.+\]|\(\))?) FAILED$', line, re.M)
+        # <params> is .* instead of \d+ due to a weird edge case; see GitHubAnalyzerTest.test_gradle_8 for an example
+        match = re.match(r'^(?P<class>[\w.]+) > (?P<method>[\w ]+(?P<params>\[.*\])?) FAILED$', line, re.M)
         if match:
             self.tests_run = True
             self.init_tests()
-            self.tests_failed.append(match.group(1) + '.' + match.group(2))
+            self.tests_failed.append(match.group('class') + '.' + match.group('method'))
             self.did_tests_fail = True
             return
 
+        # JUnit 5, Gradle >= 8
+        # Matches the likes of TestClass1 > shouldThrow() FAILED
+        #   (failed test: "TestClass1.shouldThrow()")
+        # and TestClass1 > isEven(int, String) > [2] 11, orange FAILED
+        #   (failed test: "TestClass1.isEven(int, String)[2]")
+        # and UserEndpointTest > GetUserDetail > shouldResponseErrorIfUserNotFound() FAILED
+        #   (failed test "UserEndpointTest$GetUserDetail.shouldResponseErrorIfUserNotFound()")
+        # TODO: Should we include the actual parameters as well as the index?
+        regex = (
+            r'(?P<class>[\w.]+(?: > [\w.]+)*) > (?P<method>[\w ]+\([\w, ]*\))(?: > (?P<paramindex>\[\d+\]) '
+            r'(?P<params>.*))? FAILED$'
+        )
+        match = re.match(regex, line, re.M)
+        if match:
+            self.tests_run = True
+            self.init_tests()
+            param_index = match.group('paramindex') or ''
+            # innermost_test_class = match.group('class').split(' > ')[-1]
+            # "OuterClass$InnerClass" is the standard way to denote nested classes in Java
+            test_class = match.group('class').replace(' > ', '$')
+            self.tests_failed.append(test_class + '.' + match.group('method') + param_index)
+            self.did_tests_fail = True
+            return
+
+        # JUnit 5, Gradle <= 7
         # Matches the likes of
         # ProtocolCompatibilityTest > serviceTalkToServiceTalkClientTimeout(boolean, boolean, String) > io.servicetalk.g
         # rpc.netty.ProtocolCompatibilityTest.serviceTalkToServiceTalkClientTimeout(boolean, boolean, String)[10] FAILED
         #
         # Appends io.servicetalk.grpc.netty.ProtocolCompatibilityTest.serviceTalkToServiceTalkClientTimeout
         # (boolean, boolean, String)[10] to self.tests_failed
-        match = re.search(r'([^\s]+(\(.*\))? > )+([^\s\[\(]+(\(.*\))?(\[.+\]|\(\))?) FAILED', line, re.M)
+        regex = r'\w+ > \w+\([\w, ]+\) > (?P<classandmethod>[\w. ]+(?P<params>\(.*\)\[\d+\])?) FAILED$'
+        match = re.match(regex, line, re.M)
         if match:
             self.tests_run = True
             self.init_tests()
-            self.tests_failed.append(match.group(3))
+            self.tests_failed.append(match.group('classandmethod'))
             self.did_tests_fail = True
             return
 
+        # Newer TestNG (>= 7?)
+        # Matches the likes of Suite Foo > Test Bar > org.bugswarm.TestClass1 > shouldFail FAILED
+        # Appends 'org.bugswarm.TestClass1.shouldFail' to self.tests_failed
+        regex = r'^[\w\s]+ > [\w\s]+ > (?P<class>\w+\.[\w.]+) > (?P<method>[\w ]+(?P<params>\[\d+\]\(.*\))?) FAILED$'
+        match = re.match(regex, line, re.M)
+        if match:
+            self.tests_run = True
+            self.init_tests()
+            self.tests_failed.append(match.group('class') + '.' + match.group('method'))
+            self.did_tests_fail = True
+            return
+
+        # Older TestNG (<= 6?)
         # Matches the likes of TestNG > Regression2 > test.groupinvocation.GroupSuiteTest.Regression2 FAILED
         # Appends 'test.groupinvocation.GroupSuiteTest.Regression2' to self.tests_failed
-        match = re.search(r'^[\w\s]+ > [\w\s]+ > ([^\s\[\(]+\.[^\[\(]+(\[.+\])?) FAILED$', line, re.M)
+        # <classandmethod> allows spaces due to an edge case; see TravisAnalyzerTests.test_gradle_7
+        regex = r'^[\w\s]+ > [\w\s]+ > (?P<classandmethod>[\w ]+\.[\w. ]+(?P<params>\[\d+\]\(.*\))?) FAILED$'
+        match = re.match(regex, line, re.M)
+        if match:
+            self.tests_run = True
+            self.init_tests()
+            self.tests_failed.append(match.group('classandmethod'))
+            self.did_tests_fail = True
+            return
+
+        # TestNG special case: just "path.to.TestClass.testMethod FAILED"
+        # A little risky (chance of false positive); mitigated by (a) only checking test lines, (b) requiring a
+        # full-line match, and (c) requiring at least one period and no spaces. Doesn't cause any problems for existing
+        # artifacts as of October 2024.
+        regex = r'^(\w+\.[\w.]+) FAILED$'
+        match = re.match(regex, line, re.M)
         if match:
             self.tests_run = True
             self.init_tests()
