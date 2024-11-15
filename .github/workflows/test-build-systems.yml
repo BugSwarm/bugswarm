@@ -1,0 +1,29 @@
+name: Test build systems
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  test_build_systems:
+    name: Test build systems
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up dummy credentials
+        run: |
+          lineno="$(grep -n 'Check validity of credentials' credentials.sample.py | cut -d: -f1)"
+          head -n "$lineno" credentials.sample.py > credentials.py
+          sed -i "s/COMMON_HOSTNAME = ''/COMMON_HOSTNAME = 'www.api.bugswarm.org'/g" credentials.py
+        shell: bash
+        working-directory: bugswarm/common
+      - uses: bugswarm/build-system-tester@main
+        with:
+          bugswarm-path: ${{ github.workspace }}
+          reproduced-logs-dir: ${{ github.workspace }}/reproduced-logs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Reproduced Logs
+          path: ./reproduced-logs
