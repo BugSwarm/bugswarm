@@ -12,9 +12,14 @@ if [[ -f /actions-toolcache-$2.tgz ]]; then
     sudo rm -rf /actions-toolcache-$2.tgz
 fi
 
+if [[ -f /node-modules-$2.tgz ]]; then
+    tar -xzf /node-modules-$2.tgz -C /
+    sudo rm -rf /node-modules-$2.tgz
+fi
+
 if [[ -f /requirements-$2.tgz ]]; then
     tar -xzf /requirements-$2.tgz -C /
-    sudo rm -rf -f /requirements-$2.tgz
+    sudo rm -rf /requirements-$2.tgz
 
     GHDIR=/home/github
     rm -rf $GHDIR/cacher/output.log $GHDIR/cacher/git-output.log $GHDIR/cacher/wget-output.log

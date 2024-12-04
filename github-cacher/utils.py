@@ -306,10 +306,28 @@ class PatchArtifactTask:
 
         self.run_command('docker exec {} {} {} {} {} {}'.format(
             container_id, script, cont_path, post_cache, pre_cache, cont_tar))
-        _, _, _, ok = self.run_command('docker exec {} ls {}'.format(container_id, cont_tar))
+        _, _, _, ok = self.run_command('docker exec {} ls {}'.format(container_id, cont_tar), fail_on_error=False)
         if ok:
             self.copy_file_out_of_container(container_id, cont_tar, host_tar)
             return [('actions-toolcache', fail_or_pass, host_tar, cont_tar)]
+        return []
+
+    def cache_node_modules(self, container_id, fail_or_pass, repo):
+        NODE_CACHE_SCRIPT = 'cache_node_modules.sh'
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, NODE_CACHE_SCRIPT)
+        script = os.path.join(_GITHUB_DIR, NODE_CACHE_SCRIPT)
+
+        source_dir = os.path.join(_GITHUB_DIR, 'build', fail_or_pass, repo)
+        cont_tar = os.path.join(_GITHUB_DIR, 'node-modules-{}.tgz'.format(fail_or_pass))
+        host_tar = os.path.join(self.workdir, 'node-modules-{}.tgz'.format(fail_or_pass))
+
+        self.copy_file_to_container(container_id, src, script)
+        self.run_command('docker exec {} {} {} {}'.format(
+            container_id, script, source_dir, cont_tar))
+        *_, ok = self.run_command('docker exec {} ls {}'.format(container_id, cont_tar), fail_on_error=False)
+        if ok:
+            self.copy_file_out_of_container(container_id, cont_tar, host_tar)
+            return [('node-modules', fail_or_pass, host_tar, cont_tar)]
         return []
 
     def add_wrapper_scripts_reproducing(self, container_id):

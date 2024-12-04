@@ -83,6 +83,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
                 raise CachingScriptError('Run build script not reproducible for caching {}'.format(fail_or_pass))
 
             cached_files.extend(self._cache_and_copy_files(container_id, fail_or_pass))
+            cached_files.extend(self.cache_node_modules(container_id, fail_or_pass, repo))
             cached_files_always_unpack.extend(self.cache_toolcache(container_id, fail_or_pass))
             wrapper_scripts_status[fail_or_pass] = self._cache_wrapper_scripts(container_id, fail_or_pass)
 

@@ -128,6 +128,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
 
             if not self.cache_toolcache(container_id, fail_or_pass):
                 log.error('Unable to cache toolcache.')
+            self.cache_node_modules(container_id, fail_or_pass, self.repo)
 
             _, stdout, stderr, ok = self.run_command(
                 'docker exec {} bash -c "tar -czf {}/requirements.tgz {}/cacher"'
@@ -200,7 +201,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
 
     def move_dependencies_into_container(self, container_id, f_or_p):
         for name in os.listdir(self.workdir):
-            if not re.fullmatch(r'(requirements|actions-toolcache)-{}\.(tar|tgz)'.format(f_or_p), name):
+            if not re.fullmatch(r'.*-{}\.(tar|tgz)'.format(f_or_p), name):
                 continue
             tar_file_host = '{}/{}'.format(self.workdir, name)
             tar_file_container = '/{}'.format(name)

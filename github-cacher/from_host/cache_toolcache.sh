@@ -52,7 +52,7 @@ else
 fi
 
 # If we don't have an output tar, exit.
-[ -z "$output_tar"] && exit 0
+[ -z "$output_tar" ] && exit 0
 
 comm -13 "$old_output_file" "$output_file" | # Get files added/modified after the build script ran
   sed 's/ \S*$//' |                          # Remove timestamps
