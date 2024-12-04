@@ -188,21 +188,31 @@ def offline_maven():
 
 def offline_gradle():
     """
-    Add --offline flag to all instances of "gradle". This is a very
-    coarse method, like offline_maven(); it may be worth it to look
-    into more fine-grained methods.
+    Add --offline flag to all instances of "gradle", and attempt to edit
+    the `arguments` argument in the gradle/gradle-build-action action.
+    This is a very coarse method, like offline_maven(); it may be worth
+    it to look into more fine-grained methods.
     """
 
     for f_or_p in ('failed', 'passed'):
-        is_user_command = False
+        state = 'no-command'
         for line in fileinput.input('/usr/local/bin/run_{}.sh'.format(f_or_p), inplace=True):
-            if is_user_command and re.match(r'^chmod u\+x /home/github/', line):
-                is_user_command = False
-            elif not is_user_command and re.match(r'^echo \"##\[group\]\"Run', line):
-                is_user_command = True
+            if state == 'no-command':
+                if line.startswith('echo "##[group]"Run'):
+                    state = 'user-command'
+                elif re.match(r'env .* GITHUB_ACTION_REPOSITORY=(gradle/gradle-build-action|gradle/actions)\b', line):
+                    state = 'gradle-action'
 
-            if is_user_command:
-                line = re.sub(r'(?<![\w] )\b(gradlew?)\b', r'\1 --offline', line)
+            if state == 'user-command':
+                line = re.sub(r'(?<![\w] )((\./)?gradlew?)(\s|$)', r'\1 --offline ', line)
+                if line.startswith('chmod u+x /home/github/'):
+                    state = 'no-command'
+
+            if state == 'gradle-action':
+                line = re.sub(r'INPUT_ARGUMENTS=', r"INPUT_ARGUMENTS='--offline '", line)
+                if '$ACTIONS_RUNNER_HOOK_STEP_COMPLETED' in line:
+                    state = 'no-command'
+
             print(line, end='')
         fileinput.close()
 
