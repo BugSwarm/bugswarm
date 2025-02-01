@@ -37,6 +37,7 @@ deactivate
 
 echo "PIP_INDEX_URL=http://localhost:56765/simple/" >> /etc/reproducer-environment
 echo "PIP_DEFAULT_TIMEOUT=120" >> /etc/reproducer-environment
+echo "UV_DEFAULT_INDEX=http://localhost:56765/simple/" >> /etc/reproducer-environment
 
 if [[ -f /usr/bin/git.py ]]; then
     sudo mv /usr/bin/git /usr/bin/git_original

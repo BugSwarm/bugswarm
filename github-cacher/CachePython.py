@@ -118,6 +118,7 @@ class PatchArtifactPythonTask(PatchArtifactTask):
                                                  envs=[
                                                      'PIP_INDEX_URL=http://localhost:56765/simple/',
                                                      'PIP_DEFAULT_TIMEOUT=120',
+                                                     'UV_DEFAULT_INDEX=http://localhost:56765/simple/',
                                                      'ACTIONS_RUNNER_HOOK_STEP_STARTED='
                                                      '/usr/local/bin/cache_toolcache_python.sh',
                                                      'ACTIONS_RUNNER_HOOK_STEP_COMPLETED='
