@@ -11,11 +11,14 @@ if [[ -f /usr/bin/wget_original ]]; then
     sudo mv /usr/bin/wget_original /usr/bin/wget
 fi
 
-# Remove cache server
-pid=$(ps -f | grep "python_cache_server.py" | grep -v "grep" | awk '{print $2}')
-if [[ ! -z "$pid" ]]; then
-    kill -9 $pid
+# Remove apt config that sets up our proxy
+if [[ -f /etc/apt/apt.conf.d/bugswarm-proxy ]]; then
+    sudo rm -f /etc/apt/apt.conf.d/bugswarm-proxy
 fi
+
+# Terminate cache servers
+pkill -f '\bpython_cache_server\.py\b' || true
+pkill -f '\bapt_cache_server\.py\b' || true
 
 # Clean environment variables
 echo -n "" > /etc/reproducer-environment

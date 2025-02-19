@@ -16,6 +16,8 @@ _COPY_DIR_JAVA = 'from_host/java'
 _PROCESS_SCRIPT = 'patch_and_cache_maven.py'
 _JOB_START_SCRIPT = 'patch_and_cache_java.sh'
 _JOB_COMPLETE_SCRIPT = 'remove_wrapper_scripts.sh'
+_APT_CACHE_SERVER_SCRIPT = 'apt_cache_server.py'
+_CACHE_SERVER_SETUP_SCRIPT = 'setup_cache_server.sh'
 _GITHUB_DIR = '/home/github'
 
 bugswarmapi = DatabaseAPI(token=DATABASE_PIPELINE_TOKEN)
@@ -75,7 +77,13 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             container_id = self.create_container(docker_image_tag, 'cache', fail_or_pass)
             self._run_patch_script(container_id, repo, ['add-mvn-local-repo'])
             self.add_wrapper_scripts_reproducing(container_id)
+            self._add_cache_server_and_setup_scripts(container_id)
             self.pre_cache_toolcache(container_id)
+
+            # Set up the cache server for caching
+            self.run_command('docker exec {} bash {}'.format(
+                container_id, os.path.join(_GITHUB_DIR, _CACHE_SERVER_SETUP_SCRIPT)))
+
             build_result = self.run_build_script(container_id, fail_or_pass, caching_build_log_path[fail_or_pass],
                                                  job_orig_log[fail_or_pass], job_id[fail_or_pass], build_system,
                                                  repo=self.repo)
@@ -85,7 +93,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             cached_files.extend(self._cache_and_copy_files(container_id, fail_or_pass))
             cached_files.extend(self.cache_node_modules(container_id, fail_or_pass, repo))
             cached_files_always_unpack.extend(self.cache_toolcache(container_id, fail_or_pass))
-            wrapper_scripts_status[fail_or_pass] = self._cache_wrapper_scripts(container_id, fail_or_pass)
+            wrapper_scripts_status[fail_or_pass] = self._cache_cacher_dir_and_env(container_id, fail_or_pass)
 
             self.remove_container(container_id)
 
@@ -178,6 +186,15 @@ class PatchArtifactMavenTask(PatchArtifactTask):
                 raise CachingScriptError('Error getting log for {} job {}'.format(f_or_p, job_id))
         return job_orig_log
 
+    def _add_cache_server_and_setup_scripts(self, container_id):
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _APT_CACHE_SERVER_SCRIPT)
+        dst = os.path.join(_GITHUB_DIR, _APT_CACHE_SERVER_SCRIPT)
+        self.copy_file_to_container(container_id, src, dst)
+
+        src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _CACHE_SERVER_SETUP_SCRIPT)
+        cache_server_setup_dst = os.path.join(_GITHUB_DIR, _CACHE_SERVER_SETUP_SCRIPT)
+        self.copy_file_to_container(container_id, src, cache_server_setup_dst)
+
     def _cache_and_copy_files(self, container_id, fail_or_pass):
         cached_files = []
         for name, path_func in CACHE_DIRECTORIES.items():
@@ -199,17 +216,23 @@ class PatchArtifactMavenTask(PatchArtifactTask):
             cached_files.append((name, fail_or_pass, host_tar, cont_tar))
         return cached_files
 
-    def _cache_wrapper_scripts(self, container_id, fail_or_pass):
+    def _cache_cacher_dir_and_env(self, container_id, fail_or_pass):
+        """Cache the ~/cacher and ~/cacher-env dirs.
+        These dirs contain the cached files for `apt` and for the
+        wrapper scripts (wget, git, etc).
+        """
         cont_tar = '{}/cacher-{}.tgz'.format(_GITHUB_DIR, fail_or_pass)
         host_tar = '{}/cacher-{}.tgz'.format(self.workdir, fail_or_pass)
-        cont_path = '{}/cacher'.format(_GITHUB_DIR)
+        cacher_cont_path = '{}/cacher'.format(_GITHUB_DIR)
+        env_cont_path = '{}/cacher-env'.format(_GITHUB_DIR)
 
         _, _, _, path_exists = self.run_command(
-            'docker exec {} ls -d {}'.format(container_id, cont_path), fail_on_error=False, print_on_error=False)
+            'docker exec {} ls -d {}'.format(container_id, cacher_cont_path), fail_on_error=False, print_on_error=False)
         if not path_exists:
             return False
 
-        self.run_command('docker exec {} tar -czf {} {}'.format(container_id, cont_tar, cont_path))
+        self.run_command('docker exec {} tar -czf {} {} {}'.format(container_id,
+                         cont_tar, cacher_cont_path, env_cont_path))
         self.copy_file_out_of_container(container_id, cont_tar, host_tar)
         return True
 
@@ -241,6 +264,7 @@ class PatchArtifactMavenTask(PatchArtifactTask):
 
         self.verify_tests_result(container_id, fail_or_pass, 'git', 'git-output.log')
         self.verify_tests_result(container_id, fail_or_pass, 'wget', 'wget-output.log')
+        self.verify_tests_result(container_id, fail_or_pass, 'apt', 'apt-cacher.log')
 
     def _run_patch_script(self, container_id, repo, actions):
         src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _PROCESS_SCRIPT)

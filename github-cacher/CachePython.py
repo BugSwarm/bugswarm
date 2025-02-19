@@ -16,7 +16,8 @@ _COPY_DIR_PYTHON = 'from_host/python'
 _JOB_START_SCRIPT = 'patch_and_cache_python.sh'
 _JOB_COMPLETE_SCRIPT = 'remove_wrapper_scripts.sh'
 _STEP_START_SCRIPT = 'cache_toolcache_python.sh'
-_CACHE_SERVER_SCRIPT = 'python_cache_server.py'
+_PYPI_CACHE_SERVER_SCRIPT = 'python_cache_server.py'
+_APT_CACHE_SERVER_SCRIPT = 'apt_cache_server.py'
 _CACHE_SERVER_SETUP_SCRIPT = 'setup_python_cache_server.sh'
 _WRAPPER_SCRIPT_DIR = 'wrapper_scripts'
 _WRAPPER_SCRIPTS = [('git', 'git.py'), ('wget', 'wget.py'), ('poetry.sh', 'poetry.sh')]
@@ -91,24 +92,27 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             logs = '{}/repr-{}-{}.log'.format(self.workdir, fail_or_pass, job_id[fail_or_pass])
             container_id = self.create_container(docker_image_tag, 'repr', fail_or_pass)
 
-            script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _CACHE_SERVER_SCRIPT)
-            script_des = os.path.join(_GITHUB_DIR, _CACHE_SERVER_SCRIPT)
+            script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _PYPI_CACHE_SERVER_SCRIPT)
+            script_des = os.path.join(_GITHUB_DIR, _PYPI_CACHE_SERVER_SCRIPT)
+            self.copy_file_to_container(container_id, script_src, script_des)
+
+            script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR, _APT_CACHE_SERVER_SCRIPT)
+            script_des = os.path.join(_GITHUB_DIR, _APT_CACHE_SERVER_SCRIPT)
             self.copy_file_to_container(container_id, script_src, script_des)
 
             script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _CACHE_SERVER_SETUP_SCRIPT)
-            script_des = os.path.join(_GITHUB_DIR, _CACHE_SERVER_SETUP_SCRIPT)
-            self.copy_file_to_container(container_id, script_src, script_des)
+            pypi_cache_script_des = os.path.join(_GITHUB_DIR, _CACHE_SERVER_SETUP_SCRIPT)
+            self.copy_file_to_container(container_id, script_src, pypi_cache_script_des)
 
-            src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _STEP_START_SCRIPT)
-            des = os.path.join('usr', 'local', 'bin', _STEP_START_SCRIPT)
-            self.copy_file_to_container(container_id, src, des)
+            script_src = os.path.join(procutils.HOST_SANDBOX, _COPY_DIR_PYTHON, _STEP_START_SCRIPT)
+            script_des = os.path.join('usr', 'local', 'bin', _STEP_START_SCRIPT)
+            self.copy_file_to_container(container_id, script_src, script_des)
 
             # Wrapper scripts
             self.add_wrapper_scripts_reproducing(container_id)
 
             # Set up and run cache server
-            _, stdout, stderr, ok = self.run_command('docker exec {} bash {} run'
-                                                     .format(container_id, script_des))
+            self.run_command('docker exec {} bash {} run'.format(container_id, pypi_cache_script_des))
 
             self.pre_cache_toolcache(container_id)
 
@@ -131,14 +135,16 @@ class PatchArtifactPythonTask(PatchArtifactTask):
                 log.error('Unable to cache toolcache.')
             self.cache_node_modules(container_id, fail_or_pass, self.repo)
 
-            _, stdout, stderr, ok = self.run_command(
-                'docker exec {} bash -c "tar -czf {}/requirements.tgz {}/cacher"'
+            # Tar the cacher directory (PyPI and APT)
+            self.run_command(
+                'docker exec {} bash -c "tar -czf {}/cacher.tgz {}/cacher"'
                 .format(container_id, _GITHUB_DIR, _GITHUB_DIR)
             )
 
             # Copy dependency tar out of container
-            tar_file_host = '{}/requirements-{}.tgz'.format(self.workdir, fail_or_pass)
-            self.copy_file_out_of_container(container_id, _GITHUB_DIR + '/requirements.tgz', tar_file_host)
+            tar_file_cont = os.path.join(_GITHUB_DIR, 'cacher.tgz')
+            tar_file_host = os.path.join(self.workdir, 'cacher-{}.tgz'.format(fail_or_pass))
+            self.copy_file_out_of_container(container_id, tar_file_cont, tar_file_host)
 
             self.remove_container(container_id)
 
@@ -195,9 +201,10 @@ class PatchArtifactPythonTask(PatchArtifactTask):
             if not build_result:
                 raise CachingScriptError('Run build script not reproducible for testing {}'.format(fail_or_pass))
 
-            self.verify_tests_result(container_id, fail_or_pass, 'pip', 'output.log')
+            self.verify_tests_result(container_id, fail_or_pass, 'pip', 'pypi-cacher.log')
             self.verify_tests_result(container_id, fail_or_pass, 'git', 'git-output.log')
             self.verify_tests_result(container_id, fail_or_pass, 'wget', 'wget-output.log')
+            self.verify_tests_result(container_id, fail_or_pass, 'apt', 'apt-cacher.log')
             self._check_poetry(container_id, fail_or_pass)
 
     def move_dependencies_into_container(self, container_id, f_or_p):
