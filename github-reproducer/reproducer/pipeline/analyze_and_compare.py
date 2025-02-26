@@ -78,7 +78,7 @@ def _get_original_result(analyzer, utils, job):
         raise ReproduceError('Original log was not generated from a job in a supported programming language. '
                              'The primary language was "{}."'.format(original_result['primary_language']))
 
-    if job.is_failed == 'passed' and original_result['tr_log_status'] == 'broken':
+    if job.f_or_p == 'passed' and original_result['tr_log_status'] == 'broken':
         log.warning('Analyzer incorrectly classified an ok original log as broken. Overriding.')
         original_result['tr_log_status'] = 'ok'
 
