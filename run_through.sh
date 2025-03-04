@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Include common functions and constants.
 source "${SCRIPT_DIR}"/common.sh
 
+# Ensure that Git won't prompt for input and hang the script.
+export GIT_TERMINAL_PROMPT=0
+
 USAGE='Usage: bash run_through.sh -r <repo-slug> [-t <threads>] [-c <component-directory>]'
 
 

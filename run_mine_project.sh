@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Include common functions and constants.
 source "${SCRIPT_DIR}"/common.sh
 
+# Ensure that Git won't prompt for input and hang the script.
+export GIT_TERMINAL_PROMPT=0
+
 # One step each for PairFinder and PairFilter.
 TOTAL_STEPS=3
 STAGE='Mine Project'
