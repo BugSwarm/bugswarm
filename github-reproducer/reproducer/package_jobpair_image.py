@@ -10,7 +10,8 @@ from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError, wrap_errors
 
 
-def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, copy_files=False, push=True):
+def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair, copy_files=False, push=True,
+                          cleanup_after=False):
     with wrap_errors('Move build files'):
         _move_build_files(utils, jobpair)
     with wrap_errors('Copy orig logs'):
@@ -30,6 +31,8 @@ def package_jobpair_image(utils: Utils, docker: DockerWrapper, jobpair: JobPair,
 
         if push:
             docker.push_image(image_tag)
+        if cleanup_after:
+            docker.remove_image(full_image_name)
 
     with wrap_errors('Copy workspace files'):
         if copy_files:

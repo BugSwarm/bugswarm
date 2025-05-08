@@ -13,11 +13,11 @@ export GIT_TERMINAL_PROMPT=0
 REPRODUCER_RUNS=5
 STAGE='Reproduce Pair'
 
-USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> (--pair-file <pair-file> | -r <repo-slug> -f <failed-job-id> -p <passed-job-id>) [-t <threads>] [-c <component-directory>] [--reproducer-runs <reproducer-runs>] [--skip-cacher] [-s]'
+USAGE='Usage: bash run_reproduce_pair.sh --ci <ci> (--pair-file <pair-file> | -r <repo-slug> -f <failed-job-id> -p <passed-job-id>) [-t <threads>] [-c <component-directory>] [--reproducer-runs <reproducer-runs>] [--skip-cacher] [--cleanup-images] [-s]'
 
 
 # Extract command line arguments.
-OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:,skip-cacher,no-push -n 'run-reproduce-pair' -- "$@")
+OPTS=$(getopt -o c:r:t:f:p:s --long component-directory:,pair-file:,repo:,threads:,failed-job-id:,passed-job-id:,reproducer-runs:,skip-check-disk,ci:,skip-cacher,no-push,cleanup-images -n 'run-reproduce-pair' -- "$@")
 exit_if_failed 'Unrecognized command-line options.'
 eval set -- "$OPTS"
 while true; do
@@ -34,6 +34,7 @@ while true; do
            --ci                  ) ci_service="$2";             shift; shift ;;
            --skip-cacher         ) skip_cacher='true';          shift;;
            --no-push             ) no_push='--no-push';         shift;;
+           --cleanup-images      ) cleanup='--cleanup-images';  shift;;
       -- ) shift; break ;;
       *  ) break ;;
     esac
@@ -43,6 +44,7 @@ done
 
 if [[ ${ci_service} != 'travis' && ${ci_service} != 'github' ]]; then
     echo '--ci must be one of "travis" or "github". Exiting.'
+    echo ${USAGE}
     exit 1
 fi
 
@@ -68,6 +70,11 @@ if [ -z "${gpi_file}" ]; then
     fi
 elif [[ "${repo}" || "${failed_job_id}" || "${passed_job_id}" ]]; then
     print_red 'The --pair-file and --repo/--failed-job-id/--passed-job-id options cannot be used together. Exiting.'
+    exit 1
+fi
+
+if [[ -n "${cleanup}" && "${ci}" == "travis" ]]; then
+    echo 'The --cleanup-images flag is not available for Travis runs. Exiting.'
     exit 1
 fi
 
@@ -133,7 +140,7 @@ exit_if_failed 'ReproducedResultsAnalyzer encountered an error.'
 
 # ImagePackager (push artifact images to Docker Hub)
 print_step "${STAGE}" ${TOTAL_STEPS} 'ImagePackager'
-python3 entry.py -i "output/result_json/${task_name}.json" --package -t "${threads}" -o "${task_name}_pkg" ${skip_check_disk} ${no_push}
+python3 entry.py -i "output/result_json/${task_name}.json" --package -t 1 -o "${task_name}_pkg" ${skip_check_disk} ${no_push} ${cleanup}
 exit_if_failed 'ImagePackager encountered an error.'
 
 if [[ ! $skip_cacher ]]; then
@@ -154,7 +161,7 @@ if [[ ! $skip_cacher ]]; then
     fi
 
     cd "${cacher_dir}"
-    python3 entry.py "${cacher_input_file}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} --disconnect-network-during-test
+    python3 entry.py "${cacher_input_file}" "${task_name}" --workers "${threads}" --task-json "${task_json_path}" ${no_push} ${cleanup} --disconnect-network-during-test
     exit_if_failed "CacheDependency encountered an error."
 
     cd "${reproducer_dir}"

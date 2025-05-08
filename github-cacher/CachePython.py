@@ -59,6 +59,8 @@ class PatchArtifactPythonTask(PatchArtifactTask):
         latest_layer_size = self.get_last_layer_size(cached_tag)
         self.tag_and_push_cached_image(self.image_tag, cached_tag)
         self.write_output(self.image_tag, 'succeed, {}, {}'.format(original_size, latest_layer_size))
+        if self.args.cleanup_images:
+            self.clean_images(self.image_tag)
 
     def _get_orig_logs(self):
         if self.repr_metadata:

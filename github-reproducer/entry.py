@@ -21,7 +21,7 @@ def main(argv=None):
 
     # Parse input.
     shortopts = 'i:t:o:kpds'
-    longopts = 'input-file= threads= task-name= keep package skip-check-disk no-push'.split()
+    longopts = 'input-file= threads= task-name= keep package skip-check-disk no-push cleanup-images'.split()
     input_file = None
     threads = 1
     task_name = None
@@ -30,6 +30,7 @@ def main(argv=None):
     dependency_solver = False
     skip_check_disk = False
     push = True
+    cleanup = False
     try:
         optlist, args = getopt.getopt(argv[1:], shortopts, longopts)
     except getopt.GetoptError:
@@ -53,6 +54,8 @@ def main(argv=None):
             skip_check_disk = True
         if opt == '--no-push':
             push = False
+        if opt == '--cleanup-images':
+            cleanup = True
 
     if not input_file:
         print_usage()
@@ -71,7 +74,7 @@ def main(argv=None):
     # Pipeline will run JobReproducer (5 times) first, then it will run ImagePackager.
     if package_mode:
         reproducer = ImagePackager(input_file, task_name, threads, keep, package_mode, dependency_solver,
-                                   skip_check_disk, push=push)
+                                   skip_check_disk, push=push, cleanup=cleanup)
     else:
         reproducer = JobReproducer(input_file, task_name, threads, keep, package_mode, dependency_solver,
                                    skip_check_disk)
@@ -88,6 +91,8 @@ def print_usage():
     log.info('{:<30}{:<30}'.format('-k, --keep', 'Whether to skip deletion of repo files after running.'))
     log.info('{:<30}{:<30}'.format('-s, --skip-check-disk', 'Whether to check for free disk space.'))
     log.info('{:<30}{:<30}'.format('--no-push', '(Package mode only) Do not push images to DockerHub.'))
+    log.info('{:<30}{:<30}'.format('--cleanup-images',
+             '(Package mode only) Clean up images after pushing them to DockerHub.'))
 
 
 if __name__ == '__main__':

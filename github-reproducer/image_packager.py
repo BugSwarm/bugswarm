@@ -24,11 +24,12 @@ class ImagePackager(JobDispatcher):
     """
 
     def __init__(self, input_file, task_name, threads, keep, package_mode,
-                 dependency_solver, skip_check_disk, push=True):
+                 dependency_solver, skip_check_disk, push=True, cleanup=False):
         super().__init__(input_file, task_name, threads, keep, package_mode, dependency_solver, skip_check_disk)
         self.jobpairs_packaged = Value('i', 0)
         self.dockerhub = DockerHub()
         self.push = push
+        self.cleanup = cleanup
 
     def progress_str(self):
         return colored(
@@ -96,7 +97,8 @@ class ImagePackager(JobDispatcher):
 
             # Create and push a Docker image to Docker Hub.
             self.utils.setup_jobpair_workspace(jobpair)
-            package_jobpair_image(self.utils, self.docker, jobpair, copy_files=self.keep, push=self.push)
+            package_jobpair_image(self.utils, self.docker, jobpair, copy_files=self.keep,
+                                  push=self.push, cleanup_after=self.cleanup)
         finally:
             log.info('[THREAD {}] Cleaning workspace.'.format(tid))
             for j in jobpair.jobs:

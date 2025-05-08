@@ -86,6 +86,7 @@ def validate_input():
 
     parser.add_argument('--workers', type=int, default=4, help='Number of parallel tasks to run.')
     parser.add_argument('--no-push', action='store_true', help='Do not push the artifact to Docker Hub.')
+    parser.add_argument('--cleanup-images', action='store_true', help='Clean up final images after pushing them.')
     parser.add_argument('--src-repo', default=DOCKER_HUB_REPO, help='Which repo to pull non-cached images from.')
     parser.add_argument('--dst-repo', default=DOCKER_HUB_CACHED_REPO, help='Which repo to push cached images to.')
 

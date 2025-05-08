@@ -28,6 +28,7 @@ python3 CachePython.py <image-tag-file> <task-name> [arguments]
     * Temporary container images will be placed into the `<task-name>` repository.
 * `--workers`: Set number of worker threads in the script.
 * `--no-push`: Do not push to destination repository at the end.
+* `--cleanup-images`: Remove final images after pushing them to DockerHub.
 * `--src-repo`: Source repository (e.g. `bugswarm/images`)
 * `--dst-repo`: Destination repository (e.g. `bugswarm/cached-images`)
 * `--keep-tmp-images`: Do not remove temporary container images in the temporary repository `<task-name>`.

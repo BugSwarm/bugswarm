@@ -297,6 +297,7 @@ Additional Options:
     Possibly useful if you're low on disk space.
 * `--skip-cacher`: Do not cache the job pairs after reproducing them.
 * `--no-push`: Do not push any images to DockerHub.
+* `--cleanup-images`: Remove final images after pushing them to DockerHub.
 
 *Example*:
 
@@ -381,6 +382,7 @@ Additional Options:
     Possibly useful if you're low on disk space.
 * `--skip-cacher`: Do not cache the job pairs after reproducing them.
 * `--no-push`: Do not push any images to DockerHub.
+* `--cleanup-images`: Remove final images after pushing them to DockerHub.
 
 *Example*:
 

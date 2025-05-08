@@ -198,6 +198,11 @@ class PatchArtifactTask:
         if not self.args.no_push:
             _, _, stderr, ok = self.run_command('docker push {}:{}'.format(self.args.dst_repo, image_tag))
 
+    def clean_images(self, image_tag):
+        uncached_tag = '{}:{}'.format(self.args.src_repo, image_tag)
+        cached_tag = '{}:{}'.format(self.args.dst_repo, image_tag)
+        self.run_command('docker image rm {} {}'.format(cached_tag, uncached_tag))
+
     def pack_push_container(self, container_id, image_tag):
         latest_layer_size = -1
         self.run_command('docker commit {} {}:{}'.format(container_id, self.args.dst_repo, image_tag))
