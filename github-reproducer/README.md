@@ -21,13 +21,13 @@ This step takes a list of job pairs and extracts their corresponding JSON from t
 To use it, run:
 
 ```sh
-python3 -o <output-file> [-r <repo>] [-f <failed-job-id>] [-p <passed-job-id>]
+python3 pair_chooser.py -o <output-file> [-r <repo>] [-f <failed-job-id>] [-p <passed-job-id>]
 ```
 
 Or, if you have a CSV file containing a list of (repo, failed ID, passed ID) triplets, run:
 
 ```sh
-python3 -o <output-file> [--pair-file <input-csv>]
+python3 pair_chooser.py -o <output-file> [--pair-file <input-csv>]
 ```
 
 ### 2. Reproducer
