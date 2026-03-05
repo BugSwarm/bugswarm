@@ -1,0 +1,102 @@
+# == Rational ==
+# actions-remaker is the standalone public version of the GitHub Actions reproducer
+# integrated into the BugSwarm pipeline. Since development happens in bugswarm-dev,
+# this workflow syncs the relevant source files to the actions-remaker-dev repo
+# whenever changes are pushed to main.
+#
+# == File Mapping ==
+# bugswarm-dev/github-reproducer/           -> actions-remaker-dev/reproducer/
+# bugswarm-dev/bugswarm/common/github_wrapper.py     -> actions-remaker-dev/bugswarm/common/github_wrapper.py
+# bugswarm-dev/bugswarm/common/log_downloader.py     -> actions-remaker-dev/bugswarm/common/log_downloader.py
+# bugswarm-dev/bugswarm/common/unsupported_actions.py -> actions-remaker-dev/bugswarm/common/unsupported_actions.py
+#
+# == Exclusions ==
+# Files only in bugswarm-dev (not synced): add_artifact_diffs.py, add_artifact_logs.py,
+#   local_miner.py, local_reproducer.py, pair_chooser.py, reproduced_results_analyzer.py,
+#   README.md (github-reproducer), tests/
+# Files only in actions-remaker-dev (preserved): reproducer/intermediates/,
+#   reproducer/reproducer/pipeline/apply_patching.py,
+#   reproducer/reproducer/pipeline/copy_log.py
+#
+# == Requirements ==
+# A personal access token with write access to BugSwarm/actions-remaker-dev must be
+# stored as secret ACTIONS_REMAKER_TOKEN in this repository.
+
+name: Sync to actions-remaker-dev
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'github-reproducer/**'
+      - 'bugswarm/common/github_wrapper.py'
+      - 'bugswarm/common/log_downloader.py'
+      - 'bugswarm/common/unsupported_actions.py'
+
+jobs:
+  sync:
+    name: Sync files to actions-remaker-dev
+    if: github.repository == 'BugSwarm/bugswarm-dev'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bugswarm-dev
+        uses: actions/checkout@v4
+
+      - name: Checkout actions-remaker-dev
+        uses: actions/checkout@v4
+        with:
+          repository: BugSwarm/actions-remaker-dev
+          token: ${{ secrets.ACTIONS_REMAKER_TOKEN }}
+          path: actions-remaker-dev
+
+      - name: Sync github-reproducer → reproducer
+        run: |
+          # Sync github-reproducer/ to actions-remaker-dev/reproducer/
+          # using rsync --delete to remove stale files, while:
+          #   - excluding bugswarm-pipeline-specific files that don't belong in actions-remaker
+          #   - preserving files that exist only in actions-remaker-dev (--exclude prevents --delete from removing them)
+          rsync -av --delete \
+            --exclude='add_artifact_diffs.py' \
+            --exclude='add_artifact_logs.py' \
+            --exclude='local_miner.py' \
+            --exclude='local_reproducer.py' \
+            --exclude='pair_chooser.py' \
+            --exclude='reproduced_results_analyzer.py' \
+            --exclude='README.md' \
+            --exclude='tests/' \
+            --exclude='intermediates/' \
+            --exclude='apply_patching.py' \
+            --exclude='copy_log.py' \
+            github-reproducer/ \
+            actions-remaker-dev/reproducer/
+
+      - name: Sync bugswarm/common files
+        run: |
+          cp bugswarm/common/github_wrapper.py     actions-remaker-dev/bugswarm/common/github_wrapper.py
+          cp bugswarm/common/log_downloader.py     actions-remaker-dev/bugswarm/common/log_downloader.py
+          cp bugswarm/common/unsupported_actions.py actions-remaker-dev/bugswarm/common/unsupported_actions.py
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          cd actions-remaker-dev
+          git diff --quiet && git diff --cached --quiet && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          cd actions-remaker-dev
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Sync from bugswarm-dev@${{ github.sha }}
+
+          Auto-synced by sync-actions-remaker workflow.
+          Triggered by: ${{ github.event.head_commit.message }}"
+          git push
+
+      - name: No changes detected
+        if: steps.check_changes.outputs.changed == 'false'
+        run: echo "No relevant changes detected in actions-remaker-dev. Nothing to push."
