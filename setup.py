@@ -26,7 +26,7 @@ setup(
         'requests-mock==1.8.0',
         'termcolor==1.1.0',
         'docker==2.5.1',
-        'gitpython==3.0.8',
+        'gitpython==3.1.30',
         'python-dateutil==2.8.1',
         'PyYAML==6.0.1',
         'beautifulsoup4==4.8.2',
