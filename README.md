@@ -60,7 +60,7 @@ Our second paper concerning the GitHub Actions segment of the pipeline can be ci
 
 > [!NOTE]
 > You only have to follow the steps below if you want to produce your own artifacts.
-If you only want to use BugSwarm artifact dataset, follow the [client](https://www.bugswarm.org/docs/toolset/bugswarm-cli/) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.
+If you only want to use the BugSwarm artifact dataset, follow the [client](https://www.bugswarm.org/docs/toolset/bugswarm-cli/) instructions or our [tutorial](http://www.bugswarm.org/docs/tutorials/setting-up-an-experiment/) instead.
 
 1. System requirements:
 
@@ -128,7 +128,7 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://w
 
 1. (Recommended) Set up and run spawner (to run BugSwarm in host, go to step 6):
 
-    Spawner is a Docker image that contain all required packages in `provision.sh` and can spawn pipeline jobs. If using spawner, the host only needs to install Docker.
+    Spawner is a Docker image that contains all required packages in `provision.sh` and can spawn pipeline jobs. If you use spawner, the host only needs to install Docker.
 
     To understand how spawner works, please see [spawner README](spawner/README.md).
 
@@ -168,7 +168,7 @@ If you only want to use BugSwarm artifact dataset, follow the [client](https://w
         git pull
         ```
 
-1. If you are using the spawner container, continue the following commands in the containers. If you are using the host, continue with the host.
+1. If you are using the spawner container, continue running the following commands in the containers. If you are using the host, continue with the host.
 
 1. Mongo should now be up and running. Test the connection by running the following commands and checking that the output matches:
 
@@ -257,7 +257,7 @@ Additional Options:
 ./run_mine_project.sh --ci github -r alibaba/spring-cloud-alibaba
 ```
 
-The example will mine GitHub Actions job-pairs from the "alibaba/spring-cloud-alibaba" project.
+The example will mine GitHub Actions job pairs from the "alibaba/spring-cloud-alibaba" project.
 This will run through the Miner component of the BugSwarm pipeline.
 The output will push data to your MongoDB specified and outputs several `.json` files after each sub-step.
 This process should take less than 10 minutes.
@@ -291,7 +291,7 @@ Additional Options:
 * `-c, --component-directory <DIR>`: The directory where the Reproducer is located.
     Defaults to the directory where the script is located.
 * `--reproducer-runs <RUNS>`: The number of times to run the reproducer.
-    Use more to be more certain about whether a run is reprodcible.
+    Use more to be more certain about whether a run is reproducible.
     Defaults to 5.
 * `-s, --skip-disk-check`: If set, do not verify whether there is adequate disk space (50 GiB by default) for reproducing before running.
     Possibly useful if you're low on disk space.
@@ -305,7 +305,7 @@ Additional Options:
 ./run_reproduce_project.sh --ci github -r alibaba/spring-cloud-alibaba -c ~/bugswarm -t 4
 ```
 
-The example will attempt to reproduce all job-pairs mined from the "alibaba/spring-cloud-alibaba" project.
+The example will attempt to reproduce all job pairs mined from the "alibaba/spring-cloud-alibaba" project.
 We add the "-c" argument to specify that "~/bugswarm" directory contains the required BugSwarm components to run the pipeline successfully.
 We use 4 threads to run the process.
 
@@ -328,12 +328,12 @@ Options:
          --include-archived-only        Include job pairs in the artifact database collection that are marked as archived by GitHub but not resettable. Defaults to false.
          --include-resettable           Include job pairs in the artifact database collection that are marked as resettable. Defaults to false.
          --include-test-failures-only   Include job pairs that have a test failure according to the Analyzer. Defaults to false.
-         --include-different-base-image Include job pairs that passed and failed job have different base images. Defaults to false.
+         --include-different-base-image Include job pairs where passed and failed jobs use different base images. Defaults to false.
          --classified-build             Restrict job pairs that have been classified as build according to classifier Defaults to false.
          --classified-code              Restrict job pairs that have been classified as code according to classifier Defaults to false.
          --classified-test              Restrict job pairs that have been classified as test according to classifier Defaults to false.
          --exclusive-classify           Restrict to job pairs that have been exclusively classified as build/code/test, as specified by their respective options. Defaults to false.
-         --classified-exception         Restrict job pairs that have been classified as contain certain exception
+         --classified-exception         Restrict job pairs that have been classified as containing a certain exception.
          --build-system                 Restricted to certain build system
          --os-version                   Restricted to certain OS version(e.g. 12.04, 14.04, 16.04)
          --diff-size                    Restricted to certain diff size MIN~MAX(e.g. 0~5)
@@ -376,7 +376,7 @@ Additional Options:
 * `-c, --component-directory <DIR>`: The directory where the Reproducer is located.
     Defaults to the directory where the script is located.
 * `--reproducer-runs <RUNS>`: The number of times to run the reproducer.
-    Use more to be more certain about whether a run is reprodcible.
+    Use more to be more certain about whether a run is reproducible.
     Defaults to 5.
 * `-s, --skip-disk-check`: If set, do not verify whether there is adequate disk space (50 GiB by default) for reproducing before running.
     Possibly useful if you're low on disk space.
@@ -403,7 +403,7 @@ If you reproduced job pairs using `run_reproduce_pair.sh`, then they have alread
 
 ### Cache Reproduced Pairs or Project
 
-`run_cacher.sh`: Cache job-pair artifacts from a previous reproducer run.
+`run_cacher.sh`: Cache job pair artifacts from a previous reproducer run.
 
 ```console
 ./run_cacher.sh --ci <ci> -i <file> [OPTIONS]
@@ -438,7 +438,7 @@ First, log in to a Docker registry with `docker login`. Then, run:
 ./run_cacher.sh --ci github -i github-reproducer/output/result_json/spring-cloud-alibaba.json -c ~/bugswarm -a '--separate-passed-failed --no-strict-offline-test'
 ```
 
-The example will attempt to cache all reproducible job-pairs from the "alibaba/spring-cloud-alibaba" project. We add the "-c"
+The example will attempt to cache all reproducible job pairs from the "alibaba/spring-cloud-alibaba" project. We add the "-c"
 argument to specify that "~/bugswarm/" directory contains the required BugSwarm components to run the pipeline
 successfully. We will run the caching script with the `--separate-passed-failed` and `--no-strict-offline-test` flags.
 If successful, metadata will be pushed to our specified MongoDB and the cached Artifact is pushed to the
