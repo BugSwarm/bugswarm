@@ -101,10 +101,29 @@ def setup_repo(job, utils, job_dispatcher):
         log.debug('Job', job_id, 'is already set up.')
 
 
+def _git_clone_with_retry(url, dest, max_retries=3, **kwargs):
+    """Clone a git repo with retry logic for transient failures."""
+    import shutil
+    for attempt in range(1, max_retries + 1):
+        try:
+            return git.Repo.clone_from(url, dest, **kwargs)
+        except git.GitCommandError as e:
+            if attempt < max_retries:
+                wait = 10 * attempt
+                log.warning('git clone attempt {}/{} failed for {}, retrying in {}s: {}'.format(
+                    attempt, max_retries, url, wait, e))
+                time.sleep(wait)
+                if os.path.isdir(dest):
+                    shutil.rmtree(dest, ignore_errors=True)
+                    os.makedirs(dest, exist_ok=True)
+            else:
+                raise
+
+
 def clone_project_repo_if_not_exists(utils, job):
     if not utils.check_if_project_repo_exist(job.repo):
         os.makedirs(utils.get_repo_storage_dir(job), exist_ok=True)
-        git.Repo.clone_from(utils.construct_github_repo_url(job.repo), utils.get_repo_storage_dir(job))
+        _git_clone_with_retry(utils.construct_github_repo_url(job.repo), utils.get_repo_storage_dir(job))
         repo = git.Repo(utils.get_repo_storage_dir(job))
         with repo.config_writer('repository') as cw:
             cw.add_section('user')

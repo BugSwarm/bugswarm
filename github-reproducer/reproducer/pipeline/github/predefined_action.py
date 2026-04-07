@@ -3,6 +3,7 @@ import os
 import re
 import shlex
 import importlib.resources
+import time
 
 import git
 import yaml
@@ -12,6 +13,26 @@ from reproducer.model.step import Step
 from reproducer.utils import Utils
 from reproducer.reproduce_exception import ReproduceError, UnsupportedWorkflowError, InvalidPredefinedActionError
 import reproducer.resources as resources
+
+
+def _git_clone_with_retry(url, dest, max_retries=3, **kwargs):
+    """Clone a git repo with retry logic for transient failures (timeouts, rate limits)."""
+    for attempt in range(1, max_retries + 1):
+        try:
+            return git.Repo.clone_from(url, dest, **kwargs)
+        except git.GitCommandError as e:
+            if attempt < max_retries:
+                wait = 10 * attempt
+                log.warning('git clone attempt {}/{} failed for {}, retrying in {}s: {}'.format(
+                    attempt, max_retries, url, wait, e))
+                time.sleep(wait)
+                # Clean up partial clone
+                if os.path.isdir(dest):
+                    import shutil
+                    shutil.rmtree(dest, ignore_errors=True)
+                    os.makedirs(dest, exist_ok=True)
+            else:
+                raise
 
 from . import expressions, github_action_env
 from .github_builder import GitHubBuilder
@@ -315,7 +336,7 @@ def clone_action_repo_if_not_exists(github_builder: GitHubBuilder, action_dir, r
             if action_repo_sha:
                 # If we have action repo sha, use the sha to reset predefined action to original commit
                 try:
-                    r = git.Repo.clone_from(
+                    r = _git_clone_with_retry(
                         github_builder.utils.construct_github_repo_url(repo),
                         os.path.join(github_builder.location, 'actions', action_dir)
                     )
@@ -331,7 +352,7 @@ def clone_action_repo_if_not_exists(github_builder: GitHubBuilder, action_dir, r
 
             # Otherwise, use the latest branch/tag
             log.warning('Using latest branch/tag {} for {}'.format(tag, action_name))
-            git.Repo.clone_from(
+            _git_clone_with_retry(
                 github_builder.utils.construct_github_repo_url(repo),
                 os.path.join(github_builder.location, 'actions', action_dir),
                 branch=tag
