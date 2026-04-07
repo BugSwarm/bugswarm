@@ -19,7 +19,7 @@ class Context(ABC):
 
     def get(self, path: str, err_if_not_present=False, make_string=False) -> Tuple[Any, bool]:
         """
-        Assumes paths are simple (i.e. no `[]` indexing and no `.*` object filters)
+        Supports simple paths and `.*` object filters (e.g. `labels.*.name`).
         """
 
         result = self.as_dict()
@@ -30,6 +30,33 @@ class Context(ABC):
             for i, key in enumerate(parts):
                 if not self.case_sensitive:
                     key = key.lower()
+
+                if key == '*':
+                    # Object filter: iterate over list/dict items and collect remaining path from each.
+                    remaining = '.'.join(parts[i + 1:])
+                    items = result if isinstance(result, list) else (
+                        result.values() if isinstance(result, dict) else []
+                    )
+                    collected = []
+                    for item in items:
+                        if remaining:
+                            if isinstance(item, Context):
+                                val, _ = item.get(remaining)
+                            elif isinstance(item, dict):
+                                # Wrap in a temporary lookup to reuse path traversal
+                                val = item
+                                for p in remaining.split('.'):
+                                    if isinstance(val, dict):
+                                        val = val.get(p if self.case_sensitive else p.lower(), '')
+                                    else:
+                                        val = ''
+                                        break
+                            else:
+                                val = ''
+                            collected.append(val)
+                        else:
+                            collected.append(item)
+                    return collected, is_dynamic
 
                 if isinstance(result, dict):
                     result = result[key]

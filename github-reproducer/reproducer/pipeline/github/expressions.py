@@ -141,12 +141,10 @@ def _create_grammar() -> pp.ParserElement:
         caseless=True
     ).set_parse_action(lambda tokens: Token('function', tokens[0]))
 
-    # An identifier followed by any amount of ".<identifier>"
-    # We don't support object filters (".*") or indexing ("['index']") yet.
+    # An identifier followed by any amount of ".<identifier>" or ".*" (object filter)
     variable = pp.Combine(identifier + pp.ZeroOrMore(
-        '.' + identifier  # |
-        # '.*' |
-        # '[' + ws + (num_literal | string_literal) + ws + ']'
+        '.*' |
+        '.' + identifier
     )).set_parse_action(lambda tokens: Token('context', tokens[0]))
 
     expression = pp.Forward()
