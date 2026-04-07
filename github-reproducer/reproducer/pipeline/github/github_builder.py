@@ -64,7 +64,7 @@ class GitHubBuilder:
         self.init_contexts()
         self.predefined_actions_sha = utils.get_predefined_actions_from_original_log(job)
 
-        # Remove github, needs, vars, inputs context
+        # Replace matrix expressions in strategy config
         if 'strategy' in self.job.config and 'matrix' in self.job.config['strategy']:
             self.job.config['strategy']['matrix'] = self.replace_matrix(self.job.config['strategy']['matrix'])
 

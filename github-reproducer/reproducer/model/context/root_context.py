@@ -8,6 +8,7 @@ from .steps_context import StepsContext
 from .strategy_context import StrategyContext
 from .inputs_context import InputsContext
 from .matrix_context import MatrixContext
+from .needs_context import NeedsContext
 
 
 class RootContext(Context):
@@ -21,6 +22,7 @@ class RootContext(Context):
         self.strategy = StrategyContext(job)
         self.inputs = InputsContext()
         self.matrix = MatrixContext(job)
+        self.needs = NeedsContext()
 
     def as_dict(self):
         return {
@@ -32,4 +34,5 @@ class RootContext(Context):
             'strategy': self.strategy,
             'inputs': self.inputs,
             'matrix': self.matrix,
+            'needs': self.needs,
         }
