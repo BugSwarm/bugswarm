@@ -265,7 +265,7 @@ def filter_same_commit(pairs) -> int:
 
 def filter_unavailable_github_runner(pairs) -> int:
     MATRIX_VALUE_REGEX = re.compile(r'\${{\s*matrix\.([^\s}]+)\s*}}')
-    SUPPORTED_RUNNERS = ['ubuntu-latest', 'ubuntu-22.04', 'ubuntu-20.04', 'ubuntu-18.04']
+    SUPPORTED_RUNNERS = ['ubuntu-latest', 'ubuntu-24.04', 'ubuntu-22.04', 'ubuntu-20.04', 'ubuntu-18.04']
     filtered = 0
 
     for p in pairs:
