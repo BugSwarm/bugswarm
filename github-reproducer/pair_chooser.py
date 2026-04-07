@@ -133,6 +133,7 @@ def handle_pair_file(pair_file, artifacts):
 
         # Get buildpair ID and jobpair from the cache.
         failed_build_id, jp = found_jobpairs[failed_id]
+        _infer_build_system_from_command(jp)
         if is_jp_unique(repo, jp, artifacts):
             # Add this JP back to its BP's list.
             found_buildpairs[failed_build_id]['jobpairs'].append(jp)
@@ -162,6 +163,28 @@ def _create_static_artifacts_file(filename, artifacts):
         artifact_dict[artifact_failed_job_id] = artifact
     with open(filename, 'w+') as f:
         json.dump(artifact_dict, f)
+
+
+def _infer_build_system_from_command(jp):
+    """
+    The mined build_system in the database can be incorrect when a repo contains
+    files for multiple build systems (e.g. apache/poi has both legacy build.xml
+    and modern build.gradle, and got mined as 'Ant' even though CI uses Gradle).
+    Override the value when the failed_step_command makes the actual build system
+    unambiguous.
+    """
+    cmd = (jp.get('failed_step_command') or '').lower()
+    if not cmd:
+        return
+    inferred = None
+    if 'gradlew' in cmd or cmd.startswith('gradle ') or ' gradle ' in cmd:
+        inferred = 'Gradle'
+    elif 'mvnw' in cmd or cmd.startswith('mvn ') or ' mvn ' in cmd:
+        inferred = 'Maven'
+    if inferred and jp.get('build_system') != inferred:
+        log.info('Overriding build_system {} -> {} for failed_job {} based on command: {}'
+                 .format(jp.get('build_system'), inferred, jp['failed_job']['job_id'], cmd[:80]))
+        jp['build_system'] = inferred
 
 
 def is_jp_unique(repo, jp, artifacts):
